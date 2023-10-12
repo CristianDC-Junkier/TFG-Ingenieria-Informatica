@@ -1,0 +1,449 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 10 oct 2023, 17:41:48
+    Author     : Cristian
+*/
+
+/*************************/
+/**********Todo***********/
+/*************************/
+*{
+    margin:0px;
+    padding:0px;
+}
+
+h2{
+    color:black;
+    padding-left: 20px;
+    padding-top: 20px;
+    font-size: 25px;
+    border-bottom: black 2px solid;
+}
+
+body{
+    background-color: gray;
+
+
+}
+header{
+    background-color:black;
+    border: white 1px solid;
+}
+
+nav{
+    
+    background-color: black;
+    color: white;
+}
+main{
+    
+    background-color: gray;
+    color: white;
+    border-top: none;
+    width: auto;
+    height: auto;
+
+}
+section{
+    
+    background-color: gray;
+    color: black;
+    padding: 10px;
+
+}
+footer{
+    
+    background-color: black;
+    color: white;
+
+    margin-top: 10px;
+
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    
+    
+    margin-top: 2%;
+    font-size: 1em;
+}
+
+footer > a{
+    
+    color: white;
+    font-family: Times new roman;
+    text-decoration: none;
+    padding-right: 10px;
+    float:right;
+
+}
+
+footer  a:hover{
+    
+    color: white;
+    font-family: Times new roman;
+    text-decoration: none;
+    padding-right: 10px;
+    float:right;
+}
+
+/*************************/
+/**********Clases*********/
+/*************************/
+
+.Logo{
+    
+    width: 100%;
+    max-height: 5em;
+    object-fit: cover;
+}
+
+/*Barra*/
+
+.BarraHorizontal{
+    
+    background-color: black;
+    color: white;
+
+    font-family: Times new roman;
+    font-size: 22px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 25px;
+    border: white 5px outset;
+    padding: 10px;
+    margin-top: -10px;
+}
+.BarraHorizontalContenido{
+    
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    margin: 0 10px;
+}
+.BarraHorizontalContenido:visited{
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+}
+.BarraHorizontalContenido:hover{
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    border-bottom: yellow 2px inset
+}
+.BarraHorizontalContenidoFinal{
+    
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    font-size: 22px;
+    margin-left: auto;
+}
+.BarraHorizontalContenidoFinal:visited{
+    
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    font-size: 22px;
+    word-spacing: 5px;
+    margin-left:auto;
+}
+.BarraHorizontalContenidoFinal:hover{
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    border-bottom: yellow 2px inset
+}
+
+/*Bloques de la barra*/
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+
+}
+.dropdown > .BarraHorizontalContenido:hover{
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    border:none;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 85%;
+
+    background-color: black;
+    overflow: auto;
+    box-shadow: 5px 5px 5px 0px darkgrey;
+
+    border-top: none;
+    border-radius: 0px 0px 10px 10px;
+    border-bottom: white 2px double;
+
+    font-size: 14px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.dropdown:hover
+.dropdown-content {
+
+    display: block;
+}
+.dropdown-content > a {
+
+    display: block;
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+    border-left: white 1px dashed;
+    border-right: white 2px double;
+
+}
+.dropdown-content > a:hover {
+    color: white;
+}
+
+/********Inicio********/
+
+.EleccionInicio {
+
+    margin: 30px;
+    
+    height: 55vh;
+    width: 600px;
+    
+    background-color: black;
+    padding: 20px;
+    
+    border: dimgray 2px solid;
+    border-radius: 0px 0px 5px 5px;
+    text-align: center;
+    box-shadow: 5px 5px 5px 5px black;
+    
+    color:white;
+}
+
+.EleccionInicio > h2{
+    
+    color:black;
+    background-color:yellow;
+    
+    border-radius: 5px;
+    border: brown 2px solid;
+    box-shadow: 1px 1px 1px 1px brown;
+
+    padding-bottom: 20px;
+    
+}
+
+.botonInicioSesion {
+    
+    display: block;
+    margin-top: 100px;
+    margin-left: 250px;
+    padding: 10px 20px;
+    background-color: yellow;
+    color: black;
+    border: brown 2px double;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.botonRegistro {
+    
+    display: block;
+    margin-top: 120px;
+    margin-left: 250px;
+    padding: 10px 26px;
+    background-color: yellow;
+    color: black;
+    border: brown 2px double;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.botonInicioSesion:hover, .botonRegistro:hover {
+    
+    background-color: yellowgreen;
+}
+
+
+
+/*******Clases DND******/
+
+.BusquedaClase{
+    
+    background-color: yellow;
+    color: black;
+
+    font-family: Times new roman;
+    font-size: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+
+    border:yellow 2px solid;
+    border-top: none;
+    border-bottom: black 3px  ridge;
+
+}
+.BusquedaClase > a{
+    
+    color: black;
+    font-family: Times new roman;
+    text-decoration: none;
+}
+.BusquedaClase >  #A{
+    
+    padding-left: 10%
+}
+.BusquedaClase > #P{
+    
+    padding-right:10%
+}
+.ResumenClases
+{
+    font-family: Times new roman;
+    font-size: 22px;
+    width: auto;
+    height: auto;
+}
+.ResumenClase{
+
+    border: black 3px solid;
+
+}
+.ResumenClase > h5{
+    
+    font-family: Times new roman;
+    font-size: 20px;
+    border-bottom: black 2px solid;
+
+}
+.ResumenClase > img{
+
+    border: black 2px solid;
+    border-left: none;
+}
+.ResumenClase > p{
+
+    display: inline-block;
+    vertical-align: top;
+    font-size: 15px;
+}
+
+/*****Razas DND******/
+
+.BusquedaRazas{
+
+    background-color: yellow;
+    color: black;
+
+    font-family: Times new roman;
+    font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+
+    border:yellow 2px solid;
+    border-top: none;
+    border-bottom: black 3px  ridge;
+}
+.ResumenRazas{
+
+    font-family: Times new roman;
+    font-size: 22px;
+    width: auto;
+    height: auto;
+}
+.ResumenRazas > input{
+
+    color:black;
+
+    background: url("./img/iconos/lupa.png") no-repeat 0px 5px;
+    background-size: 24px;
+    background-color:white;
+
+    width: 250px;
+    border: solid 1px black;
+    padding: 10px 10px 10px 30px;
+    margin: 20px;
+    outline: none;
+}
+.BusquedaRazas > a{
+
+    color: black;
+    font-family: Times new roman;
+    text-decoration: none;
+}
+.ResumenRazas > h5{
+
+    font-family: Times new roman;
+    font-size: 20px;
+    border-bottom: black 2px solid;
+
+}
+.ResumenRazas > img{
+
+    border: black 2px solid;
+    border-left: none;
+}
+.ResumenRazas > p{
+
+    display: inline-block;
+    vertical-align: top;
+    font-size: 15px;
+}
+
+
+
+
+.CreacionCuenta{
+
+    margin:10px;
+    padding:10px;
+}
+.CreacionCuenta>li{
+    padding:10px;
+    border: white 5px solid;
+    margin-left: 10px;
+    list-style: none;
+}
+.CreacionCuenta > ul{
+    margin:30px;
+    border-radius: 10px;
+    font-size: 20px;
+    border: white 5px solid;
+    list-style: none;
+}
+.CreacionCuenta > ul > ul{
+    margin:30px;
+    border-radius: 10px;
+    font-size: 20px;
+    border: white 5px solid;
+    list-style: none;
+}
+.TituloFormulario{
+    font-size: 22px;
+    font-family: serif;
+    font-style: italic;
+    border-bottom: white 5px solid;
+    background-color: khaki;
+
+}
+
+
+/*************************/
+/***********Id's**********/
+/*************************/
+
+
+
