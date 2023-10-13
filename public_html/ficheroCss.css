@@ -34,13 +34,13 @@ header{
 }
 
 nav{
-    
+
     background-color: black;
     color: white;
 }
 main{
-    
-    background-color: gray;
+
+    background-color: grey;
     color: white;
     border-top: none;
     width: auto;
@@ -48,14 +48,14 @@ main{
 
 }
 section{
-    
-    background-color: gray;
+
+    background-color: grey;
     color: black;
     padding: 10px;
 
 }
 footer{
-    
+
     background-color: black;
     color: white;
 
@@ -64,14 +64,14 @@ footer{
     position: fixed;
     bottom: 0;
     width: 100%;
-    
-    
+
+
     margin-top: 2%;
     font-size: 1em;
 }
 
 footer > a{
-    
+
     color: white;
     font-family: Times new roman;
     text-decoration: none;
@@ -81,7 +81,7 @@ footer > a{
 }
 
 footer  a:hover{
-    
+
     color: white;
     font-family: Times new roman;
     text-decoration: none;
@@ -94,16 +94,29 @@ footer  a:hover{
 /*************************/
 
 .Logo{
-    
+
     width: 100%;
     max-height: 5em;
     object-fit: cover;
 }
 
+.Titulos{
+
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: black;
+
+    border: none;
+
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
 /*Barra*/
 
 .BarraHorizontal{
-    
+
     background-color: black;
     color: white;
 
@@ -120,25 +133,30 @@ footer  a:hover{
     margin-top: -10px;
 }
 .BarraHorizontalContenido{
-    
+
     color: white;
     font-family: serif;
     text-decoration: none;
     margin: 0 10px;
 }
 .BarraHorizontalContenido:visited{
+
     color: white;
     font-family: serif;
     text-decoration: none;
 }
 .BarraHorizontalContenido:hover{
+
     color: white;
     font-family: serif;
     text-decoration: none;
-    border-bottom: yellow 2px inset
+
+    border-bottom: yellow 2px inset;
+
 }
+
 .BarraHorizontalContenidoFinal{
-    
+
     color: white;
     font-family: serif;
     text-decoration: none;
@@ -146,7 +164,7 @@ footer  a:hover{
     margin-left: auto;
 }
 .BarraHorizontalContenidoFinal:visited{
-    
+
     color: white;
     font-family: serif;
     text-decoration: none;
@@ -155,6 +173,7 @@ footer  a:hover{
     margin-left:auto;
 }
 .BarraHorizontalContenidoFinal:hover{
+
     color: white;
     font-family: serif;
     text-decoration: none;
@@ -164,17 +183,20 @@ footer  a:hover{
 /*Bloques de la barra*/
 
 .dropdown {
+
     display: inline-block;
     position: relative;
 
 }
 .dropdown > .BarraHorizontalContenido:hover{
+
     color: white;
     font-family: serif;
     text-decoration: none;
     border:none;
 }
 .dropdown-content {
+
     display: none;
     position: absolute;
     width: 85%;
@@ -188,7 +210,7 @@ footer  a:hover{
     border-bottom: white 2px double;
 
     font-size: 14px;
-    margin-top: 10px;
+    padding-top: 5px;
     margin-left: 10px;
 }
 .dropdown:hover
@@ -207,6 +229,7 @@ footer  a:hover{
 
 }
 .dropdown-content > a:hover {
+
     color: white;
 }
 
@@ -215,36 +238,35 @@ footer  a:hover{
 .EleccionInicio {
 
     margin: 30px;
-    
-    height: 55vh;
+    margin-top: 0px;
+
+    height: 53vh;
     width: 600px;
-    
+
     background-color: black;
     padding: 20px;
-    
+
     border: dimgray 2px solid;
     border-radius: 0px 0px 5px 5px;
     text-align: center;
     box-shadow: 5px 5px 5px 5px black;
-    
+
     color:white;
 }
-
 .EleccionInicio > h2{
-    
+
     color:black;
     background-color:yellow;
-    
+
     border-radius: 5px;
     border: brown 2px solid;
     box-shadow: 1px 1px 1px 1px brown;
 
     padding-bottom: 20px;
-    
-}
 
+}
 .botonInicioSesion {
-    
+
     display: block;
     margin-top: 100px;
     margin-left: 250px;
@@ -255,9 +277,8 @@ footer  a:hover{
     border-radius: 5px;
     cursor: pointer;
 }
-
 .botonRegistro {
-    
+
     display: block;
     margin-top: 120px;
     margin-left: 250px;
@@ -268,10 +289,41 @@ footer  a:hover{
     border-radius: 5px;
     cursor: pointer;
 }
-
 .botonInicioSesion:hover, .botonRegistro:hover {
-    
+
     background-color: yellowgreen;
+}
+
+
+.FotosInicio {
+    
+    margin-top: -500px;
+    margin-left: 900px;
+}
+.FotoInicio1{
+    
+    margin-right: 250px;
+}
+.FotoInicio2{
+    
+    margin-left: 200px;
+    margin-top: -175px;
+}
+
+.TextoInicio {
+    
+    border: white 2px solid;
+    
+    height: 40vh;
+    
+    margin-left: 800px;
+    margin-top: -200px;
+    margin-right: 100px;
+    
+    padding-top: 10px;
+    padding-left: 10px;
+    
+    
 }
 
 
@@ -279,7 +331,7 @@ footer  a:hover{
 /*******Clases DND******/
 
 .BusquedaClase{
-    
+
     background-color: yellow;
     color: black;
 
@@ -296,17 +348,17 @@ footer  a:hover{
 
 }
 .BusquedaClase > a{
-    
+
     color: black;
     font-family: Times new roman;
     text-decoration: none;
 }
 .BusquedaClase >  #A{
-    
+
     padding-left: 10%
 }
 .BusquedaClase > #P{
-    
+
     padding-right:10%
 }
 .ResumenClases
@@ -316,13 +368,18 @@ footer  a:hover{
     width: auto;
     height: auto;
 }
+.ResumenClases > hr{
+
+    color:black;
+    margin-bottom: 10px;
+}
 .ResumenClase{
 
     border: black 3px solid;
 
 }
 .ResumenClase > h5{
-    
+
     font-family: Times new roman;
     font-size: 20px;
     border-bottom: black 2px solid;
@@ -339,6 +396,7 @@ footer  a:hover{
     vertical-align: top;
     font-size: 15px;
 }
+
 
 /*****Razas DND******/
 
@@ -378,6 +436,11 @@ footer  a:hover{
     margin: 20px;
     outline: none;
 }
+.ResumenRazas > hr{
+
+    color:black;
+    margin-bottom: 10px;
+}
 .BusquedaRazas > a{
 
     color: black;
@@ -402,7 +465,6 @@ footer  a:hover{
     vertical-align: top;
     font-size: 15px;
 }
-
 
 
 
