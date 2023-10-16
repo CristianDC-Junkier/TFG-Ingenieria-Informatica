@@ -45,7 +45,6 @@ main{
     border-top: none;
     width: auto;
     height: auto;
-
 }
 section{
 
@@ -64,7 +63,6 @@ footer{
     position: fixed;
     bottom: 0;
     width: 100%;
-
 
     margin-top: 2%;
     font-size: 1em;
@@ -112,6 +110,30 @@ footer  a:hover{
     margin-left: 20px;
     margin-bottom: 10px;
 }
+
+.TitulosFormulario{
+
+    background-color: black;
+
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: white;
+
+    border: none;
+    padding-bottom: 10px;
+
+    border-bottom: brown 4px solid;
+    border-radius: 0px 0px 10px 10px;
+}
+input:invalid + span::after {
+  content: "✖";
+}
+
+input:valid + span::after {
+  content: "✓";
+}
+
 
 /*Barra*/
 
@@ -245,7 +267,7 @@ footer  a:hover{
 
     background-color: black;
     padding: 20px;
-    
+
     font-family: Times New Roman;
 
     border: dimgray 2px solid;
@@ -257,11 +279,11 @@ footer  a:hover{
 
     color:black;
     background-color:yellow;
-    
+
     font-size: 30px;
     font-weight: 500;
     letter-spacing: 1.5px;
-    
+
 
     border-radius: 5px;
     border: brown 2px solid;
@@ -309,37 +331,35 @@ footer  a:hover{
 }
 
 .FotosInicio {
-    
+
     margin-top: -500px;
     margin-left: 900px;
 }
 .FotoInicio1{
-    
+
     margin-right: 250px;
 }
 .FotoInicio2{
-    
+
     margin-left: 200px;
     margin-top: -175px;
 }
 
 .TextoInicio {
-    
+
     border: white 2px solid;
-    
+
     height: 40vh;
-    
+
     margin-left: 800px;
     margin-top: -200px;
     margin-right: 100px;
-    
+
     padding-top: 10px;
     padding-left: 10px;
-    
-    
+
+
 }
-
-
 
 /*******Clases DND******/
 
@@ -482,81 +502,323 @@ footer  a:hover{
 /******Inicio y Registro*******/
 
 .headerFormulario{
-    
+
     color: black;
     border:none;
     float:start;
 }
 .bloqueInicioSesion{
-    
-    margin: 30px;
-    margin-top: 0px;
 
-    height: auto;
-    width: 600px;
+    margin-top: 10%;
+    margin-left: 32.5%;
+
+    width:60vh;
+    height:45vh;
+    max-height:45vh;
+    max-width:60vh;
 
     background-color: yellow;
-    padding: 20px;
-    
+    text-align: center;
+
+
     font-family: Times New Roman;
 
     border: dimgray 2px solid;
     border-radius: 5px 5px 5px 5px;
-    text-align: center;
     box-shadow: 5px 5px 5px 5px black;
+    background: linear-gradient(to top,yellow,60%,white);
+}
+
+.bloqueRegistro{
+
+    margin-top: 10%;
+    margin-left: 32.5%;
+
+    width:60vh;
+    height:58vh;
+    max-height:58vh;
+    max-width:60vh;
+
+    background-color: yellow;
+    text-align: center;
+
+
+    font-family: Times New Roman;
+
+    border: dimgray 2px solid;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 5px 5px 5px 5px black;
+    background: linear-gradient(to top,yellow,60%,white);
 }
 .bloqueInicioSesion > ul{
-    
+
+    width: 51.5vh;
+    height:25vh;
+    max-height:25vh;
+    max-width:51.5vh;
     margin:30px;
+    margin-bottom:10px;
+
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 18px;
     border: black 5px solid;
     list-style: none;
 }
+.bloqueRegistro > ul{
 
-
-
-
-
-
-.CreacionCuenta{
-
-    margin:10px;
-    padding:10px;
-}
-.CreacionCuenta>li{
-    padding:10px;
-    border: white 5px solid;
-    margin-left: 10px;
-    list-style: none;
-}
-.CreacionCuenta > ul{
+    width: 51.5vh;
+    height:38vh;
+    max-height:38vh;
+    max-width:51.5vh;
     margin:30px;
+    margin-bottom:10px;
+
     border-radius: 10px;
-    font-size: 20px;
-    border: white 5px solid;
+    font-size: 18px;
+    border: black 5px solid;
     list-style: none;
 }
-.CreacionCuenta > ul > ul{
+.bloqueInicioSesion > ul > li,.bloqueRegistro > ul > li{
+
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.bloqueInicioSesion > ul > li > p{
+
+    text-align: center;
+    margin-top: 60px;
+    margin-left: -35px;
+}
+
+/******Recuperación Contraseña*******/
+
+.bloqueRecuperar{
+
+    margin-top: 10%;
+    margin-left: 32.5%;
+
+    width:60vh;
+    height:35vh;
+    max-height:35vh;
+    max-width:60vh;
+
+    background-color: yellow;
+    text-align: center;
+
+
+    font-family: Times New Roman;
+
+    border: dimgray 2px solid;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 5px 5px 5px 5px black;
+    background: linear-gradient(to top,yellow,60%,white);
+}
+.bloqueRecuperar > ul{
+
+    width: 51.5vh;
+    height:15vh;
+    max-height:15vh;
+    max-width:51.5vh;
     margin:30px;
+    margin-bottom:10px;
+
     border-radius: 10px;
-    font-size: 20px;
-    border: white 5px solid;
+    font-size: 18px;
+    border: black 5px solid;
     list-style: none;
 }
-.TituloFormulario{
-    font-size: 22px;
-    font-family: serif;
-    font-style: italic;
-    border-bottom: white 5px solid;
-    background-color: khaki;
+.bloqueRecuperar > ul > li{
 
+    text-align: left;
+    margin-top: 30px;
+    margin-left: 30px;
 }
-
 
 /*************************/
 /***********Id's**********/
 /*************************/
 
 
+#nombreUsuarioIden{
+    
+    margin-right: 20px;
+    border-bottom: black 2px solid;
+}
+#nameIden{
+    
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#contraUsuarioIden{
+    
+    margin-right: 81px;
+    border-bottom: black 2px solid;
+}
+#passwordIden{
+    
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#nombreUsuarioReg{
+    
+    margin-right: 30px;
+    border-bottom: black 2px solid;
+}
+#nameReg{
+    
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#correoUsuarioReg{
+    
+    margin-right: 34px;
+    border-bottom: black 2px solid;
+}
+#emailReg{
+    
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#contraUsuarioReg{
+    
+    margin-right: 91px;
+    border-bottom: black 2px solid;
+}
+#passwordReg{
+    
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#contraconUsuarioReg{
+    
+    margin-right: 34px;
+    border-bottom: black 2px solid;
+}
+#passwordConfirmReg{
+    
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#telefonoUsuarioReg{
+    
+    margin-right: 19px;
+    border-bottom: black 2px solid;
+}
+#phoneReg{
+    
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#nacimientoUsuarioReg{
+    
+    margin-right: 21px;
+    border-bottom: black 2px solid;
+}
+#bornReg{
+    
+    text-align: right;
+    width: 162px;
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#provinciaUsuarioReg{
+    
+    margin-right: 71px;
+    border-bottom: black 2px solid;
+}
+#provinceReg{
+    
+    width: 165px;
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#generoUsuarioReg{
+    
+    margin-right: 49px;
+    border-bottom: black 2px solid;
+}
+#genderReg{
+    
+    width: 165px;
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#recuperarContrasena,#recuperarUsuario{
 
+    margin-top: 15px;
+    margin-left: 20px;
+    font-size: 15px;
+    
+    background-color: black;
+    color: white;
+    border: black 3px solid;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px brown;
+    
+    cursor: pointer;
+}
+#botonVolverFormulario{
+    
+    margin-top: 10px;
+    font-size: 15px;
+    
+    background-color: black;
+    color: white;
+    border: black 3px solid;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px brown;
+    
+    cursor: pointer;
+}
+#botonEnviar{
+    
+    margin-top: 10px;
+    margin-left: 250px;
+    font-size: 15px;
+    
+    background-color: black;
+    color: white;
+    border: black 3px solid;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px brown;
+    
+    cursor: pointer;
+}
+#recuperarContrasena:hover,#recuperarUsuario:hover,#botonVolverFormulario:hover,#botonEnviar:hover{
+    
+    color:yellowgreen;
+}
+#correoUsuarioRC{
+    
+    margin-right: 20px;
+    border-bottom: black 2px solid;
+}
+#emailRC{
+    
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#nombreUsuarioRC{
+    
+    margin-right: 25px;
+    border-bottom: black 2px solid;
+}
+#userRC{
+    
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
