@@ -245,18 +245,23 @@ footer  a:hover{
 
     background-color: black;
     padding: 20px;
+    
+    font-family: Times New Roman;
 
     border: dimgray 2px solid;
     border-radius: 0px 0px 5px 5px;
     text-align: center;
     box-shadow: 5px 5px 5px 5px black;
-
-    color:white;
 }
 .EleccionInicio > h2{
 
     color:black;
     background-color:yellow;
+    
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    
 
     border-radius: 5px;
     border: brown 2px solid;
@@ -265,10 +270,19 @@ footer  a:hover{
     padding-bottom: 20px;
 
 }
+
+.EleccionInicio > p{
+
+    color:white;
+    padding-top: 50px;
+    margin-left: 25px;
+    font-size: 20px;
+}
+
 .botonInicioSesion {
 
     display: block;
-    margin-top: 100px;
+    margin-top: 25px;
     margin-left: 250px;
     padding: 10px 20px;
     background-color: yellow;
@@ -280,7 +294,7 @@ footer  a:hover{
 .botonRegistro {
 
     display: block;
-    margin-top: 120px;
+    margin-top: 25px;
     margin-left: 250px;
     padding: 10px 26px;
     background-color: yellow;
@@ -293,7 +307,6 @@ footer  a:hover{
 
     background-color: yellowgreen;
 }
-
 
 .FotosInicio {
     
@@ -465,6 +478,44 @@ footer  a:hover{
     vertical-align: top;
     font-size: 15px;
 }
+
+/******Inicio y Registro*******/
+
+.headerFormulario{
+    
+    color: black;
+    border:none;
+    float:start;
+}
+.bloqueInicioSesion{
+    
+    margin: 30px;
+    margin-top: 0px;
+
+    height: auto;
+    width: 600px;
+
+    background-color: yellow;
+    padding: 20px;
+    
+    font-family: Times New Roman;
+
+    border: dimgray 2px solid;
+    border-radius: 5px 5px 5px 5px;
+    text-align: center;
+    box-shadow: 5px 5px 5px 5px black;
+}
+.bloqueInicioSesion > ul{
+    
+    margin:30px;
+    border-radius: 10px;
+    font-size: 20px;
+    border: black 5px solid;
+    list-style: none;
+}
+
+
+
 
 
 
