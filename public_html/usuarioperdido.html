@@ -15,17 +15,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
             texto de ejemplo
         </header>
         <main>
-            <section>
+            <section class="contenedorFormulario">
                 <div class="bloqueRecuperar">
                     <h2 class="TitulosFormulario">Recuperar Usuario</h2>
-                    <ul>
-                        <li>
-                            <label for="emailRC" id="correoUsuarioRC">Correo Electronico: </label>
-                            <input type="email" id="emailRC" name="correo_usuario_rc" required/>
-                            <span class="validity"></span>
-                        </li>
-                    </ul>
-                    <input id="botonVolverFormulario" type="button" onclick="location.href='./iniciosesion.html'" value="Volver">
+                    <div>
+                        <ul>
+                            <li>
+                                <label for="emailRC" id="correoUsuarioRC">Correo Electronico: </label>
+                                <input type="email" id="emailRC" name="correo_usuario_rc" required/>
+                                <span class="validity"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <input id="botonVolverFormulario" type="button" onclick="location.href = './iniciosesion.html'" value="Volver">
                     <input id="botonEnviar" type="submit" value="Enviar">
                 </div>
             </section>

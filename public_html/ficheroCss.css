@@ -60,8 +60,8 @@ footer{
 
     position: fixed;
     bottom: 0;
+
     width: 100%;
-    height: 3%;
 
     font-size: 1em;
 }
@@ -94,7 +94,7 @@ footer  a:hover{
     width: auto;
     max-width: 100%;
     max-height: 5em;
-    
+
 }
 .Titulos{
 
@@ -109,21 +109,6 @@ footer  a:hover{
     margin-bottom: 10px;
 }
 
-.TitulosFormulario{
-
-    background-color: black;
-
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: 2px;
-    color: white;
-
-    border: none;
-    padding-bottom: 10px;
-
-    border-bottom: brown 4px solid;
-    border-radius: 0px 0px 10px 10px;
-}
 input:invalid + span::after {
     content: "✖";
 }
@@ -260,12 +245,6 @@ input:valid + span::after {
     display: flex;
     flex-direction : row;
 }
-@media screen and (max-width: 1200px) {
-    .BloqueInicio {
-        
-        flex-direction: column;
-    }
-}
 .EleccionInicio {
 
     display: block;
@@ -287,12 +266,6 @@ input:valid + span::after {
     text-align: center;
     box-shadow: 5px 5px 5px 5px black;
 }
-@media screen and (max-width: 1200px) {
-    .EleccionInicio {
-        
-        width: auto;
-    }
-}
 .EleccionInicio > h2{
 
     color:black;
@@ -302,7 +275,7 @@ input:valid + span::after {
     font-weight: 500;
     letter-spacing: 1.5px;
 
-    
+
     border-radius: 5px;
     border: brown 2px solid;
     box-shadow: 1px 1px 1px 1px brown;
@@ -321,10 +294,10 @@ input:valid + span::after {
 
 .botonInicioSesion {
 
-
     margin-top: 25px;
-
+    margin-left: 25px;
     padding: 10px 20px;
+
     background-color: yellow;
     color: black;
     border: brown 2px double;
@@ -333,10 +306,10 @@ input:valid + span::after {
 }
 .botonRegistro {
 
-
     margin-top: 25px;
-
+    margin-left: 25px;
     padding: 10px 26px;
+
     background-color: yellow;
     color: black;
     border: brown 2px double;
@@ -372,36 +345,6 @@ input:valid + span::after {
     position: absolute;
 }
 
-@media screen and (max-width: 1455px)and (min-width: 1200px) {
-    .FotoInicio2 {
-        
-        display: none;
-    }
-}
-@media screen and (max-width: 1200px) {
-    .FotoInicio1 {
-        
-        margin: 50px;
-    }
-    .FotoInicio2 {
-        
-        margin-left: 250px;
-        margin-top: -20px;
-    }
-}
-@media screen and (max-width: 700px) {
-    .FotoInicio2 {
-        
-        display: none;
-    }
-}
-@media screen and (max-width: 500px) {
-    .FotoInicio1 {
-        
-        display: none;
-    }
-}
-
 .TextoInicio {
 
     border: white 2px solid;
@@ -416,18 +359,71 @@ input:valid + span::after {
     padding-top: 10px;
     padding-left: 10px;
 }
+@media screen and (max-width: 1455px)and (min-width: 1200px) {
+    .FotoInicio2 {
+
+        display: none;
+    }
+}
 @media screen and (max-width: 1370px) {
     .TextoInicio {
-        
+
         width: 75%;
     }
 }
 @media screen and (max-width: 1200px) {
-    .TextoInicio {
-        
+    .BloqueInicio {
+
+        flex-direction: column;
+    }
+    .EleccionInicio {
+
         width: auto;
-        height: 100px;
+    }
+    .FotoInicio1 {
+
+        margin: 50px;
+    }
+    .FotoInicio2 {
+
+        margin-left: 250px;
+        margin-top: -20px;
+    }
+    .TextoInicio {
+
+        width: auto;
+        height: 120px;
         margin-left: 50px;
+        margin-bottom: 50px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .FotoInicio1 {
+
+        margin-top: 0px;
+    }
+    .FotoInicio2 {
+
+        display: none;
+    }
+    .TextoInicio {
+
+        margin-top: 120px;
+        margin-bottom: 50px;
+        height: 50px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .FotoInicio1 {
+
+        display: none;
+    }
+    .TextoInicio {
+
+        height: 100px;
+        margin-top: 10px;
+        margin-left: 20px;
+        margin-bottom: 20px;
     }
 }
 
@@ -569,141 +565,203 @@ input:valid + span::after {
     font-size: 15px;
 }
 
-/******Inicio y Registro*******/
+/**********************************/
+/**********FORMULARIOS*************/
+/**********************************/
 
-.headerFormulario{
+.footerFormulario{
 
-    color: black;
-    border:none;
-    float:start;
+    color: white;
+    background-color: black;
+
+    width: 100%;
+    text-align: center;
+
+    position: fixed;
+    max-height: 30px;
+    bottom: 0;
 }
-.bloqueInicioSesion{
 
-    margin-top: 10%;
-    margin-left: 32.5%;
+.TitulosFormulario{
 
-    width:60vh;
-    max-width:60vh;
-    height:45vh;
-    max-height:45vh;
+    margin-top: -22.5px;
+    margin-left: -22.5px;
+    margin-right: -22.5px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+
+    background-color: black;
+
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: white;
+
+    border: brown 2px solid;
+    border-bottom: brown 4px solid;
+    border-radius: 0px 0px 10px 10px;
+}
+.contenedorFormulario{
+
+    border-top: black solid 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/**********Inicio***********/
+
+.bloqueInicioSesion {
+
+    max-width: 80%;
+    width: 400px;
+    height: 30%;
+    min-height: 300px;
+
+    padding: 20px;
 
     background-color: yellow;
     text-align: center;
 
-
     font-family: Times New Roman;
 
-    border: dimgray 2px solid;
+    border: brown 2px solid;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 5px 5px 5px 5px black;
-    background: linear-gradient(to top,yellow,60%,white);
+    background: linear-gradient(yellow,60%,white);
 }
+.bloqueInicioSesion > form > div{
+
+    border: brown 2px solid;
+    border-radius: 5px 5px 5px 5px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    color:black;
+}
+.bloqueInicioSesion > form >
+.contenedorBotonFormulario{
+
+    border: none;
+    border-radius: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0px;
+    padding: 0px;
+    margin-top: 15px;
+}
+.bloqueInicioSesion > form > div > div{
+
+    display: block;
+    margin-bottom: 10px;
+}
+.bloqueInicioSesion > form > div > div > p{
+
+    margin-top: 60px;
+    margin-bottom: 10px;
+}
+
+/*******Registro*******/
 
 .bloqueRegistro{
 
-    margin-top: 10%;
-    margin-left: 32.5%;
+    max-width: 80%;
+    width: 400px;
+    height: 30%;
+    min-height: 400px;
 
-    width:60vh;
-    height:58vh;
-    max-height:58vh;
-    max-width:60vh;
+    padding: 20px;
 
     background-color: yellow;
     text-align: center;
 
-
     font-family: Times New Roman;
 
-    border: dimgray 2px solid;
+    border: brown 2px solid;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 5px 5px 5px 5px black;
-    background: linear-gradient(to top,yellow,60%,white);
+    background: linear-gradient(yellow,60%,white);
 }
-.bloqueInicioSesion > ul{
+.bloqueRegistro > form > div{
 
-    width: 51.5vh;
-    height:25vh;
-    max-height:25vh;
-    max-width:51.5vh;
-    margin:30px;
-    margin-bottom:10px;
+    border: brown 2px solid;
+    border-radius: 5px 5px 5px 5px;
 
-    border-radius: 10px;
-    font-size: 18px;
-    border: black 5px solid;
-    list-style: none;
-}
-.bloqueRegistro > ul{
-
-    width: 51.5vh;
-    height:38vh;
-    max-height:38vh;
-    max-width:51.5vh;
-    margin:30px;
-    margin-bottom:10px;
-
-    border-radius: 10px;
-    font-size: 18px;
-    border: black 5px solid;
-    list-style: none;
-}
-.bloqueInicioSesion > ul > li,.bloqueRegistro > ul > li{
-
-    text-align: left;
     margin-top: 10px;
-    margin-left: 30px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    color:black;
+}
+.bloqueRegistro > form >
+.contenedorBotonFormulario{
+
+    border: none;
+    border-radius: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0px;
+    padding: 0px;
+    margin-top: 15px;
+}
+.bloqueRegistro > form > div > div{
+
+    display: block;
+    margin-bottom: 10px;
 }
 
-.bloqueInicioSesion > ul > li > p{
-
-    text-align: center;
-    margin-top: 60px;
-    margin-left: -35px;
-}
 
 /******Recuperación Contraseña*******/
 
 .bloqueRecuperar{
 
-    margin-top: 10%;
-    margin-left: 32.5%;
 
-    width:60vh;
-    height:35vh;
-    max-height:35vh;
-    max-width:60vh;
+    min-height:35vh;
+    min-width:60vh;
 
     background-color: yellow;
     text-align: center;
 
-
     font-family: Times New Roman;
 
-    border: dimgray 2px solid;
+    border: brown 2px solid;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 5px 5px 5px 5px black;
     background: linear-gradient(to top,yellow,60%,white);
 }
-.bloqueRecuperar > ul{
+.bloqueRecuperar > div > ul{
 
-    width: 51.5vh;
-    height:15vh;
-    max-height:15vh;
-    max-width:51.5vh;
+    min-height:15vh;
+    min-width:51.5vh;
+
     margin:30px;
-    margin-bottom:10px;
+    padding-bottom:30px;
 
     border-radius: 10px;
     font-size: 18px;
     border: black 5px solid;
     list-style: none;
 }
-.bloqueRecuperar > ul > li{
+.bloqueRecuperar > div > ul > li{
 
     text-align: left;
-    margin-top: 30px;
+    margin-top: 10px;
     margin-left: 30px;
+    margin-bottom: 30px;
 }
 
 /*************************/
@@ -724,7 +782,7 @@ input:valid + span::after {
 }
 #contraUsuarioIden{
 
-    margin-right: 81px;
+    margin-right: 75px;
     border-bottom: black 2px solid;
 }
 #passwordIden{
@@ -757,7 +815,7 @@ input:valid + span::after {
 }
 #contraUsuarioReg{
 
-    margin-right: 91px;
+    margin-right: 85px;
     border-bottom: black 2px solid;
 }
 #passwordReg{
@@ -779,22 +837,24 @@ input:valid + span::after {
 }
 #telefonoUsuarioReg{
 
-    margin-right: 19px;
+    margin-left: -16px;
     border-bottom: black 2px solid;
 }
 #phoneReg{
 
+    margin-left: 20px;
     color: white;
     background-color:brown;
     border-radius: 5px;
 }
 #nacimientoUsuarioReg{
 
-    margin-right: 21px;
+    margin-left: 2px;
     border-bottom: black 2px solid;
 }
 #bornReg{
 
+    margin-left: 21px;
     text-align: right;
     width: 162px;
     color: white;
@@ -803,11 +863,12 @@ input:valid + span::after {
 }
 #provinciaUsuarioReg{
 
-    margin-right: 71px;
+    margin-left: -15px;
     border-bottom: black 2px solid;
 }
 #provinceReg{
 
+    margin-left: 66px;
     width: 165px;
     color: white;
     background-color:brown;
@@ -815,11 +876,13 @@ input:valid + span::after {
 }
 #generoUsuarioReg{
 
-    margin-right: 49px;
+    margin-left: -15px;
     border-bottom: black 2px solid;
 }
 #genderReg{
-
+    
+    margin-left: 46px;
+    margin-bottom: 30px;
     width: 165px;
     color: white;
     background-color:brown;
@@ -841,7 +904,6 @@ input:valid + span::after {
 }
 #botonVolverFormulario{
 
-    margin-top: 10px;
     font-size: 15px;
 
     background-color: black;
@@ -854,8 +916,7 @@ input:valid + span::after {
 }
 #botonEnviar{
 
-    margin-top: 10px;
-    margin-left: 250px;
+
     font-size: 15px;
 
     background-color: black;
@@ -892,3 +953,13 @@ input:valid + span::after {
     background-color:brown;
     border-radius: 5px;
 }
+
+
+
+
+
+
+
+/****************/
+
+
