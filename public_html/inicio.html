@@ -42,23 +42,25 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
         </nav>
         <main>
             <h2 class="Titulos">Inicio</h2>
-            <section>
+            <div class="BloqueInicio">
                 <div class="EleccionInicio">
                     <h2>¡Bienvenido de nuevo!</h2>
                     <p>Inicia sesión para poder disfrutar todas las funciones</p>
-                    <button class="botonInicioSesion" onclick="location.href='./iniciosesion.html'">Iniciar Sesión</button>
+                    <button class="botonInicioSesion" onclick="location.href = './iniciosesion.html'">Iniciar Sesión</button>
                     <p>¿Aún no tienes cuenta?<br>Únete fácilmente:</p>
-                    <button class="botonRegistro" onclick="location.href='./registro.html'">Registrarse</button>
+                    <button class="botonRegistro" onclick="location.href = './registro.html'">Registrarse</button>
                 </div>
-                 <div class="FotosInicio">
-                    <img class="FotoInicio1" src="./img/Guide4.bmp" alt="alt"/>
-                    <img class="FotoInicio2" src="./img/luzpng.png" alt="alt"/>
+                <div class="FotosTextoInicio">
+                    <div class="FotosInicio">
+                        <img class="FotoInicio1" src="./img/Guide4.bmp" alt="alt"/>
+                        <img class="FotoInicio2" src="./img/luzpng.png" alt="alt"/>
+                    </div>
+                    <div class="TextoInicio">
+                        <p>¿Necesitas algo más?, No dudes en descargar el manual para todo</p>
+                        <a href="./manual/ManualCasiTodo.pdf" download="Manual Casi Todo.pdf">Descargar archivo</a>
+                    </div>
                 </div>
-                <div class="TextoInicio">
-                    <p>¿Necesitas algo más?, No dudes en descargar el manual para todo</p>
-                    <a href="./manual/ManualCasiTodo.pdf" download="Manual Casi Todo.pdf">Descargar archivo</a>
-                </div> 
-            </section>
+            </div>
         </main>
         <footer>
             &copy; 2023 Cristian Delgado Cruz

@@ -58,13 +58,11 @@ footer{
     background-color: black;
     color: white;
 
-    margin-top: 10px;
-
     position: fixed;
     bottom: 0;
     width: 100%;
+    height: 3%;
 
-    margin-top: 2%;
     font-size: 1em;
 }
 
@@ -93,11 +91,11 @@ footer  a:hover{
 
 .Logo{
 
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     max-height: 5em;
-    object-fit: cover;
+    
 }
-
 .Titulos{
 
     text-transform: uppercase;
@@ -127,15 +125,15 @@ footer  a:hover{
     border-radius: 0px 0px 10px 10px;
 }
 input:invalid + span::after {
-  content: "✖";
+    content: "✖";
 }
 
 input:valid + span::after {
-  content: "✓";
+    content: "✓";
 }
 
 
-/*Barra*/
+/*******Barra********/
 
 .BarraHorizontal{
 
@@ -257,16 +255,30 @@ input:valid + span::after {
 
 /********Inicio********/
 
+.BloqueInicio{
+
+    display: flex;
+    flex-direction : row;
+}
+@media screen and (max-width: 1200px) {
+    .BloqueInicio {
+        
+        flex-direction: column;
+    }
+}
 .EleccionInicio {
+
+    display: block;
 
     margin: 30px;
     margin-top: 0px;
 
-    height: 53vh;
+    height: auto;
     width: 600px;
 
     background-color: black;
     padding: 20px;
+    padding-bottom: 60px;
 
     font-family: Times New Roman;
 
@@ -274,6 +286,12 @@ input:valid + span::after {
     border-radius: 0px 0px 5px 5px;
     text-align: center;
     box-shadow: 5px 5px 5px 5px black;
+}
+@media screen and (max-width: 1200px) {
+    .EleccionInicio {
+        
+        width: auto;
+    }
 }
 .EleccionInicio > h2{
 
@@ -284,7 +302,7 @@ input:valid + span::after {
     font-weight: 500;
     letter-spacing: 1.5px;
 
-
+    
     border-radius: 5px;
     border: brown 2px solid;
     box-shadow: 1px 1px 1px 1px brown;
@@ -303,9 +321,9 @@ input:valid + span::after {
 
 .botonInicioSesion {
 
-    display: block;
+
     margin-top: 25px;
-    margin-left: 250px;
+
     padding: 10px 20px;
     background-color: yellow;
     color: black;
@@ -315,9 +333,9 @@ input:valid + span::after {
 }
 .botonRegistro {
 
-    display: block;
+
     margin-top: 25px;
-    margin-left: 250px;
+
     padding: 10px 26px;
     background-color: yellow;
     color: black;
@@ -329,36 +347,88 @@ input:valid + span::after {
 
     background-color: yellowgreen;
 }
+.FotosTextoInicio{
 
+    display: flex;
+    flex-direction : column;
+}
 .FotosInicio {
 
-    margin-top: -500px;
-    margin-left: 900px;
+    display: flex;
+    flex-direction: row;
 }
+
 .FotoInicio1{
 
-    margin-right: 250px;
+    margin-left: 150px;
+    position: absolute;
+
 }
 .FotoInicio2{
 
-    margin-left: 200px;
-    margin-top: -175px;
+    padding-left: 10px;
+    margin-top: -70px;
+    margin-left: 350px;
+    position: absolute;
+}
+
+@media screen and (max-width: 1455px)and (min-width: 1200px) {
+    .FotoInicio2 {
+        
+        display: none;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .FotoInicio1 {
+        
+        margin: 50px;
+    }
+    .FotoInicio2 {
+        
+        margin-left: 250px;
+        margin-top: -20px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .FotoInicio2 {
+        
+        display: none;
+    }
+}
+@media screen and (max-width: 500px) {
+    .FotoInicio1 {
+        
+        display: none;
+    }
 }
 
 .TextoInicio {
 
     border: white 2px solid;
 
-    height: 40vh;
+    width: 100%;
+    height: 55%;
 
-    margin-left: 800px;
-    margin-top: -200px;
-    margin-right: 100px;
+    margin-left: 100px;
+    margin-top: 175px;
+    margin-right: 20px;
 
     padding-top: 10px;
     padding-left: 10px;
-
-
+}
+@media screen and (max-width: 1370px) {
+    .TextoInicio {
+        
+        width: 75%;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .TextoInicio {
+        
+        width: auto;
+        height: 100px;
+        margin-left: 50px;
+    }
 }
 
 /*******Clases DND******/
@@ -513,9 +583,9 @@ input:valid + span::after {
     margin-left: 32.5%;
 
     width:60vh;
+    max-width:60vh;
     height:45vh;
     max-height:45vh;
-    max-width:60vh;
 
     background-color: yellow;
     text-align: center;
@@ -642,89 +712,89 @@ input:valid + span::after {
 
 
 #nombreUsuarioIden{
-    
+
     margin-right: 20px;
     border-bottom: black 2px solid;
 }
 #nameIden{
-    
+
     color: white;
     background-color:brown;
     border-radius: 5px;
 }
 #contraUsuarioIden{
-    
+
     margin-right: 81px;
     border-bottom: black 2px solid;
 }
 #passwordIden{
-    
+
     color: white;
     background-color:brown;
     border-radius: 5px;
 }
 #nombreUsuarioReg{
-    
+
     margin-right: 30px;
     border-bottom: black 2px solid;
 }
 #nameReg{
-    
+
     color: white;
     background-color:brown;
     border-radius: 5px;
 }
 #correoUsuarioReg{
-    
+
     margin-right: 34px;
     border-bottom: black 2px solid;
 }
 #emailReg{
-    
+
     color: white;
     background-color:brown;
     border-radius: 5px;
 }
 #contraUsuarioReg{
-    
+
     margin-right: 91px;
     border-bottom: black 2px solid;
 }
 #passwordReg{
-    
+
     color: white;
     background-color:brown;
     border-radius: 5px;
 }
 #contraconUsuarioReg{
-    
+
     margin-right: 34px;
     border-bottom: black 2px solid;
 }
 #passwordConfirmReg{
-    
+
     color: white;
     background-color:brown;
     border-radius: 5px;
 }
 #telefonoUsuarioReg{
-    
+
     margin-right: 19px;
     border-bottom: black 2px solid;
 }
 #phoneReg{
-    
+
     color: white;
     background-color:brown;
     border-radius: 5px;
 }
 #nacimientoUsuarioReg{
-    
+
     margin-right: 21px;
     border-bottom: black 2px solid;
 }
 #bornReg{
-    
+
     text-align: right;
     width: 162px;
     color: white;
@@ -732,24 +802,24 @@ input:valid + span::after {
     border-radius: 5px;
 }
 #provinciaUsuarioReg{
-    
+
     margin-right: 71px;
     border-bottom: black 2px solid;
 }
 #provinceReg{
-    
+
     width: 165px;
     color: white;
     background-color:brown;
     border-radius: 5px;
 }
 #generoUsuarioReg{
-    
+
     margin-right: 49px;
     border-bottom: black 2px solid;
 }
 #genderReg{
-    
+
     width: 165px;
     color: white;
     background-color:brown;
@@ -760,64 +830,64 @@ input:valid + span::after {
     margin-top: 15px;
     margin-left: 20px;
     font-size: 15px;
-    
+
     background-color: black;
     color: white;
     border: black 3px solid;
     border-radius: 5px;
     box-shadow: 1px 1px 1px 1px brown;
-    
+
     cursor: pointer;
 }
 #botonVolverFormulario{
-    
+
     margin-top: 10px;
     font-size: 15px;
-    
+
     background-color: black;
     color: white;
     border: black 3px solid;
     border-radius: 5px;
     box-shadow: 1px 1px 1px 1px brown;
-    
+
     cursor: pointer;
 }
 #botonEnviar{
-    
+
     margin-top: 10px;
     margin-left: 250px;
     font-size: 15px;
-    
+
     background-color: black;
     color: white;
     border: black 3px solid;
     border-radius: 5px;
     box-shadow: 1px 1px 1px 1px brown;
-    
+
     cursor: pointer;
 }
 #recuperarContrasena:hover,#recuperarUsuario:hover,#botonVolverFormulario:hover,#botonEnviar:hover{
-    
+
     color:yellowgreen;
 }
 #correoUsuarioRC{
-    
+
     margin-right: 20px;
     border-bottom: black 2px solid;
 }
 #emailRC{
-    
+
     color: white;
     background-color:brown;
     border-radius: 5px;
 }
 #nombreUsuarioRC{
-    
+
     margin-right: 25px;
     border-bottom: black 2px solid;
 }
 #userRC{
-    
+
     color: white;
     background-color:brown;
     border-radius: 5px;
