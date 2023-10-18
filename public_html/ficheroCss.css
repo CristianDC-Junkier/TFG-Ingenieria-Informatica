@@ -29,8 +29,10 @@ body{
 
 }
 header{
+    
     background-color:black;
     border: white 1px solid;
+    text-align: center;
 }
 
 nav{
