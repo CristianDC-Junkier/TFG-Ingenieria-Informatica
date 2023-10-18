@@ -426,8 +426,11 @@ input:valid + span::after {
         margin-bottom: 20px;
     }
 }
+/************************/
+/*********LISTAS*********/
+/************************/
 
-/*******Clases DND******/
+/***Barra arriba clases***/
 
 .BusquedaClase{
 
@@ -460,6 +463,15 @@ input:valid + span::after {
 
     padding-right:10%
 }
+
+/*******Lista Clases******/
+
+.ListaClases > ul > h4{
+    
+    color:black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 .ResumenClases
 {
     font-family: Times new roman;
@@ -467,32 +479,34 @@ input:valid + span::after {
     width: auto;
     height: auto;
 }
-.ResumenClases > hr{
-
-    color:black;
-    margin-bottom: 10px;
-}
-.ResumenClase{
-
-    border: black 3px solid;
-
-}
 .ResumenClase > h5{
 
+    background-color: black;
+    color:yellow;
     font-family: Times new roman;
     font-size: 20px;
-    border-bottom: black 2px solid;
+    
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+    border: brown 3px solid;
 
 }
-.ResumenClase > img{
+.ResumenClase > li{
+    
+    background-color: black;
+    border: brown 3px outset;
+    display: flex;
 
-    border: black 2px solid;
+}
+.ResumenClase > li > img{
+
+    border: brown 2px solid;
     border-left: none;
 }
-.ResumenClase > p{
-
-    display: inline-block;
-    vertical-align: top;
+.ResumenClase > li > p{
+    
+    margin: 10px;
     font-size: 15px;
 }
 
@@ -725,13 +739,16 @@ input:valid + span::after {
 }
 
 
-/******Recuperación Contraseña*******/
+/******Recuperación Datos*******/
 
 .bloqueRecuperar{
 
+    max-width: 80%;
+    width: 400px;
+    height: 30%;
+    min-height: 225px;
 
-    min-height:35vh;
-    min-width:60vh;
+    padding: 20px;
 
     background-color: yellow;
     text-align: center;
@@ -741,27 +758,38 @@ input:valid + span::after {
     border: brown 2px solid;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 5px 5px 5px 5px black;
-    background: linear-gradient(to top,yellow,60%,white);
+    background: linear-gradient(yellow,60%,white);
 }
-.bloqueRecuperar > div > ul{
+.bloqueRecuperar > form > div{
 
-    min-height:15vh;
-    min-width:51.5vh;
+    border: brown 2px solid;
+    border-radius: 5px 5px 5px 5px;
 
-    margin:30px;
-    padding-bottom:30px;
-
-    border-radius: 10px;
-    font-size: 18px;
-    border: black 5px solid;
-    list-style: none;
-}
-.bloqueRecuperar > div > ul > li{
-
-    text-align: left;
     margin-top: 10px;
-    margin-left: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 60px;
+
+    color:black;
+}
+.bloqueRecuperar > form >
+.contenedorBotonFormulario{
+
+    border: none;
+    border-radius: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0px;
+    padding: 0px;
+    margin-top: 15px;
+}
+.bloqueRecuperar > form > div > div{
+
+    display: block;
+    margin-bottom: 10px;
 }
 
 /*************************/
@@ -916,7 +944,6 @@ input:valid + span::after {
 }
 #botonEnviar{
 
-
     font-size: 15px;
 
     background-color: black;
@@ -953,11 +980,30 @@ input:valid + span::after {
     background-color:brown;
     border-radius: 5px;
 }
+#contraseñaRC{
 
+    margin-left:  0px;
+    border-bottom: black 2px solid;
+}
+#passwordRC{
 
+    margin-left: 70px;
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#contraseñarpRC{
 
+    margin-left: 0px;
+    border-bottom: black 2px solid;
+}
+#passwordrpRC{
 
-
+    margin-left: 20px;
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
 
 
 /****************/
