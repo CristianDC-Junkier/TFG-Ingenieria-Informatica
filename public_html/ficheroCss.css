@@ -513,7 +513,7 @@ input:valid + span::after {
 }
 
 
-/*****Razas DND******/
+/**********Barra arriba Razas************/
 
 .BusquedaRazas{
 
@@ -530,6 +530,15 @@ input:valid + span::after {
     border-top: none;
     border-bottom: black 3px  ridge;
 }
+.BusquedaRazas > a{
+
+    color: black;
+    font-family: Times new roman;
+    text-decoration: none;
+}
+
+/********Lista Razas******/
+
 .ResumenRazas{
 
     font-family: Times new roman;
@@ -537,18 +546,38 @@ input:valid + span::after {
     width: auto;
     height: auto;
 }
-.ResumenRazas > input{
+.ResumenRazas > h3{
+
+    text-align: center;
+
+    color: white;
+
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    margin-bottom: 20px;
+
+    border: brown 5px outset;
+    background: black;
+
+    font-size: 20px;
+}
+.ResumenRazas > h3 > input{
 
     color:black;
 
-    background: url("./img/iconos/lupa.png") no-repeat 0px 5px;
+    background: url("./img/iconos/lupa.png") no-repeat 50px 0px;
     background-size: 24px;
     background-color:white;
 
     width: 250px;
     border: solid 1px black;
-    padding: 10px 10px 10px 30px;
-    margin: 20px;
+    padding: 5px 5px 5px 80px;
+
+    margin-left: 20px;
+    margin-bottom: 0px;
+    margin-top: -10px;
     outline: none;
 }
 .ResumenRazas > hr{
@@ -556,29 +585,60 @@ input:valid + span::after {
     color:black;
     margin-bottom: 10px;
 }
-.BusquedaRazas > a{
+.ListaRazas > h3{
 
-    color: black;
-    font-family: Times new roman;
-    text-decoration: none;
+    margin-top: 10px;
+    color:yellowgreen;
+    border: black 4px ridge;
+    background: brown;
+    text-align: center;
 }
-.ResumenRazas > h5{
 
-    font-family: Times new roman;
-    font-size: 20px;
-    border-bottom: black 2px solid;
+.ListaRazasTipo{
 
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding-top: 20px;
+    max-width: 1200px;
+    margin: auto;
+    margin-left: 80px;
+    margin-bottom: 30px;
 }
-.ResumenRazas > img{
 
-    border: black 2px solid;
-    border-left: none;
+.ResumenRaza{
+
+    flex: 0 0 275px;
+    border: 3px solid brown;
+    border-radius: 5px;
+    overflow: hidden;
 }
-.ResumenRazas > p{
+.ResumenRaza img {
 
-    display: inline-block;
-    vertical-align: top;
-    font-size: 15px;
+    width: 100%;
+    height: auto;
+    border-bottom: 3px solid brown;
+    margin-bottom: -6px;
+}
+
+.ContenidoRaza {
+
+    background-color: black;
+    padding: 20px;
+}
+
+.TituloRaza {
+
+    color: yellow;
+    border-bottom: 2px brown solid;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.ContenidoRaza {
+
+    color: white;
+    font-size: 16px;
 }
 
 /**********Barra arriba Dotes************/
@@ -618,7 +678,7 @@ input:valid + span::after {
 /**********Lista Dotes************/
 
 .ListaDotes h4{
-    
+
     margin-top: 10px;
     color:yellowgreen;
     border: black 4px ridge;
@@ -650,12 +710,12 @@ input:valid + span::after {
 .ResumenDote ul{
 
     list-style-type: disc;
-    
+
     color: white;
-    
+
     padding: 0;
     margin: 0 auto;
-    width: fit-content; 
+    width: fit-content;
 }
 .ContenidoDote{
 
@@ -666,25 +726,25 @@ input:valid + span::after {
     min-width: 100%;
     background-color: black;
     color: white;
-    
+
     text-align: justify;
     padding-left: 25px;
     border-radius: 6px;
-    
+
     position: absolute;
     z-index: 1;
     top: 100%;
     left: 0;
-    
+
     box-sizing: border-box;
 
 }
 .RequisitoDote{
-    
+
     color:yellowgreen;
 }
 .ResumenDote:hover h5{
-    
+
     color:yellowgreen;
 }
 .ResumenDote:hover  .ContenidoDote{
@@ -693,8 +753,100 @@ input:valid + span::after {
     list-style: disc;
 }
 .ResumenDote:active .ContenidoDote{
-    
-  visibility: hidden;
+
+    visibility: hidden;
+}
+
+/**********Barra arriba Trasfondos************/
+
+.BusquedaTrasfondos{
+
+    background-color: yellow;
+    color: black;
+
+    font-family: Times new roman;
+    font-size: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+
+    border:yellow 2px solid;
+    border-top: none;
+    border-bottom: black 3px  ridge;
+
+}
+.BusquedaTrasfondos > a{
+
+    color: black;
+    font-family: Times new roman;
+    text-decoration: none;
+}
+.BusquedaTrasfondos >  #A{
+
+    padding-left: 10%
+}
+.BusquedaTrasfondos > #P{
+
+    padding-right:10%
+}
+
+/*******Lista Trasfondos******/
+
+.ResumenTrasfondo{
+
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border: brown 3px outset;
+}
+.NombreTrasfondo{
+
+    flex: 1;
+    max-width: 200px;
+
+    color:black;
+    border: brown 2px solid;
+    border-right: brown 5px solid;
+    background: linear-gradient(yellowgreen,60%,yellow);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+}
+.NombreTrasfondo h5{
+
+    font-family: Times new roman;
+    font-size: 25px;
+    margin: 0;
+    text-align: center;
+}
+.TextoTrasfondo{
+
+    flex: 1;
+    min-width: 200px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-wrap: break-word;
+}
+.TextoTrasfondo p{
+
+    margin-bottom: 10px;
+    font-size: 18px;
+    margin: 0;
+}
+@media (max-width: 600px) { /* Cambia a diseño de columna en pantallas más pequeñas */
+    .ResumenTrasfondo {
+        flex-direction: column;
+    }
+    .NombreTrasfondo{
+        min-height: 200px;
+        min-width: 99%;
+    }
 }
 
 
