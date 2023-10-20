@@ -5,10 +5,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 -->
 <html>
     <head>
-        <title>Practica 2 DAW</title>
+        <title>Guidance4\Explorar\Equipo</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="../ficheroCss.css" />
+        <link rel="stylesheet" type="text/css" href="..\css\principalCss.css"/>
+        <link rel="stylesheet" type="text/css" href="..\css\explorar\equipoCss.css"/>
     </head>
     <body>
         <header>
@@ -40,143 +41,165 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
             <a class="BarraHorizontalContenidoFinal" href=../formularios/iniciosesion.html>
                 <img src="../img/iconos/usuario.png" alt="alt"/>Iniciar Sesión</a>
         </nav>
-        <main> 
-            <div>
-                <h6 id="Arriba" class = "BusquedaClase">
-                    <a href="#Aa" id="A">&nbsp;&nbsp;A</a>
-                    <a href="#B">&nbsp;&nbsp;B</a>
-                    <a href="#C">&nbsp;&nbsp;C</a>
-                    <a href="#D">&nbsp;&nbsp;D</a>
-                    <a href="#E">&nbsp;&nbsp;E</a>
-                    <a href="#H">&nbsp;&nbsp;H</a>
-                    <a href="#M">&nbsp;&nbsp;M</a>
-                    <a href="#Pp" id="P">&nbsp;&nbsp;P&nbsp;</a>
-                </h6>
-            </div>
-            <div class="ResumenClases">
-                <h2 class="Titulos">Clases</h2>
-                <hr color="black">
-                <div class="ListaClases">
-                    <ul>
-                        <div class="ResumenClase">
-                            <h5 id="Aa">Artificiero</h5>
-                            <li> 
-                                <img src="../img/clases/artificiero.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
+        <main>
+            <h2 class="Titulos">Equipo</h2>
+            <hr color="black">
+            <div class="ContenedoresEquipo"> 
+                <div class="ContenedorEquipo">
+                    <div class="TituloBuscadorEquipo">Buscar Equipo</div>
+                    <form class="BuscadorEquipo">
+                        <select>
+                            <option value="tipo">Tipo de objeto</option>
+                        </select>
+                        <select>
+                            <option value="categoria">Categoría</option>
+                        </select>
+                        <select>
+                            <option value="propiedad">Propiedad</option>
+                        </select>
+                        <button type="submit">Buscar</button>
+                    </form>
+                </div>
+                <div class="ListasEquipo" id="pestañasSeccion">
+                    <div class="pestañasNavegacion">
+                        <div class="pestaña" id="pestaña1">
+                            <div class="ListaEquipo">
+                                <h2> titulo sección </h2>
+                                <ul>
+                                    <li>Elemento 1</li>
+                                    <li>Elemento 2</li>
+                                    <li>Elemento 3</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                </ul>
+                            </div>
                         </div>
-                    </ul>
-                    <ul>
-                        <div class="ResumenClase">
-                            <h5 id="B">Bárbaro</h5>
-                            <li> 
-                                <img src="../img/clases/bárbaro.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
+                        <div class="pestaña" id="pestaña2">
+                            <div class="ListaEquipo">
+                                <h2> puede no tener</h2>
+                                <ul>
+                                    <li>Elemento 1</li>
+                                    <li>Elemento 2</li>
+                                    <li>Elemento 3</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="ResumenClase">
-                            <h5>Bardo</h5>
-                            <li>              
-                                <img src="../img/clases/bardo.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
+                        <div class="pestaña" id="pestaña3">
+                            <div class="ListaEquipo">
+                                <h2> puede tener</h2>
+                                <ul>
+                                    <li>Elemento 1</li>
+                                    <li>Elemento 2</li>
+                                    <li>Elemento 3</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                    <li>Elemento 4</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="ResumenClase">
-                            <h5>Brujo</h5>
-                            <li>        
-                                <img src="../img/clases/brujo.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
-                        </div>
-                    </ul>
-                    <ul>
-                        <div class="ResumenClase">
-                            <h5 id="C">Caballero de la Muerte</h5>
-                            <li>      
-                                <img src="../img/clases/caballeromuerte.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
-                        </div>
-                        <div class="ResumenClase">
-                            <h5>Cazador de Sangre</h5>
-                            <li> 
-                                <img src="../img/clases/cazadorsangre.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
-                        </div>
-                        <div class="ResumenClase">
-                            <h5>Clérigo</h5>
-                            <li> 
-                                <img src="../img/clases/clérigo.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
-                        </div>
-                    </ul>
-                    <ul>
-                        <div class="ResumenClase">
-                            <h5 id="D">Druida</h5>
-                            <li> 
-                                <img src="../img/clases/druida.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
-                        </div>
-                    </ul>
-                    <ul>
-                        <div class="ResumenClase">
-                            <h5 id="E">Explorador</h5>
-                            <li> 
-                                <img src="../img/clases/explorador.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
-                        </div>
-                    </ul>
-                    <ul>
-                        <div class="ResumenClase">
-                            <h5 id="H">Hechizero</h5>
-                            <li> 
-                                <img src="../img/clases/hechizero.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
-                        </div>
-                    </ul>
-                    <ul>
-                        <div class="ResumenClase">
-                            <h5 id="M">Mago</h5>
-                            <li> 
-                                <img src="../img/clases/mago.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
-                        </div>
-                    </ul>
-                    <ul>
-                        <div class="ResumenClase">
-                            <h5 id="Pp">Paladin</h5>
-                            <li> 
-                                <img src="../img/clases/paladin.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
-                        </div>
-                        <div class="ResumenClase">                                
-                            <h5>Picaro</h5>
-                            <li> 
-                                <img src="../img/clases/pícaro.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
-                        </div>
-                        <div class="ResumenClase">
-                            <h5>Pistolero</h5>
-                            <li>      
-                                <img src="../img/clases/pistolero.jfif"/>
-                                <p>El artificiero es una clase la cual... blablabla</p>
-                            </li>
-                        </div>
-                    </ul>
+
+
+                    </div>
+                </div>
+
+
+
+                <div class="ContenedorBotonesEquipo">
+                        <div class="pestañasBotones" id="pestañaBotones">
+                    </div>
                 </div>
             </div>
         </main>
         <footer>
             &copy; 2023 Cristian Delgado Cruz
-            <a href="#Arriba" id="A">Subir Arriba</a>
         </footer>
+
+        <script>
+
+            //Funcion que cuenta cuantas pestañas he definido
+            function contarPestañas() {
+
+                let contador = 0;
+                // Patrón que coincide con 'pestaña' seguido de uno o más dígitos
+                const patron = /^pestaña\d+$/;
+
+                // Selecciona los elementos con un id que comience con 'pestaña'
+                const elementos = document.querySelectorAll('[id^="pestaña"]');
+
+                for (let i = 0; i < elementos.length; i++) {
+                    if (patron.test(elementos[i].id)) {
+                        contador++;
+                    }
+                }
+
+                return contador;
+            }
+
+
+            var pestañasActual = 1;
+            var pestañasNum = contarPestañas();
+
+            //Funcion que actuliza los botones
+            function actualizarBotones() {
+
+                var pestañasBotones = document.getElementById('pestañaBotones');
+                pestañasBotones.innerHTML = '';
+                if (pestañasActual > 1) {
+                    pestañasBotones.innerHTML += '<button class="botonArriba" onclick="mostrarPestaña(-1,-1)">Inicio</button>';
+                }
+                for (var i = Math.max(1, pestañasActual - 1); i <= Math.min(pestañasNum, pestañasActual + 1); i++) {
+                    if (i === pestañasActual) {
+                        pestañasBotones.innerHTML += '<button class="botonArriba" id="Actual" >Actual</button>';
+                    } else {
+                        pestañasBotones.innerHTML += '<button class="botonArriba" onclick="mostrarPestaña(' + i + ',0)">' + i + '</button>';
+                    }
+                }
+                if (pestañasActual < pestañasNum) {
+                    pestañasBotones.innerHTML += '<button class="botonArriba" onclick="mostrarPestaña(1,+1)">Final</button>';
+                }
+            }
+
+            //Funcion que muestra la pestaña seleccionada
+            function mostrarPestaña(pestaña, tipo) {
+                if (tipo === -1) {
+                    pestaña = 1;
+                } else if (tipo === +1) {
+                    pestaña = pestañasNum;
+                }
+                var pestañasAnterior = pestañasActual;
+                pestañasActual = Math.max(1, Math.min(pestañasNum, pestaña));
+                if (pestañasActual !== pestañasAnterior) {
+                    var pestañasAnteriorElemento = document.getElementById('pestaña' + pestañasAnterior);
+                    pestañasAnteriorElemento.style.display = 'none';
+
+                    var pestañaElemento = document.getElementById('pestaña' + pestañasActual);
+                    pestañaElemento.style.display = 'block';
+
+                    actualizarBotones();
+                }
+            }
+
+            actualizarBotones();
+        </script>
+
     </body>
 </html>

@@ -1,0 +1,230 @@
+
+/*************************/
+/**********Todo***********/
+/*************************/
+*{
+    margin:0px;
+    padding:0px;
+}
+
+h2{
+    color:black;
+    padding-left: 20px;
+    padding-top: 20px;
+    font-size: 25px;
+    border-bottom: black 2px solid;
+}
+
+body{
+    background-color: gray;
+
+
+}
+header{
+
+    background-color:black;
+    border: white 1px solid;
+    text-align: center;
+}
+
+nav{
+
+    background-color: black;
+    color: white;
+}
+main{
+
+    background-color: grey;
+    color: white;
+    border-top: none;
+    width: auto;
+    height: auto;
+}
+section{
+
+    background-color: grey;
+    color: black;
+    padding: 10px;
+
+}
+footer{
+
+    background-color: black;
+    color: white;
+
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+
+    font-size: 1em;
+}
+
+footer > a{
+
+    color: white;
+    font-family: Times new roman;
+    text-decoration: none;
+    padding-right: 10px;
+    float:right;
+
+}
+footer  a:hover{
+
+    color: white;
+    font-family: Times new roman;
+    text-decoration: none;
+    padding-right: 10px;
+    float:right;
+}
+
+
+/*************************/
+/**********Clases*********/
+/*************************/
+
+.Logo{
+
+    width: auto;
+    max-width: 100%;
+    max-height: 5em;
+
+}
+.Titulos{
+
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: black;
+
+    border: none;
+
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+input:invalid + span::after {
+    content: "✖";
+}
+
+input:valid + span::after {
+    content: "✓";
+}
+/*******Barra********/
+
+.BarraHorizontal{
+
+    background-color: black;
+    color: white;
+
+    font-family: Times new roman;
+    font-size: 22px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 25px;
+    border: white 5px outset;
+    padding: 10px;
+    margin-top: -10px;
+}
+.BarraHorizontalContenido{
+
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    margin: 0 10px;
+}
+.BarraHorizontalContenido:visited{
+
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+}
+.BarraHorizontalContenido:hover{
+
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+
+    border-bottom: yellow 2px inset;
+
+}
+
+.BarraHorizontalContenidoFinal{
+
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    font-size: 22px;
+    margin-left: auto;
+}
+.BarraHorizontalContenidoFinal:visited{
+
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    font-size: 22px;
+    word-spacing: 5px;
+    margin-left:auto;
+}
+.BarraHorizontalContenidoFinal:hover{
+
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    border-bottom: yellow 2px inset
+}
+
+/*Bloques de la barra*/
+
+.dropdown {
+
+    display: inline-block;
+    position: relative;
+
+}
+.dropdown > .BarraHorizontalContenido:hover{
+
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    border:none;
+}
+.dropdown-content {
+
+    display: none;
+    position: absolute;
+    width: 85%;
+
+    background-color: black;
+    overflow: auto;
+    box-shadow: 5px 5px 5px 0px darkgrey;
+
+    border-top: none;
+    border-radius: 0px 0px 10px 10px;
+    border-bottom: white 2px double;
+
+    font-size: 14px;
+    padding-top: 5px;
+    margin-left: 10px;
+}
+.dropdown:hover
+.dropdown-content {
+
+    display: block;
+}
+.dropdown-content > a {
+
+    display: block;
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+    border-left: white 1px dashed;
+    border-right: white 2px double;
+
+}
+.dropdown-content > a:hover {
+
+    color: white;
+}
