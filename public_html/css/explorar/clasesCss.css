@@ -1,0 +1,80 @@
+
+/***Barra arriba clases***/
+
+.BusquedaClase{
+
+    background-color: yellow;
+    color: black;
+
+    font-family: Times new roman;
+    font-size: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+
+    border:yellow 2px solid;
+    border-top: none;
+    border-bottom: black 3px  ridge;
+
+}
+.BusquedaClase > a{
+
+    color: black;
+    font-family: Times new roman;
+    text-decoration: none;
+}
+.BusquedaClase >  #A{
+
+    padding-left: 10%
+}
+.BusquedaClase > #P{
+
+    padding-right:10%
+}
+
+/*******Lista Clases******/
+
+.ListaClases > ul > h4{
+
+    color:black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.ResumenClases
+{
+    font-family: Times new roman;
+    font-size: 22px;
+    width: auto;
+    height: auto;
+}
+.ResumenClase > h5{
+
+    background-color: black;
+    color:yellow;
+    font-family: Times new roman;
+    font-size: 20px;
+
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+    border: brown 3px solid;
+
+}
+.ResumenClase > li{
+
+    background-color: black;
+    border: brown 3px outset;
+    display: flex;
+
+}
+.ResumenClase > li > img{
+
+    border: brown 2px solid;
+    border-left: none;
+}
+.ResumenClase > li > p{
+
+    margin: 10px;
+    font-size: 15px;
+}
