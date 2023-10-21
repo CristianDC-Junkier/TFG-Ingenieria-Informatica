@@ -14,8 +14,8 @@
     border-radius: 5px;
     background: black;
 
-    margin-bottom: 10px;
-    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-top: 25px;
     padding: 10px;
     width: 80%;
     box-sizing: border-box;
@@ -63,41 +63,104 @@
 
 .ListasEquipo{
 
-    border: 2px solid brown;
-    border-radius: 5px;
-    background: black;
 
-    margin-bottom: 10px;
-    margin-top: 0px;
-    padding: 10px;
-    min-height: 250px;
-    width: 80%;
-    box-sizing: border-box;
-}
-.ListaEquipo h2{
-
-    color:white;
-    list-style-type: none;
-}
-.ListaEquipo ul{
-
-    color:white;
-    list-style-type: none;
-}
-
-
-/*****Botones*****/
-
-.ContenedorBotonesEquipo{
-    
     border: 2px solid brown;
     border-radius: 5px;
     background: black;
 
     margin-bottom: 10px;
     margin-top: 20px;
+
     padding: 10px;
-    width: 20%;
+
+    min-height: 250px;
+    width: 80%;
+    box-sizing: border-box;
+}
+.ListaEquipo h3{
+
+    color:white;
+    background: black;
+
+    height: 10px;
+    font-size: 20px;
+
+    border: 3px black solid;
+
+    margin: -10px -10px 5px -10px;
+
+    padding:5px;
+    padding-bottom: 20px;
+}
+.ListaEquipo h4{
+
+    color:yellow;
+
+    height: 5px;
+    font-size: 16px;
+
+    border-top: 2px white solid;
+    border-bottom: 1px white solid;
+
+    margin: -10px -10px 1px -10px;
+
+    padding:5px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+
+}
+
+/******Tabla****/
+
+.diseñoTabla{
+    
+    margin: 0px -10px -10px -10px;
+    overflow:hidden; 
+}
+
+.diseñoTabla table{
+
+    border-collapse: collapse;
+    text-align: center;
+    min-width: 100%;
+
+}
+.diseñoTabla table tr{
+
+    border: 2px brown solid;
+    width: 100%;
+}
+.diseñoTabla table td{
+
+    text-align: center;
+    padding: 3px;
+    color: white;
+}
+.diseñoTabla table tr:nth-child(odd) {
+
+    background-color: black;
+}
+
+.diseñoTabla table tr:nth-child(even) {
+
+    background-color: darkgray;
+}
+
+
+/*****Botones*****/
+
+.ContenedorBotonesEquipo{
+
+    border: 2px solid brown;
+    border-radius: 5px;
+    background: black;
+
+    margin-bottom: 25px;
+    margin-top: 25px;
+    padding: 10px;
+
+    min-width: 20%;
+
     height: auto;
     box-sizing: border-box;
 }
@@ -108,6 +171,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
 }
 
 
@@ -139,7 +203,7 @@
 /********IDS**********/
 
 #Actual{
-    
+
     background: yellowgreen;
 }
 
