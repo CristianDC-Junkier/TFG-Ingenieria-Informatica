@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
--->
 <html>
     <head>
         <title>Guidance4\Explorar\Equipo</title>
@@ -49,13 +45,45 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <div class="TituloBuscadorEquipo">Buscar Equipo</div>
                     <form class="BuscadorEquipo">
                         <select>
-                            <option value="tipo">Tipo de objeto</option>
+                            <option value="tipo" selected>Tipo de objeto</option>
+                            <option value="tipo1">Armas</option>
+                            <option value="tipo2">Armaduras</option>
+                            <option value="tipo3">Equipo de Mazmorras</option>
+                            <option value="tipo4">Otros</option>
                         </select>
                         <select>
-                            <option value="categoria">Categoría</option>
+                            <option value="categoria" selected>Categoría</option>
+                            <option value="categoria1">Armas Sencillas</option>
+                            <option value="categoria2">Armas Marciales</option>
+                            <option value="categoria3">Escudos</option>
+                            <option value="categoria4">Armadura Ligera</option>
+                            <option value="categoria5">Armadura Intermedia</option>
+                            <option value="categoria6">Armadura Pesada</option>
+                            <option value="categoria7">Herramientas</option>
+                            <option value="categoria8">Instrumentos Musicales</option>
+                            <option value="categoria9">Juegos</option>
+                            <option value="categoria10">Monturas</option>
+                            <option value="categoria11">Munición</option>
+                            <option value="categoria12">Paquete de Equipo</option>
+                            <option value="categoria13">Vehículos</option>
                         </select>
                         <select>
-                            <option value="propiedad">Propiedad</option>
+                            <option value="propiedad" selected>Propiedad</option>
+                            <option value="propiedad1">Alcance</option>
+                            <option value="propiedad2">Arrojadiza</option>
+                            <option value="propiedad3">Cargador</option>
+                            <option value="propiedad4">De Carga</option>
+                            <option value="propiedad5">Desventaja</option>
+                            <option value="propiedad6">Distancia</option>
+                            <option value="propiedad7">Dos Manos</option>
+                            <option value="propiedad8">Foco Mágico</option>
+                            <option value="propiedad9">Fuerza</option>
+                            <option value="propiedad10">Ligera</option>
+                            <option value="propiedad11">Munición</option>
+                            <option value="propiedad12">Pesada</option>
+                            <option value="propiedad13">Simbolo Sagrado</option>
+                            <option value="propiedad14">Sutil</option>
+                            <option value="propiedad15">Versátil</option>
                         </select>
                         <button type="submit">Buscar</button>
                     </form>
@@ -64,67 +92,375 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <div class="pestañasNavegacion">
                         <div class="pestaña" id="pestaña1">
                             <div class="ListaEquipo">
-                                <h2> titulo sección </h2>
-                                <ul>
-                                    <li>Elemento 1</li>
-                                    <li>Elemento 2</li>
-                                    <li>Elemento 3</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                </ul>
+                                <h3>Armas</h3>
+                                <h4>Armas Sencillas</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Arco corto</td>
+                                            <td>1d6 Perforante(Des)</td>
+                                            <td>Distancia, Dos manos, Munición</td>
+                                            <td>25 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ballesta ligera</td>
+                                            <td>1d8 Perforante(Fue)</td>
+                                            <td>De carga, Distancia, Dos manos, Munición</td>
+                                            <td>25 po</td>
+                                            <td>2,27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bastón</td>
+                                            <td>1d6 Contundente(Fue)</td>
+                                            <td>Versátil</td>
+                                            <td>2 pp</td>
+                                            <td>1,81 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Clava</td>
+                                            <td>1d4 Contundente(Fue)</td>
+                                            <td>Ligera</td>
+                                            <td>1 pp</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Daga</td>
+                                            <td>1d4 Perforante</td>
+                                            <td>Arrojadiza, Distancia, Ligera, Sutil</td>
+                                            <td>2 po</td>
+                                            <td>0,45 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dardo</td>
+                                            <td>1d4 Perforante</td>
+                                            <td>Arrojadiza, Distancia, Sutil</td>
+                                            <td>5 pc</td>
+                                            <td>0,11 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gran clava</td>
+                                            <td>1d8 Contundente(Fue)</td>
+                                            <td>Dos manos</td>
+                                            <td>2 pp</td>
+                                            <td>4,54 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hacha de mano</td>
+                                            <td>1d6 Cortante(Fue)</td>
+                                            <td>Arrojadiza, Ligera</td>
+                                            <td>5 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Honda</td>
+                                            <td>1d4 Contundente(Des)</td>
+                                            <td>Distancia, Munición</td>
+                                            <td>1 pp</td>
+                                            <td>0,45 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hoz</td>
+                                            <td>1d4 Cortante(Fue)</td>
+                                            <td>Ligera</td>
+                                            <td>1 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jabalina</td>
+                                            <td>1d6 Perforante(Fue)</td>
+                                            <td>Arrojadiza, Distancia</td>
+                                            <td>5 pp</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lanza</td>
+                                            <td>1d6 Perforante(Fue)</td>
+                                            <td>Arrojadiza, Distancia, Versátil</td>
+                                            <td>1 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Martillo ligero</td>
+                                            <td>1d4 Contundente(Fue)</td>
+                                            <td>Arrojadiza, Distancia, Ligera</td>
+                                            <td>2 pp</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maza</td>
+                                            <td>1d6 Contundente(Fue)</td>
+                                            <td>-</td>
+                                            <td>5 po</td>
+                                            <td>1,81 kg</td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="pestaña" id="pestaña2">
                             <div class="ListaEquipo">
-                                <h2> puede no tener</h2>
-                                <ul>
-                                    <li>Elemento 1</li>
-                                    <li>Elemento 2</li>
-                                    <li>Elemento 3</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                </ul>
+                                <h3>Armas</h3>
+                                <h4>Armas Marciales</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Aguja de Cerbatana</td>
+                                            <td>1 perforante</td>
+                                            <td>De carga, Distancia, Munición</td>
+                                            <td>10 po</td>
+                                            <td>0,45 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Alabarda</td>
+                                            <td>1d10 cortante</td>
+                                            <td>Alcance, Dos manos, Pesada</td>
+                                            <td>20 po</td>
+                                            <td>2,72 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Arco largo</td>
+                                            <td>1d8 perforante</td>
+                                            <td>Distancia, Dos manos, Munición, Pesada</td>
+                                            <td>50 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ballesta de mano</td>
+                                            <td>1d6 perforante</td>
+                                            <td>De carga, Distancia, Ligera, Munición</td>
+                                            <td>75 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ballesta pesada</td>
+                                            <td>1d10 perforante</td>
+                                            <td>De carga, Distancia, Dos manos, Munición</td>
+                                            <td>50 po</td>
+                                            <td>8,16 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cimitarra</td>
+                                            <td>1d6 cortante</td>
+                                            <td>Ligera, Sutil</td>
+                                            <td>25 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Espada corta</td>
+                                            <td>1d6 perforante</td>
+                                            <td>Ligera, Sutil</td>
+                                            <td>10 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Espada larga</td>
+                                            <td>1d8 cortante</td>
+                                            <td>Versátil</td>
+                                            <td>15 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Espadón</td>
+                                            <td>2d6 cortante</td>
+                                            <td>Dos manos, Pesada</td>
+                                            <td>50 po</td>
+                                            <td>2,72 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Estoque</td>
+                                            <td>1d8 perforante</td>
+                                            <td>Sutil</td>
+                                            <td>25 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gran hacha</td>
+                                            <td>1d12 cortante</td>
+                                            <td>Dos manos, Pesada</td>
+                                            <td>30 po</td>
+                                            <td>3,18 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Guja</td>
+                                            <td>1d10 cortante</td>
+                                            <td>Alcance, Dos manos, Pesada</td>
+                                            <td>20 po</td>
+                                            <td>2,72 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hacha de batalla</td>
+                                            <td>1d8 cortante</td>
+                                            <td>Versátil</td>
+                                            <td>10 po</td>
+                                            <td>1,81 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lanza de caballería</td>
+                                            <td>1d12 perforante</td>
+                                            <td>Alcance, Especial</td>
+                                            <td>10 po</td>
+                                            <td>2,72 kg</td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="pestaña" id="pestaña3">
                             <div class="ListaEquipo">
-                                <h2> puede tener</h2>
-                                <ul>
-                                    <li>Elemento 1</li>
-                                    <li>Elemento 2</li>
-                                    <li>Elemento 3</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                    <li>Elemento 4</li>
-                                </ul>
+                                <h3>Armas</h3>
+                                <h4>Armas Marciales</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Látigo</td>
+                                            <td>1d4 cortante</td>
+                                            <td>Alcance, Sutil</td>
+                                            <td>2 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lucero del alba</td>
+                                            <td>1d8 perforante</td>
+                                            <td>-</td>
+                                            <td>15 po</td>
+                                            <td>1,81 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mangual</td>
+                                            <td>1d8 contundente</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Martillo de guerra</td>
+                                            <td>1d8 contundente</td>
+                                            <td>Versátil</td>
+                                            <td>15 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mazo de guerra</td>
+                                            <td>2d6 contundente</td>
+                                            <td>Dos manos, Pesada</td>
+                                            <td>10 po</td>
+                                            <td>4,54 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pica</td>
+                                            <td>1d10 perforante</td>
+                                            <td>Alcance, Dos manos, Pesada</td>
+                                            <td>5 po</td>
+                                            <td>8,16 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pico de guerra</td>
+                                            <td>1d8 perforante</td>
+                                            <td>-</td>
+                                            <td>5 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Red</td>
+                                            <td>-</td>
+                                            <td>Arrojadiza, Distancia, Especial</td>
+                                            <td>1 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tridente</td>
+                                            <td>1d6 perforante</td>
+                                            <td>Arrojadiza, Distancia, Versátil</td>
+                                            <td>5 po</td>
+                                            <td>1,81 kg</td>
+                                        </tr>
+
+                                    </table>
+                                </div>
                             </div>
                         </div>
+                        <div class="pestaña" id="pestaña4">
+                            <div class="ListaEquipo">
+                                <h3>Armas</h3>
+                                <h4>Armas Marciales</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Látigo</td>
+                                            <td>1d4 cortante</td>
+                                            <td>Alcance, Sutil</td>
+                                            <td>2 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lucero del alba</td>
+                                            <td>1d8 perforante</td>
+                                            <td>-</td>
+                                            <td>15 po</td>
+                                            <td>1,81 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mangual</td>
+                                            <td>1d8 contundente</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Martillo de guerra</td>
+                                            <td>1d8 contundente</td>
+                                            <td>Versátil</td>
+                                            <td>15 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mazo de guerra</td>
+                                            <td>2d6 contundente</td>
+                                            <td>Dos manos, Pesada</td>
+                                            <td>10 po</td>
+                                            <td>4,54 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pica</td>
+                                            <td>1d10 perforante</td>
+                                            <td>Alcance, Dos manos, Pesada</td>
+                                            <td>5 po</td>
+                                            <td>8,16 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pico de guerra</td>
+                                            <td>1d8 perforante</td>
+                                            <td>-</td>
+                                            <td>5 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Red</td>
+                                            <td>-</td>
+                                            <td>Arrojadiza, Distancia, Especial</td>
+                                            <td>1 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tridente</td>
+                                            <td>1d6 perforante</td>
+                                            <td>Arrojadiza, Distancia, Versátil</td>
+                                            <td>5 po</td>
+                                            <td>1,81 kg</td>
+                                        </tr>
 
-
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
 
 
                 <div class="ContenedorBotonesEquipo">
-                        <div class="pestañasBotones" id="pestañaBotones">
+                    <div class="pestañasBotones" id="pestañaBotones">
                     </div>
                 </div>
             </div>
