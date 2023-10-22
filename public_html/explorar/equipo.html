@@ -48,8 +48,7 @@
                             <option value="tipo" selected>Tipo de objeto</option>
                             <option value="tipo1">Armas</option>
                             <option value="tipo2">Armaduras</option>
-                            <option value="tipo3">Equipo de Mazmorras</option>
-                            <option value="tipo4">Otros</option>
+                            <option value="tipo3">Otros</option>
                         </select>
                         <select id="Selectcategoría">
                             <option value="categoria" selected>Categoría</option>
@@ -76,16 +75,14 @@
                             <option value="propiedad5">Desventaja</option>
                             <option value="propiedad6">Distancia</option>
                             <option value="propiedad7">Dos Manos</option>
-                            <option value="propiedad8">Foco Mágico</option>
                             <option value="propiedad9">Fuerza</option>
                             <option value="propiedad10">Ligera</option>
                             <option value="propiedad11">Munición</option>
                             <option value="propiedad12">Pesada</option>
-                            <option value="propiedad13">Simbolo Sagrado</option>
                             <option value="propiedad14">Sutil</option>
                             <option value="propiedad15">Versátil</option>
                         </select>
-                        <button type="submit">Buscar</button>
+                        <button onclick="guardarSeleccion()">Buscar</button>
                     </form>
                 </div>
                 <div class="ListasEquipo" id="pestañasSeccion">
@@ -93,7 +90,7 @@
                         <div class="pestaña" id="pestaña1">
                             <div class="ListaEquipo">
                                 <h3>Armas</h3>
-                                <h4>Armas Sencillas</h4>
+                                <h4>Armas sencillas</h4>
                                 <div class="diseñoTabla">
                                     <table>
                                         <tr>
@@ -201,7 +198,7 @@
                         <div class="pestaña" id="pestaña2">
                             <div class="ListaEquipo">
                                 <h3>Armas</h3>
-                                <h4>Armas Marciales</h4>
+                                <h4>Armas marciales</h4>
                                 <div class="diseñoTabla">
                                     <table>
                                         <tr>
@@ -309,7 +306,7 @@
                         <div class="pestaña" id="pestaña3">
                             <div class="ListaEquipo">
                                 <h3>Armas</h3>
-                                <h4>Armas Marciales</h4>
+                                <h4>Armas marciales</h4>
                                 <div class="diseñoTabla">
                                     <table>
                                         <tr>
@@ -348,6 +345,13 @@
                                             <td>4,54 kg</td>
                                         </tr>
                                         <tr>
+                                            <td>Mosquete de Repetición</td>
+                                            <td>1d6 perforante</td>
+                                            <td>De carga, Distancia, Munición, Dos manos</td>
+                                            <td>75 po</td>
+                                            <td>4,08 kg</td>
+                                        </tr>
+                                        <tr>
                                             <td>Pica</td>
                                             <td>1d10 perforante</td>
                                             <td>Alcance, Dos manos, Pesada</td>
@@ -360,6 +364,20 @@
                                             <td>-</td>
                                             <td>5 po</td>
                                             <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pistola de Palma</td>
+                                            <td>1d6 perforante</td>
+                                            <td>De carga, Distancia, Ligera, Munición</td>
+                                            <td>50 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pistola</td>
+                                            <td>1d8 perforante</td>
+                                            <td>De carga, Distancia, Munición</td>
+                                            <td>50 po</td>
+                                            <td>0,45 kg</td>
                                         </tr>
                                         <tr>
                                             <td>Red</td>
@@ -375,90 +393,1398 @@
                                             <td>5 po</td>
                                             <td>1,81 kg</td>
                                         </tr>
-
+                                        <tr>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
                         <div class="pestaña" id="pestaña4">
                             <div class="ListaEquipo">
-                                <h3>Armas</h3>
-                                <h4>Armas Marciales</h4>
+                                <h3>Armaduras</h3>
+                                <h4>Armadura ligera</h4>
                                 <div class="diseñoTabla">
                                     <table>
                                         <tr>
-                                            <td>Látigo</td>
-                                            <td>1d4 cortante</td>
-                                            <td>Alcance, Sutil</td>
-                                            <td>2 po</td>
-                                            <td>1,36 kg</td>
+                                            <td>Acolchada</td>
+                                            <td>CA 11 + Des</td>
+                                            <td>Desventaja</td>
+                                            <td>5 po</td>
+                                            <td>3,63 kg</td>
                                         </tr>
                                         <tr>
-                                            <td>Lucero del alba</td>
-                                            <td>1d8 perforante</td>
+                                            <td>Cuero</td>
+                                            <td>CA 11 + Des</td>
                                             <td>-</td>
-                                            <td>15 po</td>
-                                            <td>1,81 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mangual</td>
-                                            <td>1d8 contundente</td>
-                                            <td>-</td>
-                                            <td>10 po</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Martillo de guerra</td>
-                                            <td>1d8 contundente</td>
-                                            <td>Versátil</td>
-                                            <td>15 po</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mazo de guerra</td>
-                                            <td>2d6 contundente</td>
-                                            <td>Dos manos, Pesada</td>
                                             <td>10 po</td>
                                             <td>4,54 kg</td>
                                         </tr>
                                         <tr>
-                                            <td>Pica</td>
-                                            <td>1d10 perforante</td>
-                                            <td>Alcance, Dos manos, Pesada</td>
-                                            <td>5 po</td>
-                                            <td>8,16 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pico de guerra</td>
-                                            <td>1d8 perforante</td>
+                                            <td>Cuero tachonado</td>
+                                            <td>CA 12 + Des</td>
                                             <td>-</td>
-                                            <td>5 po</td>
-                                            <td>0,91 kg</td>
+                                            <td>45 po</td>
+                                            <td>5,90 kg</td>
                                         </tr>
+                                    </table>
+                                    <h5>Armadura intermedia</h5>
+                                    <table>
                                         <tr>
-                                            <td>Red</td>
+                                            <td>Camisote de malla</td>
+                                            <td>CA 13 + Des (máx. 2)</td>
                                             <td>-</td>
-                                            <td>Arrojadiza, Distancia, Especial</td>
-                                            <td>1 po</td>
-                                            <td>1,36 kg</td>
+                                            <td>50 po</td>
+                                            <td>9,07 kg</td>
                                         </tr>
                                         <tr>
-                                            <td>Tridente</td>
-                                            <td>1d6 perforante</td>
-                                            <td>Arrojadiza, Distancia, Versátil</td>
-                                            <td>5 po</td>
-                                            <td>1,81 kg</td>
+                                            <td>Coraza</td>
+                                            <td>CA 14 + Des (máx. 2)</td>
+                                            <td>-</td>
+                                            <td>400 po</td>
+                                            <td>9,07 kg</td>
                                         </tr>
-
+                                        <tr>
+                                            <td>Cota de escamas</td>
+                                            <td>CA 14 + Des (máx. 2)</td>
+                                            <td>Desventaja</td>
+                                            <td>50 po</td>
+                                            <td>9,07 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pieles</td>
+                                            <td>CA 12 + Des (máx. 2)</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>5,44 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Placas y malla</td>
+                                            <td>CA 15 + Des (máx. 2)</td>
+                                            <td>Desventaja</td>
+                                            <td>750 po</td>
+                                            <td>18,14 kg</td>
+                                        </tr>
+                                    </table>
+                                    <h5>Armadura pesada</h5>
+                                    <table>
+                                        <tr>
+                                            <td>Armadura de bandas</td>
+                                            <td>CA 17</td>
+                                            <td>Desventaja, Fuerza</td>
+                                            <td>200 po</td>
+                                            <td>27,22 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Armadura de placas</td>
+                                            <td>CA 18</td>
+                                            <td>Desventaja, Fuerza</td>
+                                            <td>1500 po</td>
+                                            <td>29,48 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cota de malla</td>
+                                            <td>CA 16</td>
+                                            <td>Desventaja, Fuerza</td>
+                                            <td>75 po</td>
+                                            <td>24,95 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cota guarnecida</td>
+                                            <td>CA 14</td>
+                                            <td>Desventaja</td>
+                                            <td>30 po</td>
+                                            <td>18,14 kg</td>
+                                        </tr>
+                                    </table>
+                                    <h5>Escudos</h5>
+                                    <table>
+                                        <tr>
+                                            <td>Escudo</td>
+                                            <td>CA 2</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>2,72 kg</td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                        <div class="pestaña" id="pestaña5">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Herramientas</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Herramientas de albañil</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>3,63 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de alfarero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de carpintero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>8 po</td>
+                                            <td>2,72 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de cartógrafo</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>15 po</td>
+                                            <td>2,72 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de constructor</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>50 po</td>
+                                            <td>4,54 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de herrero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>20 po</td>
+                                            <td>3,63 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de joyero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>25 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de ladrón</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>25 po</td>
+                                            <td>0,45 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de navegante</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>25 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de peletero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>5 po</td>
+                                            <td>2,27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de pintor</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>2,27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de soplador de vidrio</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>30 po</td>
+                                            <td>2,27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de tallador de madera</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>1 po</td>
+                                            <td>2,27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de tejedor</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>1 po</td>
+                                            <td>2,27 kg</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña6">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Herramientas</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Herramientas de zapatero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>5 po</td>
+                                            <td>2.27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kit de disfraz</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>25 po</td>
+                                            <td>1.36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kit de envenenador</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>50 po</td>
+                                            <td>0.91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kit de falsificación</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>15 po</td>
+                                            <td>2.27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kit de herborista</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>5 po</td>
+                                            <td>1.36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Suministros de alquimista</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>50 po</td>
+                                            <td>3.63 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Suministros de calígrafo</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>2.27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Suministros de cervecero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>20 po</td>
+                                            <td>4.08 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Utensilios de cocinero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>30 po</td>
+                                            <td>3.63 kg</td>
+                                        </tr>
+                                    </table>
+                                    <h5>Instrumentos musicales</h5>
+                                    <table>
+                                        <tr>
+                                            <td>Caramillo</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>2 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cuerno</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>3 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dulcimer</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>25 po</td>
+                                            <td>4,54 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Flauta</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>2 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Flauta de pan</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>12 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña7">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Instrumentos musicales</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Gaita</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>30 po</td>
+                                            <td>2,72 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gran piano</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>400 po</td>
+                                            <td>350 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Laúd</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>35 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lira</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>30 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Piano</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>50 po</td>
+                                            <td>3 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tambor</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>6 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Viola</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>30 po</td>
+                                            <td>0,45 kg</td>
+                                        </tr>
+                                    </table>
+                                    <h5>Juegos</h5>
+                                    <table>
+                                        <tr>
+                                            <td>Juego de cartas</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>5 pp</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Juego de dados</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>1 pp</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </table>
+                                    <h5>Monturas</h5>
+                                    <table>
+                                        <tr>
+                                            <td>Silla de montar de carga</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>5 po</td>
+                                            <td>6,8 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Silla de montar de monta</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>11,3 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Silla de montar exótica</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>60 po</td>
+                                            <td>18,1 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Silla de montar militar</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>20 po</td>
+                                            <td>13,6 kg</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña8">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Monturas</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Burro o mula</td>
+                                            <td>-</td>
+                                            <td>40 pies</td>
+                                            <td>8 po</td>
+                                            <td>190,5 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Caballo, de tiro</td>
+                                            <td>-</td>
+                                            <td>40 pies</td>
+                                            <td>50 po</td>
+                                            <td>244,9 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Caballo, de monta</td>
+                                            <td>-</td>
+                                            <td>60 pies</td>
+                                            <td>75 po</td>
+                                            <td>217,7 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Caballo, de guerra</td>
+                                            <td>-</td>
+                                            <td>60 pies</td>
+                                            <td>400 po</td>
+                                            <td>244,9 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Camello</td>
+                                            <td>-</td>
+                                            <td>50 pies</td>
+                                            <td>50 po</td>
+                                            <td>217,7 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Elefante</td>
+                                            <td>-</td>
+                                            <td>40 pies</td>
+                                            <td>200 po</td>
+                                            <td>598,7 kg</td>
+                                        </tr>
+                                    </table>
+                                    <h5>Munición</h5>
+                                    <table>
+                                        <tr>
+                                            <td>Balas de palma</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>3 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Balas de pistola</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>5 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Balas de mosquete</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>8 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Balas de plata</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>50 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dardos</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>1 pp</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Flechas</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>1 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Flechas de plata</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>5 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Saetas</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>1 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Saetas de plata</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>2 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña9">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Paquetes de Equipo</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Paquete de artista</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>40 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paquete de diplomático</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>39 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paquete de erudito</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>40 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paquete de explorador</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paquete de explorador de mazmorras</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>12 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paquete de ladrón</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>16 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paquete de sacerdote</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>19 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </table>
+                                    <h5>Vehículos</h5>
+                                    <table>
+                                        <tr>
+                                            <td>Barcaza</td>
+                                            <td>-</td>
+                                            <td>1 mph</td>
+                                            <td>3000 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bote de remos</td>
+                                            <td>-</td>
+                                            <td>1,5 mph</td>
+                                            <td>50 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Carreta</td>
+                                            <td>-</td>
+                                            <td>600 lb</td>
+                                            <td>100 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Carro</td>
+                                            <td>-</td>
+                                            <td>200 lb</td>
+                                            <td>15 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Carruaje</td>
+                                            <td>-</td>
+                                            <td>100 lb</td>
+                                            <td>250 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Galera</td>
+                                            <td>-</td>
+                                            <td>4 mph</td>
+                                            <td>30000 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Velero</td>
+                                            <td>-</td>
+                                            <td>2 mph</td>
+                                            <td>10000 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña10">
+                            <div class="ListaEquipo">
+                                <h3>Armaduras</h3>
+                                <h4>Escudos</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Escudo</td>
+                                            <td>CA 2</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>2,72 kg</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña11">
+                            <div class="ListaEquipo">
+                                <h3>Armaduras</h3>
+                                <h4>Armadura ligera</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <table>
+                                            <tr>
+                                                <td>Acolchada</td>
+                                                <td>CA 11 + Des</td>
+                                                <td>Desventaja</td>
+                                                <td>5 po</td>
+                                                <td>3,63 kg</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cuero</td>
+                                                <td>CA 11 + Des</td>
+                                                <td>-</td>
+                                                <td>10 po</td>
+                                                <td>4,54 kg</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cuero tachonado</td>
+                                                <td>CA 12 + Des</td>
+                                                <td>-</td>
+                                                <td>45 po</td>
+                                                <td>5,90 kg</td>
+                                            </tr>
+                                        </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña12">
+                            <div class="ListaEquipo">
+                                <h3>Armaduras</h3>
+                                <h4>Armadura intermedia</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Camisote de malla</td>
+                                            <td>CA 13 + Des (máx. 2)</td>
+                                            <td>-</td>
+                                            <td>50 po</td>
+                                            <td>9,07 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Coraza</td>
+                                            <td>CA 14 + Des (máx. 2)</td>
+                                            <td>-</td>
+                                            <td>400 po</td>
+                                            <td>9,07 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cota de escamas</td>
+                                            <td>CA 14 + Des (máx. 2)</td>
+                                            <td>Desventaja</td>
+                                            <td>50 po</td>
+                                            <td>9,07 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pieles</td>
+                                            <td>CA 12 + Des (máx. 2)</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>5,44 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Placas y malla</td>
+                                            <td>CA 15 + Des (máx. 2)</td>
+                                            <td>Desventaja</td>
+                                            <td>750 po</td>
+                                            <td>18,14 kg</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña13">
+                            <div class="ListaEquipo">
+                                <h3>Armaduras</h3>
+                                <h4>Armadura pesada</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Armadura de bandas</td>
+                                            <td>CA 17</td>
+                                            <td>Desventaja, Fuerza</td>
+                                            <td>200 po</td>
+                                            <td>27,22 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Armadura de placas</td>
+                                            <td>CA 18</td>
+                                            <td>Desventaja, Fuerza</td>
+                                            <td>1500 po</td>
+                                            <td>29,48 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cota de malla</td>
+                                            <td>CA 16</td>
+                                            <td>Desventaja, Fuerza</td>
+                                            <td>75 po</td>
+                                            <td>24,95 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cota guarnecida</td>
+                                            <td>CA 14</td>
+                                            <td>Desventaja</td>
+                                            <td>30 po</td>
+                                            <td>18,14 kg</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña14">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Herramientas</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Herramientas de albañil</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>3,63 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de alfarero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de carpintero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>8 po</td>
+                                            <td>2,72 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de cartógrafo</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>15 po</td>
+                                            <td>2,72 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de constructor</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>50 po</td>
+                                            <td>4,54 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de herrero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>20 po</td>
+                                            <td>3,63 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de joyero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>25 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de ladrón</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>25 po</td>
+                                            <td>0,45 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de navegante</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>25 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de peletero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>5 po</td>
+                                            <td>2,27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de pintor</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>2,27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de soplador de vidrio</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>30 po</td>
+                                            <td>2,27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de tallador de madera</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>1 po</td>
+                                            <td>2,27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herramientas de tejedor</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>1 po</td>
+                                            <td>2,27 kg</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña15">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Herramientas</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Herramientas de zapatero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>5 po</td>
+                                            <td>2.27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kit de disfraz</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>25 po</td>
+                                            <td>1.36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kit de envenenador</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>50 po</td>
+                                            <td>0.91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kit de falsificación</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>15 po</td>
+                                            <td>2.27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kit de herborista</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>5 po</td>
+                                            <td>1.36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Suministros de alquimista</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>50 po</td>
+                                            <td>3.63 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Suministros de calígrafo</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>2.27 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Suministros de cervecero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>20 po</td>
+                                            <td>4.08 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Utensilios de cocinero</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>30 po</td>
+                                            <td>3.63 kg</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña16">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Instrumentos Musicales</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Caramillo</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>2 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cuerno</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>3 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dulcimer</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>25 po</td>
+                                            <td>4,54 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Flauta</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>2 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Flauta de pan</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>12 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gaita</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>30 po</td>
+                                            <td>2,72 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gran piano</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>400 po</td>
+                                            <td>350 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Laúd</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>35 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lira</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>30 po</td>
+                                            <td>0,91 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Piano</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>50 po</td>
+                                            <td>3 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tambor</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>6 po</td>
+                                            <td>1,36 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Viola</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>30 po</td>
+                                            <td>0,45 kg</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña17">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Juegos</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Juego de cartas</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>5 pp</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Juego de dados</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>1 pp</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña18">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Monturas</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Burro o mula</td>
+                                            <td>-</td>
+                                            <td>40 pies</td>
+                                            <td>8 po</td>
+                                            <td>190,5 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Caballo, de tiro</td>
+                                            <td>-</td>
+                                            <td>40 pies</td>
+                                            <td>50 po</td>
+                                            <td>244,9 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Caballo, de monta</td>
+                                            <td>-</td>
+                                            <td>60 pies</td>
+                                            <td>75 po</td>
+                                            <td>217,7 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Caballo, de guerra</td>
+                                            <td>-</td>
+                                            <td>60 pies</td>
+                                            <td>400 po</td>
+                                            <td>244,9 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Camello</td>
+                                            <td>-</td>
+                                            <td>50 pies</td>
+                                            <td>50 po</td>
+                                            <td>217,7 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Elefante</td>
+                                            <td>-</td>
+                                            <td>40 pies</td>
+                                            <td>200 po</td>
+                                            <td>598,7 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Silla de montar de carga</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>5 po</td>
+                                            <td>6,8 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Silla de montar de monta</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>11,3 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Silla de montar exótica</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>60 po</td>
+                                            <td>18,1 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Silla de montar militar</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>20 po</td>
+                                            <td>13,6 kg</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña19">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Munición</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Balas de palma</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>3 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Balas de pistola</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>5 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Balas de mosquete</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>8 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Balas de plata</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>50 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dardos</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>1 pp</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Flechas</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>1 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Flechas de plata</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>5 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Saetas</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>1 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Saetas de plata</td>
+                                            <td>-</td>
+                                            <td>20 unidades</td>
+                                            <td>2 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña20">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Paquete de equipo</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Paquete de artista</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>40 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paquete de diplomático</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>39 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paquete de erudito</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>40 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paquete de explorador</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>10 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paquete de explorador de mazmorras</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>12 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paquete de ladrón</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>16 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paquete de sacerdote</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>19 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña21">
+                            <div class="ListaEquipo">
+                                <h3>Otros</h3>
+                                <h4>Vehículos</h4>
+                                <div class="diseñoTabla">
+                                    <table>
+                                        <tr>
+                                            <td>Barcaza</td>
+                                            <td>-</td>
+                                            <td>1 mph</td>
+                                            <td>3000 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bote de remos</td>
+                                            <td>-</td>
+                                            <td>1,5 mph</td>
+                                            <td>50 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Carreta</td>
+                                            <td>-</td>
+                                            <td>600 lb</td>
+                                            <td>100 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Carro</td>
+                                            <td>-</td>
+                                            <td>200 lb</td>
+                                            <td>15 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Carruaje</td>
+                                            <td>-</td>
+                                            <td>100 lb</td>
+                                            <td>250 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Galera</td>
+                                            <td>-</td>
+                                            <td>4 mph</td>
+                                            <td>30000 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Velero</td>
+                                            <td>-</td>
+                                            <td>2 mph</td>
+                                            <td>10000 po</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pestaña" id="pestaña0">
+                            <div class="ListaEquipo">
+                                <h3>No existe ningún equipamiento que encaje con la busqueda</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
-
                 <div class="ContenedorBotonesEquipo">
                     <div class="pestañasBotones" id="pestañaBotones">
                     </div>
@@ -471,60 +1797,169 @@
 
         <script>
 
-            //Funcion que cuenta cuantas pestañas he definido
-            function contarPestañas() {
-
-                let contador = 0;
-                // Patrón que coincide con 'pestaña' seguido de uno o más dígitos
-                const patron = /^pestaña\d+$/;
-
-                // Selecciona los elementos con un id que comience con 'pestaña'
-                const elementos = document.querySelectorAll('[id^="pestaña"]');
-
-                for (let i = 0; i < elementos.length; i++) {
-                    if (patron.test(elementos[i].id)) {
-                        contador++;
-                    }
-                }
-
-                return contador;
-            }
-
-            function obtenerSeleccion() {
-                
-                var busTipo = document.getElementById("Selecttipo").value;
-                var busCat = document.getElementById("Selectcategoría").value;
-                var busPro = document.getElementById("Selectpropiedad").value;
-            }
+            var botonTipoClick = false;
+            var botonProClick = false;
+            var botonCatClick = false;
 
             var pestañasActual = 1;
-            var pestañasNum = contarPestañas();
-            
+            var pestañasNum = 9;
+
             var primerapestaña = 1;
-            var últimapestaña = pestañasNum;
-            
-            //Para Poner visible solo la pestaña inicial
-            function pestañaInicial(){
-                
-               //Si la pestaña inicial no es la primera
-                if(pestañaInicial !== 1)
+            var últimapestaña = 9;
+
+            function eleccionPestañas() {
+
+                var valorGuardadoTipo = sessionStorage.getItem('seleccionGuardadaTipo');
+                var valorGuardadoCat = sessionStorage.getItem('seleccionGuardadaCat');
+                var valorGuardadoPro = sessionStorage.getItem('seleccionGuardadaPro');
+
+                if (valorGuardadoCat === 'categoria' && valorGuardadoPro === 'propiedad') {
+                    if (valorGuardadoTipo === 'tipo1')
+                    {
+                        primerapestaña = 1;
+                        últimapestaña = 3;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    if (valorGuardadoTipo === 'tipo2')
+                    {
+                        primerapestaña = 4;
+                        últimapestaña = 4;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    if (valorGuardadoTipo === 'tipo3')
+                    {
+                        primerapestaña = 5;
+                        últimapestaña = 9;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                } else if (valorGuardadoPro === 'propiedad')
                 {
-                     var pestañasAnteriorElemento = document.getElementById('pestaña1');
-                    pestañasAnteriorElemento.style.display = 'none';
+                    if (valorGuardadoCat === 'categoria1' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria1' && valorGuardadoTipo === 'tipo1')
+                    {
+                        primerapestaña = 1;
+                        últimapestaña = 1;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else if (valorGuardadoCat === 'categoria2' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria2' && valorGuardadoTipo === 'tipo1')
+                    {
+                        primerapestaña = 2;
+                        últimapestaña = 3;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else if (valorGuardadoCat === 'categoria3' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria3' && valorGuardadoTipo === 'tipo2')
+                    {
+                        primerapestaña = 10;
+                        últimapestaña = 10;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else if (valorGuardadoCat === 'categoria4' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria4' && valorGuardadoTipo === 'tipo2')
+                    {
+                        primerapestaña = 11;
+                        últimapestaña = 11;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else if (valorGuardadoCat === 'categoria5' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria5' && valorGuardadoTipo === 'tipo2')
+                    {
+                        primerapestaña = 12;
+                        últimapestaña = 12;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else if (valorGuardadoCat === 'categoria6' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria6' && valorGuardadoTipo === 'tipo2')
+                    {
+                        primerapestaña = 13;
+                        últimapestaña = 13;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else if (valorGuardadoCat === 'categoria7' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria7' && valorGuardadoTipo === 'tipo3')
+                    {
+                        primerapestaña = 14;
+                        últimapestaña = 15;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else if (valorGuardadoCat === 'categoria8' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria8' && valorGuardadoTipo === 'tipo3')
+                    {
+                        primerapestaña = 16;
+                        últimapestaña = 16;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else if (valorGuardadoCat === 'categoria9' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria9' && valorGuardadoTipo === 'tipo3')
+                    {
+                        primerapestaña = 17;
+                        últimapestaña = 17;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else if (valorGuardadoCat === 'categoria10' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria10' && valorGuardadoTipo === 'tipo3')
+                    {
+                        primerapestaña = 18;
+                        últimapestaña = 18;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else if (valorGuardadoCat === 'categoria11' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria11' && valorGuardadoTipo === 'tipo3')
+                    {
+                        primerapestaña = 19;
+                        últimapestaña = 19;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else if (valorGuardadoCat === 'categoria12' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria12' && valorGuardadoTipo === 'tipo3')
+                    {
+                        primerapestaña = 20;
+                        últimapestaña = 20;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else if (valorGuardadoCat === 'categoria13' && valorGuardadoTipo === 'tipo' ||
+                           valorGuardadoCat === 'categoria13' && valorGuardadoTipo === 'tipo3')
+                    {
+                        primerapestaña = 21;
+                        últimapestaña = 21;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                    else
+                    {
+                        primerapestaña = 0;
+                        últimapestaña = 0;
+                        pestañasNum = últimapestaña - primerapestaña + 1;
+                    }
+                } else if (valorGuardadoTipo === 'tipo' && valorGuardadoCat === 'categoria')
+                {
                     
-                    var pestañaElemento = document.getElementById('pestaña' + pestañasActual);
+                }
+                pestañaInicial();
+            }
+
+            //Para Poner visible solo la pestaña inicial
+            function pestañaInicial() {
+
+                //Si la pestaña inicial no es la primera
+                if (primerapestaña !== pestañasActual)
+                {
+                    var pestañasAnteriorElemento = document.getElementById('pestaña' + pestañasActual);
+                    pestañasAnteriorElemento.style.display = 'none';
+
+                    var pestañaElemento = document.getElementById('pestaña' + primerapestaña);
                     pestañaElemento.style.display = 'block';
 
-                    actualizarBotones();
-                }  
+                    pestañasActual = primerapestaña;
+                }
             }
-            
-            
-            //Funcion que actuliza los botones
+
+            //Funcion que actualiza los botones
             function actualizarBotones() {
 
                 var pestañasBotones = document.getElementById('pestañaBotones');
                 pestañasBotones.innerHTML = '';
+
                 if (pestañasActual > primerapestaña) {
                     pestañasBotones.innerHTML += '<button class="botonArriba" onclick="mostrarPestaña(-1,-1)">Inicio</button>';
                 }
@@ -532,9 +1967,11 @@
                     if (i === pestañasActual) {
                         pestañasBotones.innerHTML += '<button class="botonArriba" id="Actual" >Actual</button>';
                     } else {
-                        pestañasBotones.innerHTML += '<button class="botonArriba" onclick="mostrarPestaña(' + i + ',0)">' + i + '</button>';
+                        pestañasBotones.innerHTML += '<button class="botonArriba" onclick="mostrarPestaña(' + i + ',0)">'
+                                + (i - primerapestaña + 1) + '</button>';
                     }
                 }
+
                 if (pestañasActual < últimapestaña) {
                     pestañasBotones.innerHTML += '<button class="botonArriba" onclick="mostrarPestaña(1,+1)">Final</button>';
                 }
@@ -560,7 +1997,67 @@
                 }
             }
 
-            pestañaInicial();
+            // Función para guardar la selección en sessionStorage
+            function guardarSeleccion() {
+                var selectTipo = document.getElementById('Selecttipo');
+                var valorSeleccionadoTipo = selectTipo.value;
+                sessionStorage.setItem('seleccionGuardadaTipo', valorSeleccionadoTipo);
+                var selectCat = document.getElementById('Selectcategoría');
+                var valorSeleccionadoCat = selectCat.value;
+                sessionStorage.setItem('seleccionGuardadaCat', valorSeleccionadoCat);
+                var selectPro = document.getElementById('Selectpropiedad');
+                var valorSeleccionadoPro = selectPro.value;
+                sessionStorage.setItem('seleccionGuardadaPro', valorSeleccionadoPro);
+
+                botonTipoClick = true;
+                botonCatClick = true;
+                botonProClick = true;
+            }
+
+            // Al cargar la página, restaura el valor seleccionado si está almacenado
+            window.onload = function () {
+                var selectTipo = document.getElementById('Selecttipo');
+                var selectCat = document.getElementById('Selectcategoría');
+                var selectPro = document.getElementById('Selectpropiedad');
+
+                var valorGuardadoTipo = sessionStorage.getItem('seleccionGuardadaTipo');
+                var valorGuardadoCat = sessionStorage.getItem('seleccionGuardadaCat');
+                var valorGuardadoPro = sessionStorage.getItem('seleccionGuardadaPro');
+
+                if (valorGuardadoTipo) {
+                    selectTipo.value = valorGuardadoTipo;
+                } else {
+                    selectTipo.value = 'tipo';
+                }
+
+                if (valorGuardadoCat) {
+                    selectCat.value = valorGuardadoCat;
+                } else {
+                    selectCat.value = 'categoria';
+                }
+
+                if (valorGuardadoPro) {
+                    selectPro.value = valorGuardadoPro;
+                } else {
+                    selectPro.value = 'propiedad';
+                }
+
+                pestañaInicial();
+            };
+            // Limpiar la selección guardada al abandonar la página si no se hizo clic en el botón
+            window.addEventListener('beforeunload', function (event) {
+                if (!botonTipoClick) {
+                    sessionStorage.removeItem('seleccionGuardadaTipo');
+                }
+                if (!botonCatClick) {
+                    sessionStorage.removeItem('seleccionGuardadaCat');
+                }
+                if (!botonProClick) {
+                    sessionStorage.removeItem('seleccionGuardadaPro');
+                }
+            });
+
+            eleccionPestañas();
             actualizarBotones();
         </script>
 
