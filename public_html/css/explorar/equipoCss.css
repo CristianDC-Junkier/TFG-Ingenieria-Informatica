@@ -21,7 +21,6 @@
     box-sizing: border-box;
 
 }
-
 .TituloBuscadorEquipo {
 
     color:yellow;
@@ -30,6 +29,33 @@
     margin-left: 20px;
     font-size: 20px;
 }
+.TituloBuscadorEquipo button{
+    
+    position: relative;
+    float: right;
+    right: 45px;
+    
+    padding: 3px 5px;
+
+    border-radius: 10px;
+    border: black 2px solid;
+
+    color:white;
+    background-color: brown;
+    width: auto;
+}
+
+.TituloBuscadorEquipo > button:hover {
+
+    background-color: yellowgreen;
+    transform: translateY(-0.1em);
+}
+
+.TituloBuscadorEquipo > button:active {
+
+    transform: translateY(0.1em);
+}
+
 
 .BuscadorEquipo {
 
@@ -73,6 +99,18 @@
 .BuscadorEquipo > button:active {
 
     transform: translateY(0.1em);
+}
+
+@media screen and (max-width: 500px){
+    .TituloBuscadorEquipo > button {
+
+        right: 0px;
+        margin-top: 7px;
+        font-size: 25%;
+    }
+    .BuscadorEquipo > button{
+        font-size: 30%;
+    }
 }
 
 /**********Lista Equipo************/
@@ -172,6 +210,7 @@
     padding: 3px;
     color: white;
     width: 100%;
+    
 }
 .diseñoTabla table tr:nth-child(odd) {
 
@@ -182,8 +221,18 @@
 
     background-color: #333333;
 }
+@media screen and (max-width: 700px){
+    .diseñoTabla {
 
+        font-size: 50%;
+    }
+}
+@media screen and (max-width: 500px){
+    .diseñoTabla {
 
+        font-size: 30%;
+    }
+}
 /*****Botones*****/
 
 .ContenedorBotonesEquipo{
@@ -246,7 +295,12 @@
 
 #pestaña0, #pestaña2 ,#pestaña3, #pestaña4, #pestaña5, #pestaña6, #pestaña7,
 #pestaña8, #pestaña9, #pestaña10, #pestaña11, #pestaña12, #pestaña13, #pestaña14,
-#pestaña15, #pestaña16, #pestaña17, #pestaña18, #pestaña19, #pestaña20, #pestaña21{
+#pestaña15, #pestaña16, #pestaña17, #pestaña18, #pestaña19, #pestaña20, #pestaña21,
+#pestaña22, #pestaña23, #pestaña24, #pestaña25, #pestaña26, #pestaña27, #pestaña28,
+#pestaña29, #pestaña30, #pestaña31, #pestaña32, #pestaña33, #pestaña34,#pestaña35,
+#pestaña36,#pestaña37,#pestaña38,#pestaña39,#pestaña40,#pestaña41,#pestaña42,
+#pestaña43,#pestaña44,#pestaña45,#pestaña46,#pestaña47,#pestaña48,#pestaña49,#pestaña50
+,#pestaña51,#pestaña52,#pestaña53{
     display:none;
 }
 
