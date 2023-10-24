@@ -5,11 +5,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 -->
 <html>
     <head>
-        <title>Razas</title>
+        <title>Guidance4\Explorar\precios</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="..\css\principalCss.css"/>
-        <link rel="stylesheet" type="text/css" href="..\css\explorar\razasCss.css"/>
+        <link rel="stylesheet" type="text/css" href="..\css\explorar\preciosCss.css"/>
     </head>
     <body>
         <header>
@@ -46,102 +46,140 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                 <img src="../img/iconos/usuario.png" alt="alt"/>Iniciar Sesión</a>
         </nav>
         <main>       
-            <h6 class = "BusquedaRazas">
-                <a href="#A">&nbsp;&nbsp;A</a>
-                <a href="#B">&nbsp;&nbsp;B</a>
-                <a href="#C">&nbsp;&nbsp;C</a>
-                <a href="#D">&nbsp;&nbsp;D</a>
-                <a href="#E">&nbsp;&nbsp;E</a>
-                <a href="#H">&nbsp;&nbsp;H</a>
-                <a href="#M">&nbsp;&nbsp;M</a>
-                <a href="#P">&nbsp;&nbsp;P&nbsp;</a>
-            </h6>
-            <div class="ResumenRazas">
-                <h2 class="Titulos">Razas</h2>
+            <div class="ResumenPrecios">
+                <h2 class="Titulos">Precios
+                    <select id="selectMostrar">
+                        <option value="mostrar" selected>Mostrar Todo</option>
+                        <option value="mostrar1">Monedas</option>
+                        <option value="mostrar2">Taberna</option>
+                        <option value="mostrar3">x</option>
+                        <option value="mostrar4">x</option>
+                        <option value="mostrar5">x</option>
+                        <option value="mostrar6">x</option>
+                        <option value="mostrar7">x</option>
+                        <option value="mostrar8">x</option>
+                        <option value="mostrar9">x</option>
+                        <option value="mostrar10">Pesada</option>
+                    </select>
+                    <button onclick="guardarSeleccion()">Buscar</button></h2>
                 <hr color="black">
-                <h3>Busca por nombre: <input type="search" placeholder="Introduce el nombre"/> </h3>
-                <div class="ListaRazas">
-                    <h3>Normales</h3>
-                    <div class="ListaRazasTipo">
-                        <div class="ResumenRaza">
-                            <img src="..\img\razas\enano.jpg" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Enano</div>
-                                <div class="DescripcionRaza">Los enanos son to raros man</div>
-                            </div>
+                <div class="ListaPrecios">
+                    <div id="pestaña1">
+                        <h3>Valor de las Monedas</h3>
+                        <div class="Monedas">
+                            <table>
+                                <tr class="MonedasPrimeraFila">
+                                    <th>Piezas</th>
+                                    <th>Pc</th>
+                                    <th>Pp</th>
+                                    <th>Pe</th>
+                                    <th>Po</th>
+                                    <th>Ppt</th>
+                                </tr>
+                                <tr>
+                                    <th>Piezas de Cobre</th>
+                                    <td>1</td>
+                                    <td>1/10</td>
+                                    <td>1/50</td>
+                                    <td>1/100</td>
+                                    <td>1/1000</td>
+                                </tr>
+                                <tr>
+                                    <th>Piezas de Plata</th>
+                                    <td>10</td>
+                                    <td>1</td>
+                                    <td>1/5</td>
+                                    <td>1/10</td>
+                                    <td>1/100</td>
+                                </tr>
+                                <tr>
+                                    <th>Piezas de Electro</th>
+                                    <td>50</td>
+                                    <td>5</td>
+                                    <td>1</td>
+                                    <td>1/2</td>
+                                    <td>1/20</td>
+                                </tr>
+                                <tr>
+                                    <th>Piezas de Oro</th>
+                                    <td>100</td>
+                                    <td>10</td>
+                                    <td>2</td>
+                                    <td>1</td>
+                                    <td>1/10</td>
+                                </tr>
+                                <tr>
+                                    <th>Piezas de Platino</th>
+                                    <td>1000</td>
+                                    <td>100</td>
+                                    <td>20</td>
+                                    <td>10</td>
+                                    <td>1</td>
+                                </tr>
+                            </table>
                         </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                    </div>
-                    <h3>Monstruosas</h3>
-                    <div class="ListaRazasTipo">
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Enano</div>
-                                <div class="DescripcionRaza">Los enanos son to raros man</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
+                        <div>
+                            <div id="pestaña2">
+                                <h3>Precios de Taberna</h3>
+                                <div class="ListaPreciosTipo">
+                                    <div class="ResumenPrecio">
+                                        <img src="https://via.placeholder.com/300" alt="Placeholder Image">
+                                        <div class="ContenidoPrecio">
+                                            <div class="TituloPrecio">Mala</div>
+                                            <div class="DescripcionPrecio">Los enanos son to raros man</div>
+                                        </div>
+                                    </div>
+                                    <div class="ResumenPrecio">
+                                        <img src="https://via.placeholder.com/300" alt="Placeholder Image">
+                                        <div class="ContenidoPrecio">
+                                            <div class="TituloPrecio">Buena</div>
+                                            <div class="DescripcionPrecio">texto</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </main>
         <footer>
             &copy; 2023 Cristian Delgado Cruz
         </footer>
+        
+        <script>
+            
+        var botonMostrarClick = false;  
+            
+        // Función para guardar la selección en sessionStorage
+            function guardarSeleccion() {
+                var seleccionMostrar = document.getElementById('selectMostrar');
+                var valorseleccionado = seleccionMostrar.value;
+                sessionStorage.setItem('SelectGuardadoMostrar', valorseleccionado);
+                
+                botonMostrarClick = true;
+
+            }
+
+            // Al cargar la página, restaura el valor seleccionado si está almacenado
+            window.onload = function () {
+                
+                var selectMostrar = document.getElementById('selectMostrar');
+                valorGuardadoMostrar = sessionStorage.getItem('SelectGuardadoMostrar');
+
+                if (valorGuardadoMostrar) {
+                    selectMostrar.value = valorGuardadoMostrar;
+                } else {
+                    selectMostrar.value = 'mostrar';
+                }
+            };
+            
+            // Limpiar la selección guardada al abandonar la página si no se hizo clic en el botón
+            window.addEventListener('beforeunload', function (event) {
+                if (!botonMostrarClick) {
+                    sessionStorage.removeItem('SelectGuardadoMostrar');
+                }
+            });
+        </script>
+        
     </body>
 </html>

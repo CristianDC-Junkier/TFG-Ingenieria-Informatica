@@ -1,38 +1,14 @@
 
-/**********Barra arriba Razas************/
-
-.BusquedaRazas{
-
-    background-color: yellow;
-    color: black;
-
-    font-family: Times new roman;
-    font-size: 25px;
-    display: flex;
-    justify-content: space-between;
-    width: auto;
-
-    border:yellow 2px solid;
-    border-top: none;
-    border-bottom: black 3px  ridge;
-}
-.BusquedaRazas > a{
-
-    color: black;
-    font-family: Times new roman;
-    text-decoration: none;
-}
-
 /********Lista Razas******/
 
-.ResumenRazas{
+.ResumenPrecios{
 
     font-family: Times new roman;
     font-size: 22px;
     width: auto;
     height: auto;
 }
-.ResumenRazas > h3{
+.ResumenPrecios  h3{
 
     text-align: center;
 
@@ -49,7 +25,7 @@
 
     font-size: 20px;
 }
-.ResumenRazas > h3 > input{
+.ResumenPrecios  h3 > input{
 
     color:black;
 
@@ -66,12 +42,12 @@
     margin-top: -10px;
     outline: none;
 }
-.ResumenRazas > hr{
+.ResumenPrecios  hr{
 
     color:black;
     margin-bottom: 10px;
 }
-.ListaRazas > h3{
+.ListaPrecios  h3{
 
     margin-top: 10px;
     color:yellowgreen;
@@ -80,7 +56,42 @@
     text-align: center;
 }
 
-.ListaRazasTipo{
+.Monedas{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color:black;
+    align-content: center;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.MonedasPrimeraFila {
+    
+    background: black;
+    color: yellowgreen;
+}
+
+.Monedas table{
+    
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: center;
+    
+    border: 2px black solid;
+}
+
+.Monedas td, th{
+        
+        border: solid 2px black;
+        padding: 0px 10px;
+}
+
+
+.ListaPreciosTipo{
 
     align-items: center;
     display: flex;
@@ -93,20 +104,20 @@
 }
 
 @media screen and (max-width: 600px){
-    .ListaRazasTipo{
+    .ListaPreciosTipo{
 
         margin-left: 110px;
     }
 }
-    
-.ResumenRaza{
+
+.ResumenPrecio{
 
     flex: 0 0 275px;
     border: 3px solid brown;
     border-radius: 5px;
     overflow: hidden;
 }
-.ResumenRaza img {
+.ResumenPrecio img {
 
     width: 100%;
     height: auto;
@@ -114,13 +125,13 @@
     margin-bottom: -6px;
 }
 
-.ContenidoRaza {
+.ContenidoPrecio {
 
     background-color: black;
     padding: 20px;
 }
 
-.TituloRaza {
+.TituloPrecio {
 
     color: yellow;
     border-bottom: 2px brown solid;
@@ -128,7 +139,7 @@
     margin-bottom: 10px;
 }
 
-.ContenidoRaza {
+.DescripcionPrecio {
 
     color: white;
     font-size: 16px;

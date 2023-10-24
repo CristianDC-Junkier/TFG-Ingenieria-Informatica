@@ -50,8 +50,7 @@
     font-size: 22px;
 }
 .ResumenDote{
-
-    position: relative;
+    position:initial;
 }
 .ResumenDote > h5{
 
@@ -76,7 +75,7 @@
     width: fit-content;
 }
 .ContenidoDote{
-
+    
     font-size: 18px;
     visibility: hidden;
 
@@ -88,10 +87,10 @@
     text-align: justify;
     padding-left: 25px;
     border-radius: 6px;
+    
+    margin-top: -10px;
 
-    position: absolute;
-    z-index: 1;
-    top: 100%;
+    position:absolute;
     left: 0;
 
     box-sizing: border-box;
