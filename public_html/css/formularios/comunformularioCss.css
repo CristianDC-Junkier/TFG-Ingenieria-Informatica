@@ -1,4 +1,16 @@
 
+input[type="button"]:hover {
+
+    color: yellowgreen;
+    transform: translateY(-0.1em);
+}
+
+input[type="button"]:active {
+
+    color: yellowgreen;
+    transform: translateY(0.1em);
+}
+
 .footerFormulario{
 
     color: white;

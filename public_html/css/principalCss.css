@@ -79,7 +79,16 @@ footer  a:hover{
     float:right;
 }
 
+button:hover {
 
+    background-color: yellowgreen;
+    transform: translateY(-0.1em);
+}
+
+button:active {
+
+    transform: translateY(0.1em);
+}
 
 
 /*************************/
@@ -143,7 +152,7 @@ input:valid + span::after {
 /*******Barra********/
 
 .BarraHorizontal{
-    
+
     background-color: black;
     color: white;
 
@@ -259,3 +268,4 @@ input:valid + span::after {
 
     color: white;
 }
+
