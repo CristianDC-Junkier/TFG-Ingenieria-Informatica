@@ -125,6 +125,10 @@
 
         display: none;
     }
+    .TextoInicio {
+
+        width: 75%;
+    }
 }
 @media screen and (max-width: 1370px) {
     .TextoInicio {

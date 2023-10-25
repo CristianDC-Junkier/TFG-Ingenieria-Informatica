@@ -89,15 +89,3 @@
     margin: 5px 5px;
 }
 
-.footerPropiedades{
-
-    color: white;
-    background-color: black;
-
-    width: 100%;
-    text-align: center;
-
-    position: fixed;
-    max-height: 30px;
-    bottom: 0;
-}

@@ -1,5 +1,5 @@
 
-/********Lista Razas******/
+/********Lista precios******/
 
 .ResumenPrecios{
 
@@ -47,6 +47,41 @@
     color:black;
     margin-bottom: 10px;
 }
+
+.Titulos select, button{
+
+    position: relative;
+    float: right;
+    right: 45px;
+
+    margin-left: 5px;
+    padding: 3px 5px;
+
+    border-radius: 10px;
+    border: black 2px solid;
+
+    color:white;
+    background-color: brown;
+    width: auto;
+}
+.Titulos > button:hover {
+
+    background-color: yellowgreen;
+    transform: translateY(-0.1em);
+}
+
+.Titulos > button:active {
+
+    transform: translateY(0.1em);
+}
+
+.explicacionPrecios{
+    
+    color:black;
+    text-align: center;
+    font-size: 18px;
+}
+
 .ListaPrecios  h3{
 
     margin-top: 10px;
@@ -59,9 +94,12 @@
 .Monedas{
 
     display: flex;
+    overflow-x: auto;
+
     justify-content: center;
     align-items: center;
 
+    width: 100%;
     color:black;
     align-content: center;
 
@@ -70,78 +108,97 @@
 }
 
 .MonedasPrimeraFila {
-    
+
     background: black;
     color: yellowgreen;
 }
 
 .Monedas table{
-    
+
     table-layout: fixed;
     border-collapse: collapse;
     text-align: center;
-    
+
     border: 2px black solid;
 }
 
 .Monedas td, th{
-        
-        border: solid 2px black;
-        padding: 0px 10px;
+
+    border: solid 2px black;
+    padding: 0px 10px;
 }
 
-
-.ListaPreciosTipo{
-
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    padding-top: 20px;
-    max-width: 1200px;
-    margin: auto;
-    margin-bottom: 30px;
-}
 
 @media screen and (max-width: 600px){
-    .ListaPreciosTipo{
 
-        margin-left: 110px;
+    .Monedas td, th
+    {
+        padding: 0px 0px;
+    }
+    .Titulos  button , select{
+
+        right: 60px;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    .Titulos  button , select{
+
+        display: none;
     }
 }
 
-.ResumenPrecio{
+.ListaPreciosTipo {
 
-    flex: 0 0 275px;
-    border: 3px solid brown;
-    border-radius: 5px;
-    overflow: hidden;
-}
-.ResumenPrecio img {
-
-    width: 100%;
-    height: auto;
-    border-bottom: 3px solid brown;
-    margin-bottom: -6px;
-}
-
-.ContenidoPrecio {
-
+    border: 5px brown outset;
+    box-shadow: 10px 10px black;
     background-color: black;
-    padding: 20px;
-}
-
-.TituloPrecio {
-
-    color: yellow;
-    border-bottom: 2px brown solid;
-    font-size: 30px;
-    margin-bottom: 10px;
-}
-
-.DescripcionPrecio {
-
     color: white;
-    font-size: 16px;
+
+    max-width: 1000px;
+
+    columns: 3;
+    text-align: center;
+
+    margin: 25px auto;
+
+    column-rule-color: brown;
+    column-rule-width: 2px;
+    column-rule-style: dashed;
 }
+
+.ListaPreciosTipo h4{
+
+    color: black;
+    background-color: yellow;
+    border:brown 2px solid;
+    font-size: 20px;
+}
+
+
+.TipoListaPrecio {
+
+    text-align: justify;
+    margin-left: 1.2em;
+    margin-top: 10px;
+}
+
+.TipoListaPrecio h5{
+    
+    color: yellowgreen;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.ListaPrecio {
+
+    font-size: 15px;
+    
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+    
+}
+
 

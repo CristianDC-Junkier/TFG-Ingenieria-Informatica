@@ -56,11 +56,12 @@ footer{
     bottom: 0;
 
     width: 100%;
+    height: 15px;
 
-    font-size: 1em;
+    font-size: 14px;
 }
 
-footer > a{
+footer  a{
 
     color: white;
     font-family: Times new roman;
@@ -77,6 +78,8 @@ footer  a:hover{
     padding-right: 10px;
     float:right;
 }
+
+
 
 
 /*************************/
@@ -109,10 +112,38 @@ input:invalid + span::after {
 input:valid + span::after {
     content: "✓";
 }
+@media screen and (max-height: 700px){
+
+    .footerGeneral{
+        height: 13px;
+        font-size: 12px;
+    }
+}
+@media screen and (max-height: 600px){
+
+    .footerGeneral{
+        height: 11px;
+        font-size: 10px;
+    }
+}
+@media screen and (max-height: 400px){
+
+    .footerGeneral{
+        height: 9px;
+        font-size: 8px;
+    }
+}
+@media screen and (max-height: 200px){
+
+    .footerGeneral{
+        height: 7px;
+        font-size: 6px;
+    }
+}
 /*******Barra********/
 
 .BarraHorizontal{
-
+    
     background-color: black;
     color: white;
 

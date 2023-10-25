@@ -11,6 +11,34 @@
     max-height: 30px;
     bottom: 0;
 }
+@media screen and (max-height: 700px){
+
+    .footerFormulario{
+        height: 13px;
+        font-size: 12px;
+    }
+}
+@media screen and (max-height: 600px){
+
+    .footerFormulario{
+        height: 11px;
+        font-size: 10px;
+    }
+}
+@media screen and (max-height: 400px){
+
+    .footerFormulario{
+        height: 9px;
+        font-size: 8px;
+    }
+}
+@media screen and (max-height: 200px){
+
+    .footerFormulario{
+        height: 7px;
+        font-size: 6px;
+    }
+}
 
 .TitulosFormulario{
 
