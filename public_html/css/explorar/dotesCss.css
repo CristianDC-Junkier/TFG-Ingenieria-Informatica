@@ -50,19 +50,26 @@
     font-size: 22px;
 }
 .ResumenDote{
+    
     position:initial;
+    margin-bottom: 30px;
+    
 }
 .ResumenDote > h5{
-
+    
     background-color: black;
+    border: brown 3px solid;
+    
     color:yellow;
     font-family: Times new roman;
     font-size: 20px;
 
     margin-top: 15px;
     margin-bottom: 10px;
+    
     text-align: center;
-    border: brown 3px solid;
+    
+    
 }
 .ResumenDote ul{
 

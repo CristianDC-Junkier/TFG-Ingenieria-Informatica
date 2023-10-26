@@ -53,12 +53,16 @@ footer{
     color: white;
 
     position: fixed;
-    bottom: 0;
+
+    margin-top: 5px;
+    bottom:0;
 
     width: 100%;
-    height: 15px;
+    height: auto;
 
     font-size: 14px;
+
+    z-index: 2;
 }
 
 footer  a{
@@ -89,7 +93,34 @@ button:active {
 
     transform: translateY(0.1em);
 }
+@media screen and (max-height: 700px){
 
+    footer{
+        height: 13px;
+        font-size: 12px;
+    }
+}
+@media screen and (max-height: 600px){
+
+    footer{
+        height: 11px;
+        font-size: 10px;
+    }
+}
+@media screen and (max-height: 400px){
+
+    footer{
+        height: 9px;
+        font-size: 8px;
+    }
+}
+@media screen and (max-height: 200px){
+
+    footer{
+        height: 7px;
+        font-size: 6px;
+    }
+}
 
 /*************************/
 /**********Clases*********/
@@ -160,8 +191,7 @@ input:valid + span::after {
     font-size: 22px;
 
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: row;
 
     height: 25px;
     border: white 5px outset;
@@ -216,22 +246,31 @@ input:valid + span::after {
     border-bottom: yellow 2px inset
 }
 
+
+@media screen and (max-width: 800px) {
+    /*Es mejor tener dos y mostrar el que sea necesario*/
+    
+}
+
+
+
 /*Bloques de la barra*/
 
-.dropdown {
+.barraHorizontalDrop {
 
     display: inline-block;
     position: relative;
+    z-index: 2;
 
 }
-.dropdown > .BarraHorizontalContenido:hover{
+.barraHorizontalDrop > .BarraHorizontalContenido:hover{
 
     color: white;
     font-family: serif;
     text-decoration: none;
     border:none;
 }
-.dropdown-content {
+.barraHorizontalContenidoDrop {
 
     display: none;
     position: absolute;
@@ -248,13 +287,16 @@ input:valid + span::after {
     font-size: 14px;
     padding-top: 5px;
     margin-left: 10px;
+
+    z-index: 2;
 }
-.dropdown:hover
-.dropdown-content {
+.barraHorizontalDrop:hover
+.barraHorizontalContenidoDrop {
 
     display: block;
+
 }
-.dropdown-content > a {
+.barraHorizontalContenidoDrop > a {
 
     display: block;
     color: white;
@@ -264,7 +306,7 @@ input:valid + span::after {
     border-right: white 2px double;
 
 }
-.dropdown-content > a:hover {
+.barraHorizontalContenidoDrop > a:hover {
 
     color: white;
 }
