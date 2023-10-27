@@ -1,14 +1,14 @@
 
-/********Lista precios******/
+/********Lista Valores Desafio******/
 
-.ResumenPrecios{
+.resumenDesafios{
 
     font-family: Times new roman;
     font-size: 22px;
     width: auto;
     height: auto;
 }
-.ResumenPrecios  h3{
+.ResumenDesafios  h3{
 
     text-align: center;
 
@@ -50,7 +50,7 @@
     transform: translateY(0.1em);
 }
 
-.ListaPrecios  h3{
+.listaDesafios  h3{
 
     margin-top: 10px;
     color:yellowgreen;
@@ -58,51 +58,8 @@
     background: brown;
     text-align: center;
 }
-
-.Monedas{
-
-    display: flex;
-    overflow-x: auto;
-
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-    color:black;
-    align-content: center;
-
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-.MonedasPrimeraFila {
-
-    background: black;
-    color: yellowgreen;
-}
-
-.Monedas table{
-
-    table-layout: fixed;
-    border-collapse: collapse;
-    text-align: center;
-
-    border: 2px black solid;
-}
-
-.Monedas td, th{
-
-    border: solid 2px black;
-    padding: 0px 10px;
-}
-
-
 @media screen and (max-width: 600px){
 
-    .Monedas td, th
-    {
-        padding: 0px 0px;
-    }
     .Titulos  button , select{
 
         right: 60px;
@@ -116,7 +73,7 @@
     }
 }
 
-.ListaPreciosTipo {
+.listaDesafioTipo {
 
     border: 5px brown outset;
     box-shadow: 10px 10px black;
@@ -135,7 +92,7 @@
     column-rule-style: dashed;
 }
 
-.ListaPreciosTipo h4{
+.listaDesafioTipo h4{
 
     color: black;
     background-color: yellow;
@@ -144,14 +101,14 @@
 }
 
 
-.TipoListaPrecio {
+.tipoListaDesafio {
 
     text-align: justify;
     margin-left: 1.2em;
     margin-top: 10px;
 }
 
-.TipoListaPrecio h5{
+.tipoListaDesafio h5{
     
     color: yellowgreen;
     margin-bottom: 10px;
@@ -159,7 +116,7 @@
     font-size: 18px;
 }
 
-.ListaPrecio {
+.listaDesafio {
 
     font-size: 15px;
     

@@ -111,7 +111,8 @@
     text-align: center;
     
     background: black;
-    border: darkgray 3px solid;
+    border: dimgray 2px solid;
+    box-shadow: 5px 5px 5px 5px black;
 
     width: 100%;
     height: 55%;
@@ -122,6 +123,8 @@
 
     padding-top: 10px;
     padding-left: 10px;
+    
+    font-size: 18px;
 }
 
 .TextoInicio p{
@@ -138,13 +141,16 @@
     
     margin-top: 10px;
     margin-right: 20px;
-    padding: 5px 5px;
+    padding: 8px 8px;
 
     background-color: yellow;
     color: black;
     border: brown 2px double;
     border-radius: 15px;
-    cursor: grab;
+    
+    cursor: pointer;
+    
+    font-size: 18px;
 }
 
 @media screen and (max-width: 1455px)and (min-width: 1200px) {

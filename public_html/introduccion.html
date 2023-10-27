@@ -2,22 +2,28 @@
 
 <html>
     <head>
-        <title>Inicio</title>
+        <title>Guidance4\Introducción</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href=".\css\principalCss.css"/>
-        <link rel="stylesheet" type="text/css" href=".\css\introducciónCss.css"/>
+        <link rel="stylesheet" type="text/css" href=".\css\introduccionCss.css"/>
     </head>
     <body>
         <header>
             <h1> <img class="Logo" src="./img/dnd-banner.jpg" alt="Logo" /> </h1>
         </header>
         <nav class = "BarraHorizontal">
-            <a class="BarraHorizontalContenido" href=./inicio.html >
-                <img src="./img/iconos/casa.png" alt="alt"/>Inicio</a>
             <div class="barraHorizontalDrop">
-                <Menu class = "BarraHorizontalContenido">
-                    <img src="./img/iconos/lupablanca.png" alt="alt"/>Explorar</Menu>
+                <Menu class = "BarraHorizontalContenido" href=inicio.html>
+                    <a href=./inicio.html><img src="./img/iconos/casa.png" alt="alt"/>Inicio</a></Menu>
+                <div class="barraHorizontalContenidoDrop">
+                    <a href=./inicio.html>Inicio</a>
+                    <a href=./introduccion.html>Introducción </a>
+                </div>
+            </div>
+            <div class="barraHorizontalDrop">
+                <Menu class = "BarraHorizontalContenido" href=explorar>
+                <img src="./img/iconos/lupablanca.png" alt="alt"/>Explorar</Menu>
                 <div class="barraHorizontalContenidoDrop">
                     <a href=./explorar/clases.html>Clases</a>
                     <a href=./explorar/razas.html>Razas</a>
@@ -29,7 +35,7 @@
                 </div>
             </div>
             <div class="barraHorizontalDrop">
-                <Menu class = "BarraHorizontalContenido">Combate</Menu>
+                <Menu class = "BarraHorizontalContenido" href=combate>Combate</Menu>
                 <div class="barraHorizontalContenidoDrop">
                     <a href="https://blog.hubspot.com/">Iniciativa</a>
                     <a href="https://academy.hubspot.com/">Turnos</a>
@@ -150,5 +156,6 @@
         <footer>
             &copy; 2023 Cristian Delgado Cruz
         </footer>
+        <script src="./js/principalJS.js"></script>
     </body>
 </html>

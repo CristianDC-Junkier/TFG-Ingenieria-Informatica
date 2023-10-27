@@ -35,12 +35,6 @@
 
 /*******Lista Clases******/
 
-.ListaClases > ul > h4{
-
-    color:black;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
 .ResumenClases
 {
     font-family: Times new roman;
@@ -50,15 +44,15 @@
 }
 .ResumenClase > h5{
 
-    background-color: black;
-    color:yellow;
+    background-color: brown;
+    color:yellowgreen;
     font-family: Times new roman;
     font-size: 20px;
 
     margin-top: 15px;
     margin-bottom: 10px;
     text-align: center;
-    border: brown 3px solid;
+    border: black 4px ridge;
 
 }
 .ResumenClase > li{

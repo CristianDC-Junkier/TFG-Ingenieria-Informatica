@@ -47,6 +47,11 @@ section{
     padding: 10px;
 
 }
+hr{
+
+    color:black;
+    margin-bottom: 10px;
+}
 footer{
 
     background-color: black;
@@ -145,6 +150,16 @@ button:active {
     margin-left: 20px;
     margin-bottom: 10px;
 }
+.explicacionesPestañas{
+
+    color:white;
+    text-align: center;
+    font-size: 18px;
+
+    background-color: black;
+    padding: 10px;
+}
+
 input:invalid + span::after {
     content: "✖";
 }
@@ -180,7 +195,10 @@ input:valid + span::after {
         font-size: 6px;
     }
 }
-/*******Barra********/
+
+/*******************************/
+/*******Barra Horizontal********/
+/*******************************/
 
 .BarraHorizontal{
 
@@ -198,28 +216,25 @@ input:valid + span::after {
     padding: 10px;
     margin-top: -10px;
 }
-.BarraHorizontalContenido{
+.BarraHorizontalContenido, .BarraHorizontalContenido>a{
 
     color: white;
     font-family: serif;
     text-decoration: none;
     margin: 0 10px;
 }
-.BarraHorizontalContenido:visited{
+.BarraHorizontalContenido:visited, .BarraHorizontalContenido>a:visited{
 
-    color: white;
     font-family: serif;
     text-decoration: none;
 }
-.BarraHorizontalContenido:hover{
 
-    color: white;
-    font-family: serif;
-    text-decoration: none;
-
-    border-bottom: yellow 2px inset;
-
+.BarraHorizontalContenido.active, .BarraHorizontalContenido.active > a{
+    
+    color: yellow;
 }
+
+
 
 .BarraHorizontalContenidoFinal{
 
@@ -231,7 +246,6 @@ input:valid + span::after {
 }
 .BarraHorizontalContenidoFinal:visited{
 
-    color: white;
     font-family: serif;
     text-decoration: none;
     font-size: 22px;
@@ -240,35 +254,26 @@ input:valid + span::after {
 }
 .BarraHorizontalContenidoFinal:hover{
 
-    color: white;
     font-family: serif;
     text-decoration: none;
     border-bottom: yellow 2px inset
 }
 
-
 @media screen and (max-width: 800px) {
     /*Es mejor tener dos y mostrar el que sea necesario*/
-    
+
 }
 
 
-
-/*Bloques de la barra*/
+/*******************************/
+/*******Bloques de la barra*****/
+/*******************************/
 
 .barraHorizontalDrop {
 
     display: inline-block;
     position: relative;
     z-index: 2;
-
-}
-.barraHorizontalDrop > .BarraHorizontalContenido:hover{
-
-    color: white;
-    font-family: serif;
-    text-decoration: none;
-    border:none;
 }
 .barraHorizontalContenidoDrop {
 
@@ -308,6 +313,11 @@ input:valid + span::after {
 }
 .barraHorizontalContenidoDrop > a:hover {
 
-    color: white;
+    border-left: yellow 1px dashed;
+    border-right: yellow 2px double;
+    color: yellowgreen;
 }
 
+/*******************************/
+/*******Barra Vertical**********/
+/*******************************/

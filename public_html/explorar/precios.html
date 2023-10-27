@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
--->
 <html>
     <head>
         <title>Guidance4\Explorar\Precios</title>
@@ -16,10 +12,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
             <h1> <img class="Logo" src="../img/dnd-banner.jpg" alt="Logo"/> </h1>
         </header>
         <nav class = "BarraHorizontal">
-            <a class="BarraHorizontalContenido" href=../inicio.html >
-                <img src="../img/iconos/casa.png" alt="alt"/>Inicio</a>
             <div class="barraHorizontalDrop">
-                <Menu class = "BarraHorizontalContenido">
+                <Menu class = "BarraHorizontalContenido" href=../inicio.html>
+                    <a href="../inicio.html"><img src="../img/iconos/casa.png" alt="alt"/>Inicio</a></Menu>
+                <div class="barraHorizontalContenidoDrop">
+                    <a href=../inicio.html>Inicio</a>
+                    <a href=../introduccion.html>Introducción </a>
+                </div>
+            </div>
+            <div class="barraHorizontalDrop">
+                <Menu class = "BarraHorizontalContenido" href=explorar>
                     <img src="../img/iconos/lupablanca.png" alt="alt"/>Explorar</Menu>
                 <div class="barraHorizontalContenidoDrop">
                     <a href=./clases.html>Clases</a>
@@ -32,7 +34,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                 </div>
             </div>
             <div class="barraHorizontalDrop">
-                <Menu class = "BarraHorizontalContenido">Combate</Menu>
+                <Menu class = "BarraHorizontalContenido" href=combate>Combate</Menu>
                 <div class="barraHorizontalContenidoDrop">
                     <a href="https://blog.hubspot.com/">Iniciativa</a>
                     <a href="https://academy.hubspot.com/">Turnos</a>
@@ -41,8 +43,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <a href="https://www.youtube.com/user/hubspot">Monstruos</a>
                 </div>
             </div>
-            <a class="BarraHorizontalContenido" href=../articulos.html>Personajes</a>
-            <a class="BarraHorizontalContenidoFinal" href=../formularios/iniciosesion.html>
+            <a class="BarraHorizontalContenido" href=./articulos.html>Personajes</a>
+            <a class="BarraHorizontalContenidoFinal" href=./formularios/iniciosesion.html>
                 <img src="../img/iconos/usuario.png" alt="alt"/>Iniciar Sesión</a>
         </nav>
         <main>       
@@ -56,7 +58,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     </select>
                     <button onclick="guardarSeleccion()">Buscar</button></h2>
                 <hr color="black">
-                <div class="explicacionPrecios">
+                <div class="explicacionesPestañas">
                     <p>Todo lo explicado aquí solo es una guía, es decir,
                         el DM puede moldear o ajustar según su propio criterio.</p>
                     <p>Incluso las monedas pueden ser cambiadas por otras.
@@ -122,7 +124,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <div id="pestaña2">
                         <h3>Precios de Taberna</h3>
                         <div class="ListaPreciosTipo">
-
+                            
                             <h4>Taberna Sencilla</h4>
                             <div class="TipoListaPrecio">
                                 <h5>Alojamiento</h5>
@@ -373,6 +375,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 
         mostrarPestaña();
     </script>
-
+    <script src="../js/principalJS.js"></script>
 </body>
 </html>

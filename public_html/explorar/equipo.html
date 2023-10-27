@@ -12,10 +12,16 @@
             <h1> <img class="Logo" src="../img/dnd-banner.jpg" alt="Logo"/> </h1>
         </header>
         <nav class = "BarraHorizontal">
-            <a class="BarraHorizontalContenido" href=../inicio.html >
-                <img src="../img/iconos/casa.png" alt="alt"/>Inicio</a>
             <div class="barraHorizontalDrop">
-                <Menu class = "BarraHorizontalContenido">
+                <Menu class = "BarraHorizontalContenido" href=../inicio.html>
+                    <a href="../inicio.html"><img src="../img/iconos/casa.png" alt="alt"/>Inicio</a></Menu>
+                <div class="barraHorizontalContenidoDrop">
+                    <a href=../inicio.html>Inicio</a>
+                    <a href=../introduccion.html>Introducción </a>
+                </div>
+            </div>
+            <div class="barraHorizontalDrop">
+                <Menu class = "BarraHorizontalContenido" href=explorar>
                     <img src="../img/iconos/lupablanca.png" alt="alt"/>Explorar</Menu>
                 <div class="barraHorizontalContenidoDrop">
                     <a href=./clases.html>Clases</a>
@@ -28,7 +34,7 @@
                 </div>
             </div>
             <div class="barraHorizontalDrop">
-                <Menu class = "BarraHorizontalContenido">Combate</Menu>
+                <Menu class = "BarraHorizontalContenido" href=combate>Combate</Menu>
                 <div class="barraHorizontalContenidoDrop">
                     <a href="https://blog.hubspot.com/">Iniciativa</a>
                     <a href="https://academy.hubspot.com/">Turnos</a>
@@ -37,13 +43,23 @@
                     <a href="https://www.youtube.com/user/hubspot">Monstruos</a>
                 </div>
             </div>
-            <a class="BarraHorizontalContenido" href=../articulos.html>Personajes</a>
-            <a class="BarraHorizontalContenidoFinal" href=../formularios/iniciosesion.html>
+            <a class="BarraHorizontalContenido" href=./articulos.html>Personajes</a>
+            <a class="BarraHorizontalContenidoFinal" href=./formularios/iniciosesion.html>
                 <img src="../img/iconos/usuario.png" alt="alt"/>Iniciar Sesión</a>
         </nav>
         <main>
             <h2 class="Titulos">Equipo</h2>
             <hr color="black">
+            <div class="explicacionesPestañas">
+                <p>Todo lo explicado aquí solo es una guía, es decir,
+                    el DM puede moldear o ajustar según su propio criterio.</p>
+                <p>Los valores pueden cambiar según que tipo de vendedor o en que
+                    se especialice, todo ello se narra en la pestaña de precios, aún así
+                    el DM puede seguir ajustando estos valores según necesite, o inventar
+                    nuevas armas ya sea utilizando la base de los objetos ya establecidos
+                    o no, por ejemplo objetos mágicos.</p>
+                <p>Lo importante es divertirse.</p>
+            </div>
             <div class="ContenedoresEquipo"> 
                 <div class="ContenedorEquipo">
                     <div class="TituloBuscadorEquipo">Buscar Equipo 
@@ -3315,7 +3331,7 @@
                 </div>
             </div>
         </main>
-        <footer class="footerGeneral">
+        <footer>
             &copy; 2023 Cristian Delgado Cruz
         </footer>
 
@@ -3832,6 +3848,6 @@
             eleccionPestañas();
             actualizarBotones();
         </script>
-
+        <script src="../js/principalJS.js"></script>
     </body>
 </html>
