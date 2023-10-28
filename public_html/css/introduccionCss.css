@@ -129,8 +129,6 @@
 
     background: black;
 
-
-
 }
 .contenedorAnimacion:hover .contenedorFueraAnimacion
 {
@@ -147,15 +145,60 @@
     transform: translateX(60vmin);
 }
 
-@media screen and (max-width: 700px){
+/**************************************/
+/***********Tamaños grandes************/
+/**************************************/
+
+@media screen and (min-height: 1000px){
     .contenedorAnimacion{
 
-        width: 15em;
-        height: 15em;
+        width: 100em;
+        height: 100em;
+    }
+    .contenidoDentroAnimacion{
+
+        width: 130vmin;
+        font-size: 40px;
+    }
+    .contenedorAnimacion:hover .contenedorFueraAnimacion
+    {
+        transform: translateX(-130vmin);
+    }
+    .contenedorAnimacion:hover .contenidoFueraAnimacion {
+
+        transform: translateX(130vmin);
+    }
+}
+@media screen and (min-height: 1200px){
+    .contenedorAnimacion{
+
+        width: 120em;
+        height: 100em;
+    }
+    .contenidoDentroAnimacion{
+
+        width: 80vmin;
+        font-size: 40px;
+    }
+    .contenedorAnimacion:hover .contenedorFueraAnimacion
+    {
+        transform: translateX(-80vmin);
+    }
+    .contenedorAnimacion:hover .contenidoFueraAnimacion {
+
+        transform: translateX(85vmin);
+    }
+}
+@media screen and (min-height: 2000px){
+    .contenedorAnimacion{
+
+        width: 120em;
+        height: 100em;
     }
     .contenidoDentroAnimacion{
 
         width: 60vmin;
+        font-size: 50px;
     }
     .contenedorAnimacion:hover .contenedorFueraAnimacion
     {
@@ -163,51 +206,54 @@
     }
     .contenedorAnimacion:hover .contenidoFueraAnimacion {
 
-        transform: translateX(55vmin);
+        transform: translateX(60vmin);
     }
-
 }
-@media screen and (max-width: 650px){
+@media screen and (min-height: 2400px){
     .contenedorAnimacion{
 
-        width: 15em;
+        width: 120em;
+        height: 100em;
+    }
+    .contenidoDentroAnimacion{
+
+        width: 50vmin;
+        font-size: 50px;
+    }
+    .contenedorAnimacion:hover .contenedorFueraAnimacion
+    {
+        transform: translateX(-50vmin);
+    }
+    .contenedorAnimacion:hover .contenidoFueraAnimacion {
+
+        transform: translateX(50vmin);
+    }
+}
+/**************************************/
+/***********Tamaños pequeños***********/
+/**************************************/
+
+@media screen and (max-height: 400px){
+    .contenedorAnimacion{
+
+        width: 18em;
         height: 15em;
     }
     .contenidoDentroAnimacion{
 
-        width: 45vmin;
+        width: 55vmin;
     }
     .contenedorAnimacion:hover .contenedorFueraAnimacion
     {
-        transform: translateX(-45vmin);
+        transform: translateX(-55vmin);
     }
     .contenedorAnimacion:hover .contenidoFueraAnimacion {
 
-        transform: translateX(40vmin);
+        transform: translateX(50vmin);
     }
-
 }
-@media screen and (max-width: 550px){
-    .contenedorAnimacion{
 
-        width: 25em;
-        height: 15em;
-    }
-    .contenidoDentroAnimacion{
-
-        width: 120vmin;
-    }
-    .contenedorAnimacion:hover .contenedorFueraAnimacion
-    {
-        transform: translateX(-120vmin);
-    }
-    .contenedorAnimacion:hover .contenidoFueraAnimacion {
-
-        transform: translateX(115vmin);
-    }
-
-}
-@media screen and (max-width: 400px){
+@media screen and (max-height: 200px){
     .contenedorAnimacion{
 
         width: 15em;
@@ -228,15 +274,26 @@
 
 }
 
-
-@media screen and (min-width: 2400px){
+@media screen and (max-width: 150px){
     .contenedorAnimacion{
 
-        height: 50vmin;
+        width: 25em;
+        height: 15em;
     }
+    .contenidoDentroAnimacion{
+
+        width: 210vmin;
+    }
+    .contenedorAnimacion:hover .contenedorFueraAnimacion
+    {
+        transform: translateX(-210vmin);
+    }
+    .contenedorAnimacion:hover .contenidoFueraAnimacion {
+
+        transform: translateX(200vmin);
+    }
+
 }
-
-
 
 
 

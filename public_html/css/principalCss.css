@@ -196,11 +196,35 @@ input:valid + span::after {
     }
 }
 
-/*******************************/
-/*******Barra Horizontal********/
-/*******************************/
 
-.BarraHorizontal{
+
+
+/*************************************/
+/*********Menus de Navegación*********/
+/*************************************/
+
+@media screen and (min-width: 850px){
+    .menuVertical{
+
+        display: none;
+    }
+    .menuHorizontal{
+
+        display: block;
+    }
+}
+@media screen and (max-width: 850px){
+    .menuVertical{
+
+        display: block;
+    }
+    .menuHorizontal{
+
+        display: none;
+    }
+
+}
+.barraHorizontal{
 
     background-color: black;
     color: white;
@@ -216,24 +240,35 @@ input:valid + span::after {
     padding: 10px;
     margin-top: -10px;
 }
-.BarraHorizontalContenido, .BarraHorizontalContenido>a{
+
+
+
+/*******************************/
+/*******Barra Horizontal********/
+/*******************************/
+
+.barraHorizontalContenido, .barraHorizontalContenido>a{
 
     color: white;
     font-family: serif;
     text-decoration: none;
     margin: 0 10px;
 }
-.BarraHorizontalContenido:visited, .BarraHorizontalContenido>a:visited{
+.barraHorizontalContenido:visited, .barraHorizontalContenido>a:visited{
 
     font-family: serif;
     text-decoration: none;
 }
 
-.BarraHorizontalContenido.active, .BarraHorizontalContenido.active > a{
-    
-    color: yellow;
+.barraHorizontalContenido:hover{
+
+    border-bottom: yellow 2px inset
 }
 
+.barraHorizontalContenido.active, .barraHorizontalContenido.active > a{
+
+    color: yellow;
+}
 
 
 .BarraHorizontalContenidoFinal{
@@ -246,7 +281,6 @@ input:valid + span::after {
 }
 .BarraHorizontalContenidoFinal:visited{
 
-    font-family: serif;
     text-decoration: none;
     font-size: 22px;
     word-spacing: 5px;
@@ -254,14 +288,7 @@ input:valid + span::after {
 }
 .BarraHorizontalContenidoFinal:hover{
 
-    font-family: serif;
-    text-decoration: none;
     border-bottom: yellow 2px inset
-}
-
-@media screen and (max-width: 800px) {
-    /*Es mejor tener dos y mostrar el que sea necesario*/
-
 }
 
 
@@ -318,6 +345,116 @@ input:valid + span::after {
     color: yellowgreen;
 }
 
+
 /*******************************/
 /*******Barra Vertical**********/
 /*******************************/
+
+.menuVertical{
+    
+    background-color: gray;
+}
+
+.barraVertical{
+
+    display:none;
+    position: absolute;
+    z-index: 2;
+    
+    background-color: black;
+    
+    border: 2px solid white;
+    border-radius: 0px 0px 15px 15px;
+    
+    overflow: hidden;
+    width: 150px;
+    height: auto;
+    
+   
+}
+.barraVerticalUno{
+
+    margin-left: 10px;
+    
+}
+
+.barraVerticalUno > li {
+
+    width: auto;
+    
+    list-style: none;
+    
+    height: 30px;
+
+    overflow: hidden;
+
+    font-size: 16px;
+
+    transition: 3s;
+}
+.barraVerticalUno  li:first-child{
+
+    margin-top: 10px;
+}
+
+.barraVerticalUno li a,
+.barraVerticalUno li div{
+
+    text-decoration: none;
+    color: white;
+    font-family: sans-serif;
+
+}
+.barraVerticalUno li > div > a:hover {
+
+    border-bottom: yellow 2px solid;
+
+}
+
+/******Dropea la lista*****/
+
+.unoDrop.primero:hover{
+
+    height: 65px;
+}
+.unoDrop.segundo:hover{
+
+    height: 150px;
+}
+.unoDrop.tercero:hover{
+
+    height: 115px;
+}
+
+/***Lista Sobre Lista****/
+
+.barraVerticalDos  li{
+
+    margin-left: 10px;
+    color:white;
+    font-size: 13px;
+    list-style: none;
+}
+.barraVerticalDos  li  a:hover{
+
+    color: yellowgreen;
+    margin-left: 10px;
+
+}
+.barraVerticalContenido.active, .barraVerticalContenido.active > a{
+
+    color: yellow;
+}
+
+/**************************************/
+/*******Boton abrir Menu Vertical******/
+/**************************************/
+
+.botonMenuVertical{
+
+    color: black;
+    background-color: yellow;
+    padding: 0px 30px;
+    font-size: 20px;
+
+}
