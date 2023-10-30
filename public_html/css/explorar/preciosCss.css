@@ -23,11 +23,11 @@
 }
 
 
-.Titulos select, button{
+.Titulos select, .Titulos button{
 
     position: relative;
     float: right;
-    right: 45px;
+    right: 0px;
 
     margin-left: 5px;
     padding: 3px 5px;
@@ -102,10 +102,6 @@
     .Monedas td, th
     {
         padding: 0px 0px;
-    }
-    .Titulos  button , select{
-
-        right: 60px;
     }
 }
 @media screen and (max-width: 400px)

@@ -8,7 +8,7 @@
     width: auto;
     height: auto;
 }
-.ResumenDesafios  h3{
+.resumenDesafios  h3{
 
     text-align: center;
 
@@ -22,14 +22,14 @@
     font-size: 20px;
 }
 
-
-.Titulos select, button{
+.Titulos select, .Titulos button{
 
     position: relative;
     float: right;
-    right: 45px;
+    right: 5px;
 
     margin-left: 5px;
+    margin-right: 0;
     padding: 3px 5px;
 
     border-radius: 10px;
@@ -58,16 +58,9 @@
     background: brown;
     text-align: center;
 }
-@media screen and (max-width: 600px){
-
-    .Titulos  button , select{
-
-        right: 60px;
-    }
-}
 @media screen and (max-width: 400px)
 {
-    .Titulos  button , select{
+    .Titulos  button , .Titulos select{
 
         display: none;
     }
@@ -109,7 +102,7 @@
 }
 
 .tipoListaDesafio h5{
-    
+
     color: yellowgreen;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -119,11 +112,81 @@
 .listaDesafio {
 
     font-size: 15px;
-    
+
     margin-top: 10px;
     margin-bottom: 10px;
-    
-    
+
+
 }
+
+/*************************/
+/******Tabla Niveles******/
+/*************************/
+
+.niveles{
+
+    display: flex;
+    
+    overflow-x: auto;
+
+    color:black;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 7vmin;
+}
+
+.nivelesPrimeraFila {
+
+    background: black;
+    color: yellowgreen;
+}
+
+.niveles table{
+
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+
+    width: 47.5%;
+
+    table-layout: fixed;
+    border: 2px black solid;
+
+    margin-right: 20px;
+    margin-bottom: 20px;
+    
+    font-size: 2vmin;
+}
+.niveles th{
+
+    border: 3px solid brown;
+}
+.niveles td{
+
+    border: 3px solid black;
+}
+.niveles td, .niveles th{
+
+    padding: 0px 10px;
+
+    text-align: center;
+    padding: 8px;
+}
+.nivelesExplicacion {
+
+    font-size: 2vmin;
+    
+    background-color: black;
+    box-sizing: border-box;
+    
+    color: white;
+    
+    width: 47.5%;
+    
+    padding: 20px; 
+    margin-bottom: 20px;
+}
+
+
 
 

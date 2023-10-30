@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Guidance4\Explorar\Valores de Desafio</title>
+        <title>Guidance4\Inicio</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="..\css\principalCss.css"/>
-        <link rel="stylesheet" type="text/css" href="..\css\explorar\desafiosCss.css"/>
+        <link rel="stylesheet" type="text/css" href="..\css\inicioCss.css"/>
     </head>
     <body>
         <header>
-            <h1> <img class="Logo" src="../img/dnd-banner.jpg" alt="Logo"/> </h1>
+            <h1> <img class="Logo" src="../img/dnd-banner.jpg" alt="Logo" /> </h1>
         </header>
-         <nav class="menus">
+        <nav class="menus">
             <div class="menuHorizontal">
                 <div class = "barraHorizontal">
                     <div class="barraHorizontalDrop">
                         <Menu class = "barraHorizontalContenido" href=inicio.html>
-                            <a href=./inicio.html><img src="./img/iconos/casa.png" alt="alt"/>Inicio</a></Menu>
+                            <a href=../inicio.html><img src="../img/iconos/casa.png" alt="alt"/>Inicio</a></Menu>
                         <div class="barraHorizontalContenidoDrop">
                             <a href=./inicio.html>Inicio</a>
                             <a href=./introduccion.html>Introducción </a>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="barraHorizontalDrop">
                         <Menu class = "barraHorizontalContenido" href=explorar>
-                            <img src="./img/iconos/lupablanca.png" alt="alt"/>Explorar</Menu>
+                            <img src="../img/iconos/lupablanca.png" alt="alt"/>Explorar</Menu>
                         <div class="barraHorizontalContenidoDrop">
                             <a href=./explorar/clases.html>Clases</a>
                             <a href=./explorar/razas.html>Razas</a>
@@ -38,16 +38,16 @@
                     <div class="barraHorizontalDrop">
                         <Menu class = "barraHorizontalContenido" href=combate>Combate</Menu>
                         <div class="barraHorizontalContenidoDrop">
-                            <a href="https://blog.hubspot.com/">Iniciativa</a>
-                            <a href="https://academy.hubspot.com/">Turnos</a>
-                            <a href="https://academy.hubspot.com/">Estados</a>
-                            <a href="https://www.youtube.com/user/hubspot">Hechizos</a>
-                            <a href="https://www.youtube.com/user/hubspot">Monstruos</a>
+                            <a href="./combate/iniciativa.html">Iniciativa</a>
+                            <a href="./combate/turnos.html">Turnos</a>
+                            <a href="./combate/estados.html">Estados</a>
+                            <a href=./combate/hechizos.html>Hechizos</a>
+                            <a href="./combate/monstruos.html">Monstruos</a>
                         </div>
                     </div>
                     <a class="barraHorizontalContenido" href=./articulos.html>Personajes</a>
                     <a class="BarraHorizontalContenidoFinal" href=./formularios/iniciosesion.html>
-                        <img src="./img/iconos/usuario.png" alt="alt"/>Iniciar Sesión</a>
+                        <img src="../img/iconos/usuario.png" alt="alt"/>Iniciar Sesión</a>
                 </div>
             </div>
             <div class="menuVertical">
@@ -84,11 +84,11 @@
                                 Combate
                             </div>
                             <ul class="barraVerticalDos">
-                                <li><a href="https://blog.hubspot.com/">Iniciativa</a></li>
-                                <li><a href="https://academy.hubspot.com/">Turnos</a><li>
-                                <li><a href="https://academy.hubspot.com/">Estados</a></li>
-                                <li><a href="https://www.youtube.com/user/hubspot">Hechizos</a></li>
-                                <li><a href="https://www.youtube.com/user/hubspot">Monstruos</a></li>
+                                <li><a href="./combate/iniciativa.html">Iniciativa</a></li>
+                                <li><a href="./combate/turnos.html">Turnos</a></li>
+                                <li><a href="./combate/estados.html">Estados</a></li>
+                                <li><a href=./combate/hechizos.html>Hechizos</a></li>
+                                <li><a href="./combate/monstruos.html">Monstruos</a></li>
                             </ul>
                         </li>
                         <li>
@@ -105,23 +105,27 @@
                 </div>
             </div>
         </nav>
-        <main>       
-            <div class="resumenDesafios">
-                <h2 class="Titulos">Precios
-                    <select id="selectMostrar">
-                        <option value="mostrar" selected>Mostrar Todo</option>
-                        <option value="mostrar1">Monedas</option>
-                        <option value="mostrar2">Taberna</option>
-                        <option value="mostrar3">Vendedor</option>
-                    </select>
-                    <button onclick="guardarSeleccion()">Buscar</button></h2>
-                <hr color="black">
-                <div class="explicacionesPestañas">
-                    <p>Todo lo explicado aquí solo es una guía, es decir,
-                        el DM puede moldear o ajustar según su propio criterio.</p>
-                    <p>Incluso las monedas pueden ser cambiadas por otras.
-                        añadir más o cambiar los valores de cada una, </p>
-                    <p>Lo importante es divertirse.</p>
+        <main>
+            <h2 class="Titulos">Inicio</h2>
+            <div class="BloqueInicio">
+                <div class="EleccionInicio">
+                    <h2>¡Bienvenido de nuevo!</h2>
+                    <p>Inicia sesión para poder disfrutar todas las funciones</p>
+                    <button class="botonInicioSesion" onclick="location.href = './formularios/iniciosesion.html'">Iniciar Sesión</button>
+                    <p>¿Aún no tienes cuenta?<br>Únete fácilmente:</p>
+                    <button class="botonRegistro" onclick="location.href = './formularios/registro.html'">Registrarse</button>
+                </div>
+                <div class="FotosTextoInicio">
+                    <div class="FotosInicio">
+                        <img class="FotoInicio1" src="../img/Guide4.bmp" alt="alt"/>
+                        <img class="FotoInicio2" src="../img/luzpng.png" alt="alt"/>
+                    </div>
+                    <div class="TextoInicio">
+                        <p><button class="botonIntroducción" onclick="location.href = './introduccion.html'"> Infórmate aquí</button>Qué es Dungeons & Dragons y como se juega</p>
+                        <hr style="margin-left: -10px;">
+                        <p>¿Necesitas algo más?, No dudes en descargar el manual para todo</p>
+                        <a href="../manual/ManualCasiTodo.pdf" download="Manual Casi Todo.pdf">Descargar archivo</a>
+                    </div>
                 </div>
             </div>
         </main>
