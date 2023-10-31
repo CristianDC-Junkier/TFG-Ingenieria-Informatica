@@ -1,7 +1,7 @@
 
 function dondeEstasHorizontal()
 {
-    const Titulos = document.querySelectorAll('.BarraHorizontalContenido');
+    const Titulos = document.querySelectorAll('.barraHorizontalContenido');
 
     // Resaltar el enlace correspondiente a la página actual
     Titulos.forEach(Titulos => {
@@ -40,9 +40,23 @@ function abrirMenuVertical() {
     });
 }
 
+function abrirMenuVerticalAncho() {
+    var anchoVentana = window.innerWidth;
+
+    if (anchoVentana > 850) {
+        var barraVertical = document.querySelector('.barraVertical');
+        if (barraVertical) {
+            barraVertical.style.display = 'none';
+        }
+    }
+}
+
+
 //Eventos
 document.addEventListener('DOMContentLoaded', abrirMenuVertical);
 
 //Ejecución
 dondeEstasHorizontal();
 dondeEstasVertical();
+
+window.onresize = abrirMenuVerticalAncho;

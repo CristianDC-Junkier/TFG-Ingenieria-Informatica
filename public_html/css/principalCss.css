@@ -212,6 +212,7 @@ input:valid + span::after {
 
         display: block;
     }
+    
 }
 @media screen and (max-width: 850px){
     .menuVertical{
@@ -423,7 +424,7 @@ input:valid + span::after {
 }
 .unoDrop.tercero:hover{
 
-    height: 115px;
+    height: 150px;
 }
 
 /***Lista Sobre Lista****/
