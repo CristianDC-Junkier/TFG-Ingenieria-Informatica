@@ -1,9 +1,11 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
-*/
-/* 
-    Created on : 31 oct 2023, 12:49:26
-    Author     : Cristian
-*/
+
+
+.bloqueCombate > h3{
+
+    margin-top: 10px;
+    color:yellowgreen;
+    border: black 4px ridge;
+    background: brown;
+    text-align: center;
+}
 

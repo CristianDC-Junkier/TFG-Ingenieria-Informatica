@@ -133,14 +133,21 @@ button:active {
 
 .Logo{
 
+    position: relative;
+
     width: auto;
     max-width: 100%;
     max-height: 5em;
+
+    z-index: 2;
 
 }
 .Titulos{
 
     text-transform: uppercase;
+
+    font-size: 3.5vmin;
+
     font-weight: 500;
     letter-spacing: 2px;
     color: black;
@@ -170,6 +177,7 @@ input:valid + span::after {
 @media screen and (max-height: 700px){
 
     .footerGeneral{
+
         height: 13px;
         font-size: 12px;
     }
@@ -177,20 +185,29 @@ input:valid + span::after {
 @media screen and (max-height: 600px){
 
     .footerGeneral{
+
         height: 11px;
         font-size: 10px;
     }
+
 }
 @media screen and (max-height: 400px){
 
+    .Titulos{
+
+        font-size: 7vmin;
+    }
     .footerGeneral{
+
         height: 9px;
         font-size: 8px;
     }
 }
 @media screen and (max-height: 200px){
 
+
     .footerGeneral{
+
         height: 7px;
         font-size: 6px;
     }
@@ -212,7 +229,7 @@ input:valid + span::after {
 
         display: block;
     }
-    
+
 }
 @media screen and (max-width: 850px){
     .menuVertical{
@@ -235,11 +252,12 @@ input:valid + span::after {
 
     display: flex;
     flex-direction: row;
+    z-index: 1;
 
     height: 25px;
     border: white 5px outset;
     padding: 10px;
-    margin-top: -10px;
+    margin-top: -9px;
 }
 
 
@@ -352,7 +370,7 @@ input:valid + span::after {
 /*******************************/
 
 .menuVertical{
-    
+
     background-color: gray;
 }
 
@@ -361,30 +379,30 @@ input:valid + span::after {
     display:none;
     position: absolute;
     z-index: 2;
-    
+
     background-color: black;
-    
+
     border: 2px solid white;
     border-radius: 0px 0px 15px 15px;
-    
+
     overflow: hidden;
     width: 150px;
     height: auto;
-    
-   
+
+
 }
 .barraVerticalUno{
 
     margin-left: 10px;
-    
+
 }
 
 .barraVerticalUno > li {
 
     width: auto;
-    
+
     list-style: none;
-    
+
     height: 30px;
 
     overflow: hidden;
@@ -455,7 +473,7 @@ input:valid + span::after {
 
     color: black;
     background-color: yellow;
-    padding: 0px 30px;
-    font-size: 20px;
+    padding: 0.1vmin 5vmin;
+    font-size: 3vmin;
 
 }
