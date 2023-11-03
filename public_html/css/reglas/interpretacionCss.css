@@ -69,24 +69,24 @@
 
 @media screen and (max-width: 850px){
 
-    .infoDiseñoPersonaje{
+    .infoInterpretar{
 
         display: block;
     }
-    .bloqueDiseñoPersonaje > h3{
+    .bloqueInterpretar > h3{
 
         font-size: 5vmin;
     }
-    .infoDiseñoPersonaje div > p:nth-child(2){
+    .infoInterpretar div > p:nth-child(2){
 
         font-size: 2vmin;
     }
-    .infoDiseñoPersonaje div > table{
+    .infoInterpretar div > table{
 
         font-size: 4vmin;
     }
 
-    .infoDiseñoPersonaje div > table td,  .infoDiseñoPersonaje div > table th {
+    .infoInterpretar div > table td,  .infoInterpretar div > table th {
 
         border: 0.1px solid white;
         padding: 2px;

@@ -8,4 +8,92 @@
     background: brown;
     text-align: center;
 }
+.infoCombate{
+
+    display: flex;
+    flex: 1;
+
+    padding: 10px;
+}
+
+.infoCombate div{
+
+    flex: 1;
+
+    border: dimgray 4px ridge;
+    background: black;
+    margin: 10px;
+
+    margin: 10px;
+    margin-bottom: 20px;
+
+    font-size: 2vmin;
+}
+
+.infoCombate div > p{
+
+    padding: 10px;
+}
+
+.infoCombate div > p:nth-child(2){
+
+    font-size: 1.5vmin;
+}
+.infoCombate a{
+
+    text-decoration: none;
+    text-align: center;
+
+    font-size: 2vmin;
+    color: yellow;
+
+}
+.infoCombate div > table {
+
+    font-family: Times New Roman, sans-serif;
+    border-collapse: collapse;
+    width: 95%;
+    margin: 10px auto;
+
+}
+
+.infoCombate div > table th, .infoCombate div > table td {
+
+    border: 1px solid white;
+    text-align: left;
+    padding: 8px;
+}
+
+.infoCombate div > table th {
+
+    color:yellowgreen;
+    background-color: brown;
+    text-align: center;
+}
+@media screen and (max-width: 850px){
+
+    .infoCombate{
+
+        display: block;
+    }
+    .bloqueCombate > h3{
+
+        font-size: 5vmin;
+    }
+    .infoCombate div > p:nth-child(2){
+
+        font-size: 2vmin;
+    }
+    .infoCombate div > table{
+
+        font-size: 4vmin;
+    }
+
+    .infoCombate div > table td,  .infoCombate div > table th {
+
+        border: 0.1px solid white;
+        padding: 2px;
+        font-size: 2vmin;
+    }
+}
 
