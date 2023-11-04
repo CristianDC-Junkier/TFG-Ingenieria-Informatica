@@ -7,7 +7,7 @@
     color: black;
 
     font-family: Times new roman;
-    font-size: 25px;
+    font-size: 4.5vmin;
 
     display: flex;
     justify-content: space-between;
@@ -38,7 +38,6 @@
 .ResumenClases
 {
     font-family: Times new roman;
-    font-size: 22px;
     width: auto;
     height: auto;
 }
@@ -47,7 +46,7 @@
     background-color: brown;
     color:yellowgreen;
     font-family: Times new roman;
-    font-size: 20px;
+    font-size: 3vmin;
 
     margin-top: 15px;
     margin-bottom: 10px;
@@ -70,5 +69,59 @@
 .ResumenClase > li > p{
 
     margin: 10px;
-    font-size: 15px;
+    font-size: 4vmin;
+}
+
+.ListaClases  ul:last-child{
+
+    margin-bottom: 30px;
+}
+@media screen and (min-width: 2200px) {
+
+    .ResumenClase > li > p{
+
+        font-size: 2.5vmin;
+    }
+}
+@media screen and (max-width: 800px) {
+
+    .ResumenClase > li > img{
+
+        width: 50vmin;
+        height: 50vmin;
+    }
+
+    .ResumenClase > li > p{
+
+        margin: 10px;
+        font-size: 3vmin;
+    }
+}
+@media screen and (max-width: 350px) {
+
+    .ResumenClase > li > img{
+
+        width: 50vmin;
+        height: 50vmin;
+    }
+
+    .ResumenClase > li > p{
+
+        margin: 10px;
+        font-size: 2.5vmin;
+    }
+}
+@media screen and (max-width: 200px) {
+
+    .ResumenClase > li > img{
+
+        width: 50vmin;
+        height: 50vmin;
+    }
+
+    .ResumenClase > li > p{
+
+        margin: 10px;
+        font-size: 2vmin;
+    }
 }
