@@ -7,7 +7,7 @@
     border: black 4px ridge;
     background: brown;
     text-align: center;
-    font-size: 3vmin;
+    font-size: 3.5vmin;
 }
 .infoCombate{
 
@@ -29,11 +29,16 @@
     margin-bottom: 20px;
 
     font-size: 2vmin;
+    
 }
 
 .infoCombate div > p{
 
     padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    background: #191919;
+    
 }
 
 .infoCombate a{
@@ -51,19 +56,20 @@
     border-collapse: collapse;
     width: 95%;
     margin: 10px auto;
+    background: #191919;
 
 }
 
 .infoCombate div > table th, .infoCombate div > table td {
 
-    border: 1px solid white;
-    text-align: left;
+    border: 2px solid white;
+    text-align: center;
     padding: 8px;
 }
 
 .infoCombate div > table th {
 
-    color:yellowgreen;
+    color:yellow;
     background-color: brown;
     text-align: center;
 }
@@ -76,10 +82,6 @@
     .bloqueCombate > h3{
 
         font-size: 5vmin;
-    }
-    .infoCombate div > p:nth-child(2){
-
-        font-size: 2vmin;
     }
     .infoCombate div > table{
 

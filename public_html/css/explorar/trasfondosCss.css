@@ -81,7 +81,7 @@
     font-size: 18px;
     margin: 0;
 }
-@media (max-width: 600px) { /* Cambia a diseño de columna en pantallas más pequeñas */
+@media (max-width: 600px) { 
     .ResumenTrasfondo {
         flex-direction: column;
     }

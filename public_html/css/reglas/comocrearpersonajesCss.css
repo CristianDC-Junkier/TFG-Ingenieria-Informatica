@@ -9,7 +9,7 @@
 
     text-align: center;
 
-    font-size: 3vmin;
+    font-size: 3.5vmin;
 }
 
 .infoDiseñoPersonaje{
@@ -37,31 +37,31 @@
 .infoDiseñoPersonaje div > p{
 
     padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    background: #191919;
 }
 
-.infoDiseñoPersonaje div > p:nth-child(2){
-
-    font-size: 1.5vmin;
-}
 .infoDiseñoPersonaje div > table {
 
     font-family: Times New Roman, sans-serif;
     border-collapse: collapse;
     width: 95%;
     margin: 10px auto;
+    background: #191919;
 
 }
 
 .infoDiseñoPersonaje div > table th, .infoDiseñoPersonaje div > table td {
 
-    border: 1px solid white;
-    text-align: left;
+    border: 2px solid white;
+    text-align: center;
     padding: 8px;
 }
 
 .infoDiseñoPersonaje div > table th {
 
-    color:yellowgreen;
+    color:yellow;
     background-color: brown;
     text-align: center;
 }

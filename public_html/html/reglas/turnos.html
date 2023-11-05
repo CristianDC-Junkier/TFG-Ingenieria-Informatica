@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
--->
 <html>
     <head>
         <title>Guidance4\Reglas\Turnos</title>
@@ -118,13 +114,140 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                 </div>
             </div>
         </nav>
-         <main>
+        <main>
             <h2 class="Titulos">Turnos</h2>
             <hr color="black">
+            <div class="contenedorTurnos">
+                <div class="titulosTurnos">
+                    Desplazamiento <span>limitado por la velocidad de movimiento</span>
+                </div>
+                <div class="contenidoTurnos">
+                    <div class="subtitulosTurnos">
+                        Puedes antes o después de realizar una acción, e intercalar movimiento-acción-movimiento.
+                    </div>
+                    <div class="opcionesTurnos">
+                        <div class="opcion">    
+                            <div class="contendorOpcion" onclick="mostrarRecuadro(1)">        
+                                <div class="tituloOpcion">Moverse</div>       
+                                <div class="descripcionOpcion">Coste: 5 pies por 5 pies</div>    
+                            </div>
+                            <div class="opcionRecuadro" id="recuadro1" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro">Moverse
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro(1)">X</</span>
+                                    </div>
+                                    <hr>
+                                    <p class="subtituloRecuadro"> Coste: 5 pies por cada 5 pies</p>
+                                    <p class="textoRecuadro">Si posees más de una velocidad, nado, vuelo, escalada,
+                                        puedes cambiar entre una y otra durante tu movimiento.</p>
+                                    <p class="textoRecuadro">Puedes moverte atravesando el espacio ocupado por 
+                                        otra criatura no hostil.</p>
+                                    <p class="textoRecuadro">Puedes moverte atravesando el espacio ocupado por 
+                                        otra criatura hostil si es dos tallas más grande o más pequeño que tú.</p>
+                                    <p class="textoRecuadro">Atravesar a otra criatura es terreno dificil.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="opcion">     
+                            <div class="contendorOpcion" onclick="mostrarRecuadro(2)">        
+                                <div class="tituloOpcion">Escalar</div>        
+                                <div class="descripcionOpcion">Coste: 10 pies por 5 pies</div>
+                            </div>
+                            <div class="opcionRecuadro" id="recuadro2" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro">Escalar
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro(2)">X</</span>
+                                    </div>
+                                    <hr>
+                                    <p class="subtituloRecuadro"> Coste: 10 pies por cada 5 pies</p>
+                                    <p class="textoRecuadro">El DM puede pedir una prueba de Fuerza (Atletismo) 
+                                        si la subida es difícil.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="opcion">    
+                            <div class="contendorOpcion" onclick="mostrarRecuadro(3)">        
+                                <div class="tituloOpcion">Nadar</div>       
+                                <div class="descripcionOpcion">Coste: 5 pies por 5 pies</div>    
+                            </div>
+                            <div class="opcionRecuadro" id="recuadro3" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro">Nadar
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro(3)">X</</span>
+                                    </div>
+                                    <hr>
+                                    <p class="subtituloRecuadro"> Coste: 10 pies por cada 5 pies</p>
+                                    <p class="textoRecuadro">El DM puede pedir una prueba una prueba de Fuerza (Atletismo) 
+                                        si es difícil nadar.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="opcion">    
+                            <div class="contendorOpcion" onclick="mostrarRecuadro(4)">        
+                                <div class="tituloOpcion">Tumbarse</div>       
+                                <div class="descripcionOpcion">Coste: 0 pies</div>    
+                            </div>
+                            <div class="opcionRecuadro" id="recuadro4" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro">Tumbarse
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro(4)">X</</span>
+                                    </div>
+                                    <hr>
+                                    <p class="subtituloRecuadro"> Coste: 0 pies</p>
+                                    <p class="textoRecuadro">Para moverte mientras estas tumbado, debes arrastrate o 
+                                        usar magia de teletrasporte.</p>
+                                    <p class="textoRecuadro">Cuando te tumbas quedas con el estado derribado.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="opcion">    
+                            <div class="contendorOpcion" onclick="mostrarRecuadro(5)">        
+                                <div class="tituloOpcion">Arrastrarse</div>       
+                                <div class="descripcionOpcion">Coste: 10 pies por 5 pies</div>    
+                            </div>
+                            <div class="opcionRecuadro" id="recuadro5" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro">Arrastrarse
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro(5)">X</</span>
+                                    </div>
+                                    <hr>
+                                    <p class="subtituloRecuadro"> Coste: 10 pies por cada 5 pies</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="opcion">    
+                            <div class="contendorOpcion" onclick="mostrarRecuadro(6)">        
+                                <div class="tituloOpcion">Levantarse</div>       
+                                <div class="descripcionOpcion">Coste: mitad de tu velocidad total</div>    
+                            </div>
+                            <div class="opcionRecuadro" id="recuadro6" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro">Levantarse
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro(6)">X</</span>
+                                    </div>
+                                    <hr>
+                                    <p class="subtituloRecuadro"> Coste: mitad de tu velocidad total</p>
+                                    <p class="textoRecuadro">No puedes levantarte si no te queda la mitad de tu movimiento 
+                                        o si tu velocidad es 0 por algún estado o hechizo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
         <footer>
             &copy; 2023 Cristian Delgado Cruz
         </footer>
         <script src="../../js/principalJS.js"></script>
+        <script>
+                                            function mostrarRecuadro(idM) {
+                                                document.getElementById('recuadro' + idM).style.display = 'flex';
+                                            }
+
+                                            function cerrarRecuadro(idN) {
+                                                document.getElementById('recuadro' + idN).style.display = 'none';
+                                            }
+        </script>
     </body>
 </html>
