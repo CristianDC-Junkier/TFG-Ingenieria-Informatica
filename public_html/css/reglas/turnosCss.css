@@ -13,7 +13,7 @@
     flex-direction: column;
 
     width: 100%;
-    margin-bottom: 2vmin;
+    margin-bottom: 25px;
 
     page-break-inside: avoid;
     background-color: brown;
@@ -101,7 +101,11 @@
 
     cursor: pointer;
     height: 10%;
-    width: 25%;
+    width: 23%;
+    
+    padding-left: 0.5vmin;
+    margin-right: 2vmin;
+    
 }
 .contendorOpcion{
 
@@ -113,14 +117,17 @@
     font-size: inherit;
     height: 100%;
     width: 100%;
+   
 
 }
 .tituloOpcion{
 
     cursor: pointer;
     color: yellowgreen;
+    
     font-weight: bold;
     font-size: inherit;
+    
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
