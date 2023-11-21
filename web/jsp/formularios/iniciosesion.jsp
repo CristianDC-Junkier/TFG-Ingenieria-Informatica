@@ -26,9 +26,7 @@
                             <input type="password" id="passwordIden" name="usuario_contrasena" required>
                         </div>
                         <c:if test="${requestScope.msj!=null}">
-                            <div>
                                 ${requestScope.msj}
-                            </div>
                         </c:if>
                         <div>
                             <p>¿Olvidaste tu usuario o tu contraseña?</p>

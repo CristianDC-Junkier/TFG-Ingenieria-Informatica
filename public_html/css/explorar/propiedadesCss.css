@@ -1,0 +1,91 @@
+
+
+.Titulos button{
+    
+    position: relative;
+    float: right;
+    right: 0px;
+    
+    padding: 5px 5px;
+
+    border-radius: 10px;
+    border: black 2px solid;
+
+    color:white;
+    background-color: brown;
+    
+    width: 10%;
+    min-width: 50px;
+}
+
+.Titulos > button:hover {
+
+    background-color: yellowgreen;
+    transform: translateY(-0.1em);
+}
+
+.Titulos > button:active {
+
+    transform: translateY(0.1em);
+}
+
+.propiedades {
+    
+    border-top: black solid 25px;
+    
+    flex: 1 0 auto;
+    padding: 20px;
+}
+.definicionpropiedades{
+    
+    border-radius: 50px;
+    border: 5px solid brown;
+    background: black;
+    box-shadow: 10px 10px black;
+    
+    margin-bottom: 20px;
+    padding: 10px;
+    margin: 20px 50px;
+    
+    min-width: 300px;
+    
+}
+.definicionpropiedades h2 {
+    
+    min-width: 150px;
+    
+    background: yellow;
+    color:black;
+    
+    width: 20%;
+    margin: 0 auto;
+    text-align: center;
+    
+    border-radius: 10px;
+    border: 2px solid brown;
+    
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 5px;
+}
+.definicionpropiedades > p {
+    
+    text-align: center;
+    
+    font-size: 18px;
+    color:yellowgreen;
+    
+    margin-bottom: 10px;
+    padding: 5px;
+}
+.informacionPropiedades {
+    
+    text-align: left;
+    border: 2px solid brown;
+    margin: 15px 5px;
+}
+.informacionPropiedades p{
+    
+    margin: 5px 5px;
+}
+

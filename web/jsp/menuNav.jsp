@@ -49,9 +49,9 @@
                     </div>
                     <a class="barraHorizontalContenido" href="/TFG/jsp/articulos.jsp">Personajes</a>
                     <c:choose>
-                        <c:when test="${requestScope.user != null}">
-                            <a class="BarraHorizontalContenidoFinal" href="/TFG/jsp/formularios/iniciosesion.jsp">
-                                <img src="/TFG/img/iconos/usuario.png" alt="alt"/>${requestScope.user.apodo}</a>
+                        <c:when test="${sessionScope.user != null}">
+                            <a class="BarraHorizontalContenidoFinal" href="/TFG/jsp/usuario/perfil.jsp">
+                                <img src="/TFG/img/iconos/usuario.png" alt="alt"/>${sessionScope.user.apodo}</a>
                             </c:when>
                             <c:otherwise>
                             <a class="BarraHorizontalContenidoFinal" href="/TFG/jsp/formularios/iniciosesion.jsp">
@@ -112,9 +112,9 @@
                         </li>
                         <li>
                             <c:choose>
-                                <c:when test="${requestScope.user != null}">
+                                <c:when test="${sessionScope.user != null}">
                                     <div class = "barraVerticalContenido" href="iniciarsesion">
-                                        <a href="/TFG/jsp/formularios/iniciosesion.jsp">${requestScope.user}</a>
+                                        <a href="/TFG/jsp/usuario/perfil.jsp">${sessionScope.user.apodo}</a>
                                     </div>
 
                                 </c:when>

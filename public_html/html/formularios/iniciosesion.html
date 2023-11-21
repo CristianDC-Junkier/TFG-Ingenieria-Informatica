@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Guidance4\Iniciar Sesión</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="..\..\css\principalCss.css"/>
+        <link rel="stylesheet" type="text/css" href="..\..\css\formularios\comunformularioCss.css"/>
+        <link rel="stylesheet" type="text/css" href="..\..\css\formularios\iniciosesionCss.css"/>   
+    </head>
+
+    <body>
+        <main class="contenedorFormulario">
+            <div class="bloqueInicioSesion">
+                <h2 class="TitulosFormulario">Inicio de Sesión</h2>
+                <form>
+                    <div>
+                        <div>
+                            <label for="nameIden" id="nombreUsuarioIden">Nombre de Usuario:</label>
+                            <input type="text" id="nameIden" name="nombre_usuario" required/>
+                        </div>
+                        <div>
+                            <label for="passwordIden" id="contraUsuarioIden">Contraseña:</label>
+                            <input type="password" id="passwordIden" name="usuario_contrasena" required>
+                        </div>
+                        <div>
+                            <p>¿Olvidaste tu usuario o tu contraseña?</p>
+                            <input type="button" onclick="location.href = './usuarioperdido.html'"
+                                   id="recuperarUsuario" value="Recuperar Usuario">
+                            <input type="button" onclick="location.href = './contraseñaperdida.html'"
+                                   id="recuperarContrasena" value="Recuperar Contraseña">
+                        </div>
+                    </div>
+                    <div class="contenedorBotonFormulario">
+                        <input id="botonVolverFormulario" type="button" onclick="location.href = '../inicio.html'" value="Volver">
+                        <input id="botonEnviar" type="submit" value="Identificarse">
+                    </div>
+                </form>
+            </div>
+        </main>
+        <footer class="footerFormulario">
+            &copy; 2023 Cristian Delgado Cruz
+        </footer>
+    </body>
+</html>

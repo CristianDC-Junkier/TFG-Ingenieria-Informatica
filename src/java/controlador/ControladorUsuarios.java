@@ -21,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -180,7 +181,12 @@ public class ControladorUsuarios extends HttpServlet {
                     System.out.println("Error: Introduzca los campos de forma correcta ");
                 }
                 if (conseguido == true) {
-                    request.setAttribute("user", user);
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    HttpSession session = request.getSession();
+                    session.setAttribute("user", user);
                     vista = "/jsp/inicio/inicio.jsp";
                 } else {
                     request.setAttribute("msj", msj);
@@ -202,29 +208,40 @@ public class ControladorUsuarios extends HttpServlet {
 
                 if (list.isEmpty()) {
                     throw new Exception("El Nombre de usuario no se encuentra ");
-                }
-                //***********************************************************************************//
+                } //***********************************************************************************//
                 //*********************************CONTRASEÑA****************************************//
                 //***********************************************************************************//
-                else{
+                else {
                     user = list.remove(0);
-                    
-                    if(!user.getContrasena().equals(contrasena)){
-                         throw new Exception("La contraseña no es correcta");
-                    }
-                    else{
-                         vista = "/jsp/inicio/inicio.jsp";
-                         request.setAttribute("user", user);
-                         System.out.println("Identificado: " + user.getNombre());
+
+                    if (!user.getContrasena().equals(contrasena)) {
+                        throw new Exception("La contraseña no es correcta");
+                    } else {
+                        /////////////////////////
+                        /////////SESION//////////
+                        /////////////////////////
+                        HttpSession session = request.getSession();
+                        session.setAttribute("user", user);
+
+                        vista = "/jsp/inicio/inicio.jsp";
+                        System.out.println("Identificado: " + user.getNombre());
                     }
                 }
             } catch (Exception ex) {
                 vista = "/jsp/formularios/iniciosesion.jsp";
-                msj = "<p style=\"margin: 5px\"> Error: " + ex.getMessage() + "</p>";
+                msj = "<p style=\"margin-top: 25px\"> Error: " + ex.getMessage() + "</p>";
                 request.setAttribute("msj", msj);
                 System.out.println("Exception: " + ex.getMessage());
             }
             break;
+            case "/cerrarSesion":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                HttpSession session = request.getSession();
+                session.invalidate();
+                vista = "/jsp/inicio/inicio.jsp";
+             break;
         }
         RequestDispatcher rd = request.getRequestDispatcher(vista);
         rd.forward(request, response);

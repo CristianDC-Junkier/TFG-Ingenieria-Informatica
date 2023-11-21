@@ -1,0 +1,123 @@
+
+/**********Barra arriba Dotes************/
+
+.BusquedaDote{
+
+    background-color: yellow;
+    color: black;
+
+    font-family: Times new roman;
+    font-size: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+
+    border:yellow 2px solid;
+    border-top: none;
+    border-bottom: black 3px  ridge;
+
+}
+.BusquedaDote > a{
+
+    color: black;
+    font-family: Times new roman;
+    text-decoration: none;
+}
+.BusquedaDote >  #A{
+
+    padding-left: 10%
+}
+.BusquedaDote > #P{
+
+    padding-right:10%
+}
+
+/**********Lista Dotes************/
+
+.ListaDotes h4{
+
+    margin-top: 10px;
+    color:yellowgreen;
+    border: black 4px ridge;
+    background: brown;
+    text-align: center;
+}
+
+.ResumenDotes
+{
+    font-family: Times new roman;
+    font-size: 22px;
+}
+.ResumenDote{
+    
+    position:initial;
+    margin-bottom: 30px;
+    
+}
+.tituloDote{
+    
+    background-color: black;
+    border: brown 3px solid;
+    
+    color:yellow;
+    font-family: Times new roman;
+    font-size: 20px;
+
+    margin-top: 15px;
+    margin-bottom: 10px;
+    
+    text-align: center;
+    
+     cursor: pointer;
+}
+.ResumenDote ul{
+
+    list-style-type: disc;
+
+    color: white;
+
+    padding: 0;
+    margin: 0 auto;
+    width: fit-content;
+}
+.ContenidoDote{
+    
+    font-size: 18px;
+    display: none;
+
+    width: auto;
+    min-width: 100%;
+    background-color: black;
+    color: white;
+
+    text-align: justify;
+    padding-left: 25px;
+    border-radius: 6px;
+    
+    margin-top: -10px;
+
+    position:absolute;
+    left: 0;
+
+    box-sizing: border-box;
+
+}
+.RequisitoDote{
+
+    color:yellowgreen;
+}
+.ResumenDote:hover h5{
+
+    color:yellowgreen;
+}
+.ResumenDote:hover .ContenidoDote{
+
+    display: block;
+    list-style: disc;
+}
+.ResumenDote:active .ContenidoDote{
+
+    display: none;
+}
+

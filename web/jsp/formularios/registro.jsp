@@ -54,7 +54,7 @@
                         <div>
                             <label for="provinceReg" id="provinciaUsuarioReg">De donde eres:</label>
                             <select required name="provincia" id="provinceReg" >
-                                <option value="NoProvincia">Prefiero no decirlo</option>
+                                <option value="Prefiero no decirlo">Prefiero no decirlo</option>
                                 <option value="Álava/Araba">Álava/Araba</option>
                                 <option value="Albacete">Albacete</option>
                                 <option value="Alicante">Alicante</option>
@@ -112,7 +112,7 @@
                         <div>
                             <label for="genderReg" id="generoUsuarioReg">Cual es tu género:</label>
                             <select required name="genero" id="genderReg" >
-                                <option value="NoGenero">Prefiero no decirlo</option>
+                                <option value="Prefiero no decirlo">Prefiero no decirlo</option>
                                 <option value="Hombre">Hombre</option>
                                 <option value="Mujer">Mujer</option>
                                 <option value="Otro">Otro</option>

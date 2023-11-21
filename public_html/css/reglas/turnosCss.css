@@ -1,0 +1,262 @@
+/******Secciones*****/
+
+.contenedorTurnos{
+
+    font-size: 2vmin;
+
+    border: 1vmin brown solid;
+    border-radius: 5px;
+    box-sizing: border-box;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    margin-bottom: 25px;
+
+    page-break-inside: avoid;
+    background-color: brown;
+    border-color: brown;
+}
+.titulosTurnos{
+
+    height: 4vmin;
+    font-size: 3vmin;
+
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 5px;
+
+    font-variant: small-caps;
+    font-weight: bold;
+
+    background-color: brown;
+    color: yellow;
+    
+    border-radius: 5px;
+
+}
+
+.titulosTurnos > span {
+
+    font-variant: small-caps;
+    
+    font-weight: bold;
+    
+    color: yellow;
+    
+    font-size: 3vmin;
+    
+    float: right;
+}
+
+.contenidoTurnos{
+
+    padding: 1.5vmin;
+    padding-bottom: 0;
+    margin-top: 0;
+    
+    border-radius: 5px;
+    border-color: inherit;
+   
+    background-color: black;
+
+    font-size: inherit;
+
+}
+
+.subtitulosTurnos{
+
+    display: block;
+    margin-bottom: 8px;
+    font-style: italic;
+
+    font-size: 2vmin;
+
+    color: white;
+}
+
+.opcionesTurnos{
+
+    font-size: inherit;
+    
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+/*****Cada opción*****/
+
+.opcion{
+
+    margin-bottom: 8px;
+    padding: 0;
+
+    
+    float: left;
+    font-size: inherit;
+
+    box-sizing: border-box;
+
+    cursor: pointer;
+    height: 10%;
+    width: 23%;
+    
+    padding-left: 0.5vmin;
+    margin-right: 2vmin;
+    
+}
+.contendorOpcion{
+
+    cursor: pointer;
+
+    padding: 0;
+    margin: 0;
+
+    font-size: inherit;
+    height: 100%;
+    width: 100%;
+   
+
+}
+.tituloOpcion{
+
+    cursor: pointer;
+    color: yellowgreen;
+    
+    font-weight: bold;
+    font-size: inherit;
+    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+.descripcionOpcion{
+
+    cursor: pointer;
+    color: white;
+    font-style: italic;
+    font-size: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.contendorOpcion:hover{
+
+    .tituloOpcion{
+        
+        color:yellow;
+        transition: color 2s;
+    }
+    .descripcionOpcion{
+        
+        color: yellow;
+        transition: color 2s;
+    }
+}
+
+/**********Explicación***********/
+
+.opcionRecuadro {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 2;
+}
+
+.contenidoRecuadro {
+
+    border: 0.8vmin  brown ridge;
+    border-radius: 2vmin;
+    background-color: black;
+
+    padding: 0px;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 75vmin;
+    height: auto;
+
+    color: white;
+
+    z-index: 2;
+}
+
+.tituloRecuadro{
+
+    font-size: 2.5vmin;
+    padding-left: 1vmin;
+    padding-top: 0.5vmin;
+
+    color: yellow;
+    transition: color 0.3s;
+}
+
+.cierreRecuadro {
+
+    font-size: 2vmin;
+    padding-top: 0.5vmin;
+    
+    margin-right: 2vmin;
+    float: right;
+        
+    cursor: pointer;
+    color: yellow;
+    transition: color 0.3s;
+}
+
+.cierreRecuadro:hover {
+
+    color: yellowgreen;
+}
+
+.subtituloRecuadro{
+    
+    display: block;
+ 
+    margin: 1vmin;
+    
+    font-style: italic;
+    font-size: 2vmin;
+    color: white;
+    
+    text-align: center;
+}
+
+.textoRecuadro{
+
+    padding-left: 0.5vmin;
+    font-size: 2vmin;
+    
+    margin-left: 1vmin;
+    margin-top: 2vmin;
+    margin-bottom: 2vmin;
+    
+    text-align: left;
+}
+
+.contenidoRecuadro > hr {
+
+    background: yellow;
+
+    border:none;
+
+    width: 75vmin;
+    height: 0.5vmin;
+
+    margin-top: 1vmin;
+    margin-bottom: 1vmin;
+}
+
