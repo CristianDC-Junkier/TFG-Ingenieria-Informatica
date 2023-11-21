@@ -83,34 +83,38 @@ main{
 
 .cambiarPersonaje {
 
-    background-color: #333;
-    color: yellowgreen;
+    background-color: brown;
+    color: yellow;
     padding: 5px 10px;
     text-decoration: none;
     display: inline-block;
-    margin-left: 5px;
+    margin-left: 0px;
     border-radius: 5px;
     cursor: pointer;
-    
+
+    border: 2px solid brown;
     font-size: 2vmin;
 }
 
 .datosPersonaje {
 
-    box-shadow: 1px 1px 1px 1px black;
+    box-shadow: 1px 1px 1px 1px #555;
+    border: 3px solid brown;
     background-color: #333;
     padding: 20px;
     border-radius: 10px;
     flex-grow: 1;
     margin-bottom: 20px;
     margin-top: 20px;
-    
+
+    border: 2px solid brown;
     font-size: 2vmin;
 }
 
 .usuarioDatos {
 
-    box-shadow: 1px 1px 1px 1px black;
+    box-shadow: 1px 1px 1px 1px #555;
+    border: 2px solid brown;
     background-color: #333;
     padding: 20px;
     border-radius: 10px;
@@ -119,7 +123,7 @@ main{
     margin-left: 10px;
 
     font-size: 2.5vmin;
-    
+
     display: flex;
     flex-wrap: wrap;
 }
@@ -132,6 +136,7 @@ main{
     font-style: italic;
     padding: 10px;
 }
+
 
 .usuarioDatos > div{
 
@@ -146,6 +151,7 @@ main{
     font-style: italic;
 }
 
+
 .botones {
 
     display: flex;
@@ -153,8 +159,8 @@ main{
 
 .boton {
 
-    background-color: #333;
-    color: yellowgreen;
+    background-color: brown;
+    color: yellow;
     padding: 5px 10px;
     text-decoration: none;
     display: inline-block;
@@ -163,14 +169,14 @@ main{
     margin-top: 20px;
     border-radius: 5px;
     cursor: pointer;
-    
+
     font-size: 2.5vmin;
 }
 
 .botonfinal {
 
-    background-color: #333;
-    color: yellowgreen;
+    background-color: brown;
+    color: yellow;
     padding: 5px 10px;
     text-decoration: none;
     display: inline-block;
@@ -179,8 +185,19 @@ main{
     cursor: pointer;
     margin-left: auto;
     margin-right: 5px;
-    
+
     font-size: 2.5vmin;
+}
+
+button:hover{
+
+    color:yellowgreen;
+    transform: translateY(-0.1em);
+}
+
+button:active{
+
+    transform: translateY(0.1em);
 }
 
 @media screen and (max-width: 500px){

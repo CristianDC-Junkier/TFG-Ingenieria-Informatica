@@ -88,16 +88,6 @@ footer  a:hover{
     float:right;
 }
 
-button:hover {
-
-    background-color: yellowgreen;
-    transform: translateY(-0.1em);
-}
-
-button:active {
-
-    transform: translateY(0.1em);
-}
 @media screen and (max-height: 700px){
 
     footer{

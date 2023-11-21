@@ -79,7 +79,14 @@
 .botonInicioSesion:hover, .botonRegistro:hover {
 
     background-color: yellowgreen;
+    transform: translateY(-0.1em);
 }
+
+.botonInicioSesion:active, .botonRegistro:active{
+
+    transform: translateY(0.1em);
+}
+
 .FotosTextoInicio{
 
     display: flex;

@@ -18,12 +18,11 @@
                 <div class="cajaPersonaje">
                     <h2>PERSONAJE ACTUAL</h2>
                     <div class="personaje">
-
                         <div class="personaje-fotoboton">
                             <div class="personaje-foto">
                                 <img src="tu-imagen-de-perfil.jpg">
                             </div>
-                            <div class="cambiarPersonaje" onclick="agregarArchivo()">Cambiar personaje Actual</div>
+                            <button class="cambiarPersonaje" onclick="agregarArchivo()">Cambiar personaje Actual</button>
                         </div>
 
                         <div class="datosPersonaje">
@@ -39,16 +38,16 @@
                     <div><span>Nombre de usuario:  </span>${sessionScope.user.nombre}</div>
                     <div><span>Correo:  </span>${sessionScope.user.correo}</div>
                     <div><span>Teléfono:  </span>${sessionScope.user.telefono}</div>
-                    <div><span>Fecha de nacimiento:  </span>${sessionScope.user.fechanac}</div>
+                    <div><span>Fecha de nacimiento:  </span>${sessionScope.user.fechanac.getDate()}/${sessionScope.user.fechanac.getMonth() + 1}/${sessionScope.user.fechanac.getYear()+1900}</div>
                     <div><span>Provincia:  </span>${sessionScope.user.provincia}</div>
                     <div><span>Genero:  </span>${sessionScope.user.genero}</div>
                 </div>
                 <div class="botones">
-                    <div class="boton" onclick="agregarArchivo()">Amigos</div>
-                    <div class="boton" onclick="agregarArchivo()">Mesas</div>
-                    <div class="boton" onclick="agregarArchivo()">Personajes</div>
-                    <div class="botonfinal" onclick="agregarArchivo()">Modificar Datos</div>
-                    <div class="botonfinal" onclick="location.href = '/TFG/Usuarios/cerrarSesion'">Salir</div>
+                    <button class="boton" onclick="agregarArchivo()">Amigos</button>
+                    <button class="boton" onclick="agregarArchivo()">Mesas</button>
+                    <button class="boton" onclick="agregarArchivo()">Personajes</button>
+                    <button class="botonfinal" onclick="agregarArchivo()">Modificar Datos</button>
+                    <button class="botonfinal" onclick="location.href = '/TFG/Usuarios/cerrarSesion'">Salir</button>
                 </div>
             </div>
         </main>
