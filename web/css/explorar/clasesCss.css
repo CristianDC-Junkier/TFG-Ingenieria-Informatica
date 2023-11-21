@@ -1,0 +1,127 @@
+
+/***Barra arriba clases***/
+
+.BusquedaClase{
+
+    background-color: yellow;
+    color: black;
+
+    font-family: Times new roman;
+    font-size: 3.5vmin;
+
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+
+    border:yellow 2px solid;
+    border-top: none;
+    border-bottom: black 3px  ridge;
+
+}
+.BusquedaClase > a{
+
+    color: black;
+    font-family: Times new roman;
+    text-decoration: none;
+}
+.BusquedaClase >  #A{
+
+    padding-left: 10%
+}
+.BusquedaClase > #P{
+
+    padding-right:10%
+}
+
+/*******Lista Clases******/
+
+.ResumenClases
+{
+    font-family: Times new roman;
+    width: auto;
+    height: auto;
+}
+.ResumenClase > h5{
+
+    background-color: brown;
+    color:yellowgreen;
+    font-family: Times new roman;
+    font-size: 3.5vmin;
+
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+    border: black 4px ridge;
+
+}
+.ResumenClase > li{
+
+    background-color: black;
+    border: brown 3px outset;
+    display: flex;
+
+}
+.ResumenClase > li > img{
+
+    border: brown 2px solid;
+    border-left: none;
+}
+.ResumenClase > li > p{
+
+    margin: 10px;
+    font-size: 3vmin;
+}
+
+.ListaClases  ul:last-child{
+
+    margin-bottom: 30px;
+}
+@media screen and (min-width: 2200px) {
+
+    .ResumenClase > li > p{
+
+        font-size: 2.5vmin;
+    }
+}
+@media screen and (max-width: 800px) {
+
+    .ResumenClase > li > img{
+
+        width: 50vmin;
+        height: 50vmin;
+    }
+
+    .ResumenClase > li > p{
+
+        margin: 10px;
+        font-size: 3vmin;
+    }
+}
+@media screen and (max-width: 350px) {
+
+    .ResumenClase > li > img{
+
+        width: 50vmin;
+        height: 50vmin;
+    }
+
+    .ResumenClase > li > p{
+
+        margin: 10px;
+        font-size: 2.5vmin;
+    }
+}
+@media screen and (max-width: 200px) {
+
+    .ResumenClase > li > img{
+
+        width: 50vmin;
+        height: 50vmin;
+    }
+
+    .ResumenClase > li > p{
+
+        margin: 10px;
+        font-size: 2vmin;
+    }
+}

@@ -1,0 +1,93 @@
+
+/**********Barra arriba Trasfondos************/
+
+.BusquedaTrasfondos{
+
+    background-color: yellow;
+    color: black;
+
+    font-family: Times new roman;
+    font-size: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+
+    border:yellow 2px solid;
+    border-top: none;
+    border-bottom: black 3px  ridge;
+
+}
+.BusquedaTrasfondos > a{
+
+    color: black;
+    font-family: Times new roman;
+    text-decoration: none;
+}
+.BusquedaTrasfondos >  #A{
+
+    padding-left: 10%
+}
+.BusquedaTrasfondos > #P{
+
+    padding-right:10%
+}
+
+/*******Lista Trasfondos******/
+
+.ResumenTrasfondo{
+
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border: brown 3px outset;
+}
+.NombreTrasfondo{
+
+    flex: 1;
+    max-width: 200px;
+
+    color:black;
+    border: brown 2px solid;
+    border-right: brown 5px solid;
+    background: linear-gradient(yellowgreen,60%,yellow);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+}
+.NombreTrasfondo h5{
+
+    font-family: Times new roman;
+    font-size: 25px;
+    margin: 0;
+    text-align: center;
+}
+.TextoTrasfondo{
+
+    flex: 1;
+    min-width: 200px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-wrap: break-word;
+}
+.TextoTrasfondo p{
+
+    margin-bottom: 10px;
+    font-size: 18px;
+    margin: 0;
+}
+@media (max-width: 600px) { 
+    .ResumenTrasfondo {
+        flex-direction: column;
+    }
+    .NombreTrasfondo{
+        min-height: 200px;
+        min-width: 99%;
+    }
+}
+

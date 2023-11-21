@@ -1,0 +1,134 @@
+
+input[type="button"]:hover {
+
+    color: yellowgreen;
+    transform: translateY(-0.1em);
+}
+
+input[type="button"]:active {
+
+    color: yellowgreen;
+    transform: translateY(0.1em);
+}
+
+.footerFormulario{
+
+    color: white;
+    background-color: black;
+
+    width: 100%;
+    text-align: center;
+
+    position: fixed;
+    max-height: 30px;
+    bottom: 0;
+}
+@media screen and (max-height: 700px){
+
+    .footerFormulario{
+        height: 13px;
+        font-size: 12px;
+    }
+}
+@media screen and (max-height: 600px){
+
+    .footerFormulario{
+        height: 11px;
+        font-size: 10px;
+    }
+}
+@media screen and (max-height: 400px){
+
+    .footerFormulario{
+        height: 9px;
+        font-size: 8px;
+    }
+}
+@media screen and (max-height: 200px){
+
+    .footerFormulario{
+        height: 7px;
+        font-size: 6px;
+    }
+}
+
+.TitulosFormulario{
+
+    margin-top: -22.5px;
+    margin-left: -22.5px;
+    margin-right: -22.5px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+
+    background-color: black;
+
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: white;
+
+    border: brown 2px solid;
+    border-bottom: brown 4px solid;
+    border-radius: 0px 0px 10px 10px;
+}
+.contenedorFormulario{
+
+    border-top: black solid 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/*************************/
+/***********Id's**********/
+/*************************/
+
+
+#recuperarContrasena,#recuperarUsuario{
+
+    margin-top: 15px;
+    margin-left: 20px;
+    font-size: 15px;
+
+    background-color: black;
+    color: white;
+    border: black 3px solid;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px brown;
+
+    cursor: pointer;
+}
+#botonVolverFormulario{
+
+    font-size: 15px;
+
+    background-color: black;
+    color: white;
+    border: black 3px solid;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px brown;
+
+    cursor: pointer;
+}
+#botonEnviar{
+
+    font-size: 15px;
+
+    background-color: black;
+    color: white;
+    border: black 3px solid;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px brown;
+
+    cursor: pointer;
+}
+#recuperarContrasena:hover,#recuperarUsuario:hover,#botonVolverFormulario:hover,#botonEnviar:hover{
+
+    color:yellowgreen;
+}
+
+

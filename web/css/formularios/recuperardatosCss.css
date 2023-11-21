@@ -1,0 +1,104 @@
+
+/******Recuperación Datos*******/
+
+.bloqueRecuperar{
+
+    max-width: 80%;
+    width: 400px;
+    height: 30%;
+    min-height: 225px;
+
+    padding: 20px;
+
+    background-color: yellow;
+    text-align: center;
+
+    font-family: Times New Roman;
+
+    border: brown 2px solid;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 5px 5px 5px 5px black;
+    background: linear-gradient(yellow,60%,white);
+}
+.bloqueRecuperar > form > div{
+
+    border: brown 2px solid;
+    border-radius: 5px 5px 5px 5px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 60px;
+
+    color:black;
+}
+.bloqueRecuperar > form >
+.contenedorBotonFormulario{
+
+    border: none;
+    border-radius: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0px;
+    padding: 0px;
+    margin-top: 15px;
+}
+.bloqueRecuperar > form > div > div{
+
+    display: block;
+    margin-bottom: 10px;
+}
+
+/*************************/
+/***********Id's**********/
+/*************************/
+
+#correoUsuarioRC{
+
+    margin-right: 20px;
+    border-bottom: black 2px solid;
+}
+#emailRC{
+
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#nombreUsuarioRC{
+
+    margin-right: 25px;
+    border-bottom: black 2px solid;
+}
+#userRC{
+
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#contraseñaRC{
+
+    margin-left:  0px;
+    border-bottom: black 2px solid;
+}
+#passwordRC{
+
+    margin-left: 70px;
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+#contraseñarpRC{
+
+    margin-left: 0px;
+    border-bottom: black 2px solid;
+}
+#passwordrpRC{
+
+    margin-left: 20px;
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
