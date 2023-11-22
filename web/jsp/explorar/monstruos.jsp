@@ -210,19 +210,19 @@
 
         <script>
 
-            var botonTipoClick = false;
-            var botonOriClick = false;
-            var botonOrdClick = false;
+            let botonTipoClick = false;
+            let botonOriClick = false;
+            let botonOrdClick = false;
 
-            var pestañasActual = 1;
-            var pestañasNum = 1;
+            let pestañasActual = 1;
+            let pestañasNum = 1;
 
-            var primerapestaña = 1;
-            var últimapestaña = 1;
+            let primerapestaña = 1;
+            let últimapestaña = 1;
 
-            var valorGuardadoTipo = "tipo";
-            var valorGuardadoOri = "origen";
-            var valorGuardadoOrd = "orden";
+            let valorGuardadoTipo = "tipo";
+            let valorGuardadoOri = "origen";
+            let valorGuardadoOrd = "orden";
 
             function eleccionPestañas() {
 
@@ -605,10 +605,10 @@
                 //Si la pestaña inicial no es la primera
                 if (primerapestaña !== pestañasActual)
                 {
-                    var pestañasAnteriorElemento = document.getElementById('pestaña' + pestañasActual);
+                    let pestañasAnteriorElemento = document.getElementById('pestaña' + pestañasActual);
                     pestañasAnteriorElemento.style.display = 'none';
 
-                    var pestañaElemento = document.getElementById('pestaña' + primerapestaña);
+                    let pestañaElemento = document.getElementById('pestaña' + primerapestaña);
                     pestañaElemento.style.display = 'block';
 
                     pestañasActual = primerapestaña;
@@ -624,7 +624,7 @@
                 if (pestañasActual > primerapestaña) {
                     pestañasBotones.innerHTML += '<button class="botonArriba" onclick="mostrarPestaña(-1,-1)">Inicio</button>';
                 }
-                for (var i = Math.max(primerapestaña, pestañasActual - 1); i <= Math.min(últimapestaña, pestañasActual + 1); i++) {
+                for (let i = Math.max(primerapestaña, pestañasActual - 1); i <= Math.min(últimapestaña, pestañasActual + 1); i++) {
                     if (i === pestañasActual) {
                         pestañasBotones.innerHTML += '<button class="botonArriba" id="Actual" >Actual</button>';
                     } else {
@@ -648,10 +648,10 @@
                 var pestañasAnterior = pestañasActual;
                 pestañasActual = Math.max(primerapestaña, Math.min(últimapestaña, pestaña));
                 if (pestañasActual !== pestañasAnterior) {
-                    var pestañasAnteriorElemento = document.getElementById('pestaña' + pestañasAnterior);
+                    let pestañasAnteriorElemento = document.getElementById('pestaña' + pestañasAnterior);
                     pestañasAnteriorElemento.style.display = 'none';
 
-                    var pestañaElemento = document.getElementById('pestaña' + pestañasActual);
+                    let pestañaElemento = document.getElementById('pestaña' + pestañasActual);
                     pestañaElemento.style.display = 'block';
 
                     actualizarBotones();
@@ -660,14 +660,14 @@
 
             // Función para guardar la selección en sessionStorage
             function guardarSeleccion() {
-                var selectTipo = document.getElementById('Selecttipo');
-                var valorSeleccionadoTipo = selectTipo.value;
+                let selectTipo = document.getElementById('Selecttipo');
+                let valorSeleccionadoTipo = selectTipo.value;
                 sessionStorage.setItem('seleccionGuardadaTipo', valorSeleccionadoTipo);
-                var selectOri = document.getElementById('Selectorigen');
-                var valorSeleccionadoOri = selectOri.value;
+                let selectOri = document.getElementById('Selectorigen');
+                let valorSeleccionadoOri = selectOri.value;
                 sessionStorage.setItem('seleccionGuardadaOri', valorSeleccionadoOri);
-                var selectOrd = document.getElementById('Selectorden');
-                var valorSeleccionadoOrd = selectOrd.value;
+                let selectOrd = document.getElementById('Selectorden');
+                let valorSeleccionadoOrd = selectOrd.value;
                 sessionStorage.setItem('seleccionGuardadaOrd', valorSeleccionadoOrd);
 
                 botonTipoClick = true;
@@ -677,9 +677,9 @@
 
             // Al cargar la página, restaura el valor seleccionado si está almacenado
             window.onload = function () {
-                var selectTipo = document.getElementById('Selecttipo');
-                var selectOri = document.getElementById('Selectorigen');
-                var selectOrd = document.getElementById('Selectorder');
+                let selectTipo = document.getElementById('Selecttipo');
+                let selectOri = document.getElementById('Selectorigen');
+                let selectOrd = document.getElementById('Selectorder');
 
                 valorGuardadoTipo = sessionStorage.getItem('seleccionGuardadaTipo');
                 valorGuardadoOri = sessionStorage.getItem('seleccionGuardadaOri');

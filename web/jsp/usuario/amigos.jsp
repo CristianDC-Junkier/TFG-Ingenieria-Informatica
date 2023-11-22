@@ -16,11 +16,11 @@
         <h2 class="Titulos">Amigos</h2>
         <hr color="black">
         <div class="ContenedoresEquipo"> 
-            <div class="ContenedorEquipo">
-                <div class="TituloBuscadorEquipo">Buscar Equipo 
-                    <button onclick="location.href = './propiedades.jsp'">Propiedades Explicación</button> 
+            <div class="ContenedorAmigos">
+                <div class="TituloBuscadorAmigos">Buscar Equipo 
+                    <button onclick="location.href = './propiedades.jsp'">Peticiones</button> 
                 </div>
-                <form class="BuscadorEquipo">
+                <form class="BuscadorAmigos">
                     <select id="Selecttipo">
                         <option value="tipo" selected>Tipo de objeto</option>
                         <option value="tipo1">Armas</option>
@@ -61,219 +61,103 @@
                     <button onclick="guardarSeleccion()">Buscar</button>
                 </form>
             </div>
-            <div class="ListasEquipo" id="pestañasSeccion">
+            <div class="ListasAmigos" id="pestañasSeccion">
                 <div class="pestañasNavegacion">
                     <div class="pestaña" id="pestaña1">
-                        <div class="ListaEquipo">
-                            <h3>Armas</h3>
-                            <h4>Armas sencillas</h4>
+                        <div class="ListaAmigo">
+                            <h3>Amigos</h3>
+                            <h4>Ordenado por nombre</h4>
                             <div class="diseñoTabla">
                                 <table>
                                     <tr>
-                                        <td>Arco corto</td>
+                                        <td><div class="personaje-foto">
+                                                <img src="tu-imagen-de-perfil.jpg">
+                                            </div></td>
                                         <td>1d6 Perforante(Des)</td>
                                         <td>Distancia, Dos manos, Munición</td>
                                         <td>25 po</td>
                                         <td>0,91 kg</td>
                                     </tr>
                                     <tr>
-                                        <td>Ballesta ligera</td>
+                                        <td><div class="personaje-foto">
+                                                <img src="tu-imagen-de-perfil.jpg">
+                                            </div></td>
                                         <td>1d8 Perforante(Des)</td>
                                         <td>De carga, Distancia, Dos manos, Munición</td>
                                         <td>25 po</td>
                                         <td>2,27 kg</td>
                                     </tr>
                                     <tr>
-                                        <td>Bastón</td>
+                                        <td><div class="personaje-foto">
+                                                <img src="tu-imagen-de-perfil.jpg">
+                                            </div></td>
                                         <td>1d6 Contundente(Fue)</td>
                                         <td>Versátil</td>
                                         <td>2 pp</td>
                                         <td>1,81 kg</td>
                                     </tr>
                                     <tr>
-                                        <td>Clava</td>
+                                        <td><div class="personaje-foto">
+                                                <img src="tu-imagen-de-perfil.jpg">
+                                            </div></td>
                                         <td>1d4 Contundente(Fue)</td>
                                         <td>Ligera</td>
                                         <td>1 pp</td>
                                         <td>0,91 kg</td>
                                     </tr>
                                     <tr>
-                                        <td>Daga</td>
+                                        <td><div class="personaje-foto">
+                                                <img src="tu-imagen-de-perfil.jpg">
+                                            </div></td>
                                         <td>1d4 Perforante(Des)</td>
                                         <td>Arrojadiza, Ligera, Sutil</td>
                                         <td>2 po</td>
                                         <td>0,45 kg</td>
                                     </tr>
                                     <tr>
-                                        <td>Dardo</td>
+                                        <td><div class="personaje-foto">
+                                                <img src="tu-imagen-de-perfil.jpg">
+                                            </div></td>
                                         <td>1d4 Perforante(Des)</td>
                                         <td>Arrojadiza, Distancia, Sutil</td>
                                         <td>5 pc</td>
                                         <td>0,11 kg</td>
                                     </tr>
                                     <tr>
-                                        <td>Gran clava</td>
+                                        <td><div class="personaje-foto">
+                                                <img src="tu-imagen-de-perfil.jpg">
+                                            </div></td>
                                         <td>1d8 Contundente(Fue)</td>
                                         <td>Dos manos</td>
                                         <td>2 pp</td>
                                         <td>4,54 kg</td>
                                     </tr>
                                     <tr>
-                                        <td>Hacha de mano</td>
+                                        <td><div class="personaje-foto">
+                                                <img src="tu-imagen-de-perfil.jpg">
+                                            </div></td>
                                         <td>1d6 Cortante(Fue)</td>
                                         <td>Arrojadiza, Ligera</td>
                                         <td>5 po</td>
                                         <td>0,91 kg</td>
                                     </tr>
                                     <tr>
-                                        <td>Honda</td>
+                                        <td><div class="personaje-foto">
+                                                <img src="tu-imagen-de-perfil.jpg">
+                                            </div></td>
                                         <td>1d4 Contundente(Des)</td>
                                         <td>Distancia, Munición</td>
                                         <td>1 pp</td>
                                         <td>0,45 kg</td>
                                     </tr>
                                     <tr>
-                                        <td>Hoz</td>
+                                        <td><div class="personaje-foto">
+                                                <img src="tu-imagen-de-perfil.jpg">
+                                            </div></td>
                                         <td>1d4 Cortante(Fue)</td>
                                         <td>Ligera</td>
                                         <td>1 po</td>
                                         <td>0,91 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jabalina</td>
-                                        <td>1d6 Perforante(Fue)</td>
-                                        <td>Arrojadiza</td>
-                                        <td>5 pp</td>
-                                        <td>0,91 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lanza</td>
-                                        <td>1d6 Perforante(Fue)</td>
-                                        <td>Arrojadiza, Versátil</td>
-                                        <td>1 po</td>
-                                        <td>1,36 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Martillo ligero</td>
-                                        <td>1d4 Contundente(Fue)</td>
-                                        <td>Arrojadiza, Ligera</td>
-                                        <td>2 pp</td>
-                                        <td>0,91 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Maza</td>
-                                        <td>1d6 Contundente(Fue)</td>
-                                        <td>-</td>
-                                        <td>5 po</td>
-                                        <td>1,81 kg</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pestaña" id="pestaña2">
-                        <div class="ListaEquipo">
-                            <h3>Armas</h3>
-                            <h4>Armas sencillas</h4>
-                            <div class="diseñoTabla">
-                                <table>
-                                    <tr>
-                                        <td>Arco corto</td>
-                                        <td>1d6 Perforante(Des)</td>
-                                        <td>Distancia, Dos manos, Munición</td>
-                                        <td>25 po</td>
-                                        <td>0,91 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ballesta ligera</td>
-                                        <td>1d8 Perforante(Des)</td>
-                                        <td>De carga, Distancia, Dos manos, Munición</td>
-                                        <td>25 po</td>
-                                        <td>2,27 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bastón</td>
-                                        <td>1d6 Contundente(Fue)</td>
-                                        <td>Versátil</td>
-                                        <td>2 pp</td>
-                                        <td>1,81 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Clava</td>
-                                        <td>1d4 Contundente(Fue)</td>
-                                        <td>Ligera</td>
-                                        <td>1 pp</td>
-                                        <td>0,91 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Daga</td>
-                                        <td>1d4 Perforante(Des)</td>
-                                        <td>Arrojadiza, Ligera, Sutil</td>
-                                        <td>2 po</td>
-                                        <td>0,45 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dardo</td>
-                                        <td>1d4 Perforante(Des)</td>
-                                        <td>Arrojadiza, Distancia, Sutil</td>
-                                        <td>5 pc</td>
-                                        <td>0,11 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gran clava</td>
-                                        <td>1d8 Contundente(Fue)</td>
-                                        <td>Dos manos</td>
-                                        <td>2 pp</td>
-                                        <td>4,54 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hacha de mano</td>
-                                        <td>1d6 Cortante(Fue)</td>
-                                        <td>Arrojadiza, Ligera</td>
-                                        <td>5 po</td>
-                                        <td>0,91 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Honda</td>
-                                        <td>1d4 Contundente(Des)</td>
-                                        <td>Distancia, Munición</td>
-                                        <td>1 pp</td>
-                                        <td>0,45 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hoz</td>
-                                        <td>1d4 Cortante(Fue)</td>
-                                        <td>Ligera</td>
-                                        <td>1 po</td>
-                                        <td>0,91 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jabalina</td>
-                                        <td>1d6 Perforante(Fue)</td>
-                                        <td>Arrojadiza</td>
-                                        <td>5 pp</td>
-                                        <td>0,91 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lanza</td>
-                                        <td>1d6 Perforante(Fue)</td>
-                                        <td>Arrojadiza, Versátil</td>
-                                        <td>1 po</td>
-                                        <td>1,36 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Martillo ligero</td>
-                                        <td>1d4 Contundente(Fue)</td>
-                                        <td>Arrojadiza, Ligera</td>
-                                        <td>2 pp</td>
-                                        <td>0,91 kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Maza</td>
-                                        <td>1d6 Contundente(Fue)</td>
-                                        <td>-</td>
-                                        <td>5 po</td>
-                                        <td>1,81 kg</td>
                                     </tr>
                                 </table>
                             </div>

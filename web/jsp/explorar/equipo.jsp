@@ -3302,19 +3302,19 @@
 
         <script>
 
-            var botonTipoClick = false;
-            var botonProClick = false;
-            var botonCatClick = false;
+            let botonTipoClick = false;
+            let botonOriClick = false;
+            let botonOrdClick = false;
 
-            var pestañasActual = 1;
-            var pestañasNum = 9;
+            let pestañasActual = 1;
+            let pestañasNum = 1;
 
-            var primerapestaña = 1;
-            var últimapestaña = 9;
+            let primerapestaña = 1;
+            let últimapestaña = 1;
 
-            var valorGuardadoTipo = "tipo";
-            var valorGuardadoCat = "categoria";
-            var valorGuardadoPro = "propiedad";
+            let valorGuardadoTipo = "tipo";
+            let valorGuardadoOri = "origen";
+            let valorGuardadoOrd = "orden";
 
             function eleccionPestañas() {
 
@@ -3697,10 +3697,10 @@
                 //Si la pestaña inicial no es la primera
                 if (primerapestaña !== pestañasActual)
                 {
-                    var pestañasAnteriorElemento = document.getElementById('pestaña' + pestañasActual);
+                    let pestañasAnteriorElemento = document.getElementById('pestaña' + pestañasActual);
                     pestañasAnteriorElemento.style.display = 'none';
 
-                    var pestañaElemento = document.getElementById('pestaña' + primerapestaña);
+                    let pestañaElemento = document.getElementById('pestaña' + primerapestaña);
                     pestañaElemento.style.display = 'block';
 
                     pestañasActual = primerapestaña;
@@ -3716,7 +3716,7 @@
                 if (pestañasActual > primerapestaña) {
                     pestañasBotones.innerHTML += '<button class="botonArriba" onclick="mostrarPestaña(-1,-1)">Inicio</button>';
                 }
-                for (var i = Math.max(primerapestaña, pestañasActual - 1); i <= Math.min(últimapestaña, pestañasActual + 1); i++) {
+                for (let i = Math.max(primerapestaña, pestañasActual - 1); i <= Math.min(últimapestaña, pestañasActual + 1); i++) {
                     if (i === pestañasActual) {
                         pestañasBotones.innerHTML += '<button class="botonArriba" id="Actual" >Actual</button>';
                     } else {
@@ -3740,10 +3740,10 @@
                 var pestañasAnterior = pestañasActual;
                 pestañasActual = Math.max(primerapestaña, Math.min(últimapestaña, pestaña));
                 if (pestañasActual !== pestañasAnterior) {
-                    var pestañasAnteriorElemento = document.getElementById('pestaña' + pestañasAnterior);
+                    let pestañasAnteriorElemento = document.getElementById('pestaña' + pestañasAnterior);
                     pestañasAnteriorElemento.style.display = 'none';
 
-                    var pestañaElemento = document.getElementById('pestaña' + pestañasActual);
+                    let pestañaElemento = document.getElementById('pestaña' + pestañasActual);
                     pestañaElemento.style.display = 'block';
 
                     actualizarBotones();
@@ -3752,30 +3752,30 @@
 
             // Función para guardar la selección en sessionStorage
             function guardarSeleccion() {
-                var selectTipo = document.getElementById('Selecttipo');
-                var valorSeleccionadoTipo = selectTipo.value;
+                let selectTipo = document.getElementById('Selecttipo');
+                let valorSeleccionadoTipo = selectTipo.value;
                 sessionStorage.setItem('seleccionGuardadaTipo', valorSeleccionadoTipo);
-                var selectCat = document.getElementById('Selectcategoría');
-                var valorSeleccionadoCat = selectCat.value;
-                sessionStorage.setItem('seleccionGuardadaCat', valorSeleccionadoCat);
-                var selectPro = document.getElementById('Selectpropiedad');
-                var valorSeleccionadoPro = selectPro.value;
-                sessionStorage.setItem('seleccionGuardadaPro', valorSeleccionadoPro);
+                let selectOri = document.getElementById('Selectorigen');
+                let valorSeleccionadoOri = selectOri.value;
+                sessionStorage.setItem('seleccionGuardadaOri', valorSeleccionadoOri);
+                let selectOrd = document.getElementById('Selectorden');
+                let valorSeleccionadoOrd = selectOrd.value;
+                sessionStorage.setItem('seleccionGuardadaOrd', valorSeleccionadoOrd);
 
                 botonTipoClick = true;
-                botonCatClick = true;
-                botonProClick = true;
+                botonOriClick = true;
+                botonOrdClick = true;
             }
 
             // Al cargar la página, restaura el valor seleccionado si está almacenado
             window.onload = function () {
-                var selectTipo = document.getElementById('Selecttipo');
-                var selectCat = document.getElementById('Selectcategoría');
-                var selectPro = document.getElementById('Selectpropiedad');
+                let selectTipo = document.getElementById('Selecttipo');
+                let selectOri = document.getElementById('Selectorigen');
+                let selectOrd = document.getElementById('Selectorder');
 
                 valorGuardadoTipo = sessionStorage.getItem('seleccionGuardadaTipo');
-                valorGuardadoCat = sessionStorage.getItem('seleccionGuardadaCat');
-                valorGuardadoPro = sessionStorage.getItem('seleccionGuardadaPro');
+                valorGuardadoOri = sessionStorage.getItem('seleccionGuardadaOri');
+                valorGuardadoOrd = sessionStorage.getItem('seleccionGuardadaOrd');
 
                 if (valorGuardadoTipo) {
                     selectTipo.value = valorGuardadoTipo;
@@ -3783,16 +3783,16 @@
                     selectTipo.value = 'tipo';
                 }
 
-                if (valorGuardadoCat) {
-                    selectCat.value = valorGuardadoCat;
+                if (valorGuardadoOri) {
+                    selectOri.value = valorGuardadoOri;
                 } else {
-                    selectCat.value = 'categoria';
+                    selectOri.value = 'origen';
                 }
 
-                if (valorGuardadoPro) {
-                    selectPro.value = valorGuardadoPro;
+                if (valorGuardadoOrd) {
+                    selectOrd.value = valorGuardadoOrd;
                 } else {
-                    selectPro.value = 'propiedad';
+                    selectOrd.value = 'orden';
                 }
 
                 pestañaInicial();
@@ -3802,15 +3802,15 @@
                 if (!botonTipoClick) {
                     sessionStorage.removeItem('seleccionGuardadaTipo');
                 }
-                if (!botonCatClick) {
-                    sessionStorage.removeItem('seleccionGuardadaCat');
+                if (!botonOriClick) {
+                    sessionStorage.removeItem('seleccionGuardadaOri');
                 }
-                if (!botonProClick) {
-                    sessionStorage.removeItem('seleccionGuardadaPro');
+                if (!botonOrdClick) {
+                    sessionStorage.removeItem('seleccionGuardadaOrd');
                 }
             });
 
-            eleccionPestañas();
+            //eleccionPestañas();
             actualizarBotones();
         </script>
         <script src="/TFG/js/principalJS.js"></script>

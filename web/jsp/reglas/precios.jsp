@@ -279,23 +279,23 @@
 
     <script>
 
-        var botonMostrarClick = false;
+        let botonMostrarClick = false;
 
         //Funcion que muestra la pestaña seleccionada
         function mostrarPestaña() {
 
-            var seleccionMostrar = document.getElementById('selectMostrar');
-            var valorseleccionado = seleccionMostrar.value;
+            let seleccionMostrar = document.getElementById('selectMostrar');
+            let valorseleccionado = seleccionMostrar.value;
 
             if (valorseleccionado === 'mostrar')
             {
-                for (var i = 1; i <= 3; i++)
+                for (let i = 1; i <= 3; i++)
                 {
 
                     document.getElementById('pestaña' + i).style.display = 'inline';
                 }
             } else {
-                for (var i = 1; i <= 3; i++)
+                for (let i = 1; i <= 3; i++)
                 {
                     if (valorseleccionado !== ('mostrar' + i)) {
 
@@ -309,8 +309,8 @@
         }
         // Función para guardar la selección en sessionStorage
         function guardarSeleccion() {
-            var seleccionMostrar = document.getElementById('selectMostrar');
-            var valorseleccionado = seleccionMostrar.value;
+            let seleccionMostrar = document.getElementById('selectMostrar');
+            let valorseleccionado = seleccionMostrar.value;
             sessionStorage.setItem('SelectGuardadoMostrar', valorseleccionado);
 
             botonMostrarClick = true;
@@ -320,7 +320,7 @@
         // Al cargar la página, restaura el valor seleccionado si está almacenado
         window.onload = function () {
 
-            var selectMostrar = document.getElementById('selectMostrar');
+            let selectMostrar = document.getElementById('selectMostrar');
             valorGuardadoMostrar = sessionStorage.getItem('SelectGuardadoMostrar');
 
             if (valorGuardadoMostrar) {

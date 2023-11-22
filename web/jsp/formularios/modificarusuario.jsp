@@ -137,14 +137,14 @@
         <script>
 
             /*Colocar la fecha*/
-            var fechaNacimiento = new Date("${sessionScope.user.fechanac.getYear()+1900}-${sessionScope.user.fechanac.getMonth() + 1}-${sessionScope.user.fechanac.getDate()}");
+            let fechaNacimiento = new Date("${sessionScope.user.fechanac.getYear()+1900}-${sessionScope.user.fechanac.getMonth() + 1}-${sessionScope.user.fechanac.getDate()}");
                 fechaNacimiento.setDate(fechaNacimiento.getDate() + 1);
-                var formattedDate = fechaNacimiento.toISOString().split('T')[0];
+                let formattedDate = fechaNacimiento.toISOString().split('T')[0];
                 document.getElementById("bornReg").value = formattedDate;
 
                 /*Colocar la provincia*/
                 var provincias = document.getElementById("provinceReg");
-                for (var i = 0; i < provincias.options.length; i++) {
+                for (let i = 0; i < provincias.options.length; i++) {
                     if (provincias.options[i].value === "${sessionScope.user.provincia}") {
                         provincias.options[i].selected = true;
                         break;
@@ -153,7 +153,7 @@
 
                 /*Colocar el genero*/
                 var generos = document.getElementById("genderReg");
-                for (var i = 0; i < generos.options.length; i++) {
+                for (let i = 0; i < generos.options.length; i++) {
                     if (generos.options[i].value === "${sessionScope.user.genero}") {
                         generos.options[i].selected = true;
                         break;
