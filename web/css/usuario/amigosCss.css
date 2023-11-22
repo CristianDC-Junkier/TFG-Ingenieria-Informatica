@@ -1,0 +1,301 @@
+
+.ContenedoresEquipo{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/**********Barra arriba Equipo************/
+
+.ContenedorEquipo {
+
+    border: 2px solid brown;
+    border-radius: 5px;
+    background: black;
+
+    margin-bottom: 20px;
+    margin-top: 25px;
+    padding: 10px;
+    width: 80%;
+    box-sizing: border-box;
+
+}
+.TituloBuscadorEquipo {
+
+    color:yellow;
+    margin-left: 10px;
+    font-weight: bold;
+    margin-left: 20px;
+    font-size: 20px;
+}
+.TituloBuscadorEquipo button{
+    
+    position: relative;
+    float: right;
+    right: 45px;
+    
+    padding: 3px 5px;
+
+    border-radius: 10px;
+    border: black 2px solid;
+
+    color:white;
+    background-color: brown;
+    width: auto;
+}
+
+.TituloBuscadorEquipo > button:hover {
+
+    background-color: yellowgreen;
+    transform: translateY(-0.1em);
+}
+
+.TituloBuscadorEquipo > button:active {
+
+    transform: translateY(0.1em);
+}
+
+
+.BuscadorEquipo {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 20px;
+
+}
+
+.BuscadorEquipo select {
+
+    border: brown 2px solid;
+    color:white;
+    background-color: #333333;
+    width: 20%;
+    margin-bottom: 10px;
+}
+
+.BuscadorEquipo button {
+
+    margin-bottom: 10px;
+    margin-right:  10px;
+    padding: 5px 5px;
+
+    border-radius: 10px;
+    border: brown 2px solid;
+
+    background-color: yellow;
+    width: 20%;
+}
+
+.BuscadorEquipo > button:hover {
+
+    background-color: yellowgreen;
+    transform: translateY(-0.1em);
+}
+
+.BuscadorEquipo > button:active {
+
+    transform: translateY(0.1em);
+}
+
+@media screen and (max-width: 500px){
+    .TituloBuscadorEquipo > button {
+
+        right: 0px;
+        margin-top: 7px;
+        font-size: 25%;
+    }
+    .BuscadorEquipo > button{
+        font-size: 30%;
+    }
+}
+
+/**********Lista Equipo************/
+
+.ListasEquipo{
+
+
+    border: 2px solid brown;
+    border-radius: 5px;
+    background: black;
+
+    margin-bottom: 10px;
+    margin-top: 20px;
+
+    padding: 10px;
+
+    min-height: 250px;
+    width: 80%;
+    box-sizing: border-box;
+}
+.ListaEquipo h3{
+
+    color:white;
+    background: black;
+
+    height: 10px;
+    font-size: 20px;
+
+    border: 0px;
+
+    margin: -10px -10px 5px -10px;
+
+    padding:5px;
+    padding-bottom: 20px;
+}
+.ListaEquipo h4{
+
+    color:yellow;
+
+    height: 5px;
+    font-size: 16px;
+
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+
+    margin: 0px -10px 0px -10px;
+
+    padding:5px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+
+}
+.ListaEquipo h5{
+
+    color:yellow;
+
+    height: 5px;
+    font-size: 16px;
+
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+
+    margin: 0px -10px 0px -10px;
+
+    padding:5px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+
+}
+
+/******Tabla****/
+
+.diseñoTabla{
+
+    margin: 2px -10px -10px -10px;
+    overflow:hidden;
+}
+
+.diseñoTabla table{
+
+    table-layout: fixed;
+    width: 100%;
+
+    border-collapse: collapse;
+    text-align: center;
+    min-width: 100%;
+
+}
+.diseñoTabla table tr{
+
+    border: 2px brown solid;
+    width: 100%;
+}
+.diseñoTabla table td{
+
+    text-align: center;
+    padding: 3px;
+    color: white;
+    width: 100%;
+    
+}
+.diseñoTabla table tr:nth-child(odd) {
+
+    background-color: black;
+}
+
+.diseñoTabla table tr:nth-child(even) {
+
+    background-color: #333333;
+}
+@media screen and (max-width: 700px){
+    .diseñoTabla {
+
+        font-size: 50%;
+    }
+}
+@media screen and (max-width: 500px){
+    .diseñoTabla {
+
+        font-size: 30%;
+    }
+}
+/*****Botones*****/
+
+.ContenedorBotonesEquipo{
+
+    border: 2px solid brown;
+    border-radius: 5px;
+    background: black;
+
+    margin-bottom: 25px;
+    margin-top: 25px;
+    padding: 10px;
+
+    min-width: 20%;
+    height: auto;
+
+    box-sizing: border-box;
+}
+
+
+.pestañasBotones{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+
+.botonArriba{
+
+    font-size: 10px;
+    display: block;
+    box-sizing: border-box;
+    border: 2px solid brown;
+    border-radius: 0.75em;
+    padding: 0.75em 1.5em;
+    background: yellow;
+    color: brown;
+    transform: translateY(-0.2em);
+    transition: transform 0.1s ease;
+}
+
+.pestañasBotones > button:hover {
+
+    transform: translateY(-0.33em);
+}
+
+.pestañasBotones > button:active {
+
+    transform: translateY(0);
+}
+
+
+/********IDS**********/
+
+#Actual{
+
+    background: yellowgreen;
+}
+
+#pestaña0, #pestaña2 {
+    display:none;
+}
+
+
+

@@ -434,6 +434,10 @@ input:valid + span::after {
 
     height: 150px;
 }
+.unoDrop.cuarto:hover{
+
+    height: 80px;
+}
 
 /***Lista Sobre Lista****/
 

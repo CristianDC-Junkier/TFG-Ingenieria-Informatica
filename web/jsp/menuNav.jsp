@@ -47,7 +47,39 @@
 
                         </div>
                     </div>
-                    <a class="barraHorizontalContenido" href="/TFG/jsp/articulos.jsp">Personajes</a>
+                    <c:choose>
+                        <c:when test="${sessionScope.user != null}">
+                            <div class="barraHorizontalDrop">
+                                <Menu class = "barraHorizontalContenido" href=personajes>Personajes</Menu>
+                                <div class="barraHorizontalContenidoDrop">
+                                    <a href="/TFG/jsp/explorar/clases.jsp">Explorar</a>
+                                    <a href="/TFG/jsp/explorar/razas.jsp">Mis Personajes</a>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="barraHorizontalContenido" href="/TFG/jsp/articulos.jsp">Personajes</a>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:if test="${sessionScope.user != null}">
+                        <div class="barraHorizontalDrop">
+                            <Menu class = "barraHorizontalContenido" href=amigos>Amigos</Menu>
+                            <div class="barraHorizontalContenidoDrop">
+                                <a href="/TFG/jsp/explorar/clases.jsp">Explorar</a>
+                                <a href="/TFG/jsp/explorar/razas.jsp">Peticiones</a>
+                                <a href="/TFG/Usuarios/mostrarAmigos">Mis Amigos</a>
+                            </div>
+                        </div>
+                    </c:if>
+                    <c:if test="${sessionScope.user != null}">
+                        <div class="barraHorizontalDrop">
+                            <Menu class = "barraHorizontalContenido" href=mesas>Mesas</Menu>
+                            <div class="barraHorizontalContenidoDrop">
+                                <a href="/TFG/jsp/explorar/clases.jsp">Explorar</a>
+                                <a href="/TFG/jsp/explorar/razas.jsp">Mis Mesas</a>
+                            </div>
+                        </div>
+                    </c:if>
                     <c:choose>
                         <c:when test="${sessionScope.user != null}">
                             <a class="BarraHorizontalContenidoFinal" href="/TFG/jsp/usuario/perfil.jsp">
@@ -105,11 +137,43 @@
                                 <li><a href="/TFG/jsp/explorar/monstruos.jsp">Monstruos</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <div class = "barraVerticalContenido" href="personajes">
-                                <a href="/TFG/jsp/articulos.jsp">Personajes</a>
-                            </div>
-                        </li>
+                        <c:choose>
+                            <c:when test="${sessionScope.user != null}">
+                                <li class="unoDrop primero">
+                                    <div class = "barraVerticalContenido" href="personajes">
+                                        <a href="/TFG/jsp/inicio.jsp">Personajes</a>
+                                    </div>
+                                    <ul class="barraVerticalDos">
+                                        <li><a href="/TFG/jsp/inicio.jsp">Explorar</a></li>
+                                        <li><a href="/TFG/jsp/introduccion.jsp">Mis Personajes</a></li>
+                                    </ul>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li>
+                                    <a class="barraVerticalContenido" href="/TFG/jsp/articulos.jsp">Personajes</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:if test="${sessionScope.user != null}">
+                            <li class="unoDrop cuarto">
+                                <div class = "barraVerticalContenido" href=amigos>Amigos</div>
+                                <ul class="barraVerticalDos">
+                                    <li><a href="/TFG/jsp/explorar/clases.jsp">Explorar</a></li>
+                                    <li><a href="/TFG/jsp/explorar/razas.jsp">Peticiones</a></li>
+                                    <li><a href="/TFG/Usuarios/mostrarAmigos">Mis Amigos</a></li>
+                                </ul>
+                            </li>
+                        </c:if>
+                        <c:if test="${sessionScope.user != null}">
+                            <li class="unoDrop primero">
+                                <div class = "barraVerticalContenido" href=mesas>Mesas</div>
+                                <ul class="barraVerticalDos">
+                                    <li><a href="/TFG/jsp/explorar/clases.jsp">Explorar</a></li>
+                                    <li><a href="/TFG/jsp/explorar/razas.jsp">Mis Mesas</a></li>
+                                </ul>
+                            </li>
+                        </c:if>
                         <li>
                             <c:choose>
                                 <c:when test="${sessionScope.user != null}">

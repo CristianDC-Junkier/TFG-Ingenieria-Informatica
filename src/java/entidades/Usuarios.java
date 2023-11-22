@@ -1,4 +1,3 @@
-
 package entidades;
 
 import java.io.Serializable;
@@ -17,7 +16,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 @Entity
 @XmlRootElement
 @NamedQueries({
@@ -30,7 +28,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuarios.findByFechanac", query = "SELECT u FROM Usuarios u WHERE u.fechanac = :fechanac"),
     @NamedQuery(name = "Usuarios.findByProvincia", query = "SELECT u FROM Usuarios u WHERE u.provincia = :provincia"),
     @NamedQuery(name = "Usuarios.findByGenero", query = "SELECT u FROM Usuarios u WHERE u.genero = :genero"),
-    @NamedQuery(name = "Usuarios.findByAdmin", query = "SELECT u FROM Usuarios u WHERE u.admin = :admin")})
+    @NamedQuery(name = "Usuarios.findByAdmin", query = "SELECT u FROM Usuarios u WHERE u.admin = :admin")
+})
+
 public class Usuarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,7 +57,7 @@ public class Usuarios implements Serializable {
     private BigInteger telefono;
     @Basic(optional = false)
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fechanac;
     @Basic(optional = false)
     @NotNull
@@ -89,7 +89,7 @@ public class Usuarios implements Serializable {
         this.genero = genero;
         this.admin = admin;
     }
-    
+
     public Usuarios(String apodo, String nombre, String correo, String contrasena, Date fechanac, String provincia, String genero, short admin) {
         this.apodo = apodo;
         this.nombre = nombre;
@@ -205,5 +205,5 @@ public class Usuarios implements Serializable {
     public String toString() {
         return "controlador.Usuarios[ id=" + id + " ]";
     }
-    
+
 }

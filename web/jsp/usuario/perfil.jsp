@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Guidance4\Perfil\</title>
+        <title>Guidance4\Perfil</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/perfilCss.css"/>
@@ -35,7 +35,7 @@
 
                 <div class="usuarioDatos">
                     <div><span>Nombre:  </span>${sessionScope.user.nombre} </div>
-                    <div><span>Nombre de usuario:  </span>${sessionScope.user.nombre}</div>
+                    <div><span>Nombre de usuario:  </span>${sessionScope.user.apodo}</div>
                     <div><span>Correo:  </span>${sessionScope.user.correo}</div>
                     <div><span>Teléfono:  </span>${sessionScope.user.telefono}</div>
                     <div><span>Fecha de nacimiento:  </span>${sessionScope.user.fechanac.getDate()}/${sessionScope.user.fechanac.getMonth() + 1}/${sessionScope.user.fechanac.getYear()+1900}</div>
@@ -43,10 +43,10 @@
                     <div><span>Genero:  </span>${sessionScope.user.genero}</div>
                 </div>
                 <div class="botones">
-                    <button class="boton" onclick="agregarArchivo()">Amigos</button>
+                    <button class="boton" onclick="location.href = '/TFG/Usuarios/mostrarAmigos'">Amigos</button>
                     <button class="boton" onclick="agregarArchivo()">Mesas</button>
                     <button class="boton" onclick="agregarArchivo()">Personajes</button>
-                    <button class="botonfinal" onclick="agregarArchivo()">Modificar Datos</button>
+                    <button class="botonfinal" onclick="location.href = '/TFG/jsp/formularios/modificarusuario.jsp'">Modificar Datos</button>
                     <button class="botonfinal" onclick="location.href = '/TFG/Usuarios/cerrarSesion'">Salir</button>
                 </div>
             </div>

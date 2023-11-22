@@ -47,6 +47,8 @@ public class ControladorUsuarios extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+        
         String accion;
         accion = request.getPathInfo();
         String vista = "";
@@ -58,6 +60,7 @@ public class ControladorUsuarios extends HttpServlet {
         TypedQuery<Usuarios> query;
         List<Usuarios> list;
 
+        String id;
         String apodo;
         String nombre;
         String correo;
@@ -71,7 +74,6 @@ public class ControladorUsuarios extends HttpServlet {
             case "/mostrarUsuario":
                 break;
             case "/crearUsuario":
-
                 conseguido = false;
                 msj = "";
 
@@ -241,7 +243,139 @@ public class ControladorUsuarios extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.invalidate();
                 vista = "/jsp/inicio/inicio.jsp";
-             break;
+                break;
+            case "/modificarUsuario":
+
+                conseguido = false;
+                msj = "";
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+                
+                id = user.getId();
+                apodo = request.getParameter("nombre_usuario");
+                nombre = request.getParameter("nombre_real");
+                correo = request.getParameter("correo_usuario");
+                contrasena = request.getParameter("usuario_contrasena");
+                telefono = request.getParameter("usuario_telefono");
+                fechaNacimientoString = request.getParameter("usuario_nacimiento");
+                provincia = request.getParameter("provincia");
+                genero = request.getParameter("genero");
+
+                if (nombre != null && apodo != null && correo != null && contrasena != null && fechaNacimientoString != null
+                        && provincia != null && genero != null) {
+
+                    try {
+                        //***********************************************************************************//
+                        //************************************FECHA******************************************//
+                        //***********************************************************************************//
+
+                        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                        Date fechaNacimiento = formatoFecha.parse(fechaNacimientoString);
+
+                        // Obtener la fecha actual
+                        Date fechaActual = new Date();
+                        // Crear un objeto Calendar y establecer la fecha actual
+                        Calendar calendarioAux = Calendar.getInstance();
+                        calendarioAux.setTime(fechaActual);
+                        // Restar 10 años
+                        calendarioAux.add(Calendar.YEAR, -10);
+                        // Obtener la nueva fecha después de restar 10 años
+                        fechaActual = calendarioAux.getTime();
+
+                        // Comparar las fechas
+                        if (fechaNacimiento.before(fechaActual)) {
+                            conseguido = true;
+                        } else {
+
+                            throw new Exception("La fecha de nacimiento debe ser más pequeña que " + fechaActual.getDate() + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
+                        }
+
+                        //***********************************************************************************//
+                        //************************************APODO******************************************//
+                        //***********************************************************************************//
+                        query = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                        query.setParameter("apodo", apodo);
+                        list = query.getResultList();
+
+                        if (!list.isEmpty() && !list.get(0).getId().equals(user.getId())) {
+                            throw new Exception("El Nombre de usuario debe ser único ");
+                        }
+                        //***********************************************************************************//
+                        //************************************CORREO*****************************************//
+                        //***********************************************************************************//
+
+                        query = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                        query.setParameter("correo", apodo);
+                        list = query.getResultList();
+
+                        if (!list.isEmpty()) {
+                            throw new Exception("El Correo debe ser único ");
+                        }
+
+                        //***********************************************************************************//
+                        //************************************TELEFONO***************************************//
+                        //***********************************************************************************//
+                        BigInteger telefonoBI;
+
+                        if (telefono != null && !telefono.equals("")) {
+                            telefonoBI = new BigInteger(telefono);
+
+                            query = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                            query.setParameter("correo", apodo);
+                            list = query.getResultList();
+
+                            if (!list.isEmpty() && !list.get(0).getId().equals(user.getId())) {
+                                throw new Exception("El Teléfono debe ser único ");
+                            }
+
+                        } else {
+                            telefonoBI = null;
+                        }
+
+                        //***********************************************************************************//
+                        //***********************************MODIFICAMOS*************************************//
+                        //***********************************************************************************//
+                        user = new Usuarios(apodo, nombre, correo, contrasena, fechaNacimiento, provincia, genero, (short) 0);
+                        user.setTelefono(telefonoBI);
+                        user.setId(id);
+                        
+                        update(user);
+                        System.out.println("Modificado: " + nombre);
+                        conseguido = true;
+
+                    } catch (NumberFormatException ex) {
+                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
+                        System.out.println("Error: Imposible modificar en este momento: " + nombre);
+                        System.out.println("NumberFormatException: " + ex.getMessage());
+                    } catch (ParseException ex) {
+                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
+                        System.out.println("Error: Imposible modificar en este momento: " + nombre);
+                        System.out.println("ParseException: " + ex.getMessage());
+                    } catch (Exception ex) {
+                        msj = "<p style=\"margin-left: 10px\"> Error: " + ex.getMessage() + "</p>";
+                        System.out.println("Exception: " + ex.getMessage());
+                    }
+                } else {
+                    msj = "<p style=\"margin-left: 10px\"> Error: Introduzca los campos de forma correcta </p>";
+                    System.out.println("Error: Introduzca los campos de forma correcta ");
+                }
+                if (conseguido == true) {
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session.setAttribute("user", user);
+                    vista = "/jsp/inicio/inicio.jsp";
+                } else {
+                    request.setAttribute("msj", msj);
+                    vista = "/jsp/formularios/modificarusuario.jsp";
+                }
+                break;
+                case "/mostrarAmigos":
+                    
+                
+                vista = "/jsp/usuario/amigos.jsp";
+                break;
         }
         RequestDispatcher rd = request.getRequestDispatcher(vista);
         rd.forward(request, response);
@@ -290,6 +424,27 @@ public class ControladorUsuarios extends HttpServlet {
         try {
             utx.begin();
             em.persist(object);
+            utx.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void delete(Object object) {
+        try {
+            utx.begin();
+            object = (Object) em.merge(object);
+            em.remove(object);
+            utx.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void update(Object object) {
+        try {
+            utx.begin();
+            em.merge((Usuarios)object);
             utx.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
