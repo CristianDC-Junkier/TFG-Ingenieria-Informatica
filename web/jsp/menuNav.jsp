@@ -65,8 +65,8 @@
                         <div class="barraHorizontalDrop">
                             <Menu class = "barraHorizontalContenido" href=amigos>Amigos</Menu>
                             <div class="barraHorizontalContenidoDrop">
-                                <a href="/TFG/jsp/explorar/clases.jsp">Explorar</a>
-                                <a href="/TFG/jsp/explorar/razas.jsp">Peticiones</a>
+                                <a href="/TFG/Usuarios/mostrarUsuarios">Explorar</a>
+                                <a href="/TFG/Usuarios/mostrarPeticionesRecibidas">Peticiones</a>
                                 <a href="/TFG/Usuarios/mostrarAmigos">Mis Amigos</a>
                             </div>
                         </div>
@@ -159,8 +159,8 @@
                             <li class="unoDrop cuarto">
                                 <div class = "barraVerticalContenido" href=amigos>Amigos</div>
                                 <ul class="barraVerticalDos">
-                                    <li><a href="/TFG/jsp/explorar/clases.jsp">Explorar</a></li>
-                                    <li><a href="/TFG/jsp/explorar/razas.jsp">Peticiones</a></li>
+                                    <li><a href="/TFG/Usuarios/mostrarUsuarios">Explorar</a></li>
+                                    <li><a href="/TFG/Usuarios/mostrarPeticionesRecibidas">Peticiones</a></li>
                                     <li><a href="/TFG/Usuarios/mostrarAmigos">Mis Amigos</a></li>
                                 </ul>
                             </li>

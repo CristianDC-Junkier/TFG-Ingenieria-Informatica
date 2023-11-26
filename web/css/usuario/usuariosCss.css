@@ -1,5 +1,5 @@
 
-.contenedoresAmigos{
+.contenedoresUsuarios{
 
     display: flex;
     flex-direction: column;
@@ -8,7 +8,7 @@
 
 /**********Barra arriba Equipo************/
 
-.contenedorAmigos{
+.contenedorUsuarios{
 
     border: 2px solid brown;
     border-radius: 5px;
@@ -25,7 +25,7 @@
 
 }
 
-.tituloBuscadorAmigos {
+.tituloBuscadorUsuarios {
 
     color:yellow;
     margin-left: 10px;
@@ -34,7 +34,7 @@
     font-size: 20px;
 }
 
-.buscadorAmigos {
+.buscadorUsuarios {
 
     display: flex;
     flex-wrap: wrap;
@@ -44,13 +44,13 @@
     margin-left: 20px;
 
 }
-.buscadorAmigos input{
+.buscadorUsuarios input{
 
     background-color: brown;
     color:white;
 }
 
-.buscadorAmigos select {
+.buscadorUsuarios select {
 
     border: brown 2px solid;
     color:white;
@@ -59,7 +59,7 @@
     margin-bottom: 10px;
 }
 
-.buscadorAmigos button {
+.buscadorUsuarios button {
 
     margin-bottom: 10px;
     margin-right:  10px;
@@ -72,13 +72,13 @@
     width: 10%;
 }
 
-.buscadorAmigos > button:hover {
+.buscadorUsuarios > button:hover {
 
     background-color: yellowgreen;
     transform: translateY(-0.1em);
 }
 
-.buscadorAmigos > button:active {
+.buscadorUsuarios > button:active {
 
     transform: translateY(0.1em);
 }
@@ -129,15 +129,23 @@
 
 @media screen and (max-width: 800px){
 
-    .buscadorAmigos > button{
-        font-size: 80%;
+    .buscadorUsuarios > button{
+        font-size: 15px;
+        width: 25%
+    }
+}
+
+@media screen and (max-width: 600px){
+
+    .buscadorUsuarios > button{
+        font-size: 12px;
         width: 25%
     }
 }
 
 /**********Lista Equipo************/
 
-.listasAmigos{
+.listasUsuarios{
 
 
     border: 2px solid brown;
@@ -153,7 +161,7 @@
     width: 95%;
     box-sizing: border-box;
 }
-.listaAmigo h3{
+.listaUsuario h3{
 
     color:white;
     background: black;
@@ -168,7 +176,7 @@
     padding:5px;
     padding-bottom: 20px;
 }
-.listaAmigo h4{
+.listaUsuario h4{
 
     color:yellow;
 
@@ -283,7 +291,7 @@
 
 /*****Botones*****/
 
-.contenedorBotonesAmigos{
+.contenedorBotonesUsuarios{
 
     border: 2px solid brown;
     border-radius: 5px;
@@ -332,7 +340,6 @@
 
     transform: translateY(0);
 }
-
 
 
 

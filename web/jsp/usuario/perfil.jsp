@@ -20,7 +20,7 @@
                     <div class="personaje">
                         <div class="personaje-fotoboton">
                             <div class="personaje-foto">
-                                <img src="tu-imagen-de-perfil.jpg">
+                                <img src="/TFG/img/iconos/IMGNEGRO.png">
                             </div>
                             <button class="cambiarPersonaje" onclick="agregarArchivo()">Cambiar personaje Actual</button>
                         </div>

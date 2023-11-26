@@ -1,5 +1,5 @@
 
-.contenedoresAmigos{
+.contenedoresBloqueados{
 
     display: flex;
     flex-direction: column;
@@ -8,7 +8,7 @@
 
 /**********Barra arriba Equipo************/
 
-.contenedorAmigos{
+.contenedorBloqueados{
 
     border: 2px solid brown;
     border-radius: 5px;
@@ -25,7 +25,7 @@
 
 }
 
-.tituloBuscadorAmigos {
+.tituloBuscadorBloqueados{
 
     color:yellow;
     margin-left: 10px;
@@ -34,7 +34,7 @@
     font-size: 20px;
 }
 
-.buscadorAmigos {
+.buscadorBloqueados{
 
     display: flex;
     flex-wrap: wrap;
@@ -44,13 +44,13 @@
     margin-left: 20px;
 
 }
-.buscadorAmigos input{
+.buscadorBloqueados input{
 
     background-color: brown;
     color:white;
 }
 
-.buscadorAmigos select {
+.buscadorBloqueados select {
 
     border: brown 2px solid;
     color:white;
@@ -59,7 +59,7 @@
     margin-bottom: 10px;
 }
 
-.buscadorAmigos button {
+.buscadorBloqueados button {
 
     margin-bottom: 10px;
     margin-right:  10px;
@@ -72,72 +72,38 @@
     width: 10%;
 }
 
-.buscadorAmigos > button:hover {
+.buscadorBloqueados > button:hover {
 
     background-color: yellowgreen;
     transform: translateY(-0.1em);
 }
 
-.buscadorAmigos > button:active {
+.buscadorBloqueados > button:active {
 
     transform: translateY(0.1em);
 }
 
-#botonMesa.existeMesa  {
 
-    margin-bottom: 10px;
-    margin-right:  10px;
-    padding: 5px 5px;
-
-    border-radius: 10px;
-    border: brown 2px solid;
-
-    background-color: yellowgreen;
-    width: 10%;
-    transform: translateY(0.1em);
-}
-#botonMesa.existeMesa:hover {
-    background-color: yellowgreen;
-    transform: translateY(0.1em);
-}
-
-#botonMesa.existeMesa:active {
-    transform: translateY(-0.1em);
-}
-
-#botonMesa.noExisteMesa:hover {
-
-    margin-bottom: 10px;
-    margin-right:  10px;
-    padding: 5px 5px;
-
-    border-radius: 10px;
-    border: brown 2px solid;
-
-    background-color: yellow;
-    width: 10%;
-}
-
-#botonMesa.noExisteMesa:hover {
-    background-color: yellowgreen;
-    transform: translateY(-0.1em);
-}
-
-#botonMesa.noExisteMesa:active {
-    transform: translateY(0.1em);
-}
 
 @media screen and (max-width: 800px){
 
-    .buscadorAmigos > button{
-        font-size: 80%;
+    .buscadorBloqueados > button{
+        font-size: 15px;
+        width: 25%
+    }
+}
+
+@media screen and (max-width: 600px){
+
+    .buscadorBloqueados > button{
+        font-size: 12px;
         width: 25%
     }
 }
 
 /**********Lista Equipo************/
 
-.listasAmigos{
+.listasBloqueados{
 
 
     border: 2px solid brown;
@@ -153,7 +119,7 @@
     width: 95%;
     box-sizing: border-box;
 }
-.listaAmigo h3{
+.listaBloqueado h3{
 
     color:white;
     background: black;
@@ -168,7 +134,7 @@
     padding:5px;
     padding-bottom: 20px;
 }
-.listaAmigo h4{
+.listaBloqueado h4{
 
     color:yellow;
 
@@ -283,7 +249,7 @@
 
 /*****Botones*****/
 
-.contenedorBotonesAmigos{
+.contenedorBotonesBloqueados{
 
     border: 2px solid brown;
     border-radius: 5px;
@@ -332,7 +298,5 @@
 
     transform: translateY(0);
 }
-
-
 
 
