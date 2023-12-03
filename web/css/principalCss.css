@@ -1,0 +1,473 @@
+
+/*************************/
+/**********Todo***********/
+/*************************/
+*{
+    margin:0px;
+    padding:0px;
+}
+
+h2{
+    color:black;
+    padding-left: 20px;
+    padding-top: 20px;
+    font-size: 25px;
+    border-bottom: black 2px solid;
+}
+
+body{
+    background-color: gray;
+
+
+}
+header{
+
+    background-color:black;
+    border: white 1px solid;
+    text-align: center;
+}
+
+nav{
+
+    background-color: black;
+    color: white;
+}
+main{
+
+    background-color: grey;
+    color: white;
+    border-top: none;
+    width: auto;
+    height: auto;
+}
+section{
+
+    background-color: grey;
+    color: black;
+    padding: 10px;
+
+}
+hr{
+
+    color:black;
+    margin-bottom: 10px;
+}
+footer{
+
+    background-color: black;
+    color: white;
+
+    position: fixed;
+
+    margin-top: 5px;
+    bottom:0;
+
+    width: 100%;
+    height: auto;
+
+    font-size: 14px;
+
+    z-index: 2;
+}
+
+footer  a{
+
+    color: white;
+    font-family: Times new roman;
+    text-decoration: none;
+    padding-right: 10px;
+    float:right;
+
+}
+footer  a:hover{
+
+    color: white;
+    font-family: Times new roman;
+    text-decoration: none;
+    padding-right: 10px;
+    float:right;
+}
+
+@media screen and (max-height: 700px){
+
+    footer{
+        height: 13px;
+        font-size: 12px;
+    }
+}
+@media screen and (max-height: 600px){
+
+    footer{
+        height: 11px;
+        font-size: 10px;
+    }
+}
+@media screen and (max-height: 400px){
+
+    footer{
+        height: 9px;
+        font-size: 8px;
+    }
+}
+@media screen and (max-height: 200px){
+
+    footer{
+        height: 7px;
+        font-size: 6px;
+    }
+}
+
+/*************************/
+/**********Clases*********/
+/*************************/
+
+.Logo{
+
+    position: relative;
+
+    width: auto;
+    max-width: 100%;
+    max-height: 5em;
+
+    z-index: 2;
+
+}
+.Titulos{
+
+    text-transform: uppercase;
+
+    font-size: 3.5vmin;
+
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: black;
+
+    border: none;
+
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.explicacionesPestañas{
+
+    color:white;
+    text-align: center;
+    font-size: 18px;
+
+    background-color: black;
+    padding: 10px;
+}
+
+input:invalid + span::after {
+    content: "✖";
+}
+
+input:valid + span::after {
+    content: "✓";
+}
+@media screen and (max-height: 700px){
+
+    .footerGeneral{
+
+        height: 13px;
+        font-size: 12px;
+    }
+}
+@media screen and (max-height: 600px){
+
+    .footerGeneral{
+
+        height: 11px;
+        font-size: 10px;
+    }
+
+}
+@media screen and (max-height: 400px){
+
+    .Titulos{
+
+        font-size: 7vmin;
+    }
+    .footerGeneral{
+
+        height: 9px;
+        font-size: 8px;
+    }
+}
+@media screen and (max-height: 200px){
+
+
+    .footerGeneral{
+
+        height: 7px;
+        font-size: 6px;
+    }
+}
+
+
+
+
+/*************************************/
+/*********Menus de Navegación*********/
+/*************************************/
+
+@media screen and (min-width: 850px){
+    .menuVertical{
+
+        display: none;
+    }
+    .menuHorizontal{
+
+        display: block;
+    }
+
+}
+@media screen and (max-width: 850px){
+    .menuVertical{
+
+        display: block;
+    }
+    .menuHorizontal{
+
+        display: none;
+    }
+
+}
+.barraHorizontal{
+
+    background-color: black;
+    color: white;
+
+    font-family: Times new roman;
+    font-size: 22px;
+
+    display: flex;
+    flex-direction: row;
+    z-index: 1;
+
+    height: 25px;
+    border: white 5px outset;
+    padding: 10px;
+    margin-top: -9px;
+}
+
+
+
+/*******************************/
+/*******Barra Horizontal********/
+/*******************************/
+
+.barraHorizontalContenido, .barraHorizontalContenido>a{
+
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    margin: 0 10px;
+}
+.barraHorizontalContenido:visited, .barraHorizontalContenido>a:visited{
+
+    font-family: serif;
+    text-decoration: none;
+}
+
+.barraHorizontalContenido:hover{
+
+    border-bottom: yellow 2px inset
+}
+
+.barraHorizontalContenido.active, .barraHorizontalContenido.active > a{
+
+    color: yellow;
+}
+
+
+.BarraHorizontalContenidoFinal{
+
+    color: white;
+    font-family: serif;
+    text-decoration: none;
+    font-size: 22px;
+    margin-left: auto;
+}
+.BarraHorizontalContenidoFinal:visited{
+
+    text-decoration: none;
+    font-size: 22px;
+    word-spacing: 5px;
+    margin-left:auto;
+}
+.BarraHorizontalContenidoFinal:hover{
+
+    border-bottom: yellow 2px inset
+}
+
+
+/*******************************/
+/*******Bloques de la barra*****/
+/*******************************/
+
+.barraHorizontalDrop {
+
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+}
+.barraHorizontalContenidoDrop {
+
+    display: none;
+    position: absolute;
+    width: 85%;
+
+    background-color: black;
+    overflow: auto;
+    box-shadow: 5px 5px 5px 0px darkgrey;
+
+    border-top: none;
+    border-radius: 0px 0px 10px 10px;
+    border-bottom: white 2px double;
+
+    font-size: 14px;
+    padding-top: 5px;
+    margin-left: 10px;
+
+    z-index: 2;
+}
+.barraHorizontalDrop:hover
+.barraHorizontalContenidoDrop {
+
+    display: block;
+
+}
+.barraHorizontalContenidoDrop > a {
+
+    display: block;
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+    border-left: white 1px dashed;
+    border-right: white 2px double;
+
+}
+.barraHorizontalContenidoDrop > a:hover {
+
+    border-left: yellow 1px dashed;
+    border-right: yellow 2px double;
+    color: yellowgreen;
+}
+
+
+/*******************************/
+/*******Barra Vertical**********/
+/*******************************/
+
+.menuVertical{
+
+    background-color: gray;
+}
+
+.barraVertical{
+
+    display:none;
+    position: absolute;
+    z-index: 2;
+
+    background-color: black;
+
+    border: 2px solid white;
+    border-radius: 0px 0px 15px 15px;
+
+    overflow: hidden;
+    width: 150px;
+    height: auto;
+
+
+}
+.barraVerticalUno{
+
+    margin-left: 10px;
+
+}
+
+.barraVerticalUno > li {
+
+    width: auto;
+
+    list-style: none;
+
+    height: 30px;
+
+    overflow: hidden;
+
+    font-size: 16px;
+
+    transition: 3s;
+}
+.barraVerticalUno  li:first-child{
+
+    margin-top: 10px;
+}
+
+.barraVerticalUno li a,
+.barraVerticalUno li div{
+
+    text-decoration: none;
+    color: white;
+    font-family: sans-serif;
+
+}
+.barraVerticalUno li > div > a:hover {
+
+    border-bottom: yellow 2px solid;
+
+}
+
+/******Dropea la lista*****/
+
+.unoDrop.primero:hover{
+
+    height: 65px;
+}
+.unoDrop.segundo:hover{
+
+    height: 150px;
+}
+.unoDrop.tercero:hover{
+
+    height: 150px;
+}
+.unoDrop.cuarto:hover{
+
+    height: 80px;
+}
+
+/***Lista Sobre Lista****/
+
+.barraVerticalDos  li{
+
+    margin-left: 10px;
+    color:white;
+    font-size: 13px;
+    list-style: none;
+}
+.barraVerticalDos  li  a:hover{
+
+    color: yellowgreen;
+    margin-left: 10px;
+
+}
+.barraVerticalContenido.active, .barraVerticalContenido.active > a{
+
+    color: yellow;
+}
+
+/**************************************/
+/*******Boton abrir Menu Vertical******/
+/**************************************/
+
+.botonMenuVertical{
+
+    color: black;
+    background-color: yellow;
+    padding: 0.1vmin 5vmin;
+    font-size: 2.5vmin;
+
+}
