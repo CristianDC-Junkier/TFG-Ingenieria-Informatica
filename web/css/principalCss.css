@@ -280,6 +280,7 @@ input:valid + span::after {
 }
 
 
+
 .BarraHorizontalContenidoFinal{
 
     color: white;
@@ -470,4 +471,17 @@ input:valid + span::after {
     padding: 0.1vmin 5vmin;
     font-size: 2.5vmin;
 
+}
+
+/**************************************/
+/***********Tener peticion*************/
+/**************************************/
+
+.barraHorizontalContenido.tienesPeticion, barraHorizontalContenido.tienesPeticion > a{
+
+    color: #ff9900;
+}
+.barraHorizontalContenidoDrop > a.tienesPeticion{
+    
+    color: #ff9900;
 }

@@ -1,0 +1,22 @@
+.botonDentro{
+    margin-bottom: 10px;
+    margin-right:  10px;
+    padding: 5px 5px;
+
+    border-radius: 10px;
+    border: brown 2px solid;
+
+    background-color: yellow;
+}
+
+.botonDentro:hover {
+
+    background-color: yellowgreen;
+    transform: translateY(-0.1em);
+}
+
+.botonDentro:active {
+
+    transform: translateY(0.1em);
+}
+

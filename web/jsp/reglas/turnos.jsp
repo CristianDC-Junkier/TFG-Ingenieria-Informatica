@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Guidance4\Reglas\Turnos</title>
+        <title class="titulosPag">Guidance4\Reglas\Turnos</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/reglas/turnosCss.css"/>

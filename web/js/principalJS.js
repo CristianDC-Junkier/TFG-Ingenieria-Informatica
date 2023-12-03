@@ -1,27 +1,39 @@
 
 function dondeEstasHorizontal()
 {
-    const Titulos = document.querySelectorAll('.barraHorizontalContenido');
-
-    // Resaltar el enlace correspondiente a la página actual
-    Titulos.forEach(Titulos => {
-        if (window.location.href.includes(Titulos.getAttribute('href'))) {
-            Titulos.classList.add('active');
-        } else if (window.location.href.includes('introduccion') && Titulos.getAttribute('href').includes('index')) {
-            Titulos.classList.add('active');
+    let tituloPaginaH = document.querySelector(".titulosPag").innerText;
+    
+    // Obtén todos los elementos de la barra
+    let elementosBarraHorizontal = document.querySelectorAll(".barraHorizontalContenido");
+    
+    // Itera sobre cada elemento de la barra
+    elementosBarraHorizontal.forEach(function(elemento) {
+        // Obtén el texto del elemento de la barra
+        let textoElementoBarraH = elemento.innerText.trim();
+        
+        // Verifica si la palabra clave del título está presente en el texto del elemento de la barra
+        if (tituloPaginaH.includes(textoElementoBarraH)) {
+            // Agrega la clase 'active' al elemento de la barra si hay coincidencia
+            elemento.classList.add('active');
         }
     });
 }
 function dondeEstasVertical()
 {
-    const Titulos = document.querySelectorAll('.barraVerticalContenido');
-
-    // Resaltar el enlace correspondiente a la página actual
-    Titulos.forEach(Titulos => {
-        if (window.location.href.includes(Titulos.getAttribute('href'))) {
-            Titulos.classList.add('active');
-        } else if (window.location.href.includes('introduccion') && Titulos.getAttribute('href').includes('inicio')) {
-            Titulos.classList.add('active');
+    let tituloPaginaV = document.querySelector(".titulosPag").innerText;
+    
+    // Obtén todos los elementos de la barra
+    let elementosBarraVertical = document.querySelectorAll(".barraVerticalContenido");
+    
+    // Itera sobre cada elemento de la barra
+    elementosBarraVertical.forEach(function(elemento) {
+        // Obtén el texto del elemento de la barra
+        let textoElementoBarraV = elemento.innerText.trim();
+        
+        // Verifica si la palabra clave del título está presente en el texto del elemento de la barra
+        if (tituloPaginaV.includes(textoElementoBarraV)) {
+            // Agrega la clase 'active' al elemento de la barra si hay coincidencia
+            elemento.classList.add('active');
         }
     });
 }

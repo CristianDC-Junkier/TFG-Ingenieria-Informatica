@@ -57,6 +57,7 @@ public class ControladorUsuarios extends HttpServlet {
         accion = request.getPathInfo();
         String vista = "";
 
+        HttpSession session;
         boolean conseguido;
         String msj;
         Object result;
@@ -113,9 +114,9 @@ public class ControladorUsuarios extends HttpServlet {
                         && provincia != null && genero != null) {
 
                     try {
-                        //***********************************************************************************//
-                        //************************************FECHA******************************************//
-                        //***********************************************************************************//
+                        /////////////////
+                        //////FECHA//////
+                        /////////////////
 
                         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
                         Date fechaNacimiento = formatoFecha.parse(fechaNacimientoString);
@@ -137,9 +138,9 @@ public class ControladorUsuarios extends HttpServlet {
                             throw new Exception("La fecha de nacimiento debe ser más pequeña que " + fechaActual);
                         }
 
-                        //***********************************************************************************//
-                        //************************************APODO******************************************//
-                        //***********************************************************************************//
+                        /////////////////////
+                        /////////APODO///////
+                        /////////////////////
                         queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                         queryUsuarios.setParameter("apodo", apodo);
                         listaUsuarios = queryUsuarios.getResultList();
@@ -147,9 +148,9 @@ public class ControladorUsuarios extends HttpServlet {
                         if (!listaUsuarios.isEmpty()) {
                             throw new Exception("El Nombre de usuario debe ser único ");
                         }
-                        //***********************************************************************************//
-                        //************************************CORREO*****************************************//
-                        //***********************************************************************************//
+                        //////////////////////////
+                        //////////CORREO//////////
+                        //////////////////////////
 
                         queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
                         queryUsuarios.setParameter("correo", apodo);
@@ -159,9 +160,9 @@ public class ControladorUsuarios extends HttpServlet {
                             throw new Exception("El Correo debe ser único ");
                         }
 
-                        //***********************************************************************************//
-                        //************************************TELEFONO***************************************//
-                        //***********************************************************************************//
+                        ///////////////////////////
+                        //////////TELEFONO/////////
+                        ///////////////////////////
                         BigInteger telefonoBI;
 
                         if (telefono != null && !telefono.equals("")) {
@@ -179,9 +180,9 @@ public class ControladorUsuarios extends HttpServlet {
                             telefonoBI = null;
                         }
 
-                        //***********************************************************************************//
-                        //************************************CREAMOS****************************************//
-                        //***********************************************************************************//
+                        //////////////////////////
+                        //////////CREAMOS/////////
+                        //////////////////////////
                         user = new Usuarios(apodo, nombre, correo, contrasena, fechaNacimiento, provincia, genero, (short) 0);
                         user.setTelefono(telefonoBI);
 
@@ -210,7 +211,7 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////////////////////
                     /////////SESION//////////
                     /////////////////////////
-                    HttpSession session = request.getSession();
+                    session = request.getSession();
                     session.setAttribute("user", user);
                     vista = "/jsp/inicio/inicio.jsp";
                 } else {
@@ -224,18 +225,18 @@ public class ControladorUsuarios extends HttpServlet {
                 apodo = request.getParameter("nombre_usuario");
                 contrasena = request.getParameter("usuario_contrasena");
 
-                //***********************************************************************************//
-                //************************************APODO******************************************//
-                //***********************************************************************************//
+                /////////////////////////
+                //////////APODO//////////
+                /////////////////////////
                 queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                 queryUsuarios.setParameter("apodo", apodo);
                 listaUsuarios = queryUsuarios.getResultList();
 
                 if (listaUsuarios.isEmpty()) {
                     throw new Exception("El Nombre de usuario no se encuentra ");
-                } //***********************************************************************************//
-                //*********************************CONTRASEÑA****************************************//
-                //***********************************************************************************//
+                } //////////////////////////
+                ////////CONTRASEÑA////////
+                //////////////////////////
                 else {
                     user = listaUsuarios.remove(0);
 
@@ -245,7 +246,23 @@ public class ControladorUsuarios extends HttpServlet {
                         /////////////////////////
                         /////////SESION//////////
                         /////////////////////////
-                        HttpSession session = request.getSession();
+                        session = request.getSession();
+
+                        //////////////////////////////
+                        //////////PETICIONES//////////
+                        //////////////////////////////
+                        queryPideAmistad = em.createNamedQuery("Pideamistad.findByAcepta", Pideamistad.class);
+                        queryPideAmistad.setParameter("acepta", apodo);
+                        listaPideAmistad = queryPideAmistad.getResultList();
+
+                        if (listaPideAmistad.isEmpty() == false) {
+                            peticiones = String.valueOf(listaPideAmistad.size());
+                            session.setAttribute("peticiones", peticiones);
+                        }
+
+                        //////////////////////////
+                        /////////USUARIO//////////
+                        //////////////////////////
                         session.setAttribute("user", user);
 
                         vista = "/jsp/inicio/inicio.jsp";
@@ -263,7 +280,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////////////////////
                 /////////SESION//////////
                 /////////////////////////
-                HttpSession session = request.getSession();
+                session = request.getSession();
                 session.invalidate();
                 vista = "/jsp/inicio/inicio.jsp";
                 break;
@@ -288,9 +305,9 @@ public class ControladorUsuarios extends HttpServlet {
                         && provincia != null && genero != null) {
 
                     try {
-                        //***********************************************************************************//
-                        //************************************FECHA******************************************//
-                        //***********************************************************************************//
+                        /////////////////
+                        //////FECHA//////
+                        /////////////////
 
                         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
                         Date fechaNacimiento = formatoFecha.parse(fechaNacimientoString);
@@ -313,9 +330,9 @@ public class ControladorUsuarios extends HttpServlet {
                             throw new Exception("La fecha de nacimiento debe ser más pequeña que " + fechaActual.getDate() + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
                         }
 
-                        //***********************************************************************************//
-                        //************************************APODO******************************************//
-                        //***********************************************************************************//
+                        /////////////////////
+                        /////////APODO///////
+                        /////////////////////
                         queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                         queryUsuarios.setParameter("apodo", apodo);
                         listaUsuarios = queryUsuarios.getResultList();
@@ -323,10 +340,9 @@ public class ControladorUsuarios extends HttpServlet {
                         if (!listaUsuarios.isEmpty() && !listaUsuarios.get(0).getId().equals(user.getId())) {
                             throw new Exception("El Nombre de usuario debe ser único ");
                         }
-                        //***********************************************************************************//
-                        //************************************CORREO*****************************************//
-                        //***********************************************************************************//
-
+                        //////////////////////////
+                        //////////CORREO//////////
+                        //////////////////////////
                         queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
                         queryUsuarios.setParameter("correo", apodo);
                         listaUsuarios = queryUsuarios.getResultList();
@@ -335,9 +351,9 @@ public class ControladorUsuarios extends HttpServlet {
                             throw new Exception("El Correo debe ser único ");
                         }
 
-                        //***********************************************************************************//
-                        //************************************TELEFONO***************************************//
-                        //***********************************************************************************//
+                        ///////////////////////////
+                        //////////TELEFONO/////////
+                        ///////////////////////////
                         BigInteger telefonoBI;
 
                         if (telefono != null && !telefono.equals("")) {
@@ -355,9 +371,9 @@ public class ControladorUsuarios extends HttpServlet {
                             telefonoBI = null;
                         }
 
-                        //***********************************************************************************//
-                        //***********************************MODIFICAMOS*************************************//
-                        //***********************************************************************************//
+                        //////////////////////////////
+                        //////////MODIFICAMOS/////////
+                        //////////////////////////////
                         user = new Usuarios(apodo, nombre, correo, contrasena, fechaNacimiento, provincia, genero, (short) 0);
                         user.setTelefono(telefonoBI);
                         user.setId(id);
@@ -654,6 +670,11 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////////////////////
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
+
+                session.invalidate();
+
+                session = request.getSession();
+                session.setAttribute("user", user);
 
                 ///////////////////////////////////////
                 /////////NUMERO DE PETICIONES//////////

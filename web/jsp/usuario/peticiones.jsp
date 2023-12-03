@@ -3,10 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
-    <title>Guidance4\Perfil\Peticiones</title>
+    <title class="titulosPag">Guidance4\Amigos\Peticiones</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/peticionesCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/botonesCss.css"/>
 </head>
 <body>
     <header>
@@ -84,11 +85,11 @@
                                             <td>Compartir Mesa o No</td>
                                             <c:choose>
                                                 <c:when test="${requestScope.peticiones == 'Enviadas'}">
-                                                    <td><button class="botonArriba" onclick="location.href = '/TFG/Usuarios/eliminarPeticion?pamistad=${usuario.apodo}'">Eliminar</button></td>
+                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/eliminarPeticion?pamistad=${usuario.apodo}'">Eliminar</button></td>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <td><button class="botonArriba" onclick="location.href = '/TFG/Usuarios/aceptarPeticion?pamistad=${usuario.apodo}'">Aceptar</button></td>
-                                                    <td><button class="botonArriba" onclick="location.href = '/TFG/Usuarios/rechazarPeticion?pamistad=${usuario.apodo}'">Rechazar</button></td>
+                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/aceptarPeticion?pamistad=${usuario.apodo}'">Aceptar</button></td>
+                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/rechazarPeticion?pamistad=${usuario.apodo}'">Rechazar</button></td>
                                                 </c:otherwise>
                                             </c:choose> 
                                         </tr>
