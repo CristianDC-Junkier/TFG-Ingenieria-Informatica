@@ -1,5 +1,8 @@
 package controlador;
 
+import entidades.Amigos;
+import entidades.Bloqueados;
+import entidades.Pideamistad;
 import entidades.Usuarios;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -56,11 +59,22 @@ public class ControladorUsuarios extends HttpServlet {
 
         boolean conseguido;
         String msj;
-        Usuarios user = null;
+        Object result;
 
-        TypedQuery<Usuarios> query;
+        Usuarios user = null;
+        Amigos amigo = null;
+        Bloqueados bloqueado = null;
+        Pideamistad pamistad = null;
+
+        TypedQuery<Usuarios> queryUsuarios;
+        TypedQuery<Amigos> queryAmigos;
+        TypedQuery<Bloqueados> queryBloqueados;
+        TypedQuery<Pideamistad> queryPideAmistad;
+
         Query queryAUX;
-        List<Usuarios> list;
+
+        List<Usuarios> listaUsuarios;
+        List<Pideamistad> listaPideAmistad;
 
         String id;
         String apodo;
@@ -75,7 +89,9 @@ public class ControladorUsuarios extends HttpServlet {
         String ordenar;
         String mesa;
         String peticiones;
+        String numString;
         int num;
+        int numPag;
 
         String sql;
 
@@ -124,22 +140,22 @@ public class ControladorUsuarios extends HttpServlet {
                         //***********************************************************************************//
                         //************************************APODO******************************************//
                         //***********************************************************************************//
-                        query = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
-                        query.setParameter("apodo", apodo);
-                        list = query.getResultList();
+                        queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                        queryUsuarios.setParameter("apodo", apodo);
+                        listaUsuarios = queryUsuarios.getResultList();
 
-                        if (!list.isEmpty()) {
+                        if (!listaUsuarios.isEmpty()) {
                             throw new Exception("El Nombre de usuario debe ser único ");
                         }
                         //***********************************************************************************//
                         //************************************CORREO*****************************************//
                         //***********************************************************************************//
 
-                        query = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
-                        query.setParameter("correo", apodo);
-                        list = query.getResultList();
+                        queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                        queryUsuarios.setParameter("correo", apodo);
+                        listaUsuarios = queryUsuarios.getResultList();
 
-                        if (!list.isEmpty()) {
+                        if (!listaUsuarios.isEmpty()) {
                             throw new Exception("El Correo debe ser único ");
                         }
 
@@ -151,11 +167,11 @@ public class ControladorUsuarios extends HttpServlet {
                         if (telefono != null && !telefono.equals("")) {
                             telefonoBI = new BigInteger(telefono);
 
-                            query = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
-                            query.setParameter("correo", apodo);
-                            list = query.getResultList();
+                            queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                            queryUsuarios.setParameter("correo", apodo);
+                            listaUsuarios = queryUsuarios.getResultList();
 
-                            if (!list.isEmpty()) {
+                            if (!listaUsuarios.isEmpty()) {
                                 throw new Exception("El Teléfono debe ser único ");
                             }
 
@@ -211,17 +227,17 @@ public class ControladorUsuarios extends HttpServlet {
                 //***********************************************************************************//
                 //************************************APODO******************************************//
                 //***********************************************************************************//
-                query = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
-                query.setParameter("apodo", apodo);
-                list = query.getResultList();
+                queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                queryUsuarios.setParameter("apodo", apodo);
+                listaUsuarios = queryUsuarios.getResultList();
 
-                if (list.isEmpty()) {
+                if (listaUsuarios.isEmpty()) {
                     throw new Exception("El Nombre de usuario no se encuentra ");
                 } //***********************************************************************************//
                 //*********************************CONTRASEÑA****************************************//
                 //***********************************************************************************//
                 else {
-                    user = list.remove(0);
+                    user = listaUsuarios.remove(0);
 
                     if (!user.getContrasena().equals(contrasena)) {
                         throw new Exception("La contraseña no es correcta");
@@ -300,22 +316,22 @@ public class ControladorUsuarios extends HttpServlet {
                         //***********************************************************************************//
                         //************************************APODO******************************************//
                         //***********************************************************************************//
-                        query = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
-                        query.setParameter("apodo", apodo);
-                        list = query.getResultList();
+                        queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                        queryUsuarios.setParameter("apodo", apodo);
+                        listaUsuarios = queryUsuarios.getResultList();
 
-                        if (!list.isEmpty() && !list.get(0).getId().equals(user.getId())) {
+                        if (!listaUsuarios.isEmpty() && !listaUsuarios.get(0).getId().equals(user.getId())) {
                             throw new Exception("El Nombre de usuario debe ser único ");
                         }
                         //***********************************************************************************//
                         //************************************CORREO*****************************************//
                         //***********************************************************************************//
 
-                        query = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
-                        query.setParameter("correo", apodo);
-                        list = query.getResultList();
+                        queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                        queryUsuarios.setParameter("correo", apodo);
+                        listaUsuarios = queryUsuarios.getResultList();
 
-                        if (!list.isEmpty()) {
+                        if (!listaUsuarios.isEmpty()) {
                             throw new Exception("El Correo debe ser único ");
                         }
 
@@ -327,11 +343,11 @@ public class ControladorUsuarios extends HttpServlet {
                         if (telefono != null && !telefono.equals("")) {
                             telefonoBI = new BigInteger(telefono);
 
-                            query = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
-                            query.setParameter("correo", apodo);
-                            list = query.getResultList();
+                            queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                            queryUsuarios.setParameter("correo", apodo);
+                            listaUsuarios = queryUsuarios.getResultList();
 
-                            if (!list.isEmpty() && !list.get(0).getId().equals(user.getId())) {
+                            if (!listaUsuarios.isEmpty() && !listaUsuarios.get(0).getId().equals(user.getId())) {
                                 throw new Exception("El Teléfono debe ser único ");
                             }
 
@@ -378,7 +394,8 @@ public class ControladorUsuarios extends HttpServlet {
                     vista = "/jsp/formularios/modificarusuario.jsp";
                 }
                 break;
-            case "/mostrarAmigos":
+
+            case "/mostrarUsuarios":
 
                 /////////////////////////
                 /////////SESION//////////
@@ -386,114 +403,21 @@ public class ControladorUsuarios extends HttpServlet {
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                ///////////////////////////////////
-                /////////NUMERO DE AMIGOS//////////
-                ///////////////////////////////////
-                sql = "SELECT COUNT(*) FROM Usuarios u "
-                        + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
-                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
-                        + "WHERE a.amigo1 = '" + user.getApodo() + "'";
-
-                queryAUX = em.createNativeQuery(sql);
-                Object result = queryAUX.getSingleResult();
-
-                //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                int numPag = (((Number) result).intValue() / 10) + 1;
-
-                String numString = request.getParameter("pag");//numero de pag en la que estoy
-                ordenar = request.getParameter("orden");//como ordenar
-                mesa = request.getParameter("mesa");//si filtramos por mesa o no
-
-                System.out.println("Llega pag: " + numString);
-                System.out.println("Llega orden: " + ordenar);
-                System.out.println("Llega mesa: " + mesa);
-
-                if (ordenar == null || mesa == null || numString == null) {
-
-                    ordenar = "ordenar1";
-                    mesa = "false";
-                    numString = "1";
-                    num = 0;
-
-                } else {
-
-                    num = (Integer.valueOf(numString) - 1) * 10;//offset
-                }
-
-                switch (ordenar) {
-                    case "ordenar1":
-                        if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
-                                    + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
-                                    + "WHERE a.amigo1 = '" + user.getApodo() + "' "
-                                    + "ORDER BY u.nombre DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        } else {
-                            System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
-                                    + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
-                                    + "WHERE a.amigo1 = '" + user.getApodo() + "' "
-                                    + "ORDER BY u.nombre DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        }
-                        break;
-                    case "ordenar2":
-                        if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
-                                    + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
-                                    + "WHERE a.amigo1 = '" + user.getApodo() + "' "
-                                    + "ORDER BY u.nombre ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        } else {
-                            System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
-                                    + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
-                                    + "WHERE a.amigo1 = '" + user.getApodo() + "' "
-                                    + "ORDER BY u.nombre ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        }
-                        break;
-                    case "ordenar3":
-                        break;
-                    case "ordenar4":
-                        break;
-                }
-
-                queryAUX = em.createNativeQuery(sql, Usuarios.class);
-                list = queryAUX.getResultList();
-
-                System.out.println("Sale pag:" + numString);
-                System.out.println("Sale orden:" + ordenar);
-                System.out.println("Sale mesa:" + mesa);
-                System.out.println("Sale npag:" + numPag);
-
-                request.setAttribute("listaUsuarios", list);
-                request.setAttribute("orden", ordenar);
-                request.setAttribute("mesa", mesa);
-                request.setAttribute("pag", numString);//numero de la pag
-                request.setAttribute("numPag", numPag);//numero total de pag
-
-                vista = "/jsp/usuario/amigos.jsp";
-                break;
-            case "/mostrarPeticionesRecibidas":
-
-                /////////////////////////
-                /////////SESION//////////
-                /////////////////////////
-                session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
-
-                ///////////////////////////////////////
-                /////////NUMERO DE PETICIONES//////////
-                ///////////////////////////////////////
-                sql = "SELECT COUNT(*) FROM Usuarios u "
-                        + "INNER JOIN Pideamistad p ON u.apodo = p.acepta "
-                        + "INNER JOIN Usuarios u2 ON p.pide = u2.apodo "
-                        + "WHERE p.acepta = '" + user.getApodo() + "'";
+                /////////////////////////////////////
+                /////////NUMERO DE USUARIOS//////////
+                /////////////////////////////////////
+                sql = "SELECT COUNT(*) FROM USUARIOS u "
+                        + "WHERE u.APODO <> '" + user.getApodo() + "'"
+                        + "AND u.APODO NOT IN ("
+                        + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getApodo() + "'"
+                        + "    UNION "
+                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getApodo() + "'"
+                        + "    UNION "
+                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getApodo() + "'"
+                        + "    UNION "
+                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getApodo() + "'"
+                        + "    UNION "
+                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getApodo() + "')";
 
                 queryAUX = em.createNativeQuery(sql);
                 result = queryAUX.getSingleResult();
@@ -504,7 +428,7 @@ public class ControladorUsuarios extends HttpServlet {
                 numString = request.getParameter("pag");//numero de pag en la que estoy
                 ordenar = request.getParameter("orden");//como ordenar
                 mesa = request.getParameter("mesa");//si filtramos por mesa o no
-                peticiones = "Recibidas";
+                peticiones = "Enviadas";
 
                 System.out.println("Llega pag: " + numString);
                 System.out.println("Llega orden: " + ordenar);
@@ -525,38 +449,70 @@ public class ControladorUsuarios extends HttpServlet {
                 switch (ordenar) {
                     case "ordenar1":
                         if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Pideamistad p ON u.apodo = p.acepta "
-                                    + "INNER JOIN Usuarios u2 ON p.pide = u2.apodo "
-                                    + "WHERE p.acepta = '" + user.getApodo() + "' "
-                                    + "ORDER BY u.nombre DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            sql = "SELECT u.* FROM USUARIOS u "
+                                    + "WHERE u.APODO <> '" + user.getApodo() + "'"
+                                    + "AND u.APODO NOT IN ("
+                                    + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getApodo() + "')"
+                                    + "    ORDER BY u.apodo DESC "
+                                    + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         } else {
                             System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Pideamistad p ON u.apodo = p.acepta "
-                                    + "INNER JOIN Usuarios u2 ON p.pide = u2.apodo "
-                                    + "WHERE p.acepta = '" + user.getApodo() + "' "
-                                    + "ORDER BY u.nombre DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            sql = "SELECT u.* FROM USUARIOS u "
+                                    + "WHERE u.APODO <> '" + user.getApodo() + "'"
+                                    + "AND u.APODO NOT IN ("
+                                    + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getApodo() + "')"
+                                    + "    ORDER BY u.apodo DESC "
+                                    + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         }
                         break;
                     case "ordenar2":
                         if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Pideamistad p ON u.apodo = p.acepta "
-                                    + "INNER JOIN Usuarios u2 ON p.pide = u2.apodo "
-                                    + "WHERE p.acepta = '" + user.getApodo() + "' "
-                                    + "ORDER BY u.nombre ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            sql = "SELECT u.* FROM USUARIOS u "
+                                    + "WHERE u.APODO <> '" + user.getApodo() + "'"
+                                    + "AND u.APODO NOT IN ("
+                                    + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getApodo() + "')"
+                                    + "    ORDER BY u.apodo ASC "
+                                    + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         } else {
                             System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Pideamistad p ON u.apodo = p.acepta "
-                                    + "INNER JOIN Usuarios u2 ON p.pide = u2.apodo "
-                                    + "WHERE p.acepta = '" + user.getApodo() + "' "
-                                    + "ORDER BY u.nombre ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            sql = "SELECT u.* FROM USUARIOS u "
+                                    + "WHERE u.APODO <> '" + user.getApodo() + "'"
+                                    + "AND u.APODO NOT IN ("
+                                    + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getApodo() + "'"
+                                    + "    UNION "
+                                    + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getApodo() + "')"
+                                    + "    ORDER BY u.apodo ASC "
+                                    + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         }
                         break;
                     case "ordenar3":
@@ -566,7 +522,7 @@ public class ControladorUsuarios extends HttpServlet {
                 }
 
                 queryAUX = em.createNativeQuery(sql, Usuarios.class);
-                list = queryAUX.getResultList();
+                listaUsuarios = queryAUX.getResultList();
 
                 System.out.println("Sale pag:" + numString);
                 System.out.println("Sale orden:" + ordenar);
@@ -574,15 +530,18 @@ public class ControladorUsuarios extends HttpServlet {
                 System.out.println("Sale npag:" + numPag);
                 System.out.println(peticiones);
 
-                request.setAttribute("listaUsuarios", list);
+                request.setAttribute("listaUsuarios", listaUsuarios);
                 request.setAttribute("orden", ordenar);
                 request.setAttribute("mesa", mesa);
                 request.setAttribute("pag", numString);//numero de la pag
                 request.setAttribute("numPag", numPag);//numero total de pag
-                request.setAttribute("peticiones", peticiones);//para saber si es enviadas o recibidas
 
-                vista = "/jsp/usuario/peticiones.jsp";
+                vista = "/jsp/usuario/usuarios.jsp";
                 break;
+
+            ///////////////////////////////////////////////////////////////////////////
+            //////////////////////////////PEDIR AMISTAD////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////
             case "/mostrarPeticionesEnviadas":
 
                 /////////////////////////
@@ -633,7 +592,7 @@ public class ControladorUsuarios extends HttpServlet {
                                     + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
                                     + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
                                     + "WHERE p.pide = '" + user.getApodo() + "' "
-                                    + "ORDER BY u.nombre DESC "
+                                    + "ORDER BY u.apodo ASC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         } else {
                             System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
@@ -641,7 +600,7 @@ public class ControladorUsuarios extends HttpServlet {
                                     + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
                                     + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
                                     + "WHERE p.pide = '" + user.getApodo() + "' "
-                                    + "ORDER BY u.nombre DESC "
+                                    + "ORDER BY u.apodo ASC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         }
                         break;
@@ -651,7 +610,7 @@ public class ControladorUsuarios extends HttpServlet {
                                     + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
                                     + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
                                     + "WHERE p.pide = '" + user.getApodo() + "' "
-                                    + "ORDER BY u.nombre ASC "
+                                    + "ORDER BY u.apodo DESC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         } else {
                             System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
@@ -659,7 +618,7 @@ public class ControladorUsuarios extends HttpServlet {
                                     + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
                                     + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
                                     + "WHERE p.pide = '" + user.getApodo() + "' "
-                                    + "ORDER BY u.nombre ASC "
+                                    + "ORDER BY u.apodo DESC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         }
                         break;
@@ -670,7 +629,7 @@ public class ControladorUsuarios extends HttpServlet {
                 }
 
                 queryAUX = em.createNativeQuery(sql, Usuarios.class);
-                list = queryAUX.getResultList();
+                listaUsuarios = queryAUX.getResultList();
 
                 System.out.println("Sale pag:" + numString);
                 System.out.println("Sale orden:" + ordenar);
@@ -678,7 +637,7 @@ public class ControladorUsuarios extends HttpServlet {
                 System.out.println("Sale npag:" + numPag);
                 System.out.println(peticiones);
 
-                request.setAttribute("listaUsuarios", list);
+                request.setAttribute("listaUsuarios", listaUsuarios);
                 request.setAttribute("orden", ordenar);
                 request.setAttribute("mesa", mesa);
                 request.setAttribute("pag", numString);//numero de la pag
@@ -687,7 +646,8 @@ public class ControladorUsuarios extends HttpServlet {
 
                 vista = "/jsp/usuario/peticiones.jsp";
                 break;
-            case "/mostrarUsuarios":
+
+            case "/mostrarPeticionesRecibidas":
 
                 /////////////////////////
                 /////////SESION//////////
@@ -695,23 +655,13 @@ public class ControladorUsuarios extends HttpServlet {
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                /////////////////////////////////////
-                /////////NUMERO DE USUARIOS//////////
-                /////////////////////////////////////
-                sql = "SELECT COUNT(*) FROM USUARIOS u "
-                        + "WHERE u.APODO <> '" + user.getApodo() + "'"
-                        + "AND u.APODO NOT IN ("
-                        + "    SELECT pa.PIDE FROM PIDEAMISTAD pa WHERE pa.ACEPTA = '" + user.getApodo() + "'"
-                        + "    UNION "
-                        + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getApodo() + "'"
-                        + "    UNION "
-                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getApodo() + "'"
-                        + "    UNION "
-                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getApodo() + "'"
-                        + "    UNION "
-                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getApodo() + "'"
-                        + "    UNION "
-                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getApodo() + "')";
+                ///////////////////////////////////////
+                /////////NUMERO DE PETICIONES//////////
+                ///////////////////////////////////////
+                sql = "SELECT COUNT(*) FROM Usuarios u "
+                        + "INNER JOIN Pideamistad p ON u.apodo = p.acepta "
+                        + "INNER JOIN Usuarios u2 ON p.pide = u2.apodo "
+                        + "WHERE p.acepta = '" + user.getApodo() + "'";
 
                 queryAUX = em.createNativeQuery(sql);
                 result = queryAUX.getSingleResult();
@@ -722,7 +672,7 @@ public class ControladorUsuarios extends HttpServlet {
                 numString = request.getParameter("pag");//numero de pag en la que estoy
                 ordenar = request.getParameter("orden");//como ordenar
                 mesa = request.getParameter("mesa");//si filtramos por mesa o no
-                peticiones = "Enviadas";
+                peticiones = "Recibidas";
 
                 System.out.println("Llega pag: " + numString);
                 System.out.println("Llega orden: " + ordenar);
@@ -743,78 +693,38 @@ public class ControladorUsuarios extends HttpServlet {
                 switch (ordenar) {
                     case "ordenar1":
                         if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u.* FROM USUARIOS u "
-                                    + "WHERE u.APODO <> '" + user.getApodo() + "'"
-                                    + "AND u.APODO NOT IN ("
-                                    + "    SELECT pa.PIDE FROM PIDEAMISTAD pa WHERE pa.ACEPTA = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getApodo() + "')"
-                                    + "    ORDER BY u.nombre DESC "
-                                    + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            sql = "SELECT u2.* FROM Usuarios u "
+                                    + "INNER JOIN Pideamistad p ON u.apodo = p.acepta "
+                                    + "INNER JOIN Usuarios u2 ON p.pide = u2.apodo "
+                                    + "WHERE p.acepta = '" + user.getApodo() + "' "
+                                    + "ORDER BY u.apodo ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         } else {
                             System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u.* FROM USUARIOS u "
-                                    + "WHERE u.APODO <> '" + user.getApodo() + "'"
-                                    + "AND u.APODO NOT IN ("
-                                    + "    SELECT pa.PIDE FROM PIDEAMISTAD pa WHERE pa.ACEPTA = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getApodo() + "')"
-                                    + "    ORDER BY u.nombre DESC "
-                                    + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            sql = "SELECT u2.* FROM Usuarios u "
+                                    + "INNER JOIN Pideamistad p ON u.apodo = p.acepta "
+                                    + "INNER JOIN Usuarios u2 ON p.pide = u2.apodo "
+                                    + "WHERE p.acepta = '" + user.getApodo() + "' "
+                                    + "ORDER BY u.apodo ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         }
                         break;
                     case "ordenar2":
                         if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u.* FROM USUARIOS u "
-                                    + "WHERE u.APODO <> '" + user.getApodo() + "'"
-                                    + "AND u.APODO NOT IN ("
-                                    + "    SELECT pa.PIDE FROM PIDEAMISTAD pa WHERE pa.ACEPTA = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getApodo() + "')"
-                                    + "    ORDER BY u.nombre ASC "
-                                    + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            sql = "SELECT u2.* FROM Usuarios u "
+                                    + "INNER JOIN Pideamistad p ON u.apodo = p.acepta "
+                                    + "INNER JOIN Usuarios u2 ON p.pide = u2.apodo "
+                                    + "WHERE p.acepta = '" + user.getApodo() + "' "
+                                    + "ORDER BY u.apodo DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         } else {
                             System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u.* FROM USUARIOS u "
-                                    + "WHERE u.APODO <> '" + user.getApodo() + "'"
-                                    + "AND u.APODO NOT IN ("
-                                    + "    SELECT pa.PIDE FROM PIDEAMISTAD pa WHERE pa.ACEPTA = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getApodo() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getApodo() + "')"
-                                    + "    ORDER BY u.nombre ASC "
-                                    + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            sql = "SELECT u2.* FROM Usuarios u "
+                                    + "INNER JOIN Pideamistad p ON u.apodo = p.acepta "
+                                    + "INNER JOIN Usuarios u2 ON p.pide = u2.apodo "
+                                    + "WHERE p.acepta = '" + user.getApodo() + "' "
+                                    + "ORDER BY u.apodo DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         }
                         break;
                     case "ordenar3":
@@ -824,7 +734,7 @@ public class ControladorUsuarios extends HttpServlet {
                 }
 
                 queryAUX = em.createNativeQuery(sql, Usuarios.class);
-                list = queryAUX.getResultList();
+                listaUsuarios = queryAUX.getResultList();
 
                 System.out.println("Sale pag:" + numString);
                 System.out.println("Sale orden:" + ordenar);
@@ -832,14 +742,257 @@ public class ControladorUsuarios extends HttpServlet {
                 System.out.println("Sale npag:" + numPag);
                 System.out.println(peticiones);
 
-                request.setAttribute("listaUsuarios", list);
+                request.setAttribute("listaUsuarios", listaUsuarios);
+                request.setAttribute("orden", ordenar);
+                request.setAttribute("mesa", mesa);
+                request.setAttribute("pag", numString);//numero de la pag
+                request.setAttribute("numPag", numPag);//numero total de pag
+                request.setAttribute("peticiones", peticiones);//para saber si es enviadas o recibidas
+
+                vista = "/jsp/usuario/peticiones.jsp";
+                break;
+            case "/enviarPeticion":
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+
+                user = (Usuarios) session.getAttribute("user");
+                nombre = request.getParameter("pamistad");
+
+                queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
+                queryPideAmistad.setParameter("pide", nombre);
+                queryPideAmistad.setParameter("acepta", user.getApodo());
+                listaPideAmistad = queryPideAmistad.getResultList();
+
+                //Si te la han mandado a ti, lo añadimos a amigos directamente.
+                if (listaPideAmistad.isEmpty() == false) {
+                    delete(listaPideAmistad.get(0));
+
+                    amigo = new Amigos(user.getApodo(), nombre);
+                    persist(amigo);
+                    amigo = new Amigos(nombre, user.getApodo());
+                    persist(amigo);
+                } else {
+                    pamistad = new Pideamistad(user.getApodo(), nombre);
+                    persist(pamistad);
+                }
+
+                vista = "/Usuarios/mostrarUsuarios";
+                break;
+            case "/eliminarPeticion":
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+
+                user = (Usuarios) session.getAttribute("user");
+                nombre = request.getParameter("pamistad");
+
+                queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
+                queryPideAmistad.setParameter("pide", user.getApodo());
+                queryPideAmistad.setParameter("acepta", nombre);
+                pamistad = queryPideAmistad.getResultList().get(0);
+
+                delete(pamistad);
+
+                vista = "/Usuarios/mostrarPeticionesEnviadas";
+                break;
+            case "/aceptarPeticion":
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+
+                user = (Usuarios) session.getAttribute("user");
+                nombre = request.getParameter("pamistad");
+
+                amigo = new Amigos(user.getApodo(), nombre);
+                persist(amigo);
+                amigo = new Amigos(nombre, user.getApodo());
+                persist(amigo);
+
+                queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
+                queryPideAmistad.setParameter("pide", nombre);
+                queryPideAmistad.setParameter("acepta", user.getApodo());
+                pamistad = queryPideAmistad.getResultList().get(0);
+
+                delete(pamistad);
+
+                vista = "/Usuarios/mostrarPeticionesRecibidas";
+                break;
+            case "/rechazarPeticion":
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+
+                user = (Usuarios) session.getAttribute("user");
+                nombre = request.getParameter("pamistad");
+
+                queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
+                queryPideAmistad.setParameter("pide", nombre);
+                queryPideAmistad.setParameter("acepta", user.getApodo());
+                pamistad = queryPideAmistad.getResultList().get(0);
+
+                delete(pamistad);
+
+                vista = "/Usuarios/mostrarPeticionesRecibidas";
+                break;
+
+            ///////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////AMIGOS///////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////
+            case "/mostrarAmigos":
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                ///////////////////////////////////
+                /////////NUMERO DE AMIGOS//////////
+                ///////////////////////////////////
+                sql = "SELECT COUNT(*) FROM Usuarios u "
+                        + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
+                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
+                        + "WHERE a.amigo1 = '" + user.getApodo() + "'";
+
+                queryAUX = em.createNativeQuery(sql);
+                result = queryAUX.getSingleResult();
+
+                //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
+                numPag = (((Number) result).intValue() / 10) + 1;
+
+                numString = request.getParameter("pag");//numero de pag en la que estoy
+                ordenar = request.getParameter("orden");//como ordenar
+                mesa = request.getParameter("mesa");//si filtramos por mesa o no
+
+                System.out.println("Llega pag: " + numString);
+                System.out.println("Llega orden: " + ordenar);
+                System.out.println("Llega mesa: " + mesa);
+
+                if (ordenar == null || mesa == null || numString == null) {
+
+                    ordenar = "ordenar1";
+                    mesa = "false";
+                    numString = "1";
+                    num = 0;
+
+                } else {
+
+                    num = (Integer.valueOf(numString) - 1) * 10;//offset
+                }
+
+                switch (ordenar) {
+                    case "ordenar1":
+                        if (mesa.equalsIgnoreCase("false")) {
+                            sql = "SELECT u2.* FROM Usuarios u "
+                                    + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
+                                    + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
+                                    + "WHERE a.amigo1 = '" + user.getApodo() + "' "
+                                    + "ORDER BY u.apodo ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                        } else {
+                            System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
+                            sql = "SELECT u2.* FROM Usuarios u "
+                                    + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
+                                    + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
+                                    + "WHERE a.amigo1 = '" + user.getApodo() + "' "
+                                    + "ORDER BY u.apodo ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                        }
+                        break;
+                    case "ordenar2":
+                        if (mesa.equalsIgnoreCase("false")) {
+                            sql = "SELECT u2.* FROM Usuarios u "
+                                    + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
+                                    + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
+                                    + "WHERE a.amigo1 = '" + user.getApodo() + "' "
+                                    + "ORDER BY u.apodo DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                        } else {
+                            System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
+                            sql = "SELECT u2.* FROM Usuarios u "
+                                    + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
+                                    + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
+                                    + "WHERE a.amigo1 = '" + user.getApodo() + "' "
+                                    + "ORDER BY u.apodo DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                        }
+                        break;
+                    case "ordenar3":
+                        break;
+                    case "ordenar4":
+                        break;
+                }
+
+                queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                listaUsuarios = queryAUX.getResultList();
+
+                System.out.println("Sale pag:" + numString);
+                System.out.println("Sale orden:" + ordenar);
+                System.out.println("Sale mesa:" + mesa);
+                System.out.println("Sale npag:" + numPag);
+
+                request.setAttribute("listaUsuarios", listaUsuarios);
                 request.setAttribute("orden", ordenar);
                 request.setAttribute("mesa", mesa);
                 request.setAttribute("pag", numString);//numero de la pag
                 request.setAttribute("numPag", numPag);//numero total de pag
 
-                vista = "/jsp/usuario/usuarios.jsp";
+                vista = "/jsp/usuario/amigos.jsp";
                 break;
+
+            case "/mostrarAmigo":
+
+                apodo = (String) request.getParameter("amigo");
+                System.out.println(apodo);
+
+                queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                queryUsuarios.setParameter("apodo", apodo);
+                user = queryUsuarios.getResultList().get(0);
+
+                request.setAttribute("amigo", user);
+
+                vista = "/jsp/usuario/amigo.jsp";
+                break;
+
+            case "/eliminarAmigo":
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+
+                user = (Usuarios) session.getAttribute("user");
+                nombre = request.getParameter("amigo");
+
+                queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
+                queryAmigos.setParameter("amigo1", user.getApodo());
+                queryAmigos.setParameter("amigo2", nombre);
+                amigo = queryAmigos.getResultList().get(0);
+
+                delete(amigo);
+
+                queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
+                queryAmigos.setParameter("amigo1", nombre);
+                queryAmigos.setParameter("amigo2", user.getApodo());
+                amigo = queryAmigos.getResultList().get(0);
+
+                delete(amigo);
+
+                vista = "/Usuarios/mostrarAmigos";
+                break;
+
+            /////////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////BLOQUEAR///////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////
             case "/mostrarBloqueados":
 
                 /////////////////////////
@@ -885,7 +1038,7 @@ public class ControladorUsuarios extends HttpServlet {
                                 + "INNER JOIN Bloqueados b ON u.apodo = b.bloqueador "
                                 + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.apodo "
                                 + "WHERE b.bloqueador = '" + user.getApodo() + "' "
-                                + "ORDER BY u.nombre DESC "
+                                + "ORDER BY u.apodo ASC "
                                 + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         break;
                     case "ordenar2":
@@ -893,7 +1046,7 @@ public class ControladorUsuarios extends HttpServlet {
                                 + "INNER JOIN Bloqueados b ON u.apodo = b.bloqueador "
                                 + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.apodo "
                                 + "WHERE b.bloqueador = '" + user.getApodo() + "' "
-                                + "ORDER BY u.nombre ASC "
+                                + "ORDER BY u.apodo DESC "
                                 + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                         break;
                     case "ordenar3":
@@ -903,19 +1056,56 @@ public class ControladorUsuarios extends HttpServlet {
                 }
 
                 queryAUX = em.createNativeQuery(sql, Usuarios.class);
-                list = queryAUX.getResultList();
+                listaUsuarios = queryAUX.getResultList();
 
                 System.out.println("Sale pag:" + numString);
                 System.out.println("Sale orden:" + ordenar);
                 System.out.println("Sale npag:" + numPag);
 
-                request.setAttribute("listaUsuarios", list);
+                request.setAttribute("listaUsuarios", listaUsuarios);
                 request.setAttribute("orden", ordenar);
                 request.setAttribute("pag", numString);//numero de la pag
                 request.setAttribute("numPag", numPag);//numero total de pag
 
                 vista = "/jsp/usuario/bloqueados.jsp";
                 break;
+
+            case "/desbloquearUsuario":
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+
+                user = (Usuarios) session.getAttribute("user");
+                nombre = request.getParameter("bloqueado");
+
+                queryBloqueados = em.createNamedQuery("Bloqueados.findByBloqueados", Bloqueados.class);
+                queryBloqueados.setParameter("bloqueador", user.getApodo());
+                queryBloqueados.setParameter("bloqueado", nombre);
+                bloqueado = queryBloqueados.getResultList().get(0);
+
+                delete(bloqueado);
+
+                vista = "/Usuarios/mostrarUsuarios";
+                break;
+            case "/bloquearUsuario":
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+
+                user = (Usuarios) session.getAttribute("user");
+                nombre = request.getParameter("bloqueado");
+
+                bloqueado = new Bloqueados(user.getApodo(), nombre);
+
+                persist(bloqueado);
+
+                vista = "/Usuarios/mostrarUsuarios";
+                break;
+
         }
         RequestDispatcher rd = request.getRequestDispatcher(vista);
         rd.forward(request, response);

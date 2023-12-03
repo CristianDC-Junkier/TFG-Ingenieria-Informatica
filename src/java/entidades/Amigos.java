@@ -22,7 +22,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Amigos.findAll", query = "SELECT a FROM Amigos a"),
     @NamedQuery(name = "Amigos.findByAmigo1", query = "SELECT a FROM Amigos a WHERE a.amigosPK.amigo1 = :amigo1"),
-    @NamedQuery(name = "Amigos.findByAmigo2", query = "SELECT a FROM Amigos a WHERE a.amigosPK.amigo2 = :amigo2")})
+    @NamedQuery(name = "Amigos.findByAmigo2", query = "SELECT a FROM Amigos a WHERE a.amigosPK.amigo2 = :amigo2"),
+    @NamedQuery(name = "Amigos.findByAmigos", query = "SELECT a FROM Amigos a WHERE a.amigosPK.amigo1 = :amigo1 and a.amigosPK.amigo2 = :amigo2")
+})
 public class Amigos implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -75,17 +75,24 @@
                             </c:choose>
                             <div class="diseñoTabla">
                                 <table>
-                                    <tr>
-                                        <c:forEach var="usuario" items="${listaUsuarios}">
+                                    <c:forEach var="usuario" items="${listaUsuarios}">
+                                        <tr>
                                             <td><div class="personaje-foto">
                                                     <img src="/TFG/img/iconos/IMGNEGRO.png">
                                                 </div></td>
                                             <td>${usuario.apodo}</td>
                                             <td>Compartir Mesa o No</td>
-                                            <td>El Boton aceptar</td>
-                                            <td>El Boton rechazar</td>
-                                        </c:forEach>
-                                    </tr>
+                                            <c:choose>
+                                                <c:when test="${requestScope.peticiones == 'Enviadas'}">
+                                                    <td><button class="botonArriba" onclick="location.href = '/TFG/Usuarios/eliminarPeticion?pamistad=${usuario.apodo}'">Eliminar</button></td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td><button class="botonArriba" onclick="location.href = '/TFG/Usuarios/aceptarPeticion?pamistad=${usuario.apodo}'">Aceptar</button></td>
+                                                    <td><button class="botonArriba" onclick="location.href = '/TFG/Usuarios/rechazarPeticion?pamistad=${usuario.apodo}'">Rechazar</button></td>
+                                                </c:otherwise>
+                                            </c:choose> 
+                                        </tr>
+                                    </c:forEach>
                                 </table>
                             </div>
                         </div>
@@ -101,6 +108,7 @@
     <footer>
         &copy; 2023 Cristian Delgado Cruz
     </footer>
+    <script src="/TFG/js/principalJS.js"></script>
     <script>
         //Select y botones
         let Orden = document.getElementById('ordenarPeticiones');
@@ -149,9 +157,8 @@
             window.location.href = urlDestinoBoton;
         });
 
-        //Funcion que actualiza los botones
+        //Funcion que actualiza los botones para pasar de pag
         function actualizarBotones() {
-
 
             let pestañasBotones = document.getElementById('pestañaBotones');
             pestañasBotones.innerHTML = '';

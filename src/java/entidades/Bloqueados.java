@@ -19,7 +19,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Bloqueados.findAll", query = "SELECT b FROM Bloqueados b"),
     @NamedQuery(name = "Bloqueados.findByBloqueador", query = "SELECT b FROM Bloqueados b WHERE b.bloqueadosPK.bloqueador = :bloqueador"),
-    @NamedQuery(name = "Bloqueados.findByBloqueado", query = "SELECT b FROM Bloqueados b WHERE b.bloqueadosPK.bloqueado = :bloqueado")})
+    @NamedQuery(name = "Bloqueados.findByBloqueado", query = "SELECT b FROM Bloqueados b WHERE b.bloqueadosPK.bloqueado = :bloqueado"),
+    @NamedQuery(name = "Bloqueados.findByBloqueados", query = "SELECT b FROM Bloqueados b WHERE b.bloqueadosPK.bloqueador = :bloqueador and b.bloqueadosPK.bloqueado = :bloqueado")
+})
 public class Bloqueados implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -19,7 +19,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Pideamistad.findAll", query = "SELECT p FROM Pideamistad p"),
     @NamedQuery(name = "Pideamistad.findByPide", query = "SELECT p FROM Pideamistad p WHERE p.pideamistadPK.pide = :pide"),
-    @NamedQuery(name = "Pideamistad.findByAcepta", query = "SELECT p FROM Pideamistad p WHERE p.pideamistadPK.acepta = :acepta")})
+    @NamedQuery(name = "Pideamistad.findByAcepta", query = "SELECT p FROM Pideamistad p WHERE p.pideamistadPK.acepta = :acepta"),
+    @NamedQuery(name = "Pideamistad.findByAceptar", query = "SELECT p FROM Pideamistad p WHERE p.pideamistadPK.pide = :pide and p.pideamistadPK.acepta = :acepta")
+})
 public class Pideamistad implements Serializable {
 
     private static final long serialVersionUID = 1L;
