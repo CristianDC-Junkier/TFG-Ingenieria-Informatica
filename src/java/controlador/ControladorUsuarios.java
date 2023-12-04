@@ -1108,7 +1108,7 @@ public class ControladorUsuarios extends HttpServlet {
 
                 delete(bloqueado);
 
-                vista = "/Usuarios/mostrarUsuarios";
+                vista = "/Usuarios/mostrarBloqueados";
                 break;
             case "/bloquearUsuario":
 

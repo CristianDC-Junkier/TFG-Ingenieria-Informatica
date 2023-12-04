@@ -776,15 +776,15 @@
         <footer>
             &copy; 2023 Cristian Delgado Cruz
         </footer>
-        <script src="/TFG/js/principalJS.js"></script>
         <script>
-                                            function mostrarRecuadro(idM) {
-                                                document.getElementById('recuadro' + idM).style.display = 'flex';
-                                            }
+            function mostrarRecuadro(idM) {
+                document.getElementById('recuadro' + idM).style.display = 'flex';
+            }
 
-                                            function cerrarRecuadro(idN) {
-                                                document.getElementById('recuadro' + idN).style.display = 'none';
-                                            }
+            function cerrarRecuadro(idN) {
+                document.getElementById('recuadro' + idN).style.display = 'none';
+            }
         </script>
+        <script src="/TFG/js/principalJS.js"></script>
     </body>
 </html>

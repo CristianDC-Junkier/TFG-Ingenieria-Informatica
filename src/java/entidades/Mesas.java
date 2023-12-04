@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package entidades;
 
 import java.io.Serializable;
@@ -7,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,10 +26,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Mesas.findAll", query = "SELECT m FROM Mesas m"),
+    @NamedQuery(name = "Mesas.findById", query = "SELECT m FROM Mesas m WHERE m.id = :id"),
     @NamedQuery(name = "Mesas.findByCreador", query = "SELECT m FROM Mesas m WHERE m.creador = :creador"),
     @NamedQuery(name = "Mesas.findByComunidad", query = "SELECT m FROM Mesas m WHERE m.comunidad = :comunidad"),
     @NamedQuery(name = "Mesas.findByTamano", query = "SELECT m FROM Mesas m WHERE m.tamano = :tamano"),
-    @NamedQuery(name = "Mesas.findByTitulo", query = "SELECT m FROM Mesas m WHERE m.titulo = :titulo")})
+    @NamedQuery(name = "Mesas.findByTitulo", query = "SELECT m FROM Mesas m WHERE m.titulo = :titulo"),
+    @NamedQuery(name = "Mesas.findByDescripcion", query = "SELECT m FROM Mesas m WHERE m.descripcion = :descripcion"),
+    @NamedQuery(name = "Mesas.CountByCreador", query = "SELECT COUNT(m) FROM Mesas m WHERE m.creador = :creador")
+})
 public class Mesas implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,6 +60,9 @@ public class Mesas implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "TITULO")
     private String titulo;
+    @Size(max = 255)
+    @Column(name = "DESCRIPCION")
+    private String descripcion;
 
     public Mesas() {
     }
@@ -62,7 +71,7 @@ public class Mesas implements Serializable {
         this.id = id;
     }
 
-    public Mesas(String id, String creador, String comunidad, short tamano, String titulo) {
+    public Mesas(String id, String creador, String comunidad, short tamano, String titulo ) {
         this.id = id;
         this.creador = creador;
         this.comunidad = comunidad;
@@ -70,7 +79,16 @@ public class Mesas implements Serializable {
         this.titulo = titulo;
     }
     
-    public Mesas(String creador, String comunidad, short tamano, String titulo) {
+    public Mesas(String id, String creador, String comunidad, short tamano, String titulo, String descripcion) {
+        this.id = id;
+        this.creador = creador;
+        this.comunidad = comunidad;
+        this.tamano = tamano;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+    }
+    
+     public Mesas(String creador, String comunidad, short tamano, String titulo) {
         this.creador = creador;
         this.comunidad = comunidad;
         this.tamano = tamano;
@@ -115,6 +133,14 @@ public class Mesas implements Serializable {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @Override

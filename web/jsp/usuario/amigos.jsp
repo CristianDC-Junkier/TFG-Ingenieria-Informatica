@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/amigosCss.css"/>
-    <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/botonesCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/listasUsuariosCss.css"/>
 </head>
 <body>
     <header>
@@ -72,8 +72,18 @@
                                             <td>${usuario.provincia}</td>
                                             <td>${usuario.genero}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/mostrarAmigo?amigo=${usuario.apodo}'">Detalles</button></td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/eliminarAmigo?amigo=${usuario.apodo}'">Eliminar Amigo</button></td>
+                                            <td><button class="botonDentro" onclick="mostrarRecuadro()">Eliminar Amigo</button></td>
                                         </tr>
+                                        <div class="opcionRecuadro" id="recuadro" style="display: none;">
+                                            <div class="contenidoRecuadro">
+                                                <div class="tituloRecuadro">¿Esta seguro que quiere Eliminarlo?
+                                                    <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
+                                                </div>
+                                                <hr>
+                                                <button class="botonDentro" onclick="location.href = '/TFG/Usuarios/eliminarAmigo?amigo=${usuario.apodo}'">Si</button>
+                                                <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
+                                            </div>
+                                        </div>
                                     </c:forEach>
                                 </table>
                             </div>
@@ -181,6 +191,13 @@
                 urlDestinoPagIni = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + (pag + 1);
                 window.location.href = urlDestinoPagIni;
             });
+        }
+        function mostrarRecuadro() {
+            document.getElementById('recuadro').style.display = 'flex';
+        }
+
+        function cerrarRecuadro() {
+            document.getElementById('recuadro').style.display = 'none';
         }
     </script>
     <script src="/TFG/js/principalJS.js"></script>
