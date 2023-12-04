@@ -24,7 +24,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Pertenecemesa.findAll", query = "SELECT p FROM Pertenecemesa p"),
     @NamedQuery(name = "Pertenecemesa.findByUsuario", query = "SELECT p FROM Pertenecemesa p WHERE p.pertenecemesaPK.usuario = :usuario"),
     @NamedQuery(name = "Pertenecemesa.findByMesa", query = "SELECT p FROM Pertenecemesa p WHERE p.pertenecemesaPK.mesa = :mesa"),
-    @NamedQuery(name = "Pertenecemesa.findByRol", query = "SELECT p FROM Pertenecemesa p WHERE p.rol = :rol")})
+    @NamedQuery(name = "Pertenecemesa.findByRol", query = "SELECT p FROM Pertenecemesa p WHERE p.rol = :rol"),
+    @NamedQuery(name = "Pertenecemesa.findByRolMesa", query = "SELECT p FROM Pertenecemesa p WHERE p.rol = :rol and p.pertenecemesaPK.mesa = :mesa"),
+    @NamedQuery(name = "Pertenecemesa.findByUsuarioMesa", query = "SELECT p FROM Pertenecemesa p WHERE p.pertenecemesaPK.usuario = :usuario and p.pertenecemesaPK.mesa = :mesa"),
+    @NamedQuery(name = "Pertenecemesa.countByMesa", query = "SELECT COUNT(p) FROM Pertenecemesa p WHERE p.pertenecemesaPK.mesa = :mesa")
+})
 public class Pertenecemesa implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,8 +52,9 @@ public class Pertenecemesa implements Serializable {
         this.rol = rol;
     }
 
-    public Pertenecemesa(String usuario, String mesa) {
+    public Pertenecemesa(String usuario, String mesa, String rol) {
         this.pertenecemesaPK = new PertenecemesaPK(usuario, mesa);
+        this.rol = rol;
     }
 
     public PertenecemesaPK getPertenecemesaPK() {

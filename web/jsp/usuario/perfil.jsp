@@ -44,7 +44,7 @@
                 </div>
                 <div class="botones">
                     <button class="boton" onclick="location.href = '/TFG/Usuarios/mostrarAmigos'">Amigos</button>
-                    <button class="boton" onclick="agregarArchivo()">Mesas</button>
+                    <button class="boton" onclick="location.href = '/TFG/Mesas/mostrarMesasUsuario'">Mesas</button>
                     <button class="boton" onclick="agregarArchivo()">Personajes</button>
                     <button class="botonfinal" onclick="location.href = '/TFG/jsp/formularios/modificarusuario.jsp'">Modificar Datos</button>
                     <button class="botonfinal" onclick="location.href = '/TFG/Usuarios/cerrarSesion'">Salir</button>

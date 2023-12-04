@@ -114,21 +114,33 @@ public class ControladorUsuarios extends HttpServlet {
                         && provincia != null && genero != null) {
 
                     try {
+
+                        //////////////////
+                        //////NOMBRE//////
+                        //////////////////
+                        if (nombre.toUpperCase().startsWith("UPDATE") || nombre.toUpperCase().startsWith("CREATE")
+                                || nombre.toUpperCase().startsWith("DELETE") || nombre.toUpperCase().startsWith("SELECT")) {
+                            throw new Exception("El Nombre no es válido");
+                        }
+
+                        //////////////////////
+                        //////CONTRASEÑA//////
+                        //////////////////////
+                        if (contrasena.toUpperCase().startsWith("UPDATE") || contrasena.toUpperCase().startsWith("CREATE")
+                                || contrasena.toUpperCase().startsWith("DELETE") || contrasena.toUpperCase().startsWith("SELECT")) {
+                            throw new Exception("La contrasena no es válida");
+                        }
+
                         /////////////////
                         //////FECHA//////
                         /////////////////
-
                         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
                         Date fechaNacimiento = formatoFecha.parse(fechaNacimientoString);
 
-                        // Obtener la fecha actual
                         Date fechaActual = new Date();
-                        // Crear un objeto Calendar y establecer la fecha actual
                         Calendar calendarioAux = Calendar.getInstance();
                         calendarioAux.setTime(fechaActual);
-                        // Restar 10 años
                         calendarioAux.add(Calendar.YEAR, -10);
-                        // Obtener la nueva fecha después de restar 10 años
                         fechaActual = calendarioAux.getTime();
 
                         // Comparar las fechas
@@ -141,6 +153,11 @@ public class ControladorUsuarios extends HttpServlet {
                         /////////////////////
                         /////////APODO///////
                         /////////////////////
+                        if (apodo.toUpperCase().startsWith("UPDATE") || apodo.toUpperCase().startsWith("CREATE")
+                                || apodo.toUpperCase().startsWith("DELETE") || apodo.toUpperCase().startsWith("SELECT")) {
+                            throw new Exception("El Nombre de usuario no es válido");
+                        }
+
                         queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                         queryUsuarios.setParameter("apodo", apodo);
                         listaUsuarios = queryUsuarios.getResultList();
@@ -225,19 +242,27 @@ public class ControladorUsuarios extends HttpServlet {
                 apodo = request.getParameter("nombre_usuario");
                 contrasena = request.getParameter("usuario_contrasena");
 
-                /////////////////////////
-                //////////APODO//////////
-                /////////////////////////
+                /////////////////////
+                /////////APODO///////
+                /////////////////////
+                if (apodo.toUpperCase().startsWith("UPDATE") || apodo.toUpperCase().startsWith("CREATE")
+                        || apodo.toUpperCase().startsWith("DELETE") || apodo.toUpperCase().startsWith("SELECT")) {
+                    throw new Exception("El Nombre de usuario no es válido");
+                }
+
                 queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                 queryUsuarios.setParameter("apodo", apodo);
                 listaUsuarios = queryUsuarios.getResultList();
 
                 if (listaUsuarios.isEmpty()) {
                     throw new Exception("El Nombre de usuario no se encuentra ");
-                } //////////////////////////
-                ////////CONTRASEÑA////////
-                //////////////////////////
-                else {
+                } //////////////////////
+                //////CONTRASEÑA//////
+                //////////////////////
+                else if (contrasena.toUpperCase().startsWith("UPDATE") || contrasena.toUpperCase().startsWith("CREATE")
+                        || contrasena.toUpperCase().startsWith("DELETE") || contrasena.toUpperCase().startsWith("SELECT")) {
+                    throw new Exception("La contrasena no es válida");
+                } else {
                     user = listaUsuarios.remove(0);
 
                     if (!user.getContrasena().equals(contrasena)) {
@@ -312,14 +337,11 @@ public class ControladorUsuarios extends HttpServlet {
                         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
                         Date fechaNacimiento = formatoFecha.parse(fechaNacimientoString);
 
-                        // Obtener la fecha actual
                         Date fechaActual = new Date();
-                        // Crear un objeto Calendar y establecer la fecha actual
                         Calendar calendarioAux = Calendar.getInstance();
                         calendarioAux.setTime(fechaActual);
-                        // Restar 10 años
                         calendarioAux.add(Calendar.YEAR, -10);
-                        // Obtener la nueva fecha después de restar 10 años
+
                         fechaActual = calendarioAux.getTime();
 
                         // Comparar las fechas
@@ -333,6 +355,10 @@ public class ControladorUsuarios extends HttpServlet {
                         /////////////////////
                         /////////APODO///////
                         /////////////////////
+                        if (apodo.toUpperCase().startsWith("UPDATE") || apodo.toUpperCase().startsWith("CREATE")
+                                || apodo.toUpperCase().startsWith("DELETE") || apodo.toUpperCase().startsWith("SELECT")) {
+                            throw new Exception("El Nombre de usuario no es válido");
+                        }
                         queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                         queryUsuarios.setParameter("apodo", apodo);
                         listaUsuarios = queryUsuarios.getResultList();
@@ -371,6 +397,14 @@ public class ControladorUsuarios extends HttpServlet {
                             telefonoBI = null;
                         }
 
+                        //////////////////////
+                        //////CONTRASEÑA//////
+                        //////////////////////
+                        if (contrasena.toUpperCase().startsWith("UPDATE") || contrasena.toUpperCase().startsWith("CREATE")
+                                || contrasena.toUpperCase().startsWith("DELETE") || contrasena.toUpperCase().startsWith("SELECT")) {
+                            throw new Exception("La contrasena no es válida");
+                        }
+
                         //////////////////////////////
                         //////////MODIFICAMOS/////////
                         //////////////////////////////
@@ -404,7 +438,7 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session.setAttribute("user", user);
-                    vista = "/jsp/inicio/inicio.jsp";
+                    vista = "/jsp/usuario/perfil.jsp";
                 } else {
                     request.setAttribute("msj", msj);
                     vista = "/jsp/formularios/modificarusuario.jsp";

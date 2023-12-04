@@ -87,8 +87,8 @@
                         <div class="barraHorizontalDrop">
                             <div class = "barraHorizontalContenido">Mesas</div>
                             <div class="barraHorizontalContenidoDrop">
-                                <a href="/TFG/jsp/explorar/clases.jsp">Explorar</a>
-                                <a href="/TFG/jsp/explorar/razas.jsp">Mis Mesas</a>
+                                <a href="/TFG/Mesas/mostrarMesas">Explorar</a>
+                                <a href="/TFG/Mesas/mostrarMesasUsuario">Mis Mesas</a>
                             </div>
                         </div>
                     </c:if>
