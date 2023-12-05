@@ -61,15 +61,7 @@
         <footer>
             &copy; 2023 Cristian Delgado Cruz
         </footer>
-        <script>
-            function mostrarRecuadro() {
-                document.getElementById('recuadro').style.display = 'flex';
-            }
-
-            function cerrarRecuadro() {
-                document.getElementById('recuadro').style.display = 'none';
-            }
-        </script>
+        <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
         <script src="/TFG/js/principalJS.js"></script>
     </body>
 </html>

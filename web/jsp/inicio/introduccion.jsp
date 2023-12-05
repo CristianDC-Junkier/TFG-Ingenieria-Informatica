@@ -5,13 +5,13 @@
         <title class="titulosPag" >Guidance4\Inicio\Introducción</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="..\..\css\introduccionCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/introduccionCss.css"/>
     </head>
     <body>
         <header>
-            <h1> <img class="Logo" src="../../img/dnd-banner.jpg" alt="Logo" /> </h1>
+            <h1> <img class="Logo" src="/TFG/img/dnd-banner.jpg" alt="Logo" /> </h1>
         </header>
-        <jsp:include page="../menuNav.jsp" />
+        <jsp:include page="/jsp/menuNav.jsp" />
         <main>
             <h2 class="Titulos">Introducción</h2>
             <hr color="black"><br>
@@ -120,6 +120,6 @@
         <footer>
             &copy; 2023 Cristian Delgado Cruz
         </footer>
-        <script src="../../js/principalJS.js"></script>
+        <script src="/TFG/js/principalJS.js"></script>
     </body>
 </html>

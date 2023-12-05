@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+
 package controlador;
 
 import entidades.Mesas;
@@ -115,8 +112,9 @@ public class ControladorMesas extends HttpServlet {
                         //////////////////////////
                         //////////TITULO//////////
                         //////////////////////////
-                        if (titulo.toUpperCase().startsWith("UPDATE") || titulo.toUpperCase().startsWith("CREATE")
-                                || titulo.toUpperCase().startsWith("DELETE") || titulo.toUpperCase().startsWith("SELECT")) {
+                        if (titulo.toUpperCase().contains("UPDATE") || titulo.toUpperCase().contains("CREATE")
+                                || titulo.toUpperCase().contains("DELETE") || titulo.toUpperCase().contains("SELECT")
+                                || titulo.toUpperCase().contains("DROP")) {
                             throw new Exception("El Titulo no es válido");
                         }
 
@@ -143,8 +141,9 @@ public class ControladorMesas extends HttpServlet {
                         //////////DESCIPCION//////////
                         //////////////////////////////
                         if (descripcion != null) {
-                            if (descripcion.toUpperCase().startsWith("UPDATE") || descripcion.toUpperCase().startsWith("CREATE")
-                                    || descripcion.toUpperCase().startsWith("DELETE") || descripcion.toUpperCase().startsWith("SELECT")) {
+                            if (descripcion.toUpperCase().contains("UPDATE") || descripcion.toUpperCase().contains("CREATE")
+                                    || descripcion.toUpperCase().contains("DELETE") || descripcion.toUpperCase().contains("SELECT")
+                                    || descripcion.toUpperCase().contains("DROP")) {
                                 throw new Exception("El Titulo no es válido");
                             }
                         }
@@ -212,8 +211,9 @@ public class ControladorMesas extends HttpServlet {
                         //////////////////////////
                         //////////TITULO//////////
                         //////////////////////////
-                        if (titulo.toUpperCase().startsWith("UPDATE") || titulo.toUpperCase().startsWith("CREATE")
-                                || titulo.toUpperCase().startsWith("DELETE") || titulo.toUpperCase().startsWith("SELECT")) {
+                        if (titulo.toUpperCase().contains("UPDATE") || titulo.toUpperCase().contains("CREATE")
+                                || titulo.toUpperCase().contains("DELETE") || titulo.toUpperCase().contains("SELECT")
+                                || titulo.toUpperCase().contains("DROP")) {
                             throw new Exception("El Titulo no es válido");
                         }
 
@@ -240,8 +240,9 @@ public class ControladorMesas extends HttpServlet {
                         //////////DESCIPCION//////////
                         //////////////////////////////
                         if (descripcion != null) {
-                            if (descripcion.toUpperCase().startsWith("UPDATE") || descripcion.toUpperCase().startsWith("CREATE")
-                                    || descripcion.toUpperCase().startsWith("DELETE") || descripcion.toUpperCase().startsWith("SELECT")) {
+                            if (descripcion.toUpperCase().contains("UPDATE") || descripcion.toUpperCase().contains("CREATE")
+                                    || descripcion.toUpperCase().contains("DELETE") || descripcion.toUpperCase().contains("SELECT")
+                                    || descripcion.toUpperCase().contains("DROP")) {
                                 throw new Exception("El Titulo no es válido");
                             }
                         }

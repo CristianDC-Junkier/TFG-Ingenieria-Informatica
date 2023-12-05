@@ -12,38 +12,38 @@
                 <div class = "barraHorizontal">
                     <div class="barraHorizontalDrop">
                         <div class = "barraHorizontalContenido">
-                            <a href="/TFG/jsp/inicio/inicio.jsp"><img src="/TFG/img/iconos/casa.png" alt="alt"/>Inicio</a></div>
+                            <a href="/TFG/Principal/inicio"><img src="/TFG/img/iconos/casa.png" alt="alt"/>Inicio</a></div>
                         <div class="barraHorizontalContenidoDrop">
-                            <a href="/TFG/jsp/inicio/inicio.jsp">Inicio</a>
-                            <a href="/TFG/jsp/inicio/introduccion.jsp">Introducción</a>
+                            <a href="/TFG/Principal/inicio">Inicio</a>
+                            <a href="/TFG/Principal/introduccion">Introducción</a>
                         </div>
                     </div>
                     <div class="barraHorizontalDrop">
                         <div class = "barraHorizontalContenido">
                             <img src="/TFG/img/iconos/casa.png" alt="alt"/>Reglas&nbsp;</div>
                         <div class="barraHorizontalContenidoDrop">
-                            <a href="/TFG/jsp/reglas/comocrearpersonajes.jsp">Diseño de Personajes</a>
-                            <a href="/TFG/jsp/reglas/interpretacion.jsp">Interpretar</a>
-                            <a href="/TFG/jsp/reglas/combate.jsp">Combate</a>
-                            <a href="/TFG/jsp/reglas/turnos.jsp">Turnos</a>
-                            <a href="/TFG/jsp/reglas/desafios.jsp">Valores de Desafío</a>
-                            <a href="/TFG/jsp/reglas/misiones.jsp">Misiones</a>
-                            <a href="/TFG/jsp/reglas/objetosmagicos.jsp">Objetos Mágicos</a>
-                            <a href="/TFG/jsp/reglas/precios.jsp">Precios</a>
+                            <a href="/TFG/Reglas/comocrearpersonajes">Diseño de Personajes</a>
+                            <a href="/TFG/Reglas/interpretacion">Interpretar</a>
+                            <a href="/TFG/Reglas/combate">Combate</a>
+                            <a href="/TFG/Reglas/turnos">Turnos</a>
+                            <a href="/TFG/Reglas/desafios">Valores de Desafío</a>
+                            <a href="/TFG/Reglas/misiones">Misiones</a>
+                            <a href="/TFG/Reglas/objetosmagicos">Objetos Mágicos</a>
+                            <a href="/TFG/Reglas/precios">Precios</a>
                         </div>
                     </div>
                     <div class="barraHorizontalDrop">
                         <div class = "barraHorizontalContenido">
                             <img src="/TFG/img/iconos/lupablanca.png" alt="alt"/>Explorar</div>
                         <div class="barraHorizontalContenidoDrop">
-                            <a href="/TFG/jsp/explorar/clases.jsp">Clases</a>
-                            <a href="/TFG/jsp/explorar/razas.jsp">Razas</a>
-                            <a href="/TFG/jsp/explorar/trasfondos.jsp">Trasfondos</a>
-                            <a href="/TFG/jsp/explorar/dotes.jsp">Dotes</a>
-                            <a href="/TFG/jsp/explorar/estados.jsp">Estados</a>
-                            <a href="/TFG/jsp/explorar/equipo.jsp">Equipo</a>
-                            <a href="/TFG/jsp/explorar/hechizos.jsp">Hechizos</a>
-                            <a href="/TFG/jsp/explorar/monstruos.jsp">Monstruos</a>
+                            <a href="/TFG/Explorar/clases">Clases</a>
+                            <a href="/TFG/Explorar/razas">Razas</a>
+                            <a href="/TFG/Explorar/trasfondos">Trasfondos</a>
+                            <a href="/TFG/Explorar/dotes">Dotes</a>
+                            <a href="/TFG/Explorar/estados">Estados</a>
+                            <a href="/TFG/Explorar/equipo">Equipo</a>
+                            <a href="/TFG/Explorar/hechizos">Hechizos</a>
+                            <a href="/TFG/Explorar/monstruos">Monstruos</a>
 
                         </div>
                     </div>
@@ -94,11 +94,11 @@
                     </c:if>
                     <c:choose>
                         <c:when test="${sessionScope.user != null}">
-                            <a class="BarraHorizontalContenidoFinal" href="/TFG/jsp/usuario/perfil.jsp">
+                            <a class="BarraHorizontalContenidoFinal" href="/TFG/Usuarios/perfil">
                                 <img src="/TFG/img/iconos/usuario.png" alt="alt"/>${sessionScope.user.apodo}</a>
                             </c:when>
                             <c:otherwise>
-                            <a class="BarraHorizontalContenidoFinal" href="/TFG/jsp/formularios/iniciosesion.jsp">
+                            <a class="BarraHorizontalContenidoFinal" href="/TFG/Formularios/iniciosesion">
                                 <img src="/TFG/img/iconos/usuario.png" alt="alt"/>Iniciar Sesión</a>
                             </c:otherwise>
                         </c:choose>
@@ -112,11 +112,11 @@
                     <ul class="barraVerticalUno">
                         <li class="unoDrop primero">
                             <div class = "barraVerticalContenido">
-                                <a href="/TFG/jsp/inicio/inicio.jsp">Inicio</a>
+                                <a href="/TFG/Principal/inicio">Inicio</a>
                             </div>
                             <ul class="barraVerticalDos">
-                                <li><a href="/TFG/jsp/inicio/inicio.jsp">Inicio</a></li>
-                                <li><a href="/TFG/jsp/inicio/introduccion.jsp">Introducción</a></li>
+                                <li><a href="/TFG/Principal/inicio">Inicio</a></li>
+                                <li><a href="/TFG/Principal/introduccion">Introducción</a></li>
                             </ul>
                         </li>
                         <li class="unoDrop segundo">
@@ -124,14 +124,14 @@
                                 Reglas
                             </div>
                             <ul class="barraVerticalDos">
-                                <li><a href="/TFG/jsp/reglas/comocrearpersonajes.jsp">D. de Personajes</a></li>
-                                <li><a href="/TFG/jsp/reglas/interpretacion.jsp">Interpretación</a></li>
-                                <li><a href="/TFG/jsp/reglas/combate.jsp">Combate</a></li>
-                                <li><a href="/TFG/jsp/reglas/turnos.jsp">Turnos</a></li>
-                                <li><a href="/TFG/jsp/reglas/desafios.jsp">Valores de Desafío</a></li>
-                                <li><a href="/TFG/jsp/reglas/misiones.jsp">Misiones</a></li>
-                                <li><a href="/TFG/jsp/reglas/objetosmagicos.jsp">Objetos Mágicos</a></li>
-                                <li><a href="/TFG/jsp/reglas/precios.jsp">Precios</a></li>
+                                <li><a href="/TFG/Reglas/comocrearpersonajes">D. de Personajes</a></li>
+                                <li><a href="/TFG/Reglas/interpretacion">Interpretación</a></li>
+                                <li><a href="/TFG/Reglas/combate">Combate</a></li>
+                                <li><a href="/TFG/Reglas/turnos">Turnos</a></li>
+                                <li><a href="/TFG/Reglas/desafios">Valores de Desafío</a></li>
+                                <li><a href="/TFG/Reglas/misiones">Misiones</a></li>
+                                <li><a href="/TFG/Reglas/objetosmagicos">Objetos Mágicos</a></li>
+                                <li><a href="/TFG/Reglas/precios">Precios</a></li>
                             </ul>
                         </li>
                         <li class="unoDrop tercero">
@@ -139,21 +139,21 @@
                                 Explorar
                             </div>
                             <ul class="barraVerticalDos">
-                                <li><a href="/TFG/jsp/explorar/clases.jsp">Clases</a></li>
-                                <li><a href="/TFG/jsp/explorar/razas.jsp">Razas</a><li>
-                                <li><a href="/TFG/jsp/explorar/trasfondos.jsp">Trasfondos</a></li>
-                                <li><a href="/TFG/jsp/explorar/dotes.jsp">Dotes</a></li>
-                                <li><a href="/TFG/jsp/explorar/estados.jsp">Estados</a></li>
-                                <li><a href="/TFG/jsp/explorar/equipo.jsp">Equipo</a></li>
-                                <li><a href="/TFG/jsp/explorar/hechizos.jsp">Hechizos</a></li>
-                                <li><a href="/TFG/jsp/explorar/monstruos.jsp">Monstruos</a></li>
+                                <li><a href="/TFG/Explorar/clases">Clases</a></li>
+                                <li><a href="/TFG/Explorar/razas">Razas</a><li>
+                                <li><a href="/TFG/Explorar/trasfondos">Trasfondos</a></li>
+                                <li><a href="/TFG/Explorar/dotes">Dotes</a></li>
+                                <li><a href="/TFG/Explorar/estados">Estados</a></li>
+                                <li><a href="/TFG/Explorar/equipo">Equipo</a></li>
+                                <li><a href="/TFG/Explorar/hechizos">Hechizos</a></li>
+                                <li><a href="/TFG/Explorar/monstruos">Monstruos</a></li>
                             </ul>
                         </li>
                         <c:choose>
                             <c:when test="${sessionScope.user != null}">
                                 <li class="unoDrop primero">
                                     <div class = "barraVerticalContenido">
-                                        <a href="/TFG/jsp/inicio.jsp">Personajes</a>
+                                        <a href="/TFG/Formularios/">Personajes</a>
                                     </div>
                                     <ul class="barraVerticalDos">
                                         <li><a href="/TFG/jsp/inicio.jsp">Explorar</a></li>
@@ -190,13 +190,13 @@
                             <c:choose>
                                 <c:when test="${sessionScope.user != null}">
                                     <div class = "barraVerticalContenido">
-                                        <a href="/TFG/jsp/usuario/perfil.jsp">${sessionScope.user.apodo}</a>
+                                        <a href="/TFG/Usuarios/perfil">${sessionScope.user.apodo}</a>
                                     </div>
 
                                 </c:when>
                                 <c:otherwise>
                                     <div class = "barraVerticalContenido">
-                                        <a href="/TFG/jsp/formularios/iniciosesion.jsp">Iniciar Sesión</a>
+                                        <a href="/TFG/Formularios/iniciosesion">Iniciar Sesión</a>
                                     </div>
                                 </c:otherwise>
                             </c:choose>

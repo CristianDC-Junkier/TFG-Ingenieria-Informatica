@@ -30,9 +30,9 @@
                         <c:otherwise>
                             <h2>¡Bienvenido de nuevo!</h2>
                             <p>Inicia sesión para poder disfrutar todas las funciones</p>
-                            <button class="botonInicioSesion" onclick="location.href = '/TFG/jsp/formularios/iniciosesion.jsp'">Iniciar Sesión</button>
+                            <button class="botonInicioSesion" onclick="location.href = '/TFG/Formularios/iniciosesion'">Iniciar Sesión</button>
                             <p>¿Aún no tienes cuenta?<br>Únete fácilmente:</p>
-                            <button class="botonRegistro" onclick="location.href = '/TFG/jsp/formularios/registro.jsp'">Registrarse</button>
+                            <button class="botonRegistro" onclick="location.href = '/TFG/Formularios/registro'">Registrarse</button>
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -42,7 +42,7 @@
                         <img class="FotoInicio2" src="/TFG/img/luzpng.png" alt="alt"/>
                     </div>
                     <div class="TextoInicio">
-                        <p><button class="botonIntroducción" onclick="location.href = '/TFG/jsp/inicio/introduccion.jsp'"> Infórmate aquí</button>Qué es Dungeons & Dragons y como se juega</p>
+                        <p><button class="botonIntroducción" onclick="location.href = '/TFG/Principal/introduccion'"> Infórmate aquí</button>Qué es Dungeons & Dragons y como se juega</p>
                         <hr style="margin-left: -10px;">
                         <p>¿Necesitas algo más?, No dudes en descargar el manual para todo</p>
                         <a href="/TFG/manual/ManualCasiTodo.pdf" download="Manual Casi Todo.pdf">Descargar archivo</a>

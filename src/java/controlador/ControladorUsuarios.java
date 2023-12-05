@@ -117,17 +117,19 @@ public class ControladorUsuarios extends HttpServlet {
 
                         //////////////////
                         //////NOMBRE//////
-                        //////////////////
-                        if (nombre.toUpperCase().startsWith("UPDATE") || nombre.toUpperCase().startsWith("CREATE")
-                                || nombre.toUpperCase().startsWith("DELETE") || nombre.toUpperCase().startsWith("SELECT")) {
+                        ////////////////// //CONTEXT
+                        if (nombre.toUpperCase().contains("UPDATE") || nombre.toUpperCase().contains("CREATE")
+                                || nombre.toUpperCase().contains("DELETE") || nombre.toUpperCase().contains("SELECT")
+                                || nombre.toUpperCase().contains("DROP")) {
                             throw new Exception("El Nombre no es válido");
                         }
 
                         //////////////////////
                         //////CONTRASEÑA//////
                         //////////////////////
-                        if (contrasena.toUpperCase().startsWith("UPDATE") || contrasena.toUpperCase().startsWith("CREATE")
-                                || contrasena.toUpperCase().startsWith("DELETE") || contrasena.toUpperCase().startsWith("SELECT")) {
+                        if (contrasena.toUpperCase().contains("UPDATE") || contrasena.toUpperCase().contains("CREATE")
+                                || contrasena.toUpperCase().contains("DELETE") || contrasena.toUpperCase().contains("SELECT")
+                                || contrasena.toUpperCase().contains("DROP")) {
                             throw new Exception("La contrasena no es válida");
                         }
 
@@ -153,8 +155,9 @@ public class ControladorUsuarios extends HttpServlet {
                         /////////////////////
                         /////////APODO///////
                         /////////////////////
-                        if (apodo.toUpperCase().startsWith("UPDATE") || apodo.toUpperCase().startsWith("CREATE")
-                                || apodo.toUpperCase().startsWith("DELETE") || apodo.toUpperCase().startsWith("SELECT")) {
+                        if (apodo.toUpperCase().contains("UPDATE") || apodo.toUpperCase().contains("CREATE")
+                                || apodo.toUpperCase().contains("DELETE") || apodo.toUpperCase().contains("SELECT")
+                                || apodo.toUpperCase().contains("DROP")) {
                             throw new Exception("El Nombre de usuario no es válido");
                         }
 
@@ -245,8 +248,9 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////////////////
                 /////////APODO///////
                 /////////////////////
-                if (apodo.toUpperCase().startsWith("UPDATE") || apodo.toUpperCase().startsWith("CREATE")
-                        || apodo.toUpperCase().startsWith("DELETE") || apodo.toUpperCase().startsWith("SELECT")) {
+                if (apodo.toUpperCase().contains("UPDATE") || apodo.toUpperCase().contains("CREATE")
+                        || apodo.toUpperCase().contains("DELETE") || apodo.toUpperCase().contains("SELECT")
+                        || apodo.toUpperCase().contains("DROP")) {
                     throw new Exception("El Nombre de usuario no es válido");
                 }
 
@@ -259,8 +263,9 @@ public class ControladorUsuarios extends HttpServlet {
                 } //////////////////////
                 //////CONTRASEÑA//////
                 //////////////////////
-                else if (contrasena.toUpperCase().startsWith("UPDATE") || contrasena.toUpperCase().startsWith("CREATE")
-                        || contrasena.toUpperCase().startsWith("DELETE") || contrasena.toUpperCase().startsWith("SELECT")) {
+                else if (contrasena.toUpperCase().contains("UPDATE") || contrasena.toUpperCase().contains("CREATE")
+                        || contrasena.toUpperCase().contains("DELETE") || contrasena.toUpperCase().contains("SELECT")
+                        || contrasena.toUpperCase().contains("DROP")) {
                     throw new Exception("La contrasena no es válida");
                 } else {
                     user = listaUsuarios.remove(0);
@@ -355,8 +360,9 @@ public class ControladorUsuarios extends HttpServlet {
                         /////////////////////
                         /////////APODO///////
                         /////////////////////
-                        if (apodo.toUpperCase().startsWith("UPDATE") || apodo.toUpperCase().startsWith("CREATE")
-                                || apodo.toUpperCase().startsWith("DELETE") || apodo.toUpperCase().startsWith("SELECT")) {
+                        if (apodo.toUpperCase().contains("UPDATE") || apodo.toUpperCase().contains("CREATE")
+                                || apodo.toUpperCase().contains("DELETE") || apodo.toUpperCase().contains("SELECT") 
+                                || apodo.toUpperCase().contains("DROP")) {
                             throw new Exception("El Nombre de usuario no es válido");
                         }
                         queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
@@ -400,8 +406,9 @@ public class ControladorUsuarios extends HttpServlet {
                         //////////////////////
                         //////CONTRASEÑA//////
                         //////////////////////
-                        if (contrasena.toUpperCase().startsWith("UPDATE") || contrasena.toUpperCase().startsWith("CREATE")
-                                || contrasena.toUpperCase().startsWith("DELETE") || contrasena.toUpperCase().startsWith("SELECT")) {
+                        if (contrasena.toUpperCase().contains("UPDATE") || contrasena.toUpperCase().contains("CREATE")
+                                || contrasena.toUpperCase().contains("DELETE") || contrasena.toUpperCase().contains("SELECT")
+                                || contrasena.toUpperCase().contains("DROP")) {
                             throw new Exception("La contrasena no es válida");
                         }
 
@@ -588,7 +595,11 @@ public class ControladorUsuarios extends HttpServlet {
 
                 vista = "/jsp/usuario/usuarios.jsp";
                 break;
-
+                
+                case "/perfil":
+                vista = "/jsp/usuario/perfil.jsp";
+                break;
+                
             ///////////////////////////////////////////////////////////////////////////
             //////////////////////////////PEDIR AMISTAD////////////////////////////////
             ///////////////////////////////////////////////////////////////////////////

@@ -31,7 +31,7 @@
                     <h3>Normales</h3>
                     <div class="ListaRazasTipo">
                         <div class="ResumenRaza">
-                            <img src="..\..\img\razas\enano.jpg" alt="Placeholder Image">
+                            <img src="/TFG/img/razas/enano.jpg" alt="Placeholder Image">
                             <div class="ContenidoRaza">
                                 <div class="TituloRaza">Enano</div>
                                 <div class="DescripcionRaza">Los enanos son to raros man</div>

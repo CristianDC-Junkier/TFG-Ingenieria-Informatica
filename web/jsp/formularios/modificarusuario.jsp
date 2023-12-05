@@ -135,30 +135,10 @@
             &copy; 2023 Cristian Delgado Cruz
         </footer>
         <script>
-
-            /*Colocar la fecha*/
             let fechaNacimiento = new Date("${sessionScope.user.fechanac.getYear()+1900}-${sessionScope.user.fechanac.getMonth() + 1}-${sessionScope.user.fechanac.getDate()}");
-                fechaNacimiento.setDate(fechaNacimiento.getDate() + 1);
-                let formattedDate = fechaNacimiento.toISOString().split('T')[0];
-                document.getElementById("bornReg").value = formattedDate;
-
-                /*Colocar la provincia*/
-                var provincias = document.getElementById("provinceReg");
-                for (let i = 0; i < provincias.options.length; i++) {
-                    if (provincias.options[i].value === "${sessionScope.user.provincia}") {
-                        provincias.options[i].selected = true;
-                        break;
-                    }
-                }
-
-                /*Colocar el genero*/
-                var generos = document.getElementById("genderReg");
-                for (let i = 0; i < generos.options.length; i++) {
-                    if (generos.options[i].value === "${sessionScope.user.genero}") {
-                        generos.options[i].selected = true;
-                        break;
-                    }
-                }
+            let provinciaActual = "${sessionScope.user.provincia}";
+            let generoActual = "${sessionScope.user.genero}";
         </script>
+        <script src="/TFG/js/formularios/modificarusuarioJS.js"></script>
     </body>
 </html>

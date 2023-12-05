@@ -34,7 +34,7 @@
                         <div class="ResumenClase">
                             <h5 id="Aa">Artificiero</h5>
                             <li> 
-                                <img src="../../img/clases/artificiero.jfif"/>
+                                <img src="/TFG/img/clases/artificiero.jfif"/>
                                 <p> Los artificieros son maestros de la invención y la magia basada 
                                     en la tecnología. Son capaces de construir y modificar objetos mágicos, 
                                     así como de crear dispositivos que imitan los hechizos de otras clases. 
@@ -49,7 +49,7 @@
                         <div class="ResumenClase">
                             <h5 id="B">Bárbaro</h5>
                             <li> 
-                                <img src="../../img/clases/bárbaro.jfif"/>
+                                <img src="/TFG/img/clases/bárbaro.jfif"/>
                                 <p> Los bárbaros son guerreros feroces que canalizan su 
                                     ira para obtener un poder de combate increíble. 
                                     Son conocidos por su resistencia y capacidad para 
@@ -64,7 +64,7 @@
                         <div class="ResumenClase">
                             <h5>Bardo</h5>
                             <li>              
-                                <img src="../../img/clases/bardo.jfif"/>
+                                <img src="/TFG/img/img/clases/bardo.jfif"/>
                                 <p> Los bardos son artistas versátiles y manipuladores de la magia. 
                                     Pueden inspirar a sus aliados con su música, contar historias que 
                                     alteran la realidad y lanzar hechizos de apoyo para ayudar a su 
@@ -77,7 +77,7 @@
                         <div class="ResumenClase">
                             <h5>Brujo</h5>
                             <li>        
-                                <img src="../../img/clases/brujo.jfif"/>
+                                <img src="/TFG/img/clases/brujo.jfif"/>
                                 <p> Los brujos obtienen su poder mágico a través de 
                                     pactos con seres poderosos, como entidades extraplanarias 
                                     o seres místicos. A diferencia de los magos, los brujos 
@@ -93,7 +93,7 @@
                         <div class="ResumenClase">
                             <h5 id="C">Caballero de la Muerte</h5>
                             <li>      
-                                <img src="../../img/clases/caballeromuerte.jfif"/>
+                                <img src="/TFG/img/clases/caballeromuerte.jfif"/>
                                 <p>Los caballeros de la muerte son expertos en el combate cuerpo a cuerpo
                                     que pueden invocar esbirros no muertos para que les ayuden en la batalla,
                                     son capaces de utilizar las energias de la oscuridad para crear pestes que
@@ -107,7 +107,7 @@
                         <div class="ResumenClase">
                             <h5>Cazador de Sangre</h5>
                             <li> 
-                                <img src="../../img/clases/cazadorsangre.jfif"/>
+                                <img src="/TFG/img/clases/cazadorsangre.jfif"/>
                                 <p> Los cazadores de sangre son rastreadores letales y cazadores expertos, 
                                     con una conexión innata con la bestia interior que les otorga poderes 
                                     sobrenaturales. Son conocidos por su capacidad para rastrear a sus presas, 
@@ -121,7 +121,7 @@
                         <div class="ResumenClase">
                             <h5>Clérigo</h5>
                             <li> 
-                                <img src="../../img/clases/clérigo.jfif"/>
+                                <img src="/TFG/img/clases/clérigo.jfif"/>
                                 <p> Los clérigos son caballeros divinos que canalizan el poder de su dios 
                                     para realizar milagros y lanzar hechizos sagrados. Pueden actuar como 
                                     sanadores, guerreros sagrados o manipuladores de la energía divina según 
@@ -136,7 +136,7 @@
                         <div class="ResumenClase">
                             <h5 id="D">Druida</h5>
                             <li> 
-                                <img src="../../img/clases/druida.jfif"/>
+                                <img src="/TFG/img/clases/druida.jfif"/>
                                 <p> Los druidas son guardianes de la naturaleza y tienen una conexión 
                                     profunda con el mundo natural. Pueden transformarse en animales, 
                                     controlar elementos naturales y lanzar hechizos relacionados con 
@@ -152,7 +152,7 @@
                         <div class="ResumenClase">
                             <h5 id="E">Explorador</h5>
                             <li> 
-                                <img src="../../img/clases/explorador.jfif"/>
+                                <img src="/TFG/img/clases/explorador.jfif"/>
                                 <p> Los exploradores son expertos en sobrevivir en entornos 
                                     hostiles y explorar tierras desconocidas. Son hábiles 
                                     rastreadores y arqueros expertos, capaces de adaptarse 
@@ -169,7 +169,7 @@
                         <div class="ResumenClase">
                             <h5 id="H">Hechizero</h5>
                             <li> 
-                                <img src="../../img/clases/hechizero.jfif"/>
+                                <img src="/TFG/img/clases/hechizero.jfif"/>
                                 <p> Los hechiceros son lanzadores de conjuros que obtienen su 
                                     poder mágico de su sangre o de un acontecimiento sobrenatural. 
                                     Tienen una afinidad innata para manipular la magia y pueden 
@@ -185,7 +185,7 @@
                         <div class="ResumenClase">
                             <h5 id="L">Luchador</h5>
                             <li> 
-                                <img src="../../img/clases/luchador.jfif"/>
+                                <img src="/TFG/img/clases/luchador.jfif"/>
                                 <p> Los luchadores son expertos en el combate cuerpo a cuerpo y 
                                     el manejo de armas. Son maestros en el uso de una variedad de 
                                     armas y armaduras incluso algunos pueden hacer magia, 
@@ -202,7 +202,7 @@
                         <div class="ResumenClase">
                             <h5 id="M">Mago</h5>
                             <li> 
-                                <img src="../../img/clases/mago.jfif"/>
+                                <img src="/TFG/img/clases/mago.jfif"/>
                                 <p> Los magos son usuarios expertos de la magia arcana, capaces 
                                     de lanzar una amplia gama de hechizos ofensivos, defensivos y 
                                     de utilidad. A menudo son intelectuales curiosos que buscan el 
@@ -216,7 +216,7 @@
                         <div class="ResumenClase">                                
                             <h5>Monje</h5>
                             <li> 
-                                <img src="../../img/clases/monje.jfif"/>
+                                <img src="/TFG/img/clases/monje.jfif"/>
                                 <p> Los monjes son combatientes maestros del cuerpo y la mente. 
                                     Son expertos en artes marciales y disciplinas espirituales 
                                     que les permiten realizar hazañas sobrehumanas, como correr 
@@ -233,7 +233,7 @@
                         <div class="ResumenClase">
                             <h5 id="Pp">Paladin</h5>
                             <li> 
-                                <img src="../../img/clases/paladin.jfif"/>
+                                <img src="/TFG/img/clases/paladin.jfif"/>
                                 <p> Los paladines son guerreros sagrados comprometidos con la justicia 
                                     y la protección de los débiles. Poseen habilidades de combate 
                                     sobresalientes y pueden canalizar energía divina para sanar a los 
@@ -246,7 +246,7 @@
                         <div class="ResumenClase">                                
                             <h5>Picaro</h5>
                             <li> 
-                                <img src="../../img/clases/pícaro.jfif"/>
+                                <img src="/TFG/img/clases/pícaro.jfif"/>
                                 <p>Los pícaros son maestros del sigilo y la astucia, 
                                     hábiles en el arte del engaño y el robo. Se especializan 
                                     en emboscar a sus enemigos, desarmar trampas y realizar actos de sigilo. 
@@ -261,7 +261,7 @@
                         <div class="ResumenClase">
                             <h5>Pistolero</h5>
                             <li>      
-                                <img src="../../img/clases/pistolero.jfif"/>
+                                <img src="/TFG/img/clases/pistolero.jfif"/>
                                 <p>Los pistoleros suelen ser hábiles en la fabricación y 
                                     el mantenimiento de sus armas, y son conocidos por su 
                                     habilidad para realizar disparos precisos y letales, 
