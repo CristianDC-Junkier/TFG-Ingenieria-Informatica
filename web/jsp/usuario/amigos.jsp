@@ -22,7 +22,7 @@
             <div class="contenedorAmigos">
                 <div class="tituloBuscadorAmigos">Buscar Amigos </div>
                 <div class="buscadorAmigos">
-                    <div>Busca por nombre: <input type="search" placeholder="Introduce el nombre"/> </div>
+                    <div>Busca por nombre: <input id="buscador" onkeyup="realizarBusqueda()" type="search" placeholder="Introduce el nombre"/> </div>
                     <div>
                         Ordenar:
                         <select id="ordenarAmigos">
@@ -61,7 +61,7 @@
                                     <h4>Ordenado por nombre (Z-A)</h4>
                                 </c:otherwise>
                             </c:choose>
-                            <div class="diseñoTabla">
+                            <div class="diseñoTabla" id ="Tabla">
                                 <table>
                                     <c:forEach var="usuario" items="${listaUsuarios}">
                                         <tr>
@@ -109,10 +109,17 @@
         //Datos de las páginas
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
+        
+        // Obtener el contenedor de la tabla
+        let tabla = document.getElementById('Tabla');
+        // Recoger el contenido inicial de la tabla
+        let tablaInicial = tabla.innerHTML;
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/TFG/js/usuarios/amigosJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>
     <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
+    <script src="/TFG/js/principalAJAXJS.js"></script>
     <script src="/TFG/js/principalJS.js"></script>
 </body>
 </html>

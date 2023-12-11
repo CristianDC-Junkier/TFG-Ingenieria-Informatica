@@ -14,6 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -82,6 +84,7 @@ public class ControladorUsuarios extends HttpServlet {
         String nombre;
         String correo;
         String contrasena;
+        String contrasenahash;
         String telefono;
         String fechaNacimientoString;
         String provincia;
@@ -132,6 +135,11 @@ public class ControladorUsuarios extends HttpServlet {
                                 || contrasena.toUpperCase().contains("DROP")) {
                             throw new Exception("La contrasena no es válida");
                         }
+                        
+                        //////////////////////
+                        /////////HASH/////////
+                        //////////////////////
+                        contrasenahash = BCrypt.hashpw(contrasena, BCrypt.gensalt());
 
                         /////////////////
                         //////FECHA//////
@@ -146,9 +154,7 @@ public class ControladorUsuarios extends HttpServlet {
                         fechaActual = calendarioAux.getTime();
 
                         // Comparar las fechas
-                        if (fechaNacimiento.before(fechaActual)) {
-                            conseguido = true;
-                        } else {
+                        if (!fechaNacimiento.before(fechaActual)) {
                             throw new Exception("La fecha de nacimiento debe ser más pequeña que " + fechaActual);
                         }
 
@@ -203,9 +209,8 @@ public class ControladorUsuarios extends HttpServlet {
                         //////////////////////////
                         //////////CREAMOS/////////
                         //////////////////////////
-                        user = new Usuarios(apodo, nombre, correo, contrasena, fechaNacimiento, provincia, genero, (short) 0);
+                        user = new Usuarios(apodo, nombre, correo, contrasenahash, fechaNacimiento, provincia, genero, (short) 0);
                         user.setTelefono(telefonoBI);
-
                         persist(user);
                         System.out.println("Registrado: " + nombre);
                         conseguido = true;
@@ -215,6 +220,10 @@ public class ControladorUsuarios extends HttpServlet {
                         System.out.println("Error: Imposible registrar en este momento: " + nombre);
                         System.out.println("NumberFormatException: " + ex.getMessage());
                     } catch (ParseException ex) {
+                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
+                        System.out.println("Error: Imposible registrar en este momento: " + nombre);
+                        System.out.println("ParseException: " + ex.getMessage());
+                    } catch (RuntimeException ex) {
                         msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
                         System.out.println("Error: Imposible registrar en este momento: " + nombre);
                         System.out.println("ParseException: " + ex.getMessage());
@@ -269,8 +278,9 @@ public class ControladorUsuarios extends HttpServlet {
                     throw new Exception("La contrasena no es válida");
                 } else {
                     user = listaUsuarios.remove(0);
-
-                    if (!user.getContrasena().equals(contrasena)) {
+                    System.out.println("Contraseña que doy: " + contrasena );
+                    System.out.println("Contraseña que aporto: " + user.getContrasena());
+                    if (!BCrypt.checkpw(contrasena, user.getContrasena())) {
                         throw new Exception("La contraseña no es correcta");
                     } else {
                         /////////////////////////
@@ -411,11 +421,16 @@ public class ControladorUsuarios extends HttpServlet {
                                 || contrasena.toUpperCase().contains("DROP")) {
                             throw new Exception("La contrasena no es válida");
                         }
+                        
+                        //////////////////////
+                        /////////HASH/////////
+                        //////////////////////
+                        contrasenahash = BCrypt.hashpw(contrasena, BCrypt.gensalt());
 
                         //////////////////////////////
                         //////////MODIFICAMOS/////////
                         //////////////////////////////
-                        user = new Usuarios(apodo, nombre, correo, contrasena, fechaNacimiento, provincia, genero, (short) 0);
+                        user = new Usuarios(apodo, nombre, correo, contrasenahash, fechaNacimiento, provincia, genero, (short) 0);
                         user.setTelefono(telefonoBI);
                         user.setId(id);
 
@@ -431,7 +446,11 @@ public class ControladorUsuarios extends HttpServlet {
                         msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
                         System.out.println("Error: Imposible modificar en este momento: " + nombre);
                         System.out.println("ParseException: " + ex.getMessage());
-                    } catch (Exception ex) {
+                    } catch (RuntimeException ex) {
+                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
+                        System.out.println("Error: Imposible registrar en este momento: " + nombre);
+                        System.out.println("ParseException: " + ex.getMessage());
+                    }  catch (Exception ex) {
                         msj = "<p style=\"margin-left: 10px\"> Error: " + ex.getMessage() + "</p>";
                         System.out.println("Exception: " + ex.getMessage());
                     }
@@ -1005,7 +1024,7 @@ public class ControladorUsuarios extends HttpServlet {
                 System.out.println("Sale orden:" + ordenar);
                 System.out.println("Sale mesa:" + mesa);
                 System.out.println("Sale npag:" + numPag);
-
+                
                 request.setAttribute("listaUsuarios", listaUsuarios);
                 request.setAttribute("orden", ordenar);
                 request.setAttribute("mesa", mesa);
@@ -1043,7 +1062,7 @@ public class ControladorUsuarios extends HttpServlet {
                 queryAmigos.setParameter("amigo1", user.getApodo());
                 queryAmigos.setParameter("amigo2", nombre);
                 amigo = queryAmigos.getResultList().get(0);
-
+                
                 delete(amigo);
 
                 queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
