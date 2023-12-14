@@ -35,10 +35,10 @@ public class ControladorPrincipal extends HttpServlet {
         
         switch (accion) {
             case "/inicio":
-                vista = "/jsp/inicio/inicio.jsp";
+                vista = "/WEB-INF/jsp/inicio/inicio.jsp";
                 break;
             case "/introduccion":
-                vista = "/jsp/inicio/introduccion.jsp";
+                vista = "/WEB-INF/jsp/inicio/introduccion.jsp";
                 break;
         }
         

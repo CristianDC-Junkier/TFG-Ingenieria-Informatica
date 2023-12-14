@@ -242,10 +242,10 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////////////////////
                     session = request.getSession();
                     session.setAttribute("user", user);
-                    vista = "/jsp/inicio/inicio.jsp";
+                    vista = "/WEB-INF/jsp/inicio/inicio.jsp";
                 } else {
                     request.setAttribute("msj", msj);
-                    vista = "/jsp/formularios/registro.jsp";
+                    vista = "/WEB-INF/jsp/formularios/registro.jsp";
                 }
                 break;
             case "/iniciarSesion":
@@ -305,12 +305,12 @@ public class ControladorUsuarios extends HttpServlet {
                         //////////////////////////
                         session.setAttribute("user", user);
 
-                        vista = "/jsp/inicio/inicio.jsp";
+                        vista = "/WEB-INF/jsp/inicio/inicio.jsp";
                         System.out.println("Identificado: " + user.getNombre());
                     }
                 }
             } catch (Exception ex) {
-                vista = "/jsp/formularios/iniciosesion.jsp";
+                vista = "/WEB-INF/jsp/formularios/iniciosesion.jsp";
                 msj = "<p style=\"margin-top: 25px\"> Error: " + ex.getMessage() + "</p>";
                 request.setAttribute("msj", msj);
                 System.out.println("Exception: " + ex.getMessage());
@@ -322,7 +322,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////////////////////
                 session = request.getSession();
                 session.invalidate();
-                vista = "/jsp/inicio/inicio.jsp";
+                vista = "/WEB-INF/jsp/inicio/inicio.jsp";
                 break;
             case "/modificarUsuario":
 
@@ -464,10 +464,10 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session.setAttribute("user", user);
-                    vista = "/jsp/usuario/perfil.jsp";
+                    vista = "/WEB-INF/jsp/usuario/perfil.jsp";
                 } else {
                     request.setAttribute("msj", msj);
-                    vista = "/jsp/formularios/modificarusuario.jsp";
+                    vista = "/WEB-INF/jsp/formularios/modificarusuario.jsp";
                 }
                 break;
 
@@ -612,11 +612,11 @@ public class ControladorUsuarios extends HttpServlet {
                 request.setAttribute("pag", numString);//numero de la pag
                 request.setAttribute("numPag", numPag);//numero total de pag
 
-                vista = "/jsp/usuario/usuarios.jsp";
+                vista = "/WEB-INF/jsp/usuario/usuarios.jsp";
                 break;
                 
                 case "/perfil":
-                vista = "/jsp/usuario/perfil.jsp";
+                vista = "/WEB-INF/jsp/usuario/perfil.jsp";
                 break;
                 
             ///////////////////////////////////////////////////////////////////////////
@@ -724,7 +724,7 @@ public class ControladorUsuarios extends HttpServlet {
                 request.setAttribute("numPag", numPag);//numero total de pag
                 request.setAttribute("peticiones", peticiones);//peticiones
 
-                vista = "/jsp/usuario/peticiones.jsp";
+                vista = "/WEB-INF/jsp/usuario/peticiones.jsp";
                 break;
 
             case "/mostrarPeticionesRecibidas":
@@ -834,7 +834,7 @@ public class ControladorUsuarios extends HttpServlet {
                 request.setAttribute("numPag", numPag);//numero total de pag
                 request.setAttribute("peticiones", peticiones);//para saber si es enviadas o recibidas
 
-                vista = "/jsp/usuario/peticiones.jsp";
+                vista = "/WEB-INF/jsp/usuario/peticiones.jsp";
                 break;
             case "/enviarPeticion":
 
@@ -1031,7 +1031,7 @@ public class ControladorUsuarios extends HttpServlet {
                 request.setAttribute("pag", numString);//numero de la pag
                 request.setAttribute("numPag", numPag);//numero total de pag
 
-                vista = "/jsp/usuario/amigos.jsp";
+                vista = "/WEB-INF/jsp/usuario/amigos.jsp";
                 break;
 
             case "/mostrarAmigo":
@@ -1045,7 +1045,7 @@ public class ControladorUsuarios extends HttpServlet {
 
                 request.setAttribute("amigo", user);
 
-                vista = "/jsp/usuario/amigo.jsp";
+                vista = "/WEB-INF/jsp/usuario/amigo.jsp";
                 break;
 
             case "/eliminarAmigo":
@@ -1152,7 +1152,7 @@ public class ControladorUsuarios extends HttpServlet {
                 request.setAttribute("pag", numString);//numero de la pag
                 request.setAttribute("numPag", numPag);//numero total de pag
 
-                vista = "/jsp/usuario/bloqueados.jsp";
+                vista = "/WEB-INF/jsp/usuario/bloqueados.jsp";
                 break;
 
             case "/desbloquearUsuario":

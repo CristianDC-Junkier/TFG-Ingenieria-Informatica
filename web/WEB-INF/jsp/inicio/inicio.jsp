@@ -11,7 +11,7 @@
         <header>
             <h1> <img class="Logo" src="/TFG/img/dnd-banner.jpg" alt="Logo" /> </h1>
         </header>
-        <jsp:include page="/jsp/menuNav.jsp" />
+        <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main>
             <h2 class="Titulos">Inicio</h2>
             <div class="BloqueInicio">
@@ -23,9 +23,9 @@
                                 <p>Tienes ${sessionScope.peticiones} peticion/es de amistad</p>
                             </c:if>
                             <p>¿Quieres crear algún personaje nuevo?</p>
-                            <button class="botonInicioSesion" onclick="location.href = '/TFG/jsp/inicio/inicio.jsp'">Personajes</button>
+                            <button class="botonInicioSesion" onclick="location.href = '/TFG/Formularios/iniciosesion'">Personajes</button>
                             <p>¿Quieres crear alguna mesa nueva?</p>
-                            <button class="botonRegistro" onclick="location.href = '/TFG/jsp/inicio/inicio.jsp'">Mesas</button>
+                            <button class="botonRegistro" onclick="location.href = '/TFG/Formularios/iniciosesion'">Mesas</button>
                         </c:when>
                         <c:otherwise>
                             <h2>¡Bienvenido de nuevo!</h2>

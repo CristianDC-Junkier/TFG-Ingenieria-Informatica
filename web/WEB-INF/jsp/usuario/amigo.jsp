@@ -12,7 +12,7 @@
         <header>
             <h1> <img class="Logo" src="/TFG/img/dnd-banner.jpg" alt="Logo"/> </h1>
         </header>
-        <jsp:include page="/jsp/menuNav.jsp" />
+        <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main>
             <div class="cajaGeneral">
                 <div class="cajaPersonaje">

@@ -178,10 +178,10 @@ public class ControladorMesas extends HttpServlet {
                     pmesa = new Pertenecemesa(user.getApodo(), titulo, "Lider");
                     persist(pmesa);
 
-                    vista = "/jsp/Mesas/mostrarMesas";
+                    vista = "/WEB-INF/jsp/Mesas/mostrarMesas";
                 } else {
                     request.setAttribute("msj", msj);
-                    vista = "/jsp/formularios/crearmesa.jsp";
+                    vista = "/WEB-INF/jsp/formularios/crearmesa.jsp";
                 }
                 break;
             case "/modificarMesa":
@@ -275,10 +275,10 @@ public class ControladorMesas extends HttpServlet {
                 }
                 if (conseguido == true) {
 
-                    vista = "/Mesas/mostrarMesas";
+                    vista = "/WEB-INF/Mesas/mostrarMesas";
                 } else {
                     request.setAttribute("msj", msj);
-                    vista = "/jsp/formularios/crearmesa.jsp";
+                    vista = "/WEB-INF/jsp/formularios/crearmesa.jsp";
                 }
                 break;
             case "/eliminarMesa":
@@ -289,7 +289,7 @@ public class ControladorMesas extends HttpServlet {
                 listaMesas = queryMesas.getResultList();
 
                 delete(listaMesas.get(0));
-                vista = "/Mesas/mostrarMesas";
+                vista = "/WEB-INF/Mesas/mostrarMesas";
                 break;
             case "/mostrarMesas":
 
@@ -411,7 +411,7 @@ public class ControladorMesas extends HttpServlet {
                 request.setAttribute("pag", numString);//numero de la pag
                 request.setAttribute("numPag", numPag);//numero total de pag
 
-                vista = "/jsp/mesas/mesas.jsp";
+                vista = "/WEB-INF/jsp/mesas/mesas.jsp";
                 break;
             case "/mostrarMesasUsuario":
                 /////////////////////////
@@ -531,7 +531,7 @@ public class ControladorMesas extends HttpServlet {
                 request.setAttribute("pag", numString);//numero de la pag
                 request.setAttribute("numPag", numPag);//numero total de pag
 
-                vista = "/jsp/mesas/mesasPerfil.jsp";
+                vista = "/WEB-INF/jsp/mesas/mesasPerfil.jsp";
                 break;
             case "/anadiraMesa":
                 /////////////////////////
@@ -543,7 +543,7 @@ public class ControladorMesas extends HttpServlet {
                 titulo = request.getParameter("titulo");
                 pmesa = new Pertenecemesa(user.getApodo(), titulo, "Miembro");
                 persist(pmesa);
-                vista = "/jsp/mesas/mesasPerfil.jsp";
+                vista = "/WEB-INF/jsp/mesas/mesasPerfil.jsp";
                 break;
             case "/salirdeMesa":
                 /////////////////////////
@@ -559,7 +559,7 @@ public class ControladorMesas extends HttpServlet {
                 pmesa = queryPertenecemesas.getSingleResult();
                 delete(pmesa);
 
-                vista = "/jsp/mesas/mesasPerfil.jsp";
+                vista = "/WEB-INF/jsp/mesas/mesasPerfil.jsp";
                 break;
             case "/eliminardeMesa":
                 titulo = request.getParameter("titulo");
@@ -570,7 +570,7 @@ public class ControladorMesas extends HttpServlet {
                 pmesa = queryPertenecemesas.getSingleResult();
                 delete(pmesa);
 
-                vista = "/jsp/mesas/mesasPerfil.jsp";
+                vista = "/WEB-INF/jsp/mesas/mesasPerfil.jsp";
                 break;
             case "/cambiarlider":
                 /////////////////////////
@@ -597,7 +597,7 @@ public class ControladorMesas extends HttpServlet {
                 pmesa.setRol("Miembro");
                 update(pmesa);
 
-                vista = "/jsp/mesas/mesasPerfil.jsp";
+                vista = "/WEB-INF/jsp/mesas/mesasPerfil.jsp";
                 break;
             case "/mostrarMesa":
                 /////////////////////////
@@ -625,7 +625,7 @@ public class ControladorMesas extends HttpServlet {
                 request.setAttribute("mesa", mesa);
                 request.setAttribute("pmesa", pmesa);
 
-                vista = "/jsp/mesas/mesa.jsp";
+                vista = "/WEB-INF/jsp/mesas/mesa.jsp";
                 break;
         }
         RequestDispatcher rd = request.getRequestDispatcher(vista);

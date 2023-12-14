@@ -41,28 +41,28 @@ public class ControladorFormularios extends HttpServlet {
          
         switch (accion) {
             case "/contraseñaperdida":
-                vista = "/jsp/formularios/contraseñaperdida.jsp";
+                vista = "/WEB-INF/jsp/formularios/contraseñaperdida.jsp";
                 break;
             case "/crearmesa":
-                vista = "/jsp/formularios/crearmesa.jsp";
+                vista = "/WEB-INF/jsp/formularios/crearmesa.jsp";
                 break;
             case "/iniciosesion":
-                vista = "/jsp/formularios/iniciosesion.jsp";
+                vista = "/WEB-INF/jsp/formularios/iniciosesion.jsp";
                 break;
             case "/modificarmesa":
-                vista = "/jsp/formularios/modificarmesa.jsp";
+                vista = "/WEB-INF/jsp/formularios/modificarmesa.jsp";
                 break;
             case "/modificarusuario":
-                vista = "/jsp/formularios/modificarusuario.jsp";
+                vista = "/WEB-INF/jsp/formularios/modificarusuario.jsp";
                 break;
             case "/registro":
-                vista = "/jsp/formularios/registro.jsp";
+                vista = "/WEB-INF/jsp/formularios/registro.jsp";
                 break;
             case "/restablecercontraseña":
-                vista = "/jsp/formularios/restablecercontraseña.jsp";
+                vista = "/WEB-INF/jsp/formularios/restablecercontraseña.jsp";
                 break;
             case "/usuarioperdido":
-                vista = "/jsp/formularios/usuarioperdido.jsp";
+                vista = "/WEB-INF/jsp/formularios/usuarioperdido.jsp";
                 break;
         }
         

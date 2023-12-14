@@ -41,28 +41,28 @@ public class ControladorReglas extends HttpServlet {
 
         switch (accion) {
             case "/combate":
-                vista = "/jsp/reglas/combate.jsp";
+                vista = "/WEB-INF/jsp/reglas/combate.jsp";
                 break;
             case "/comocrearpersonajes":
-                vista = "/jsp/reglas/comocrearpersonajes.jsp";
+                vista = "/WEB-INF/jsp/reglas/comocrearpersonajes.jsp";
                 break;
             case "/desafios":
-                vista = "/jsp/reglas/desafios.jsp";
+                vista = "/WEB-INF/jsp/reglas/desafios.jsp";
                 break;
             case "/interpretacion":
-                vista = "/jsp/reglas/interpretacion.jsp";
+                vista = "/WEB-INF/jsp/reglas/interpretacion.jsp";
                 break;
             case "/misiones":
-                vista = "/jsp/reglas/misiones.jsp";
+                vista = "/WEB-INF/jsp/reglas/misiones.jsp";
                 break;
             case "/objetosmagicos":
-                vista = "/jsp/reglas/objetosmagicos.jsp";
+                vista = "/WEB-INF/jsp/reglas/objetosmagicos.jsp";
                 break;
             case "/precios":
-                vista = "/jsp/reglas/precios.jsp";
+                vista = "/WEB-INF/jsp/reglas/precios.jsp";
                 break;
             case "/turnos":
-                vista = "/jsp/reglas/turnos.jsp";
+                vista = "/WEB-INF/jsp/reglas/turnos.jsp";
                 break;
         }
 

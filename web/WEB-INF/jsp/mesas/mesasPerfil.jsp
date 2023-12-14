@@ -1,4 +1,3 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -14,7 +13,7 @@
     <header>
         <h1> <img class="Logo" src="/TFG/img/dnd-banner.jpg" alt="Logo"/> </h1>
     </header>
-    <jsp:include page="/jsp/menuNav.jsp" />
+    <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
         <h2 class="Titulos">Amigos</h2>
         <hr color="black">
@@ -22,7 +21,7 @@
             <div class="contenedorAmigos">
                 <div class="tituloBuscadorAmigos">Buscar Amigos </div>
                 <div class="buscadorAmigos">
-                    <div>Busca por nombre: <input id="buscador" onkeyup="realizarBusqueda()" type="search" placeholder="Introduce el nombre"/> </div>
+                    <div>Busca por nombre: <input type="search" placeholder="Introduce el nombre"/> </div>
                     <div>
                         Ordenar:
                         <select id="ordenarAmigos">
@@ -61,7 +60,7 @@
                                     <h4>Ordenado por nombre (Z-A)</h4>
                                 </c:otherwise>
                             </c:choose>
-                            <div class="diseñoTabla" id ="Tabla">
+                            <div class="diseñoTabla">
                                 <table>
                                     <c:forEach var="usuario" items="${listaUsuarios}">
                                         <tr>
@@ -101,6 +100,14 @@
         &copy; 2023 Cristian Delgado Cruz
     </footer>
     <script>
+        //Select y botones
+        let Orden = document.getElementById('ordenarAmigos');
+        let Mesa = document.getElementById('botonMesa');
+        let Binicio = document.getElementById('pagInicio');
+        let Bfinal = document.getElementById('pagFinal');
+        let BAnterior = document.getElementById('pagAnterior');
+        let BPosterior = document.getElementById('pagPosterior');
+
         //Recoger Datos
         let orden = '<%= request.getAttribute("orden")%>';
         let mesa = '<%= request.getAttribute("mesa")%>';
@@ -109,17 +116,89 @@
         //Datos de las páginas
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
-        
-        // Obtener el contenedor de la tabla
-        let tabla = document.getElementById('Tabla');
-        // Recoger el contenido inicial de la tabla
-        let tablaInicial = tabla.innerHTML;
+        let totalaux = numpag - pag;
+
+        Orden.addEventListener('change', function () {
+            let valorSeleccionado = Orden.value;
+            let urlDestinoOrden = "/TFG/Usuarios/mostrarAmigos?orden=" + valorSeleccionado + "&mesa=" + mesa + "&pag=" + pag;
+            window.location.href = urlDestinoOrden;
+        });
+
+        Mesa.addEventListener('click', function () {
+            let urlDestinoMesa;
+            if (mesaBool) {
+                urlDestinoMesa = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + "false" + "&pag=" + pag;
+            } else {
+                urlDestinoMesa = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + "true" + "&pag=" + pag;
+            }
+            window.location.href = urlDestinoMesa;
+        });
+
+        //Funcion que actualiza los botones
+        function actualizarBotones() {
+
+
+            let pestañasBotones = document.getElementById('pestañaBotones');
+            pestañasBotones.innerHTML = '';
+
+            if (pag > 2) {
+                pestañasBotones.innerHTML += '<button class="botonArriba" id="pagInicio">Inicio</button>';
+            }
+            if (pag > 1) {
+                pestañasBotones.innerHTML += '<button class="botonArriba" id="pagAnterior">' + (pag - 1) + '</button>';
+            }
+
+            pestañasBotones.innerHTML += '<button class="botonArriba" id="pagActual"> Actual </button>';
+
+            if (totalaux > 2) {
+                pestañasBotones.innerHTML += '<button class="botonArriba" id="pagPosterior">' + (pag + 1) + '</button>';
+            }
+            if (totalaux > 1) {
+                pestañasBotones.innerHTML += '<button class="botonArriba" id="pagFinal">Final</button>';
+            }
+        }
+        actualizarBotones();
+
+        //Pag Inicio
+        if (pag > 2) {
+            Binicio.addEventListener('click', function () {
+                let urlDestinoPagIni;
+                urlDestinoPagIni = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + "1";
+                window.location.href = urlDestinoPagIni;
+            });
+        }
+        //Pag Final
+        if (totalaux > 1) {
+            Bfinal.addEventListener('click', function () {
+                let urlDestinoPagIni;
+                urlDestinoPagIni = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + numpag;
+                window.location.href = urlDestinoPagIni;
+            });
+        }
+        //Pag anterior
+        if (pag > 1) {
+            BAnterior.addEventListener('click', function () {
+                let urlDestinoPagIni;
+                urlDestinoPagIni = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + (pag - 1);
+                window.location.href = urlDestinoPagIni;
+            });
+        }
+        //Pag posterior
+        if (totalaux > 2) {
+            BPosterior.addEventListener('click', function () {
+                let urlDestinoPagIni;
+                urlDestinoPagIni = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + (pag + 1);
+                window.location.href = urlDestinoPagIni;
+            });
+        }
+        function mostrarRecuadro() {
+            document.getElementById('recuadro').style.display = 'flex';
+        }
+
+        function cerrarRecuadro() {
+            document.getElementById('recuadro').style.display = 'none';
+        }
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="/TFG/js/usuarios/amigosJS.js"></script>
-    <script src="/TFG/js/mostrarBotonesJS.js"></script>
-    <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
-    <script src="/TFG/js/principalAJAXJS.js"></script>
     <script src="/TFG/js/principalJS.js"></script>
 </body>
 </html>

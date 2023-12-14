@@ -3,55 +3,54 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
-    <title class="titulosPag">Guidance4\Amigos</title>
+    <title class="titulosPag">Guidance4\Mesas</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/amigosCss.css"/>
-    <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/listasUsuariosCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/mesasCss.css"/>
 </head>
 <body>
     <header>
         <h1> <img class="Logo" src="/TFG/img/dnd-banner.jpg" alt="Logo"/> </h1>
     </header>
-    <jsp:include page="/jsp/menuNav.jsp" />
+    <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
-        <h2 class="Titulos">Amigos</h2>
+        <h2 class="Titulos">Mesas</h2>
         <hr color="black">
-        <div class="contenedoresAmigos"> 
-            <div class="contenedorAmigos">
-                <div class="tituloBuscadorAmigos">Buscar Amigos </div>
-                <div class="buscadorAmigos">
+        <div class="contenedoresMesa"> 
+            <div class="contenedorMesa">
+                <div class="tituloBuscadorMesa">Explorar Mesas</div>
+                <div class="buscadorMesa">
                     <div>Busca por nombre: <input type="search" placeholder="Introduce el nombre"/> </div>
                     <div>
                         Ordenar:
-                        <select id="ordenarAmigos">
+                        <select id="ordenarMesa">
                             <c:choose>
                                 <c:when test="${requestScope.orden == 'ordenar1'}">
-                                    <option value="ordenar1" selected>Nombre (A-Z)</option>
+                                    <option value="ordenar1" selected>Titulo (A-Z)</option>
                                 </c:when>
                                 <c:otherwise>
-                                    <option value="ordenar1">Nombre (A-Z)</option>
+                                    <option value="ordenar1">Titulo (A-Z)</option>
                                 </c:otherwise>
                             </c:choose>
                             <c:choose>
                                 <c:when test="${requestScope.orden == 'ordenar2'}">
-                                    <option value="ordenar2" selected>Nombre (Z-A)</option>
+                                    <option value="ordenar2" selected>Titulo (Z-A)</option>
                                 </c:when>
                                 <c:otherwise>
-                                    <option value="ordenar2">Nombre (Z-A)</option>
+                                    <option value="ordenar2">Titulo (Z-A)</option>
                                 </c:otherwise>
                             </c:choose>
                         </select>
                     </div>
-                    <button id="botonMesa" class="${requestScope.mesa == "true" ? 'existeMesa' : 'noExisteMesa'}">Mesa</button>
-                    <button onclick="location.href = '/TFG/Usuarios/mostrarPeticionesRecibidas'">Peticiones</button> 
+                    <button id="botonLleno" class="${requestScope.lleno == "true" ? 'estalleno' : 'noestalleno'}">Llenas</button>
                 </div>
             </div>
-            <div class="listasAmigos" id="pestañasSeccion">
+            <div class="listasMesa" id="pestañasSeccion">
                 <div class="pestañasNavegacion">
                     <div class="pestaña" id="pestaña1">
-                        <div class="listaAmigo">
-                            <h3>Amigos</h3>
+                        <div class="listaMesa">
+                            <h3>Mesas</h3>
                             <c:choose>
                                 <c:when test="${requestScope.orden == 'ordenar1'}">
                                     <h4>Ordenado por nombre (A-Z)</h4>
@@ -62,24 +61,24 @@
                             </c:choose>
                             <div class="diseñoTabla">
                                 <table>
-                                    <c:forEach var="usuario" items="${listaUsuarios}">
+                                    <c:forEach var="mesa" items="${listaMesas}" varStatus="status">
                                         <tr>
-                                            <td><div class="personaje-foto">
+                                            <td><div class="mesa-foto">
                                                     <img src="/TFG/img/iconos/IMGNEGRO.png">
                                                 </div></td>
-                                            <td>${usuario.apodo}</td>
-                                            <td>${usuario.provincia}</td>
-                                            <td>${usuario.genero}</td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/mostrarAmigo?amigo=${usuario.apodo}'">Detalles</button></td>
-                                            <td><button class="botonDentro" onclick="mostrarRecuadro()">Eliminar Amigo</button></td>
+                                            <td>${mesa.titulo}</td>
+                                            <td>${mesa.comunidad}</td>
+                                            <td>/${mesa.tamano}</td>
+                                            <td>${listaPerteneceMesa[status.index].usuario}</td>
+                                            <td><button class="botonDentro" onclick="mostrarRecuadro()">Entrar</button></td>
                                         </tr>
                                         <div class="opcionRecuadro" id="recuadro" style="display: none;">
                                             <div class="contenidoRecuadro">
-                                                <div class="tituloRecuadro">¿Esta seguro que quiere Eliminarlo?
+                                                <div class="tituloRecuadro">¿Esta seguro que quieres unirte?
                                                     <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
                                                 </div>
                                                 <hr>
-                                                <button class="botonDentro" onclick="location.href = '/TFG/Usuarios/eliminarAmigo?amigo=${usuario.apodo}'">Si</button>
+                                                <button class="botonDentro" onclick="location.href = '/TFG/Usuarios/anadiraMesa?titulo=${mesa.titulo}'">Si</button>
                                                 <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
                                             </div>
                                         </div>
@@ -90,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <div class="contenedorBotonesAmigos">
+            <div class="contenedorBotonesMesa">
                 <div class="pestañasBotones" id="pestañaBotones">
                 </div>
             </div>
@@ -101,8 +100,8 @@
     </footer>
     <script>
         //Select y botones
-        let Orden = document.getElementById('ordenarAmigos');
-        let Mesa = document.getElementById('botonMesa');
+        let Orden = document.getElementById('ordenarMesa');
+        let Lleno = document.getElementById('botonLleno');
         let Binicio = document.getElementById('pagInicio');
         let Bfinal = document.getElementById('pagFinal');
         let BAnterior = document.getElementById('pagAnterior');
@@ -110,9 +109,9 @@
 
         //Recoger Datos
         let orden = '<%= request.getAttribute("orden")%>';
-        let mesa = '<%= request.getAttribute("mesa")%>';
+        let lleno = '<%= request.getAttribute("lleno")%>';
         // Convertir el valor de mesa a un booleano
-        let mesaBool = '<%= request.getAttribute("mesa")%>' === 'true';
+        let llenoBool = '<%= request.getAttribute("lleno")%>' === 'true';
         //Datos de las páginas
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
@@ -120,16 +119,16 @@
 
         Orden.addEventListener('change', function () {
             let valorSeleccionado = Orden.value;
-            let urlDestinoOrden = "/TFG/Usuarios/mostrarAmigos?orden=" + valorSeleccionado + "&mesa=" + mesa + "&pag=" + pag;
+            let urlDestinoOrden = "/TFG/Mesas/mostrarMesas?orden=" + valorSeleccionado + "&lleno=" + lleno + "&pag=" + pag;
             window.location.href = urlDestinoOrden;
         });
 
-        Mesa.addEventListener('click', function () {
+        Lleno.addEventListener('click', function () {
             let urlDestinoMesa;
-            if (mesaBool) {
-                urlDestinoMesa = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + "false" + "&pag=" + pag;
+            if (llenoBool) {
+                urlDestinoMesa = "/TFG/Mesas/mostrarMesas?orden=" + orden + "&lleno=" + "false" + "&pag=" + pag;
             } else {
-                urlDestinoMesa = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + "true" + "&pag=" + pag;
+                urlDestinoMesa = "/TFG/Mesas/mostrarMesas?orden=" + orden + "&lleno=" + "true" + "&pag=" + pag;
             }
             window.location.href = urlDestinoMesa;
         });
@@ -163,7 +162,7 @@
         if (pag > 2) {
             Binicio.addEventListener('click', function () {
                 let urlDestinoPagIni;
-                urlDestinoPagIni = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + "1";
+                urlDestinoPagIni = "/TFG/Mesas/mostrarMesas?orden=" + orden + "&lleno=" + lleno + "&pag=" + "1";
                 window.location.href = urlDestinoPagIni;
             });
         }
@@ -171,7 +170,7 @@
         if (totalaux > 1) {
             Bfinal.addEventListener('click', function () {
                 let urlDestinoPagIni;
-                urlDestinoPagIni = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + numpag;
+                urlDestinoPagIni = "/TFG/Mesas/mostrarMesas?orden=" + orden + "&lleno=" + lleno + "&pag=" + numpag;
                 window.location.href = urlDestinoPagIni;
             });
         }
@@ -179,7 +178,7 @@
         if (pag > 1) {
             BAnterior.addEventListener('click', function () {
                 let urlDestinoPagIni;
-                urlDestinoPagIni = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + (pag - 1);
+                urlDestinoPagIni = "/TFG/Mesas/mostrarMesas?orden=" + orden + "&lleno=" + lleno + "&pag=" + (pag - 1);
                 window.location.href = urlDestinoPagIni;
             });
         }
@@ -187,7 +186,7 @@
         if (totalaux > 2) {
             BPosterior.addEventListener('click', function () {
                 let urlDestinoPagIni;
-                urlDestinoPagIni = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + (pag + 1);
+                urlDestinoPagIni = "/TFG/Mesas/mostrarMesas?orden=" + orden + "&lleno=" + lleno + "&pag=" + (pag + 1);
                 window.location.href = urlDestinoPagIni;
             });
         }

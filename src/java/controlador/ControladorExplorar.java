@@ -42,31 +42,31 @@ public class ControladorExplorar extends HttpServlet {
         
         switch (accion) {
             case "/clases":
-                vista = "/jsp/explorar/clases.jsp";
+                vista = "/WEB-INF/jsp/explorar/clases.jsp";
                 break;
             case "/dotes":
-                vista = "/jsp/explorar/dotes.jsp";
+                vista = "/WEB-INF/jsp/explorar/dotes.jsp";
                 break;
             case "/equipo":
-                vista = "/jsp/explorar/equipo.jsp";
+                vista = "/WEB-INF/jsp/explorar/equipo.jsp";
                 break;
             case "/estados":
-                vista = "/jsp/explorar/estados.jsp";
+                vista = "/WEB-INF/jsp/explorar/estados.jsp";
                 break;
             case "/hechizos":
-                vista = "/jsp/explorar/hechizos.jsp";
+                vista = "/WEB-INF/jsp/explorar/hechizos.jsp";
                 break;
             case "/monstruos":
-                vista = "/jsp/explorar/monstruos.jsp";
+                vista = "/WEB-INF/jsp/explorar/monstruos.jsp";
                 break;
             case "/propiedades":
-                vista = "/jsp/explorar/propiedades.jsp";
+                vista = "/WEB-INF/jsp/explorar/propiedades.jsp";
                 break;
             case "/razas":
-                vista = "/jsp/explorar/razas.jsp";
+                vista = "/WEB-INF/jsp/explorar/razas.jsp";
                 break;
             case "/trasfondos":
-                vista = "/jsp/explorar/trasfondos.jsp";
+                vista = "/WEB-INF/jsp/explorar/trasfondos.jsp";
                 break;
         }
         
