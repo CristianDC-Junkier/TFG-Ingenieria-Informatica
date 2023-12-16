@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entidades;
 
 import java.io.Serializable;
@@ -32,8 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Mesas.findByTamano", query = "SELECT m FROM Mesas m WHERE m.tamano = :tamano"),
     @NamedQuery(name = "Mesas.findByTitulo", query = "SELECT m FROM Mesas m WHERE m.titulo = :titulo"),
     @NamedQuery(name = "Mesas.findByDescripcion", query = "SELECT m FROM Mesas m WHERE m.descripcion = :descripcion"),
-    @NamedQuery(name = "Mesas.CountByCreador", query = "SELECT COUNT(m) FROM Mesas m WHERE m.creador = :creador")
-})
+    @NamedQuery(name = "Mesas.findByContrasena", query = "SELECT m FROM Mesas m WHERE m.contrasena = :contrasena"),
+    @NamedQuery(name = "Mesas.CountByCreador", query = "SELECT COUNT(m) FROM Mesas m WHERE m.creador = :creador")})
 public class Mesas implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,6 +60,9 @@ public class Mesas implements Serializable {
     @Size(max = 255)
     @Column(name = "DESCRIPCION")
     private String descripcion;
+    @Size(max = 100)
+    @Column(name = "CONTRASENA")
+    private String contrasena;
 
     public Mesas() {
     }
@@ -71,7 +71,7 @@ public class Mesas implements Serializable {
         this.id = id;
     }
 
-    public Mesas(String id, String creador, String comunidad, short tamano, String titulo ) {
+    public Mesas(String id, String creador, String comunidad, short tamano, String titulo) {
         this.id = id;
         this.creador = creador;
         this.comunidad = comunidad;
@@ -79,20 +79,34 @@ public class Mesas implements Serializable {
         this.titulo = titulo;
     }
     
-    public Mesas(String id, String creador, String comunidad, short tamano, String titulo, String descripcion) {
-        this.id = id;
+    public Mesas(String creador, String comunidad, short tamano, String titulo) {
+        this.creador = creador;
+        this.comunidad = comunidad;
+        this.tamano = tamano;
+        this.titulo = titulo;
+    }
+    
+    public Mesas( String creador, String comunidad, short tamano, String titulo, String aux, int tipo) {
+        this.creador = creador;
+        this.comunidad = comunidad;
+        this.tamano = tamano;
+        this.titulo = titulo;
+        
+        if (tipo == 0){
+            this.contrasena = aux;
+        }else{
+            this.descripcion = aux;
+        }
+    }
+
+ 
+    public Mesas( String creador, String comunidad, short tamano, String titulo, String decripcion, String contrasena) {
         this.creador = creador;
         this.comunidad = comunidad;
         this.tamano = tamano;
         this.titulo = titulo;
         this.descripcion = descripcion;
-    }
-    
-     public Mesas(String creador, String comunidad, short tamano, String titulo) {
-        this.creador = creador;
-        this.comunidad = comunidad;
-        this.tamano = tamano;
-        this.titulo = titulo;
+        this.contrasena = contrasena;
     }
 
     public String getId() {
@@ -141,6 +155,14 @@ public class Mesas implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     @Override

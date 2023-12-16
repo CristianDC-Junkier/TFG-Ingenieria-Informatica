@@ -30,14 +30,14 @@
                         </c:if>
                         <div>
                             <p>¿Olvidaste tu usuario o tu contraseña?</p>
-                            <input type="button" onclick="location.href = './usuarioperdido.jsp'"
+                            <input type="button" onclick="location.href = '/TFG/Formularios/usuarioperdido'"
                                    id="recuperarUsuario" value="Recuperar Usuario">
-                            <input type="button" onclick="location.href = './contraseñaperdida.jsp'"
+                            <input type="button" onclick="location.href = '/TFG/Formularios/contraseñaperdida'"
                                    id="recuperarContrasena" value="Recuperar Contraseña">
                         </div>
                     </div>
                     <div class="contenedorBotonFormulario">
-                        <input id="botonVolverFormulario" type="button" onclick="location.href = '/TFG/jsp/inicio/inicio.jsp'" value="Volver">
+                        <input id="botonVolverFormulario" type="button" onclick="location.href = '/TFG/Principal/inicio'" value="Volver">
                         <input id="botonEnviar" type="submit" value="Identificarse">
                     </div>
                 </form>

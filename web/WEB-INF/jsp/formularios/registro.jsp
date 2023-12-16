@@ -125,7 +125,7 @@
                         </c:if>
                     </div>
                     <div class="contenedorBotonFormulario">
-                        <input id="botonVolverFormulario" type="button" onclick="location.pathname = 'TFG/jsp/inicio/inicio.jsp'" value="Volver">
+                        <input id="botonVolverFormulario" type="button" onclick="location.pathname = 'TFG/Principal/inicio'" value="Volver">
                         <input id="botonEnviar" type="submit" value="Registrarse">
                     </div>
                 </form>

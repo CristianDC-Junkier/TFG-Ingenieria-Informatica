@@ -6,8 +6,8 @@
     <title class="titulosPag">Guidance4\Mesas</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/amigosCss.css"/>
     <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/mesasCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/listasMesasCss.css"/>
 </head>
 <body>
     <header>
@@ -68,9 +68,18 @@
                                                 </div></td>
                                             <td>${mesa.titulo}</td>
                                             <td>${mesa.comunidad}</td>
-                                            <td>/${mesa.tamano}</td>
-                                            <td>${listaPerteneceMesa[status.index].usuario}</td>
-                                            <td><button class="botonDentro" onclick="mostrarRecuadro()">Entrar</button></td>
+                                            <td>${listacantidad[status.index]}/${mesa.tamano}</td>
+                                            <td>${listalideres[status.index]}</td>
+                                            <c:choose> 
+                                                <c:when test="${mesa.contrasena != null}">
+                                                    <td>Con contraseña</td>
+                                                    <td><button class="botonDentro" onclick="mostrarRecuadro()">Entrar</button></td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>Sin contraseña</td>
+                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/anadiraMesa?titulo=${mesa.titulo}&contrasena='">Entrar</button></td>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </tr>
                                         <div class="opcionRecuadro" id="recuadro" style="display: none;">
                                             <div class="contenidoRecuadro">
@@ -99,14 +108,6 @@
         &copy; 2023 Cristian Delgado Cruz
     </footer>
     <script>
-        //Select y botones
-        let Orden = document.getElementById('ordenarMesa');
-        let Lleno = document.getElementById('botonLleno');
-        let Binicio = document.getElementById('pagInicio');
-        let Bfinal = document.getElementById('pagFinal');
-        let BAnterior = document.getElementById('pagAnterior');
-        let BPosterior = document.getElementById('pagPosterior');
-
         //Recoger Datos
         let orden = '<%= request.getAttribute("orden")%>';
         let lleno = '<%= request.getAttribute("lleno")%>';
@@ -115,89 +116,10 @@
         //Datos de las páginas
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
-        let totalaux = numpag - pag;
-
-        Orden.addEventListener('change', function () {
-            let valorSeleccionado = Orden.value;
-            let urlDestinoOrden = "/TFG/Mesas/mostrarMesas?orden=" + valorSeleccionado + "&lleno=" + lleno + "&pag=" + pag;
-            window.location.href = urlDestinoOrden;
-        });
-
-        Lleno.addEventListener('click', function () {
-            let urlDestinoMesa;
-            if (llenoBool) {
-                urlDestinoMesa = "/TFG/Mesas/mostrarMesas?orden=" + orden + "&lleno=" + "false" + "&pag=" + pag;
-            } else {
-                urlDestinoMesa = "/TFG/Mesas/mostrarMesas?orden=" + orden + "&lleno=" + "true" + "&pag=" + pag;
-            }
-            window.location.href = urlDestinoMesa;
-        });
-
-        //Funcion que actualiza los botones
-        function actualizarBotones() {
-
-
-            let pestañasBotones = document.getElementById('pestañaBotones');
-            pestañasBotones.innerHTML = '';
-
-            if (pag > 2) {
-                pestañasBotones.innerHTML += '<button class="botonArriba" id="pagInicio">Inicio</button>';
-            }
-            if (pag > 1) {
-                pestañasBotones.innerHTML += '<button class="botonArriba" id="pagAnterior">' + (pag - 1) + '</button>';
-            }
-
-            pestañasBotones.innerHTML += '<button class="botonArriba" id="pagActual"> Actual </button>';
-
-            if (totalaux > 2) {
-                pestañasBotones.innerHTML += '<button class="botonArriba" id="pagPosterior">' + (pag + 1) + '</button>';
-            }
-            if (totalaux > 1) {
-                pestañasBotones.innerHTML += '<button class="botonArriba" id="pagFinal">Final</button>';
-            }
-        }
-        actualizarBotones();
-
-        //Pag Inicio
-        if (pag > 2) {
-            Binicio.addEventListener('click', function () {
-                let urlDestinoPagIni;
-                urlDestinoPagIni = "/TFG/Mesas/mostrarMesas?orden=" + orden + "&lleno=" + lleno + "&pag=" + "1";
-                window.location.href = urlDestinoPagIni;
-            });
-        }
-        //Pag Final
-        if (totalaux > 1) {
-            Bfinal.addEventListener('click', function () {
-                let urlDestinoPagIni;
-                urlDestinoPagIni = "/TFG/Mesas/mostrarMesas?orden=" + orden + "&lleno=" + lleno + "&pag=" + numpag;
-                window.location.href = urlDestinoPagIni;
-            });
-        }
-        //Pag anterior
-        if (pag > 1) {
-            BAnterior.addEventListener('click', function () {
-                let urlDestinoPagIni;
-                urlDestinoPagIni = "/TFG/Mesas/mostrarMesas?orden=" + orden + "&lleno=" + lleno + "&pag=" + (pag - 1);
-                window.location.href = urlDestinoPagIni;
-            });
-        }
-        //Pag posterior
-        if (totalaux > 2) {
-            BPosterior.addEventListener('click', function () {
-                let urlDestinoPagIni;
-                urlDestinoPagIni = "/TFG/Mesas/mostrarMesas?orden=" + orden + "&lleno=" + lleno + "&pag=" + (pag + 1);
-                window.location.href = urlDestinoPagIni;
-            });
-        }
-        function mostrarRecuadro() {
-            document.getElementById('recuadro').style.display = 'flex';
-        }
-
-        function cerrarRecuadro() {
-            document.getElementById('recuadro').style.display = 'none';
-        }
     </script>
     <script src="/TFG/js/principalJS.js"></script>
+    <script src="/TFG/js/mesas/mesasJS.js"></script>
+    <script src="/TFG/js/mostrarBotonesJS.js"></script>
+    <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
 </body>
 </html>

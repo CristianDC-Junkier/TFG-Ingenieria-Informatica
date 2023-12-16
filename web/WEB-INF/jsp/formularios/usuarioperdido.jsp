@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="contenedorBotonFormulario">
-                        <input id="botonVolverFormulario" type="button" onclick="location.href = '/TFG/jsp/formularios/iniciosesion.jsp'" value="Volver">
+                        <input id="botonVolverFormulario" type="button" onclick="location.href = '/TFG/Formularios/iniciosesion'" value="Volver">
                         <input id="botonEnviar" type="submit" value="Enviar">
                     </div>
                 </form>

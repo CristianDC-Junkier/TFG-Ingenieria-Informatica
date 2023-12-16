@@ -87,6 +87,7 @@
                         <div class="barraHorizontalDrop">
                             <div class = "barraHorizontalContenido">Mesas</div>
                             <div class="barraHorizontalContenidoDrop">
+                                <a href="/TFG/Formularios/crearmesa">Crear Mesa</a>
                                 <a href="/TFG/Mesas/mostrarMesas">Explorar</a>
                                 <a href="/TFG/Mesas/mostrarMesasUsuario">Mis Mesas</a>
                             </div>
@@ -178,11 +179,12 @@
                             </li>
                         </c:if>
                         <c:if test="${sessionScope.user != null}">
-                            <li class="unoDrop primero">
+                            <li class="unoDrop cuarto">
                                 <div class = "barraVerticalContenido">Mesas</div>
                                 <ul class="barraVerticalDos">
-                                    <li><a href="/TFG/jsp/explorar/clases.jsp">Explorar</a></li>
-                                    <li><a href="/TFG/jsp/explorar/razas.jsp">Mis Mesas</a></li>
+                                    <li><a href="/TFG/Formularios/crearmesa">Crear Mesa</a></li>
+                                    <li><a href="/TFG/Mesas/mostrarMesas">Explorar Mesas</a></li>
+                                    <li><a href="/TFG/Mesas/mostrarMesasUsuario">Mis Mesas</a></li>
                                 </ul>
                             </li>
                         </c:if>

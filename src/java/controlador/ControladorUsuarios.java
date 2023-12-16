@@ -242,10 +242,10 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////////////////////
                     session = request.getSession();
                     session.setAttribute("user", user);
-                    vista = "/WEB-INF/jsp/inicio/inicio.jsp";
+                    vista = "/Principal/inicio";
                 } else {
                     request.setAttribute("msj", msj);
-                    vista = "/WEB-INF/jsp/formularios/registro.jsp";
+                    vista = "/Formularios/registro";
                 }
                 break;
             case "/iniciarSesion":
@@ -305,12 +305,12 @@ public class ControladorUsuarios extends HttpServlet {
                         //////////////////////////
                         session.setAttribute("user", user);
 
-                        vista = "/WEB-INF/jsp/inicio/inicio.jsp";
+                        vista = "/Principal/inicio";
                         System.out.println("Identificado: " + user.getNombre());
                     }
                 }
             } catch (Exception ex) {
-                vista = "/WEB-INF/jsp/formularios/iniciosesion.jsp";
+                vista = "/Formularios/iniciosesion";
                 msj = "<p style=\"margin-top: 25px\"> Error: " + ex.getMessage() + "</p>";
                 request.setAttribute("msj", msj);
                 System.out.println("Exception: " + ex.getMessage());
@@ -322,7 +322,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////////////////////
                 session = request.getSession();
                 session.invalidate();
-                vista = "/WEB-INF/jsp/inicio/inicio.jsp";
+                vista = "/Principal/inicio";
                 break;
             case "/modificarUsuario":
 
@@ -464,10 +464,10 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session.setAttribute("user", user);
-                    vista = "/WEB-INF/jsp/usuario/perfil.jsp";
+                    vista = "/Usuarios/perfil";
                 } else {
                     request.setAttribute("msj", msj);
-                    vista = "/WEB-INF/jsp/formularios/modificarusuario.jsp";
+                    vista = "/Formularios/modificarusuario";
                 }
                 break;
 

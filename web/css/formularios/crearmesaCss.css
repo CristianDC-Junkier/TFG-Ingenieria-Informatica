@@ -1,0 +1,182 @@
+/*******Registro*******/
+
+.bloqueRegistro{
+
+    max-width: 80%;
+    width: 400px;
+    height: 30%;
+    min-height: 250px;
+
+    padding: 20px;
+
+    background-color: yellow;
+    text-align: center;
+
+    font-family: Times New Roman;
+
+    border: brown 2px solid;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 5px 5px 5px 5px black;
+    background: linear-gradient(yellow,60%,white);
+}
+.bloqueRegistro > form > div{
+
+    border: brown 2px solid;
+    border-radius: 5px 5px 5px 5px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    color:black;
+}
+.bloqueRegistro > form >
+.contenedorBotonFormulario{
+
+    border: none;
+    border-radius: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0px;
+    padding: 0px;
+    margin-top: 15px;
+}
+.bloqueRegistro > form > div > div {
+
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+
+}
+.bloqueRegistro label{
+
+    margin-left: 10px;
+    font-size: 15px;
+    border-bottom: black 2px solid;
+}
+.bloqueRegistro input{
+
+    width: 150px;
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+.bloqueRegistro select{
+    width: 155px;
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
+}
+
+
+
+/*************************/
+/***********Id's**********/
+/*************************/
+
+
+#tittleMesa{
+    margin-left: 140px;
+}
+
+#passwordMesa{
+    margin-left: 110px;
+}
+#numUsuarios{
+    margin-left: 118px;
+}
+#comunityMesa{
+    margin-left: 108px;
+}
+#desMesa{
+    margin-left: 116px;
+}
+
+@media screen and (max-width: 500px){
+
+    #tittleMesa{
+        margin-left: 125px;
+    }
+
+    #passwordMesa{
+        margin-left: 95px;
+    }
+    #numUsuarios{
+        margin-left: 103px;
+    }
+    #comunityMesa{
+        margin-left: 93px;
+    }
+    #desMesa{
+        margin-left: 101px;
+    }
+
+}
+
+@media screen and (max-width: 450px){
+    .bloqueRegistro input{
+        width: 100px;
+        height: 20px;
+        font-size: 10px;
+    }
+    .bloqueRegistro select{
+        width: 85px;
+        height: 20px;
+        font-size: 10px;
+    }
+    .bloqueRegistro label{
+        font-size: 8px;
+        border-bottom: black 2px solid;
+    }
+    #tittleMesa{
+        margin-left: 90px;
+    }
+    #passwordMesa{
+        margin-left: 75px;
+    }
+    #numUsuarios{
+        margin-left: 78px;
+    }
+    #comunityMesa{
+        margin-left: 75px;
+    }
+    #desMesa{
+        margin-left: 77px;
+    }
+}
+
+@media screen and (max-width: 350px){
+    .bloqueRegistro input{
+        width: 100px;
+        height: 20px;
+        font-size: 10px;
+    }
+    .bloqueRegistro select{
+        width: 85px;
+        height: 20px;
+        font-size: 10px;
+    }
+    .bloqueRegistro label{
+        font-size: 8px;
+        border-bottom: black 2px solid;
+    }
+    #tittleMesa{
+        margin-left: 38px;
+    }
+    #passwordMesa{
+        margin-left: 25px;
+    }
+    #numUsuarios{
+        margin-left: 42px;
+    }
+    #comunityMesa{
+        margin-left: 37px;
+    }
+    #desMesa{
+        margin-left: 40px;
+    }
+}
