@@ -69,6 +69,7 @@ public class ControladorMesas extends HttpServlet {
 
         ArrayList<String> listaLideres;
         ArrayList<Integer> listaCantidad;
+        ArrayList<Usuarios> listaUsuarios;
         List<Pertenecemesa> listaPerteneceMesa;
         List<Mesas> listaMesas;
 
@@ -468,7 +469,7 @@ public class ControladorMesas extends HttpServlet {
                     queryPertenecemesas.setParameter("mesa", listaMesas.get(i).getId());
                     pmesa = queryPertenecemesas.getSingleResult();
                     queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
-                    queryUsuarios.setParameter("id",pmesa.getPertenecemesaPK().getUsuario());
+                    queryUsuarios.setParameter("id", pmesa.getPertenecemesaPK().getUsuario());
                     useraux = queryUsuarios.getSingleResult();
                     listaLideres.add(useraux.getApodo());
 
@@ -591,7 +592,7 @@ public class ControladorMesas extends HttpServlet {
                                 + "    SELECT * "
                                 + "    FROM PERTENECEMESA P "
                                 + "    WHERE P.MESA = M.ID "
-                                + "      AND P.USUARIO = '" + user.getId()+ "' "
+                                + "      AND P.USUARIO = '" + user.getId() + "' "
                                 + ") "
                                 + "AND M.TAMANO > ( "
                                 + "    SELECT COUNT(*) "
@@ -619,7 +620,7 @@ public class ControladorMesas extends HttpServlet {
                     queryPertenecemesas.setParameter("mesa", listaMesas.get(i).getId());
                     pmesa = queryPertenecemesas.getSingleResult();
                     queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
-                    queryUsuarios.setParameter("id",pmesa.getPertenecemesaPK().getUsuario());
+                    queryUsuarios.setParameter("id", pmesa.getPertenecemesaPK().getUsuario());
                     useraux = queryUsuarios.getSingleResult();
                     listaLideres.add(useraux.getApodo());
 
@@ -695,7 +696,8 @@ public class ControladorMesas extends HttpServlet {
                 queryPertenecemesas.setParameter("mesa", id);
                 pmesa = queryPertenecemesas.getSingleResult();
                 deletePMesas(pmesa);
-
+                
+                request.setAttribute("id", id);
                 vista = "/Mesas/mostrarMesa";
                 break;
             case "/cambiarlider":
@@ -741,7 +743,19 @@ public class ControladorMesas extends HttpServlet {
                 queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
                 queryMesas.setParameter("id", id);
                 mesa = queryMesas.getSingleResult();
-
+                
+                //////////////////////////
+                //////////LIDER///////////
+                //////////////////////////
+                queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
+                queryPertenecemesas.setParameter("rol", "Lider");
+                queryPertenecemesas.setParameter("mesa", id);
+                pmesa = queryPertenecemesas.getSingleResult();
+                
+                queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                queryUsuarios.setParameter("id", pmesa.getPertenecemesaPK().getUsuario());
+                useraux = queryUsuarios.getSingleResult();
+                
                 /////////////////////
                 //////////ROL////////
                 /////////////////////
@@ -749,6 +763,7 @@ public class ControladorMesas extends HttpServlet {
                 queryPertenecemesas.setParameter("usuario", user.getId());
                 queryPertenecemesas.setParameter("mesa", id);
                 pmesa = queryPertenecemesas.getSingleResult();
+                
 
                 //////////////////////////
                 //////////USUARIOS////////
@@ -757,9 +772,20 @@ public class ControladorMesas extends HttpServlet {
                 queryPertenecemesas.setParameter("mesa", id);
                 listaPerteneceMesa = queryPertenecemesas.getResultList();
 
+                listaUsuarios = new ArrayList();
+
+                for (int i = 0; i < listaPerteneceMesa.size(); i++) {
+                    queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                    queryUsuarios.setParameter("id", listaPerteneceMesa.get(i).getPertenecemesaPK().getUsuario());
+                    useraux = queryUsuarios.getSingleResult();
+                    listaUsuarios.add(useraux);
+                }
+
                 request.setAttribute("mesa", mesa);
                 request.setAttribute("rol", pmesa.getRol());
-                request.setAttribute("listaUsuarios", listaPerteneceMesa);
+                request.setAttribute("lider", useraux.getApodo());
+                request.setAttribute("listaRoles", listaPerteneceMesa);
+                request.setAttribute("listaUsuarios", listaUsuarios);
 
                 vista = "/WEB-INF/jsp/mesas/mesa.jsp";
                 break;

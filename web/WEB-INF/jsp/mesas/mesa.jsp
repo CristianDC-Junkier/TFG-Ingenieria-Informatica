@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -18,32 +18,54 @@
         <main>
             <div class="cajaGeneral">
                 <div class="cajaPersonaje">
-                    <h2>PERSONAJE ACTUAL</h2>
+                    <h2>${requestScope.mesa.titulo}</h2>
                     <div class="personaje">
                         <div class="personaje-fotoboton">
                             <div class="personaje-foto">
                                 <img src="/TFG/img/iconos/IMGNEGRO.png">
                             </div>
-                            <button class="cambiarPersonaje" onclick="agregarArchivo()">Mirar sus personajes</button>
+                            <button class="cambiarPersonaje" onclick="agregarArchivo()">Cambiar de imagen</button>
                         </div>
 
                         <div class="datosPersonaje">
-                            <div >Nombre de Usuario</div>
-                            <div >Apodo: Usuario123</div>
-                            <div >Correo: usuario@example.com</div>
+                            <table>
+                                <c:forEach var="usuario" items="${listaUsuarios}">
+                                    <tr>
+                                        <td>${listaRoles[status.index].rol}</td>
+                                        <td>${usuario.apodo}</td>
+                                        <c:if test="${usuario.id != user.id}">
+                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/mostrarAmigo?amigo=${usuario.id}'">Detalles</button></td>
+                                            <c:if test="${rol == 'Lider'}">
+                                                <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/eliminardeMesa?id=${requestScope.mesa.id}&apodo=${usuario.id}'">Eliminar de la mesa</button></td>
+                                                <td><button class="botonDentro" onclick="mostrarRecuadro()">Pasar lider</button></td>
+                                            </c:if>
+                                        </c:if>
+                                    </tr>
+                                    <div class="opcionRecuadro" id="recuadro" style="display: none;">
+                                        <div class="contenidoRecuadro">
+                                            <div class="tituloRecuadro">¿Esta seguro que quiere Eliminarlo?
+                                                <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
+                                            </div>
+                                            <hr>
+                                            <button class="botonDentro" onclick="location.href = '/TFG/Usuarios/cambiarlider?id=${requestScope.mesa.id}&apodo=${usuario.id}'">Si</button>
+                                            <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </table>
                         </div>
                     </div>
                 </div>
 
                 <div class="usuarioDatos">
-                    <div><span>Titulo:  </span>${requestScope.mesa.titulo}</div>
+                    <div><span>Lider:  </span>${requestScope.lider}</div>
                     <div><span>Creador:  </span>${requestScope.mesa.creador}</div>
                     <div><span>Comunidad:  </span>${requestScope.mesa.comunidad}</div>
                     <div><span>Descripcion:  </span>${requestScope.mesa.descripcion}</div>
                 </div>
                 <div class="botones">
                     <button class="boton" onclick="location.href = '/TFG/Mesas/mostrarMesasUsuario'">Atras</button>
-                    <button class="boton" onclick="agregarArchivo()">Usuarios</button>
+                    <button class="boton" onclick="agregarArchivo()">Chat</button>
                     <c:choose> 
                         <c:when test="${requestScope.rol == 'Lider'}">
                             <button class="boton" onclick="location.href = '/TFG/Formularios/modificarmesa?id=${requestScope.mesa.id}'">Modificar Mesa</button>
