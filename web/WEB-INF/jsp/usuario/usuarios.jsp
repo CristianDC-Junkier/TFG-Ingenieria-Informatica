@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
-    <title class="titulosPag">Guidance4\Jugadores</title>
+    <title class="titulosPag">Guidance4\Amigos\Jugadores</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/usuariosCss.css"/>
@@ -71,8 +71,8 @@
                                                 </div></td>
                                             <td>${usuario.apodo}</td>
                                             <td>Compartir Mesa o No</td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/enviarPeticion?pamistad=${usuario.apodo}'">Añadir Amigo</button></td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/bloquearUsuario?bloqueado=${usuario.apodo}'">Bloquear Usuario</button></td>
+                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/enviarPeticion?pamistad=${usuario.id}'">Añadir Amigo</button></td>
+                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/bloquearUsuario?bloqueado=${usuario.id}'">Bloquear Usuario</button></td>
                                         </tr>
                                     </c:forEach>
                                 </table>

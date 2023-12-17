@@ -78,7 +78,7 @@
                                                     <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
                                                 </div>
                                                 <hr>
-                                                <button class="botonDentro" onclick="location.href = '/TFG/Usuarios/desbloquearUsuario?bloqueado=${usuario.apodo}'">Si</button>
+                                                <button class="botonDentro" onclick="location.href = '/TFG/Usuarios/desbloquearUsuario?bloqueado=${usuario.id}'">Si</button>
                                                 <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
                                             </div>
                                         </div>

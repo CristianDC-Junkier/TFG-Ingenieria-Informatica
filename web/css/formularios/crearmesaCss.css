@@ -78,7 +78,6 @@
 /***********Id's**********/
 /*************************/
 
-
 #tittleMesa{
     margin-left: 140px;
 }
@@ -94,6 +93,12 @@
 }
 #desMesa{
     margin-left: 116px;
+    resize: none;
+    height: 100px;
+    width: 260px;
+    color: white;
+    background-color:brown;
+    border-radius: 5px;
 }
 
 @media screen and (max-width: 500px){

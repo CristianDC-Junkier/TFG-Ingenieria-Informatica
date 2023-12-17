@@ -91,13 +91,13 @@
                                             <td>${mesa.comunidad}</td>
                                             <td>${listacantidad[status.index]}/${mesa.tamano}</td>
                                             <td>${listalideres[status.index]}</td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/mostrarMesa?titulo=${mesa.titulo}'">Detalles</button></td>
+                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/mostrarMesa?id=${mesa.id}'">Detalles</button></td>
                                             <c:choose> 
                                                 <c:when test="${sessionScope.user.apodo == listalideres[status.index]}">
                                                     <td><button class="botonDentro" onclick="mostrarRecuadro()">Borrar Mesa</button></td>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/salirdeMesa?titulo=${mesa.titulo}'">Salir</button></td>
+                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/salirdeMesa?id=${mesa.id}'">Salir</button></td>
                                                 </c:otherwise>
                                             </c:choose>
                                         </tr>
@@ -107,7 +107,7 @@
                                                     <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
                                                 </div>
                                                 <hr>
-                                                <button class="botonDentro" onclick="location.href = '/TFG/Mesas/eliminarMesa?titulo=${mesa.titulo}'">Si</button>
+                                                <button class="botonDentro" onclick="location.href = '/TFG/Mesas/eliminarMesa?id=${mesa.id}'">Si</button>
                                                 <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
                                             </div>
                                         </div>

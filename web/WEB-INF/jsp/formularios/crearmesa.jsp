@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4\Registro</title>
+        <title class="titulosPag">Guidance4\Crear_Mesa</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/principalCss.css"/>
@@ -56,7 +56,7 @@
                         </div>
                         <div>
                             <label for="desMesa" id="descripcionMesa">Descripción</label>
-                            <input type="text" id="desMesa" title="Describe la mesa" name="mesa_descripcion"/>
+                            <textarea id="desMesa" name="mesa_descripcion"></textarea>
                         </div>
                         <c:if test="${requestScope.msj!=null}">
                             <div>

@@ -33,12 +33,12 @@
                         </div>
                         <div>
                             <label for="passwordReg" id="contraUsuarioReg">Contraseña:</label>
-                            <input type="password" id="passwordReg" name="usuario_contrasena" required value = "${sessionScope.user.contrasena}">
+                            <input type="password" id="passwordReg" name="usuario_contrasena" required>
                             <span class="validity"></span>
                         </div>
                         <div>
                             <label for="passwordConfirmReg" id="contraconUsuarioReg">Repetir Contraseña:</label>
-                            <input type="password" id="passwordConfirmReg" name="usuario_contrasena_confirmada" required  value = "${sessionScope.user.contrasena}">
+                            <input type="password" id="passwordConfirmReg" name="usuario_contrasena_confirmada" required>
                             <span class="validity"></span>
                         </div>
                         <div>

@@ -77,13 +77,13 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <td>Sin contraseña</td>
-                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/anadiraMesa?titulo=${mesa.titulo}&contrasena_anadirmesa='">Entrar</button></td>
+                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/anadiraMesa?id=${mesa.id}&contrasena_anadirmesa='">Entrar</button></td>
                                                 </c:otherwise>
                                             </c:choose>
                                         </tr>
                                         <div class="opcionRecuadro" id="recuadro" style="display: none;">
                                             <div class="contenidoRecuadro">
-                                                <form id = form  action="/TFG/Mesas/anadiraMesa?titulo=${mesa.titulo}" method="POST">
+                                                <form id = form  action="/TFG/Mesas/anadiraMesa?id=${mesa.id}" method="POST">
                                                     <label class="tituloRecuadro" for="anadirMesa" id="titulodelRecuadro">Contraseña:</label>
                                                     <input class="recuadroDentro" type="password" id="anadirMesa" name="contrasena_anadirmesa" required>
                                                     <input class="botonDentro" type="submit" value="Aceptar">

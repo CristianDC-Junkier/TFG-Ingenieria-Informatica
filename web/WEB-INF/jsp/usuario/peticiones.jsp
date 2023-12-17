@@ -85,11 +85,11 @@
                                             <td>Compartir Mesa o No</td>
                                             <c:choose>
                                                 <c:when test="${requestScope.peticiones == 'Enviadas'}">
-                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/eliminarPeticion?pamistad=${usuario.apodo}'">Eliminar</button></td>
+                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/eliminarPeticion?pamistad=${usuario.id}'">Eliminar</button></td>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/aceptarPeticion?pamistad=${usuario.apodo}'">Aceptar</button></td>
-                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/rechazarPeticion?pamistad=${usuario.apodo}'">Rechazar</button></td>
+                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/aceptarPeticion?pamistad=${usuario.id}'">Aceptar</button></td>
+                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/rechazarPeticion?pamistad=${usuario.id}'">Rechazar</button></td>
                                                 </c:otherwise>
                                             </c:choose> 
                                         </tr>

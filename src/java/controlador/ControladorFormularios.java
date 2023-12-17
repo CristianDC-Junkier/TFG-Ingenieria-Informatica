@@ -1,10 +1,12 @@
 
 package controlador;
 
+import entidades.Mesas;
 import java.io.IOException;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,6 +37,10 @@ public class ControladorFormularios extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        Mesas mesa = null;
+        TypedQuery<Mesas> queryMesas;
+        String id;
+        
         String accion;
         accion = request.getPathInfo();
         String vista = "";
@@ -50,6 +56,17 @@ public class ControladorFormularios extends HttpServlet {
                 vista = "/WEB-INF/jsp/formularios/iniciosesion.jsp";
                 break;
             case "/modificarmesa":
+                
+                id = request.getParameter("id");
+                
+                /////////////////////
+                /////////MESA////////
+                /////////////////////
+                queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                queryMesas.setParameter("id", id);
+                mesa = queryMesas.getSingleResult();
+                
+                request.setAttribute("mesa", mesa);
                 vista = "/WEB-INF/jsp/formularios/modificarmesa.jsp";
                 break;
             case "/modificarusuario":

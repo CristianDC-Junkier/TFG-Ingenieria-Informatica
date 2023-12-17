@@ -1,4 +1,3 @@
-
 package entidades;
 
 import java.io.Serializable;
@@ -78,29 +77,15 @@ public class Mesas implements Serializable {
         this.tamano = tamano;
         this.titulo = titulo;
     }
-    
+
     public Mesas(String creador, String comunidad, short tamano, String titulo) {
         this.creador = creador;
         this.comunidad = comunidad;
         this.tamano = tamano;
         this.titulo = titulo;
     }
-    
-    public Mesas( String creador, String comunidad, short tamano, String titulo, String aux, int tipo) {
-        this.creador = creador;
-        this.comunidad = comunidad;
-        this.tamano = tamano;
-        this.titulo = titulo;
-        
-        if (tipo == 0){
-            this.contrasena = aux;
-        }else{
-            this.descripcion = aux;
-        }
-    }
 
- 
-    public Mesas( String creador, String comunidad, short tamano, String titulo, String decripcion, String contrasena) {
+    public Mesas(String creador, String comunidad, short tamano, String titulo, String descripcion, String contrasena) {
         this.creador = creador;
         this.comunidad = comunidad;
         this.tamano = tamano;
@@ -189,5 +174,5 @@ public class Mesas implements Serializable {
     public String toString() {
         return "entidades.Mesas[ id=" + id + " ]";
     }
-    
+
 }
