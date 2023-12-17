@@ -77,18 +77,18 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <td>Sin contraseña</td>
-                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/anadiraMesa?titulo=${mesa.titulo}&contrasena='">Entrar</button></td>
+                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/anadiraMesa?titulo=${mesa.titulo}&contrasena_anadirmesa='">Entrar</button></td>
                                                 </c:otherwise>
                                             </c:choose>
                                         </tr>
                                         <div class="opcionRecuadro" id="recuadro" style="display: none;">
                                             <div class="contenidoRecuadro">
-                                                <div class="tituloRecuadro">¿Esta seguro que quieres unirte?
-                                                    <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
-                                                </div>
-                                                <hr>
-                                                <button class="botonDentro" onclick="location.href = '/TFG/Usuarios/anadiraMesa?titulo=${mesa.titulo}'">Si</button>
-                                                <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
+                                                <form id = form  action="/TFG/Mesas/anadiraMesa?titulo=${mesa.titulo}" method="POST">
+                                                    <label class="tituloRecuadro" for="anadirMesa" id="titulodelRecuadro">Contraseña:</label>
+                                                    <input class="recuadroDentro" type="password" id="anadirMesa" name="contrasena_anadirmesa" required>
+                                                    <input class="botonDentro" type="submit" value="Aceptar">
+                                                    <input class="botonDentro" type="button" onclick="cerrarRecuadro()" value="Volver">
+                                                </form>
                                             </div>
                                         </div>
                                     </c:forEach>

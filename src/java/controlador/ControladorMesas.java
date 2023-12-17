@@ -212,7 +212,7 @@ public class ControladorMesas extends HttpServlet {
                     pmesa = new Pertenecemesa(user.getApodo(), titulo, "Lider");
                     persist(pmesa);
 
-                    vista = "/Mesas/mostrarMesasUsuarios";
+                    vista = "/Mesas/mostrarMesasUsuario";
                 } else {
                     request.setAttribute("msj", msj);
                     vista = "/Formularios/crearmesa";
@@ -625,7 +625,7 @@ public class ControladorMesas extends HttpServlet {
                 user = (Usuarios) session.getAttribute("user");
 
                 titulo = request.getParameter("titulo");
-                contrasena = request.getParameter("contrasena");
+                contrasena = request.getParameter("contrasena_anadirmesa");
 
                 queryMesas = em.createNamedQuery("Mesas.findByTitulo", Mesas.class);
                 queryMesas.setParameter("titulo", titulo);

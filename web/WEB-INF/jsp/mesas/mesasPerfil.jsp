@@ -103,11 +103,11 @@
                                         </tr>
                                         <div class="opcionRecuadro" id="recuadro" style="display: none;">
                                             <div class="contenidoRecuadro">
-                                                <div class="tituloRecuadro">¿Esta seguro que quieres unirte?
+                                                <div class="tituloRecuadro">¿Esta seguro que quieres Borrarla?
                                                     <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
                                                 </div>
                                                 <hr>
-                                                <button class="botonDentro" onclick="location.href = '/TFG/Usuarios/anadiraMesa?titulo=${mesa.titulo}'">Si</button>
+                                                <button class="botonDentro" onclick="location.href = '/TFG/Mesas/eliminarMesa?titulo=${mesa.titulo}'">Si</button>
                                                 <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
                                             </div>
                                         </div>

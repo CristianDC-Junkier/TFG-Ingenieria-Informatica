@@ -55,7 +55,7 @@
                             </select>
                         </div>
                         <div>
-                            <label for="desMesa" id="descripcionMesa">Descipción</label>
+                            <label for="desMesa" id="descripcionMesa">Descripción</label>
                             <input type="text" id="desMesa" title="Describe la mesa" name="mesa_descripcion"/>
                         </div>
                         <c:if test="${requestScope.msj!=null}">
