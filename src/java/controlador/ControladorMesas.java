@@ -59,6 +59,7 @@ public class ControladorMesas extends HttpServlet {
         Usuarios useraux = null;
         Mesas mesa = null;
         Pertenecemesa pmesa = null;
+        Pertenecemesa pmesaaux = null;
         int cantidad;
 
         TypedQuery<Mesas> queryMesas;
@@ -583,7 +584,7 @@ public class ControladorMesas extends HttpServlet {
                                     + "    WHERE P.MESA = M.ID "
                                     + "      AND P.USUARIO = '" + user.getId() + "' "
                                     + ") "
-                                    + "AND M.TAMANO > ( "
+                                    + "AND M.TAMANO >= ( "
                                     + "    SELECT COUNT(*) "
                                     + "    FROM PERTENECEMESA P "
                                     + "    WHERE P.MESA = M.ID "
@@ -601,7 +602,7 @@ public class ControladorMesas extends HttpServlet {
                                     + "    WHERE P.MESA = M.ID "
                                     + "      AND P.USUARIO = '" + user.getId() + "' "
                                     + ") "
-                                    + "AND M.TAMANO > ( "
+                                    + "AND M.TAMANO >= ( "
                                     + "    SELECT COUNT(*) "
                                     + "    FROM PERTENECEMESA P "
                                     + "    WHERE P.MESA = M.ID "
@@ -618,7 +619,7 @@ public class ControladorMesas extends HttpServlet {
                                     + "    WHERE P.MESA = M.ID "
                                     + "      AND P.USUARIO = '" + user.getId() + "' "
                                     + ") "
-                                    + "AND M.TAMANO > ( "
+                                    + "AND M.TAMANO >= ( "
                                     + "    SELECT COUNT(*) "
                                     + "    FROM PERTENECEMESA P "
                                     + "    WHERE P.MESA = M.ID "
@@ -639,7 +640,175 @@ public class ControladorMesas extends HttpServlet {
                                     + "    WHERE P.MESA = M.ID "
                                     + "      AND P.USUARIO = '" + user.getId() + "' "
                                     + ") "
-                                    + "AND M.TAMANO > ( "
+                                    + "AND M.TAMANO >= ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") "
+                                    + "ORDER BY ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Mesas.class);
+                    listaMesas = queryAUX.getResultList();
+
+                    System.out.println("Esto: " + listaMesas.size());
+
+                    listaLideres = new ArrayList();
+                    listaCantidad = new ArrayList();
+
+                    for (int i = 0; i < listaMesas.size(); i++) {
+                        queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
+                        queryPertenecemesas.setParameter("rol", "Dungeon Master");
+                        queryPertenecemesas.setParameter("mesa", listaMesas.get(i).getId());
+                        pmesa = queryPertenecemesas.getSingleResult();
+
+                        queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                        queryUsuarios.setParameter("id", pmesa.getPertenecemesaPK().getUsuario());
+                        useraux = queryUsuarios.getSingleResult();
+                        listaLideres.add(useraux.getApodo());
+
+                        queryAUX = em.createNamedQuery("Pertenecemesa.countByMesa", Integer.class);
+                        queryAUX.setParameter("mesa", listaMesas.get(i).getId());
+                        cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
+                        listaCantidad.add(cantidad);
+                    }
+
+                    System.out.println("Sale pag:" + numString);
+                    System.out.println("Sale orden:" + ordenar);
+                    System.out.println("Sale npag:" + numPag);
+
+                    request.setAttribute("listaMesas", listaMesas);
+                    request.setAttribute("listalideres", listaLideres);
+                    request.setAttribute("listacantidad", listaCantidad);
+                    request.setAttribute("orden", ordenar);
+                    request.setAttribute("pag", numString);//numero de la pag
+                    request.setAttribute("numPag", numPag);//numero total de pag
+
+                    vista = "/WEB-INF/jsp/mesas/mesasPerfil.jsp";
+                }
+                break;
+            case "/mostrarMesasAmigo":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+
+                    ////////////////////////////
+                    ////////////AMIGO///////////
+                    ////////////////////////////
+                    id = request.getParameter("amigo");
+
+                    queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                    queryUsuarios.setParameter("id", id);
+                    useraux = queryUsuarios.getSingleResult();
+
+                    ////////////////////////////
+                    //////////NUM MESAS/////////
+                    ////////////////////////////
+                    queryMesas = em.createNamedQuery("Mesas.CountByCreador", Mesas.class);
+                    queryMesas.setParameter("creador", useraux.getApodo());
+                    result = queryMesas.getSingleResult();
+
+                    //PAGINAS QUE HAY (10 MESAS POR PAGINA)
+                    numPag = (((Number) result).intValue() / 10) + 1;
+
+                    numString = request.getParameter("pag");//numero de pag en la que estoy
+                    ordenar = request.getParameter("orden");//como ordenar
+
+                    System.out.println("Llega pag: " + numString);
+                    System.out.println("Llega orden: " + ordenar);
+
+                    sql = "";
+
+                    if (ordenar == null || numString == null) {
+
+                        ordenar = "ordenar1";
+                        numString = "1";
+                        num = 0;
+
+                    } else {
+
+                        num = (Integer.valueOf(numString) - 1) * 10;//offset
+                    }
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            sql = "SELECT M.* "
+                                    + "FROM MESAS M "
+                                    + "WHERE EXISTS ( "
+                                    + "    SELECT * "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + "      AND P.USUARIO = '" + id + "' "
+                                    + ") "
+                                    + "AND M.TAMANO >= ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") "
+                                    + "ORDER BY M.TITULO DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+
+                            break;
+                        case "ordenar2":
+                            sql = "SELECT M.* "
+                                    + "FROM MESAS M "
+                                    + "WHERE EXISTS ( "
+                                    + "    SELECT * "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + "      AND P.USUARIO = '" + id + "' "
+                                    + ") "
+                                    + "AND M.TAMANO >= ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") "
+                                    + "ORDER BY M.TITULO ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            break;
+                        case "ordenar3":
+                            sql = "SELECT M.* "
+                                    + "FROM MESAS M "
+                                    + "WHERE EXISTS ( "
+                                    + "    SELECT * "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + "      AND P.USUARIO = '" + id + "' "
+                                    + ") "
+                                    + "AND M.TAMANO >= ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") "
+                                    + "ORDER BY ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            break;
+                        case "ordenar4":
+                            sql = "SELECT M.* "
+                                    + "FROM MESAS M "
+                                    + "WHERE EXISTS ( "
+                                    + "    SELECT * "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + "      AND P.USUARIO = '" + id + "' "
+                                    + ") "
+                                    + "AND M.TAMANO >= ( "
                                     + "    SELECT COUNT(*) "
                                     + "    FROM PERTENECEMESA P "
                                     + "    WHERE P.MESA = M.ID "
@@ -664,6 +833,7 @@ public class ControladorMesas extends HttpServlet {
                         queryPertenecemesas.setParameter("rol", "Dungeon Master");
                         queryPertenecemesas.setParameter("mesa", listaMesas.get(i).getId());
                         pmesa = queryPertenecemesas.getSingleResult();
+
                         queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
                         queryUsuarios.setParameter("id", pmesa.getPertenecemesaPK().getUsuario());
                         useraux = queryUsuarios.getSingleResult();
@@ -678,7 +848,8 @@ public class ControladorMesas extends HttpServlet {
                     System.out.println("Sale pag:" + numString);
                     System.out.println("Sale orden:" + ordenar);
                     System.out.println("Sale npag:" + numPag);
-
+                    
+                    request.setAttribute("usuario", useraux);
                     request.setAttribute("listaMesas", listaMesas);
                     request.setAttribute("listalideres", listaLideres);
                     request.setAttribute("listacantidad", listaCantidad);
@@ -686,7 +857,7 @@ public class ControladorMesas extends HttpServlet {
                     request.setAttribute("pag", numString);//numero de la pag
                     request.setAttribute("numPag", numPag);//numero total de pag
 
-                    vista = "/WEB-INF/jsp/mesas/mesasPerfil.jsp";
+                    vista = "/WEB-INF/jsp/mesas/mesasPerfilAmigo.jsp";
                 }
                 break;
             case "/anadiraMesa":
@@ -739,6 +910,25 @@ public class ControladorMesas extends HttpServlet {
                     queryPertenecemesas.setParameter("usuario", user.getId());
                     queryPertenecemesas.setParameter("mesa", id);
                     pmesa = queryPertenecemesas.getSingleResult();
+
+                    if (pmesa.getRol().equals("Dungeon Master")) {
+
+                        queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                        queryMesas.setParameter("id", id);
+                        mesa = queryMesas.getSingleResult();
+
+                        queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                        queryUsuarios.setParameter("apodo", id);
+                        useraux = queryUsuarios.getSingleResult();
+
+                        //Modificamos nuevo DM si es necesario (Se sale el que era)
+                        queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
+                        queryPertenecemesas.setParameter("usuario", useraux.getId());
+                        queryPertenecemesas.setParameter("mesa", id);
+                        pmesaaux = queryPertenecemesas.getSingleResult();
+                        pmesaaux.setRol("Dungeon Master");
+                        updatePMesas(pmesaaux);
+                    }
                     deletePMesas(pmesa);
 
                     vista = "/Mesas/mostrarMesasUsuario";
@@ -762,12 +952,22 @@ public class ControladorMesas extends HttpServlet {
                 if (user == null || !mesa.getCreador().equals(user.getApodo())) {
                     vista = "/Principal/inicio";
                 } else {
-                    id = request.getParameter("id");
                     apodo = request.getParameter("usuario");
                     queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                     queryPertenecemesas.setParameter("usuario", apodo);
                     queryPertenecemesas.setParameter("mesa", id);
                     pmesa = queryPertenecemesas.getSingleResult();
+
+                    if (pmesa.getRol().equals("Dungeon Master")) {
+                        //Modificamos nuevo DM si es necesario (Se sale el que era)
+                        queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
+                        queryPertenecemesas.setParameter("usuario", user.getId());
+                        queryPertenecemesas.setParameter("mesa", id);
+                        pmesaaux = queryPertenecemesas.getSingleResult();
+                        pmesaaux.setRol("Dungeon Master");
+                        updatePMesas(pmesaaux);
+                    }
+
                     deletePMesas(pmesa);
 
                     request.setAttribute("id", id);
@@ -796,16 +996,24 @@ public class ControladorMesas extends HttpServlet {
                     id = request.getParameter("id");
                     apodo = request.getParameter("usuario");
 
-                    //NuevoLider
+                    //AntiguoLider
+                    queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
+                    queryPertenecemesas.setParameter("rol", "Dungeon Master");
+                    queryPertenecemesas.setParameter("mesa", id);
+                    pmesa = queryPertenecemesas.getSingleResult();
+                    creador = pmesa.getPertenecemesaPK().getUsuario();
+
+                    //Modificamos nuevo DM
                     queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                     queryPertenecemesas.setParameter("usuario", apodo);
                     queryPertenecemesas.setParameter("mesa", id);
                     pmesa = queryPertenecemesas.getSingleResult();
                     pmesa.setRol("Dungeon Master");
                     updatePMesas(pmesa);
-                    //AntiguoLider
+
+                    //Modificamos antiguo DM
                     queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
-                    queryPertenecemesas.setParameter("usuario", user.getId());
+                    queryPertenecemesas.setParameter("usuario", creador);
                     queryPertenecemesas.setParameter("mesa", id);
                     pmesa = queryPertenecemesas.getSingleResult();
                     pmesa.setRol("Jugador");
@@ -826,6 +1034,7 @@ public class ControladorMesas extends HttpServlet {
                 //////PERTENECES A LA MESA/////
                 ///////////////////////////////
                 id = request.getParameter("id");
+
                 queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                 queryPertenecemesas.setParameter("usuario", user.getId());
                 queryPertenecemesas.setParameter("mesa", id);
@@ -845,7 +1054,7 @@ public class ControladorMesas extends HttpServlet {
                     mesa = queryMesas.getSingleResult();
 
                     //////////////////////////
-                    //////////LIDER///////////
+                    ////////////DM////////////
                     //////////////////////////
                     queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
                     queryPertenecemesas.setParameter("rol", "Dungeon Master");

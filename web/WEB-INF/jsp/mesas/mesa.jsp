@@ -38,34 +38,41 @@
                                         <td>${listaRoles[status.index].rol}</td>
                                         <td>${usuario.apodo}</td>
                                         <c:choose>
-                                            <c:when test="${usuario.id != user.id}">
+                                            <c:when test="${usuario.id != user.id and usuario.apodo != user.apodo}">
                                                 <td><button class="botonUsuarios" onclick="location.href = '/TFG/Usuarios/mostrarAmigo?amigo=${usuario.id}'">Detalles</button></td>
-                                                <td><button class="botonUsuarios" onclick="mostrarRecuadro2()">Eliminar</button></td>
-                                                <c:choose>
-                                                    <c:when test="${requestScope.dm != usuario.apodo}">
-                                                        <td><button class="botonUsuarios" onclick="location.href = '/TFG/Mesas/cambiarlider?id=${requestScope.mesa.id}&usuario=${usuario.id}'">Pasar DM</button></td>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <td>&nbsp;</td>
-                                                    </c:otherwise>
-                                                </c:choose>
                                             </c:when>
                                             <c:otherwise>
                                                 <td>&nbsp;</td>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${requestScope.dm != usuario.apodo and requestScope.mesa.creador == user.apodo}">
+                                                <td><button class="botonUsuarios" onclick="location.href = '/TFG/Mesas/cambiarlider?id=${requestScope.mesa.id}&usuario=${usuario.id}'">Pasar DM</button></td>
+                                            </c:when>
+                                            <c:otherwise>
                                                 <td>&nbsp;</td>
                                             </c:otherwise>
                                         </c:choose>
-                                    </tr>
-                                    <div class="opcionRecuadro" id="recuadro2" style="display: none;">
-                                        <div class="contenidoRecuadro">
-                                            <div class="tituloRecuadro">¿Esta seguro que quiere Eliminarlo?
-                                                <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
+                                        <c:choose>
+                                            <c:when test="${requestScope.mesa.creador == user.apodo and usuario.apodo != user.apodo}">
+                                                <td><button class="botonUsuarios" onclick="mostrarRecuadro2()">Eliminar</button></td>
+                                            <div class="opcionRecuadro" id="recuadro2" style="display: none;">
+                                                <div class="contenidoRecuadro">
+                                                    <div class="tituloRecuadro">¿Esta seguro que quiere Eliminarlo?
+                                                        <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
+                                                    </div>
+                                                    <hr>
+
+                                                    <button class="botonDentro" onclick="location.href = '/TFG/Mesas/eliminardeMesa?id=${requestScope.mesa.id}&usuario=${usuario.id}'">Si</button>
+                                                    <button class="botonDentro" onclick="cerrarRecuadro2()">No</button>
+                                                </div>
                                             </div>
-                                            <hr>
-                                            <button class="botonDentro" onclick="location.href = '/TFG/Mesas/eliminardeMesa?id=${requestScope.mesa.id}&usuario=${usuario.id}'">Si</button>
-                                            <button class="botonDentro" onclick="cerrarRecuadro2()">No</button>
-                                        </div>
-                                    </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>&nbsp;</td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    </tr>
                                 </c:forEach>
                             </table>
                         </div>

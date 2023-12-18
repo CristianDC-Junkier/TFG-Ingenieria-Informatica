@@ -65,6 +65,7 @@ public class ControladorUsuarios extends HttpServlet {
         Object result;
 
         Usuarios user = null;
+        Usuarios useraux = null;
         Amigos amigo = null;
         Bloqueados bloqueado = null;
         Pideamistad pamistad = null;
@@ -1115,20 +1116,22 @@ public class ControladorUsuarios extends HttpServlet {
 
                     queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
                     queryUsuarios.setParameter("id", id);
-                    user = queryUsuarios.getSingleResult();
-
+                    useraux = queryUsuarios.getSingleResult();
+                    
+                    
                     queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
                     queryAmigos.setParameter("amigo1", id);
                     queryAmigos.setParameter("amigo2", user.getId());
 
-                    if (queryAmigos.getResultList().size() == 1) {
+                    
+                    if (!queryAmigos.getResultList().isEmpty()) {
                         System.out.println("Somos amigos");
                         request.setAttribute("sonAmigos", 1);
                     } else {
                         request.setAttribute("sonAmigos", 0);
                     }
                     
-                    request.setAttribute("amigo", user);
+                    request.setAttribute("amigo", useraux);
 
                     vista = "/WEB-INF/jsp/usuario/amigo.jsp";
                 }

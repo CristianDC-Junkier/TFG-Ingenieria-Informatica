@@ -6,7 +6,7 @@
     <title class="titulosPag">Guidance4\Mis_Mesas</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/mesasPerfilCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/mesasPerfilAmigoCss.css"/>
     <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/listasMesasCss.css"/>
 </head>
 <body>
@@ -15,11 +15,11 @@
     </header>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
-        <h2 class="Titulos">Mis Mesas</h2>
+        <h2 class="Titulos">Mesas de <c:out value="${requestScope.usuario.apodo}"/></h2>
         <hr color="black">
         <div class="contenedoresMesa"> 
             <div class="contenedorMesa">
-                <div class="tituloBuscadorMesa">Mis Mesas</div>
+                <div class="tituloBuscadorMesa">Mesas de <c:out value="${requestScope.usuario.apodo}"/></div>
                 <div class="buscadorMesa">
                     <div>Busca por nombre: <input type="search" placeholder="Introduce el nombre"/> </div>
                     <div>
@@ -59,14 +59,14 @@
                             </c:choose>
                         </select>
                     </div>
-                    <div><button onclick="location.href = '/TFG/Formularios/crearmesa'">Crear Mesa</button></div>
+                    <div><button onclick="location.href = '/TFG/Usuarios/mostrarAmigo?amigo=${usuario.id}'">Volver</button></div>
                 </div>
             </div>
             <div class="listasMesa" id="pestañasSeccion">
                 <div class="pestañasNavegacion">
                     <div class="pestaña" id="pestaña1">
                         <div class="listaMesa">
-                            <h3>Mis Mesas</h3>
+                            <h3>Mesas de <c:out value="${requestScope.usuario.apodo}"/></h3>
                             <c:choose>
                                 <c:when test="${requestScope.orden == 'ordenar1'}">
                                     <h4>Ordenado por nombre (A-Z)</h4>
@@ -91,27 +91,8 @@
                                             <td>${mesa.titulo}</td>
                                             <td>${mesa.comunidad}</td>
                                             <td>${listacantidad[status.index]}/${mesa.tamano}</td>
-                                            <td>${listalideres[status.index]}</td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/mostrarMesa?id=${mesa.id}'">Detalles</button></td>
-                                            <c:choose> 
-                                                <c:when test="${sessionScope.user.apodo == listalideres[status.index]}">
-                                                    <td><button class="botonDentro" onclick="mostrarRecuadro()">Borrar Mesa</button></td>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/salirdeMesa?id=${mesa.id}'">Salir</button></td>
-                                                </c:otherwise>
-                                            </c:choose>
+                                            <td>${listalideres[status.index]}</td>                                            
                                         </tr>
-                                        <div class="opcionRecuadro" id="recuadro" style="display: none;">
-                                            <div class="contenidoRecuadro">
-                                                <div class="tituloRecuadro">¿Esta seguro que quieres Borrarla?
-                                                    <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
-                                                </div>
-                                                <hr>
-                                                <button class="botonDentro" onclick="location.href = '/TFG/Mesas/eliminarMesa?id=${mesa.id}'">Si</button>
-                                                <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
-                                            </div>
-                                        </div>
                                     </c:forEach>
                                 </table>
                             </div>

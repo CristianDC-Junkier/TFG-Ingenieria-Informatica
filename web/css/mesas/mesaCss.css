@@ -122,6 +122,8 @@ main{
     flex-grow: 1;
     margin-bottom: 20px;
     margin-top: 20px;
+    
+    max-width: 30em;
 
     margin-right: 25px;
     
@@ -201,7 +203,6 @@ main{
 
 button:hover{
 
-    color:yellowgreen;
     transform: translateY(-0.1em);
 }
 
@@ -282,11 +283,12 @@ button:active{
     padding: 2px 2px;
     border: brown 2px solid;
     background-color: yellow;
+    border-radius: 5px;
 }
 
 .botonUsuarios:hover {
 
-    background-color: yellowgreen;
+    color:black;
     transform: translateY(-0.1em);
 }
 

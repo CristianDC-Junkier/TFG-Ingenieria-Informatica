@@ -49,7 +49,7 @@
                     <button class="boton" onclick="location.href = '/TFG/Usuarios/mostrarAmigos'">Atras</button>
                     <c:choose>
                         <c:when test="${requestScope.sonAmigos == 1}">
-                            <button class="boton" onclick="agregarArchivo()">Mesas</button>
+                            <button class="boton" onclick="location.href ='/TFG/Mesas/mostrarMesasAmigo?amigo=${requestScope.amigo.id}'">Mesas</button>
                             <button class="boton" onclick="agregarArchivo()">Personajes</button>
                             <button class="botonfinal" onclick="mostrarRecuadro()">Eliminar Amigo</button>
                         </c:when>
