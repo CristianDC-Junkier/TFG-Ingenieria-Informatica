@@ -1,7 +1,7 @@
-
 package controlador;
 
 import entidades.Mesas;
+import entidades.Usuarios;
 import java.io.IOException;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -25,6 +26,7 @@ public class ControladorFormularios extends HttpServlet {
     private EntityManager em;
     @Resource
     private javax.transaction.UserTransaction utx;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,41 +38,89 @@ public class ControladorFormularios extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
+        HttpSession session;
+
+        Usuarios user = null;
         Mesas mesa = null;
+
         TypedQuery<Mesas> queryMesas;
         String id;
-        
+        int numMesasCreadas;
+
         String accion;
         accion = request.getPathInfo();
         String vista = "";
-         
+
         switch (accion) {
             case "/contraseñaperdida":
+                
                 vista = "/WEB-INF/jsp/formularios/contraseñaperdida.jsp";
                 break;
             case "/crearmesa":
-                vista = "/WEB-INF/jsp/formularios/crearmesa.jsp";
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+
+                    /////////////////////
+                    /////////MESA////////
+                    /////////////////////
+                    queryMesas = em.createNamedQuery("Mesas.findByCreador", Mesas.class);
+                    queryMesas.setParameter("creador", user.getApodo());
+                    numMesasCreadas = queryMesas.getResultList().size();
+
+                    request.setAttribute("mesasTotales", numMesasCreadas);
+
+                    vista = "/WEB-INF/jsp/formularios/crearmesa.jsp";
+                }
                 break;
+
             case "/iniciosesion":
                 vista = "/WEB-INF/jsp/formularios/iniciosesion.jsp";
                 break;
             case "/modificarmesa":
-                
-                id = request.getParameter("id");
-                
-                /////////////////////
-                /////////MESA////////
-                /////////////////////
-                queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
-                queryMesas.setParameter("id", id);
-                mesa = queryMesas.getSingleResult();
-                
-                request.setAttribute("mesa", mesa);
-                vista = "/WEB-INF/jsp/formularios/modificarmesa.jsp";
-                break;
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    id = request.getParameter("id");
+
+                    /////////////////////
+                    /////////MESA////////
+                    /////////////////////
+                    queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                    queryMesas.setParameter("id", id);
+                    mesa = queryMesas.getSingleResult();
+
+                    request.setAttribute("mesa", mesa);
+                    vista = "/WEB-INF/jsp/formularios/modificarmesa.jsp";
+                    break;
+                }
             case "/modificarusuario":
-                vista = "/WEB-INF/jsp/formularios/modificarusuario.jsp";
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    vista = "/WEB-INF/jsp/formularios/modificarusuario.jsp";
+                }
                 break;
             case "/registro":
                 vista = "/WEB-INF/jsp/formularios/registro.jsp";
@@ -82,7 +132,7 @@ public class ControladorFormularios extends HttpServlet {
                 vista = "/WEB-INF/jsp/formularios/usuarioperdido.jsp";
                 break;
         }
-        
+
         RequestDispatcher rd = request.getRequestDispatcher(vista);
         rd.forward(request, response);
     }

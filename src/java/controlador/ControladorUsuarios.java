@@ -135,7 +135,7 @@ public class ControladorUsuarios extends HttpServlet {
                                 || contrasena.toUpperCase().contains("DROP")) {
                             throw new Exception("La contrasena no es válida");
                         }
-                        
+
                         //////////////////////
                         /////////HASH/////////
                         //////////////////////
@@ -278,7 +278,7 @@ public class ControladorUsuarios extends HttpServlet {
                     throw new Exception("La contrasena no es válida");
                 } else {
                     user = listaUsuarios.remove(0);
-                    System.out.println("Contraseña que doy: " + contrasena );
+                    System.out.println("Contraseña que doy: " + contrasena);
                     System.out.println("Contraseña que aporto: " + user.getContrasena());
                     if (!BCrypt.checkpw(contrasena, user.getContrasena())) {
                         throw new Exception("La contraseña no es correcta");
@@ -325,155 +325,164 @@ public class ControladorUsuarios extends HttpServlet {
                 vista = "/Principal/inicio";
                 break;
             case "/modificarUsuario":
-
-                conseguido = false;
-                msj = "";
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                id = user.getId();
-                apodo = request.getParameter("nombre_usuario");
-                nombre = request.getParameter("nombre_real");
-                correo = request.getParameter("correo_usuario");
-                contrasena = request.getParameter("usuario_contrasena");
-                telefono = request.getParameter("usuario_telefono");
-                fechaNacimientoString = request.getParameter("usuario_nacimiento");
-                provincia = request.getParameter("provincia");
-                genero = request.getParameter("genero");
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    conseguido = false;
+                    msj = "";
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
 
-                if (nombre != null && apodo != null && correo != null && contrasena != null && fechaNacimientoString != null
-                        && provincia != null && genero != null) {
+                    id = user.getId();
+                    apodo = request.getParameter("nombre_usuario");
+                    nombre = request.getParameter("nombre_real");
+                    correo = request.getParameter("correo_usuario");
+                    contrasena = request.getParameter("usuario_contrasena");
+                    telefono = request.getParameter("usuario_telefono");
+                    fechaNacimientoString = request.getParameter("usuario_nacimiento");
+                    provincia = request.getParameter("provincia");
+                    genero = request.getParameter("genero");
 
-                    try {
-                        /////////////////
-                        //////FECHA//////
-                        /////////////////
+                    if (nombre != null && apodo != null && correo != null && contrasena != null && fechaNacimientoString != null
+                            && provincia != null && genero != null) {
 
-                        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                        Date fechaNacimiento = formatoFecha.parse(fechaNacimientoString);
+                        try {
+                            /////////////////
+                            //////FECHA//////
+                            /////////////////
 
-                        Date fechaActual = new Date();
-                        Calendar calendarioAux = Calendar.getInstance();
-                        calendarioAux.setTime(fechaActual);
-                        calendarioAux.add(Calendar.YEAR, -10);
+                            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                            Date fechaNacimiento = formatoFecha.parse(fechaNacimientoString);
 
-                        fechaActual = calendarioAux.getTime();
+                            Date fechaActual = new Date();
+                            Calendar calendarioAux = Calendar.getInstance();
+                            calendarioAux.setTime(fechaActual);
+                            calendarioAux.add(Calendar.YEAR, -10);
 
-                        // Comparar las fechas
-                        if (fechaNacimiento.before(fechaActual)) {
-                            conseguido = true;
-                        } else {
+                            fechaActual = calendarioAux.getTime();
 
-                            throw new Exception("La fecha de nacimiento debe ser más pequeña que " + fechaActual.getDate() + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
-                        }
+                            // Comparar las fechas
+                            if (fechaNacimiento.before(fechaActual)) {
+                                conseguido = true;
+                            } else {
 
-                        /////////////////////
-                        /////////APODO///////
-                        /////////////////////
-                        if (apodo.toUpperCase().contains("UPDATE") || apodo.toUpperCase().contains("CREATE")
-                                || apodo.toUpperCase().contains("DELETE") || apodo.toUpperCase().contains("SELECT") 
-                                || apodo.toUpperCase().contains("DROP")) {
-                            throw new Exception("El Nombre de usuario no es válido");
-                        }
-                        queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
-                        queryUsuarios.setParameter("apodo", apodo);
-                        listaUsuarios = queryUsuarios.getResultList();
-
-                        if (!listaUsuarios.isEmpty() && !listaUsuarios.get(0).getId().equals(user.getId())) {
-                            throw new Exception("El Nombre de usuario debe ser único ");
-                        }
-                        //////////////////////////
-                        //////////CORREO//////////
-                        //////////////////////////
-                        queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
-                        queryUsuarios.setParameter("correo", correo);
-                        listaUsuarios = queryUsuarios.getResultList();
-
-                        if (!listaUsuarios.isEmpty() && !listaUsuarios.get(0).getCorreo().equals(user.getCorreo())) {
-                            throw new Exception("El Correo debe ser único ");
-                        }
-
-                        ///////////////////////////
-                        //////////TELEFONO/////////
-                        ///////////////////////////
-                        BigInteger telefonoBI;
-
-                        if (telefono != null && !telefono.equals("")) {
-                            telefonoBI = new BigInteger(telefono);
-
-                            queryUsuarios = em.createNamedQuery("Usuarios.findByTelefono", Usuarios.class);
-                            queryUsuarios.setParameter("telefono", telefonoBI);
-                            listaUsuarios = queryUsuarios.getResultList();
-
-                            if (!listaUsuarios.isEmpty() && !listaUsuarios.get(0).getTelefono().equals(user.getTelefono())) {
-                                throw new Exception("El Teléfono debe ser único ");
+                                throw new Exception("La fecha de nacimiento debe ser más pequeña que " + fechaActual.getDate() + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
                             }
 
-                        } else {
-                            telefonoBI = null;
+                            /////////////////////
+                            /////////APODO///////
+                            /////////////////////
+                            if (apodo.toUpperCase().contains("UPDATE") || apodo.toUpperCase().contains("CREATE")
+                                    || apodo.toUpperCase().contains("DELETE") || apodo.toUpperCase().contains("SELECT")
+                                    || apodo.toUpperCase().contains("DROP")) {
+                                throw new Exception("El Nombre de usuario no es válido");
+                            }
+                            queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                            queryUsuarios.setParameter("apodo", apodo);
+                            listaUsuarios = queryUsuarios.getResultList();
+
+                            if (!listaUsuarios.isEmpty() && !listaUsuarios.get(0).getId().equals(user.getId())) {
+                                throw new Exception("El Nombre de usuario debe ser único ");
+                            }
+                            //////////////////////////
+                            //////////CORREO//////////
+                            //////////////////////////
+                            queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                            queryUsuarios.setParameter("correo", correo);
+                            listaUsuarios = queryUsuarios.getResultList();
+
+                            if (!listaUsuarios.isEmpty() && !listaUsuarios.get(0).getCorreo().equals(user.getCorreo())) {
+                                throw new Exception("El Correo debe ser único ");
+                            }
+
+                            ///////////////////////////
+                            //////////TELEFONO/////////
+                            ///////////////////////////
+                            BigInteger telefonoBI;
+
+                            if (telefono != null && !telefono.equals("")) {
+                                telefonoBI = new BigInteger(telefono);
+
+                                queryUsuarios = em.createNamedQuery("Usuarios.findByTelefono", Usuarios.class);
+                                queryUsuarios.setParameter("telefono", telefonoBI);
+                                listaUsuarios = queryUsuarios.getResultList();
+
+                                if (!listaUsuarios.isEmpty() && !listaUsuarios.get(0).getTelefono().equals(user.getTelefono())) {
+                                    throw new Exception("El Teléfono debe ser único ");
+                                }
+
+                            } else {
+                                telefonoBI = null;
+                            }
+
+                            //////////////////////
+                            //////CONTRASEÑA//////
+                            //////////////////////
+                            if (contrasena.toUpperCase().contains("UPDATE") || contrasena.toUpperCase().contains("CREATE")
+                                    || contrasena.toUpperCase().contains("DELETE") || contrasena.toUpperCase().contains("SELECT")
+                                    || contrasena.toUpperCase().contains("DROP")) {
+                                throw new Exception("La contrasena no es válida");
+                            }
+
+                            //////////////////////
+                            /////////HASH/////////
+                            //////////////////////
+                            contrasenahash = BCrypt.hashpw(contrasena, BCrypt.gensalt());
+
+                            //////////////////////////////
+                            //////////MODIFICAMOS/////////
+                            //////////////////////////////
+                            user = new Usuarios(apodo, nombre, correo, contrasenahash, fechaNacimiento, provincia, genero, (short) 0);
+                            user.setTelefono(telefonoBI);
+                            user.setId(id);
+
+                            update(user);
+                            System.out.println("Modificado: " + nombre);
+                            conseguido = true;
+
+                        } catch (NumberFormatException ex) {
+                            msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
+                            System.out.println("Error: Imposible modificar en este momento: " + nombre);
+                            System.out.println("NumberFormatException: " + ex.getMessage());
+                            conseguido = false;
+                        } catch (ParseException ex) {
+                            msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
+                            System.out.println("Error: Imposible modificar en este momento: " + nombre);
+                            System.out.println("ParseException: " + ex.getMessage());
+                            conseguido = false;
+                        } catch (RuntimeException ex) {
+                            msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
+                            System.out.println("Error: Imposible modificar en este momento: " + nombre);
+                            System.out.println("ParseException: " + ex.getMessage());
+                            conseguido = false;
+                        } catch (Exception ex) {
+                            msj = "<p style=\"margin-left: 10px\"> Error: " + ex.getMessage() + "</p>";
+                            System.out.println("Exception: " + ex.getMessage());
+                            conseguido = false;
                         }
-
-                        //////////////////////
-                        //////CONTRASEÑA//////
-                        //////////////////////
-                        if (contrasena.toUpperCase().contains("UPDATE") || contrasena.toUpperCase().contains("CREATE")
-                                || contrasena.toUpperCase().contains("DELETE") || contrasena.toUpperCase().contains("SELECT")
-                                || contrasena.toUpperCase().contains("DROP")) {
-                            throw new Exception("La contrasena no es válida");
-                        }
-                        
-                        //////////////////////
-                        /////////HASH/////////
-                        //////////////////////
-                        contrasenahash = BCrypt.hashpw(contrasena, BCrypt.gensalt());
-
-                        //////////////////////////////
-                        //////////MODIFICAMOS/////////
-                        //////////////////////////////
-                        user = new Usuarios(apodo, nombre, correo, contrasenahash, fechaNacimiento, provincia, genero, (short) 0);
-                        user.setTelefono(telefonoBI);
-                        user.setId(id);
-
-                        update(user);
-                        System.out.println("Modificado: " + nombre);
-                        conseguido = true;
-
-                    } catch (NumberFormatException ex) {
-                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
-                        System.out.println("Error: Imposible modificar en este momento: " + nombre);
-                        System.out.println("NumberFormatException: " + ex.getMessage());
-                        conseguido = false;
-                    } catch (ParseException ex) {
-                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
-                        System.out.println("Error: Imposible modificar en este momento: " + nombre);
-                        System.out.println("ParseException: " + ex.getMessage());
-                        conseguido = false;
-                    } catch (RuntimeException ex) {
-                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
-                        System.out.println("Error: Imposible modificar en este momento: " + nombre);
-                        System.out.println("ParseException: " + ex.getMessage());
-                        conseguido = false;
-                    }  catch (Exception ex) {
-                        msj = "<p style=\"margin-left: 10px\"> Error: " + ex.getMessage() + "</p>";
-                        System.out.println("Exception: " + ex.getMessage());
-                        conseguido = false;
+                    } else {
+                        msj = "<p style=\"margin-left: 10px\"> Error: Introduzca los campos de forma correcta </p>";
+                        System.out.println("Error: Introduzca los campos de forma correcta ");
                     }
-                } else {
-                    msj = "<p style=\"margin-left: 10px\"> Error: Introduzca los campos de forma correcta </p>";
-                    System.out.println("Error: Introduzca los campos de forma correcta ");
-                }
-                if (conseguido == true) {
+                    if (conseguido == true) {
 
-                    /////////////////////////
-                    /////////SESION//////////
-                    /////////////////////////
-                    session.invalidate();
-                    session = request.getSession();
-                    session.setAttribute("user", user);
-                    vista = "/Usuarios/perfil";
-                } else {
-                    request.setAttribute("msj", msj);
-                    vista = "/Formularios/modificarusuario";
+                        /////////////////////////
+                        /////////SESION//////////
+                        /////////////////////////
+                        session.invalidate();
+                        session = request.getSession();
+                        session.setAttribute("user", user);
+                        vista = "/Usuarios/perfil";
+                    } else {
+                        request.setAttribute("msj", msj);
+                        vista = "/Formularios/modificarusuario";
+                    }
                 }
                 break;
 
@@ -485,146 +494,161 @@ public class ControladorUsuarios extends HttpServlet {
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                /////////////////////////////////////
-                /////////NUMERO DE USUARIOS//////////
-                /////////////////////////////////////
-                sql = "SELECT COUNT(*) FROM USUARIOS u "
-                        + "WHERE u.APODO <> '" + user.getApodo() + "'"
-                        + "AND u.ID NOT IN ("
-                        + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
-                        + "    UNION "
-                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
-                        + "    UNION "
-                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
-                        + "    UNION "
-                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
-                        + "    UNION "
-                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')";
-
-                queryAUX = em.createNativeQuery(sql);
-                result = queryAUX.getSingleResult();
-
-                //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                numPag = (((Number) result).intValue() / 10) + 1;
-
-                numString = request.getParameter("pag");//numero de pag en la que estoy
-                ordenar = request.getParameter("orden");//como ordenar
-                mesa = request.getParameter("mesa");//si filtramos por mesa o no
-                peticiones = "Enviadas";
-
-                System.out.println("Llega pag: " + numString);
-                System.out.println("Llega orden: " + ordenar);
-                System.out.println("Llega mesa: " + mesa);
-
-                if (ordenar == null || mesa == null || numString == null) {
-
-                    ordenar = "ordenar1";
-                    mesa = "false";
-                    numString = "1";
-                    num = 0;
-
+                if (user == null) {
+                    vista = "/Principal/inicio";
                 } else {
 
-                    num = (Integer.valueOf(numString) - 1) * 10;//offset
+                    /////////////////////////////////////
+                    /////////NUMERO DE USUARIOS//////////
+                    /////////////////////////////////////
+                    sql = "SELECT COUNT(*) FROM USUARIOS u "
+                            + "WHERE u.APODO <> '" + user.getApodo() + "'"
+                            + "AND u.ID NOT IN ("
+                            + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
+                            + "    UNION "
+                            + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                            + "    UNION "
+                            + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                            + "    UNION "
+                            + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                            + "    UNION "
+                            + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')";
+
+                    queryAUX = em.createNativeQuery(sql);
+                    result = queryAUX.getSingleResult();
+
+                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
+                    numPag = (((Number) result).intValue() / 10) + 1;
+
+                    numString = request.getParameter("pag");//numero de pag en la que estoy
+                    ordenar = request.getParameter("orden");//como ordenar
+                    mesa = request.getParameter("mesa");//si filtramos por mesa o no
+                    peticiones = "Enviadas";
+
+                    System.out.println("Llega pag: " + numString);
+                    System.out.println("Llega orden: " + ordenar);
+                    System.out.println("Llega mesa: " + mesa);
+
+                    if (ordenar == null || mesa == null || numString == null) {
+
+                        ordenar = "ordenar1";
+                        mesa = "false";
+                        numString = "1";
+                        num = 0;
+
+                    } else {
+
+                        num = (Integer.valueOf(numString) - 1) * 10;//offset
+                    }
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            if (mesa.equalsIgnoreCase("false")) {
+                                sql = "SELECT u.* FROM USUARIOS u "
+                                        + "WHERE u.APODO <> '" + user.getApodo() + "'"
+                                        + "AND u.ID NOT IN ("
+                                        + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
+                                        + "    ORDER BY u.apodo DESC "
+                                        + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            } else {
+                                System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
+                                sql = "SELECT u.* FROM USUARIOS u "
+                                        + "WHERE u.APODO <> '" + user.getApodo() + "'"
+                                        + "AND u.ID NOT IN ("
+                                        + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
+                                        + "    ORDER BY u.apodo DESC "
+                                        + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            }
+                            break;
+                        case "ordenar2":
+                            if (mesa.equalsIgnoreCase("false")) {
+                                sql = "SELECT u.* FROM USUARIOS u "
+                                        + "WHERE u.APODO <> '" + user.getApodo() + "'"
+                                        + "AND u.ID NOT IN ("
+                                        + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
+                                        + "    ORDER BY u.apodo ASC "
+                                        + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            } else {
+                                System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
+                                sql = "SELECT u.* FROM USUARIOS u "
+                                        + "WHERE u.APODO <> '" + user.getApodo() + "'"
+                                        + "AND u.ID NOT IN ("
+                                        + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                        + "    UNION "
+                                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
+                                        + "    ORDER BY u.apodo ASC "
+                                        + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            }
+                            break;
+                        case "ordenar3":
+                            break;
+                        case "ordenar4":
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaUsuarios = queryAUX.getResultList();
+
+                    System.out.println("Sale pag:" + numString);
+                    System.out.println("Sale orden:" + ordenar);
+                    System.out.println("Sale mesa:" + mesa);
+                    System.out.println("Sale npag:" + numPag);
+                    System.out.println(peticiones);
+
+                    request.setAttribute("listaUsuarios", listaUsuarios);
+                    request.setAttribute("orden", ordenar);
+                    request.setAttribute("mesa", mesa);
+                    request.setAttribute("pag", numString);//numero de la pag
+                    request.setAttribute("numPag", numPag);//numero total de pag
+
+                    vista = "/WEB-INF/jsp/usuario/usuarios.jsp";
                 }
+                break;
 
-                switch (ordenar) {
-                    case "ordenar1":
-                        if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u.* FROM USUARIOS u "
-                                    + "WHERE u.APODO <> '" + user.getApodo() + "'"
-                                    + "AND u.ID NOT IN ("
-                                    + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
-                                    + "    ORDER BY u.apodo DESC "
-                                    + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        } else {
-                            System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u.* FROM USUARIOS u "
-                                    + "WHERE u.APODO <> '" + user.getApodo() + "'"
-                                    + "AND u.ID NOT IN ("
-                                    + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
-                                    + "    ORDER BY u.apodo DESC "
-                                    + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        }
-                        break;
-                    case "ordenar2":
-                        if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u.* FROM USUARIOS u "
-                                    + "WHERE u.APODO <> '" + user.getApodo() + "'"
-                                    + "AND u.ID NOT IN ("
-                                    + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
-                                    + "    ORDER BY u.apodo ASC "
-                                    + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        } else {
-                            System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u.* FROM USUARIOS u "
-                                    + "WHERE u.APODO <> '" + user.getApodo() + "'"
-                                    + "AND u.ID NOT IN ("
-                                    + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
-                                    + "    UNION "
-                                    + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
-                                    + "    ORDER BY u.apodo ASC "
-                                    + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        }
-                        break;
-                    case "ordenar3":
-                        break;
-                    case "ordenar4":
-                        break;
+            case "/perfil":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    vista = "/WEB-INF/jsp/usuario/perfil.jsp";
                 }
-
-                queryAUX = em.createNativeQuery(sql, Usuarios.class);
-                listaUsuarios = queryAUX.getResultList();
-
-                System.out.println("Sale pag:" + numString);
-                System.out.println("Sale orden:" + ordenar);
-                System.out.println("Sale mesa:" + mesa);
-                System.out.println("Sale npag:" + numPag);
-                System.out.println(peticiones);
-
-                request.setAttribute("listaUsuarios", listaUsuarios);
-                request.setAttribute("orden", ordenar);
-                request.setAttribute("mesa", mesa);
-                request.setAttribute("pag", numString);//numero de la pag
-                request.setAttribute("numPag", numPag);//numero total de pag
-
-                vista = "/WEB-INF/jsp/usuario/usuarios.jsp";
                 break;
-                
-                case "/perfil":
-                vista = "/WEB-INF/jsp/usuario/perfil.jsp";
-                break;
-                
+
             ///////////////////////////////////////////////////////////////////////////
             //////////////////////////////PEDIR AMISTAD////////////////////////////////
             ///////////////////////////////////////////////////////////////////////////
@@ -636,101 +660,106 @@ public class ControladorUsuarios extends HttpServlet {
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                ///////////////////////////////////////
-                /////////NUMERO DE PETICIONES//////////
-                ///////////////////////////////////////
-                sql = "SELECT COUNT(*) FROM Usuarios u "
-                        + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
-                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
-                        + "WHERE p.pide = '" + user.getId()+ "'";
-
-                queryAUX = em.createNativeQuery(sql);
-                result = queryAUX.getSingleResult();
-
-                //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                numPag = (((Number) result).intValue() / 10) + 1;
-
-                numString = request.getParameter("pag");//numero de pag en la que estoy
-                ordenar = request.getParameter("orden");//como ordenar
-                mesa = request.getParameter("mesa");//si filtramos por mesa o no
-                peticiones = "Enviadas";
-
-                System.out.println("Llega pag: " + numString);
-                System.out.println("Llega orden: " + ordenar);
-                System.out.println("Llega mesa: " + mesa);
-
-                if (ordenar == null || mesa == null || numString == null) {
-
-                    ordenar = "ordenar1";
-                    mesa = "false";
-                    numString = "1";
-                    num = 0;
-
+                if (user == null) {
+                    vista = "/Principal/inicio";
                 } else {
 
-                    num = (Integer.valueOf(numString) - 1) * 10;//offset
+                    ///////////////////////////////////////
+                    /////////NUMERO DE PETICIONES//////////
+                    ///////////////////////////////////////
+                    sql = "SELECT COUNT(*) FROM Usuarios u "
+                            + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
+                            + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
+                            + "WHERE p.pide = '" + user.getId() + "'";
+
+                    queryAUX = em.createNativeQuery(sql);
+                    result = queryAUX.getSingleResult();
+
+                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
+                    numPag = (((Number) result).intValue() / 10) + 1;
+
+                    numString = request.getParameter("pag");//numero de pag en la que estoy
+                    ordenar = request.getParameter("orden");//como ordenar
+                    mesa = request.getParameter("mesa");//si filtramos por mesa o no
+                    peticiones = "Enviadas";
+
+                    System.out.println("Llega pag: " + numString);
+                    System.out.println("Llega orden: " + ordenar);
+                    System.out.println("Llega mesa: " + mesa);
+
+                    if (ordenar == null || mesa == null || numString == null) {
+
+                        ordenar = "ordenar1";
+                        mesa = "false";
+                        numString = "1";
+                        num = 0;
+
+                    } else {
+
+                        num = (Integer.valueOf(numString) - 1) * 10;//offset
+                    }
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            if (mesa.equalsIgnoreCase("false")) {
+                                sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Pideamistad p ON u.id = p.pide "
+                                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
+                                        + "WHERE p.pide = '" + user.getId() + "' "
+                                        + "ORDER BY u.apodo ASC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            } else {
+                                System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
+                                sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Pideamistad p ON u.id = p.pide "
+                                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
+                                        + "WHERE p.pide = '" + user.getId() + "' "
+                                        + "ORDER BY u.apodo ASC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            }
+                            break;
+                        case "ordenar2":
+                            if (mesa.equalsIgnoreCase("false")) {
+                                sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Pideamistad p ON u.id = p.pide "
+                                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
+                                        + "WHERE p.pide = '" + user.getId() + "' "
+                                        + "ORDER BY u.apodo DESC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            } else {
+                                System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
+                                sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Pideamistad p ON u.id = p.pide "
+                                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
+                                        + "WHERE p.pide = '" + user.getId() + "' "
+                                        + "ORDER BY u.apodo DESC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            }
+                            break;
+                        case "ordenar3":
+                            break;
+                        case "ordenar4":
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaUsuarios = queryAUX.getResultList();
+
+                    System.out.println("Sale pag:" + numString);
+                    System.out.println("Sale orden:" + ordenar);
+                    System.out.println("Sale mesa:" + mesa);
+                    System.out.println("Sale npag:" + numPag);
+                    System.out.println(peticiones);
+
+                    request.setAttribute("listaUsuarios", listaUsuarios);
+                    request.setAttribute("orden", ordenar);
+                    request.setAttribute("mesa", mesa);
+                    request.setAttribute("pag", numString);//numero de la pag
+                    request.setAttribute("numPag", numPag);//numero total de pag
+                    request.setAttribute("peticiones", peticiones);//peticiones
+
+                    vista = "/WEB-INF/jsp/usuario/peticiones.jsp";
                 }
-
-                switch (ordenar) {
-                    case "ordenar1":
-                        if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Pideamistad p ON u.id = p.pide "
-                                    + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
-                                    + "WHERE p.pide = '" + user.getId() + "' "
-                                    + "ORDER BY u.apodo ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        } else {
-                            System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Pideamistad p ON u.id = p.pide "
-                                    + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
-                                    + "WHERE p.pide = '" + user.getId() + "' "
-                                    + "ORDER BY u.apodo ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        }
-                        break;
-                    case "ordenar2":
-                        if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Pideamistad p ON u.id = p.pide "
-                                    + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
-                                    + "WHERE p.pide = '" + user.getId() + "' "
-                                    + "ORDER BY u.apodo DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        } else {
-                            System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Pideamistad p ON u.id = p.pide "
-                                    + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
-                                    + "WHERE p.pide = '" + user.getId() + "' "
-                                    + "ORDER BY u.apodo DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        }
-                        break;
-                    case "ordenar3":
-                        break;
-                    case "ordenar4":
-                        break;
-                }
-
-                queryAUX = em.createNativeQuery(sql, Usuarios.class);
-                listaUsuarios = queryAUX.getResultList();
-
-                System.out.println("Sale pag:" + numString);
-                System.out.println("Sale orden:" + ordenar);
-                System.out.println("Sale mesa:" + mesa);
-                System.out.println("Sale npag:" + numPag);
-                System.out.println(peticiones);
-
-                request.setAttribute("listaUsuarios", listaUsuarios);
-                request.setAttribute("orden", ordenar);
-                request.setAttribute("mesa", mesa);
-                request.setAttribute("pag", numString);//numero de la pag
-                request.setAttribute("numPag", numPag);//numero total de pag
-                request.setAttribute("peticiones", peticiones);//peticiones
-
-                vista = "/WEB-INF/jsp/usuario/peticiones.jsp";
                 break;
 
             case "/mostrarPeticionesRecibidas":
@@ -741,106 +770,111 @@ public class ControladorUsuarios extends HttpServlet {
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                session.invalidate();
-
-                session = request.getSession();
-                session.setAttribute("user", user);
-
-                ///////////////////////////////////////
-                /////////NUMERO DE PETICIONES//////////
-                ///////////////////////////////////////
-                sql = "SELECT COUNT(*) FROM Usuarios u "
-                        + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
-                        + "WHERE p.acepta = '" + user.getId() + "'";
-
-                queryAUX = em.createNativeQuery(sql);
-                result = queryAUX.getSingleResult();
-
-                //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                numPag = (((Number) result).intValue() / 10) + 1;
-
-                numString = request.getParameter("pag");//numero de pag en la que estoy
-                ordenar = request.getParameter("orden");//como ordenar
-                mesa = request.getParameter("mesa");//si filtramos por mesa o no
-                peticiones = "Recibidas";
-
-                System.out.println("Llega pag: " + numString);
-                System.out.println("Llega orden: " + ordenar);
-                System.out.println("Llega mesa: " + mesa);
-
-                if (ordenar == null || mesa == null || numString == null) {
-
-                    ordenar = "ordenar1";
-                    mesa = "false";
-                    numString = "1";
-                    num = 0;
-
+                if (user == null) {
+                    vista = "/Principal/inicio";
                 } else {
 
-                    num = (Integer.valueOf(numString) - 1) * 10;//offset
+                    session.invalidate();
+
+                    session = request.getSession();
+                    session.setAttribute("user", user);
+
+                    ///////////////////////////////////////
+                    /////////NUMERO DE PETICIONES//////////
+                    ///////////////////////////////////////
+                    sql = "SELECT COUNT(*) FROM Usuarios u "
+                            + "INNER JOIN Pideamistad p ON u.id = p.acepta "
+                            + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                            + "WHERE p.acepta = '" + user.getId() + "'";
+
+                    queryAUX = em.createNativeQuery(sql);
+                    result = queryAUX.getSingleResult();
+
+                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
+                    numPag = (((Number) result).intValue() / 10) + 1;
+
+                    numString = request.getParameter("pag");//numero de pag en la que estoy
+                    ordenar = request.getParameter("orden");//como ordenar
+                    mesa = request.getParameter("mesa");//si filtramos por mesa o no
+                    peticiones = "Recibidas";
+
+                    System.out.println("Llega pag: " + numString);
+                    System.out.println("Llega orden: " + ordenar);
+                    System.out.println("Llega mesa: " + mesa);
+
+                    if (ordenar == null || mesa == null || numString == null) {
+
+                        ordenar = "ordenar1";
+                        mesa = "false";
+                        numString = "1";
+                        num = 0;
+
+                    } else {
+
+                        num = (Integer.valueOf(numString) - 1) * 10;//offset
+                    }
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            if (mesa.equalsIgnoreCase("false")) {
+                                sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Pideamistad p ON u.id = p.acepta "
+                                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                        + "WHERE p.acepta = '" + user.getId() + "' "
+                                        + "ORDER BY u.apodo ASC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            } else {
+                                System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
+                                sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Pideamistad p ON u.id = p.acepta "
+                                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                        + "WHERE p.acepta = '" + user.getId() + "' "
+                                        + "ORDER BY u.apodo ASC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            }
+                            break;
+                        case "ordenar2":
+                            if (mesa.equalsIgnoreCase("false")) {
+                                sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Pideamistad p ON u.id = p.acepta "
+                                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                        + "WHERE p.acepta = '" + user.getId() + "' "
+                                        + "ORDER BY u.apodo DESC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            } else {
+                                System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
+                                sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Pideamistad p ON u.id = p.acepta "
+                                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                        + "WHERE p.acepta = '" + user.getId() + "' "
+                                        + "ORDER BY u.apodo DESC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            }
+                            break;
+                        case "ordenar3":
+                            break;
+                        case "ordenar4":
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaUsuarios = queryAUX.getResultList();
+
+                    System.out.println("Sale pag:" + numString);
+                    System.out.println("Sale orden:" + ordenar);
+                    System.out.println("Sale mesa:" + mesa);
+                    System.out.println("Sale npag:" + numPag);
+                    System.out.println(peticiones);
+
+                    request.setAttribute("listaUsuarios", listaUsuarios);
+                    request.setAttribute("orden", ordenar);
+                    request.setAttribute("mesa", mesa);
+                    request.setAttribute("pag", numString);//numero de la pag
+                    request.setAttribute("numPag", numPag);//numero total de pag
+                    request.setAttribute("peticiones", peticiones);//para saber si es enviadas o recibidas
+
+                    vista = "/WEB-INF/jsp/usuario/peticiones.jsp";
                 }
-
-                switch (ordenar) {
-                    case "ordenar1":
-                        if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                    + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
-                                    + "WHERE p.acepta = '" + user.getId() + "' "
-                                    + "ORDER BY u.apodo ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        } else {
-                            System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                    + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
-                                    + "WHERE p.acepta = '" + user.getId() + "' "
-                                    + "ORDER BY u.apodo ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        }
-                        break;
-                    case "ordenar2":
-                        if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                    + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
-                                    + "WHERE p.acepta = '" + user.getId() + "' "
-                                    + "ORDER BY u.apodo DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        } else {
-                            System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                    + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
-                                    + "WHERE p.acepta = '" + user.getId() + "' "
-                                    + "ORDER BY u.apodo DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        }
-                        break;
-                    case "ordenar3":
-                        break;
-                    case "ordenar4":
-                        break;
-                }
-
-                queryAUX = em.createNativeQuery(sql, Usuarios.class);
-                listaUsuarios = queryAUX.getResultList();
-
-                System.out.println("Sale pag:" + numString);
-                System.out.println("Sale orden:" + ordenar);
-                System.out.println("Sale mesa:" + mesa);
-                System.out.println("Sale npag:" + numPag);
-                System.out.println(peticiones);
-
-                request.setAttribute("listaUsuarios", listaUsuarios);
-                request.setAttribute("orden", ordenar);
-                request.setAttribute("mesa", mesa);
-                request.setAttribute("pag", numString);//numero de la pag
-                request.setAttribute("numPag", numPag);//numero total de pag
-                request.setAttribute("peticiones", peticiones);//para saber si es enviadas o recibidas
-
-                vista = "/WEB-INF/jsp/usuario/peticiones.jsp";
                 break;
             case "/enviarPeticion":
 
@@ -848,30 +882,34 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-
                 user = (Usuarios) session.getAttribute("user");
-                id = request.getParameter("pamistad");
 
-                //NO DEBE BUSCAR POR NOMBRE, HABRA QUE PASARLE DE LA LISTA EL ID
-                queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
-                queryPideAmistad.setParameter("pide", id);
-                queryPideAmistad.setParameter("acepta", user.getId());
-                listaPideAmistad = queryPideAmistad.getResultList();
-
-                //Si te la han mandado a ti, lo añadimos a amigos directamente.
-                if (listaPideAmistad.isEmpty() == false) {
-                    delete(listaPideAmistad.get(0));
-
-                    amigo = new Amigos(user.getId(), id);
-                    persist(amigo);
-                    amigo = new Amigos(id, user.getId());
-                    persist(amigo);
+                if (user == null) {
+                    vista = "/Principal/inicio";
                 } else {
-                    pamistad = new Pideamistad(user.getId(), id);
-                    persist(pamistad);
-                }
 
-                vista = "/Usuarios/mostrarUsuarios";
+                    id = request.getParameter("pamistad");
+
+                    queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
+                    queryPideAmistad.setParameter("pide", id);
+                    queryPideAmistad.setParameter("acepta", user.getId());
+                    listaPideAmistad = queryPideAmistad.getResultList();
+
+                    //Si te la han mandado a ti, lo añadimos a amigos directamente.
+                    if (listaPideAmistad.isEmpty() == false) {
+                        delete(listaPideAmistad.get(0));
+
+                        amigo = new Amigos(user.getId(), id);
+                        persist(amigo);
+                        amigo = new Amigos(id, user.getId());
+                        persist(amigo);
+                    } else {
+                        pamistad = new Pideamistad(user.getId(), id);
+                        persist(pamistad);
+                    }
+
+                    vista = "/Usuarios/mostrarUsuarios";
+                }
                 break;
             case "/eliminarPeticion":
 
@@ -879,18 +917,23 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-
                 user = (Usuarios) session.getAttribute("user");
-                id = request.getParameter("pamistad");
 
-                queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
-                queryPideAmistad.setParameter("pide", user.getId());
-                queryPideAmistad.setParameter("acepta", id);
-                pamistad = queryPideAmistad.getResultList().get(0);
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
 
-                delete(pamistad);
+                    id = request.getParameter("pamistad");
 
-                vista = "/Usuarios/mostrarPeticionesEnviadas";
+                    queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
+                    queryPideAmistad.setParameter("pide", user.getId());
+                    queryPideAmistad.setParameter("acepta", id);
+                    pamistad = queryPideAmistad.getResultList().get(0);
+
+                    delete(pamistad);
+
+                    vista = "/Usuarios/mostrarPeticionesEnviadas";
+                }
                 break;
             case "/aceptarPeticion":
 
@@ -898,23 +941,28 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-
                 user = (Usuarios) session.getAttribute("user");
-                id = request.getParameter("pamistad");
 
-                amigo = new Amigos(user.getId(), id);
-                persist(amigo);
-                amigo = new Amigos(id, user.getId());
-                persist(amigo);
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
 
-                queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
-                queryPideAmistad.setParameter("pide", id);
-                queryPideAmistad.setParameter("acepta", user.getId());
-                pamistad = queryPideAmistad.getResultList().get(0);
+                    id = request.getParameter("pamistad");
 
-                delete(pamistad);
+                    amigo = new Amigos(user.getId(), id);
+                    persist(amigo);
+                    amigo = new Amigos(id, user.getId());
+                    persist(amigo);
 
-                vista = "/Usuarios/mostrarPeticionesRecibidas";
+                    queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
+                    queryPideAmistad.setParameter("pide", id);
+                    queryPideAmistad.setParameter("acepta", user.getId());
+                    pamistad = queryPideAmistad.getResultList().get(0);
+
+                    delete(pamistad);
+
+                    vista = "/Usuarios/mostrarPeticionesRecibidas";
+                }
                 break;
             case "/rechazarPeticion":
 
@@ -922,18 +970,23 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-
                 user = (Usuarios) session.getAttribute("user");
-                id = request.getParameter("pamistad");
 
-                queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
-                queryPideAmistad.setParameter("pide", id);
-                queryPideAmistad.setParameter("acepta", user.getId());
-                pamistad = queryPideAmistad.getResultList().get(0);
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
 
-                delete(pamistad);
+                    id = request.getParameter("pamistad");
 
-                vista = "/Usuarios/mostrarPeticionesRecibidas";
+                    queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
+                    queryPideAmistad.setParameter("pide", id);
+                    queryPideAmistad.setParameter("acepta", user.getId());
+                    pamistad = queryPideAmistad.getResultList().get(0);
+
+                    delete(pamistad);
+
+                    vista = "/Usuarios/mostrarPeticionesRecibidas";
+                }
                 break;
 
             ///////////////////////////////////////////////////////////////////////////
@@ -947,111 +1000,138 @@ public class ControladorUsuarios extends HttpServlet {
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                ///////////////////////////////////
-                /////////NUMERO DE AMIGOS//////////
-                ///////////////////////////////////
-                sql = "SELECT COUNT(*) FROM Usuarios u "
-                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
-                        + "WHERE a.amigo1 = '" + user.getId() + "'";
-
-                queryAUX = em.createNativeQuery(sql);
-                result = queryAUX.getSingleResult();
-
-                //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                numPag = (((Number) result).intValue() / 10) + 1;
-
-                numString = request.getParameter("pag");//numero de pag en la que estoy
-                ordenar = request.getParameter("orden");//como ordenar
-                mesa = request.getParameter("mesa");//si filtramos por mesa o no
-
-                System.out.println("Llega pag: " + numString);
-                System.out.println("Llega orden: " + ordenar);
-                System.out.println("Llega mesa: " + mesa);
-
-                if (ordenar == null || mesa == null || numString == null) {
-
-                    ordenar = "ordenar1";
-                    mesa = "false";
-                    numString = "1";
-                    num = 0;
-
+                if (user == null) {
+                    vista = "/Principal/inicio";
                 } else {
 
-                    num = (Integer.valueOf(numString) - 1) * 10;//offset
+                    ///////////////////////////////////
+                    /////////NUMERO DE AMIGOS//////////
+                    ///////////////////////////////////
+                    sql = "SELECT COUNT(*) FROM Usuarios u "
+                            + "INNER JOIN Amigos a ON u.id = a.amigo1 "
+                            + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                            + "WHERE a.amigo1 = '" + user.getId() + "'";
+
+                    queryAUX = em.createNativeQuery(sql);
+                    result = queryAUX.getSingleResult();
+
+                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
+                    numPag = (((Number) result).intValue() / 10) + 1;
+
+                    numString = request.getParameter("pag");//numero de pag en la que estoy
+                    ordenar = request.getParameter("orden");//como ordenar
+                    mesa = request.getParameter("mesa");//si filtramos por mesa o no
+
+                    System.out.println("Llega pag: " + numString);
+                    System.out.println("Llega orden: " + ordenar);
+                    System.out.println("Llega mesa: " + mesa);
+
+                    if (ordenar == null || mesa == null || numString == null) {
+
+                        ordenar = "ordenar1";
+                        mesa = "false";
+                        numString = "1";
+                        num = 0;
+
+                    } else {
+
+                        num = (Integer.valueOf(numString) - 1) * 10;//offset
+                    }
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            if (mesa.equalsIgnoreCase("false")) {
+                                sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
+                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "WHERE a.amigo1 = '" + user.getId() + "' "
+                                        + "ORDER BY u.apodo ASC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            } else {
+                                System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
+                                sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
+                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "WHERE a.amigo1 = '" + user.getId() + "' "
+                                        + "ORDER BY u.apodo ASC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            }
+                            break;
+                        case "ordenar2":
+                            if (mesa.equalsIgnoreCase("false")) {
+                                sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
+                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "WHERE a.amigo1 = '" + user.getId() + "' "
+                                        + "ORDER BY u.apodo DESC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            } else {
+                                System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
+                                sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
+                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "WHERE a.amigo1 = '" + user.getId() + "' "
+                                        + "ORDER BY u.apodo DESC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            }
+                            break;
+                        case "ordenar3":
+                            break;
+                        case "ordenar4":
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaUsuarios = queryAUX.getResultList();
+
+                    System.out.println("Sale pag:" + numString);
+                    System.out.println("Sale orden:" + ordenar);
+                    System.out.println("Sale mesa:" + mesa);
+                    System.out.println("Sale npag:" + numPag);
+
+                    request.setAttribute("listaUsuarios", listaUsuarios);
+                    request.setAttribute("orden", ordenar);
+                    request.setAttribute("mesa", mesa);
+                    request.setAttribute("pag", numString);//numero de la pag
+                    request.setAttribute("numPag", numPag);//numero total de pag
+
+                    vista = "/WEB-INF/jsp/usuario/amigos.jsp";
                 }
-
-                switch (ordenar) {
-                    case "ordenar1":
-                        if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                    + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
-                                    + "WHERE a.amigo1 = '" + user.getId() + "' "
-                                    + "ORDER BY u.apodo ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        } else {
-                            System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                    + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
-                                    + "WHERE a.amigo1 = '" + user.getId() + "' "
-                                    + "ORDER BY u.apodo ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        }
-                        break;
-                    case "ordenar2":
-                        if (mesa.equalsIgnoreCase("false")) {
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                    + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
-                                    + "WHERE a.amigo1 = '" + user.getId() + "' "
-                                    + "ORDER BY u.apodo DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        } else {
-                            System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                            sql = "SELECT u2.* FROM Usuarios u "
-                                    + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                    + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
-                                    + "WHERE a.amigo1 = '" + user.getId() + "' "
-                                    + "ORDER BY u.apodo DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        }
-                        break;
-                    case "ordenar3":
-                        break;
-                    case "ordenar4":
-                        break;
-                }
-
-                queryAUX = em.createNativeQuery(sql, Usuarios.class);
-                listaUsuarios = queryAUX.getResultList();
-
-                System.out.println("Sale pag:" + numString);
-                System.out.println("Sale orden:" + ordenar);
-                System.out.println("Sale mesa:" + mesa);
-                System.out.println("Sale npag:" + numPag);
-                
-                request.setAttribute("listaUsuarios", listaUsuarios);
-                request.setAttribute("orden", ordenar);
-                request.setAttribute("mesa", mesa);
-                request.setAttribute("pag", numString);//numero de la pag
-                request.setAttribute("numPag", numPag);//numero total de pag
-
-                vista = "/WEB-INF/jsp/usuario/amigos.jsp";
                 break;
 
             case "/mostrarAmigo":
 
-                id = request.getParameter("amigo");
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
 
-                queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
-                queryUsuarios.setParameter("id", id);
-                user = queryUsuarios.getResultList().get(0);
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
 
-                request.setAttribute("amigo", user);
+                    id = request.getParameter("amigo");
 
-                vista = "/WEB-INF/jsp/usuario/amigo.jsp";
+                    queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                    queryUsuarios.setParameter("id", id);
+                    user = queryUsuarios.getSingleResult();
+
+                    queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
+                    queryAmigos.setParameter("amigo1", id);
+                    queryAmigos.setParameter("amigo2", user.getId());
+
+                    if (queryAmigos.getResultList().size() == 1) {
+                        System.out.println("Somos amigos");
+                        request.setAttribute("sonAmigos", 1);
+                    } else {
+                        request.setAttribute("sonAmigos", 0);
+                    }
+                    
+                    request.setAttribute("amigo", user);
+
+                    vista = "/WEB-INF/jsp/usuario/amigo.jsp";
+                }
                 break;
 
             case "/eliminarAmigo":
@@ -1060,25 +1140,30 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-
                 user = (Usuarios) session.getAttribute("user");
-                id = request.getParameter("amigo");
 
-                queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
-                queryAmigos.setParameter("amigo1", user.getId());
-                queryAmigos.setParameter("amigo2", id);
-                amigo = queryAmigos.getResultList().get(0);
-                
-                delete(amigo);
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
 
-                queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
-                queryAmigos.setParameter("amigo1", id);
-                queryAmigos.setParameter("amigo2", user.getId());
-                amigo = queryAmigos.getResultList().get(0);
+                    id = request.getParameter("amigo");
 
-                delete(amigo);
+                    queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
+                    queryAmigos.setParameter("amigo1", user.getId());
+                    queryAmigos.setParameter("amigo2", id);
+                    amigo = queryAmigos.getResultList().get(0);
 
-                vista = "/Usuarios/mostrarAmigos";
+                    delete(amigo);
+
+                    queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
+                    queryAmigos.setParameter("amigo1", id);
+                    queryAmigos.setParameter("amigo2", user.getId());
+                    amigo = queryAmigos.getResultList().get(0);
+
+                    delete(amigo);
+
+                    vista = "/Usuarios/mostrarAmigos";
+                }
                 break;
 
             /////////////////////////////////////////////////////////////////////////////
@@ -1092,73 +1177,78 @@ public class ControladorUsuarios extends HttpServlet {
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                /////////////////////////////////////
-                /////////NUMERO DE USUARIOS//////////
-                /////////////////////////////////////
-                sql = "SELECT COUNT(*) FROM Usuarios u "
-                        + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
-                        + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
-                        + "WHERE b.bloqueador = '" + user.getId() + "'";
-
-                queryAUX = em.createNativeQuery(sql);
-                result = queryAUX.getSingleResult();
-
-                //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                numPag = (((Number) result).intValue() / 10) + 1;
-
-                numString = request.getParameter("pag");//numero de pag en la que estoy
-                ordenar = request.getParameter("orden");//como ordenar
-
-                System.out.println("Llega pag: " + numString);
-                System.out.println("Llega orden: " + ordenar);
-
-                if (ordenar == null || numString == null) {
-
-                    ordenar = "ordenar1";
-                    numString = "1";
-                    num = 0;
-
+                if (user == null) {
+                    vista = "/Principal/inicio";
                 } else {
 
-                    num = (Integer.valueOf(numString) - 1) * 10;//offset
+                    /////////////////////////////////////
+                    /////////NUMERO DE USUARIOS//////////
+                    /////////////////////////////////////
+                    sql = "SELECT COUNT(*) FROM Usuarios u "
+                            + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
+                            + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
+                            + "WHERE b.bloqueador = '" + user.getId() + "'";
+
+                    queryAUX = em.createNativeQuery(sql);
+                    result = queryAUX.getSingleResult();
+
+                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
+                    numPag = (((Number) result).intValue() / 10) + 1;
+
+                    numString = request.getParameter("pag");//numero de pag en la que estoy
+                    ordenar = request.getParameter("orden");//como ordenar
+
+                    System.out.println("Llega pag: " + numString);
+                    System.out.println("Llega orden: " + ordenar);
+
+                    if (ordenar == null || numString == null) {
+
+                        ordenar = "ordenar1";
+                        numString = "1";
+                        num = 0;
+
+                    } else {
+
+                        num = (Integer.valueOf(numString) - 1) * 10;//offset
+                    }
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            sql = "SELECT u2.* FROM Usuarios u "
+                                    + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
+                                    + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
+                                    + "WHERE b.bloqueador = '" + user.getId() + "' "
+                                    + "ORDER BY u.apodo ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            break;
+                        case "ordenar2":
+                            sql = "SELECT u2.* FROM Usuarios u "
+                                    + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
+                                    + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
+                                    + "WHERE b.bloqueador = '" + user.getId() + "' "
+                                    + "ORDER BY u.apodo DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            break;
+                        case "ordenar3":
+                            break;
+                        case "ordenar4":
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaUsuarios = queryAUX.getResultList();
+
+                    System.out.println("Sale pag:" + numString);
+                    System.out.println("Sale orden:" + ordenar);
+                    System.out.println("Sale npag:" + numPag);
+
+                    request.setAttribute("listaUsuarios", listaUsuarios);
+                    request.setAttribute("orden", ordenar);
+                    request.setAttribute("pag", numString);//numero de la pag
+                    request.setAttribute("numPag", numPag);//numero total de pag
+
+                    vista = "/WEB-INF/jsp/usuario/bloqueados.jsp";
                 }
-
-                switch (ordenar) {
-                    case "ordenar1":
-                        sql = "SELECT u2.* FROM Usuarios u "
-                                + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
-                                + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
-                                + "WHERE b.bloqueador = '" + user.getId() + "' "
-                                + "ORDER BY u.apodo ASC "
-                                + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        break;
-                    case "ordenar2":
-                        sql = "SELECT u2.* FROM Usuarios u "
-                                + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
-                                + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
-                                + "WHERE b.bloqueador = '" + user.getId() + "' "
-                                + "ORDER BY u.apodo DESC "
-                                + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-                        break;
-                    case "ordenar3":
-                        break;
-                    case "ordenar4":
-                        break;
-                }
-
-                queryAUX = em.createNativeQuery(sql, Usuarios.class);
-                listaUsuarios = queryAUX.getResultList();
-
-                System.out.println("Sale pag:" + numString);
-                System.out.println("Sale orden:" + ordenar);
-                System.out.println("Sale npag:" + numPag);
-
-                request.setAttribute("listaUsuarios", listaUsuarios);
-                request.setAttribute("orden", ordenar);
-                request.setAttribute("pag", numString);//numero de la pag
-                request.setAttribute("numPag", numPag);//numero total de pag
-
-                vista = "/WEB-INF/jsp/usuario/bloqueados.jsp";
                 break;
 
             case "/desbloquearUsuario":
@@ -1167,18 +1257,23 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-
                 user = (Usuarios) session.getAttribute("user");
-                id = request.getParameter("bloqueado");
 
-                queryBloqueados = em.createNamedQuery("Bloqueados.findByBloqueados", Bloqueados.class);
-                queryBloqueados.setParameter("bloqueador", user.getId());
-                queryBloqueados.setParameter("bloqueado", id);
-                bloqueado = queryBloqueados.getResultList().get(0);
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
 
-                delete(bloqueado);
+                    id = request.getParameter("bloqueado");
 
-                vista = "/Usuarios/mostrarBloqueados";
+                    queryBloqueados = em.createNamedQuery("Bloqueados.findByBloqueados", Bloqueados.class);
+                    queryBloqueados.setParameter("bloqueador", user.getId());
+                    queryBloqueados.setParameter("bloqueado", id);
+                    bloqueado = queryBloqueados.getResultList().get(0);
+
+                    delete(bloqueado);
+
+                    vista = "/Usuarios/mostrarBloqueados";
+                }
                 break;
             case "/bloquearUsuario":
 
@@ -1186,15 +1281,20 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-
                 user = (Usuarios) session.getAttribute("user");
-                id = request.getParameter("bloqueado");
 
-                bloqueado = new Bloqueados(user.getId(), id);
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
 
-                persist(bloqueado);
+                    id = request.getParameter("bloqueado");
 
-                vista = "/Usuarios/mostrarUsuarios";
+                    bloqueado = new Bloqueados(user.getId(), id);
+
+                    persist(bloqueado);
+
+                    vista = "/Usuarios/mostrarUsuarios";
+                }
                 break;
 
         }

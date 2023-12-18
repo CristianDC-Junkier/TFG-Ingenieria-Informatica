@@ -60,69 +60,23 @@
 
 .buscadorMesa button {
 
-    margin-bottom: 10px;
-    margin-right:  10px;
+    margin-right: 50px;
+    
     padding: 5px 5px;
-
     border-radius: 10px;
     border: brown 2px solid;
-
     background-color: yellow;
-    width: 10%;
+    width: 75%;
 }
 
-.buscadorMesa > button:hover {
+.buscadorMesa  button:hover {
 
     background-color: yellowgreen;
     transform: translateY(-0.1em);
 }
 
-.buscadorMesa > button:active {
+.buscadorMesa  button:active {
 
-    transform: translateY(0.1em);
-}
-
-#botonLleno.estalleno  {
-
-    margin-bottom: 10px;
-    margin-right:  10px;
-    padding: 5px 5px;
-
-    border-radius: 10px;
-    border: brown 2px solid;
-
-    background-color: yellowgreen;
-    width: 10%;
-    transform: translateY(0.1em);
-}
-#botonLleno.estalleno:hover {
-    background-color: yellowgreen;
-    transform: translateY(0.1em);
-}
-
-#botonLleno.estalleno:active {
-    transform: translateY(-0.1em);
-}
-
-#botonLleno.noestalleno:hover {
-
-    margin-bottom: 10px;
-    margin-right:  10px;
-    padding: 5px 5px;
-
-    border-radius: 10px;
-    border: brown 2px solid;
-
-    background-color: yellow;
-    width: 10%;
-}
-
-#botonLleno.noestalleno:hover {
-    background-color: yellowgreen;
-    transform: translateY(-0.1em);
-}
-
-#botonLleno.noestalleno:active {
     transform: translateY(0.1em);
 }
 
@@ -226,7 +180,7 @@
     padding: 3px;
     color: white;
     width: 100%;
-    
+
     font-size: 18px;
 
 }
@@ -251,6 +205,10 @@
         font-size: 12px;
     }
 }
+
+
+
+
 /*****Fotos******/
 
 .mesa-foto {
@@ -288,6 +246,9 @@
     }
 }
 
+
+
+
 /*****Botones*****/
 
 .contenedorBotonesMesa{
@@ -314,7 +275,6 @@
     justify-content: space-between;
 
 }
-
 
 .botonArriba{
 

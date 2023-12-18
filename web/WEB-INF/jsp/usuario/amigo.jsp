@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,17 +35,28 @@
                 </div>
 
                 <div class="usuarioDatos">
-                    <div><span>Nombre:  </span>${requestScope.amigo.nombre} </div>
+                    <c:if test="${requestScope.sonAmigos == 1}">
+                        <div><span>Nombre:  </span>${requestScope.amigo.nombre} </div>
+                    </c:if>
                     <div><span>Nombre de usuario:  </span>${requestScope.amigo.apodo}</div>
-                    <div><span>Fecha de nacimiento:  </span>${requestScope.amigo.fechanac.getDate()}/${requestScope.amigo.fechanac.getMonth() + 1}/${requestScope.amigo.fechanac.getYear()+1900}</div>
-                    <div><span>Provincia:  </span>${requestScope.amigo.provincia}</div>
-                    <div><span>Genero:  </span>${requestScope.amigo.genero}</div>
+                    <c:if test="${requestScope.sonAmigos == 1}">
+                        <div><span>Fecha de nacimiento:  </span>${requestScope.amigo.fechanac.getDate()}/${requestScope.amigo.fechanac.getMonth() + 1}/${requestScope.amigo.fechanac.getYear()+1900}</div>
+                        <div><span>Provincia:  </span>${requestScope.amigo.provincia}</div>
+                        <div><span>Genero:  </span>${requestScope.amigo.genero}</div>
+                    </c:if>
                 </div>
                 <div class="botones">
                     <button class="boton" onclick="location.href = '/TFG/Usuarios/mostrarAmigos'">Atras</button>
-                    <button class="boton" onclick="agregarArchivo()">Mesas</button>
-                    <button class="boton" onclick="agregarArchivo()">Personajes</button>
-                    <button class="botonfinal" onclick="mostrarRecuadro()">Eliminar Amigo</button>
+                    <c:choose>
+                        <c:when test="${requestScope.sonAmigos == 1}">
+                            <button class="boton" onclick="agregarArchivo()">Mesas</button>
+                            <button class="boton" onclick="agregarArchivo()">Personajes</button>
+                            <button class="botonfinal" onclick="mostrarRecuadro()">Eliminar Amigo</button>
+                        </c:when>
+                        <c:otherwise>
+                            <button id="pediramigo" class="botonfinal" onclick="location.href ='/TFG/Usuarios/enviarPeticion?pamistad=${requestScope.amigo.id}'">Añadir Amigo</button>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="opcionRecuadro" id="recuadro" style="display: none;">
                     <div class="contenidoRecuadro">

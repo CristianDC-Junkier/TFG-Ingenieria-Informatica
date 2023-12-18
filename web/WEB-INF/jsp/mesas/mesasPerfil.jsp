@@ -59,6 +59,7 @@
                             </c:choose>
                         </select>
                     </div>
+                    <div><button class="botonCrearMesa" onclick="location.href = '/TFG/Formularios/crearmesa'">Crear Mesa</button></div>
                 </div>
             </div>
             <div class="listasMesa" id="pestañasSeccion">
