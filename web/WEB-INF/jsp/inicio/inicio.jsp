@@ -6,6 +6,7 @@
         <title class="titulosPag">Guidance4/Inicio</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="/TFG/css/inicioCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/principalFooterCss.css"/>
     </head>
     <body>
         <header>
@@ -50,9 +51,7 @@
                 </div>
             </div>
         </main>
-        <footer>
-            &copy; 2023 Cristian Delgado Cruz
-        </footer>
+        <jsp:include page="/WEB-INF/jsp/footer.jsp" />
         <script src="/TFG/js/principalJS.js"></script>
     </body>
 </html>

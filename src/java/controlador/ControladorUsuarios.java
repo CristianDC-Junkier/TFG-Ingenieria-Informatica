@@ -1053,7 +1053,10 @@ public class ControladorUsuarios extends HttpServlet {
                                 sql = "SELECT u2.* FROM Usuarios u "
                                         + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
+                                        + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE a.amigo1 = '" + user.getId() + "' "
+                                        + "AND p1.mesa = p2.mesa "
                                         + "ORDER BY u.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             }
@@ -1117,20 +1120,18 @@ public class ControladorUsuarios extends HttpServlet {
                     queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
                     queryUsuarios.setParameter("id", id);
                     useraux = queryUsuarios.getSingleResult();
-                    
-                    
+
                     queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
                     queryAmigos.setParameter("amigo1", id);
                     queryAmigos.setParameter("amigo2", user.getId());
 
-                    
                     if (!queryAmigos.getResultList().isEmpty()) {
                         System.out.println("Somos amigos");
                         request.setAttribute("sonAmigos", 1);
                     } else {
                         request.setAttribute("sonAmigos", 0);
                     }
-                    
+
                     request.setAttribute("amigo", useraux);
 
                     vista = "/WEB-INF/jsp/usuario/amigo.jsp";

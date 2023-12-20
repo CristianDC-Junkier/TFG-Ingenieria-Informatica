@@ -52,24 +52,8 @@ hr{
     color:black;
     margin-bottom: 10px;
 }
-footer{
 
-    background-color: black;
-    color: white;
-
-    position: fixed;
-
-    margin-top: 5px;
-    bottom:0;
-
-    width: 100%;
-    height: auto;
-
-    font-size: 14px;
-
-    z-index: 2;
-}
-
+/*LO QUITARE*/
 footer  a{
 
     color: white;
@@ -88,34 +72,6 @@ footer  a:hover{
     float:right;
 }
 
-@media screen and (max-height: 700px){
-
-    footer{
-        height: 13px;
-        font-size: 12px;
-    }
-}
-@media screen and (max-height: 600px){
-
-    footer{
-        height: 11px;
-        font-size: 10px;
-    }
-}
-@media screen and (max-height: 400px){
-
-    footer{
-        height: 9px;
-        font-size: 8px;
-    }
-}
-@media screen and (max-height: 200px){
-
-    footer{
-        height: 7px;
-        font-size: 6px;
-    }
-}
 
 /*************************/
 /**********Clases*********/
