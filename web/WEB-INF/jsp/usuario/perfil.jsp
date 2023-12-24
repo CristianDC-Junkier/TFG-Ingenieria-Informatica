@@ -7,19 +7,20 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/perfilCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/comunUsuariosCss.css"/>
     </head>
     <body>
         <header>
             <h1> <img class="Logo" src="/TFG/img/dnd-banner.jpg" alt="Logo"/> </h1>
         </header>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
-        <main>
+        <main class="mainPerfil">
             <div class="cajaGeneral">
                 <div class="cajaPersonaje">
                     <h2>PERSONAJE ACTUAL</h2>
                     <div class="personaje">
                         <div class="personaje-fotoboton">
-                            <div class="personaje-foto">
+                            <div class="personaje-fotoG">
                                 <img src="/TFG/img/iconos/IMGNEGRO.png">
                             </div>
                             <button class="cambiarPersonaje" onclick="agregarArchivo()">Cambiar personaje Actual</button>

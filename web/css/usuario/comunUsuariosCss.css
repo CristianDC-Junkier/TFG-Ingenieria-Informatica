@@ -1,0 +1,143 @@
+
+/*******************/
+/****Boton Mesa*****/
+/*******************/
+
+#botonMesa.existeMesa:hover {
+    transform: translateY(0.1em);
+}
+
+#botonMesa.existeMesa:active {
+    transform: translateY(-0.1em);
+}
+
+#botonMesa.noExisteMesa:hover {
+
+    margin-bottom: 10px;
+    margin-right:  10px;
+    padding: 5px 5px;
+    border-radius: 10px;
+    width: 10%;
+}
+
+#botonMesa.noExisteMesa:hover {
+
+    transform: translateY(-0.1em);
+}
+
+#botonMesa.noExisteMesa:active {
+    transform: translateY(0.1em);
+}
+
+/**********************/
+/********Tabla*********/
+/**********************/
+
+.diseñoTabla{
+
+    margin: 2px -10px -10px -10px;
+    overflow-y: auto;
+    height: 1000px;
+    max-height: 1000px;
+}
+
+.diseñoTabla table{
+
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: center;
+    width: 100%;
+    min-width: 100%;
+}
+.diseñoTabla table tr{
+
+    width: 100%;
+}
+.diseñoTabla table td{
+
+    text-align: center;
+    padding: 3px;
+    color: white;
+    width: 100%;
+    font-size: 18px;
+}
+@media screen and (max-width: 700px){
+    .diseñoTabla table td {
+
+        font-size: 15px;
+    }
+}
+@media screen and (max-width: 500px){
+    .diseñoTabla table td{
+
+        font-size: 12px;
+    }
+}
+
+/**********************/
+/*********Fotos********/
+/**********************/
+
+.personaje-foto {
+
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20%;
+}
+
+.personaje-foto img {
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+@media screen and (max-width: 800px){
+    .personaje-fotoG {
+
+        width: 75px;
+        height: 75px;
+    }
+}
+@media screen and (max-width: 500px){
+    .personaje-fotoG {
+
+        width: 60px;
+        height: 60px;
+    }
+}
+/**********************/
+/********Botones*******/
+/**********************/
+
+.pestañasBotones{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.botonArriba{
+
+    font-size: 10px;
+    display: block;
+    box-sizing: border-box;
+    border-radius: 0.75em;
+    padding: 0.75em 1.5em;
+    transform: translateY(-0.2em);
+    transition: transform 0.1s ease;
+}
+
+.pestañasBotones > button:hover {
+
+    transform: translateY(-0.33em);
+}
+
+.pestañasBotones > button:active {
+
+    transform: translateY(0);
+}
+

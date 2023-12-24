@@ -1,11 +1,9 @@
 
-main{
+.mainPerfil{
 
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: black;
-    color: white;
+    font-family: 'Times New Roman';
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -14,24 +12,18 @@ main{
 
 .cajaGeneral{
 
-    border: 2px solid black;
     border-radius: 5px;
     margin: 30px;
     padding: 20px;
     width: calc(100% - 60px);
-    background-color: black;
-    box-shadow: 1px 1px 1px 1px #555;
 }
 
 .cajaPersonaje{
 
-    border: 3px solid black;
     border-radius: 5px;
     margin: 10px;
     padding: 20px;
     width: calc(100% - 60px);
-    background-color: #ddd;
-    box-shadow: 1px 1px 1px 1px black;
 }
 
 .cajaPersonaje > h2{
@@ -39,13 +31,9 @@ main{
     font-size: 3.5vmin;
     font-weight: 300;
     letter-spacing: 1.5px;
-    color: yellowgreen;
     padding: 5px;
     margin-bottom: 5px;
-    border: solid 3px brown;
     border-radius: 5px;
-    background-color: black;
-
 }
 
 .personaje {
@@ -62,19 +50,17 @@ main{
     margin-right: 20px;
 }
 
-.personaje-foto {
+.personaje-fotoG {
 
     width: 30vmin;
     height: 30vmin;
-    background-color: black;
-    border: 4px solid brown;
     border-radius: 50%;
     overflow: hidden;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.personaje-foto img {
+.personaje-fotoG img {
 
     width: 100%;
     height: 100%;
@@ -83,84 +69,53 @@ main{
 
 .cambiarPersonaje {
 
-    background-color: brown;
-    color: yellow;
+
     padding: 5px 10px;
     text-decoration: none;
     display: inline-block;
     margin-left: 0px;
     border-radius: 5px;
     cursor: pointer;
-
-    border: 2px solid brown;
     font-size: 2vmin;
 }
 
 .datosPersonaje {
 
-    box-shadow: 1px 1px 1px 1px #555;
-    border: 3px solid brown;
-    background-color: #333;
     padding: 20px;
     border-radius: 10px;
     flex-grow: 1;
     margin-bottom: 20px;
     margin-top: 20px;
-
-    border: 2px solid brown;
     font-size: 2vmin;
 }
-
 .usuarioDatos {
 
-    box-shadow: 1px 1px 1px 1px #555;
-    border: 2px solid brown;
-    background-color: #333;
     padding: 20px;
     border-radius: 10px;
     width: calc(100% - 55px);
     margin-top: 20px;
     margin-left: 10px;
-
     font-size: 2.5vmin;
-
     display: flex;
     flex-wrap: wrap;
 }
-
-.etiqueta{
-
-    font-size: 2.5vmin;
-    color:yellowgreen;
-    width: 23%;
-    font-style: italic;
-    padding: 10px;
-}
-
-
 .usuarioDatos > div{
 
     font-size: 2.5vmin;
     width: 23%;
     padding: 10px;
 }
-
 .usuarioDatos > div > span{
 
-    color:yellowgreen;
     font-style: italic;
 }
-
 
 .botones {
 
     display: flex;
 }
-
 .boton {
 
-    background-color: brown;
-    color: yellow;
     padding: 5px 10px;
     text-decoration: none;
     display: inline-block;
@@ -169,14 +124,11 @@ main{
     margin-top: 20px;
     border-radius: 5px;
     cursor: pointer;
-
     font-size: 2.5vmin;
 }
 
 .botonfinal {
 
-    background-color: brown;
-    color: yellow;
     padding: 5px 10px;
     text-decoration: none;
     display: inline-block;
@@ -185,13 +137,11 @@ main{
     cursor: pointer;
     margin-left: auto;
     margin-right: 5px;
-
     font-size: 2.5vmin;
 }
 
 button:hover{
 
-    color:yellowgreen;
     transform: translateY(-0.1em);
 }
 
@@ -204,14 +154,11 @@ button:active{
 
     .cajaGeneral{
 
-        border: 2px solid #000;
         border-radius: 5px;
         margin: 5px;
         padding: 5px;
         padding-bottom: 20px;
         margin-bottom: 20px;
         width: calc(100% - 10px);
-        background-color: black;
-        box-shadow: 1px 1px 1px 1px #555;
     }
 }

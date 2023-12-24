@@ -1,14 +1,8 @@
 
 .bloqueDiseñoPersonaje > h3{
 
-    margin-top: 10px;
-
-    color:yellowgreen;
-    border: black 4px ridge;
-    background: brown;
-
+    margin-top: 10px;;
     text-align: center;
-
     font-size: 3.5vmin;
 }
 
@@ -16,21 +10,15 @@
 
     display: flex;
     flex: 1;
-
     padding: 10px;
 }
 
 .infoDiseñoPersonaje div{
 
     flex: 1;
-
-    border: dimgray 4px ridge;
-    background: black;
     margin: 10px;
-
     margin: 10px;
     margin-bottom: 20px;
-
     font-size: 2vmin;
 }
 
@@ -39,30 +27,24 @@
     padding: 10px;
     border-radius: 5px;
     margin: 10px;
-    background: #191919;
 }
 
 .infoDiseñoPersonaje div > table {
 
-    font-family: Times New Roman, sans-serif;
+    font-family: 'Times New Roman';
     border-collapse: collapse;
     width: 95%;
     margin: 10px auto;
-    background: #191919;
-
 }
 
 .infoDiseñoPersonaje div > table th, .infoDiseñoPersonaje div > table td {
 
-    border: 2px solid white;
     text-align: center;
     padding: 8px;
 }
 
 .infoDiseñoPersonaje div > table th {
 
-    color:yellow;
-    background-color: brown;
     text-align: center;
 }
 
@@ -87,7 +69,7 @@
 
     .infoDiseñoPersonaje div > table td,  .infoDiseñoPersonaje div > table th {
 
-        border: 0.1px solid white;
+        border: 0.1px solid;
         padding: 2px;
         font-size: 2vmin;
     }

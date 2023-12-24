@@ -50,7 +50,9 @@
                 </div>
             </div>
         </main>
+        <jsp:include page="/WEB-INF/jsp/bannerCookies.jsp" />
         <jsp:include page="/WEB-INF/jsp/footer.jsp" />
         <script src="/TFG/js/principalJS.js"></script>
+        <script src="/TFG/js/cookiesJS.js"></script>
     </body>
 </html>

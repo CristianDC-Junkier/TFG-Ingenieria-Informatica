@@ -3,7 +3,7 @@
 
 .resumenDesafios{
 
-    font-family: Times new roman;
+    font-family: 'Times new roman';
     font-size: 22px;
     width: auto;
     height: auto;
@@ -11,14 +11,10 @@
 .resumenDesafios  h3{
 
     text-align: center;
-
     padding-left: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
-
     margin-bottom: 20px;
-
-
     font-size: 20px;
 }
 
@@ -27,21 +23,14 @@
     position: relative;
     float: right;
     right: 5px;
-
     margin-left: 5px;
     margin-right: 0;
     padding: 3px 5px;
-
     border-radius: 10px;
-    border: black 2px solid;
-
-    color:white;
-    background-color: brown;
     width: auto;
 }
 .Titulos > button:hover {
 
-    background-color: yellowgreen;
     transform: translateY(-0.1em);
 }
 
@@ -53,9 +42,6 @@
 .listaDesafios  h3{
 
     margin-top: 10px;
-    color:yellowgreen;
-    border: black 4px ridge;
-    background: brown;
     text-align: center;
 }
 @media screen and (max-width: 400px)
@@ -68,28 +54,16 @@
 
 .listaDesafioTipo {
 
-    border: 5px brown outset;
-    box-shadow: 10px 10px black;
-    background-color: black;
-    color: white;
-
     max-width: 1000px;
-
     columns: 3;
     text-align: center;
-
     margin: 25px auto;
-
-    column-rule-color: brown;
     column-rule-width: 2px;
     column-rule-style: dashed;
 }
 
 .listaDesafioTipo h4{
 
-    color: black;
-    background-color: yellow;
-    border:brown 2px solid;
     font-size: 20px;
 }
 
@@ -103,7 +77,6 @@
 
 .tipoListaDesafio h5{
 
-    color: yellowgreen;
     margin-bottom: 10px;
     margin-top: 10px;
     font-size: 18px;
@@ -112,11 +85,8 @@
 .listaDesafio {
 
     font-size: 15px;
-
     margin-top: 10px;
     margin-bottom: 10px;
-
-
 }
 
 /*************************/
@@ -126,63 +96,32 @@
 .niveles{
 
     display: flex;
-    
     overflow-x: auto;
-
-    color:black;
-
     margin-top: 15px;
     margin-bottom: 15px;
     margin-left: 7vmin;
 }
-
-.nivelesPrimeraFila {
-
-    background: black;
-    color: yellowgreen;
-}
-
 .niveles table{
 
-    font-family: arial, sans-serif;
+    font-family: 'Times New Roman';
     border-collapse: collapse;
-
     width: 47.5%;
-
     table-layout: fixed;
-    border: 2px black solid;
-
     margin-right: 20px;
     margin-bottom: 20px;
-    
     font-size: 2vmin;
-}
-.niveles th{
-
-    border: 3px solid brown;
-}
-.niveles td{
-
-    border: 3px solid black;
 }
 .niveles td, .niveles th{
 
     padding: 0px 10px;
-
     text-align: center;
     padding: 8px;
 }
 .nivelesExplicacion {
 
     font-size: 2vmin;
-    
-    background-color: black;
     box-sizing: border-box;
-    
-    color: white;
-    
     width: 47.5%;
-    
     padding: 20px; 
     margin-bottom: 20px;
 }

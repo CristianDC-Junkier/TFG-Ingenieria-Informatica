@@ -1,6 +1,5 @@
 
 
-
 h2{
     color:black;
     border-bottom: black 2px solid;
@@ -32,8 +31,6 @@ section{
 hr{
     color:black;
 }
-
-
 footer{
 
     background-color: black;
@@ -475,48 +472,6 @@ footer{
 }
 
 /**************************************/
-/****************Tabla*****************/
-/**************************************/
-
-.diseñoTabla table tr{
-
-    border: 2px brown solid;
-}
-.diseñoTabla table td{
-
-    text-align: center;
-    color: white;
-
-}
-.diseñoTabla table tr:nth-child(odd) {
-
-    background-color: black;
-}
-
-.diseñoTabla table tr:nth-child(even) {
-
-    background-color: #333333;
-}
-
-/**************************************/
-/***************Botones****************/
-/**************************************/
-
-.contenedorBotonesExplorador{
-
-    border: 2px solid brown;
-    background: black;
-}
-
-.botonArriba{
-
-    border: 2px solid brown;
-    background: yellow;
-    color: brown;
-}
-
-
-/**************************************/
 /*****************IDS******************/
 /**************************************/
 #Actual{
@@ -909,16 +864,6 @@ input[type="button"]:active {
 /**********************************LISTAS USUARIOS EN MESAS*****************************************/
 /***************************************************************************************************/
 
-.botonDentro{
-
-    border: brown 2px solid;
-    background-color: yellow;
-}
-
-.botonDentro:hover {
-
-    background-color: yellowgreen;
-}
 
 /***********************************/
 /*********+****Usuarios*************/
@@ -948,7 +893,7 @@ input[type="button"]:active {
     background-color: #333333;
 }
 .botonUsuarios{
-    
+
     border: brown 2px solid;
     background-color: yellow;
 }
@@ -964,7 +909,7 @@ input[type="button"]:active {
 
 .mainMesa{
 
-    background-color: black;
+    background-color: gray;
     color: white;
 }
 
@@ -1022,7 +967,7 @@ input[type="button"]:active {
 }
 
 .etiqueta{
-    
+
     color:yellowgreen;
 }
 .mesaDatos > div > span{
@@ -1030,17 +975,7 @@ input[type="button"]:active {
     color:yellowgreen;
 }
 
-.boton {
 
-    background-color: brown;
-    color: yellow;
-}
-
-.botonfinal {
-
-    background-color: brown;
-    color: yellow;
-}
 
 @media screen and (max-width: 500px){
 
@@ -1125,7 +1060,7 @@ input[type="button"]:active {
 /*******************************/
 
 .mesa-foto {
-    
+
     background-color: black;
     border: 4px solid brown;
 }
@@ -1156,4 +1091,742 @@ input[type="button"]:active {
 
 #botonLleno.noestalleno:hover {
     background-color: yellowgreen;
+}
+
+/*******************************************************************************************************/
+/*****************************************REGLAS: COMBATE***********************************************/
+/*******************************************************************************************************/
+
+.bloqueCombate > h3{
+
+    color:yellowgreen;
+    border: black 4px ridge;
+    background: brown;
+}
+
+.infoCombate div{
+
+    border: dimgray 4px ridge;
+    background: black;
+}
+
+.infoCombate div > p{
+
+    background: #191919;
+}
+
+.infoCombate a{
+
+    color: yellow;
+}
+.infoCombate div > table {
+
+    background: #191919;
+}
+
+.infoCombate div > table th, .infoCombate div > table td {
+
+    border: 2px solid white;
+}
+
+.infoCombate div > table th {
+
+    color:yellow;
+    background-color: brown;
+}
+
+
+/*******************************************************************************************************/
+/*************************************REGLAS: CREAR PERSONAJES******************************************/
+/*******************************************************************************************************/
+
+.bloqueDiseñoPersonaje > h3{
+
+    color:yellowgreen;
+    border: black 4px ridge;
+    background: brown;
+}
+
+.infoDiseñoPersonaje div{
+
+    border: dimgray 4px ridge;
+    background: black;
+}
+
+.infoDiseñoPersonaje div > p{
+
+    background: #191919;
+}
+
+.infoDiseñoPersonaje div > table {
+
+    background: #191919;
+}
+
+.infoDiseñoPersonaje div > table th, .infoDiseñoPersonaje div > table td {
+
+    border: 2px solid white;
+}
+
+.infoDiseñoPersonaje div > table th {
+
+    color:yellow;
+    background-color: brown;
+}
+
+/*******************************************************************************************************/
+/********************************************REGLAS: DESAFIOS*******************************************/
+/*******************************************************************************************************/
+
+.Titulos select, .Titulos button{
+
+    color:white;
+    background-color: brown;
+    width: auto;
+}
+.Titulos > button:hover {
+
+    background-color: yellowgreen;
+}
+.listaDesafios  h3{
+
+    color:yellowgreen;
+    background: brown;
+    border: black 4px ridge;
+}
+.listaDesafioTipo {
+
+    border: 5px brown outset;
+    box-shadow: 10px 10px black;
+    background-color: black;
+    color: white;
+    column-rule-color: brown;
+}
+
+.listaDesafioTipo h4{
+
+    color: black;
+    background-color: yellow;
+    border:brown 2px solid;
+}
+
+.tipoListaDesafio h5{
+
+    color: yellowgreen;
+}
+
+/*************************/
+/******Tabla Niveles******/
+/*************************/
+
+.niveles{
+
+    color:black;
+}
+
+.nivelesPrimeraFila {
+
+    background: black;
+    color: yellowgreen;
+}
+
+.niveles table{
+
+    border: 2px black solid;
+}
+.niveles th{
+
+    border: 3px solid brown;
+}
+.niveles td{
+
+    border: 3px solid black;
+}
+.nivelesExplicacion {
+
+    background-color: black;
+    color: white;
+}
+
+/*******************************************************************************************************/
+/******************************************REGLAS: INTERPRETACION***************************************/
+/*******************************************************************************************************/
+
+.bloqueInterpretar > h3{
+
+    color:yellowgreen;
+    border: black 4px ridge;
+    background: brown;
+}
+
+.infoInterpretar div{
+
+    border: dimgray 4px ridge;
+    background: black;
+}
+
+.infoInterpretar div > p{
+
+    background: #191919;
+}
+
+.infoInterpretar div > table {
+
+    background: #191919;
+}
+
+.infoInterpretar div > table th, .infoInterpretar div > table td {
+
+    border: 2px solid white;
+}
+
+.infoInterpretar div > table th {
+
+    color:yellow;
+    background-color: brown;
+}
+
+
+/*******************************************************************************************************/
+/******************************************REGLAS: PRECIOS**********************************************/
+/*******************************************************************************************************/
+
+/*************************/
+/******Lista precios******/
+/*************************/
+
+.Titulos select, .Titulos button{
+
+    border: black 2px solid;
+    color:white;
+    background-color: brown;
+}
+.Titulos > button:hover {
+
+    background-color: yellowgreen;
+}
+.ListaPrecios  h3{
+
+    color:yellowgreen;
+    border: black 4px ridge;
+    background: brown;
+}
+.Monedas{
+
+    color:black;
+}
+
+.MonedasPrimeraFila {
+
+    background: black;
+    color: yellowgreen;
+}
+
+.Monedas table{
+
+    border: 2px black solid;
+}
+
+.Monedas td, th{
+
+    border: solid 2px black;
+}
+
+.ListaPreciosTipo {
+
+    border: 5px brown outset;
+    box-shadow: 10px 10px black;
+    background-color: black;
+    color: white;
+    column-rule-color: brown;
+}
+
+.ListaPreciosTipo h4{
+
+    color: black;
+    background-color: yellow;
+    border:brown 2px solid;
+}
+.TipoListaPrecio h5{
+
+    color: yellowgreen;
+}
+
+
+/*******************************************************************************************************/
+/*********************************************REGLAS: TURNOS*******************************************/
+/*******************************************************************************************************/
+
+/*************************/
+/********Secciones********/
+/*************************/
+.contenedorTurnos{
+
+    border: 1vmin brown solid;
+    background-color: brown;
+    border-color: brown;
+}
+.titulosTurnos{
+
+    background-color: brown;
+    color: yellow;
+}
+
+.titulosTurnos > span {
+
+    color: yellow;
+}
+
+.contenidoTurnos{
+
+    background-color: black;
+}
+
+.subtitulosTurnos{
+
+    color: white;
+}
+
+/*************************/
+/*******Cada Opcion*******/
+/*************************/
+.tituloOpcion{
+
+    color: yellowgreen;
+}
+.contendorOpcion:hover{
+
+    .tituloOpcion{
+
+        color:yellow;
+    }
+    .descripcionOpcion{
+
+        color: yellow;
+    }
+}
+
+/*******************************************************************************************************/
+/*********************************************USUARIOS: TODOS*******************************************/
+/*******************************************************************************************************/
+
+/**********Barra arriba Equipo************/
+
+.contenedorUsuarios{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+.tituloBuscadorUsuarios {
+
+    color:yellow;
+}
+.buscadorUsuarios input{
+
+    background-color: brown;
+    color:white;
+}
+
+.buscadorUsuarios select {
+
+    border: brown 2px solid;
+    color:white;
+    background-color: #333333;
+}
+
+.buscadorUsuarios button {
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+.buscadorUsuarios > button:hover {
+
+    background-color: yellowgreen;
+}
+
+/**********Lista Equipo************/
+
+.listasUsuarios{
+
+    border: 2px solid brown;
+    background: black;
+}
+.listaUsuario h3{
+
+    color:white;
+    background: black;
+}
+.listaUsuario h4{
+
+    color:yellow;
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+}
+.contenedorBotonesUsuarios{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+/**************************/
+/*****Personaje: Fotos*****/
+/**************************/
+
+.personaje-foto {
+
+    background-color: black;
+    border: 4px solid brown;
+}
+.personaje-fotoG {
+
+    background-color: black;
+    border: 4px solid brown;
+}
+
+
+/*******************************************************************************************************/
+/*********************************************USUARIOS: AMIGOS******************************************/
+/*******************************************************************************************************/
+
+
+.contenedorAmigos{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+.tituloBuscadorAmigos {
+
+    color:yellow;
+}
+
+.buscadorAmigos input{
+
+    background-color: brown;
+    color:white;
+}
+.buscadorAmigos select {
+
+    border: brown 2px solid;
+    color:white;
+    background-color: #333333;
+}
+.buscadorAmigos button {
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+.buscadorAmigos > button:hover {
+
+    background-color: yellowgreen;
+}
+
+
+/*************************/
+/*******Lista Amigos******/
+/*************************/
+
+.listasAmigos{
+
+    border: 2px solid brown;
+    background: black;
+}
+.listaAmigo h3{
+
+    color:white;
+    background: black;
+}
+.listaAmigo h4{
+
+    color:yellow;
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+}
+
+
+/****************************/
+/*****Contenedor:Botones*****/
+/***************************/
+
+.contenedorBotonesAmigos{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+
+/*******************************************************************************************************/
+/*******************************************USUARIOS: PETICIONES****************************************/
+/*******************************************************************************************************/
+
+
+.contenedorPeticiones{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+.tituloBuscadorPeticiones {
+
+    color:yellow;
+}
+
+.buscadorPeticiones input{
+
+    background-color: brown;
+    color:white;
+}
+
+.buscadorPeticiones select {
+
+    border: brown 2px solid;
+    color:white;
+    background-color: #333333;
+}
+
+.buscadorPeticiones button {
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+
+.buscadorPeticiones > button:hover {
+
+    background-color: yellowgreen;
+}
+
+
+/**********Lista Peticiones************/
+
+.listasPeticiones{
+
+    border: 2px solid brown;
+    background: black;
+}
+.listaPeticion h3{
+
+    color:white;
+    background: black;
+}
+.listaPeticion h4{
+
+    color:yellow;
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+}
+
+.contenedorBotonesPeticiones{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+/*******************************************************************************************************/
+/*******************************************USUARIOS: BLOQUEADOS****************************************/
+/*******************************************************************************************************/
+
+.contenedorBloqueados{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+.tituloBuscadorBloqueados{
+
+    color:yellow;
+}
+
+.buscadorBloqueados input{
+
+    background-color: brown;
+    color:white;
+}
+
+.buscadorBloqueados select {
+
+    border: brown 2px solid;
+    color:white;
+    background-color: #333333;
+}
+
+.buscadorBloqueados button {
+
+    border: brown 2px solid;
+    background-color: yellow;
+    width: 10%;
+}
+
+.buscadorBloqueados > button:hover {
+
+    background-color: yellowgreen;
+}
+
+/************************************/
+/**********Lista Bloqueados**********/
+/************************************/
+
+.listasBloqueados{
+
+    border: 2px solid brown;
+    background: black;
+}
+.listaBloqueado h3{
+
+    color:white;
+    background: black;
+}
+.listaBloqueado h4{
+
+    color:yellow;
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+}
+.contenedorBotonesBloqueados{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+
+/*******************************************************************************************************/
+/*******************************************USUARIOS: PERFIL****************************************/
+/*******************************************************************************************************/
+
+
+.mainPerfil{
+
+    background-color: black;
+    color: white;
+}
+
+.cajaGeneral{
+
+    border: 2px solid black;
+    background-color: black;
+    box-shadow: 1px 1px 1px 1px #555;
+}
+
+.cajaPersonaje{
+
+    border: 3px solid black;
+    background-color: #ddd;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+.cajaPersonaje > h2{
+
+    color: yellowgreen;
+    border: solid 3px brown;
+    background-color: black;
+}
+
+.cambiarPersonaje {
+
+    background-color: brown;
+    color: yellow;
+    border: 2px solid brown;
+}
+
+.datosPersonaje {
+
+    box-shadow: 1px 1px 1px 1px #555;
+    background-color: #333;
+    border: 2px solid brown;
+}
+
+.usuarioDatos {
+
+    box-shadow: 1px 1px 1px 1px #555;
+    border: 2px solid brown;
+    background-color: #333;
+}
+.usuarioDatos > div > span{
+
+    color:yellowgreen;
+    font-style: italic;
+}
+
+/*******************************************************************************************************/
+/**********************************************BOTONES-TABLAS*******************************************/
+/*******************************************************************************************************/
+
+/**************************************/
+/****************Tabla*****************/
+/**************************************/
+
+.diseñoTabla table tr{
+
+    border: 2px brown solid;
+}
+.diseñoTabla table td{
+
+    color: white;
+
+}
+.diseñoTabla table tr:nth-child(odd) {
+
+    background-color: black;
+}
+
+.diseñoTabla table tr:nth-child(even) {
+
+    background-color: #333333;
+}
+
+/**************************************/
+/***************Botones****************/
+/**************************************/
+
+.contenedorBotonesExplorador{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+.botonArriba{
+
+    border: 2px solid brown;
+    background: yellow;
+    color: brown;
+}
+.botonDentro{
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+
+.botonDentro:hover {
+
+    background-color: yellowgreen;
+}
+
+#botonMesa.existeMesa  {
+
+    border: brown 2px solid;
+    background-color: yellowgreen;
+}
+#botonMesa.existeMesa:hover {
+
+    background-color: yellowgreen;
+}
+#botonMesa.noExisteMesa:hover {
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+#botonMesa.noExisteMesa:hover {
+
+    background-color: yellowgreen;
+}
+.boton {
+
+    background-color: brown;
+    color: yellow;
+}
+
+.botonfinal {
+
+    background-color: brown;
+    color: yellow;
 }

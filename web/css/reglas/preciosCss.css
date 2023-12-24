@@ -3,7 +3,7 @@
 
 .ResumenPrecios{
 
-    font-family: Times new roman;
+    font-family: 'Times new roman';
     font-size: 22px;
     width: auto;
     height: auto;
@@ -11,14 +11,10 @@
 .ResumenPrecios  h3{
 
     text-align: center;
-
     padding-left: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
-
     margin-bottom: 20px;
-
-
     font-size: 20px;
 }
 
@@ -28,20 +24,13 @@
     position: relative;
     float: right;
     right: 0px;
-
     margin-left: 5px;
     padding: 3px 5px;
-
     border-radius: 10px;
-    border: black 2px solid;
-
-    color:white;
-    background-color: brown;
     width: auto;
 }
 .Titulos > button:hover {
 
-    background-color: yellowgreen;
     transform: translateY(-0.1em);
 }
 
@@ -53,9 +42,6 @@
 .ListaPrecios  h3{
 
     margin-top: 10px;
-    color:yellowgreen;
-    border: black 4px ridge;
-    background: brown;
     text-align: center;
 }
 
@@ -63,22 +49,12 @@
 
     display: flex;
     overflow-x: auto;
-
     justify-content: center;
     align-items: center;
-
     width: 100%;
-    color:black;
     align-content: center;
-
     margin-top: 15px;
     margin-bottom: 15px;
-}
-
-.MonedasPrimeraFila {
-
-    background: black;
-    color: yellowgreen;
 }
 
 .Monedas table{
@@ -86,13 +62,10 @@
     table-layout: fixed;
     border-collapse: collapse;
     text-align: center;
-
-    border: 2px black solid;
 }
 
 .Monedas td, th{
-
-    border: solid 2px black;
+    
     padding: 0px 10px;
 }
 
@@ -114,19 +87,11 @@
 
 .ListaPreciosTipo {
 
-    border: 5px brown outset;
-    box-shadow: 10px 10px black;
-    background-color: black;
-    color: white;
-
     max-width: 1000px;
-
     columns: 3;
     text-align: center;
-
     margin: 25px auto;
     margin-bottom: 30px;
-
     column-rule-color: brown;
     column-rule-width: 2px;
     column-rule-style: dashed;
@@ -134,9 +99,6 @@
 
 .ListaPreciosTipo h4{
 
-    color: black;
-    background-color: yellow;
-    border:brown 2px solid;
     font-size: 20px;
 }
 
@@ -150,7 +112,6 @@
 
 .TipoListaPrecio h5{
     
-    color: yellowgreen;
     margin-bottom: 10px;
     margin-top: 10px;
     font-size: 18px;
@@ -159,11 +120,8 @@
 .ListaPrecio {
 
     font-size: 15px;
-    
     margin-top: 10px;
     margin-bottom: 10px;
-    
-    
 }
 
 
