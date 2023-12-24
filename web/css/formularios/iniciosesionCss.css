@@ -7,41 +7,27 @@
     width: 400px;
     height: 30%;
     min-height: 300px;
-
     padding: 20px;
-
-    background-color: yellow;
     text-align: center;
-
-    font-family: Times New Roman;
-
-    border: brown 2px solid;
+    font-family: 'Times New Roman';
     border-radius: 5px 5px 5px 5px;
-    box-shadow: 5px 5px 5px 5px black;
-    background: linear-gradient(yellow,60%,white);
 }
 .bloqueInicioSesion > form > div{
 
-    border: brown 2px solid;
     border-radius: 5px 5px 5px 5px;
-
     margin-top: 10px;
     margin-bottom: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
-
-    color:black;
 }
 .bloqueInicioSesion > form >
 .contenedorBotonFormulario{
 
     border: none;
     border-radius: 0;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     margin: 0px;
     padding: 0px;
     margin-top: 15px;
@@ -64,22 +50,16 @@
 #nombreUsuarioIden{
 
     margin-right: 20px;
-    border-bottom: black 2px solid;
 }
 #nameIden{
-
-    color: white;
-    background-color:brown;
+    
     border-radius: 5px;
 }
 #contraUsuarioIden{
 
     margin-right: 75px;
-    border-bottom: black 2px solid;
 }
 #passwordIden{
 
-    color: white;
-    background-color:brown;
     border-radius: 5px;
 }

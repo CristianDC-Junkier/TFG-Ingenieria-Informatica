@@ -11,7 +11,7 @@
         <header>
             <h1> <img class="Logo" src="/TFG/img/dnd-banner.jpg" alt="Logo"/> </h1>
         </header>
-       <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
+        <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main> 
             <div>
                 <h6 id="Arriba" class = "BusquedaDote">
@@ -80,10 +80,7 @@
                 </div>
             </div>
         </main>
-        <footer>
-            &copy; 2023 Cristian Delgado Cruz
-            <a href="#A" >Subir Arriba</a>
-        </footer>
+        <jsp:include page="/WEB-INF/jsp/footer.jsp" />
         <script src="/TFG/js/principalJS.js"></script>
     </body>
 </html>

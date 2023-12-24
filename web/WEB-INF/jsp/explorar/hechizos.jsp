@@ -5,7 +5,7 @@
         <title class="titulosPag">Guidance4\Explorar\Hechizos</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="/TFG/css/explorar/hechizosCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/explorar/explorarlistaCss.css"/>
     </head>
     <body>
         <header>
@@ -21,12 +21,12 @@
                 <p></p>
                 <p>Lo importante es divertirse.</p>
             </div>
-            <div class="ContenedoresEquipo"> 
-                <div class="ContenedorEquipo">
-                    <div class="TituloBuscadorEquipo">Buscar Equipo 
+            <div class="contenedoresExplorar"> 
+                <div class="contenedorExplorarListas">
+                    <div class="tituloBuscadorExplorador">Buscar Equipo 
                         <button onclick="location.href = './propiedades.html'">Propiedades Explicación</button> 
                     </div>
-                    <form class="BuscadorEquipo">
+                    <form class="buscadorExplorar">
                         <select id="Selecttipo">
                             <option value="tipo" selected>Tipo de objeto</option>
                             <option value="tipo1">Armas</option>
@@ -67,7 +67,7 @@
                         <button onclick="guardarSeleccion()">Buscar</button>
                     </form>
                 </div>
-                <div class="ListasEquipo" id="pestañasSeccion">
+                <div class="listasExplorador" id="pestañasSeccion">
                     <div class="pestañasNavegacion">
                         <div class="pestaña" id="pestaña1">
                             <div class="ListaEquipo">
@@ -3286,15 +3286,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="ContenedorBotonesEquipo">
+                <div class="contenedorBotonesExplorador">
                     <div class="pestañasBotones" id="pestañaBotones">
                     </div>
                 </div>
             </div>
         </main>
-        <footer>
-            &copy; 2023 Cristian Delgado Cruz
-        </footer>
+        <jsp:include page="/WEB-INF/jsp/footer.jsp" />
 
         <script>
 

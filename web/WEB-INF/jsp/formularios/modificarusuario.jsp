@@ -131,13 +131,11 @@
                 </form>
             </div>
         </main>
-        <footer class="footerFormulario">
-            &copy; 2023 Cristian Delgado Cruz
-        </footer>
+        <jsp:include page="/WEB-INF/jsp/footer.jsp" />
         <script>
             let fechaNacimiento = new Date("${sessionScope.user.fechanac.getYear()+1900}-${sessionScope.user.fechanac.getMonth() + 1}-${sessionScope.user.fechanac.getDate()}");
-            let provinciaActual = "${sessionScope.user.provincia}";
-            let generoActual = "${sessionScope.user.genero}";
+                let provinciaActual = "${sessionScope.user.provincia}";
+                let generoActual = "${sessionScope.user.genero}";
         </script>
         <script src="/TFG/js/formularios/modificarusuarioJS.js"></script>
     </body>

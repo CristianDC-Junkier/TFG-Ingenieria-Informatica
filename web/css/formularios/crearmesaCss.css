@@ -1,74 +1,55 @@
 /*******Registro*******/
 
-.bloqueRegistro{
+.bloqueRegistroMesa{
 
     max-width: 80%;
     width: 400px;
     height: 30%;
     min-height: 250px;
-
     padding: 20px;
-
-    background-color: yellow;
     text-align: center;
-
-    font-family: Times New Roman;
-
-    border: brown 2px solid;
+    font-family: 'Times New Roman';
     border-radius: 5px 5px 5px 5px;
-    box-shadow: 5px 5px 5px 5px black;
-    background: linear-gradient(yellow,60%,white);
 }
-.bloqueRegistro > form > div{
+.bloqueRegistroMesa > form > div{
 
-    border: brown 2px solid;
     border-radius: 5px 5px 5px 5px;
-
     margin-top: 10px;
     margin-bottom: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
-
-    color:black;
 }
-.bloqueRegistro > form >
+.bloqueRegistroMesa > form >
 .contenedorBotonFormulario{
 
     border: none;
     border-radius: 0;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     margin: 0px;
     padding: 0px;
     margin-top: 15px;
 }
-.bloqueRegistro > form > div > div {
+.bloqueRegistroMesa > form > div > div {
 
     display: block;
     margin-bottom: 5px;
     text-align: left;
-
 }
-.bloqueRegistro label{
+.bloqueRegistroMesa label{
 
     margin-left: 10px;
     font-size: 15px;
-    border-bottom: black 2px solid;
 }
-.bloqueRegistro input{
+.bloqueRegistroMesa input{
 
     width: 150px;
-    color: white;
-    background-color:brown;
     border-radius: 5px;
 }
-.bloqueRegistro select{
+.bloqueRegistroMesa select{
+    
     width: 155px;
-    color: white;
-    background-color:brown;
     border-radius: 5px;
 }
 
@@ -92,12 +73,11 @@
     margin-left: 108px;
 }
 #desMesa{
+    
     margin-left: 116px;
     resize: none;
     height: 100px;
     width: 260px;
-    color: white;
-    background-color:brown;
     border-radius: 5px;
 }
 
@@ -125,17 +105,17 @@
 }
 
 @media screen and (max-width: 450px){
-    .bloqueRegistro input{
+    .bloqueRegistroMesa input{
         width: 100px;
         height: 20px;
         font-size: 10px;
     }
-    .bloqueRegistro select{
+    .bloqueRegistroMesa select{
         width: 85px;
         height: 20px;
         font-size: 10px;
     }
-    .bloqueRegistro label{
+    .bloqueRegistroMesa label{
         font-size: 8px;
         border-bottom: black 2px solid;
     }
@@ -159,17 +139,17 @@
 }
 
 @media screen and (max-width: 350px){
-    .bloqueRegistro input{
+    .bloqueRegistroMesa input{
         width: 100px;
         height: 20px;
         font-size: 10px;
     }
-    .bloqueRegistro select{
+    .bloqueRegistroMesa select{
         width: 85px;
         height: 20px;
         font-size: 10px;
     }
-    .bloqueRegistro label{
+    .bloqueRegistroMesa label{
         font-size: 8px;
         border-bottom: black 2px solid;
     }

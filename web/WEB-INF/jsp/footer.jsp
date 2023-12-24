@@ -5,6 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="/TFG/css/colorClaroCss.css" id="ColorSeleccionado"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/principalFooterCss.css"/>
     </head>
     <body>
         <footer>
@@ -14,7 +15,7 @@
                     <input type="checkbox" id="Color">
                     <span></span>
                 </div>
-                <div>
+                <div class="chat-seleccion">
                     <button >No implementado</button>
                 </div>
             </div>

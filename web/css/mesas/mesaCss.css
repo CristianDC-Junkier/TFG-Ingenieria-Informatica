@@ -1,10 +1,8 @@
-main{
+.mainMesa{
 
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: black;
-    color: white;
+    font-family: 'Times New Roman';
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -13,24 +11,18 @@ main{
 
 .cajaGeneral{
 
-    border: 2px solid black;
     border-radius: 5px;
     margin: 30px;
     padding: 20px;
     width: calc(100% - 60px);
-    background-color: black;
-    box-shadow: 1px 1px 1px 1px #555;
 }
 
 .cajaMesa{
 
-    border: 3px solid black;
     border-radius: 5px;
     margin: 10px;
     padding: 20px;
     width: calc(100% - 60px);
-    background-color: #ddd;
-    box-shadow: 1px 1px 1px 1px black;
 }
 
 .cajaMesa > h2{
@@ -38,12 +30,9 @@ main{
     font-size: 3.5vmin;
     font-weight: 300;
     letter-spacing: 1.5px;
-    color: yellowgreen;
     padding: 5px;
     margin-bottom: 5px;
-    border: solid 3px brown;
     border-radius: 5px;
-    background-color: black;
 
 }
 
@@ -65,8 +54,6 @@ main{
 
     width: 30vmin;
     height: 30vmin;
-    background-color: black;
-    border: 4px solid brown;
     border-radius: 50%;
     overflow: hidden;
     margin-top: 10px;
@@ -82,60 +69,43 @@ main{
 
 .cambiarMesa {
 
-    background-color: brown;
-    color: yellow;
     padding: 5px 10px;
     text-decoration: none;
     display: inline-block;
     margin-left: 0px;
     border-radius: 5px;
     cursor: pointer;
-
-    border: 2px solid brown;
     font-size: 2vmin;
 }
 
 .mesaDatos {
 
-    box-shadow: 1px 1px 1px 1px #555;
-    border: 2px solid brown;
-    background-color: #333;
     padding: 20px;
     border-radius: 10px;
     width: calc(100% - 55px);
     margin-top: 20px;
     margin-left: 10px;
-
     font-size: 2.5vmin;
-
     display: flex;
     flex-wrap: wrap;
 }
 
 .descripcionMesa {
 
-    box-shadow: 1px 1px 1px 1px #555;
     border: 3px solid brown;
-    background-color: #333;
     padding: 20px;
     border-radius: 10px;
     flex-grow: 1;
     margin-bottom: 20px;
     margin-top: 20px;
-    
     max-width: 30em;
-
     margin-right: 25px;
-    
-    border: 2px solid brown;
     font-size: 2vmin;
-    
     overflow-y: auto;
 }
 
 .descripcionMesa > div > span{
 
-    color:yellowgreen;
     font-style: italic;
     font-size: 2.5vmin;
 }
@@ -143,7 +113,6 @@ main{
 .etiqueta{
 
     font-size: 2.5vmin;
-    color:yellowgreen;
     width: 23%;
     font-style: italic;
     padding: 10px;
@@ -159,7 +128,6 @@ main{
 
 .mesaDatos > div > span{
 
-    color:yellowgreen;
     font-style: italic;
 }
 
@@ -171,8 +139,6 @@ main{
 
 .boton {
 
-    background-color: brown;
-    color: yellow;
     padding: 5px 10px;
     text-decoration: none;
     display: inline-block;
@@ -181,14 +147,11 @@ main{
     margin-top: 20px;
     border-radius: 5px;
     cursor: pointer;
-
     font-size: 2.5vmin;
 }
 
 .botonfinal {
 
-    background-color: brown;
-    color: yellow;
     padding: 5px 10px;
     text-decoration: none;
     display: inline-block;
@@ -197,7 +160,6 @@ main{
     cursor: pointer;
     margin-left: auto;
     margin-right: 5px;
-
     font-size: 2.5vmin;
 }
 
@@ -215,84 +177,12 @@ button:active{
 
     .cajaGeneral{
 
-        border: 2px solid #000;
         border-radius: 5px;
         margin: 5px;
         padding: 5px;
         padding-bottom: 20px;
         margin-bottom: 20px;
         width: calc(100% - 10px);
-        background-color: black;
-        box-shadow: 1px 1px 1px 1px #555;
     }
 }
 
-/*USUARIOS*/
-
-.datosMesa {
-
-    box-shadow: 1px 1px 1px 1px #555;
-    border: 3px solid brown;
-    background-color: #333;
-    padding: 20px;
-    border-radius: 10px;
-    flex-grow: 1;
-    margin-bottom: 20px;
-    margin-top: 20px;
-
-    border: 2px solid brown;
-    font-size: 2vmin;
-    
-    width: 100px;
-    overflow-y: auto;
-}
-
-.datosMesa table{
-
-    table-layout: fixed;
-    border-collapse: collapse;
-    text-align: center;
-
-}
-.datosMesa table tr{
-
-    border: 2px brown solid;
-    width: 100%;
-}
-.datosMesa table td{
-
-    text-align: center;
-    padding: 3px;
-    color: white;
-    width: 100%;
-    
-    font-size: 18px;
-
-}
-.datosMesa table tr:nth-child(odd) {
-
-    background-color: black;
-}
-
-.datosMesa table tr:nth-child(even) {
-
-    background-color: #333333;
-}
-.botonUsuarios{
-    
-    padding: 2px 2px;
-    border: brown 2px solid;
-    background-color: yellow;
-    border-radius: 5px;
-}
-
-.botonUsuarios:hover {
-
-    color:black;
-    transform: translateY(-0.1em);
-}
-
-.botonUsuarios:active {
-
-    transform: translateY(0.1em);
-}

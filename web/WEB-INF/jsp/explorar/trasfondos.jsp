@@ -130,10 +130,7 @@
             </div>
         </div>
     </main>
-    <footer>
-        &copy; 2023 Cristian Delgado Cruz
-        <a href="#Arriba" id="A">Subir Arriba</a>
-    </footer>
+    <jsp:include page="/WEB-INF/jsp/footer.jsp" />
     <script src="/TFG/js/principalJS.js"></script>
 </body>
 </html>

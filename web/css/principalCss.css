@@ -8,69 +8,33 @@
 }
 
 h2{
-    color:black;
     padding-left: 20px;
     padding-top: 20px;
     font-size: 25px;
     border-bottom: black 2px solid;
 }
 
-body{
-    background-color: gray;
-
-
-}
 header{
 
-    background-color:black;
-    border: white 1px solid;
     text-align: center;
 }
 
-nav{
-
-    background-color: black;
-    color: white;
-}
 main{
 
-    background-color: grey;
-    color: white;
     border-top: none;
     width: auto;
     height: auto;
 }
 section{
 
-    background-color: grey;
-    color: black;
     padding: 10px;
 
 }
 hr{
 
-    color:black;
     margin-bottom: 10px;
 }
 
-/*LO QUITARE*/
-footer  a{
-
-    color: white;
-    font-family: Times new roman;
-    text-decoration: none;
-    padding-right: 10px;
-    float:right;
-
-}
-footer  a:hover{
-
-    color: white;
-    font-family: Times new roman;
-    text-decoration: none;
-    padding-right: 10px;
-    float:right;
-}
 
 
 /*************************/
@@ -96,7 +60,6 @@ footer  a:hover{
 
     font-weight: 500;
     letter-spacing: 2px;
-    color: black;
 
     border: none;
 
@@ -105,11 +68,9 @@ footer  a:hover{
 }
 .explicacionesPestañas{
 
-    color:white;
     text-align: center;
     font-size: 18px;
 
-    background-color: black;
     padding: 10px;
 }
 
@@ -190,8 +151,6 @@ input:valid + span::after {
 }
 .barraHorizontal{
 
-    background-color: black;
-    color: white;
 
     font-family: Times new roman;
     font-size: 22px;
@@ -201,7 +160,7 @@ input:valid + span::after {
     z-index: 1;
 
     height: 25px;
-    border: white 5px outset;
+
     padding: 10px;
     margin-top: -9px;
 }
@@ -214,7 +173,6 @@ input:valid + span::after {
 
 .barraHorizontalContenido, .barraHorizontalContenido>a{
 
-    color: white;
     font-family: serif;
     text-decoration: none;
     margin: 0 10px;
@@ -225,21 +183,8 @@ input:valid + span::after {
     text-decoration: none;
 }
 
-.barraHorizontalContenido:hover{
-
-    border-bottom: yellow 2px inset
-}
-
-.barraHorizontalContenido.active, .barraHorizontalContenido.active > a{
-
-    color: yellow;
-}
-
-
-
 .BarraHorizontalContenidoFinal{
 
-    color: white;
     font-family: serif;
     text-decoration: none;
     font-size: 22px;
@@ -252,11 +197,6 @@ input:valid + span::after {
     word-spacing: 5px;
     margin-left:auto;
 }
-.BarraHorizontalContenidoFinal:hover{
-
-    border-bottom: yellow 2px inset
-}
-
 
 /*******************************/
 /*******Bloques de la barra*****/
@@ -274,13 +214,10 @@ input:valid + span::after {
     position: absolute;
     width: 85%;
 
-    background-color: black;
     overflow: auto;
-    box-shadow: 5px 5px 5px 0px darkgrey;
 
     border-top: none;
     border-radius: 0px 0px 10px 10px;
-    border-bottom: white 2px double;
 
     font-size: 14px;
     padding-top: 5px;
@@ -297,18 +234,11 @@ input:valid + span::after {
 .barraHorizontalContenidoDrop > a {
 
     display: block;
-    color: white;
     padding: 5px;
     text-decoration: none;
     border-left: white 1px dashed;
     border-right: white 2px double;
 
-}
-.barraHorizontalContenidoDrop > a:hover {
-
-    border-left: yellow 1px dashed;
-    border-right: yellow 2px double;
-    color: yellowgreen;
 }
 
 
@@ -316,20 +246,12 @@ input:valid + span::after {
 /*******Barra Vertical**********/
 /*******************************/
 
-.menuVertical{
-
-    background-color: gray;
-}
-
 .barraVertical{
 
     display:none;
     position: absolute;
     z-index: 2;
 
-    background-color: black;
-
-    border: 2px solid white;
     border-radius: 0px 0px 15px 15px;
 
     overflow: hidden;
@@ -367,16 +289,9 @@ input:valid + span::after {
 .barraVerticalUno li div{
 
     text-decoration: none;
-    color: white;
     font-family: sans-serif;
 
 }
-.barraVerticalUno li > div > a:hover {
-
-    border-bottom: yellow 2px solid;
-
-}
-
 /******Dropea la lista*****/
 
 .unoDrop.primero:hover{
@@ -401,19 +316,13 @@ input:valid + span::after {
 .barraVerticalDos  li{
 
     margin-left: 10px;
-    color:white;
     font-size: 13px;
     list-style: none;
 }
 .barraVerticalDos  li  a:hover{
 
-    color: yellowgreen;
     margin-left: 10px;
 
-}
-.barraVerticalContenido.active, .barraVerticalContenido.active > a{
-
-    color: yellow;
 }
 
 /**************************************/
@@ -422,22 +331,7 @@ input:valid + span::after {
 
 .botonMenuVertical{
 
-    color: black;
-    background-color: yellow;
     padding: 0.1vmin 5vmin;
     font-size: 2.5vmin;
 
-}
-
-/**************************************/
-/***********Tener peticion*************/
-/**************************************/
-
-.barraHorizontalContenido.tienesPeticion, barraHorizontalContenido.tienesPeticion > a{
-
-    color: #ff9900;
-}
-.barraHorizontalContenidoDrop > a.tienesPeticion{
-    
-    color: #ff9900;
 }

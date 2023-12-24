@@ -9,44 +9,27 @@
 .EleccionInicio {
 
     display: block;
-
     margin: 30px;
     margin-top: 0px;
-
     height: auto;
     width: 80vmin;
-
-    background-color: black;
     padding: 20px;
     padding-bottom: 60px;
-
     font-family: Times New Roman;
-
-    border: dimgray 2px solid;
     border-radius: 0px 0px 5px 5px;
     text-align: center;
-    box-shadow: 5px 5px 5px 5px black;
 }
 .EleccionInicio > h2{
-
-    color:black;
-    background-color:yellow;
 
     font-size: 30px;
     font-weight: 500;
     letter-spacing: 1.5px;
-
     border-radius: 5px;
-    border: brown 2px solid;
-    box-shadow: 1px 1px 1px 1px brown;
-
     padding-bottom: 20px;
-
 }
 
 .EleccionInicio > p{
 
-    color:white;
     padding-top: 50px;
     margin-left: 25px;
     font-size: 20px;
@@ -57,10 +40,6 @@
     margin-top: 25px;
     margin-left: 25px;
     padding: 10px 20px;
-
-    background-color: yellow;
-    color: black;
-    border: brown 2px double;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -69,16 +48,11 @@
     margin-top: 25px;
     margin-left: 25px;
     padding: 10px 26px;
-
-    background-color: yellow;
-    color: black;
-    border: brown 2px double;
     border-radius: 5px;
     cursor: pointer;
 }
 .botonInicioSesion:hover, .botonRegistro:hover {
 
-    background-color: yellowgreen;
     transform: translateY(-0.1em);
 }
 
@@ -115,21 +89,13 @@
 .TextoInicio {
 
     text-align: center;
-
-    background: black;
-    border: dimgray 2px solid;
-    box-shadow: 5px 5px 5px 5px black;
-
     width: 100%;
     height: 55%;
-
     margin-left: 100px;
     margin-top: 175px;
     margin-right: 20px;
-
     padding-top: 10px;
     padding-left: 10px;
-
     font-size: 18px;
 }
 
@@ -148,14 +114,8 @@
     margin-top: 10px;
     margin-right: 20px;
     padding: 8px 8px;
-
-    background-color: yellow;
-    color: black;
-    border: brown 2px double;
     border-radius: 15px;
-
     cursor: pointer;
-
     font-size: 18px;
 }
 @media screen and (max-width: 1455px)and (min-width: 1200px) {

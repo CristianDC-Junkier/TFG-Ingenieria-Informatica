@@ -12,7 +12,7 @@
     </head>
     <body>
         <main class="contenedorFormulario">
-            <div class="bloqueRegistro">
+            <div class="bloqueRegistroMesa">
                 <h2 class="TitulosFormulario">Crear Mesa</h2>
                 <form id = formRegistro action="/TFG/Mesas/crearMesa" method="POST">
                     <c:choose>
@@ -84,8 +84,6 @@
                 </form>
             </div>
         </main>
-        <footer class="footerFormulario">
-            &copy; 2023 Cristian Delgado Cruz
-        </footer>
+        <jsp:include page="/WEB-INF/jsp/footer.jsp" />
     </body>
 </html>

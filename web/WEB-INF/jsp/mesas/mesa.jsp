@@ -9,13 +9,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/mesaCss.css"/>
         <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/listaUsuariosenMesaCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/comunMesasCss.css"/>
     </head>
     <body>
         <header>
             <h1> <img class="Logo" src="/TFG/img/dnd-banner.jpg" alt="Logo"/> </h1>
         </header>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
-        <main>
+        <main class="mainMesa">
             <div class="cajaGeneral">
                 <div class="cajaMesa">
                     <h2>${requestScope.mesa.titulo}</h2>
@@ -62,7 +63,6 @@
                                                         <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
                                                     </div>
                                                     <hr>
-
                                                     <button class="botonDentro" onclick="location.href = '/TFG/Mesas/eliminardeMesa?id=${requestScope.mesa.id}&usuario=${usuario.id}'">Si</button>
                                                     <button class="botonDentro" onclick="cerrarRecuadro2()">No</button>
                                                 </div>
@@ -126,9 +126,7 @@
                 </c:choose>
             </div>
         </main>
-        <footer>
-            &copy; 2023 Cristian Delgado Cruz
-        </footer>
+        <jsp:include page="/WEB-INF/jsp/footer.jsp" />
         <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
         <script src="/TFG/js/principalJS.js"></script>
     </body>

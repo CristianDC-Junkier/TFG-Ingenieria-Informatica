@@ -16,9 +16,7 @@
             <h2 class="Titulos">Objetos Mágicos</h2>
             <hr color="black">
         </main>
-        <footer>
-            &copy; 2023 Cristian Delgado Cruz
-        </footer>
+        <jsp:include page="/WEB-INF/jsp/footer.jsp" />
         <script src="/TFG/js/principalJS.js"></script>
     </body>
 </html>

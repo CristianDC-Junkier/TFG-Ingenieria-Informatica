@@ -117,9 +117,6 @@
                 </div>
             </div>
         </main>
-        <footer>
-            &copy; 2023 Cristian Delgado Cruz 
-            <a href="#A">Subir Arriba</a>
-        </footer>
+        <jsp:include page="/WEB-INF/jsp/footer.jsp" />
     </body>
 </html>

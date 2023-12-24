@@ -14,7 +14,7 @@
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main> 
             <div>
-                <h6 id="Arriba" class = "BusquedaTrasfondos">
+                <h6 id="Arriba" class = "BusquedaEstados">
                     <a href="#Aa" id="A">&nbsp;&nbsp;A</a>
                     <a href="#B">&nbsp;&nbsp;B</a>
                     <a href="#C">&nbsp;&nbsp;C</a>
@@ -39,11 +39,11 @@
                     <p>Lo importante es divertirse.</p>
                 </div>
                 <div>
-                    <div class="ResumenTrasfondo">
-                        <div class="NombreTrasfondo">
+                    <div class="ResumenEstado">
+                        <div class="NombreEstado">
                             <h5 id="Aa">Ácolito</h5>
                         </div>
-                        <div class="TextoTrasfondo">
+                        <div class="TextoEstado">
                             <p>Muchas organizaciones activas en el Norte y por 
                                 toda la faz de Faerun no se ven limitadas por los 
                                 límites de la geografía. Estas facciones siguen sus 
@@ -69,11 +69,11 @@
                                 hacerlo) y puede hasta mejorar tu posición en ella.</p>
                         </div>
                     </div>
-                    <div class="ResumenTrasfondo">
-                        <div class="NombreTrasfondo">
+                    <div class="ResumenEstado">
+                        <div class="NombreEstado">
                             <h5>Agente de una Facción</h5>
                         </div>
-                        <div class="TextoTrasfondo">
+                        <div class="TextoEstado">
                             <p>Has pasado tu vida al servicio de un templo 
                                 dedicado a un dios o panteón específico. Actúas 
                                 como intermediario entre el reino de lo sagrado y el 
@@ -97,11 +97,11 @@
                                 del que ahora reniegas.</p>
                         </div>
                     </div>
-                    <div class="ResumenTrasfondo">
-                        <div class="NombreTrasfondo">
+                    <div class="ResumenEstado">
+                        <div class="NombreEstado">
                             <h5>Agente de una Facción</h5>
                         </div>
-                        <div class="TextoTrasfondo">
+                        <div class="TextoEstado">
                             <p>Has pasado tu vida al servicio de un templo 
                                 dedicado a un dios o panteón específico. Actúas 
                                 como intermediario entre el reino de lo sagrado y el 
@@ -129,10 +129,7 @@
             </div>
         </div>
     </main>
-    <footer>
-        &copy; 2023 Cristian Delgado Cruz
-        <a href="#Arriba" id="A">Subir Arriba</a>
-    </footer>
+    <jsp:include page="/WEB-INF/jsp/footer.jsp" />
     <script src="/TFG/js/principalJS.js"></script>
 </body>
 </html>

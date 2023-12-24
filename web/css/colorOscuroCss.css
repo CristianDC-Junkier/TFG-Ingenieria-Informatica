@@ -1,7 +1,1159 @@
 
 
-footer{
-    
+
+h2{
+    color:black;
+    border-bottom: black 2px solid;
+}
+
+body{
+    background-color: gray;
+}
+header{
+
+    background-color:black;
+    border: white 1px solid;
+}
+
+nav{
+
     background-color: black;
     color: white;
+}
+main{
+
+    background-color: grey;
+    color: white;
+}
+section{
+    background-color: grey;
+    color: black;
+}
+hr{
+    color:black;
+}
+
+
+footer{
+
+    background-color: black;
+    color: white;
+}
+
+
+/***************************************************************************************************/
+/***********************************************TITULOS*********************************************/
+/***************************************************************************************************/
+
+.Titulos{
+
+    color: black;
+}
+.explicacionesPestañas{
+
+    color:white;
+    background-color: black;
+}
+
+/***************************************************************************************************/
+/*********************************************RECUADROS*********************************************/
+/***************************************************************************************************/
+
+.opcionRecuadro {
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.contenidoRecuadro {
+
+    border: 0.8vmin  brown ridge;
+    background-color: black;
+    color: white;
+}
+
+.tituloRecuadro{
+
+    color: yellow;
+}
+
+.cierreRecuadro {
+
+    color: yellow;
+}
+.cierreRecuadro:hover {
+
+    color: yellowgreen;
+}
+.contenidoRecuadro > hr {
+
+    background: yellow;
+}
+
+/***************************************************************************************************/
+/*******************************************NAVEGACION**********************************************/
+/***************************************************************************************************/
+
+
+.barraHorizontal{
+
+    background-color: black;
+    color: white;
+    border: white 5px outset;
+}
+
+/*******************************/
+/*******Barra Horizontal********/
+/*******************************/
+
+.barraHorizontalContenido, .barraHorizontalContenido>a{
+
+    color: white;
+}
+
+.barraHorizontalContenido:hover{
+
+    border-bottom: yellow 2px inset
+}
+
+.barraHorizontalContenido.active, .barraHorizontalContenido.active > a{
+
+    color: yellow;
+}
+
+.BarraHorizontalContenidoFinal{
+    color: white;
+}
+
+.BarraHorizontalContenidoFinal:hover{
+
+    border-bottom: yellow 2px inset
+}
+
+
+/*******************************/
+/*******Bloques de la barra*****/
+/*******************************/
+
+.barraHorizontalContenidoDrop {
+
+    background-color: black;
+    box-shadow: 5px 5px 5px 0px darkgrey;
+}
+
+.barraHorizontalContenidoDrop > a {
+
+    color: white;
+}
+
+.barraHorizontalContenidoDrop > a:hover {
+
+    color: yellowgreen;
+}
+.barraHorizontalContenidoDrop > a:hover {
+
+    border-left: yellow 1px dashed;
+    border-right: yellow 2px double;
+}
+
+
+/*******************************/
+/*******Barra Vertical**********/
+/*******************************/
+
+.menuVertical{
+
+    background-color: gray;
+}
+
+.barraVertical{
+
+    background-color: black;
+}
+
+.barraVerticalUno li a,
+.barraVerticalUno li div{
+    color: white;
+}
+
+.barraVerticalUno li > div > a:hover {
+
+    border-bottom: yellow 2px solid;
+
+}
+
+/*******************************/
+/*******Lista Sobre Lista*******/
+/*******************************/
+
+.barraVerticalDos  li{
+
+    color:white;
+}
+.barraVerticalDos  li  a:hover{
+
+    color: yellowgreen;
+}
+.barraVerticalContenido.active, .barraVerticalContenido.active > a{
+
+    color: yellow;
+}
+
+/**************************************/
+/*******Boton abrir Menu Vertical******/
+/**************************************/
+
+.botonMenuVertical{
+
+    color: black;
+    background-color: yellow;
+
+}
+
+/**************************************/
+/***********Tener peticion*************/
+/**************************************/
+
+.barraHorizontalContenido.tienesPeticion, barraHorizontalContenido.tienesPeticion > a{
+
+    color: #ff9900;
+}
+.barraHorizontalContenidoDrop > a.tienesPeticion{
+
+    color: #ff9900;
+}
+
+/***************************************************************************************************/
+/***********************************************INICIO**********************************************/
+/***************************************************************************************************/
+
+.EleccionInicio {
+
+    background-color: black;
+    border: dimgray 2px solid;
+    box-shadow: 5px 5px 5px 5px black;
+}
+.EleccionInicio > h2{
+
+    color:black;
+    background-color:yellow;
+    border: brown 2px solid;
+    box-shadow: 1px 1px 1px 1px brown;
+}
+
+.EleccionInicio > p{
+
+    color:white;
+}
+
+.botonInicioSesion {
+
+    background-color: yellow;
+    color: black;
+    border: brown 2px double;
+
+}
+.botonRegistro {
+
+    background-color: yellow;
+    color: black;
+    border: brown 2px double;
+}
+.botonInicioSesion:hover, .botonRegistro:hover {
+
+    background-color: yellowgreen;
+}
+
+.TextoInicio {
+
+    background: black;
+    border: dimgray 2px solid;
+    box-shadow: 5px 5px 5px 5px black;
+}
+
+.botonIntroducción{
+
+    background-color: yellow;
+    color: black;
+    border: brown 2px double;
+}
+
+/***************************************************************************************************/
+/***********************************************INTRODUCCION****************************************/
+/***************************************************************************************************/
+
+
+.bloqueIntroduccion {
+
+    background-color: gray;
+    margin-top: -25px;
+}
+.columnasIntroducion h1 {
+
+    color:yellow;
+}
+.columnasIntroducion p {
+
+    color: white;
+}
+.contenedorAnimacion {
+
+
+    border-image: linear-gradient(-25deg, #440501, yellow,
+        yellowgreen, #440501, yellowgreen, yellow, #440501) 1;
+}
+.contenedorFueraAnimacion {
+
+    background: #440501;
+
+}
+.contenidoFueraAnimacion {
+
+    border-image:
+        linear-gradient(
+        to bottom,
+        yellow 5%,
+        yellowgreen 35% 65%,
+        yellow 95%
+        ) 0 0 0 100%;
+}
+.contenidoDentroAnimacion {
+
+    box-shadow: inset 1px 1px 15px 0 rgba(0 0 0 / .4);
+    background: black;
+
+}
+
+/***************************************************************************************************/
+/*****************************************EXPLORAR:CLASES*******************************************/
+/***************************************************************************************************/
+
+.BusquedaClase{
+
+    background-color: yellow;
+    color: black;
+    border:yellow 2px solid;
+    border-bottom: black 3px  ridge;
+
+}
+.BusquedaClase > a{
+
+    color: black;
+
+}
+/**************************************/
+/***************Lista Clases***********/
+/**************************************/
+
+
+.ResumenClase > h5{
+
+    background-color: brown;
+    color:yellowgreen;
+    border: black 4px ridge;
+
+}
+.ResumenClase > li{
+
+    background-color: black;
+    border: brown 3px outset;
+
+}
+.ResumenClase > li > img{
+
+    border: brown 2px solid;
+}
+/**************************************/
+/**************Lista Dotes*************/
+/**************************************/
+
+.ListaDotes h4{
+
+    color:yellowgreen;
+    border: black 4px ridge;
+    background: brown;
+}
+.tituloDote{
+
+    background-color: black;
+    border: brown 3px solid;
+    color:yellow;
+}
+.ResumenDote ul{
+
+    color: white;
+}
+.ContenidoDote{
+
+    background-color: black;
+    color: white;
+}
+.RequisitoDote{
+
+    color:yellowgreen;
+}
+.ResumenDote:hover h5{
+
+    color:yellowgreen;
+}
+
+/***************************************************************************************************/
+/******************************EXPLORAR:EQUIPO/HECHIZOS/MONSTRUOS***********************************/
+/***************************************************************************************************/
+
+/****************************************/
+/*********Barra arriba Explorar**********/
+/****************************************/
+
+.contenedorExplorarListas {
+
+    border: 2px solid brown;
+    background: black;
+}
+
+.tituloBuscadorExplorador {
+
+    color:yellow;
+}
+
+.tituloBuscadorExplorador button{
+
+    color:white;
+    background-color: brown;
+}
+
+.tituloBuscadorExplorador > button:hover {
+
+    background-color: yellowgreen;
+}
+
+.buscadorExplorar select {
+
+    border: brown 2px solid;
+    color:white;
+    background-color: #333333;
+}
+
+.buscadorExplorar button {
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+
+.buscadorExplorar > button:hover {
+
+    background-color: yellowgreen;
+}
+
+
+/****************************************/
+/*************Lista Explorar*************/
+/****************************************/
+
+.listasExplorador{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+.ListaEquipo h3{
+
+    color:white;
+    background: black;
+}
+
+.ListaEquipo h4{
+
+    color:yellow;
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+}
+.ListaEquipo h5{
+
+    color:yellow;
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+}
+
+/**************************************/
+/****************Tabla*****************/
+/**************************************/
+
+.diseñoTabla table tr{
+
+    border: 2px brown solid;
+}
+.diseñoTabla table td{
+
+    text-align: center;
+    color: white;
+
+}
+.diseñoTabla table tr:nth-child(odd) {
+
+    background-color: black;
+}
+
+.diseñoTabla table tr:nth-child(even) {
+
+    background-color: #333333;
+}
+
+/**************************************/
+/***************Botones****************/
+/**************************************/
+
+.contenedorBotonesExplorador{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+.botonArriba{
+
+    border: 2px solid brown;
+    background: yellow;
+    color: brown;
+}
+
+
+/**************************************/
+/*****************IDS******************/
+/**************************************/
+#Actual{
+
+    background: yellowgreen;
+}
+
+/******************************************************************************************************/
+/*****************************************EXPLORAR:TRASFONDOS******************************************/
+/******************************************************************************************************/
+
+/**************************************/
+/*******Barra arriba Trasfondos********/
+/**************************************/
+
+.BusquedaTrasfondos{
+
+    background-color: yellow;
+    color: black;
+    border:yellow 2px solid;
+    border-bottom: black 3px  ridge;
+
+}
+.BusquedaTrasfondos > a{
+
+    color: black;
+}
+
+/**************************************/
+/***********Lista Trasfondos***********/
+/**************************************/
+
+.ResumenTrasfondo{
+
+    border: brown 3px outset;
+}
+.NombreTrasfondo{
+
+    color:black;
+    border: brown 2px solid;
+    border-right: brown 5px solid;
+    background: linear-gradient(yellowgreen,60%,yellow);
+}
+.TextoTrasfondo{
+
+    background-color: black;
+}
+
+/***************************************************************************************************/
+/*****************************************EXPLORAR:ESTADOS******************************************/
+/***************************************************************************************************/
+
+/**************************************/
+/*******Barra arriba Estados***********/
+/**************************************/
+
+.BusquedaEstados{
+
+    background-color: yellow;
+    color: black;
+    border:yellow 2px solid;
+    border-bottom: black 3px  ridge;
+
+}
+.BusquedaEstados > a{
+
+    color: black;
+}
+
+/**************************************/
+/***********Lista Estados**************/
+/**************************************/
+
+.ResumenEstado{
+
+    border: brown 3px outset;
+}
+.NombreEstado{
+
+    color:black;
+    border: brown 2px solid;
+    border-right: brown 5px solid;
+    background: linear-gradient(yellowgreen,60%,yellow);
+}
+.TextoEstado{
+
+    background-color: black;
+}
+
+
+/***************************************************************************************************/
+/*****************************************EXPLORAR:RAZAS********************************************/
+/***************************************************************************************************/
+
+/**************************************/
+/**********Barra arriba Razas**********/
+/**************************************/
+
+.BusquedaRazas{
+
+    background-color: yellow;
+    color: black;
+    border:yellow 2px solid;
+    border-bottom: black 3px  ridge;
+}
+.BusquedaRazas > a{
+
+    color: black;
+}
+/**************************************/
+/***************Lista Razas************/
+/**************************************/
+
+.ResumenRazas > h3{
+
+    color: white;
+    border: brown 5px outset;
+    background: black;
+}
+.ResumenRazas > h3 > input{
+
+    color:black;
+    background-color:white;
+    border: solid 1px black;
+}
+.ResumenRazas > hr{
+
+    color:black;
+}
+.ListaRazas > h3{
+
+    color:yellowgreen;
+    background: brown;
+}
+.ResumenRaza{
+
+    border: 3px solid brown;
+}
+
+.ResumenRaza img {
+
+    border-bottom: 3px solid brown;
+}
+
+.ContenidoRaza {
+
+    background-color: black;
+}
+
+.TituloRaza {
+
+    color: yellow;
+    border-bottom: 2px brown solid;
+}
+
+.ContenidoRaza {
+
+    color: white;
+}
+
+/***************************************************************************************************/
+/******************************************FORMULARIOS**********************************************/
+/***************************************************************************************************/
+
+input[type="button"]:hover {
+
+    color: yellowgreen;
+}
+
+input[type="button"]:active {
+
+    color: yellowgreen;
+}
+.TitulosFormulario{
+
+    background-color: black;
+    color: white;
+    border: brown 2px solid;
+    border-bottom: brown 4px solid;
+}
+.contenedorFormulario{
+
+    border-top: black solid 25px;
+}
+
+/*******************************/
+/*******FORMULARIOS: Id's*******/
+/*******************************/
+
+#recuperarContrasena,#recuperarUsuario{
+
+    background-color: black;
+    color: white;
+    border: black 3px solid;
+    box-shadow: 1px 1px 1px 1px brown;
+}
+#botonVolverFormulario{
+
+    background-color: black;
+    color: white;
+    border: black 3px solid;
+    box-shadow: 1px 1px 1px 1px brown;
+}
+#botonEnviar{
+
+    background-color: black;
+    color: white;
+    border: black 3px solid;
+    box-shadow: 1px 1px 1px 1px brown;
+}
+#recuperarContrasena:hover,#recuperarUsuario:hover,#botonVolverFormulario:hover,#botonEnviar:hover{
+
+    color:yellowgreen;
+}
+
+/********************************************************************************************************/
+/****************************************FORMULARIOS:REGISTRO********************************************/
+/********************************************************************************************************/
+
+.bloqueRegistro{
+
+    background-color: yellow;
+    border: brown 2px solid;
+    box-shadow: 5px 5px 5px 5px black;
+    background: linear-gradient(yellow,60%,white);
+}
+.bloqueRegistro > form > div{
+
+    border: brown 2px solid;
+    color:black;
+}
+.bloqueRegistro label{
+
+    border-bottom: black 2px solid;
+}
+.bloqueRegistro input{
+
+    color: white;
+    background-color:brown;
+}
+.bloqueRegistro select{
+    color: white;
+    background-color:brown;
+}
+
+
+/********************************************************************************************************/
+/*************************************FORMULARIOS:INICIO SESION******************************************/
+/********************************************************************************************************/
+
+
+.bloqueInicioSesion {
+
+    background-color: yellow;
+    border: brown 2px solid;
+    box-shadow: 5px 5px 5px 5px black;
+    background: linear-gradient(yellow,60%,white);
+}
+.bloqueInicioSesion > form > div{
+
+    border: brown 2px solid;
+    color:black;
+}
+
+/***********************************/
+/************INICIO: Id's***********/
+/***********************************/
+
+#nombreUsuarioIden{
+
+    border-bottom: black 2px solid;
+}
+#nameIden{
+
+    color: white;
+    background-color:brown;
+}
+#contraUsuarioIden{
+
+    border-bottom: black 2px solid;
+}
+#passwordIden{
+
+    color: white;
+    background-color:brown;
+}
+
+/********************************************************************************************************/
+/*************************************FORMULARIOS:RECUPERAR DATOS****************************************/
+/********************************************************************************************************/
+
+
+.bloqueRecuperar{
+
+    background-color: yellow;
+    border: brown 2px solid;
+    box-shadow: 5px 5px 5px 5px black;
+    background: linear-gradient(yellow,60%,white);
+}
+.bloqueRecuperar > form > div{
+
+    border: brown 2px solid;
+    color:black;
+}
+
+/************************************/
+/********RECUPERAR DATOS: Id's*******/
+/************************************/
+
+#correoUsuarioRC{
+
+    border-bottom: black 2px solid;
+}
+#emailRC{
+
+    color: white;
+    background-color:brown;
+}
+#nombreUsuarioRC{
+
+    border-bottom: black 2px solid;
+}
+#userRC{
+
+    color: white;
+    background-color:brown;
+}
+#contraseñaRC{
+
+    border-bottom: black 2px solid;
+}
+#passwordRC{
+
+    color: white;
+    background-color:brown;
+}
+#contraseñarpRC{
+
+    border-bottom: black 2px solid;
+}
+#passwordrpRC{
+
+    color: white;
+    background-color:brown;
+}
+
+/***************************************************************************************************/
+/**********************************FORMULARIOS:REGISTRO MESA****************************************/
+/***************************************************************************************************/
+
+.bloqueRegistroMesa{
+
+    background-color: yellow;
+    border: brown 2px solid;
+    box-shadow: 5px 5px 5px 5px black;
+    background: linear-gradient(yellow,60%,white);
+}
+.bloqueRegistroMesa > form > div{
+
+    border: brown 2px solid;
+    color:black;
+}
+.bloqueRegistroMesa label{
+
+    border-bottom: black 2px solid;
+}
+.bloqueRegistroMesa input{
+
+    color: white;
+    background-color:brown;
+}
+.bloqueRegistroMesa select{
+
+    color: white;
+    background-color:brown;
+}
+
+/****************************************/
+/***********REGISTRO MESA: Id's**********/
+/****************************************/
+
+#desMesa{
+
+    color: white;
+    background-color:brown;
+}
+
+
+/***************************************************************************************************/
+/**********************************LISTAS USUARIOS EN MESAS*****************************************/
+/***************************************************************************************************/
+
+.botonDentro{
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+
+.botonDentro:hover {
+
+    background-color: yellowgreen;
+}
+
+/***********************************/
+/*********+****Usuarios*************/
+/***********************************/
+.datosMesa {
+
+    box-shadow: 1px 1px 1px 1px #555;
+    border: 3px solid brown;
+    background-color: #333;
+    border: 2px solid brown;
+}
+.datosMesa table tr{
+
+    border: 2px brown solid;
+}
+.datosMesa table td{
+
+    color: white;
+}
+.datosMesa table tr:nth-child(odd) {
+
+    background-color: black;
+}
+
+.datosMesa table tr:nth-child(even) {
+
+    background-color: #333333;
+}
+.botonUsuarios{
+    
+    border: brown 2px solid;
+    background-color: yellow;
+}
+
+.botonUsuarios:hover {
+
+    color:black;
+}
+
+/***************************************************************************************************/
+/***********************************************MESA************************************************/
+/***************************************************************************************************/
+
+.mainMesa{
+
+    background-color: black;
+    color: white;
+}
+
+.cajaGeneral{
+
+    border: 2px solid black;
+    background-color: black;
+    box-shadow: 1px 1px 1px 1px #555;
+}
+
+.cajaMesa{
+
+    border: 3px solid black;
+    background-color: #ddd;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+.cajaMesa > h2{
+
+    color: yellowgreen;
+    border: solid 3px brown;
+    background-color: black;
+
+}
+.mesa-foto {
+
+    background-color: black;
+    border: 4px solid brown;
+}
+.cambiarMesa {
+
+    background-color: brown;
+    color: yellow;
+    border: 2px solid brown;
+}
+
+.mesaDatos {
+
+    box-shadow: 1px 1px 1px 1px #555;
+    border: 2px solid brown;
+    background-color: #333;
+}
+
+.descripcionMesa {
+
+    box-shadow: 1px 1px 1px 1px #555;
+    border: 3px solid brown;
+    background-color: #333;
+    border: 2px solid brown;
+}
+
+.descripcionMesa > div > span{
+
+    color:yellowgreen;
+}
+
+.etiqueta{
+    
+    color:yellowgreen;
+}
+.mesaDatos > div > span{
+
+    color:yellowgreen;
+}
+
+.boton {
+
+    background-color: brown;
+    color: yellow;
+}
+
+.botonfinal {
+
+    background-color: brown;
+    color: yellow;
+}
+
+@media screen and (max-width: 500px){
+
+    .cajaGeneral{
+
+        border: 2px solid #000;
+        background-color: black;
+        box-shadow: 1px 1px 1px 1px #555;
+    }
+}
+
+/***************************************************************************************************/
+/*****************************************LISTA MESAS***********************************************/
+/***************************************************************************************************/
+
+/*****************************/
+/********Busqueda mesa********/
+/*****************************/
+
+.contenedorMesa{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+.tituloBuscadorMesa {
+
+    color:yellow;
+}
+
+.buscadorMesa input{
+
+    background-color: brown;
+    color:white;
+}
+
+.buscadorMesa select {
+
+    border: brown 2px solid;
+    color:white;
+    background-color: #333333;
+}
+.buscadorMesa button {
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+.buscadorMesa  button:hover {
+
+    background-color: yellowgreen;
+}
+
+.buscadorMesa  button:active {
+
+    transform: translateY(0.1em);
+}
+
+/*******************************/
+/**********Lista Mesas**********/
+/*******************************/
+
+.listasMesa{
+
+
+    border: 2px solid brown;
+    background: black;
+}
+.listaMesa h3{
+
+    color:white;
+    background: black;
+}
+.listaMesa h4{
+
+    color:yellow;
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+}
+
+/*******************************/
+/*************Fotos*************/
+/*******************************/
+
+.mesa-foto {
+    
+    background-color: black;
+    border: 4px solid brown;
+}
+
+/*******************************/
+/*************Botones*************/
+/*******************************/
+.contenedorBotonesMesa{
+
+    border: 2px solid brown;
+    background: black;
+
+}
+#botonLleno.estalleno  {
+
+    border: brown 2px solid;
+    background-color: yellowgreen;
+}
+#botonLleno.estalleno:hover {
+    background-color: yellowgreen;
+}
+
+#botonLleno.noestalleno:hover {
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+
+#botonLleno.noestalleno:hover {
+    background-color: yellowgreen;
 }

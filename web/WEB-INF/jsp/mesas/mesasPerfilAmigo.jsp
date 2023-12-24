@@ -6,8 +6,8 @@
     <title class="titulosPag">Guidance4\Mis_Mesas</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/mesasPerfilAmigoCss.css"/>
-    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/listasMesasCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/mesasPerfilCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/comunMesasCss.css"/>
 </head>
 <body>
     <header>
@@ -106,9 +106,7 @@
             </div>
         </div> 
     </main>
-    <footer>
-        &copy; 2023 Cristian Delgado Cruz
-    </footer>
+    <jsp:include page="/WEB-INF/jsp/footer.jsp" />
     <script>
         //Recoger Datos
         let orden = '<%= request.getAttribute("orden")%>';

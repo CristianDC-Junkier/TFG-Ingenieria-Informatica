@@ -26,7 +26,7 @@
                             <input type="password" id="passwordIden" name="usuario_contrasena" required>
                         </div>
                         <c:if test="${requestScope.msj!=null}">
-                                ${requestScope.msj}
+                            ${requestScope.msj}
                         </c:if>
                         <div>
                             <p>¿Olvidaste tu usuario o tu contraseña?</p>
@@ -43,8 +43,6 @@
                 </form>
             </div>
         </main>
-        <footer class="footerFormulario">
-            &copy; 2023 Cristian Delgado Cruz
-        </footer>
+        <jsp:include page="/WEB-INF/jsp/footer.jsp" />
     </body>
 </html>

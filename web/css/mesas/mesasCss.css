@@ -1,85 +1,12 @@
-.contenedoresMesa{
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/**********Barra arriba Equipo************/
-
-.contenedorMesa{
-
-    border: 2px solid brown;
-    border-radius: 5px;
-    background: black;
-
-    margin: 10px;
-    margin-bottom: 20px;
-    margin-top: 25px;
-
-    padding: 10px;
-
-    width: 95%;
-    box-sizing: border-box;
-
-}
-
-.tituloBuscadorMesa {
-
-    color:yellow;
-    margin-left: 10px;
-    font-weight: bold;
-    margin-left: 20px;
-    font-size: 20px;
-}
-
-.buscadorMesa{
-
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-    margin-left: 20px;
-
-}
-.buscadorMesa input{
-
-    background-color: brown;
-    color:white;
-}
-
-.buscadorMesa select {
-
-    border: brown 2px solid;
-    color:white;
-    background-color: #333333;
-    width: 68%;
-    margin-bottom: 10px;
-}
 
 .buscadorMesa button {
 
     margin-bottom: 10px;
     margin-right:  10px;
     padding: 5px 5px;
-
     border-radius: 10px;
-    border: brown 2px solid;
-
-    background-color: yellow;
     width: 10%;
-}
-
-.buscadorMesa > button:hover {
-
-    background-color: yellowgreen;
-    transform: translateY(-0.1em);
-}
-
-.buscadorMesa > button:active {
-
-    transform: translateY(0.1em);
 }
 
 #botonLleno.estalleno  {
@@ -87,20 +14,17 @@
     margin-bottom: 10px;
     margin-right:  10px;
     padding: 5px 5px;
-
     border-radius: 10px;
-    border: brown 2px solid;
-
-    background-color: yellowgreen;
     width: 10%;
     transform: translateY(0.1em);
 }
 #botonLleno.estalleno:hover {
-    background-color: yellowgreen;
+    
     transform: translateY(0.1em);
 }
 
 #botonLleno.estalleno:active {
+    
     transform: translateY(-0.1em);
 }
 
@@ -109,20 +33,18 @@
     margin-bottom: 10px;
     margin-right:  10px;
     padding: 5px 5px;
-
     border-radius: 10px;
     border: brown 2px solid;
-
-    background-color: yellow;
     width: 10%;
 }
 
 #botonLleno.noestalleno:hover {
-    background-color: yellowgreen;
+
     transform: translateY(-0.1em);
 }
 
 #botonLleno.noestalleno:active {
+    
     transform: translateY(0.1em);
 }
 
@@ -142,202 +64,5 @@
     }
 }
 
-/**********Lista Equipo************/
-
-.listasMesa{
-
-
-    border: 2px solid brown;
-    border-radius: 5px;
-    background: black;
-
-    margin-bottom: 30px;
-    margin-top: 20px;
-
-    padding: 10px;
-
-    min-height: 250px;
-    width: 95%;
-    box-sizing: border-box;
-}
-.listaMesa h3{
-
-    color:white;
-    background: black;
-
-    height: 10px;
-    font-size: 20px;
-
-    border: 0px;
-
-    margin: -10px -10px 5px -10px;
-
-    padding:5px;
-    padding-bottom: 20px;
-}
-.listaMesa h4{
-
-    color:yellow;
-
-    height: 5px;
-    font-size: 16px;
-
-    border-top: 2px white solid;
-    border-bottom: 2px white solid;
-
-    margin: 0px -10px 0px -10px;
-
-    padding:5px;
-    padding-left: 10px;
-    padding-bottom: 20px;
-
-}
-
-/******Tabla****/
-
-.diseñoTabla{
-
-    margin: 2px -10px -10px -10px;
-    overflow-y: auto;
-
-    height: 1000px;
-    max-height: 1000px;
-}
-
-.diseñoTabla table{
-
-    table-layout: fixed;
-    border-collapse: collapse;
-    text-align: center;
-
-    width: 100%;
-    min-width: 100%;
-
-
-}
-.diseñoTabla table tr{
-
-    border: 2px brown solid;
-    width: 100%;
-}
-.diseñoTabla table td{
-
-    text-align: center;
-    padding: 3px;
-    color: white;
-    width: 100%;
-    
-    font-size: 18px;
-
-}
-.diseñoTabla table tr:nth-child(odd) {
-
-    background-color: black;
-}
-
-.diseñoTabla table tr:nth-child(even) {
-
-    background-color: #333333;
-}
-@media screen and (max-width: 700px){
-    .diseñoTabla table td {
-
-        font-size: 15px;
-    }
-}
-@media screen and (max-width: 500px){
-    .diseñoTabla table td{
-
-        font-size: 12px;
-    }
-}
-/*****Fotos******/
-
-.mesa-foto {
-
-    width: 125px;
-    height: 125px;
-    background-color: black;
-    border: 4px solid brown;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 20%;
-}
-
-.mesa-foto img {
-
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    overflow: hidden;
-}
-@media screen and (max-width: 800px){
-    .mesa-foto {
-
-        width: 75px;
-        height: 75px;
-    }
-}
-@media screen and (max-width: 500px){
-    .mesa-foto {
-
-        width: 60px;
-        height: 60px;
-    }
-}
-
-/*****Botones*****/
-
-.contenedorBotonesMesa{
-
-    border: 2px solid brown;
-    border-radius: 5px;
-    background: black;
-
-    margin-bottom: 25px;
-    margin-top: 25px;
-    padding: 10px;
-
-    min-width: 20%;
-    height: auto;
-
-    box-sizing: border-box;
-}
-
-
-.pestañasBotones{
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-}
-
-
-.botonArriba{
-
-    font-size: 10px;
-    display: block;
-    box-sizing: border-box;
-    border: 2px solid brown;
-    border-radius: 0.75em;
-    padding: 0.75em 1.5em;
-    background: yellow;
-    color: brown;
-    transform: translateY(-0.2em);
-    transition: transform 0.1s ease;
-}
-
-.pestañasBotones > button:hover {
-
-    transform: translateY(-0.33em);
-}
-
-.pestañasBotones > button:active {
-
-    transform: translateY(0);
-}
 
 

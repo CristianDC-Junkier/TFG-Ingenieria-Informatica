@@ -5,8 +5,7 @@
     <head>
         <title class="titulosPag">Guidance4/Inicio</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="/TFG/css/inicioCss.css"/>
-        <link rel="stylesheet" type="text/css" href="/TFG/css/principalFooterCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/inicio/inicioCss.css"/>
     </head>
     <body>
         <header>

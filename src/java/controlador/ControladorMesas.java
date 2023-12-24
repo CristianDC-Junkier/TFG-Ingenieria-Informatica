@@ -528,6 +528,7 @@ public class ControladorMesas extends HttpServlet {
                     request.setAttribute("listalideres", listaLideres);
                     request.setAttribute("listacantidad", listaCantidad);
                     request.setAttribute("orden", ordenar);
+                    request.setAttribute("lleno", lleno);
                     request.setAttribute("pag", numString);//numero de la pag
                     request.setAttribute("numPag", numPag);//numero total de pag
 
@@ -712,6 +713,8 @@ public class ControladorMesas extends HttpServlet {
                     queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
                     queryUsuarios.setParameter("id", id);
                     useraux = queryUsuarios.getSingleResult();
+                    
+                    request.setAttribute("usuario", useraux);
 
                     ////////////////////////////
                     //////////NUM MESAS/////////
@@ -849,7 +852,6 @@ public class ControladorMesas extends HttpServlet {
                     System.out.println("Sale orden:" + ordenar);
                     System.out.println("Sale npag:" + numPag);
                     
-                    request.setAttribute("usuario", useraux);
                     request.setAttribute("listaMesas", listaMesas);
                     request.setAttribute("listalideres", listaLideres);
                     request.setAttribute("listacantidad", listaCantidad);
