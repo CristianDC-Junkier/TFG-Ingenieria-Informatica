@@ -10,9 +10,6 @@
     <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/comunMesasCss.css"/>
 </head>
 <body>
-    <header>
-        <h1> <img class="Logo" src="/TFG/img/dnd-banner.jpg" alt="Logo"/> </h1>
-    </header>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
         <h2 class="Titulos">Mesas</h2>

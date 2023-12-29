@@ -1,6 +1,5 @@
 package controlador;
 
-import com.google.gson.Gson;
 import entidades.Amigos;
 import entidades.Bloqueados;
 import entidades.Pideamistad;
@@ -48,6 +47,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             String accion;
             accion = request.getPathInfo();
+            String resultado = "";
 
             HttpSession session;
             boolean conseguido;
@@ -102,6 +102,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+                    
 
                     ///////////////////////////////////
                     /////////NUMERO DE AMIGOS//////////
@@ -140,11 +141,11 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         case "ordenar1":
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuarios u "
-                                        + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
-                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
-                                        + "WHERE a.amigo1 = '" + user.getApodo() + "'"
-                                        + "AND a.amigo2 LIKE '" + nombre + "%' "
-                                        + "ORDER BY u.apodo ASC "
+                                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
+                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "WHERE a.amigo1 = '" + user.getId() + "'"
+                                        + "AND u2.apodo LIKE '" + nombre + "%' "
+                                        + "ORDER BY u.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
                                 System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
@@ -153,18 +154,18 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
                                         + "WHERE a.amigo1 = '" + user.getApodo() + "'"
                                         + "AND a.amigo2 LIKE '" + nombre + "%' "
-                                        + "ORDER BY u.apodo ASC "
+                                        + "ORDER BY u.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             }
                             break;
                         case "ordenar2":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
-                                        + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
-                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
-                                        + "WHERE a.amigo1 = '" + user.getApodo() + "'"
-                                        + "AND a.amigo2 LIKE '" + nombre + "%' "
-                                        + "ORDER BY u.apodo DESC "
+                                 sql = "SELECT u2.* FROM Usuarios u "
+                                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
+                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "WHERE a.amigo1 = '" + user.getId() + "'"
+                                        + "AND u2.apodo LIKE '" + nombre + "%' "
+                                        + "ORDER BY u.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
                                 System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
@@ -173,7 +174,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
                                         + "WHERE a.amigo1 = '" + user.getApodo() + "' "
                                         + "AND a.amigo2 LIKE '" + nombre + "%' "
-                                        + "ORDER BY u.apodo DESC "
+                                        + "ORDER BY u.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             }
                             break;
@@ -185,21 +186,46 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     queryAUX = em.createNativeQuery(sql, Usuarios.class);
                     listaUsuarios = queryAUX.getResultList();
+                    
+                    System.out.println(listaUsuarios.size());
+
+                    resultado = "<table>";
+
+                    for (int i = 0; i < listaUsuarios.size(); i++) {
+                        Usuarios usuario = listaUsuarios.get(i);
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td><div class='personaje-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                                + "<td>" + usuario.getApodo() + "</td>"
+                                + "<td>" + usuario.getProvincia() + "</td>"
+                                + "<td>" + usuario.getGenero() + "</td>"
+                                + "<td><button class='botonDentro' onclick=\"location.href = '/TFG/Usuarios/mostrarAmigo?amigo=" + usuario.getId() + "'\">Detalles</button></td>"
+                                + "<td><button class='botonDentro' onclick='mostrarRecuadro()'>Eliminar Amigo</button></td>"
+                                + "</tr>"
+                                + "<div class='opcionRecuadro' id='recuadro' style='display: none;'>"
+                                + "<div class='contenidoRecuadro'>"
+                                + "<div class='tituloRecuadro'>¿Está seguro que quiere Eliminarlo?"
+                                + "<span class='cierreRecuadro' onclick='cerrarRecuadro()'>X</span>"
+                                + "</div>"
+                                + "<hr>"
+                                + "<button class='botonDentro' onclick=\"location.href = '/TFG/Usuarios/eliminarAmigo?amigo=" + usuario.getId() + "'\">Si</button>"
+                                + "<button class='botonDentro' onclick='cerrarRecuadro()'>No</button>"
+                                + "</div>"
+                                + "</div>";
+                    }
+
+                    resultado = resultado + "</table>";
 
                     System.out.println("PeticionAJAX Sale");
 
-                    String jsonListaUsuarios = new Gson().toJson(listaUsuarios);
-
-                    // Configurar la respuesta HTTP
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-
-                    // Enviar la lista de usuarios como respuesta al cliente
-                   response.getWriter().write(jsonListaUsuarios);
-
                     break;
+
             }
 
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(resultado);
         }
     }
 

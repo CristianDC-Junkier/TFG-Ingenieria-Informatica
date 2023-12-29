@@ -10,9 +10,6 @@
         <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/comunUsuariosCss.css"/>
     </head>
     <body>
-        <header>
-            <h1> <img class="Logo" src="/TFG/img/dnd-banner.jpg" alt="Logo"/> </h1>
-        </header>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main class="mainPerfil">
             <div class="cajaGeneral">

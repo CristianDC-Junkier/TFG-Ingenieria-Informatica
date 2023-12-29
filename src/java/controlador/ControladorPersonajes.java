@@ -1,15 +1,20 @@
 package controlador;
 
+import entidades.Usuarios;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,6 +44,20 @@ public class ControladorPersonajes extends HttpServlet {
         accion = request.getPathInfo();
         String vista = "";
 
+        HttpSession session;
+        boolean conseguido;
+        String msj;
+        Object result;
+
+        TypedQuery<Usuarios> queryUsuarios;
+        Query queryAUX;
+        ArrayList<Usuarios> listaUsuarios;
+
+        Usuarios user = null;
+        Usuarios useraux = null;
+
+        String id;
+
         switch (accion) {
             case "/personajes":
                 vista = "/WEB-INF/jsp/personajes/personajes.jsp";
@@ -47,7 +66,29 @@ public class ControladorPersonajes extends HttpServlet {
                 vista = "/WEB-INF/jsp/personajes/personajesAmigos.jsp";
                 break;
             case "/personajesAmigo":
-                vista = "/WEB-INF/jsp/personajes/personajesAmigo.jsp";
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+
+                    ////////////////////////////
+                    ////////////AMIGO///////////
+                    ////////////////////////////
+                    id = request.getParameter("amigo");
+
+                    queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                    queryUsuarios.setParameter("id", id);
+                    useraux = queryUsuarios.getSingleResult();
+                    
+                    request.setAttribute("amigo", useraux);
+
+                    vista = "/WEB-INF/jsp/personajes/personajesAmigo.jsp";
+                }
                 break;
             case "/personajesPerfil":
                 vista = "/WEB-INF/jsp/personajes/personajesPerfil.jsp";

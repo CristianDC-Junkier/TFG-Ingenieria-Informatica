@@ -9,7 +9,7 @@ body{
 }
 header{
 
-    background-color:black;
+    background-color:white;
     border: white 1px solid;
 }
 
@@ -20,7 +20,7 @@ nav{
 }
 main{
 
-    background-color: grey;
+    background-color: #e3f7f6;
     color: white;
 }
 section{
@@ -43,7 +43,7 @@ footer{
 
 .Titulos{
 
-    color: white;
+    color: black;
 }
 .explicacionesPestañas{
 
@@ -93,9 +93,9 @@ footer{
 
 .barraHorizontal{
 
-    background-color: black;
-    color: white;
-    border: white 5px outset;
+    background-color: #00cccc;
+    color: black;
+    border: black 5px outset;
 }
 
 /*******************************/
@@ -104,7 +104,7 @@ footer{
 
 .barraHorizontalContenido, .barraHorizontalContenido>a{
 
-    color: white;
+    color: black;
 }
 
 .barraHorizontalContenido:hover{
@@ -118,7 +118,7 @@ footer{
 }
 
 .BarraHorizontalContenidoFinal{
-    color: white;
+    color: black;
 }
 
 .BarraHorizontalContenidoFinal:hover{
@@ -225,8 +225,8 @@ footer{
 
 .EleccionInicio {
 
-    background-color: black;
-    border: dimgray 2px solid;
+    background-color: #1f6161;
+    border: black 2px solid;
     box-shadow: 5px 5px 5px 5px black;
 }
 .EleccionInicio > h2{
@@ -262,8 +262,8 @@ footer{
 
 .TextoInicio {
 
-    background: black;
-    border: dimgray 2px solid;
+    background: #1f6161;
+    border: black 2px solid;
     box-shadow: 5px 5px 5px 5px black;
 }
 

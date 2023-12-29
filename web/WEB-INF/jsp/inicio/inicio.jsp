@@ -8,9 +8,6 @@
         <link rel="stylesheet" type="text/css" href="/TFG/css/inicio/inicioCss.css"/>
     </head>
     <body>
-        <header>
-            <h1> <img class="Logo" src="/TFG/img/dnd-banner.jpg" alt="Logo" /> </h1>
-        </header>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main>
             <h2 class="Titulos">Inicio</h2>
@@ -38,7 +35,7 @@
                 </div>
                 <div class="FotosTextoInicio">
                     <div class="FotosInicio">
-                        <img class="FotoInicio1" src="/TFG/img/Guide4.bmp" alt="alt"/>
+                        <img id="Guide4foto" class="FotoInicio1" src="/TFG/img/Guide4White.bmp" alt="alt"/>
                         <img class="FotoInicio2" src="/TFG/img/luzpng.png" alt="alt"/>
                     </div>
                     <div class="TextoInicio">
@@ -53,6 +50,5 @@
         <jsp:include page="/WEB-INF/jsp/bannerCookies.jsp" />
         <jsp:include page="/WEB-INF/jsp/footer.jsp" />
         <script src="/TFG/js/principalJS.js"></script>
-        <script src="/TFG/js/cookiesJS.js"></script>
     </body>
 </html>
