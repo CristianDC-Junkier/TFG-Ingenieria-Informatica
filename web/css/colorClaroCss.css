@@ -1824,3 +1824,90 @@ input[type="button"]:active {
     background-color: brown;
     color: yellow;
 }
+/***************************************************************************************************/
+/*****************************************LISTA PERSONAJES******************************************/
+/***************************************************************************************************/
+
+/*****************************/
+/******Busqueda Personaje*****/
+/*****************************/
+
+.contenedorPersonaje{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+.tituloBuscadorPersonaje {
+
+    color:yellow;
+}
+
+.buscadorPersonaje input{
+
+    background-color: brown;
+    color:white;
+}
+
+.buscadorPersonaje select {
+
+    border: brown 2px solid;
+    color:white;
+    background-color: #333333;
+}
+.buscadorPersonaje button {
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+.buscadorPersonaje  button:hover {
+
+    background-color: yellowgreen;
+}
+
+.buscadorPersonaje  button:active {
+
+    transform: translateY(0.1em);
+}
+
+/*******************************/
+/**********Lista Mesas**********/
+/*******************************/
+
+.listasPersonaje{
+
+
+    border: 2px solid brown;
+    background: black;
+}
+.listaPersonaje h3{
+
+    color:white;
+    background: black;
+}
+.listaPersonaje h4{
+
+    color:yellow;
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+}
+
+/*******************************/
+/*************Fotos*************/
+/*******************************/
+
+.Personaje-foto {
+
+    background-color: black;
+    border: 4px solid brown;
+}
+
+/*******************************/
+/*************Botones*************/
+/*******************************/
+.contenedorBotonesPersonaje{
+
+    border: 2px solid brown;
+    background: black;
+
+}

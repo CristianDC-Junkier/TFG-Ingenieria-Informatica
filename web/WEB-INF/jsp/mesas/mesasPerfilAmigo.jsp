@@ -110,12 +110,13 @@
     <script>
         //Recoger Datos
         let orden = '<%= request.getAttribute("orden")%>';
+        let amigo = '<%= request.getAttribute("amigo")%>';
         //Datos de las páginas
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
     </script>
     <script src="/TFG/js/principalJS.js"></script>
-    <script src="/TFG/js/mesas/mesasPerfilJS.js"></script>
+    <script src="/TFG/js/mesas/mesasPerfilAmigoJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>
     <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
 </body>

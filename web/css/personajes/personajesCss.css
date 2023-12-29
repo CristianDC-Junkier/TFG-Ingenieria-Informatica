@@ -1,0 +1,29 @@
+
+
+.buscadorPersonaje button {
+
+    margin-bottom: 10px;
+    margin-right:  10px;
+    padding: 5px 5px;
+    border-radius: 10px;
+    width: 10%;
+}
+
+@media screen and (max-width: 800px){
+
+    .buscadorPersonaje > button{
+        font-size: 15px;
+        width: 25%
+    }
+}
+
+@media screen and (max-width: 600px){
+
+    .buscadorPersonaje > button{
+        font-size: 12px;
+        width: 25%
+    }
+}
+
+
+

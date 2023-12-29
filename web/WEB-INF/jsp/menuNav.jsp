@@ -52,13 +52,14 @@
                             <div class="barraHorizontalDrop">
                                 <div class = "barraHorizontalContenido">Personajes</div>
                                 <div class="barraHorizontalContenidoDrop">
-                                    <a href="/TFG/jsp/explorar/clases.jsp">Explorar</a>
-                                    <a href="/TFG/jsp/explorar/razas.jsp">Mis Personajes</a>
+                                    <a href= "/TFG/Personajes/personajes">Explorar</a>
+                                    <a href = "/TFG/Personajes/personajesAmigos">De Amigos</a>
+                                    <a href= "/TFG/Personajes/personajesPerfil">Mis Personajes</a>
                                 </div>
                             </div>
                         </c:when>
                         <c:otherwise>
-                            <a class="barraHorizontalContenido" href="/TFG/jsp/articulos.jsp">Personajes</a>
+                            <a class="barraHorizontalContenido" href="/TFG/Personajes/personajes">Personajes</a>
                         </c:otherwise>
                     </c:choose>
                     <c:if test="${sessionScope.user != null}">
@@ -152,13 +153,14 @@
                         </li>
                         <c:choose>
                             <c:when test="${sessionScope.user != null}">
-                                <li class="unoDrop primero">
+                                <li class="unoDrop cuarto">
                                     <div class = "barraVerticalContenido">
                                         <a href="/TFG/Formularios/">Personajes</a>
                                     </div>
                                     <ul class="barraVerticalDos">
-                                        <li><a href="/TFG/jsp/inicio.jsp">Explorar</a></li>
-                                        <li><a href="/TFG/jsp/introduccion.jsp">Mis Personajes</a></li>
+                                        <li><a href="/TFG/Personajes/pesonajes">Explorar</a></li>
+                                        <li><a href = "/TFG/Personajes/personajesAmigos">De Amigos</a></li>
+                                        <li><a href="/TFG/Personajes/personajesPerfil">Mis Personajes</a></li>
                                     </ul>
                                 </li>
                             </c:when>

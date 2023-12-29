@@ -95,8 +95,8 @@
                                             <td>${personaje.clase}</td>
                                             <td>${personaje.raza}</td>
                                             <td>${personaje.nivel}</td>
-                                            <td>${requestScope.amigo.apodo}</td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personaje/personajeAmigo?id=${personaje.id}&amigo=${requestScope.amigo.apodo}'">Detalles</button></td>
+                                            <td>${listacreador[status.index]}</td>
+                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personaje/personajeAmigo?id=${personaje.id}&amigo=${listacreador[status.index]}'">Detalles</button></td>
                                         </tr>
                                     </c:forEach>
                                 </table>
@@ -118,12 +118,13 @@
         let raza = '<%= request.getAttribute("filtroRaza")%>';
         let clase = '<%= request.getAttribute("filtroClase")%>';
         let nivel = '<%= request.getAttribute("filtroNivel")%>';
+        let amigo = '<%= request.getAttribute("amigo")%>';
         //Datos de las páginas
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
     </script>
     <script src="/TFG/js/principalJS.js"></script>
-    <script src="/TFG/js/personajes/personajesAmigoJS.js"></script>
+    <script src="/TFG/js/personajes/personajesAmigosJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>
 </body>
 </html>
