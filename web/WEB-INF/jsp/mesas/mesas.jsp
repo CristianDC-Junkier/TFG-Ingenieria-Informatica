@@ -18,7 +18,7 @@
             <div class="contenedorMesa">
                 <div class="tituloBuscadorMesa">Explorar Mesas</div>
                 <div class="buscadorMesa">
-                    <div>Busca por nombre: <input type="search" placeholder="Introduce el nombre"/> </div>
+                    <div>Busca por nombre: <input id="buscador" onkeyup="realizarBusqueda('Mesas')" type="search" placeholder="Introduce el nombre"/> </div>
                     <div>
                         Ordenar:
                         <select id="ordenarMesa">
@@ -112,6 +112,8 @@
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/TFG/js/busquedasAJAXJS.js"></script>
     <script src="/TFG/js/principalJS.js"></script>
     <script src="/TFG/js/mesas/mesasJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>

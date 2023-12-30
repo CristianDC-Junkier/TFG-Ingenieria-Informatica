@@ -18,7 +18,7 @@
             <div class="contenedorPersonaje">
                 <div class="tituloBuscadorPersonaje">Mis Personajes</div>
                 <div class="buscadorPersonaje">
-                    <div>Busca por nombre: <input type="search" placeholder="Introduce el nombre"/> </div>
+                    <div>Busca por nombre: <input id="buscador" onkeyup="realizarBusqueda('PersonajesPerfil')" type="search" placeholder="Introduce el nombre"/>  </div>
                     <div>
                         Ordenar:
                         <select id="ordenarNombre">
@@ -119,6 +119,8 @@
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/TFG/js/busquedasAJAXJS.js"></script>
     <script src="/TFG/js/principalJS.js"></script>
     <script src="/TFG/js/personajes/personajesPerfilJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>

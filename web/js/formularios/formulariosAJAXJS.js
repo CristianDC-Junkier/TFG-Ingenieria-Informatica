@@ -1,18 +1,24 @@
-function realizarBusqueda() {
-    // Obtener el valor de la búsqueda
+function realizarBusqueda(valor) {
+    //Obtener el valor de la búsqueda
     let valorBusqueda = document.getElementById("buscador").value;
+    let urlAJAX = "";
 
-
-    if (valorBusqueda == "") {
+    if (valorBusqueda === "") {
         // Limpiar el contenido actual de la tabla
         tabla.innerHTML = '';
         // Insertar el nuevo HTML en el contenedor
         tabla.innerHTML = tablaInicial;
     } else {
+        switch (valor) {
+            case "Usuarios":
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/Usuarios?orden=" + orden + "&mesa=" + mesa + "&pag=" + pag;
+                break;
+        }
+
         // Realizar la solicitud AJAX
         $.ajax({
             type: "GET",
-            url: "/TFG/ControladorPeticionesAJAX/buscadorAmigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + pag,
+            url: urlAJAX,
             data: {busqueda: valorBusqueda},
             dataType: "text",
             success: function (data) {
@@ -28,5 +34,4 @@ function realizarBusqueda() {
         });
     }
 }
-
 

@@ -138,5 +138,7 @@
                 let generoActual = "${sessionScope.user.genero}";
         </script>
         <script src="/TFG/js/formularios/modificarusuarioJS.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="/TFG/js/formularios/formulariosAJAXJS.js"></script>
     </body>
 </html>

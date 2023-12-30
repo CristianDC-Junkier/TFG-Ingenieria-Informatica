@@ -19,7 +19,7 @@
             <div class="contenedorPeticiones">
                 <div class="tituloBuscadorPeticiones">Peticiones</div>
                 <div class="buscadorPeticiones">
-                    <div>Busca por nombre: <input type="search" placeholder="Introduce el nombre"/> </div>
+                    <div>Busca por nombre: <input id="buscador" onkeyup="realizarBusqueda('Peticiones' + '<%= request.getAttribute("peticiones")%>')" type="search" placeholder="Introduce el nombre"> </div>
                     <div>
                         Ordenar:
                         <select id="ordenarPeticiones">
@@ -72,15 +72,15 @@
                                     <h4>Ordenado por nombre (Z-A)</h4>
                                 </c:otherwise>
                             </c:choose>
-                            <div class="diseñoTabla">
+                            <div class="diseñoTabla" id ="Tabla">
                                 <table>
-                                    <c:forEach var="usuario" items="${listaUsuarios}">
+                                    <c:forEach var="usuario" items="${listaUsuarios}" varStatus="status">
                                         <tr>
                                             <td><div class="personaje-foto">
                                                     <img src="/TFG/img/iconos/IMGNEGRO.png">
                                                 </div></td>
                                             <td>${usuario.apodo}</td>
-                                            <td>Compartir Mesa o No</td>
+                                            <td>${listaMesas[status.index]}</td>
                                             <c:choose>
                                                 <c:when test="${requestScope.peticiones == 'Enviadas'}">
                                                     <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/eliminarPeticion?pamistad=${usuario.id}'">Eliminar</button></td>
@@ -116,7 +116,12 @@
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
         //Peticion
         let peticion = '<%= request.getAttribute("peticiones")%>'
+        //Tabla
+        let tabla = document.getElementById('Tabla');
+        let tablaInicial = tabla.innerHTML;
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/TFG/js/busquedasAJAXJS.js"></script>
     <script src="/TFG/js/usuarios/peticionesJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>
     <script src="/TFG/js/principalJS.js"></script>

@@ -20,7 +20,7 @@
             <div class="contenedorBloqueados">
                 <div class="tituloBuscadorBloqueados">Bloqueados</div>
                 <div class="buscadorBloqueados">
-                    <div>Busca por nombre: <input type="search" placeholder="Introduce el nombre"/> </div>
+                    <div>Busca por nombre: <input id="buscador" onkeyup="realizarBusqueda('Bloqueados')" type="search" placeholder="Introduce el nombre"> </div>
                     <div>
                         Ordenar:
                         <select id="ordenarBloqueados">
@@ -58,7 +58,7 @@
                                     <h4>Ordenado por nombre (Z-A)</h4>
                                 </c:otherwise>
                             </c:choose>
-                            <div class="diseñoTabla">
+                            <div class="diseñoTabla" id ="Tabla">
                                 <table>
                                     <c:forEach var="usuario" items="${listaUsuarios}">
                                         <tr>
@@ -95,12 +95,17 @@
     </main>
     <jsp:include page="/WEB-INF/jsp/footer.jsp" />
     <script>
-         //Recoger Datos
-         let orden = '<%= request.getAttribute("orden")%>';
-         //Datos de las páginas
-         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
-         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
+        //Recoger Datos
+        let orden = '<%= request.getAttribute("orden")%>';
+        //Datos de las páginas
+        let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
+        let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
+        //Tabla
+        let tabla = document.getElementById('Tabla');
+        let tablaInicial = tabla.innerHTML;
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/TFG/js/busquedasAJAXJS.js"></script>
     <script src="/TFG/js/usuario/bloqueadosJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>
     <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
