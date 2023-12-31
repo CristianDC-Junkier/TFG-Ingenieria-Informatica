@@ -19,37 +19,39 @@
                         <div>
                             <label for="realnameReg" id="nombreUsuarioRealReg">Nombre:</label>
                             <input type="text" id="realnameReg" name="nombre_real" required/>
-                            <span class="validity"></span>
+                            <span class="validity" ></span>
                         </div>
                         <div>
                             <label for="nameReg" id="nombreUsuarioReg">Nombre de Usuario:</label>
-                            <input type="text" id="nameReg" name="nombre_usuario" required/>
-                            <span class="validity"></span>
+                            <input type="text" id="nameReg" name="nombre_usuario" onkeyup="realizarBusqueda('nameReg', 'nameRegInput')" required/>
+                            <span  id="nameRegInput">✖</span>
                         </div>
                         <div>
                             <label for="emailReg" id="correoUsuarioReg">Correo Electrónico:</label>
-                            <input type="email" id="emailReg" name="correo_usuario" required/>
-                            <span class="validity"></span>
+                            <input type="email" id="emailReg" name="correo_usuario" onkeyup="realizarBusqueda('emailReg', 'emailRegInput')" required/>
+                            <span  id="emailRegInput">✖</span>
                         </div>
                         <div>
                             <label for="passwordReg" id="contraUsuarioReg">Contraseña:</label>
                             <input type="password" id="passwordReg" name="usuario_contrasena" required>
-                            <span class="validity"></span>
+                            <span class="validity" id="passwordRegInput"></span>
                         </div>
                         <div>
                             <label for="passwordConfirmReg" id="contraconUsuarioReg">Repetir Contraseña:</label>
-                            <input type="password" id="passwordConfirmReg" name="usuario_contrasena_confirmada" required>
-                            <span class="validity"></span>
+                            <input type="password" id="passwordConfirmReg" name="usuario_contrasena_confirmada" 
+                                   onkeyup="realizarBusquedaContrasenas('passwordConfirmReg', 'passwordConfirmRegInput', 'passwordReg')" required>
+                            <span id="passwordConfirmRegInput">✖</span>
                         </div>
                         <div>
                             <label for="phoneReg" id="telefonoUsuarioReg">Teléfono de Contacto:</label>
                             <input type="tel" id="phoneReg" pattern="[0-9]{9}" 
-                                   title="introduce 9 números" name="usuario_telefono"/>
+                                   name="usuario_telefono" onkeyup="realizarBusqueda('phoneReg', 'phoneRegInput')"/>
+                            <span id="phoneRegInput">✓</span>
                         </div>
                         <div>
                             <label for="bornReg" id="nacimientoUsuarioReg">Fecha de Nacimiento:</label>
-                            <input type="date" id="bornReg" name="usuario_nacimiento" required>
-                            <span class="validity"></span>
+                            <input type="date" id="bornReg" name="usuario_nacimiento" onkeyup="realizarBusqueda('bornReg', 'bornRegInput')" required>
+                            <span id="bornRegInput">✖</span>
                         </div>
                         <div>
                             <label for="provinceReg" id="provinciaUsuarioReg">De donde eres:</label>

@@ -12,7 +12,8 @@
         <div class = "barraHorizontal">
             <div class="barraHorizontalDrop">
                 <div class = "barraHorizontalContenido">
-                    <a href="/TFG/Principal/inicio"><img src="/TFG/img/iconos/casa.png" alt="alt"/>Inicio</a></div>
+                    <a href="/TFG/Principal/inicio">
+                        <img src="/TFG/img/iconos/CasaWhite.png" alt="alt" id="ICasa"/>  Inicio</a></div>
                 <div class="barraHorizontalContenidoDrop">
                     <a href="/TFG/Principal/inicio">Inicio</a>
                     <a href="/TFG/Principal/introduccion">Introducción</a>
@@ -20,7 +21,7 @@
             </div>
             <div class="barraHorizontalDrop">
                 <div class = "barraHorizontalContenido">
-                    <img src="/TFG/img/iconos/casa.png" alt="alt"/>Reglas&nbsp;</div>
+                    <img src="/TFG/img/iconos/ReglasWhite.png" alt="alt" id="IReglas"/>  Reglas&nbsp;</div>
                 <div class="barraHorizontalContenidoDrop">
                     <a href="/TFG/Reglas/comocrearpersonajes">Diseño de Personajes</a>
                     <a href="/TFG/Reglas/interpretacion">Interpretar</a>
@@ -34,7 +35,7 @@
             </div>
             <div class="barraHorizontalDrop">
                 <div class = "barraHorizontalContenido">
-                    <img src="/TFG/img/iconos/lupablanca.png" alt="alt"/>Explorar</div>
+                    <img src="/TFG/img/iconos/LupaWhite.png" alt="alt" id="ILupa"/>  Explorar</div>
                 <div class="barraHorizontalContenidoDrop">
                     <a href="/TFG/Explorar/clases">Clases</a>
                     <a href="/TFG/Explorar/razas">Razas</a>
@@ -50,7 +51,8 @@
             <c:choose>
                 <c:when test="${sessionScope.user != null}">
                     <div class="barraHorizontalDrop">
-                        <div class = "barraHorizontalContenido">Personajes</div>
+                        <div class = "barraHorizontalContenido">
+                            <img src="/TFG/img/iconos/PersonajesWhite.png" alt="alt" id="IPersonaje"/>  Personajes</div>
                         <div class="barraHorizontalContenidoDrop">
                             <a href= "/TFG/Personajes/personajes">Explorar</a>
                             <a href = "/TFG/Personajes/personajesAmigos">De Amigos</a>
@@ -59,14 +61,16 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <a class="barraHorizontalContenido" href="/TFG/Personajes/personajes">Personajes</a>
+                    <a class="barraHorizontalContenido" href="/TFG/Personajes/personajes">
+                        <img src="/TFG/img/iconos/PersonajesWhite.png" alt="alt" id="IPersonaje"/>  Personajes</a>
                 </c:otherwise>
             </c:choose>
             <c:if test="${sessionScope.user != null}">
                 <div class="barraHorizontalDrop">
                     <c:choose>
                         <c:when test="${sessionScope.peticiones != null}">
-                            <div class = "barraHorizontalContenido tienesPeticion">Amigos</div>
+                            <div class = "barraHorizontalContenido tienesPeticion">
+                                <img src="/TFG/img/iconos/AmigosWhite.png" alt="alt" id="IAmigos"/>  Amigos</div>
                             <div class="barraHorizontalContenidoDrop">
                                 <a href="/TFG/Usuarios/mostrarUsuarios">Explorar</a>
                                 <a href="/TFG/Usuarios/mostrarPeticionesRecibidas" class="tienesPeticion">Peticiones</a>
@@ -74,7 +78,8 @@
                             </div>
                         </c:when>
                         <c:otherwise>
-                            <div class = "barraHorizontalContenido">Amigos</div>
+                            <div class = "barraHorizontalContenido">
+                                <img src="/TFG/img/iconos/AmigosWhite.png" alt="alt" id="IAmigos"/>  Amigos</div>
                             <div class="barraHorizontalContenidoDrop">
                                 <a href="/TFG/Usuarios/mostrarUsuarios">Explorar</a>
                                 <a href="/TFG/Usuarios/mostrarPeticionesRecibidas">Peticiones</a>
@@ -86,7 +91,8 @@
             </c:if>
             <c:if test="${sessionScope.user != null}">
                 <div class="barraHorizontalDrop">
-                    <div class = "barraHorizontalContenido">Mesas</div>
+                    <div class = "barraHorizontalContenido">
+                        <img src="/TFG/img/iconos/MesaWhite.png" alt="alt" id="IMesa"/>  Mesas</div>
                     <div class="barraHorizontalContenidoDrop">
                         <a href="/TFG/Formularios/crearmesa">Crear Mesa</a>
                         <a href="/TFG/Mesas/mostrarMesas">Explorar</a>
@@ -97,11 +103,11 @@
             <c:choose>
                 <c:when test="${sessionScope.user != null}">
                     <a class="BarraHorizontalContenidoFinal" href="/TFG/Usuarios/perfil">
-                        <img src="/TFG/img/iconos/usuario.png" alt="alt"/>${sessionScope.user.apodo}</a>
+                        <img src="/TFG/img/iconos/PerfilWhite.png" alt="alt" id="IPerfil"/>  ${sessionScope.user.apodo}</a>
                     </c:when>
                     <c:otherwise>
                     <a class="BarraHorizontalContenidoFinal" href="/TFG/Formularios/iniciosesion">
-                        <img src="/TFG/img/iconos/usuario.png" alt="alt"/>Iniciar Sesión</a>
+                        <img src="/TFG/img/iconos/PerfilWhite.png" alt="alt" id="IPerfil"/>  Iniciar Sesión</a>
                     </c:otherwise>
                 </c:choose>
         </div>
@@ -158,7 +164,7 @@
                                 <a href="/TFG/Formularios/">Personajes</a>
                             </div>
                             <ul class="barraVerticalDos">
-                                <li><a href="/TFG/Personajes/pesonajes">Explorar</a></li>
+                                <li><a href="/TFG/Personajes/personajes">Explorar</a></li>
                                 <li><a href = "/TFG/Personajes/personajesAmigos">De Amigos</a></li>
                                 <li><a href="/TFG/Personajes/personajesPerfil">Mis Personajes</a></li>
                             </ul>

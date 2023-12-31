@@ -12,18 +12,19 @@
     <body>
         <main class="contenedorFormulario">
             <div class="bloqueRecuperar">
-                <h2 class="TitulosFormulario">Restablecer Contraseñaa</h2>
+                <h2 class="TitulosFormulario">Restablecer Contraseña</h2>
                 <form>
                     <div>
                         <div>
-                            <label for="passwordRC" id="contraseÃ±aRC">Contraseña:</label>
-                            <input type="text" id="passwordRC" name="contraseña_usuario_rc" required/>
+                            <label for="passwordRC" id="contrasenaRC">Contraseña:</label>
+                            <input type="text" id="passwordRC" name="contrasena_usuario_rc" required/>
                             <span class="validity"></span>
                         </div>
                         <div>
-                            <label for="passwordrpRC" id="contraseÃ±arpRC">Repetir Contraseña:</label>
-                            <input type="text" id="passwordrpRC" name="contraseñarp_usuario_rc" required/>
-                            <span class="validity"></span>
+                            <label for="passwordrpRC" id="contrasenarpRC">Repetir Contraseña:</label>
+                            <input type="text" id="passwordrpRC" name="contrasenarp_usuario_rc" 
+                                   onchange="realizarBusquedaContrasenas('passwordrpRC', 'passwordrpRCoInput', 'passwordRC')"required/>
+                            <span id="passwordrpRCoInput">✖</span>
                         </div>
                     </div>
                     <div class="contenedorBotonFormulario">

@@ -74,11 +74,10 @@ hr{
     padding: 10px;
 }
 
-input:invalid + span::after {
+input:invalid + span.validity::after {
     content: "✖";
 }
-
-input:valid + span::after {
+input:valid + span.validity::after {
     content: "✓";
 }
 @media screen and (max-height: 700px){

@@ -61,7 +61,7 @@
                         <div class="ResumenClase">
                             <h5>Bardo</h5>
                             <li>              
-                                <img src="/TFG/img/img/clases/bardo.jfif"/>
+                                <img src="/TFG/img/clases/bardo.jfif"/>
                                 <p> Los bardos son artistas versátiles y manipuladores de la magia. 
                                     Pueden inspirar a sus aliados con su música, contar historias que 
                                     alteran la realidad y lanzar hechizos de apoyo para ayudar a su 

@@ -17,8 +17,8 @@
                     <div>
                         <div>
                             <label for="emailRC" id="correoUsuarioRC">Correo Electrónico:</label>
-                            <input type="email" id="emailRC" name="correo_usuario_rc" required/>
-                            <span class="validity"></span>
+                            <input type="email" id="emailRC" name="correo_usuario_rc" onkeyup="realizarBusqueda('emailRC', 'emailRCInput')" required/>
+                            <span id="emailRCInput">✖</span>
                         </div>
                     </div>
                     <div class="contenedorBotonFormulario">

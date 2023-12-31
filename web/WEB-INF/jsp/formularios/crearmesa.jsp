@@ -19,9 +19,9 @@
                         <c:when test="${requestScope.mesasTotales != 5}">
                             <div>
                                 <div>
-                                    <label for="tituloMesa" id="tituloMesa">Título:</label>
-                                    <input type="text" id="tittleMesa" name="mesa_titulo" required/>
-                                    <span class="validity"></span>
+                                    <label for="tittleMesa" id="tituloMesa">Título:</label>
+                                    <input type="text" id="tittleMesa" name="mesa_titulo" onkeyup="realizarBusqueda('tittleMesa', 'tittleMesaInput')" required/>
+                                    <span  id="tittleMesaInput">✖</span>
                                 </div>
                                 <div>
                                     <label for="passwordMesa" id="contraMesa">Contraseña:</label>
@@ -33,7 +33,7 @@
                                     <span class="validity"></span>
                                 </div>
                                 <div>
-                                    <label for="comunidadMesa" id="comunidadMesa">Comunidad:</label>
+                                    <label for="comunityMesa" id="comunidadMesa">Comunidad:</label>
                                     <select required name="comunidad" id="comunityMesa" >
                                         <option value="Andalucía">Andalucía</option>
                                         <option value="Aragón">Aragón</option>

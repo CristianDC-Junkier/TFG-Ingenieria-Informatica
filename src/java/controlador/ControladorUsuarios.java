@@ -157,7 +157,7 @@ public class ControladorUsuarios extends HttpServlet {
                         Date fechaActual = new Date();
                         Calendar calendarioAux = Calendar.getInstance();
                         calendarioAux.setTime(fechaActual);
-                        calendarioAux.add(Calendar.YEAR, -10);
+                        calendarioAux.add(Calendar.YEAR, -12);
                         fechaActual = calendarioAux.getTime();
 
                         // Comparar las fechas

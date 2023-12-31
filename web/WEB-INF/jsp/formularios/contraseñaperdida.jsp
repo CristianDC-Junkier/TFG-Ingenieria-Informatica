@@ -17,8 +17,8 @@
                     <div>
                         <div>
                             <label for="userRC" id="nombreUsuarioRC">Nombre de Usuario:</label>
-                            <input type="text" id="userRC" name="nombre_usuario_rc" required/>
-                            <span class="validity"></span>
+                            <input type="text" id="userRC" name="nombre_usuario_rc" onkeyup="realizarBusqueda('userRC', 'userRCInput')" required/>
+                            <span id="userRCInput">✖</span>
                         </div>
                     </div>
                     <div class="contenedorBotonFormulario">

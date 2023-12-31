@@ -17,43 +17,49 @@
                 <form id = formRegistro action="/TFG/Usuarios/modificarUsuario" method="POST">
                     <div>
                         <div>
-                            <label for="realnameReg" id="nombreUsuarioRealReg">Nombre:</label>
-                            <input type="text" id="realnameReg" name="nombre_real" required value="${sessionScope.user.nombre}"/>
+                            <label for="realnameMod" id="nombreUsuarioRealReg">Nombre:</label>
+                            <input type="text" id="realnameMod" name="nombre_real" required value="${sessionScope.user.nombre}"/>
                             <span class="validity"></span>
                         </div>
                         <div>
-                            <label for="nameReg" id="nombreUsuarioReg">Nombre de Usuario:</label>
-                            <input type="text" id="nameReg" name="nombre_usuario" required value="${sessionScope.user.apodo}"/>
+                            <label for="nameMod" id="nombreUsuarioReg">Nombre de Usuario:</label>
+                            <input type="text" id="nameMod" name="nombre_usuario" onkeyup="realizarBusqueda('nameMod', 'nameModInput')" 
+                                   required value="${sessionScope.user.apodo}"/>
+                            <span  id="nameModInput">✓</span>
+                        </div>
+                        <div>
+                            <label for="emailMod" id="correoUsuarioReg">Correo Electrónico:</label>
+                            <input type="email" id="emailMod" name="correo_usuario" onkeyup="realizarBusqueda('emailMod', 'emailModInput')" 
+                                   required value = "${sessionScope.user.correo}"/>
+                            <span id="emailModInput">✓</span>
+                        </div>
+                        <div>
+                            <label for="passwordMod" id="contraUsuarioMod">Contraseña:</label>
+                            <input type="password" id="passwordMod" name="usuario_contrasena" required>
                             <span class="validity"></span>
                         </div>
                         <div>
-                            <label for="emailReg" id="correoUsuarioReg">Correo Electrónico:</label>
-                            <input type="email" id="emailReg" name="correo_usuario" required value = "${sessionScope.user.correo}"/>
-                            <span class="validity"></span>
+                            <label for="passwordConfirmMod" id="contraconUsuarioMod">Repetir Contraseña:</label>
+                            <input type="password" id="passwordConfirmMod" name="usuario_contrasena_confirmada" 
+                                   onkeyup="realizarBusquedaContrasenas('passwordConfirmMod', 'passwordConfirmModInput', 'passwordMod')" required>
+                            <span id="passwordConfirmModInput">✖</span>
                         </div>
                         <div>
-                            <label for="passwordReg" id="contraUsuarioReg">Contraseña:</label>
-                            <input type="password" id="passwordReg" name="usuario_contrasena" required>
-                            <span class="validity"></span>
+                            <label for="phoneMod" id="telefonoUsuarioReg">Teléfono de Contacto:</label>
+                            <input type="tel" id="phoneMod" pattern="[0-9]{9}" 
+                                   title="introduce 9 números" name="usuario_telefono"  onkeyup="realizarBusqueda('phoneMod', 'phoneModInput')"
+                                   value = "${sessionScope.user.telefono}"/>
+                            <span id="phoneModInput">✓</span>
                         </div>
                         <div>
-                            <label for="passwordConfirmReg" id="contraconUsuarioReg">Repetir Contraseña:</label>
-                            <input type="password" id="passwordConfirmReg" name="usuario_contrasena_confirmada" required>
-                            <span class="validity"></span>
+                            <label for="bornMod" id="nacimientoUsuarioReg">Fecha de Nacimiento:</label>
+                            <input type="date" id="bornMod" name="usuario_nacimiento" onkeyup="realizarBusqueda('bornMod', 'bornModInput')"
+                                   required  value = "${fecha}">
+                            <span id="bornModInput">✓</span>
                         </div>
                         <div>
-                            <label for="phoneReg" id="telefonoUsuarioReg">Teléfono de Contacto:</label>
-                            <input type="tel" id="phoneReg" pattern="[0-9]{9}" 
-                                   title="introduce 9 números" name="usuario_telefono"  value = "${sessionScope.user.telefono}"/>
-                        </div>
-                        <div>
-                            <label for="bornReg" id="nacimientoUsuarioReg">Fecha de Nacimiento:</label>
-                            <input type="date" id="bornReg" name="usuario_nacimiento" required  value = "${fecha}">
-                            <span class="validity"></span>
-                        </div>
-                        <div>
-                            <label for="provinceReg" id="provinciaUsuarioReg">De donde eres:</label>
-                            <select required name="provincia" id="provinceReg" >
+                            <label for="provinceMod" id="provinciaUsuarioMod">De donde eres:</label>
+                            <select required name="provincia" id="provinceMod" >
                                 <option value="Prefiero no decirlo">Prefiero no decirlo</option>
                                 <option value="Álava/Araba">Álava/Araba</option>
                                 <option value="Albacete">Albacete</option>
@@ -110,8 +116,8 @@
                             </select>
                         </div>
                         <div>
-                            <label for="genderReg" id="generoUsuarioReg">Cual es tu género:</label>
-                            <select required name="genero" id="genderReg" >
+                            <label for="genderMod" id="generoUsuarioMod">Cual es tu género:</label>
+                            <select required name="genero" id="genderMod" >
                                 <option value="Prefiero no decirlo">Prefiero no decirlo</option>
                                 <option value="Hombre">Hombre</option>
                                 <option value="Mujer">Mujer</option>

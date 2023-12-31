@@ -8,7 +8,12 @@ import entidades.Pideamistad;
 import entidades.Usuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -77,10 +82,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             String lleno;
             int num = 0; //offset
             int cantidad = 0;
+            boolean novalido;
 
             String sql = "";
 
             switch (accion) {
+                //////////////////////////////////////////////////////////////////////////
+                //////////////////////////////////USUARIOS////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////
                 case "/Usuarios":
 
                     /////////////////////////
@@ -624,6 +633,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = resultado + "</table>";
                     System.out.println("PeticionAJAX Sale");
                     break;
+                //////////////////////////////////////////////////////////////////////////
+                //////////////////////////////////MESAS///////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////
                 case "/Mesas":
 
                     /////////////////////////
@@ -1076,6 +1088,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = resultado + "</table>";
                     System.out.println("PeticionAJAX Sale MesasPerfil");
                     break;
+                //////////////////////////////////////////////////////////////////////////
+                //////////////////////////////PERSONAJES//////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////
                 case "/Personajes":
                     break;
                 case "/PersonajesAmigo":
@@ -1083,6 +1098,260 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                 case "/PersonajesAmigos":
                     break;
                 case "/PersonajesPerfil":
+                    break;
+                //////////////////////////////////////////////////////////////////////////
+                ///////////////////////////////FORMULARIOS////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////
+                case "/RegistroApodo":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                    queryUsuarios.setParameter("apodo", nombre);
+
+                    if (queryUsuarios.getSingleResult() != null) {
+                        resultado = "Encontrado";
+                    } else {
+                        resultado = "No Encontrado";
+                    }
+                    break;
+                case "/RegistroEmail":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                    queryUsuarios.setParameter("correo", nombre);
+
+                    if (queryUsuarios.getSingleResult() != null) {
+                        resultado = "Encontrado";
+                    } else {
+                        resultado = "No Encontrado";
+                    }
+                    break;
+                case "/RegistroTelefono":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    queryUsuarios = em.createNamedQuery("Usuarios.findByTelefono", Usuarios.class);
+                    queryUsuarios.setParameter("telefono", new BigInteger(nombre));
+
+                    if (queryUsuarios.getSingleResult() != null) {
+                        resultado = "Encontrado";
+                    } else {
+                        resultado = "No Encontrado";
+                    }
+                    break;
+                case "/RegistroNacimiento":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    novalido = true;
+
+                    try {
+                        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                        Date fechaNacimiento = formatoFecha.parse(nombre);
+
+                        Date fechaActual = new Date();
+                        Calendar calendarioAux = Calendar.getInstance();
+                        calendarioAux.setTime(fechaActual);
+                        calendarioAux.add(Calendar.YEAR, -12);
+                        fechaActual = calendarioAux.getTime();
+
+                        if (fechaNacimiento.before(fechaActual)) {
+                            novalido = false;
+                        }
+                    } catch (ParseException ex) {
+                        System.out.println("Error recogiendo la fecha");
+                    }
+
+                    if (novalido) {
+                        resultado = "Encontrado";
+                    } else {
+                        resultado = "No Encontrado";
+                    }
+                    break;
+                case "/RecuperarUser":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                    queryUsuarios.setParameter("apodo", nombre);
+
+                    if (queryUsuarios.getSingleResult() != null) {
+                        resultado = "No Encontrado";
+                    } else {
+                        resultado = "Encontrado";
+                    }
+                    break;
+                case "/RecuperarEmail":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                    queryUsuarios.setParameter("correo", nombre);
+
+                    if (queryUsuarios.getSingleResult() != null) {
+                        resultado = "No Encontrado";
+                    } else {
+                        resultado = "Encontrado";
+                    }
+                    break;
+                case "/ModificarApodo":
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    if (user.getApodo().equals(nombre)) {
+                        resultado = "No Encontrado";
+                    } else {
+                        queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                        queryUsuarios.setParameter("apodo", nombre);
+
+                        if (queryUsuarios.getSingleResult() != null) {
+                            resultado = "Encontrado";
+                        } else {
+                            resultado = "No Encontrado";
+                        }
+                    }
+                    break;
+                case "/ModificarEmail":
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    if (user.getCorreo().equals(nombre)) {
+                        resultado = "No Encontrado";
+                    } else {
+                        queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                        queryUsuarios.setParameter("correo", nombre);
+
+                        if (queryUsuarios.getSingleResult() != null) {
+                            resultado = "Encontrado";
+                        } else {
+                            resultado = "No Encontrado";
+                        }
+                    }
+                    break;
+                case "/ModificarTelefono":
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    if (user.getTelefono() == new BigInteger(nombre)) {
+                        resultado = "No Encontrado";
+                    } else {
+                        queryUsuarios = em.createNamedQuery("Usuarios.findByTelefono", Usuarios.class);
+                        queryUsuarios.setParameter("telefono", new BigInteger(nombre));
+
+                        if (queryUsuarios.getSingleResult() != null) {
+                            resultado = "Encontrado";
+                        } else {
+                            resultado = "No Encontrado";
+                        }
+                    }
+                    break;
+                case "/ModificarNacimiento":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    novalido = true;
+
+                    try {
+                        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                        Date fechaNacimiento = formatoFecha.parse(nombre);
+
+                        Date fechaActual = new Date();
+                        Calendar calendarioAux = Calendar.getInstance();
+                        calendarioAux.setTime(fechaActual);
+                        calendarioAux.add(Calendar.YEAR, -12);
+                        fechaActual = calendarioAux.getTime();
+
+                        if (fechaNacimiento.before(fechaActual)) {
+                            novalido = false;
+                        }
+                    } catch (ParseException ex) {
+                        System.out.println("Error recogiendo la fecha");
+                    }
+
+                    if (novalido) {
+                        resultado = "Encontrado";
+                    } else {
+                        resultado = "No Encontrado";
+                    }
+                case "/CrearMesa":
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    queryAUX = em.createNamedQuery("Mesas.findByTitulo", Mesas.class);
+                    queryAUX.setParameter("titulo", nombre);
+
+                    if (queryAUX.getSingleResult() != null) {
+                        resultado = "Encontrado";
+                    } else {
+                        resultado = "No Encontrado";
+                    }
+                    break;
+
+                case "/ModificarMesa":
+
+                    mesa = request.getParameter("mesaTitulo");
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    if (mesa.equals(nombre)) {
+                        resultado = "No Encontrado";
+                    } else {
+                        queryAUX = em.createNamedQuery("Mesas.findByTitulo", Mesas.class);
+                        queryAUX.setParameter("titulo", nombre);
+
+                        if (queryAUX.getSingleResult() != null) {
+                            resultado = "Encontrado";
+                        } else {
+                            resultado = "No Encontrado";
+                        }
+                    }
                     break;
             }
 

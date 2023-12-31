@@ -359,6 +359,23 @@ footer{
 
     border: brown 2px solid;
 }
+/***************************************************************************************************/
+/*****************************************EXPLORAR:DOTES********************************************/
+/***************************************************************************************************/
+
+.BusquedaDote{
+
+    background-color: yellow;
+    color: black;
+    border: yellow 2px solid;
+    border-bottom: black 3px ridge;
+
+}
+.BusquedaDote > a{
+
+    color: black;
+}
+
 /**************************************/
 /**************Lista Dotes*************/
 /**************************************/
@@ -1696,7 +1713,7 @@ input[type="button"]:active {
 
 .mainPerfil{
 
-    background-color: black;
+    background-color: gray;
     color: white;
 }
 

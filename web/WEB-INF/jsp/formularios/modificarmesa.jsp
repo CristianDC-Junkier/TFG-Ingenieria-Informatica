@@ -12,7 +12,7 @@
     </head>
     <body>
         <main class="contenedorFormulario">
-            <div class="bloqueRegistro">
+            <div class="bloqueRegistroMesa">
                 <h2 class="TitulosFormulario">Modificar Mesa</h2>
                 <form id = formRegistro action="/TFG/Mesas/modificarMesa" method="POST">
                     <div>
@@ -20,22 +20,23 @@
                             <input type="hidden" name="id" value="${requestScope.mesa.id}">
                         </div>
                         <div>
-                            <label for="tituloMesa" id="tituloMesa">Título:</label>
-                            <input type="text" id="tittleMesa" name="mesa_titulo" value="${requestScope.mesa.titulo}" required/>
+                            <label for="tittleMesaMod" id="tituloMesa">Título:</label>
+                            <input type="text" id="tittleMesaMod" name="mesa_titulo" value="${requestScope.mesa.titulo}" 
+                                   onkeyup="realizarBusqueda('tittleMesaMod', 'tittleMesaModInput')"required/>
+                            <span id="tittleMesaModInput">✖</span>
+                        </div>
+                        <div>
+                            <label for="passwordMesaMod" id="contraMesa">Contraseña:</label>
+                            <input type="password" id="passwordMesaMod" name="mesa_contrasena">
+                        </div>
+                        <div>
+                            <label for="numUsuariosMod" id="numUsuariosMesa">Jugadores:</label>
+                            <input type="number" id="numUsuariosMod" min="${requestScope.mesa.tamano}" max="5" name="mesa_jugadores" required value="${requestScope.mesa.tamano}"/>
                             <span class="validity"></span>
                         </div>
                         <div>
-                            <label for="passwordMesa" id="contraMesa">Contraseña:</label>
-                            <input type="password" id="passwordMesa" name="mesa_contrasena">
-                        </div>
-                        <div>
-                            <label for="numUsuarios" id="numUsuariosMesa">Jugadores:</label>
-                            <input type="number" id="numUsuarios" min="${requestScope.mesa.tamano}" max="5" name="mesa_jugadores" required value="${requestScope.mesa.tamano}"/>
-                            <span class="validity"></span>
-                        </div>
-                        <div>
-                            <label for="comunidadMesa" id="comunidadMesa">Comunidad:</label>
-                            <select required name="comunidad" id="comunityMesa" >
+                            <label for="comunityMesaMod" id="comunidadMesa">Comunidad:</label>
+                            <select required name="comunidad" id="comunityMesaMod" >
                                 <option value="Andalucía">Andalucía</option>
                                 <option value="Aragón">Aragón</option>
                                 <option value="Asturias">Asturias</option>
@@ -58,8 +59,8 @@
                             </select>
                         </div>
                         <div>
-                            <label for="desMesa" id="descripcionMesa">Descripción</label>
-                            <textarea id="desMesa" name="mesa_descripcion"  value="${requestScope.mesa.descripcion}"></textarea>
+                            <label for="desMesaMod" id="descripcionMesa">Descripción</label>
+                            <textarea id="desMesaMod" name="mesa_descripcion"  value="${requestScope.mesa.descripcion}"></textarea>
                         </div>
                         <c:if test="${requestScope.msj!=null}">
                             <div>
