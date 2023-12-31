@@ -78,7 +78,7 @@
                                     <h4>Ordenado por personas (Min)</h4>
                                 </c:otherwise>
                             </c:choose>
-                            <div class="diseñoTabla">
+                            <div class="diseñoTabla" id ="Tabla">
                                 <table>
                                     <c:forEach var="mesa" items="${listaMesas}" varStatus="status">
                                         <tr>
@@ -111,6 +111,9 @@
         //Datos de las páginas
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
+        //Tabla
+        let tabla = document.getElementById('Tabla');
+        let tablaInicial = tabla.innerHTML;
     </script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/TFG/js/busquedasAJAXJS.js"></script>

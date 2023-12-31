@@ -11,40 +11,40 @@ function realizarBusqueda(valor) {
     } else {
         switch (valor) {
             case "Usuarios":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/Usuarios?orden=" + orden + "&mesa=" + mesa + "&pag=" + pag;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/Usuarios?orden=" + orden + "&mesa=" + mesa;
                 break;
             case "Amigos":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/Amigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + pag;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/Amigos?orden=" + orden + "&mesa=" + mesa;
                 break;
             case "Bloqueados":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/Bloqueados?orden=" + orden + "&pag=" + pag;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/Bloqueados?orden=" + orden;
                 break;
             case "PeticionesEnviadas":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/PeticionesEnviadas?orden=" + orden + "&mesa=" + mesa + "&pag=" + pag;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/PeticionesEnviadas?orden=" + orden + "&mesa=" + mesa;
                 break;
             case "PeticionesRecibidas":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/PeticionesRecibidas?orden=" + orden + "&mesa=" + mesa + "&pag=" + pag;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/PeticionesRecibidas?orden=" + orden + "&mesa=" + mesa;
                 break;
             case "Mesas":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/Mesas?orden=" + orden + "&lleno=" + lleno + "&pag=" + pag;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/Mesas?orden=" + orden + "&lleno=" + lleno;
                 break;
             case "MesasAmigos":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/MesasAmigos?orden=" + orden + "&pag=" + pag;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/MesasAmigos?orden=" + orden;
                 break;
             case "MesasPerfil":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/MesasPerfil?orden=" + orden + "&pag=" + pag;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/MesasPerfil?orden=" + orden;
                 break;
             case "Personajes":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/Personajes?orden=" + orden + "&pag=" + pag;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/Personajes?orden=" + orden;
                 break;
             case "PersonajesAmigo":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesAmigo?orden=" + orden + "&pag=" + pag;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesAmigo?orden=" + orden;
                 break;
             case "PersonajesAmigos":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesAmigos?orden=" + orden + "&pag=" + pag;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesAmigos?orden=" + orden;
                 break;
             case "PersonajesPerfil":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesPerfil?orden=" + orden + "&pag=" + pag;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesPerfil?orden=" + orden;
                 break;
         }
 

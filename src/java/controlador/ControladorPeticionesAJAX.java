@@ -2,6 +2,7 @@ package controlador;
 
 import entidades.Amigos;
 import entidades.Bloqueados;
+import entidades.Mesas;
 import entidades.Pertenecemesa;
 import entidades.Pideamistad;
 import entidades.Usuarios;
@@ -52,48 +53,32 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             String resultado = "";
 
             HttpSession session;
-            boolean conseguido;
-            String msj;
-            Object result;
 
             Usuarios user = null;
-            Amigos amigo = null;
-            Bloqueados bloqueado = null;
-            Pideamistad pamistad = null;
+            Usuarios useraux = null;
             Pertenecemesa pertenecemesa = null;
 
             TypedQuery<Usuarios> queryUsuarios;
-            TypedQuery<Amigos> queryAmigos;
-            TypedQuery<Bloqueados> queryBloqueados;
-            TypedQuery<Pideamistad> queryPideAmistad;
             TypedQuery<Pertenecemesa> queryPMesas;
 
             Query queryAUX;
 
             List<Usuarios> listaUsuarios;
-            List<Pideamistad> listaPideAmistad;
             List<Pertenecemesa> listaPerteneceMesa;
+            List<Mesas> listaMesas;
             ArrayList<String> pertenecemesaUsuarios;
+            ArrayList<String> listaLideres;
+            ArrayList<Integer> listaCantidad;
 
-            String id;
-            String apodo;
             String nombre;
-            String correo;
-            String contrasena;
-            String contrasenahash;
-            String telefono;
-            String fechaNacimientoString;
-            String provincia;
-            String genero;
-
+            String id;
             String ordenar;
             String mesa;
-            String peticiones;
-            String numString;
-            int num;
-            int numPag;
+            String lleno;
+            int num = 0; //offset
+            int cantidad = 0;
 
-            String sql;
+            String sql = "";
 
             switch (accion) {
                 case "/Usuarios":
@@ -104,7 +89,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     session = request.getSession();
                     user = (Usuarios) session.getAttribute("user");
 
-                    numString = request.getParameter("pag");//numero de pag en la que estoy
                     ordenar = request.getParameter("orden");//como ordenar
                     mesa = request.getParameter("mesa");//si filtramos por mesa o no
 
@@ -113,60 +97,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
-                    /////////////////////////////////////
-                    /////////NUMERO DE USUARIOS//////////
-                    /////////////////////////////////////
-                    if (mesa == null || mesa.equalsIgnoreCase("false")) {
-                        sql = "SELECT COUNT(*) FROM USUARIOS u "
-                                + "WHERE u.APODO <> '" + user.getApodo() + "' "
-                                + "AND u.APODO LIKE '" + nombre + "%' "
-                                + "AND u.ID NOT IN ("
-                                + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
-                                + "    UNION "
-                                + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
-                                + "    UNION "
-                                + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
-                                + "    UNION "
-                                + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
-                                + "    UNION "
-                                + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')";
-                    } else {
-                        sql = "SELECT COUNT(*) FROM USUARIOS u "
-                                + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
-                                + "INNER JOIN Pertenecemesa p2 ON u.id = p2.usuario "
-                                + "WHERE u.APODO <> '" + user.getApodo() + "'" + " AND p1.mesa = p2.mesa  "
-                                + "AND u.APODO LIKE '" + nombre + "%' "
-                                + "AND u.ID NOT IN ("
-                                + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
-                                + "    UNION "
-                                + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
-                                + "    UNION "
-                                + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
-                                + "    UNION "
-                                + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
-                                + "    UNION "
-                                + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')";
-                    }
-
-                    queryAUX = em.createNativeQuery(sql);
-                    result = queryAUX.getSingleResult();
-
-                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                    numPag = (((Number) result).intValue() / 10) + 1;
-
                     System.out.println("PeticionAJAX Llega");
-
-                    if (ordenar == null || mesa == null || numString == null) {
-
-                        ordenar = "ordenar1";
-                        mesa = "false";
-                        numString = "1";
-                        num = 0;
-
-                    } else {
-
-                        num = (Integer.valueOf(numString) - 1) * 10;//offset
-                    }
 
                     switch (ordenar) {
                         case "ordenar1":
@@ -306,7 +237,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     session = request.getSession();
                     user = (Usuarios) session.getAttribute("user");
 
-                    numString = request.getParameter("pag");//numero de pag en la que estoy
                     ordenar = request.getParameter("orden");//como ordenar
                     mesa = request.getParameter("mesa");//si filtramos por mesa o no
 
@@ -315,49 +245,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
-                    ///////////////////////////////////
-                    /////////NUMERO DE AMIGOS//////////
-                    ///////////////////////////////////
-                    if (mesa == null || mesa.equalsIgnoreCase("false")) {
-                        sql = "SELECT COUNT(*) FROM Usuarios u "
-                                + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
-                                + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
-                                + "WHERE a.amigo1 = '" + user.getApodo() + "' "
-                                + "AND u2.apodo LIKE '" + nombre + "%' ";
-                    } else {
-                        sql = "SELECT COUNT(*) FROM Usuarios u "
-                                + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
-                                + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
-                                + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
-                                + "WHERE a.amigo1 = '" + user.getId() + "' "
-                                + "AND u2.apodo LIKE '" + nombre + "%' "
-                                + "AND p1.mesa = p2.mesa ";
-                    }
-
-                    queryAUX = em.createNativeQuery(sql);
-                    result = queryAUX.getSingleResult();
-
-                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                    numPag = (((Number) result).intValue() / 10) + 1;
-
-                    numString = request.getParameter("pag");//numero de pag en la que estoy
-                    ordenar = request.getParameter("orden");//como ordenar
-                    mesa = request.getParameter("mesa");//si filtramos por mesa o no
-
                     System.out.println("PeticionAJAX Llega");
-
-                    if (ordenar == null || mesa == null || numString == null) {
-
-                        ordenar = "ordenar1";
-                        mesa = "false";
-                        numString = "1";
-                        num = 0;
-
-                    } else {
-
-                        num = (Integer.valueOf(numString) - 1) * 10;//offset
-                    }
 
                     switch (ordenar) {
                         case "ordenar1":
@@ -441,7 +329,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     session = request.getSession();
                     user = (Usuarios) session.getAttribute("user");
 
-                    numString = request.getParameter("pag");//numero de pag en la que estoy
                     ordenar = request.getParameter("orden");//como ordenar
                     mesa = request.getParameter("mesa");//si filtramos por mesa o no
 
@@ -450,45 +337,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
-                    ///////////////////////////////////////
-                    /////////NUMERO DE PETICIONES//////////
-                    ///////////////////////////////////////
-                    if (mesa == null || mesa.equalsIgnoreCase("false")) {
-                        sql = "SELECT COUNT(*) FROM Usuarios u "
-                                + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
-                                + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
-                                + "WHERE p.pide = '" + user.getId() + "' "
-                                + "AND u2.apodo LIKE '" + nombre + "%' ";
-                    } else {
-                        sql = "SELECT COUNT(*) FROM Usuarios u "
-                                + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
-                                + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
-                                + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
-                                + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
-                                + "WHERE p.pide = '" + user.getId() + "' "
-                                + "AND u2.apodo LIKE '" + nombre + "%' "
-                                + "AND p1.mesa = p2.mesa ";
-                    }
-
-                    queryAUX = em.createNativeQuery(sql);
-                    result = queryAUX.getSingleResult();
-
-                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                    numPag = (((Number) result).intValue() / 10) + 1;
-
                     System.out.println("PeticionAJAX Llega");
-
-                    if (ordenar == null || mesa == null || numString == null) {
-
-                        ordenar = "ordenar1";
-                        mesa = "false";
-                        numString = "1";
-                        num = 0;
-
-                    } else {
-
-                        num = (Integer.valueOf(numString) - 1) * 10;//offset
-                    }
 
                     switch (ordenar) {
                         case "ordenar1":
@@ -596,7 +445,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     session = request.getSession();
                     user = (Usuarios) session.getAttribute("user");
 
-                    numString = request.getParameter("pag");//numero de pag en la que estoy
                     ordenar = request.getParameter("orden");//como ordenar
                     mesa = request.getParameter("mesa");//si filtramos por mesa o no
 
@@ -605,45 +453,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
-                    ///////////////////////////////////////
-                    /////////NUMERO DE PETICIONES//////////
-                    ///////////////////////////////////////
-                    if (mesa == null || mesa.equalsIgnoreCase("false")) {
-                        sql = "SELECT COUNT(*) FROM Usuarios u "
-                                + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
-                                + "WHERE p.acepta = '" + user.getId() + "' "
-                                + "AND u2.apodo LIKE '" + nombre + "%' ";
-                    } else {
-                        sql = "SELECT COUNT(*) FROM Usuarios u "
-                                + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
-                                + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
-                                + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
-                                + "WHERE p.acepta = '" + user.getId() + "' "
-                                + "AND u2.apodo LIKE '" + nombre + "%' "
-                                + "AND p1.mesa = p2.mesa ";
-                    }
-
-                    queryAUX = em.createNativeQuery(sql);
-                    result = queryAUX.getSingleResult();
-
-                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                    numPag = (((Number) result).intValue() / 10) + 1;
-
                     System.out.println("PeticionAJAX Llega");
-
-                    if (ordenar == null || mesa == null || numString == null) {
-
-                        ordenar = "ordenar1";
-                        mesa = "false";
-                        numString = "1";
-                        num = 0;
-
-                    } else {
-
-                        num = (Integer.valueOf(numString) - 1) * 10;//offset
-                    }
 
                     switch (ordenar) {
                         case "ordenar1":
@@ -754,39 +564,12 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     session = request.getSession();
                     user = (Usuarios) session.getAttribute("user");
 
-                    numString = request.getParameter("pag");//numero de pag en la que estoy
                     ordenar = request.getParameter("orden");//como ordenar
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
-
-                    /////////////////////////////////////
-                    /////////NUMERO DE BLOQUEADOS////////
-                    /////////////////////////////////////
-                    sql = "SELECT COUNT(*) FROM Usuarios u "
-                            + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
-                            + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
-                            + "WHERE b.bloqueador = '" + user.getId() + "' "
-                            + "AND u2.apodo LIKE '" + nombre + "%' ";
-
-                    queryAUX = em.createNativeQuery(sql);
-                    result = queryAUX.getSingleResult();
-
-                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                    numPag = (((Number) result).intValue() / 10) + 1;
-
-                    if (ordenar == null || numString == null) {
-
-                        ordenar = "ordenar1";
-                        numString = "1";
-                        num = 0;
-
-                    } else {
-
-                        num = (Integer.valueOf(numString) - 1) * 10;//offset
-                    }
 
                     switch (ordenar) {
                         case "ordenar1":
@@ -841,20 +624,466 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = resultado + "</table>";
                     System.out.println("PeticionAJAX Sale");
                     break;
-                    case "/Mesas":
-                        break;
-                    case "/MesasAmigos":
-                        break;
-                    case "/MesasPerfil":
-                        break;
-                    case "/Personajes":
-                        break;
-                    case "/PersonajesAmigo":
-                        break;
-                    case "/PersonajesAmigos":
-                        break;
-                    case "/PersonajesPerfil":
-                        break;
+                case "/Mesas":
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    ordenar = request.getParameter("orden");//como ordenar
+                    lleno = request.getParameter("lleno");//si filtramos por lleno o no
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            if (lleno.equalsIgnoreCase("false")) {
+                                sql = "SELECT M.* "
+                                        + "FROM MESAS M "
+                                        + "WHERE NOT EXISTS ( "
+                                        + "    SELECT * "
+                                        + "    FROM PERTENECEMESA P "
+                                        + "    WHERE P.MESA = M.ID "
+                                        + "      AND P.USUARIO = '" + user.getId() + "' "
+                                        + ") "
+                                        + "AND M.TAMANO > ( "
+                                        + "    SELECT COUNT(*) "
+                                        + "    FROM PERTENECEMESA P "
+                                        + "    WHERE P.MESA = M.ID "
+                                        + ") "
+                                        + "AND M.TITULO LIKE '" + nombre + "%' "
+                                        + "ORDER BY M.TITULO DESC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            } else {
+                                sql = "SELECT M.* "
+                                        + "FROM MESAS M "
+                                        + "WHERE NOT EXISTS ( "
+                                        + "    SELECT * "
+                                        + "    FROM PERTENECEMESA P "
+                                        + "    WHERE P.MESA = M.ID "
+                                        + "      AND P.USUARIO = '" + user.getId() + "' "
+                                        + ") "
+                                        + "AND M.TAMANO = ( "
+                                        + "    SELECT COUNT(*) "
+                                        + "    FROM PERTENECEMESA P "
+                                        + "    WHERE P.MESA = M.ID "
+                                        + ") "
+                                        + "AND M.TITULO LIKE '" + nombre + "%' "
+                                        + "ORDER BY M.TITULO DESC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            }
+                            break;
+                        case "ordenar2":
+                            if (lleno.equalsIgnoreCase("false")) {
+                                sql = "SELECT M.* "
+                                        + "FROM MESAS M "
+                                        + "WHERE NOT EXISTS ( "
+                                        + "    SELECT * "
+                                        + "    FROM PERTENECEMESA P "
+                                        + "    WHERE P.MESA = M.ID "
+                                        + "      AND P.USUARIO = '" + user.getId() + "' "
+                                        + ") "
+                                        + "AND M.TAMANO > ( "
+                                        + "    SELECT COUNT(*) "
+                                        + "    FROM PERTENECEMESA P "
+                                        + "    WHERE P.MESA = M.ID "
+                                        + ") "
+                                        + "AND M.TITULO LIKE '" + nombre + "%' "
+                                        + "ORDER BY M.TITULO ASC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            } else {
+                                sql = "SELECT M.* "
+                                        + "FROM MESAS M "
+                                        + "WHERE NOT EXISTS ( "
+                                        + "    SELECT * "
+                                        + "    FROM PERTENECEMESA P "
+                                        + "    WHERE P.MESA = M.ID "
+                                        + "      AND P.USUARIO = '" + user.getId() + "' "
+                                        + ") "
+                                        + "AND M.TAMANO = ( "
+                                        + "    SELECT COUNT(*) "
+                                        + "    FROM PERTENECEMESA P "
+                                        + "    WHERE P.MESA = M.ID "
+                                        + ") "
+                                        + "AND M.TITULO LIKE '" + nombre + "%' "
+                                        + "ORDER BY M.TITULO ASC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            }
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Mesas.class);
+                    listaMesas = queryAUX.getResultList();
+
+                    listaLideres = new ArrayList();
+                    listaCantidad = new ArrayList();
+
+                    for (int i = 0; i < listaMesas.size(); i++) {
+                        queryPMesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
+                        queryPMesas.setParameter("rol", "Dungeon Master");
+                        queryPMesas.setParameter("mesa", listaMesas.get(i).getId());
+                        pertenecemesa = queryPMesas.getSingleResult();
+                        queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                        queryUsuarios.setParameter("id", pertenecemesa.getPertenecemesaPK().getUsuario());
+                        useraux = queryUsuarios.getSingleResult();
+                        listaLideres.add(useraux.getApodo());
+
+                        queryAUX = em.createNamedQuery("Pertenecemesa.countByMesa", Integer.class);
+                        queryAUX.setParameter("mesa", listaMesas.get(i).getId());
+                        cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
+                        listaCantidad.add(cantidad);
+                    }
+
+                    resultado = "<table>";
+
+                    for (int i = 0; i < listaMesas.size(); i++) {
+                        Mesas mesaux = listaMesas.get(i);
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td><div class='mesa-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                                + "<td>" + mesaux.getTitulo() + "</td>"
+                                + "<td>" + mesaux.getComunidad() + "</td>"
+                                + "<td>" + listaCantidad.get(i) + "/" + mesaux.getTamano() + "</td>"
+                                + "<td>" + listaLideres.get(i) + "</td>";
+                        if (mesaux.getContrasena() != null) {
+                            resultado = resultado
+                                    + "<td>Con contraseña</td>"
+                                    + "<td><button class='botonDentro' onclick='mostrarRecuadro()'>Entrar</button></td>";
+                        } else {
+                            resultado = resultado
+                                    + "<td>Sin contraseña</td>"
+                                    + "<td><button class='botonDentro' onclick=\"location.href = '/TFG/Mesas/anadiraMesa?id=" + mesaux.getId() + "&contrasena_anadirmesa='" + "'\">Si</button></td>";
+                        }
+                        resultado = resultado
+                                + "</tr>"
+                                + "<div class='opcionRecuadro' id='recuadro' style='display: none;'>"
+                                + "<div class='contenidoRecuadro'>"
+                                + "<form id = form  action='/TFG/Mesas/anadiraMesa?id=$" + mesaux.getId() + "' method='POST'>"
+                                + "<label class='tituloRecuadro' for='anadirMesa' id='titulodelRecuadro'>Contraseña:</label>"
+                                + "<input class='recuadroDentro' type='password' id='anadirMesa' name='contrasena_anadirmesa' required>"
+                                + "<input class='botonDentro' type='submit' value='Aceptar'>"
+                                + "<input class='botonDentro' type='button' onclick='cerrarRecuadro()' value='Volver'>"
+                                + "</form>"
+                                + "</div>"
+                                + "</div>";
+                    }
+                    resultado = resultado + "</table>";
+                    System.out.println("PeticionAJAX Sale");
+                    break;
+                case "/MesasAmigos":
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    ////////////////////////////
+                    ////////////AMIGO///////////
+                    ////////////////////////////
+                    id = request.getParameter("amigo");
+
+                    ordenar = request.getParameter("orden");//como ordenar
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            sql = "SELECT M.* "
+                                    + "FROM MESAS M "
+                                    + "WHERE EXISTS ( "
+                                    + "    SELECT * "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + "      AND P.USUARIO = '" + id + "' "
+                                    + ") "
+                                    + "AND M.TAMANO >= ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") "
+                                    + "AND M.TITULO LIKE '" + nombre + "%' "
+                                    + "ORDER BY M.TITULO DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+
+                            break;
+                        case "ordenar2":
+                            sql = "SELECT M.* "
+                                    + "FROM MESAS M "
+                                    + "WHERE EXISTS ( "
+                                    + "    SELECT * "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + "      AND P.USUARIO = '" + id + "' "
+                                    + ") "
+                                    + "AND M.TAMANO >= ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") "
+                                    + "AND M.TITULO LIKE '" + nombre + "%' "
+                                    + "ORDER BY M.TITULO ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            break;
+                        case "ordenar3":
+                            sql = "SELECT M.* "
+                                    + "FROM MESAS M "
+                                    + "WHERE EXISTS ( "
+                                    + "    SELECT * "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + "      AND P.USUARIO = '" + id + "' "
+                                    + ") "
+                                    + "AND M.TAMANO >= ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") "
+                                    + "AND M.TITULO LIKE '" + nombre + "%' "
+                                    + "ORDER BY ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            break;
+                        case "ordenar4":
+                            sql = "SELECT M.* "
+                                    + "FROM MESAS M "
+                                    + "WHERE EXISTS ( "
+                                    + "    SELECT * "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + "      AND P.USUARIO = '" + id + "' "
+                                    + ") "
+                                    + "AND M.TAMANO >= ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") "
+                                    + "AND M.TITULO LIKE '" + nombre + "%' "
+                                    + "ORDER BY ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Mesas.class);
+                    listaMesas = queryAUX.getResultList();
+
+                    listaLideres = new ArrayList();
+                    listaCantidad = new ArrayList();
+
+                    for (int i = 0; i < listaMesas.size(); i++) {
+                        queryPMesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
+                        queryPMesas.setParameter("rol", "Dungeon Master");
+                        queryPMesas.setParameter("mesa", listaMesas.get(i).getId());
+                        pertenecemesa = queryPMesas.getSingleResult();
+                        queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                        queryUsuarios.setParameter("id", pertenecemesa.getPertenecemesaPK().getUsuario());
+                        useraux = queryUsuarios.getSingleResult();
+                        listaLideres.add(useraux.getApodo());
+
+                        queryAUX = em.createNamedQuery("Pertenecemesa.countByMesa", Integer.class);
+                        queryAUX.setParameter("mesa", listaMesas.get(i).getId());
+                        cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
+                        listaCantidad.add(cantidad);
+                    }
+
+                    resultado = "<table>";
+
+                    for (int i = 0; i < listaMesas.size(); i++) {
+                        Mesas mesaux = listaMesas.get(i);
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td><div class='mesa-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                                + "<td>" + mesaux.getTitulo() + "</td>"
+                                + "<td>" + mesaux.getComunidad() + "</td>"
+                                + "<td>" + listaCantidad.get(i) + "/" + mesaux.getTamano() + "</td>"
+                                + "<td>" + listaLideres.get(i) + "</td>"
+                                + "</tr>";
+                    }
+                    resultado = resultado + "</table>";
+                    System.out.println("PeticionAJAX Sale");
+                    break;
+                case "/MesasPerfil":
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    ordenar = request.getParameter("orden");//como ordenar
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            sql = "SELECT M.* "
+                                    + "FROM MESAS M "
+                                    + "WHERE EXISTS ( "
+                                    + "    SELECT * "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + "      AND P.USUARIO = '" + user.getId() + "' "
+                                    + ") "
+                                    + "AND M.TAMANO >= ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") "
+                                    + "AND M.TITULO LIKE '" + nombre + "%' "
+                                    + "ORDER BY M.TITULO DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+
+                            break;
+                        case "ordenar2":
+                            sql = "SELECT M.* "
+                                    + "FROM MESAS M "
+                                    + "WHERE EXISTS ( "
+                                    + "    SELECT * "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + "      AND P.USUARIO = '" + user.getId() + "' "
+                                    + ") "
+                                    + "AND M.TAMANO >= ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") "
+                                    + "AND M.TITULO LIKE '" + nombre + "%' "
+                                    + "ORDER BY M.TITULO ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            break;
+                        case "ordenar3":
+                            sql = "SELECT M.* "
+                                    + "FROM MESAS M "
+                                    + "WHERE EXISTS ( "
+                                    + "    SELECT * "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + "      AND P.USUARIO = '" + user.getId() + "' "
+                                    + ") "
+                                    + "AND M.TAMANO >= ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") "
+                                    + "AND M.TITULO LIKE '" + nombre + "%' "
+                                    + "ORDER BY ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            break;
+                        case "ordenar4":
+                            sql = "SELECT M.* "
+                                    + "FROM MESAS M "
+                                    + "WHERE EXISTS ( "
+                                    + "    SELECT * "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + "      AND P.USUARIO = '" + user.getId() + "' "
+                                    + ") "
+                                    + "AND M.TAMANO >= ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") "
+                                    + "AND M.TITULO LIKE '" + nombre + "%' "
+                                    + "ORDER BY ( "
+                                    + "    SELECT COUNT(*) "
+                                    + "    FROM PERTENECEMESA P "
+                                    + "    WHERE P.MESA = M.ID "
+                                    + ") ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Mesas.class);
+                    listaMesas = queryAUX.getResultList();
+
+                    listaLideres = new ArrayList();
+                    listaCantidad = new ArrayList();
+
+                    for (int i = 0; i < listaMesas.size(); i++) {
+                        queryPMesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
+                        queryPMesas.setParameter("rol", "Dungeon Master");
+                        queryPMesas.setParameter("mesa", listaMesas.get(i).getId());
+                        pertenecemesa = queryPMesas.getSingleResult();
+                        queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                        queryUsuarios.setParameter("id", pertenecemesa.getPertenecemesaPK().getUsuario());
+                        useraux = queryUsuarios.getSingleResult();
+                        listaLideres.add(useraux.getApodo());
+
+                        queryAUX = em.createNamedQuery("Pertenecemesa.countByMesa", Integer.class);
+                        queryAUX.setParameter("mesa", listaMesas.get(i).getId());
+                        cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
+                        listaCantidad.add(cantidad);
+                    }
+
+                    resultado = "<table>";
+
+                    for (int i = 0; i < listaMesas.size(); i++) {
+                        Mesas mesaux = listaMesas.get(i);
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td><div class='mesa-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                                + "<td>" + mesaux.getTitulo() + "</td>"
+                                + "<td>" + mesaux.getComunidad() + "</td>"
+                                + "<td>" + listaCantidad.get(i) + "/" + mesaux.getTamano() + "</td>"
+                                + "<td>" + listaLideres.get(i) + "</td>"
+                                + "<td><button class='botonDentro' onclick=\"location.href = '/TFG/Mesas/mostrarMesa?=" + mesaux.getId() + "'" + "'\">Detalles</button></td>";
+                        if (listaLideres.get(i).equals(user.getApodo())) {
+                            resultado = resultado
+                                    + "<td><button class='botonDentro' onclick='mostrarRecuadro()'>Borrar Mesa</button></td>";
+                        } else {
+                            resultado = resultado
+                                    + "<button class='botonDentro' onclick=\"location.href = '/TFG/Mesas/salirdeMesa?id=" + mesaux.getId() + "'\">Salir</button>";
+                        }
+                        resultado = resultado
+                                + "</tr>"
+                                + "<div class='opcionRecuadro' id='recuadro' style='display: none;'>"
+                                + "<div class='contenidoRecuadro'>"
+                                + "<div class='tituloRecuadro'>¿Esta seguro que quieres Borrarla?"
+                                + "<span class='cierreRecuadro' onclick='cerrarRecuadro()'>X</span>"
+                                + "</div>"
+                                + "<hr>"
+                                + "<button class='botonDentro' onclick=\"location.href = '/TFG/Mesas/eliminarMesa?id=" + mesaux.getId() + "'\">Si</button>"
+                                + "<button class='botonDentro' onclick='cerrarRecuadro()'>No</button>"
+                                + "</div>"
+                                + "</div>";
+                    }
+                    resultado = resultado + "</table>";
+                    System.out.println("PeticionAJAX Sale MesasPerfil");
+                    break;
+                case "/Personajes":
+                    break;
+                case "/PersonajesAmigo":
+                    break;
+                case "/PersonajesAmigos":
+                    break;
+                case "/PersonajesPerfil":
+                    break;
             }
 
             response.setContentType("application/json");
