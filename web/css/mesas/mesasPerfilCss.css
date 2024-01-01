@@ -1,4 +1,39 @@
+/*******************************/
+/*************Fotos*************/
+/*******************************/
 
+.mesa-foto {
+
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20%;
+}
+
+.mesa-foto img {
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+@media screen and (max-width: 800px){
+    .mesa-foto {
+
+        width: 75px;
+        height: 75px;
+    }
+}
+@media screen and (max-width: 500px){
+    .mesa-foto {
+
+        width: 60px;
+        height: 60px;
+    }
+}
 .buscadorMesa button {
 
     margin-right: 50px;

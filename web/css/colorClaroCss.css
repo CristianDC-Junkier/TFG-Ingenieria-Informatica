@@ -15,8 +15,8 @@ header{
 
 nav{
 
-    background-color: black;
-    color: white;
+    background-color: #00cccc;
+    color: black;
 }
 main{
 
@@ -71,9 +71,9 @@ footer{
 
 .contenidoRecuadro {
 
-    border: 0.8vmin  brown ridge;
-    background-color: black;
-    color: white;
+    border: 0.8vmin  #1f6161 ridge;
+    background-color: #00cccc;
+    color: black;
 }
 
 .tituloRecuadro{
@@ -167,17 +167,17 @@ footer{
 
 .menuVertical{
 
-    background-color: gray;
+    background-color: #1f6161;
 }
 
 .barraVertical{
 
-    background-color: black;
+    background-color: #00cccc;
 }
 
 .barraVerticalUno li a,
 .barraVerticalUno li div{
-    color: white;
+    color: black;
 }
 
 .barraVerticalUno li > div > a:hover {
@@ -220,11 +220,11 @@ footer{
 
 .barraHorizontalContenido.tienesPeticion, barraHorizontalContenido.tienesPeticion > a{
 
-    color: #ff9900;
+    color: #990099;
 }
 .barraHorizontalContenidoDrop > a.tienesPeticion{
 
-    color: #ff9900;
+    color: #990099;
 }
 
 /***************************************************************************************************/
@@ -241,8 +241,8 @@ footer{
 
     color:black;
     background-color:yellow;
-    border: brown 2px solid;
-    box-shadow: 1px 1px 1px 1px brown;
+    border: black 2px solid;
+    box-shadow: 1px 1px 1px 1px black;
 }
 
 .EleccionInicio > p{
@@ -254,14 +254,14 @@ footer{
 
     background-color: yellow;
     color: black;
-    border: brown 2px double;
+    border: black 2px double;
 
 }
 .botonRegistro {
 
     background-color: yellow;
     color: black;
-    border: brown 2px double;
+    border: black 2px double;
 }
 .botonInicioSesion:hover, .botonRegistro:hover {
 
@@ -279,7 +279,7 @@ footer{
 
     background-color: yellow;
     color: black;
-    border: brown 2px double;
+    border: black 2px double;
 }
 
 /***************************************************************************************************/
@@ -459,7 +459,7 @@ footer{
 
 .buscadorExplorar button {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     background-color: yellow;
 }
 
@@ -475,14 +475,14 @@ footer{
 
 .listasExplorador{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 
 .ListaEquipo h3{
 
     color:white;
-    background: black;
+    background: #1f6161;
 }
 
 .ListaEquipo h4{
@@ -494,8 +494,8 @@ footer{
 .ListaEquipo h5{
 
     color:yellow;
-    border-top: 2px white solid;
-    border-bottom: 2px white solid;
+    border-top: 2px black solid;
+    border-bottom: 2px black solid;
 }
 
 /**************************************/
@@ -533,18 +533,19 @@ footer{
 
 .ResumenTrasfondo{
 
-    border: brown 3px outset;
+    border: #00cccc 3px outset;
 }
 .NombreTrasfondo{
 
     color:black;
-    border: brown 2px solid;
-    border-right: brown 5px solid;
-    background: linear-gradient(yellowgreen,60%,yellow);
+    border: #00cccc 2px solid;
+    border-right: #00cccc 5px solid;
+    background: linear-gradient(#1f6161,60%,#e3f7f6);
 }
 .TextoTrasfondo{
 
-    background-color: black;
+    color:black;
+    background-color: #c3ffe2;
 }
 
 /***************************************************************************************************/
@@ -556,7 +557,7 @@ footer{
 /**************************************/
 
 .BusquedaEstados{
-
+    
     background-color: yellow;
     color: black;
     border:yellow 2px solid;
@@ -574,18 +575,19 @@ footer{
 
 .ResumenEstado{
 
-    border: brown 3px outset;
+    border: #00cccc 3px outset;
 }
 .NombreEstado{
 
     color:black;
-    border: brown 2px solid;
-    border-right: brown 5px solid;
-    background: linear-gradient(yellowgreen,60%,yellow);
+    border: #00cccc 2px solid;
+    border-right: #00cccc 5px solid;
+    background: linear-gradient(#1f6161,60%,#e3f7f6);
 }
 .TextoEstado{
 
-    background-color: black;
+    color:black;
+    background-color: #c3ffe2;
 }
 
 
@@ -614,9 +616,9 @@ footer{
 
 .ResumenRazas > h3{
 
-    color: white;
-    border: brown 5px outset;
-    background: black;
+    color: black;
+    border: #1f6161 5px outset;
+    background: #1f6161;
 }
 .ResumenRazas > h3 > input{
 
@@ -630,33 +632,34 @@ footer{
 }
 .ListaRazas > h3{
 
-    color:yellowgreen;
-    background: brown;
+    color:yellow;
+    background: #00aaaa;
+    border: solid 2px black;
 }
 .ResumenRaza{
 
-    border: 3px solid brown;
+    border: 3px solid #00cccc;
 }
 
 .ResumenRaza img {
 
-    border-bottom: 3px solid brown;
+    border-bottom: 3px solid #00cccc;
 }
 
 .ContenidoRaza {
 
-    background-color: black;
+    background-color: #00aaaa;
 }
 
 .TituloRaza {
 
     color: yellow;
-    border-bottom: 2px brown solid;
+    border-bottom: 2px #00cccc solid;
 }
 
 .ContenidoRaza {
 
-    color: white;
+    color: black;
 }
 
 /***************************************************************************************************/
@@ -676,12 +679,12 @@ input[type="button"]:active {
 
     background-color: black;
     color: white;
-    border: brown 2px solid;
-    border-bottom: brown 4px solid;
+    border: #1f6161 2px solid;
+    border-bottom: #1f6161 4px solid;
 }
 .contenedorFormulario{
 
-    border-top: black solid 25px;
+    border-top: #00cccc solid 25px;
 }
 
 /*******************************/
@@ -693,21 +696,21 @@ input[type="button"]:active {
     background-color: black;
     color: white;
     border: black 3px solid;
-    box-shadow: 1px 1px 1px 1px brown;
+    box-shadow: 1px 1px 1px 1px #1f6161;
 }
 #botonVolverFormulario{
 
     background-color: black;
     color: white;
     border: black 3px solid;
-    box-shadow: 1px 1px 1px 1px brown;
+    box-shadow: 1px 1px 1px 1px #1f6161;
 }
 #botonEnviar{
 
     background-color: black;
     color: white;
     border: black 3px solid;
-    box-shadow: 1px 1px 1px 1px brown;
+    box-shadow: 1px 1px 1px 1px #1f6161;
 }
 #recuperarContrasena:hover,#recuperarUsuario:hover,#botonVolverFormulario:hover,#botonEnviar:hover{
 
@@ -721,13 +724,13 @@ input[type="button"]:active {
 .bloqueRegistro{
 
     background-color: yellow;
-    border: brown 2px solid;
+    border: #1f6161 2px solid;
     box-shadow: 5px 5px 5px 5px black;
     background: linear-gradient(yellow,60%,white);
 }
 .bloqueRegistro > form > div{
 
-    border: brown 2px solid;
+    border: #1f6161 2px solid;
     color:black;
 }
 .bloqueRegistro label{
@@ -737,11 +740,11 @@ input[type="button"]:active {
 .bloqueRegistro input{
 
     color: white;
-    background-color:brown;
+    background-color:#1f6161;
 }
 .bloqueRegistro select{
     color: white;
-    background-color:brown;
+    background-color:#1f6161;
 }
 
 
@@ -753,13 +756,13 @@ input[type="button"]:active {
 .bloqueInicioSesion {
 
     background-color: yellow;
-    border: brown 2px solid;
+    border: #1f6161 2px solid;
     box-shadow: 5px 5px 5px 5px black;
     background: linear-gradient(yellow,60%,white);
 }
 .bloqueInicioSesion > form > div{
 
-    border: brown 2px solid;
+    border: #1f6161 2px solid;
     color:black;
 }
 
@@ -774,7 +777,7 @@ input[type="button"]:active {
 #nameIden{
 
     color: white;
-    background-color:brown;
+    background-color:#1f6161;
 }
 #contraUsuarioIden{
 
@@ -783,7 +786,7 @@ input[type="button"]:active {
 #passwordIden{
 
     color: white;
-    background-color:brown;
+    background-color:#1f6161;
 }
 
 /********************************************************************************************************/
@@ -794,13 +797,13 @@ input[type="button"]:active {
 .bloqueRecuperar{
 
     background-color: yellow;
-    border: brown 2px solid;
+    border: #1f6161 2px solid;
     box-shadow: 5px 5px 5px 5px black;
     background: linear-gradient(yellow,60%,white);
 }
 .bloqueRecuperar > form > div{
 
-    border: brown 2px solid;
+    border: #1f6161 2px solid;
     color:black;
 }
 
@@ -815,7 +818,7 @@ input[type="button"]:active {
 #emailRC{
 
     color: white;
-    background-color:brown;
+    background-color:#1f6161;
 }
 #nombreUsuarioRC{
 
@@ -824,7 +827,7 @@ input[type="button"]:active {
 #userRC{
 
     color: white;
-    background-color:brown;
+    background-color:#1f6161;
 }
 #contraseñaRC{
 
@@ -833,7 +836,7 @@ input[type="button"]:active {
 #passwordRC{
 
     color: white;
-    background-color:brown;
+    background-color:#1f6161;
 }
 #contraseñarpRC{
 
@@ -842,7 +845,7 @@ input[type="button"]:active {
 #passwordrpRC{
 
     color: white;
-    background-color:brown;
+    background-color:#1f6161;
 }
 
 /***************************************************************************************************/
@@ -852,13 +855,13 @@ input[type="button"]:active {
 .bloqueRegistroMesa{
 
     background-color: yellow;
-    border: brown 2px solid;
+    border: #1f6161 2px solid;
     box-shadow: 5px 5px 5px 5px black;
     background: linear-gradient(yellow,60%,white);
 }
 .bloqueRegistroMesa > form > div{
 
-    border: brown 2px solid;
+    border: #1f6161 2px solid;
     color:black;
 }
 .bloqueRegistroMesa label{
@@ -868,12 +871,12 @@ input[type="button"]:active {
 .bloqueRegistroMesa input{
 
     color: white;
-    background-color:brown;
+    background-color:#1f6161;
 }
 .bloqueRegistroMesa select{
 
     color: white;
-    background-color:brown;
+    background-color:#1f6161;
 }
 
 /****************************************/
@@ -883,7 +886,7 @@ input[type="button"]:active {
 #desMesa{
 
     color: white;
-    background-color:brown;
+    background-color:#1f6161;
 }
 
 
@@ -898,13 +901,13 @@ input[type="button"]:active {
 .datosMesa {
 
     box-shadow: 1px 1px 1px 1px #555;
-    border: 3px solid brown;
-    background-color: #333;
-    border: 2px solid brown;
+    border: 3px solid #1f6161;
+    background-color: #005858;
+    border: 2px solid #1f6161;
 }
 .datosMesa table tr{
 
-    border: 2px brown solid;
+    border: 2px #1f6161 solid;
 }
 .datosMesa table td{
 
@@ -912,16 +915,16 @@ input[type="button"]:active {
 }
 .datosMesa table tr:nth-child(odd) {
 
-    background-color: black;
+    background-color: #00aaaa;
 }
 
 .datosMesa table tr:nth-child(even) {
 
-    background-color: #333333;
+    background-color: #00cccc;
 }
 .botonUsuarios{
 
-    border: brown 2px solid;
+    border: #1f6161 2px solid;
     background-color: yellow;
 }
 
@@ -936,15 +939,8 @@ input[type="button"]:active {
 
 .mainMesa{
 
-    background-color: gray;
+    background-color: #e3f7f6;
     color: white;
-}
-
-.cajaGeneral{
-
-    border: 2px solid black;
-    background-color: black;
-    box-shadow: 1px 1px 1px 1px #555;
 }
 
 .cajaMesa{
@@ -956,36 +952,28 @@ input[type="button"]:active {
 
 .cajaMesa > h2{
 
-    color: yellowgreen;
-    border: solid 3px brown;
-    background-color: black;
+    color: yellow;
+    border: solid 3px black;
+    background-color: #1f6161;
 
-}
-.mesa-foto {
-
-    background-color: black;
-    border: 4px solid brown;
 }
 .cambiarMesa {
 
-    background-color: brown;
+    background-color: #00cccc;
     color: yellow;
-    border: 2px solid brown;
+    border: 2px solid black;
 }
-
 .mesaDatos {
 
-    box-shadow: 1px 1px 1px 1px #555;
-    border: 2px solid brown;
-    background-color: #333;
+    box-shadow: 1px 1px 1px 1px black;
+    border: 2px solid black;
+    background-color: #1f6161;
 }
-
 .descripcionMesa {
 
-    box-shadow: 1px 1px 1px 1px #555;
-    border: 3px solid brown;
-    background-color: #333;
-    border: 2px solid brown;
+    box-shadow: 1px 1px 1px 1px black;
+    background-color: #1f6161;
+    border: 2px solid black;
 }
 
 .descripcionMesa > div > span{
@@ -1002,16 +990,6 @@ input[type="button"]:active {
     color:yellowgreen;
 }
 
-@media screen and (max-width: 500px){
-
-    .cajaGeneral{
-
-        border: 2px solid #000;
-        background-color: black;
-        box-shadow: 1px 1px 1px 1px #555;
-    }
-}
-
 /***************************************************************************************************/
 /*****************************************LISTA MESAS***********************************************/
 /***************************************************************************************************/
@@ -1022,8 +1000,8 @@ input[type="button"]:active {
 
 .contenedorMesa{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 
 .tituloBuscadorMesa {
@@ -1033,19 +1011,19 @@ input[type="button"]:active {
 
 .buscadorMesa input{
 
-    background-color: brown;
+    background-color: #00aaaa;
     color:white;
 }
 
 .buscadorMesa select {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     color:white;
-    background-color: #333333;
+    background-color: #00aaaa;
 }
 .buscadorMesa button {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     background-color: yellow;
 }
 .buscadorMesa  button:hover {
@@ -1064,14 +1042,13 @@ input[type="button"]:active {
 
 .listasMesa{
 
-
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 .listaMesa h3{
 
     color:white;
-    background: black;
+    background: #1f6161;
 }
 .listaMesa h4{
 
@@ -1087,7 +1064,7 @@ input[type="button"]:active {
 .mesa-foto {
 
     background-color: black;
-    border: 4px solid brown;
+    border: 4px solid blue;
 }
 
 /*******************************/
@@ -1095,13 +1072,13 @@ input[type="button"]:active {
 /*******************************/
 .contenedorBotonesMesa{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 
 }
 #botonLleno.estalleno  {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     background-color: yellowgreen;
 }
 #botonLleno.estalleno:hover {
@@ -1110,7 +1087,7 @@ input[type="button"]:active {
 
 #botonLleno.noestalleno:hover {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     background-color: yellow;
 }
 
@@ -1319,9 +1296,9 @@ input[type="button"]:active {
 
 .ListaPrecios  h3{
 
-    color:yellowgreen;
+    color:yellow;
     border: black 4px ridge;
-    background: brown;
+    background: #1f6161;
 }
 .Monedas{
 
@@ -1330,13 +1307,14 @@ input[type="button"]:active {
 
 .MonedasPrimeraFila {
 
-    background: black;
-    color: yellowgreen;
+    background: yellow;
+    color: black;
 }
 
 .Monedas table{
 
     border: 2px black solid;
+    background-color: white;
 }
 
 .Monedas td, th{
@@ -1346,18 +1324,18 @@ input[type="button"]:active {
 
 .ListaPreciosTipo {
 
-    border: 5px brown outset;
+    border: 5px black outset;
     box-shadow: 10px 10px black;
-    background-color: black;
-    color: white;
-    column-rule-color: brown;
+    background-color: #1f6161;
+    color: black;
+    column-rule-color: blue;
 }
 
 .ListaPreciosTipo h4{
 
     color: black;
     background-color: yellow;
-    border:brown 2px solid;
+    border:black 2px solid;
 }
 .TipoListaPrecio h5{
 
@@ -1374,13 +1352,13 @@ input[type="button"]:active {
 /*************************/
 .contenedorTurnos{
 
-    border: 1vmin brown solid;
-    background-color: brown;
-    border-color: brown;
+    border: 1vmin #1f6161 solid;
+    background-color: #1f6161;
+    border-color: #1f6161;
 }
 .titulosTurnos{
 
-    background-color: brown;
+    background-color: #1f6161;
     color: yellow;
 }
 
@@ -1391,12 +1369,12 @@ input[type="button"]:active {
 
 .contenidoTurnos{
 
-    background-color: black;
+    background-color: #c3ffe2;
 }
 
 .subtitulosTurnos{
 
-    color: white;
+    color: black;
 }
 
 /*************************/
@@ -1404,17 +1382,21 @@ input[type="button"]:active {
 /*************************/
 .tituloOpcion{
 
-    color: yellowgreen;
+    color: #006666;
+}
+.descripcionOpcion{
+
+    color:black;
 }
 .contendorOpcion:hover{
 
     .tituloOpcion{
 
-        color:yellow;
+        color:#33ffcc;
     }
     .descripcionOpcion{
 
-        color: yellow;
+        color:#33ffcc;
     }
 }
 
@@ -1424,8 +1406,8 @@ input[type="button"]:active {
 
 .contenedorUsuarios{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 
 .tituloBuscadorUsuarios {
@@ -1434,20 +1416,20 @@ input[type="button"]:active {
 }
 .buscadorUsuarios input{
 
-    background-color: brown;
+    background-color: #00aaaa;
     color:white;
 }
 
 .buscadorUsuarios select {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     color:white;
-    background-color: #333333;
+    background-color: #00aaaa;
 }
 
 .buscadorUsuarios button {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     background-color: yellow;
 }
 .buscadorUsuarios > button:hover {
@@ -1460,13 +1442,13 @@ input[type="button"]:active {
 /************************************/
 .listasUsuarios{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 .listaUsuario h3{
 
     color:white;
-    background: black;
+    background: #1f6161;
 }
 .listaUsuario h4{
 
@@ -1476,8 +1458,8 @@ input[type="button"]:active {
 }
 .contenedorBotonesUsuarios{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 
 /**************************/
@@ -1487,12 +1469,12 @@ input[type="button"]:active {
 .personaje-foto {
 
     background-color: black;
-    border: 4px solid brown;
+    border: 4px solid blue;
 }
 .personaje-fotoG {
 
     background-color: black;
-    border: 4px solid brown;
+    border: 4px solid blue;
 }
 
 
@@ -1502,8 +1484,8 @@ input[type="button"]:active {
 
 .contenedorAmigos{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 
 .tituloBuscadorAmigos {
@@ -1513,18 +1495,18 @@ input[type="button"]:active {
 
 .buscadorAmigos input{
 
-    background-color: brown;
+    background-color: #00aaaa;
     color:white;
 }
 .buscadorAmigos select {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     color:white;
-    background-color: #333333;
+    background-color: #00aaaa;
 }
 .buscadorAmigos button {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     background-color: yellow;
 }
 .buscadorAmigos > button:hover {
@@ -1539,13 +1521,13 @@ input[type="button"]:active {
 
 .listasAmigos{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 .listaAmigo h3{
 
     color:white;
-    background: black;
+    background: #1f6161;
 }
 .listaAmigo h4{
 
@@ -1562,8 +1544,8 @@ input[type="button"]:active {
 
 .contenedorBotonesAmigos{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 
 /*******************************************************************************************************/
@@ -1573,8 +1555,8 @@ input[type="button"]:active {
 
 .contenedorPeticiones{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 
 .tituloBuscadorPeticiones {
@@ -1584,20 +1566,20 @@ input[type="button"]:active {
 
 .buscadorPeticiones input{
 
-    background-color: brown;
+    background-color: #00aaaa;
     color:white;
 }
 
 .buscadorPeticiones select {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     color:white;
-    background-color: #333333;
+    background-color: #00aaaa;
 }
 
 .buscadorPeticiones button {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     background-color: yellow;
 }
 
@@ -1611,13 +1593,13 @@ input[type="button"]:active {
 
 .listasPeticiones{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 .listaPeticion h3{
 
     color:white;
-    background: black;
+    background: #1f6161;
 }
 .listaPeticion h4{
 
@@ -1628,8 +1610,8 @@ input[type="button"]:active {
 
 .contenedorBotonesPeticiones{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 
 /*******************************************************************************************************/
@@ -1638,8 +1620,8 @@ input[type="button"]:active {
 
 .contenedorBloqueados{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 
 .tituloBuscadorBloqueados{
@@ -1649,22 +1631,21 @@ input[type="button"]:active {
 
 .buscadorBloqueados input{
 
-    background-color: brown;
+    background-color: #00aaaa;
     color:white;
 }
 
 .buscadorBloqueados select {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     color:white;
-    background-color: #333333;
+    background-color: #00aaaa;
 }
 
 .buscadorBloqueados button {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     background-color: yellow;
-    width: 10%;
 }
 
 .buscadorBloqueados > button:hover {
@@ -1678,13 +1659,13 @@ input[type="button"]:active {
 
 .listasBloqueados{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 .listaBloqueado h3{
 
     color:white;
-    background: black;
+    background: #1f6161;
 }
 .listaBloqueado h4{
 
@@ -1694,8 +1675,8 @@ input[type="button"]:active {
 }
 .contenedorBotonesBloqueados{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 
 /*******************************************************************************************************/
@@ -1705,14 +1686,14 @@ input[type="button"]:active {
 
 .mainPerfil{
 
-    background-color: black;
+    background-color: #e3f7f6;
     color: white;
 }
 
 .cajaGeneral{
 
     border: 2px solid black;
-    background-color: black;
+    background-color: #003333;
     box-shadow: 1px 1px 1px 1px #555;
 }
 
@@ -1725,30 +1706,30 @@ input[type="button"]:active {
 
 .cajaPersonaje > h2{
 
-    color: yellowgreen;
-    border: solid 3px brown;
-    background-color: black;
+    color: yellow;
+    border: solid 3px black;
+    background-color: #006666;
 }
 
 .cambiarPersonaje {
 
-    background-color: brown;
+    background-color: #00cccc;
     color: yellow;
-    border: 2px solid brown;
+    border: 2px solid black;
 }
 
 .datosPersonaje {
 
-    box-shadow: 1px 1px 1px 1px #555;
-    background-color: #333;
-    border: 2px solid brown;
+    box-shadow: 1px 1px 1px 1px black;
+    background-color: #005858;
+    border: 2px solid #1f6161;
 }
 
 .usuarioDatos {
 
-    box-shadow: 1px 1px 1px 1px #555;
-    border: 2px solid brown;
-    background-color: #333;
+    box-shadow: 1px 1px 1px 1px black;
+    border: 2px solid black;
+    background-color: #005858;
 }
 .usuarioDatos > div > span{
 
@@ -1766,21 +1747,21 @@ input[type="button"]:active {
 
 .diseñoTabla table tr{
 
-    border: 2px brown solid;
+    border: 2px black solid;
 }
 .diseñoTabla table td{
 
-    color: white;
+    color: black;
 
 }
 .diseñoTabla table tr:nth-child(odd) {
 
-    background-color: black;
+    background-color: #00aaaa;
 }
 
 .diseñoTabla table tr:nth-child(even) {
 
-    background-color: #333333;
+    background-color: #00cccc;
 }
 
 /**************************************/
@@ -1789,19 +1770,19 @@ input[type="button"]:active {
 
 .contenedorBotonesExplorador{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 
 .botonArriba{
 
-    border: 2px solid brown;
+    border: 2px solid black;
     background: yellow;
-    color: brown;
+    color: #1f6161;
 }
 .botonDentro{
 
-    border: brown 2px solid;
+    border: black 2px solid;
     background-color: yellow;
 }
 
@@ -1812,7 +1793,7 @@ input[type="button"]:active {
 
 #botonMesa.existeMesa  {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     background-color: yellowgreen;
 }
 #botonMesa.existeMesa:hover {
@@ -1820,7 +1801,7 @@ input[type="button"]:active {
 }
 #botonMesa.noExisteMesa:hover {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     background-color: yellow;
 }
 #botonMesa.noExisteMesa:hover {
@@ -1829,13 +1810,13 @@ input[type="button"]:active {
 }
 .boton {
 
-    background-color: brown;
+    background-color: #1f6161;
     color: yellow;
 }
 
 .botonfinal {
 
-    background-color: brown;
+    background-color: #1f6161;
     color: yellow;
 }
 /***************************************************************************************************/
@@ -1848,8 +1829,8 @@ input[type="button"]:active {
 
 .contenedorPersonaje{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 
 .tituloBuscadorPersonaje {
@@ -1859,19 +1840,19 @@ input[type="button"]:active {
 
 .buscadorPersonaje input{
 
-    background-color: brown;
+    background-color: #00aaaa;
     color:white;
 }
 
 .buscadorPersonaje select {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     color:white;
-    background-color: #333333;
+    background-color: #00aaaa;
 }
 .buscadorPersonaje button {
 
-    border: brown 2px solid;
+    border: black 2px solid;
     background-color: yellow;
 }
 .buscadorPersonaje  button:hover {
@@ -1890,14 +1871,13 @@ input[type="button"]:active {
 
 .listasPersonaje{
 
-
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 }
 .listaPersonaje h3{
 
     color:white;
-    background: black;
+    background: #1f6161;
 }
 .listaPersonaje h4{
 
@@ -1913,7 +1893,7 @@ input[type="button"]:active {
 .Personaje-foto {
 
     background-color: black;
-    border: 4px solid brown;
+    border: 4px solid black;
 }
 
 /*******************************/
@@ -1921,7 +1901,7 @@ input[type="button"]:active {
 /*******************************/
 .contenedorBotonesPersonaje{
 
-    border: 2px solid brown;
-    background: black;
+    border: 2px solid black;
+    background: #1f6161;
 
 }

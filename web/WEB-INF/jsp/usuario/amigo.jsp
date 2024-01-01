@@ -18,7 +18,7 @@
                     <h2>PERSONAJE ACTUAL</h2>
                     <div class="personaje">
                         <div class="personaje-fotoboton">
-                            <div class="personaje-foto">
+                            <div class="personaje-fotoG">
                                 <img src="/TFG/img/iconos/IMGNEGRO.png">
                             </div>
                             <button class="cambiarPersonaje" onclick="agregarArchivo()">Mirar sus personajes</button>
