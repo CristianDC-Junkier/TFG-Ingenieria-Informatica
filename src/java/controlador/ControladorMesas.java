@@ -44,8 +44,8 @@ public class ControladorMesas extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
 
+        request.setCharacterEncoding("UTF-8");
         String accion;
         accion = request.getPathInfo();
         String vista = "";
@@ -68,6 +68,7 @@ public class ControladorMesas extends HttpServlet {
 
         Query queryAUX;
 
+        ArrayList<String> fotosMesas;
         ArrayList<String> listaLideres;
         ArrayList<Integer> listaCantidad;
         ArrayList<Usuarios> listaUsuarios;
@@ -84,6 +85,7 @@ public class ControladorMesas extends HttpServlet {
         short tamano;
         String titulo;
         String descripcion;
+        String urlImagen;
 
         String ordenar;
         String lleno;
@@ -503,6 +505,7 @@ public class ControladorMesas extends HttpServlet {
 
                     listaLideres = new ArrayList();
                     listaCantidad = new ArrayList();
+                    fotosMesas = new ArrayList();
 
                     for (int i = 0; i < listaMesas.size(); i++) {
                         queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
@@ -518,7 +521,15 @@ public class ControladorMesas extends HttpServlet {
                         queryAUX.setParameter("mesa", listaMesas.get(i).getId());
                         cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
                         listaCantidad.add(cantidad);
+
+                        if (listaMesas.get(i).getImagenmesa() == null) {
+                            fotosMesas.add("-");
+                        } else {
+                            fotosMesas.add("/TFG/Imagenes/MostrarImagen?id=" + listaMesas.get(i).getId());
+                        }
                     }
+
+                    request.setAttribute("urlImagenes", fotosMesas);
 
                     System.out.println("Sale pag:" + numString);
                     System.out.println("Sale orden:" + ordenar);
@@ -662,6 +673,7 @@ public class ControladorMesas extends HttpServlet {
 
                     listaLideres = new ArrayList();
                     listaCantidad = new ArrayList();
+                    fotosMesas = new ArrayList();
 
                     for (int i = 0; i < listaMesas.size(); i++) {
                         queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
@@ -678,7 +690,15 @@ public class ControladorMesas extends HttpServlet {
                         queryAUX.setParameter("mesa", listaMesas.get(i).getId());
                         cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
                         listaCantidad.add(cantidad);
+
+                        if (listaMesas.get(i).getImagenmesa() == null) {
+                            fotosMesas.add("-");
+                        } else {
+                            fotosMesas.add("/TFG/Imagenes/MostrarImagen?id=" + listaMesas.get(i).getId());
+                        }
                     }
+
+                    request.setAttribute("urlImagenes", fotosMesas);
 
                     System.out.println("Sale pag:" + numString);
                     System.out.println("Sale orden:" + ordenar);
@@ -713,7 +733,7 @@ public class ControladorMesas extends HttpServlet {
                     queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
                     queryUsuarios.setParameter("id", id);
                     useraux = queryUsuarios.getSingleResult();
-                    
+
                     request.setAttribute("usuario", useraux);
 
                     ////////////////////////////
@@ -830,6 +850,7 @@ public class ControladorMesas extends HttpServlet {
 
                     listaLideres = new ArrayList();
                     listaCantidad = new ArrayList();
+                    fotosMesas = new ArrayList();
 
                     for (int i = 0; i < listaMesas.size(); i++) {
                         queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
@@ -846,12 +867,20 @@ public class ControladorMesas extends HttpServlet {
                         queryAUX.setParameter("mesa", listaMesas.get(i).getId());
                         cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
                         listaCantidad.add(cantidad);
+
+                        if (listaMesas.get(i).getImagenmesa() == null) {
+                            fotosMesas.add("-");
+                        } else {
+                            fotosMesas.add("/TFG/Imagenes/MostrarImagen?id=" + listaMesas.get(i).getId());
+                        }
                     }
+
+                    request.setAttribute("urlImagenes", fotosMesas);
 
                     System.out.println("Sale pag:" + numString);
                     System.out.println("Sale orden:" + ordenar);
                     System.out.println("Sale npag:" + numPag);
-                    
+
                     request.setAttribute("listaMesas", listaMesas);
                     request.setAttribute("listalideres", listaLideres);
                     request.setAttribute("listacantidad", listaCantidad);
@@ -1093,6 +1122,10 @@ public class ControladorMesas extends HttpServlet {
                         listaUsuarios.add(useraux);
                     }
 
+                    //Generar la URL de la imagen para mostrarla
+                    urlImagen = "/TFG/Imagenes/MostrarImagen?id=" + mesa.getId();
+
+                    request.setAttribute("urlImagen", urlImagen);
                     request.setAttribute("mesa", mesa);
                     request.setAttribute("rol", pmesa.getRol());
                     request.setAttribute("listaRoles", listaPerteneceMesa);

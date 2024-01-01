@@ -4,8 +4,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -25,16 +25,18 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Mesas.findById", query = "SELECT m FROM Mesas m WHERE m.id = :id"),
     @NamedQuery(name = "Mesas.findByCreador", query = "SELECT m FROM Mesas m WHERE m.creador = :creador"),
     @NamedQuery(name = "Mesas.findByComunidad", query = "SELECT m FROM Mesas m WHERE m.comunidad = :comunidad"),
+    @NamedQuery(name = "Mesas.findByContrasena", query = "SELECT m FROM Mesas m WHERE m.contrasena = :contrasena"),
     @NamedQuery(name = "Mesas.findByTamano", query = "SELECT m FROM Mesas m WHERE m.tamano = :tamano"),
     @NamedQuery(name = "Mesas.findByTitulo", query = "SELECT m FROM Mesas m WHERE m.titulo = :titulo"),
     @NamedQuery(name = "Mesas.findByDescripcion", query = "SELECT m FROM Mesas m WHERE m.descripcion = :descripcion"),
-    @NamedQuery(name = "Mesas.findByContrasena", query = "SELECT m FROM Mesas m WHERE m.contrasena = :contrasena"),
     @NamedQuery(name = "Mesas.CountByCreador", query = "SELECT COUNT(m) FROM Mesas m WHERE m.creador = :creador")})
 public class Mesas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
     @Column(name = "ID")
     private String id;
     @Basic(optional = false)
@@ -47,6 +49,9 @@ public class Mesas implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "COMUNIDAD")
     private String comunidad;
+    @Size(max = 100)
+    @Column(name = "CONTRASENA")
+    private String contrasena;
     @Basic(optional = false)
     @NotNull
     @Column(name = "TAMANO")
@@ -59,9 +64,9 @@ public class Mesas implements Serializable {
     @Size(max = 255)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @Size(max = 100)
-    @Column(name = "CONTRASENA")
-    private String contrasena;
+    @Lob
+    @Column(name = "IMAGENMESA")
+    private byte[] imagenmesa;
 
     public Mesas() {
     }
@@ -118,6 +123,14 @@ public class Mesas implements Serializable {
         this.comunidad = comunidad;
     }
 
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
     public short getTamano() {
         return tamano;
     }
@@ -142,12 +155,12 @@ public class Mesas implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public byte[] getImagenmesa() {
+        return imagenmesa;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setImagenmesa(byte[] imagenmesa) {
+        this.imagenmesa = imagenmesa;
     }
 
     @Override

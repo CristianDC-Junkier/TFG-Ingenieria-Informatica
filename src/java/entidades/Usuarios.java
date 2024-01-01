@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 public class Usuarios implements Serializable {
 
+ 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
@@ -201,10 +202,4 @@ public class Usuarios implements Serializable {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "controlador.Usuarios[ id=" + id + " ]";
-    }
-
 }

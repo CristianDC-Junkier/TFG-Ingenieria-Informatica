@@ -74,6 +74,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             ArrayList<String> pertenecemesaUsuarios;
             ArrayList<String> listaLideres;
             ArrayList<Integer> listaCantidad;
+            ArrayList<String> fotosMesas;
 
             String nombre;
             String id;
@@ -734,6 +735,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     listaLideres = new ArrayList();
                     listaCantidad = new ArrayList();
+                    fotosMesas = new ArrayList();
 
                     for (int i = 0; i < listaMesas.size(); i++) {
                         queryPMesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
@@ -749,6 +751,12 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         queryAUX.setParameter("mesa", listaMesas.get(i).getId());
                         cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
                         listaCantidad.add(cantidad);
+
+                        if (listaMesas.get(i).getImagenmesa() == null) {
+                            fotosMesas.add("-");
+                        } else {
+                            fotosMesas.add("/TFG/Imagenes/MostrarImagen?id=" + listaMesas.get(i).getId());
+                        }
                     }
 
                     resultado = "<table>";
@@ -758,7 +766,19 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         resultado
                                 = resultado
                                 + "<tr>"
-                                + "<td><div class='mesa-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                                + "<td><div class='mesa-foto'>";
+                        if (mesaux.getImagenmesa() == null) {
+                            resultado
+                                    = resultado
+                                    + "<img src='/TFG/img/iconos/IMGNEGRO.png'>";
+                        } else {
+                            resultado
+                                    = resultado
+                                    + "<img src='" + fotosMesas.get(i) + "'>";
+                        }
+                        resultado
+                                = resultado
+                                + "</div></td>"
                                 + "<td>" + mesaux.getTitulo() + "</td>"
                                 + "<td>" + mesaux.getComunidad() + "</td>"
                                 + "<td>" + listaCantidad.get(i) + "/" + mesaux.getTamano() + "</td>"
@@ -897,6 +917,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     listaLideres = new ArrayList();
                     listaCantidad = new ArrayList();
+                    fotosMesas = new ArrayList();
 
                     for (int i = 0; i < listaMesas.size(); i++) {
                         queryPMesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
@@ -912,6 +933,12 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         queryAUX.setParameter("mesa", listaMesas.get(i).getId());
                         cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
                         listaCantidad.add(cantidad);
+
+                        if (listaMesas.get(i).getImagenmesa() == null) {
+                            fotosMesas.add("-");
+                        } else {
+                            fotosMesas.add("/TFG/Imagenes/MostrarImagen?id=" + listaMesas.get(i).getId());
+                        }
                     }
 
                     resultado = "<table>";
@@ -921,7 +948,18 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         resultado
                                 = resultado
                                 + "<tr>"
-                                + "<td><div class='mesa-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                                + "<td><div class='mesa-foto'>";
+                        if (mesaux.getImagenmesa() == null) {
+                            resultado
+                                    = resultado
+                                    + "<img src='/TFG/img/iconos/IMGNEGRO.png'>";
+                        } else {
+                            resultado
+                                    = resultado
+                                    + "<img src='" + fotosMesas.get(i) + "'>";
+                        }
+                        resultado = resultado
+                                + "</div></td>"
                                 + "<td>" + mesaux.getTitulo() + "</td>"
                                 + "<td>" + mesaux.getComunidad() + "</td>"
                                 + "<td>" + listaCantidad.get(i) + "/" + mesaux.getTamano() + "</td>"
@@ -1035,6 +1073,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     listaLideres = new ArrayList();
                     listaCantidad = new ArrayList();
+                    fotosMesas = new ArrayList();
 
                     for (int i = 0; i < listaMesas.size(); i++) {
                         queryPMesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
@@ -1050,6 +1089,13 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         queryAUX.setParameter("mesa", listaMesas.get(i).getId());
                         cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
                         listaCantidad.add(cantidad);
+
+                        if (listaMesas.get(i).getImagenmesa() == null) {
+                            fotosMesas.add("-");
+                        } else {
+                            System.out.println("entro");
+                            fotosMesas.add("/TFG/Imagenes/MostrarImagen?id=" + listaMesas.get(i).getId());
+                        }
                     }
 
                     resultado = "<table>";
@@ -1059,7 +1105,19 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         resultado
                                 = resultado
                                 + "<tr>"
-                                + "<td><div class='mesa-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                                + "<td><div class='mesa-foto'>";
+                        if (mesaux.getImagenmesa() == null) {
+                            resultado
+                                    = resultado
+                                    + "<img src='/TFG/img/iconos/IMGNEGRO.png'>";
+                        } else {
+                            resultado
+                                    = resultado
+                                    + "<img src='" + fotosMesas.get(i) + "'>";
+                        }
+                        resultado
+                                = resultado
+                                + "</div></td>"
                                 + "<td>" + mesaux.getTitulo() + "</td>"
                                 + "<td>" + mesaux.getComunidad() + "</td>"
                                 + "<td>" + listaCantidad.get(i) + "/" + mesaux.getTamano() + "</td>"

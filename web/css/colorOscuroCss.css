@@ -51,7 +51,16 @@ footer{
     color:white;
     background-color: black;
 }
+.Titulos select, .Titulos button{
 
+    border: black 2px solid;
+    color:white;
+    background-color: brown;
+}
+.Titulos > button:hover {
+
+    background-color: yellowgreen;
+}
 /***************************************************************************************************/
 /*********************************************RECUADROS*********************************************/
 /***************************************************************************************************/
@@ -881,7 +890,6 @@ input[type="button"]:active {
 /**********************************LISTAS USUARIOS EN MESAS*****************************************/
 /***************************************************************************************************/
 
-
 /***********************************/
 /*********+****Usuarios*************/
 /***********************************/
@@ -929,21 +937,12 @@ input[type="button"]:active {
     background-color: gray;
     color: white;
 }
-
-.cajaGeneral{
-
-    border: 2px solid black;
-    background-color: black;
-    box-shadow: 1px 1px 1px 1px #555;
-}
-
 .cajaMesa{
 
     border: 3px solid black;
     background-color: #ddd;
     box-shadow: 1px 1px 1px 1px black;
 }
-
 .cajaMesa > h2{
 
     color: yellowgreen;
@@ -951,38 +950,28 @@ input[type="button"]:active {
     background-color: black;
 
 }
-.mesa-foto {
-
-    background-color: black;
-    border: 4px solid brown;
-}
 .cambiarMesa {
 
     background-color: brown;
     color: yellow;
     border: 2px solid brown;
 }
-
 .mesaDatos {
 
     box-shadow: 1px 1px 1px 1px #555;
     border: 2px solid brown;
     background-color: #333;
 }
-
 .descripcionMesa {
 
     box-shadow: 1px 1px 1px 1px #555;
-    border: 3px solid brown;
     background-color: #333;
     border: 2px solid brown;
 }
-
 .descripcionMesa > div > span{
 
     color:yellowgreen;
 }
-
 .etiqueta{
 
     color:yellowgreen;
@@ -990,18 +979,6 @@ input[type="button"]:active {
 .mesaDatos > div > span{
 
     color:yellowgreen;
-}
-
-
-
-@media screen and (max-width: 500px){
-
-    .cajaGeneral{
-
-        border: 2px solid #000;
-        background-color: black;
-        box-shadow: 1px 1px 1px 1px #555;
-    }
 }
 
 /***************************************************************************************************/
@@ -1055,7 +1032,6 @@ input[type="button"]:active {
 /*******************************/
 
 .listasMesa{
-
 
     border: 2px solid brown;
     background: black;
@@ -1195,16 +1171,6 @@ input[type="button"]:active {
 /********************************************REGLAS: DESAFIOS*******************************************/
 /*******************************************************************************************************/
 
-.Titulos select, .Titulos button{
-
-    color:white;
-    background-color: brown;
-    width: auto;
-}
-.Titulos > button:hover {
-
-    background-color: yellowgreen;
-}
 .listaDesafios  h3{
 
     color:yellowgreen;
@@ -1312,16 +1278,7 @@ input[type="button"]:active {
 /******Lista precios******/
 /*************************/
 
-.Titulos select, .Titulos button{
 
-    border: black 2px solid;
-    color:white;
-    background-color: brown;
-}
-.Titulos > button:hover {
-
-    background-color: yellowgreen;
-}
 .ListaPrecios  h3{
 
     color:yellowgreen;
@@ -1411,6 +1368,10 @@ input[type="button"]:active {
 
     color: yellowgreen;
 }
+.descripcionOpcion{
+
+    color:white;
+}
 .contendorOpcion:hover{
 
     .tituloOpcion{
@@ -1426,8 +1387,6 @@ input[type="button"]:active {
 /*******************************************************************************************************/
 /*********************************************USUARIOS: TODOS*******************************************/
 /*******************************************************************************************************/
-
-/**********Barra arriba Equipo************/
 
 .contenedorUsuarios{
 
@@ -1461,9 +1420,9 @@ input[type="button"]:active {
 
     background-color: yellowgreen;
 }
-
-/**********Lista Equipo************/
-
+/************************************/
+/**********Lista Usuarios************/
+/************************************/
 .listasUsuarios{
 
     border: 2px solid brown;
@@ -1613,8 +1572,9 @@ input[type="button"]:active {
     background-color: yellowgreen;
 }
 
-
-/**********Lista Peticiones************/
+/************************************/
+/**********Lista Peticiones**********/
+/************************************/
 
 .listasPeticiones{
 
@@ -1671,7 +1631,6 @@ input[type="button"]:active {
 
     border: brown 2px solid;
     background-color: yellow;
-    width: 10%;
 }
 
 .buscadorBloqueados > button:hover {
@@ -1717,13 +1676,6 @@ input[type="button"]:active {
     color: white;
 }
 
-.cajaGeneral{
-
-    border: 2px solid black;
-    background-color: black;
-    box-shadow: 1px 1px 1px 1px #555;
-}
-
 .cajaPersonaje{
 
     border: 3px solid black;
@@ -1762,90 +1714,6 @@ input[type="button"]:active {
 
     color:yellowgreen;
     font-style: italic;
-}
-
-/*******************************************************************************************************/
-/**********************************************BOTONES-TABLAS*******************************************/
-/*******************************************************************************************************/
-
-/**************************************/
-/****************Tabla*****************/
-/**************************************/
-
-.diseñoTabla table tr{
-
-    border: 2px brown solid;
-}
-.diseñoTabla table td{
-
-    color: white;
-
-}
-.diseñoTabla table tr:nth-child(odd) {
-
-    background-color: black;
-}
-
-.diseñoTabla table tr:nth-child(even) {
-
-    background-color: #333333;
-}
-
-/**************************************/
-/***************Botones****************/
-/**************************************/
-
-.contenedorBotonesExplorador{
-
-    border: 2px solid brown;
-    background: black;
-}
-
-.botonArriba{
-
-    border: 2px solid brown;
-    background: yellow;
-    color: brown;
-}
-.botonDentro{
-
-    border: brown 2px solid;
-    background-color: yellow;
-}
-
-.botonDentro:hover {
-
-    background-color: yellowgreen;
-}
-
-#botonMesa.existeMesa  {
-
-    border: brown 2px solid;
-    background-color: yellowgreen;
-}
-#botonMesa.existeMesa:hover {
-
-    background-color: yellowgreen;
-}
-#botonMesa.noExisteMesa:hover {
-
-    border: brown 2px solid;
-    background-color: yellow;
-}
-#botonMesa.noExisteMesa:hover {
-
-    background-color: yellowgreen;
-}
-.boton {
-
-    background-color: brown;
-    color: yellow;
-}
-
-.botonfinal {
-
-    background-color: brown;
-    color: yellow;
 }
 
 /***************************************************************************************************/
@@ -1927,11 +1795,106 @@ input[type="button"]:active {
 }
 
 /*******************************/
-/*************Botones*************/
+/*************Cajas*************/
 /*******************************/
 .contenedorBotonesPersonaje{
 
     border: 2px solid brown;
     background: black;
 
+}
+
+/*******************************************************************************************************/
+/**********************************************REPETIDO*************************************************/
+/*******************************************************************************************************/
+
+/**************************************/
+/****************Tabla*****************/
+/**************************************/
+
+.diseñoTabla table tr{
+
+    border: 2px brown solid;
+}
+.diseñoTabla table td{
+
+    color: white;
+
+}
+.diseñoTabla table tr:nth-child(odd) {
+
+    background-color: black;
+}
+
+.diseñoTabla table tr:nth-child(even) {
+
+    background-color: #333333;
+}
+
+/**************************************/
+/***************Botones****************/
+/**************************************/
+
+.contenedorBotonesExplorador{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+.botonArriba{
+
+    border: 2px solid brown;
+    background: yellow;
+    color: brown;
+}
+.botonDentro{
+
+    border: brown 2px solid;
+    background-color: yellow;
+    color:black;
+}
+
+.botonDentro:hover {
+
+    background-color: yellowgreen;
+}
+
+#botonMesa.existeMesa  {
+
+    border: brown 2px solid;
+    background-color: yellowgreen;
+}
+#botonMesa.existeMesa:hover {
+
+    background-color: yellowgreen;
+}
+#botonMesa.noExisteMesa:hover {
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+#botonMesa.noExisteMesa:hover {
+
+    background-color: yellowgreen;
+}
+.boton {
+
+    background-color: brown;
+    color: yellow;
+}
+
+.botonfinal {
+
+    background-color: brown;
+    color: yellow;
+}
+/*******************************/
+/*************Cajas*************/
+/*******************************/
+
+.cajaGeneral{
+
+    border: 2px solid black;
+    background-color: black;
+    box-shadow: 1px 1px 1px 1px #555;
 }

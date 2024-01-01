@@ -20,10 +20,32 @@
                     <div class="mesa">
                         <div class="mesa-fotoboton">
                             <div class="mesa-foto">
-                                <img src="/TFG/img/iconos/IMGNEGRO.png">
+                                <c:choose>
+                                    <c:when test="${requestScope.mesa.imagenmesa == null}">
+                                        <img src="/TFG/img/iconos/IMGNEGRO.png">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${urlImagen}">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             <c:if test="${requestScope.mesa.creador == user.apodo}">
-                                <button class="cambiarMesa" onclick="agregarArchivo()">Cambiar de imagen</button>
+                                <button class="cambiarMesa" onclick="mostrarRecuadro3()">Cambiar de imagen</button>
+                                <div class="opcionRecuadro" id="recuadro3" style="display: none;">
+                                    <div class="contenidoRecuadro">
+                                        <div class="tituloRecuadro">Añada la foto
+                                            <span class="cierreRecuadro" onclick="cerrarRecuadro3()">X</span>
+                                        </div>
+                                        <hr>
+                                        <form id = "formRegistro" action="/TFG/Imagenes/actualizarFotoMesa" 
+                                              method="POST" enctype="multipart/form-data">
+                                            <input type="hidden" name="id" value="${requestScope.mesa.id}">
+                                            <input class="botonDentro" type="file" name="imagen" id="imagen" accept="image/*">
+                                            <br>
+                                            <input class="botonDentro" type="submit" value="Subir Imagen">
+                                        </form>
+                                    </div>
+                                </div>
                             </c:if>
                         </div>
                         <div class="descripcionMesa">
@@ -75,7 +97,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="mesaDatos">
                     <div><span>Dungeon Master:  </span>${requestScope.dm}</div>
                     <div><span>Creador:  </span>${requestScope.mesa.creador}</div>

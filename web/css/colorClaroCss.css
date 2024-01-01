@@ -371,8 +371,6 @@ footer{
 /*****************************************EXPLORAR:DOTES********************************************/
 /***************************************************************************************************/
 
-
-
 .BusquedaDote{
 
     background-color: yellow;
@@ -894,7 +892,6 @@ input[type="button"]:active {
 /**********************************LISTAS USUARIOS EN MESAS*****************************************/
 /***************************************************************************************************/
 
-
 /***********************************/
 /*********+****Usuarios*************/
 /***********************************/
@@ -942,14 +939,12 @@ input[type="button"]:active {
     background-color: #e3f7f6;
     color: white;
 }
-
 .cajaMesa{
 
     border: 3px solid black;
     background-color: #ddd;
     box-shadow: 1px 1px 1px 1px black;
 }
-
 .cajaMesa > h2{
 
     color: yellow;
@@ -975,12 +970,10 @@ input[type="button"]:active {
     background-color: #1f6161;
     border: 2px solid black;
 }
-
 .descripcionMesa > div > span{
 
     color:yellowgreen;
 }
-
 .etiqueta{
 
     color:yellowgreen;
@@ -1183,7 +1176,6 @@ input[type="button"]:active {
 /*******************************************************************************************************/
 /********************************************REGLAS: DESAFIOS*******************************************/
 /*******************************************************************************************************/
-
 
 .listaDesafios  h3{
 
@@ -1690,12 +1682,6 @@ input[type="button"]:active {
     color: white;
 }
 
-.cajaGeneral{
-
-    border: 2px solid black;
-    background-color: #003333;
-    box-shadow: 1px 1px 1px 1px #555;
-}
 
 .cajaPersonaje{
 
@@ -1736,9 +1722,94 @@ input[type="button"]:active {
     color:yellowgreen;
     font-style: italic;
 }
+/***************************************************************************************************/
+/*****************************************LISTA PERSONAJES******************************************/
+/***************************************************************************************************/
 
+/*****************************/
+/******Busqueda Personaje*****/
+/*****************************/
+
+.contenedorPersonaje{
+
+    border: 2px solid black;
+    background: #1f6161;
+}
+
+.tituloBuscadorPersonaje {
+
+    color:yellow;
+}
+
+.buscadorPersonaje input{
+
+    background-color: #00aaaa;
+    color:white;
+}
+
+.buscadorPersonaje select {
+
+    border: black 2px solid;
+    color:white;
+    background-color: #00aaaa;
+}
+.buscadorPersonaje button {
+
+    border: black 2px solid;
+    background-color: yellow;
+}
+.buscadorPersonaje  button:hover {
+
+    background-color: yellowgreen;
+}
+
+.buscadorPersonaje  button:active {
+
+    transform: translateY(0.1em);
+}
+
+/*******************************/
+/**********Lista Mesas**********/
+/*******************************/
+
+.listasPersonaje{
+
+    border: 2px solid black;
+    background: #1f6161;
+}
+.listaPersonaje h3{
+
+    color:white;
+    background: #1f6161;
+}
+.listaPersonaje h4{
+
+    color:yellow;
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+}
+
+/*******************************/
+/*************Fotos*************/
+/*******************************/
+
+.Personaje-foto {
+
+    background-color: black;
+    border: 4px solid black;
+}
+
+/*******************************/
+/*************Cajas*************/
+/*******************************/
+.contenedorBotonesPersonaje{
+
+    border: 2px solid black;
+    background: #1f6161;
+
+}
 /*******************************************************************************************************/
-/**********************************************BOTONES-TABLAS*******************************************/
+/**********************************************REPETIDO*************************************************/
 /*******************************************************************************************************/
 
 /**************************************/
@@ -1819,89 +1890,13 @@ input[type="button"]:active {
     background-color: #1f6161;
     color: yellow;
 }
-/***************************************************************************************************/
-/*****************************************LISTA PERSONAJES******************************************/
-/***************************************************************************************************/
-
-/*****************************/
-/******Busqueda Personaje*****/
-/*****************************/
-
-.contenedorPersonaje{
+/*******************************/
+/*************Cajas*************/
+/*******************************/
+.cajaGeneral{
 
     border: 2px solid black;
-    background: #1f6161;
+    background-color: #003333;
+    box-shadow: 1px 1px 1px 1px #555;
 }
 
-.tituloBuscadorPersonaje {
-
-    color:yellow;
-}
-
-.buscadorPersonaje input{
-
-    background-color: #00aaaa;
-    color:white;
-}
-
-.buscadorPersonaje select {
-
-    border: black 2px solid;
-    color:white;
-    background-color: #00aaaa;
-}
-.buscadorPersonaje button {
-
-    border: black 2px solid;
-    background-color: yellow;
-}
-.buscadorPersonaje  button:hover {
-
-    background-color: yellowgreen;
-}
-
-.buscadorPersonaje  button:active {
-
-    transform: translateY(0.1em);
-}
-
-/*******************************/
-/**********Lista Mesas**********/
-/*******************************/
-
-.listasPersonaje{
-
-    border: 2px solid black;
-    background: #1f6161;
-}
-.listaPersonaje h3{
-
-    color:white;
-    background: #1f6161;
-}
-.listaPersonaje h4{
-
-    color:yellow;
-    border-top: 2px white solid;
-    border-bottom: 2px white solid;
-}
-
-/*******************************/
-/*************Fotos*************/
-/*******************************/
-
-.Personaje-foto {
-
-    background-color: black;
-    border: 4px solid black;
-}
-
-/*******************************/
-/*************Botones*************/
-/*******************************/
-.contenedorBotonesPersonaje{
-
-    border: 2px solid black;
-    background: #1f6161;
-
-}

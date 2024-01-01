@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4/Inicio</title>
+        <title class="titulosPag">Guidance4\Inicio</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="/TFG/css/inicio/inicioCss.css"/>
     </head>

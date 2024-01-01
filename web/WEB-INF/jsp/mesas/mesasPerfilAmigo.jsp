@@ -83,7 +83,14 @@
                                     <c:forEach var="mesa" items="${listaMesas}" varStatus="status">
                                         <tr>
                                             <td><div class="mesa-foto">
-                                                    <img src="/TFG/img/iconos/IMGNEGRO.png">
+                                                    <c:choose>
+                                                        <c:when test="${mesa.imagenmesa == null}">
+                                                            <img src="/TFG/img/iconos/IMGNEGRO.png">
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <img src="${urlImagenes[status.index]}">
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </div></td>
                                             <td>${mesa.titulo}</td>
                                             <td>${mesa.comunidad}</td>
