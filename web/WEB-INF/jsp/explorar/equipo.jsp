@@ -25,9 +25,9 @@
             <div class="contenedoresExplorar"> 
                 <div class="contenedorExplorarListas">
                     <div class="tituloBuscadorExplorador">Buscar Equipo 
-                        <button onclick="location.href = './propiedades.jsp'">Propiedades Explicación</button> 
                     </div>
                     <form class="buscadorExplorar">
+                        <input type="text" id=SelectName placeholder="Busqueda por nombre">
                         <select id="Selecttipo">
                             <option value="tipo" selected>Tipo de objeto</option>
                             <option value="tipo1">Armas</option>

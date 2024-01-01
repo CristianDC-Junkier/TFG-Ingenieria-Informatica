@@ -22,9 +22,9 @@
             </div>
             <div class="contenedoresExplorar"> 
                 <div class="contenedorExplorarListas">
-                    <div class="tituloBuscadorExplorador">Buscar Equipo </div>
+                    <div class="tituloBuscadorExplorador">Buscar Monstruos </div>
                     <form class="buscadorExplorar">
-                        <input type="text" id=SelectName placeholder="     Busqueda por nombre">
+                        <input type="text" id=SelectName placeholder="Busqueda por nombre">
                         <select id="Selectorigen">
                             <option value="origen" selected>Origen</option>
                             <option value="origen1">Reglas Básicas</option>

@@ -31,7 +31,7 @@
                             <img src="/TFG/img/razas/enano.jpg" alt="Placeholder Image">
                             <div class="ContenidoRaza">
                                 <div class="TituloRaza">Enano</div>
-                                <div class="DescripcionRaza">Los enanos son to raros man</div>
+                                <div class="DescripcionRaza">Los enanos son muy bajitos</div>
                             </div>
                         </div>
                         <div class="ResumenRaza">

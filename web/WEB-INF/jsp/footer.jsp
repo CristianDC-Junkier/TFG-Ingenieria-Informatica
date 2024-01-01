@@ -13,9 +13,11 @@
             <input type="checkbox" id="Color">
             <span></span>
         </div>
-        <div class="chat-seleccion">
-            <button >No implementado</button>
-        </div>
+        <c:if test="${sessionScope.user != null}">
+            <div class="chat-seleccion">
+                <button >No implementado</button>
+            </div>
+        </c:if>
     </div>
 </footer>
 <script src="/TFG/js/cambioColorJS.js"></script>

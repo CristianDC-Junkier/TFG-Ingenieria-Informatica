@@ -210,7 +210,7 @@ public class ControladorMesas extends HttpServlet {
                             System.out.println("ParseException: " + ex.getMessage());
                         } catch (RuntimeException ex) {
                             msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
-                            System.out.println("Error: Imposible modificar en este momento: " + titulo);
+                            System.out.println("Error: Imposible registrar en este momento: " + titulo);
                             System.out.println("ParseException: " + ex.getMessage());
                             conseguido = false;
                         } catch (Exception ex) {
