@@ -1274,36 +1274,38 @@ input[type="button"]:active {
 
 .bloqueInterpretar > h3{
 
-    color:yellowgreen;
+    color:yellow;
     border: black 4px ridge;
-    background: brown;
+    background: #1f6161;
 }
 
 .infoInterpretar div{
 
-    border: dimgray 4px ridge;
-    background: black;
+    border: black 4px ridge;
+    background: #007170;
 }
 
 .infoInterpretar div > p{
 
-    background: #191919;
+    color:black;
+    background: #e3f7f6;
 }
 
 .infoInterpretar div > table {
 
-    background: #191919;
+    background: #e3f7f6;
 }
 
 .infoInterpretar div > table th, .infoInterpretar div > table td {
 
-    border: 2px solid white;
+    border: 2px solid black;
+    color: black;
 }
 
 .infoInterpretar div > table th {
 
-    color:yellow;
-    background-color: brown;
+    color:black;
+    background-color: yellow;
 }
 
 
