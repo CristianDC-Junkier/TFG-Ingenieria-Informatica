@@ -54,7 +54,7 @@ public class ControladorFormularios extends HttpServlet {
 
         switch (accion) {
             case "/contraseñaperdida":
-                
+
                 vista = "/WEB-INF/jsp/formularios/contraseñaperdida.jsp";
                 break;
             case "/crearmesa":
@@ -130,6 +130,9 @@ public class ControladorFormularios extends HttpServlet {
                 break;
             case "/usuarioperdido":
                 vista = "/WEB-INF/jsp/formularios/usuarioperdido.jsp";
+                break;
+            case "/crearpersonaje":
+                vista = "/WEB-INF/jsp/inicio/inicio.jsp";
                 break;
         }
 
