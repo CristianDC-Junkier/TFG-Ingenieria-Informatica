@@ -80,6 +80,11 @@ input[type="button"]:active {
     border-radius: 5px;
     cursor: pointer;
 }
+#botonVolverFormulario-Solo{
+
+    margin: auto;
+    margin-top: 50px;
+}
 #botonEnviar{
 
     font-size: 15px;

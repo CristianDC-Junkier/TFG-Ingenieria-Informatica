@@ -46,7 +46,6 @@ public class ControladorImagenes extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html;charset=UTF-8");
         String accion;
         accion = request.getPathInfo();
         String vista = "";
@@ -76,17 +75,15 @@ public class ControladorImagenes extends HttpServlet {
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                ///////////////////////////////
-                //////PERTENECES A LA MESA/////
-                ///////////////////////////////
+                /////////////////////////////
+                /////////ES TU MESA//////////
+                /////////////////////////////
                 id = request.getParameter("id");
+                queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                queryMesas.setParameter("id", id);
+                mesa = queryMesas.getSingleResult();
 
-                queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
-                queryPertenecemesas.setParameter("usuario", user.getId());
-                queryPertenecemesas.setParameter("mesa", id);
-                pmesa = queryPertenecemesas.getSingleResult();
-
-                if (user == null || pmesa == null) {
+                if (user == null || !mesa.getCreador().equals(user.getApodo())) {
                     vista = "/TFG/Principal/inicio";
                 } else {
 
@@ -123,7 +120,7 @@ public class ControladorImagenes extends HttpServlet {
                     vista = "/Mesas/mostrarMesa";
                 }
                 break;
-            case "/MostrarImagen":
+            case "/mostrarImagenMesa":
 
                 id = request.getParameter("id");
 

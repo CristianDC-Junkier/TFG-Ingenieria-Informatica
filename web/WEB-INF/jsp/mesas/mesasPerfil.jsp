@@ -95,7 +95,7 @@
                                             <td>${mesa.titulo}</td>
                                             <td>${mesa.comunidad}</td>
                                             <td>${listacantidad[status.index]}/${mesa.tamano}</td>
-                                            <td>${listalideres[status.index]}</td>
+                                            <td>${mesa.creador}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/mostrarMesa?id=${mesa.id}'">Detalles</button></td>
                                             <c:choose> 
                                                 <c:when test="${sessionScope.user.apodo == listalideres[status.index]}">
@@ -143,8 +143,8 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/TFG/js/busquedasAJAXJS.js"></script>
     <script src="/TFG/js/principalJS.js"></script>
-    <script src="/TFG/js/mesas/mesasPerfilJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>
+    <script src="/TFG/js/mesas/mesasPerfilJS.js"></script>
     <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
 </body>
 </html>

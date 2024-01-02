@@ -55,8 +55,6 @@ public class ControladorUsuarios extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
-
         String accion;
         accion = request.getPathInfo();
         String vista = "";
@@ -71,7 +69,6 @@ public class ControladorUsuarios extends HttpServlet {
         Amigos amigo = null;
         Bloqueados bloqueado = null;
         Pideamistad pamistad = null;
-        Pertenecemesa pertenecemesa = null;
 
         TypedQuery<Usuarios> queryUsuarios;
         TypedQuery<Amigos> queryAmigos;
@@ -162,7 +159,16 @@ public class ControladorUsuarios extends HttpServlet {
 
                         // Comparar las fechas
                         if (!fechaNacimiento.before(fechaActual)) {
-                            throw new Exception("La fecha de nacimiento debe ser más pequeña que " + fechaActual);
+                            throw new Exception("La fecha de nacimiento debe ser más pequeña que " + fechaActual.getDate()
+                                    + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
+                        }
+
+                        calendarioAux.setTime(fechaActual);
+                        calendarioAux.add(Calendar.YEAR, -120);
+                        fechaActual = calendarioAux.getTime();
+                        if (!fechaActual.before(fechaNacimiento)) {
+                            throw new Exception("La fecha de nacimiento debe ser más grande que " + fechaActual.getDate()
+                                    + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
                         }
 
                         /////////////////////
@@ -375,11 +381,17 @@ public class ControladorUsuarios extends HttpServlet {
                             fechaActual = calendarioAux.getTime();
 
                             // Comparar las fechas
-                            if (fechaNacimiento.before(fechaActual)) {
-                                conseguido = true;
-                            } else {
+                            if (!fechaNacimiento.before(fechaActual)) {
+                                throw new Exception("La fecha de nacimiento debe ser más pequeña que " + fechaActual.getDate()
+                                        + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
+                            }
 
-                                throw new Exception("La fecha de nacimiento debe ser más pequeña que " + fechaActual.getDate() + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
+                            calendarioAux.setTime(fechaActual);
+                            calendarioAux.add(Calendar.YEAR, -120);
+                            fechaActual = calendarioAux.getTime();
+                            if (!fechaActual.before(fechaNacimiento)) {
+                                throw new Exception("La fecha de nacimiento debe ser más grande que " + fechaActual.getDate()
+                                        + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
                             }
 
                             /////////////////////
@@ -530,7 +542,7 @@ public class ControladorUsuarios extends HttpServlet {
                                 + "    UNION "
                                 + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')";
                     } else {
-                        sql = "SELECT COUNT(*) FROM USUARIOS u "
+                        sql = "SELECT DISTINCT COUNT(*) FROM USUARIOS u "
                                 + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                 + "INNER JOIN Pertenecemesa p2 ON u.id = p2.usuario "
                                 + "WHERE u.APODO <> '" + user.getApodo() + "'" + " AND p1.mesa = p2.mesa  "
@@ -549,8 +561,8 @@ public class ControladorUsuarios extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql);
                     result = queryAUX.getSingleResult();
 
-                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                    numPag = (((Number) result).intValue() / 10) + 1;
+                    //PAGINAS QUE HAY (6 AMIGOS POR PAGINA)
+                    numPag = (((Number) result).intValue() / 7) + 1;
 
                     if (ordenar == null || mesa == null || numString == null) {
 
@@ -561,7 +573,7 @@ public class ControladorUsuarios extends HttpServlet {
 
                     } else {
 
-                        num = (Integer.valueOf(numString) - 1) * 10;//offset
+                        num = (Integer.valueOf(numString) - 1) * 6;//offset
                     }
 
                     switch (ordenar) {
@@ -579,11 +591,11 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
                                         + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
-                                        + "    ORDER BY u.apodo DESC "
-                                        + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "    ORDER BY u.apodo ASC "
+                                        + "    OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
 
                             } else {
-                                sql = "SELECT u.* FROM USUARIOS u "
+                                sql = "SELECT DISTINCT u.* FROM USUARIOS u "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u.id = p2.usuario "
                                         + "WHERE u.APODO <> '" + user.getApodo() + "'" + " AND p1.mesa = p2.mesa  "
@@ -597,8 +609,8 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
                                         + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
-                                        + "    ORDER BY u.apodo DESC "
-                                        + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "    ORDER BY u.apodo ASC "
+                                        + "    OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             }
                             break;
                         case "ordenar2":
@@ -615,10 +627,10 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
                                         + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
-                                        + "    ORDER BY u.apodo ASC "
-                                        + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "    ORDER BY u.apodo DESC "
+                                        + "    OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             } else {
-                                sql = "SELECT u.* FROM USUARIOS u "
+                                sql = "SELECT DISTINCT u.* FROM USUARIOS u "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u.id = p2.usuario "
                                         + "WHERE u.APODO <> '" + user.getApodo() + "'" + " AND p1.mesa = p2.mesa  "
@@ -632,8 +644,8 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
                                         + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
-                                        + "    ORDER BY u.apodo ASC "
-                                        + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "    ORDER BY u.apodo DESC "
+                                        + "    OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             }
                             break;
                     }
@@ -645,29 +657,28 @@ public class ControladorUsuarios extends HttpServlet {
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuario", Pertenecemesa.class);
-                        queryPMesas.setParameter("usuario", user.getId());
+                        queryPMesas.setParameter("usuario", listaUsuarios.get(i).getId());
                         listaPerteneceMesa = queryPMesas.getResultList();
 
+                        boolean encontrado = false;
                         if (listaPerteneceMesa.isEmpty() == false) {
-                            boolean encontrado = false;
                             int j = 0;
 
                             while (encontrado == false && j < listaPerteneceMesa.size()) {
                                 queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                                 queryPMesas.setParameter("usuario", user.getId());
                                 queryPMesas.setParameter("mesa", listaPerteneceMesa.get(j).getPertenecemesaPK().getMesa());
-                                pertenecemesa = queryPMesas.getSingleResult();
-                                if (pertenecemesa != null) {
+                                if (!queryPMesas.getResultList().isEmpty()) {
                                     encontrado = true;
                                 } else {
                                     j++;
                                 }
                             }
-                            if (encontrado == true) {
-                                pertenecemesaUsuarios.add("Compartis una Mesa");
-                            } else {
-                                pertenecemesaUsuarios.add("No compartis una Mesa");
-                            }
+                        }
+                        if (encontrado == true) {
+                            pertenecemesaUsuarios.add("Compartis una Mesa");
+                        } else {
+                            pertenecemesaUsuarios.add("No compartis una Mesa");
                         }
                     }
 
@@ -733,7 +744,7 @@ public class ControladorUsuarios extends HttpServlet {
                                 + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
                                 + "WHERE p.pide = '" + user.getId() + "'";
                     } else {
-                        sql = "SELECT COUNT(*) FROM Usuarios u "
+                        sql = "SELECT DISTINCT COUNT(*) FROM Usuarios u "
                                 + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
                                 + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
                                 + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -745,8 +756,8 @@ public class ControladorUsuarios extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql);
                     result = queryAUX.getSingleResult();
 
-                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                    numPag = (((Number) result).intValue() / 10) + 1;
+                    //PAGINAS QUE HAY (6 AMIGOS POR PAGINA)
+                    numPag = (((Number) result).intValue() / 7) + 1;
 
                     peticiones = "Enviadas";
 
@@ -759,7 +770,7 @@ public class ControladorUsuarios extends HttpServlet {
 
                     } else {
 
-                        num = (Integer.valueOf(numString) - 1) * 10;//offset
+                        num = (Integer.valueOf(numString) - 1) * 6;//offset
                     }
 
                     switch (ordenar) {
@@ -769,7 +780,7 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "WHERE p.pide = '" + user.getId() + "' "
-                                        + "ORDER BY u2.apodo DESC "
+                                        + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
                                 sql = "SELECT u2.* FROM Usuarios u "
@@ -779,7 +790,7 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE p.pide = '" + user.getId() + "' "
                                         + "AND p1.mesa = p2.mesa "
-                                        + "ORDER BY u2.apodo DESC "
+                                        + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             }
                             break;
@@ -789,7 +800,7 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "WHERE p.pide = '" + user.getId() + "' "
-                                        + "ORDER BY u2.apodo ASC "
+                                        + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
                                 sql = "SELECT u2.* FROM Usuarios u "
@@ -799,7 +810,7 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE p.pide = '" + user.getId() + "' "
                                         + "AND p1.mesa = p2.mesa "
-                                        + "ORDER BY u2.apodo ASC "
+                                        + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             }
                             break;
@@ -807,34 +818,34 @@ public class ControladorUsuarios extends HttpServlet {
 
                     queryAUX = em.createNativeQuery(sql, Usuarios.class);
                     listaUsuarios = queryAUX.getResultList();
-                    
+
                     pertenecemesaUsuarios = new ArrayList();
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuario", Pertenecemesa.class);
-                        queryPMesas.setParameter("usuario", user.getId());
+                        queryPMesas.setParameter("usuario", listaUsuarios.get(i).getId());
                         listaPerteneceMesa = queryPMesas.getResultList();
 
+                        boolean encontrado = false;
                         if (listaPerteneceMesa.isEmpty() == false) {
-                            boolean encontrado = false;
+
                             int j = 0;
 
                             while (encontrado == false && j < listaPerteneceMesa.size()) {
                                 queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                                 queryPMesas.setParameter("usuario", user.getId());
                                 queryPMesas.setParameter("mesa", listaPerteneceMesa.get(j).getPertenecemesaPK().getMesa());
-                                pertenecemesa = queryPMesas.getSingleResult();
-                                if (pertenecemesa != null) {
+                                if (!queryPMesas.getResultList().isEmpty()) {
                                     encontrado = true;
                                 } else {
                                     j++;
                                 }
                             }
-                            if (encontrado == true) {
-                                pertenecemesaUsuarios.add("Compartis una Mesa");
-                            } else {
-                                pertenecemesaUsuarios.add("No compartis una Mesa");
-                            }
+                        }
+                        if (encontrado == true) {
+                            pertenecemesaUsuarios.add("Compartis una Mesa");
+                        } else {
+                            pertenecemesaUsuarios.add("No compartis una Mesa");
                         }
                     }
 
@@ -901,8 +912,8 @@ public class ControladorUsuarios extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql);
                     result = queryAUX.getSingleResult();
 
-                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                    numPag = (((Number) result).intValue() / 10) + 1;
+                    //PAGINAS QUE HAY (6 AMIGOS POR PAGINA)
+                    numPag = (((Number) result).intValue() / 7) + 1;
 
                     peticiones = "Recibidas";
 
@@ -915,7 +926,7 @@ public class ControladorUsuarios extends HttpServlet {
 
                     } else {
 
-                        num = (Integer.valueOf(numString) - 1) * 10;//offset
+                        num = (Integer.valueOf(numString) - 1) * 6;//offset
                     }
 
                     switch (ordenar) {
@@ -925,18 +936,17 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
-                                        + "ORDER BY u2.apodo DESC "
+                                        + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "AND p1.mesa = p2.mesa "
-                                        + "ORDER BY u2.apodo DESC "
+                                        + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             }
                             break;
@@ -946,18 +956,17 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
-                                        + "ORDER BY u2.apodo ASC "
+                                        + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "AND p1.mesa = p2.mesa "
-                                        + "ORDER BY u2.apodo ASC "
+                                        + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             }
                             break;
@@ -965,34 +974,33 @@ public class ControladorUsuarios extends HttpServlet {
 
                     queryAUX = em.createNativeQuery(sql, Usuarios.class);
                     listaUsuarios = queryAUX.getResultList();
-                    
+
                     pertenecemesaUsuarios = new ArrayList();
-                    
+
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuario", Pertenecemesa.class);
-                        queryPMesas.setParameter("usuario", user.getId());
+                        queryPMesas.setParameter("usuario", listaUsuarios.get(i).getId());
                         listaPerteneceMesa = queryPMesas.getResultList();
 
+                        boolean encontrado = false;
                         if (listaPerteneceMesa.isEmpty() == false) {
-                            boolean encontrado = false;
                             int j = 0;
 
                             while (encontrado == false && j < listaPerteneceMesa.size()) {
                                 queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                                 queryPMesas.setParameter("usuario", user.getId());
                                 queryPMesas.setParameter("mesa", listaPerteneceMesa.get(j).getPertenecemesaPK().getMesa());
-                                pertenecemesa = queryPMesas.getSingleResult();
-                                if (pertenecemesa != null) {
+                                if (!queryPMesas.getResultList().isEmpty()) {
                                     encontrado = true;
                                 } else {
                                     j++;
                                 }
                             }
-                            if (encontrado == true) {
-                                pertenecemesaUsuarios.add("Compartis una Mesa");
-                            } else {
-                                pertenecemesaUsuarios.add("No compartis una Mesa");
-                            }
+                        }
+                        if (encontrado == true) {
+                            pertenecemesaUsuarios.add("Compartis una Mesa");
+                        } else {
+                            pertenecemesaUsuarios.add("No compartis una Mesa");
                         }
                     }
 
@@ -1158,7 +1166,7 @@ public class ControladorUsuarios extends HttpServlet {
                                 + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                 + "WHERE a.amigo1 = '" + user.getId() + "'";
                     } else {
-                        sql = "SELECT COUNT(*) FROM Usuarios u "
+                        sql = "SELECT DISTINCT COUNT(*) FROM Usuarios u "
                                 + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                 + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                 + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -1170,8 +1178,8 @@ public class ControladorUsuarios extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql);
                     result = queryAUX.getSingleResult();
 
-                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                    numPag = (((Number) result).intValue() / 10) + 1;
+                    //PAGINAS QUE HAY (6 AMIGOS POR PAGINA)
+                    numPag = (((Number) result).intValue() / 7) + 1;
 
                     if (ordenar == null || mesa == null || numString == null) {
 
@@ -1182,7 +1190,7 @@ public class ControladorUsuarios extends HttpServlet {
 
                     } else {
 
-                        num = (Integer.valueOf(numString) - 1) * 10;//offset
+                        num = (Integer.valueOf(numString) - 1) * 6;//offset
                     }
 
                     switch (ordenar) {
@@ -1192,17 +1200,17 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                         + "WHERE a.amigo1 = '" + user.getId() + "' "
-                                        + "ORDER BY u2.apodo DESC "
+                                        + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
                                         + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE a.amigo1 = '" + user.getId() + "' "
                                         + "AND p1.mesa = p2.mesa "
-                                        + "ORDER BY u2.apodo DESC "
+                                        + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             }
                             break;
@@ -1212,17 +1220,17 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                         + "WHERE a.amigo1 = '" + user.getId() + "' "
-                                        + "ORDER BY u2.apodo ASC "
+                                        + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
                                         + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE a.amigo1 = '" + user.getId() + "' "
                                         + "AND p1.mesa = p2.mesa "
-                                        + "ORDER BY u2.apodo ASC "
+                                        + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             }
                             break;
@@ -1345,8 +1353,8 @@ public class ControladorUsuarios extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql);
                     result = queryAUX.getSingleResult();
 
-                    //PAGINAS QUE HAY (10 AMIGOS POR PAGINA)
-                    numPag = (((Number) result).intValue() / 10) + 1;
+                    //PAGINAS QUE HAY (6 AMIGOS POR PAGINA)
+                    numPag = (((Number) result).intValue() / 7) + 1;
 
                     if (ordenar == null || numString == null) {
 
@@ -1356,7 +1364,7 @@ public class ControladorUsuarios extends HttpServlet {
 
                     } else {
 
-                        num = (Integer.valueOf(numString) - 1) * 10;//offset
+                        num = (Integer.valueOf(numString) - 1) * 6;//offset
                     }
 
                     switch (ordenar) {
@@ -1365,7 +1373,7 @@ public class ControladorUsuarios extends HttpServlet {
                                     + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
                                     + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
                                     + "WHERE b.bloqueador = '" + user.getId() + "' "
-                                    + "ORDER BY u2.apodo DESC "
+                                    + "ORDER BY u2.apodo ASC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             break;
                         case "ordenar2":
@@ -1373,7 +1381,7 @@ public class ControladorUsuarios extends HttpServlet {
                                     + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
                                     + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
                                     + "WHERE b.bloqueador = '" + user.getId() + "' "
-                                    + "ORDER BY u2.apodo ASC "
+                                    + "ORDER BY u2.apodo DESC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             break;
                     }

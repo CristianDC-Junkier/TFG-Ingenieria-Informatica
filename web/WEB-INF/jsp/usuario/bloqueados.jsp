@@ -106,8 +106,8 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/TFG/js/busquedasAJAXJS.js"></script>
-    <script src="/TFG/js/usuario/bloqueadosJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>
+    <script src="/TFG/js/usuario/bloqueadosJS.js"></script>
     <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
     <script src="/TFG/js/principalJS.js"></script>
 </body>

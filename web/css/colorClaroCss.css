@@ -702,6 +702,12 @@ input[type="button"]:active {
     color: white;
     border: black 3px solid;
     box-shadow: 1px 1px 1px 1px #1f6161;
+}#botonVolverFormulario-Solo{
+
+    background-color: black;
+    color: white;
+    border: black 3px solid;
+    box-shadow: 1px 1px 1px 1px #1f6161;
 }
 #botonEnviar{
 

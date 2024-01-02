@@ -67,7 +67,7 @@ public class Usuarios implements Serializable {
     private String provincia;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
+    @Size(min = 1, max = 40)
     private String genero;
     @Basic(optional = false)
     @NotNull

@@ -1,4 +1,7 @@
 
+
+let pagpordelante = numpag - pag;
+        
 function actualizarBotones() {
 
     let pestañasBotones = document.getElementById('pestañaBotones');
@@ -13,10 +16,10 @@ function actualizarBotones() {
 
     pestañasBotones.innerHTML += '<button class="botonArriba" id="pagActual"> Actual </button>';
 
-    if (totalaux > 2) {
+    if (pagpordelante > 0) {
         pestañasBotones.innerHTML += '<button class="botonArriba" id="pagPosterior">' + (pag + 1) + '</button>';
     }
-    if (totalaux > 1) {
+    if (pagpordelante > 1) {
         pestañasBotones.innerHTML += '<button class="botonArriba" id="pagFinal">Final</button>';
     }
 }

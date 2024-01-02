@@ -95,7 +95,7 @@
                                             <td>${mesa.titulo}</td>
                                             <td>${mesa.comunidad}</td>
                                             <td>${listacantidad[status.index]}/${mesa.tamano}</td>
-                                            <td>${listalideres[status.index]}</td>                                            
+                                            <td>${mesa.creador}</td>                                            
                                         </tr>
                                     </c:forEach>
                                 </table>
@@ -125,8 +125,8 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/TFG/js/busquedasAJAXJS.js"></script>
     <script src="/TFG/js/principalJS.js"></script>
-    <script src="/TFG/js/mesas/mesasPerfilAmigoJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>
+    <script src="/TFG/js/mesas/mesasPerfilAmigoJS.js"></script>
     <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
 </body>
 </html>

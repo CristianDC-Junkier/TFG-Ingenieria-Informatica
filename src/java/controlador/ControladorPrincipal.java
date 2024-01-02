@@ -1,4 +1,3 @@
-
 package controlador;
 
 import java.io.IOException;
@@ -27,11 +26,13 @@ public class ControladorPrincipal extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
+        request.setCharacterEncoding("UTF-8");
+
         String accion;
         accion = request.getPathInfo();
         String vista = "";
-        
+
         switch (accion) {
             case "/inicio":
                 vista = "/WEB-INF/jsp/inicio/inicio.jsp";
@@ -40,7 +41,7 @@ public class ControladorPrincipal extends HttpServlet {
                 vista = "/WEB-INF/jsp/inicio/introduccion.jsp";
                 break;
         }
-        
+
         RequestDispatcher rd = request.getRequestDispatcher(vista);
         rd.forward(request, response);
     }

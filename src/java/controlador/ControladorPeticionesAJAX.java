@@ -1,10 +1,7 @@
 package controlador;
 
-import entidades.Amigos;
-import entidades.Bloqueados;
 import entidades.Mesas;
 import entidades.Pertenecemesa;
-import entidades.Pideamistad;
 import entidades.Usuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -50,7 +47,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
 
             String accion;
@@ -61,7 +57,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             Usuarios user = null;
             Usuarios useraux = null;
-            Pertenecemesa pertenecemesa = null;
 
             TypedQuery<Usuarios> queryUsuarios;
             TypedQuery<Pertenecemesa> queryPMesas;
@@ -72,7 +67,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             List<Pertenecemesa> listaPerteneceMesa;
             List<Mesas> listaMesas;
             ArrayList<String> pertenecemesaUsuarios;
-            ArrayList<String> listaLideres;
             ArrayList<Integer> listaCantidad;
             ArrayList<String> fotosMesas;
 
@@ -125,11 +119,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
                                         + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
-                                        + "    ORDER BY u.apodo DESC "
-                                        + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "    ORDER BY u.apodo ASC ";
 
                             } else {
-                                sql = "SELECT u.* FROM USUARIOS u "
+                                sql = "SELECT DISTINCT u.* FROM USUARIOS u "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u.id = p2.usuario "
                                         + "WHERE u.APODO <> '" + user.getApodo() + "'" + " AND p1.mesa = p2.mesa  "
@@ -144,8 +137,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
                                         + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
-                                        + "    ORDER BY u.apodo DESC "
-                                        + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "    ORDER BY u.apodo ASC ";
                             }
                             break;
                         case "ordenar2":
@@ -163,10 +155,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
                                         + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
-                                        + "    ORDER BY u.apodo ASC "
-                                        + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "    ORDER BY u.apodo DESC ";
                             } else {
-                                sql = "SELECT u.* FROM USUARIOS u "
+                                sql = "SELECT DISTINCT u.* FROM USUARIOS u "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u.id = p2.usuario "
                                         + "WHERE u.APODO <> '" + user.getApodo() + "'" + " AND p1.mesa = p2.mesa  "
@@ -181,8 +172,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
                                         + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
-                                        + "    ORDER BY u.apodo ASC "
-                                        + "    OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "    ORDER BY u.apodo DESC ";
                             }
                             break;
                     }
@@ -194,29 +184,27 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuario", Pertenecemesa.class);
-                        queryPMesas.setParameter("usuario", user.getId());
+                        queryPMesas.setParameter("usuario", listaUsuarios.get(i).getId());
                         listaPerteneceMesa = queryPMesas.getResultList();
 
+                        boolean encontrado = false;
                         if (listaPerteneceMesa.isEmpty() == false) {
-                            boolean encontrado = false;
                             int j = 0;
-
                             while (encontrado == false && j < listaPerteneceMesa.size()) {
                                 queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                                 queryPMesas.setParameter("usuario", user.getId());
                                 queryPMesas.setParameter("mesa", listaPerteneceMesa.get(j).getPertenecemesaPK().getMesa());
-                                pertenecemesa = queryPMesas.getSingleResult();
-                                if (pertenecemesa != null) {
+                                if (!queryPMesas.getResultList().isEmpty()) {
                                     encontrado = true;
                                 } else {
                                     j++;
                                 }
                             }
-                            if (encontrado == true) {
-                                pertenecemesaUsuarios.add("Compartis una Mesa");
-                            } else {
-                                pertenecemesaUsuarios.add("No compartis una Mesa");
-                            }
+                        }
+                        if (encontrado == true) {
+                            pertenecemesaUsuarios.add("Compartis una Mesa");
+                        } else {
+                            pertenecemesaUsuarios.add("No compartis una Mesa");
                         }
                     }
 
@@ -265,16 +253,15 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                         + "WHERE a.amigo1 = '" + user.getId() + "'"
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
-                                        + "ORDER BY u2.apodo DESC "
+                                        + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
                                         + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
                                         + "WHERE a.amigo1 = '" + user.getApodo() + "'"
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
-                                        + "ORDER BY u2.apodo DESC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY u2.apodo ASC ";
                             }
                             break;
                         case "ordenar2":
@@ -284,16 +271,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                         + "WHERE a.amigo1 = '" + user.getId() + "'"
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
-                                        + "ORDER BY u2.apodo ASC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY u2.apodo DESC ";
                             } else {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
                                         + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
                                         + "WHERE a.amigo1 = '" + user.getApodo() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
-                                        + "ORDER BY u2.apodo ASC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY u2.apodo DESC ";
                             }
                             break;
                     }
@@ -357,10 +342,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "WHERE p.pide = '" + user.getId() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
-                                        + "ORDER BY u2.apodo DESC "
+                                        + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -368,8 +353,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "WHERE p.pide = '" + user.getId() + "' "
                                         + "AND p1.mesa = p2.mesa "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
-                                        + "ORDER BY u2.apodo DESC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY u2.apodo ASC ";
                             }
                             break;
                         case "ordenar2":
@@ -379,10 +363,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "WHERE p.pide = '" + user.getId() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
-                                        + "ORDER BY u2.apodo ASC "
+                                        + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -390,8 +374,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "WHERE p.pide = '" + user.getId() + "' "
                                         + "AND p1.mesa = p2.mesa "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
-                                        + "ORDER BY u2.apodo ASC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY u2.apodo DESC ";
                             }
                             break;
                     }
@@ -403,29 +386,28 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuario", Pertenecemesa.class);
-                        queryPMesas.setParameter("usuario", user.getId());
+                        queryPMesas.setParameter("usuario", listaUsuarios.get(i).getId());
                         listaPerteneceMesa = queryPMesas.getResultList();
 
+                        boolean encontrado = false;
                         if (listaPerteneceMesa.isEmpty() == false) {
-                            boolean encontrado = false;
                             int j = 0;
 
                             while (encontrado == false && j < listaPerteneceMesa.size()) {
                                 queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                                 queryPMesas.setParameter("usuario", user.getId());
                                 queryPMesas.setParameter("mesa", listaPerteneceMesa.get(j).getPertenecemesaPK().getMesa());
-                                pertenecemesa = queryPMesas.getSingleResult();
-                                if (pertenecemesa != null) {
+                                if (!queryPMesas.getResultList().isEmpty()) {
                                     encontrado = true;
                                 } else {
                                     j++;
                                 }
                             }
-                            if (encontrado == true) {
-                                pertenecemesaUsuarios.add("Compartis una Mesa");
-                            } else {
-                                pertenecemesaUsuarios.add("No compartis una Mesa");
-                            }
+                        }
+                        if (encontrado == true) {
+                            pertenecemesaUsuarios.add("Compartis una Mesa");
+                        } else {
+                            pertenecemesaUsuarios.add("No compartis una Mesa");
                         }
                     }
 
@@ -473,11 +455,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
-                                        + "ORDER BY u2.apodo DESC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY u2.apodo ASC ";
                             } else {
-                                System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -485,8 +465,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "AND p1.mesa = p2.mesa "
-                                        + "ORDER BY u2.apodo DESC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY u2.apodo ASC ";
                             }
                             break;
                         case "ordenar2":
@@ -496,11 +475,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
-                                        + "ORDER BY u2.apodo ASC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY u2.apodo DESC ";
                             } else {
-                                System.out.println("AUN NO IMPLEMENTADO, REPLICAMOS");
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -508,8 +485,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "AND p1.mesa = p2.mesa "
-                                        + "ORDER BY u2.apodo ASC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY u2.apodo DESC ";
                             }
                             break;
                     }
@@ -521,29 +497,28 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuario", Pertenecemesa.class);
-                        queryPMesas.setParameter("usuario", user.getId());
+                        queryPMesas.setParameter("usuario", listaUsuarios.get(i).getId());
                         listaPerteneceMesa = queryPMesas.getResultList();
 
+                        boolean encontrado = false;
                         if (listaPerteneceMesa.isEmpty() == false) {
-                            boolean encontrado = false;
                             int j = 0;
 
                             while (encontrado == false && j < listaPerteneceMesa.size()) {
                                 queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                                 queryPMesas.setParameter("usuario", user.getId());
                                 queryPMesas.setParameter("mesa", listaPerteneceMesa.get(j).getPertenecemesaPK().getMesa());
-                                pertenecemesa = queryPMesas.getSingleResult();
-                                if (pertenecemesa != null) {
+                                if (!queryPMesas.getResultList().isEmpty()) {
                                     encontrado = true;
                                 } else {
                                     j++;
                                 }
                             }
-                            if (encontrado == true) {
-                                pertenecemesaUsuarios.add("Compartis una Mesa");
-                            } else {
-                                pertenecemesaUsuarios.add("No compartis una Mesa");
-                            }
+                        }
+                        if (encontrado == true) {
+                            pertenecemesaUsuarios.add("Compartis una Mesa");
+                        } else {
+                            pertenecemesaUsuarios.add("No compartis una Mesa");
                         }
                     }
 
@@ -588,8 +563,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
                                     + "WHERE b.bloqueador = '" + user.getId() + "' "
                                     + "AND u2.apodo LIKE '" + nombre + "%' "
-                                    + "ORDER BY u2.apodo DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                    + "ORDER BY u2.apodo ASC ";
                             break;
                         case "ordenar2":
                             sql = "SELECT u2.* FROM Usuarios u "
@@ -597,8 +571,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
                                     + "WHERE b.bloqueador = '" + user.getId() + "' "
                                     + "AND u2.apodo LIKE '" + nombre + "%' "
-                                    + "ORDER BY u2.apodo ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                    + "ORDER BY u2.apodo DESC ";
                             break;
                     }
 
@@ -670,10 +643,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "    WHERE P.MESA = M.ID "
                                         + ") "
                                         + "AND M.TITULO LIKE '" + nombre + "%' "
-                                        + "ORDER BY M.TITULO DESC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY M.TITULO ASC ";
                             } else {
-                                sql = "SELECT M.* "
+                                sql = "SELECT DISTINCT M.* "
                                         + "FROM MESAS M "
                                         + "WHERE NOT EXISTS ( "
                                         + "    SELECT * "
@@ -687,8 +659,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "    WHERE P.MESA = M.ID "
                                         + ") "
                                         + "AND M.TITULO LIKE '" + nombre + "%' "
-                                        + "ORDER BY M.TITULO DESC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY M.TITULO ASC ";
                             }
                             break;
                         case "ordenar2":
@@ -707,10 +678,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "    WHERE P.MESA = M.ID "
                                         + ") "
                                         + "AND M.TITULO LIKE '" + nombre + "%' "
-                                        + "ORDER BY M.TITULO ASC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY M.TITULO DESC ";
                             } else {
-                                sql = "SELECT M.* "
+                                sql = "SELECT DISTINCT M.* "
                                         + "FROM MESAS M "
                                         + "WHERE NOT EXISTS ( "
                                         + "    SELECT * "
@@ -724,8 +694,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "    WHERE P.MESA = M.ID "
                                         + ") "
                                         + "AND M.TITULO LIKE '" + nombre + "%' "
-                                        + "ORDER BY M.TITULO ASC "
-                                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                        + "ORDER BY M.TITULO DESC ";
                             }
                             break;
                     }
@@ -733,20 +702,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Mesas.class);
                     listaMesas = queryAUX.getResultList();
 
-                    listaLideres = new ArrayList();
                     listaCantidad = new ArrayList();
                     fotosMesas = new ArrayList();
 
                     for (int i = 0; i < listaMesas.size(); i++) {
-                        queryPMesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
-                        queryPMesas.setParameter("rol", "Dungeon Master");
-                        queryPMesas.setParameter("mesa", listaMesas.get(i).getId());
-                        pertenecemesa = queryPMesas.getSingleResult();
-                        queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
-                        queryUsuarios.setParameter("id", pertenecemesa.getPertenecemesaPK().getUsuario());
-                        useraux = queryUsuarios.getSingleResult();
-                        listaLideres.add(useraux.getApodo());
-
                         queryAUX = em.createNamedQuery("Pertenecemesa.countByMesa", Integer.class);
                         queryAUX.setParameter("mesa", listaMesas.get(i).getId());
                         cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
@@ -755,7 +714,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         if (listaMesas.get(i).getImagenmesa() == null) {
                             fotosMesas.add("-");
                         } else {
-                            fotosMesas.add("/TFG/Imagenes/MostrarImagen?id=" + listaMesas.get(i).getId());
+                            fotosMesas.add("/TFG/Imagenes/mostrarImagenMesa?id=" + listaMesas.get(i).getId());
                         }
                     }
 
@@ -782,15 +741,27 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "<td>" + mesaux.getTitulo() + "</td>"
                                 + "<td>" + mesaux.getComunidad() + "</td>"
                                 + "<td>" + listaCantidad.get(i) + "/" + mesaux.getTamano() + "</td>"
-                                + "<td>" + listaLideres.get(i) + "</td>";
-                        if (mesaux.getContrasena() != null) {
-                            resultado = resultado
-                                    + "<td>Con contraseña</td>"
-                                    + "<td><button class='botonDentro' onclick='mostrarRecuadro()'>Entrar</button></td>";
+                                + "<td>" + mesaux.getTitulo() + "</td>";
+                        if (lleno.equals("true")) {
+                            if (mesaux.getContrasena() != null) {
+                                resultado = resultado
+                                        + "<td>Con contraseña</td>"
+                                        + "<td>Esta llena</td>";
+                            } else {
+                                resultado = resultado
+                                        + "<td>Sin contraseña</td>"
+                                        + "<td>Esta llena</td>";
+                            }
                         } else {
-                            resultado = resultado
-                                    + "<td>Sin contraseña</td>"
-                                    + "<td><button class='botonDentro' onclick=\"location.href = '/TFG/Mesas/anadiraMesa?id=" + mesaux.getId() + "&contrasena_anadirmesa='" + "'\">Si</button></td>";
+                            if (mesaux.getContrasena() != null) {
+                                resultado = resultado
+                                        + "<td>Con contraseña</td>"
+                                        + "<td><button class='botonDentro' onclick='mostrarRecuadro()'>Entrar</button></td>";
+                            } else {
+                                resultado = resultado
+                                        + "<td>Sin contraseña</td>"
+                                        + "<td><button class='botonDentro' onclick=\"location.href = '/TFG/Mesas/anadiraMesa?id=" + mesaux.getId() + "&contrasena_anadirmesa='" + "'\">Si</button></td>";
+                            }
                         }
                         resultado = resultado
                                 + "</tr>"
@@ -808,13 +779,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = resultado + "</table>";
                     System.out.println("PeticionAJAX Sale");
                     break;
-                case "/MesasAmigos":
 
-                    /////////////////////////
-                    /////////SESION//////////
-                    /////////////////////////
-                    session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                case "/MesasAmigos":
 
                     ////////////////////////////
                     ////////////AMIGO///////////
@@ -844,8 +810,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "    WHERE P.MESA = M.ID "
                                     + ") "
                                     + "AND M.TITULO LIKE '" + nombre + "%' "
-                                    + "ORDER BY M.TITULO DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                    + "ORDER BY M.TITULO ASC ";
 
                             break;
                         case "ordenar2":
@@ -863,8 +828,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "    WHERE P.MESA = M.ID "
                                     + ") "
                                     + "AND M.TITULO LIKE '" + nombre + "%' "
-                                    + "ORDER BY M.TITULO ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                    + "ORDER BY M.TITULO DESC ";
                             break;
                         case "ordenar3":
                             sql = "SELECT M.* "
@@ -881,12 +845,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "    WHERE P.MESA = M.ID "
                                     + ") "
                                     + "AND M.TITULO LIKE '" + nombre + "%' "
-                                    + "ORDER BY ( "
-                                    + "    SELECT COUNT(*) "
-                                    + "    FROM PERTENECEMESA P "
-                                    + "    WHERE P.MESA = M.ID "
-                                    + ") DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                    + "ORDER BY M.TAMANO DESC ";
                             break;
                         case "ordenar4":
                             sql = "SELECT M.* "
@@ -903,31 +862,17 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "    WHERE P.MESA = M.ID "
                                     + ") "
                                     + "AND M.TITULO LIKE '" + nombre + "%' "
-                                    + "ORDER BY ( "
-                                    + "    SELECT COUNT(*) "
-                                    + "    FROM PERTENECEMESA P "
-                                    + "    WHERE P.MESA = M.ID "
-                                    + ") ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                    + "ORDER BY M.TAMANO ASC ";
                             break;
                     }
 
                     queryAUX = em.createNativeQuery(sql, Mesas.class);
                     listaMesas = queryAUX.getResultList();
 
-                    listaLideres = new ArrayList();
                     listaCantidad = new ArrayList();
                     fotosMesas = new ArrayList();
 
                     for (int i = 0; i < listaMesas.size(); i++) {
-                        queryPMesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
-                        queryPMesas.setParameter("rol", "Dungeon Master");
-                        queryPMesas.setParameter("mesa", listaMesas.get(i).getId());
-                        pertenecemesa = queryPMesas.getSingleResult();
-                        queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
-                        queryUsuarios.setParameter("id", pertenecemesa.getPertenecemesaPK().getUsuario());
-                        useraux = queryUsuarios.getSingleResult();
-                        listaLideres.add(useraux.getApodo());
 
                         queryAUX = em.createNamedQuery("Pertenecemesa.countByMesa", Integer.class);
                         queryAUX.setParameter("mesa", listaMesas.get(i).getId());
@@ -937,7 +882,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         if (listaMesas.get(i).getImagenmesa() == null) {
                             fotosMesas.add("-");
                         } else {
-                            fotosMesas.add("/TFG/Imagenes/MostrarImagen?id=" + listaMesas.get(i).getId());
+                            fotosMesas.add("/TFG/Imagenes/mostrarImagenMesa?id=" + listaMesas.get(i).getId());
                         }
                     }
 
@@ -963,7 +908,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "<td>" + mesaux.getTitulo() + "</td>"
                                 + "<td>" + mesaux.getComunidad() + "</td>"
                                 + "<td>" + listaCantidad.get(i) + "/" + mesaux.getTamano() + "</td>"
-                                + "<td>" + listaLideres.get(i) + "</td>"
+                                + "<td>" + mesaux.getCreador() + "</td>"
                                 + "</tr>";
                     }
                     resultado = resultado + "</table>";
@@ -1000,8 +945,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "    WHERE P.MESA = M.ID "
                                     + ") "
                                     + "AND M.TITULO LIKE '" + nombre + "%' "
-                                    + "ORDER BY M.TITULO DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                    + "ORDER BY M.TITULO ASC ";
 
                             break;
                         case "ordenar2":
@@ -1019,8 +963,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "    WHERE P.MESA = M.ID "
                                     + ") "
                                     + "AND M.TITULO LIKE '" + nombre + "%' "
-                                    + "ORDER BY M.TITULO ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                    + "ORDER BY M.TITULO DESC ";
                             break;
                         case "ordenar3":
                             sql = "SELECT M.* "
@@ -1037,12 +980,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "    WHERE P.MESA = M.ID "
                                     + ") "
                                     + "AND M.TITULO LIKE '" + nombre + "%' "
-                                    + "ORDER BY ( "
-                                    + "    SELECT COUNT(*) "
-                                    + "    FROM PERTENECEMESA P "
-                                    + "    WHERE P.MESA = M.ID "
-                                    + ") DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                    + "ORDER BY M.TAMANO DESC ";
                             break;
                         case "ordenar4":
                             sql = "SELECT M.* "
@@ -1059,32 +997,17 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "    WHERE P.MESA = M.ID "
                                     + ") "
                                     + "AND M.TITULO LIKE '" + nombre + "%' "
-                                    + "ORDER BY ( "
-                                    + "    SELECT COUNT(*) "
-                                    + "    FROM PERTENECEMESA P "
-                                    + "    WHERE P.MESA = M.ID "
-                                    + ") ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+                                    + "ORDER BY M.TAMANO ASC ";
                             break;
                     }
 
                     queryAUX = em.createNativeQuery(sql, Mesas.class);
                     listaMesas = queryAUX.getResultList();
 
-                    listaLideres = new ArrayList();
                     listaCantidad = new ArrayList();
                     fotosMesas = new ArrayList();
 
                     for (int i = 0; i < listaMesas.size(); i++) {
-                        queryPMesas = em.createNamedQuery("Pertenecemesa.findByRolMesa", Pertenecemesa.class);
-                        queryPMesas.setParameter("rol", "Dungeon Master");
-                        queryPMesas.setParameter("mesa", listaMesas.get(i).getId());
-                        pertenecemesa = queryPMesas.getSingleResult();
-                        queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
-                        queryUsuarios.setParameter("id", pertenecemesa.getPertenecemesaPK().getUsuario());
-                        useraux = queryUsuarios.getSingleResult();
-                        listaLideres.add(useraux.getApodo());
-
                         queryAUX = em.createNamedQuery("Pertenecemesa.countByMesa", Integer.class);
                         queryAUX.setParameter("mesa", listaMesas.get(i).getId());
                         cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
@@ -1094,7 +1017,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             fotosMesas.add("-");
                         } else {
                             System.out.println("entro");
-                            fotosMesas.add("/TFG/Imagenes/MostrarImagen?id=" + listaMesas.get(i).getId());
+                            fotosMesas.add("/TFG/Imagenes/mostrarImagenMesa?id=" + listaMesas.get(i).getId());
                         }
                     }
 
@@ -1121,14 +1044,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "<td>" + mesaux.getTitulo() + "</td>"
                                 + "<td>" + mesaux.getComunidad() + "</td>"
                                 + "<td>" + listaCantidad.get(i) + "/" + mesaux.getTamano() + "</td>"
-                                + "<td>" + listaLideres.get(i) + "</td>"
+                                + "<td>" + mesaux.getCreador() + "</td>"
                                 + "<td><button class='botonDentro' onclick=\"location.href = '/TFG/Mesas/mostrarMesa?=" + mesaux.getId() + "'" + "'\">Detalles</button></td>";
-                        if (listaLideres.get(i).equals(user.getApodo())) {
+                        if (mesaux.getCreador().equals(user.getApodo())) {
                             resultado = resultado
                                     + "<td><button class='botonDentro' onclick='mostrarRecuadro()'>Borrar Mesa</button></td>";
                         } else {
                             resultado = resultado
-                                    + "<button class='botonDentro' onclick=\"location.href = '/TFG/Mesas/salirdeMesa?id=" + mesaux.getId() + "'\">Salir</button>";
+                                    + "<td><button class='botonDentro' onclick=\"location.href = '/TFG/Mesas/salirdeMesa?id=" + mesaux.getId() + "'\">Salir</button></td>";
                         }
                         resultado = resultado
                                 + "</tr>"
@@ -1169,7 +1092,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                     queryUsuarios.setParameter("apodo", nombre);
 
-                    if (queryUsuarios.getSingleResult() != null) {
+                    if (!queryUsuarios.getResultList().isEmpty()) {
                         resultado = "Encontrado";
                     } else {
                         resultado = "No Encontrado";
@@ -1184,7 +1107,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
                     queryUsuarios.setParameter("correo", nombre);
 
-                    if (queryUsuarios.getSingleResult() != null) {
+                    if (!queryUsuarios.getResultList().isEmpty()) {
                         resultado = "Encontrado";
                     } else {
                         resultado = "No Encontrado";
@@ -1199,7 +1122,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryUsuarios = em.createNamedQuery("Usuarios.findByTelefono", Usuarios.class);
                     queryUsuarios.setParameter("telefono", new BigInteger(nombre));
 
-                    if (queryUsuarios.getSingleResult() != null) {
+                    if (!queryUsuarios.getResultList().isEmpty()) {
                         resultado = "Encontrado";
                     } else {
                         resultado = "No Encontrado";
@@ -1226,6 +1149,17 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         if (fechaNacimiento.before(fechaActual)) {
                             novalido = false;
                         }
+                        calendarioAux.setTime(fechaActual);
+                        calendarioAux.add(Calendar.YEAR, -120);
+                        fechaActual = calendarioAux.getTime();
+                        System.out.println(fechaActual);
+                        System.out.println(fechaNacimiento);
+                        System.out.println(fechaActual.before(fechaNacimiento));
+                        if (fechaActual.before(fechaNacimiento)) {
+                            novalido = false;
+                        } else {
+                            novalido = true;
+                        }
                     } catch (ParseException ex) {
                         System.out.println("Error recogiendo la fecha");
                     }
@@ -1245,7 +1179,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                     queryUsuarios.setParameter("apodo", nombre);
 
-                    if (queryUsuarios.getSingleResult() != null) {
+                    if (!queryUsuarios.getResultList().isEmpty()) {
                         resultado = "No Encontrado";
                     } else {
                         resultado = "Encontrado";
@@ -1260,7 +1194,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
                     queryUsuarios.setParameter("correo", nombre);
 
-                    if (queryUsuarios.getSingleResult() != null) {
+                    if (!queryUsuarios.getResultList().isEmpty()) {
                         resultado = "No Encontrado";
                     } else {
                         resultado = "Encontrado";
@@ -1284,7 +1218,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                         queryUsuarios.setParameter("apodo", nombre);
 
-                        if (queryUsuarios.getSingleResult() != null) {
+                        if (!queryUsuarios.getResultList().isEmpty()) {
                             resultado = "Encontrado";
                         } else {
                             resultado = "No Encontrado";
@@ -1309,7 +1243,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
                         queryUsuarios.setParameter("correo", nombre);
 
-                        if (queryUsuarios.getSingleResult() != null) {
+                        if (!queryUsuarios.getResultList().isEmpty()) {
                             resultado = "Encontrado";
                         } else {
                             resultado = "No Encontrado";
@@ -1335,7 +1269,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         queryUsuarios = em.createNamedQuery("Usuarios.findByTelefono", Usuarios.class);
                         queryUsuarios.setParameter("telefono", new BigInteger(nombre));
 
-                        if (queryUsuarios.getSingleResult() != null) {
+                        if (!queryUsuarios.getResultList().isEmpty()) {
                             resultado = "Encontrado";
                         } else {
                             resultado = "No Encontrado";
@@ -1382,7 +1316,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryAUX = em.createNamedQuery("Mesas.findByTitulo", Mesas.class);
                     queryAUX.setParameter("titulo", nombre);
 
-                    if (queryAUX.getSingleResult() != null) {
+                    if (!queryAUX.getResultList().isEmpty()) {
                         resultado = "Encontrado";
                     } else {
                         resultado = "No Encontrado";
@@ -1404,7 +1338,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         queryAUX = em.createNamedQuery("Mesas.findByTitulo", Mesas.class);
                         queryAUX.setParameter("titulo", nombre);
 
-                        if (queryAUX.getSingleResult() != null) {
+                        if (!queryAUX.getResultList().isEmpty()) {
                             resultado = "Encontrado";
                         } else {
                             resultado = "No Encontrado";
@@ -1419,7 +1353,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
