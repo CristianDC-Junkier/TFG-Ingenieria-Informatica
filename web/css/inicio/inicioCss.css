@@ -149,7 +149,7 @@
     }
     .FotoInicio2 {
 
-        margin-left: 250px;
+        margin-left: 550px;
         margin-top: -20px;
     }
     .TextoInicio {
@@ -157,6 +157,20 @@
         width: auto;
         margin-left: 50px;
         margin-bottom: 50px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .FotoInicio2 {
+
+        margin-left: 450px;
+        margin-top: -20px;
+    }
+}
+@media screen and (max-width: 800px) {
+    .FotoInicio2 {
+
+        margin-left: 350px;
+        margin-top: -20px;
     }
 }
 @media screen and (max-width: 700px) {

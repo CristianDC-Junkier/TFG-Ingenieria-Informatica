@@ -116,7 +116,7 @@
 /***********Tamaños grandes************/
 /**************************************/
 
-@media screen and (min-height: 1000px){
+@media screen and (min-width: 1600px){
     .contenedorAnimacion{
 
         width: 100em;
@@ -136,7 +136,7 @@
         transform: translateX(110vmin);
     }
 }
-@media screen and (min-height: 1200px){
+@media screen and (min-width: 2000px){
     .contenedorAnimacion{
 
         width: 120em;
@@ -156,7 +156,7 @@
         transform: translateX(85vmin);
     }
 }
-@media screen and (min-height: 1400px){
+@media screen and (min-width: 2400px){
     .contenedorAnimacion{
 
         width: 120em;
@@ -176,7 +176,7 @@
         transform: translateX(70vmin);
     }
 }
-@media screen and (min-height: 2000px){
+@media screen and (min-width: 3100px){
     .contenedorAnimacion{
 
         width: 120em;
@@ -196,7 +196,7 @@
         transform: translateX(60vmin);
     }
 }
-@media screen and (min-height: 2400px){
+@media screen and (min-width: 4600px){
     .contenedorAnimacion{
 
         width: 150em;
@@ -220,7 +220,7 @@
 /***********Tamaños pequeños***********/
 /**************************************/
 
-@media screen and (max-height: 400px){
+@media screen and (max-width: 900px){
     .contenedorAnimacion{
 
         width: 18em;
@@ -240,7 +240,7 @@
     }
 }
 
-@media screen and (max-height: 200px){
+@media screen and (max-width: 550px){
     .contenedorAnimacion{
 
         width: 15em;
@@ -261,7 +261,7 @@
 
 }
 
-@media screen and (max-width: 150px){
+@media screen and (max-width: 350px){
     .contenedorAnimacion{
 
         width: 25em;

@@ -12,8 +12,7 @@
         <div class = "barraHorizontal">
             <div class="barraHorizontalDrop">
                 <div class = "barraHorizontalContenido">
-                    <a href="/TFG/Principal/inicio">
-                        <img src="/TFG/img/iconos/CasaWhite.png" alt="alt" id="ICasa"/>  Inicio</a></div>
+                    <img src="/TFG/img/iconos/CasaWhite.png" alt="alt" id="ICasa"/>  Inicio</div>
                 <div class="barraHorizontalContenidoDrop">
                     <a href="/TFG/Principal/inicio">Inicio</a>
                     <a href="/TFG/Principal/introduccion">Introducción</a>
@@ -63,9 +62,9 @@
                 <c:otherwise>
                     <a class="barraHorizontalContenido" href="/TFG/Personajes/personajes">
                         <img src="/TFG/img/iconos/PersonajesWhite.png" alt="alt" id="IPersonaje"/>  Personajes</a>
-                </c:otherwise>
-            </c:choose>
-            <c:if test="${sessionScope.user != null}">
+                    </c:otherwise>
+                </c:choose>
+                <c:if test="${sessionScope.user != null}">
                 <div class="barraHorizontalDrop">
                     <c:choose>
                         <c:when test="${sessionScope.peticiones != null}">
@@ -120,7 +119,7 @@
             <ul class="barraVerticalUno">
                 <li class="unoDrop primero">
                     <div class = "barraVerticalContenido">
-                        <a href="/TFG/Principal/inicio">Inicio</a>
+                        Inicio
                     </div>
                     <ul class="barraVerticalDos">
                         <li><a href="/TFG/Principal/inicio">Inicio</a></li>
