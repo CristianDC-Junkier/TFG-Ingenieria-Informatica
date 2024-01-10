@@ -105,7 +105,7 @@
                 </div>
                 <div class="botones">
                     <button class="boton" onclick="location.href = '/TFG/Mesas/mostrarMesasUsuario'">Atras</button>
-                    <button class="boton" onclick="agregarArchivo()">Chat</button>
+                    <button class="boton" onclick="location.href = '/TFG/Mesas/mostrarMesaChat?id=${requestScope.mesa.id}'">Chat</button>
                     <c:choose> 
                         <c:when test="${requestScope.mesa.creador == user.apodo}">
                             <button class="botonfinal" onclick="location.href = '/TFG/Formularios/modificarmesa?id=${requestScope.mesa.id}'">Modificar Mesa</button>

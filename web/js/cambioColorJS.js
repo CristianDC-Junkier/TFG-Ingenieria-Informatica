@@ -12,6 +12,7 @@ const IPerfil = document.getElementById('IPerfil');
 const IReglas = document.getElementById('IReglas');
 const IAmigos = document.getElementById('IAmigos');
 const IPersonaje = document.getElementById('IPersonaje');
+const IChat = document.getElementById('IChat');
 
 
 
@@ -55,6 +56,9 @@ if (getCookie("cookies")) {
             }
             if (IPersonaje !== null) {
                 IPersonaje.src = '/TFG/img/iconos/Personajes.png';
+            }
+            if (IChat !== null) {
+                IChat.src = '/TFG/img/iconos/Chat.png';
             }
         }
     } else {
@@ -116,6 +120,10 @@ checkbox.addEventListener('change', function () {
         if (IPersonaje !== null) {
             nuevaImagen = checkbox.checked ? '/TFG/img/iconos/Personajes.png' : '/TFG/img/iconos/PersonajesWhite.png';
             IPersonaje.src = nuevaImagen;
+        }
+        if (IChat !== null) {
+            nuevaImagen = checkbox.checked ? '/TFG/img/iconos/Chat.png' : '/TFG/img/iconos/ChatWhite.png';
+            IChat.src = nuevaImagen;
         }
     }
 });

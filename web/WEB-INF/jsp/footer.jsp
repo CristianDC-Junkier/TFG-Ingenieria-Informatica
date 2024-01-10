@@ -15,8 +15,9 @@
         </div>
         <c:if test="${sessionScope.user != null}">
             <div class="chat-seleccion">
-                <button >No implementado</button>
+                <button onclick="mostrarChat()"><img src="/TFG/img/iconos/ChatWhite.png" alt="alt" id="IChat"/></button>
             </div>
+            <jsp:include page="/WEB-INF/jsp/chat.jsp" />
         </c:if>
     </div>
 </footer>

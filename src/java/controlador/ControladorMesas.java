@@ -1140,6 +1140,36 @@ public class ControladorMesas extends HttpServlet {
                     }
                 }
                 break;
+                case "/mostrarMesaChat":
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+
+                    ///////////////////////////////
+                    //////PERTENECES A LA MESA/////
+                    ///////////////////////////////
+                    id = request.getParameter("id");
+
+                    queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
+                    queryPertenecemesas.setParameter("usuario", user.getId());
+                    queryPertenecemesas.setParameter("mesa", id);
+                    pmesa = queryPertenecemesas.getSingleResult();
+
+                    if (pmesa == null) {
+                        vista = "/Principal/inicio";
+                    } else {
+
+                        vista = "/WEB-INF/jsp/mesas/mesaChat.jsp";
+                    }
+                }
+                break;
         }
         RequestDispatcher rd = request.getRequestDispatcher(vista);
         rd.forward(request, response);
