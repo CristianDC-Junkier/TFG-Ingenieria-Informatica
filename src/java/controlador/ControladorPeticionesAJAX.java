@@ -1,5 +1,6 @@
 package controlador;
 
+import entidades.Mensajesamigos;
 import entidades.Mesas;
 import entidades.Pertenecemesa;
 import entidades.Usuarios;
@@ -57,18 +58,30 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             Usuarios user = null;
             Usuarios useraux = null;
+            Mensajesamigos MEAux = null;
+            Mensajesamigos MRAux = null;
 
             TypedQuery<Usuarios> queryUsuarios;
             TypedQuery<Pertenecemesa> queryPMesas;
+            TypedQuery<Mensajesamigos> queryMensajesAmigos;
 
             Query queryAUX;
 
             List<Usuarios> listaUsuarios;
             List<Pertenecemesa> listaPerteneceMesa;
             List<Mesas> listaMesas;
+            List<Mensajesamigos> listaMensajesEnviados;
+            List<Mensajesamigos> ListaMensajesRecibidos;
+            List<Mensajesamigos> ListaMensajesOrdenados;
+
             ArrayList<String> pertenecemesaUsuarios;
             ArrayList<Integer> listaCantidad;
             ArrayList<String> fotosMesas;
+
+            int contadorEnviados = 0;
+            int contadorRecibidos = 0;
+            int vfecha;
+            boolean terminadaMensajesAmigos = false;
 
             String nombre;
             String id;
@@ -82,6 +95,106 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             String sql = "";
 
             switch (accion) {
+                //////////////////////////////////////////////////////////////////////////
+                //////////////////////////////////CHATS///////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////
+                case "/ChatRecarga":
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                    queryUsuarios.setParameter("apodo", nombre);
+                    useraux = queryUsuarios.getSingleResult();
+                    id = useraux.getId();
+
+                    queryMensajesAmigos = em.createNamedQuery("Mensajesamigos.findByEscritorReceptor", Mensajesamigos.class);
+                    queryMensajesAmigos.setParameter("escritor", user.getId());
+                    queryMensajesAmigos.setParameter("receptor", id);
+                    listaMensajesEnviados = queryMensajesAmigos.getResultList();
+
+                    queryMensajesAmigos = em.createNamedQuery("Mensajesamigos.findByReceptorEscritor", Mensajesamigos.class);
+                    queryMensajesAmigos.setParameter("escritor", id);
+                    queryMensajesAmigos.setParameter("receptor", user.getId());
+                    ListaMensajesRecibidos = queryMensajesAmigos.getResultList();
+
+                    ListaMensajesOrdenados = new ArrayList();
+
+                    while (terminadaMensajesAmigos == false) {
+
+                        MEAux = listaMensajesEnviados.get(contadorEnviados);
+                        MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
+                        vfecha = MEAux.getFecha().compareTo(MRAux.getFecha());// Menor a 0 es antes Mayor a 0 es después
+
+                        if (vfecha == 0) {//misma fecha
+                            if (MEAux.getHora().compareTo(MRAux.getHora()) <= 0) {//antes el envidado 
+                                contadorEnviados++;
+                                ListaMensajesOrdenados.add(MEAux);
+                            } else {//antes el recibido
+                                contadorRecibidos++;
+                                ListaMensajesOrdenados.add(MRAux);
+                            }
+                        } else if (vfecha < 0) {//antes el enviado
+                            contadorEnviados++;
+                            ListaMensajesOrdenados.add(MEAux);
+
+                        } else if (vfecha > 0) {//antes el recibido
+                            contadorRecibidos++;
+                            ListaMensajesOrdenados.add(MRAux);
+                        }
+
+                        if (contadorEnviados > listaMensajesEnviados.size()) {
+                            terminadaMensajesAmigos = true;
+                        } else if (contadorRecibidos > ListaMensajesRecibidos.size()) {
+                            terminadaMensajesAmigos = true;
+                        }
+                    }
+
+                    //Por si quedan en alguna de las dos listas
+                    while (contadorEnviados != listaMensajesEnviados.size()) {
+                        contadorEnviados++;
+                        ListaMensajesOrdenados.add(MEAux);
+                    }
+                    while (contadorRecibidos != ListaMensajesRecibidos.size()) {
+                        contadorRecibidos++;
+                        ListaMensajesOrdenados.add(MRAux);
+                    }
+
+                    //NOTA: SI ES TU MENSAJE EL <P> ES UNA CLASE DIFERENTE PARA QUE SALGA A LA DERECHA??
+                    resultado = "<p>";
+
+                    for (int i = 0; i < ListaMensajesOrdenados.size(); i++) {
+                        Mensajesamigos msj = ListaMensajesOrdenados.get(i);
+                        if (id.equals(user.getId())) {
+                            resultado
+                                    = resultado
+                                    + user.getApodo();
+                        } else {
+                            resultado
+                                    = resultado
+                                    + useraux.getApodo();
+                        }
+                        resultado
+                                = resultado
+                                + " - " + msj.getMensaje();
+                    }
+                    resultado = resultado + "</p>";
+
+                    System.out.println("PeticionAJAX Sale");
+
+                    break;
+                case "/ChatMesaRecarga":
+
+                    break;
+
                 //////////////////////////////////////////////////////////////////////////
                 //////////////////////////////////USUARIOS////////////////////////////////
                 //////////////////////////////////////////////////////////////////////////

@@ -1,10 +1,14 @@
 
 package controlador;
 
+import entidades.Estados;
 import java.io.IOException;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,6 +44,15 @@ public class ControladorExplorar extends HttpServlet {
         accion = request.getPathInfo();
         String vista = "";
         
+        Estados estado = null;
+        
+        Query queryAUX;
+        TypedQuery<Estados> queryEstados;
+        
+        List<Estados> listaEstados;
+        
+        String sql;
+        
         switch (accion) {
             case "/clases":
                 vista = "/WEB-INF/jsp/explorar/clases.jsp";
@@ -51,6 +64,14 @@ public class ControladorExplorar extends HttpServlet {
                 vista = "/WEB-INF/jsp/explorar/equipo.jsp";
                 break;
             case "/estados":
+                
+                queryEstados = em.createNamedQuery("Estados.findAll",Estados.class);
+                listaEstados = queryEstados.getResultList();
+                
+                System.out.println("estados: " + listaEstados.size());
+                
+                request.setAttribute("listaEstados", listaEstados);
+                
                 vista = "/WEB-INF/jsp/explorar/estados.jsp";
                 break;
             case "/hechizos":

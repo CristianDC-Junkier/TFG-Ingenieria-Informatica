@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 public class Usuarios implements Serializable {
 
- 
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
@@ -197,7 +197,7 @@ public class Usuarios implements Serializable {
             return false;
         }
         Usuarios other = (Usuarios) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;

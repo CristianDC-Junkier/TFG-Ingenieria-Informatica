@@ -56,17 +56,17 @@ public class Mesas implements Serializable {
     @Column(name = "TAMANO")
     private short tamano;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 100)
     @Column(name = "TITULO")
     private String titulo;
     @Size(max = 255)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @Lob
+    @Lob()
     @Column(name = "IMAGENMESA")
     private byte[] imagenmesa;
-
+    
     public Mesas() {
     }
 
