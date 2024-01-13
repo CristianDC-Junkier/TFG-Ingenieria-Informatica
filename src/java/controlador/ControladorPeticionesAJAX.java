@@ -48,6 +48,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         try ( PrintWriter out = response.getWriter()) {
 
             String accion;
@@ -68,6 +69,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             Query queryAUX;
 
             List<Usuarios> listaUsuarios;
+            ArrayList<Usuarios> listaUsuariosAux;
             List<Pertenecemesa> listaPerteneceMesa;
             List<Mesas> listaMesas;
             List<Mensajesamigos> listaMensajesEnviados;
@@ -91,6 +93,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             int num = 0; //offset
             int cantidad = 0;
             boolean novalido;
+            boolean encontrado = false;
+
+            int cont;
 
             String sql = "";
 
@@ -134,14 +139,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
                         vfecha = MEAux.getFecha().compareTo(MRAux.getFecha());// Menor a 0 es antes Mayor a 0 es después
 
-                        if (vfecha == 0) {//misma fecha
-                            if (MEAux.getHora().compareTo(MRAux.getHora()) <= 0) {//antes el envidado 
-                                contadorEnviados++;
-                                ListaMensajesOrdenados.add(MEAux);
-                            } else {//antes el recibido
-                                contadorRecibidos++;
-                                ListaMensajesOrdenados.add(MRAux);
-                            }
+                        if (vfecha == 0) {//misma fecha = antes recibido
+                            contadorRecibidos++;
+                            ListaMensajesOrdenados.add(MRAux);
+
                         } else if (vfecha < 0) {//antes el enviado
                             contadorEnviados++;
                             ListaMensajesOrdenados.add(MEAux);
@@ -188,6 +189,82 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     }
                     resultado = resultado + "</p>";
 
+                    System.out.println("PeticionAJAX Sale");
+
+                    break;
+                case "/ChatAmigos":
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    id = request.getParameter("busqueda");
+
+                    sql = "SELECT u2.* FROM Usuarios u "
+                            + "INNER JOIN Amigos a ON u.id = a.amigo1 "
+                            + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                            + "WHERE a.amigo1 = '" + user.getId() + "'"
+                            + "ORDER BY u2.apodo ASC ";
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaUsuarios = queryAUX.getResultList();
+
+                    cont = 0;
+                    encontrado = false;
+
+                    while (encontrado == false && cont < listaUsuarios.size()) {
+                        if (listaUsuarios.get(cont).getId().equals(id)) {
+                            encontrado = true;
+                        } else {
+                            cont++;
+                        }
+                    }
+
+                    resultado = "<table>";
+
+                    if (encontrado == true) {
+                        //Lo colocamos el primero
+                        listaUsuarios.add(0, listaUsuarios.remove(cont));
+
+                        useraux = listaUsuarios.get(0);
+
+                        resultado
+                                = resultado
+                                + "<tr class='amigo-elegido'>"
+                                + "<td><div class='personaje-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                                + "<td id='chatActual'>" + useraux.getApodo() + "</td>"
+                                + "<td>" + "En el chat" + "</td>"
+                                + "</tr>";
+
+                        for (int i = 1; i < listaUsuarios.size(); i++) {
+                            useraux = listaUsuarios.get(i);
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td><div class='personaje-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                                    + "<td>" + useraux.getApodo() + "</td>"
+                                    + "<td><button class='botonDentro' onclick=\"cambiarChat("+ useraux.getApodo()+")\" >Ir al chat</button></td>"
+                                    + "</tr>";
+                        }
+
+                    } else {
+                        for (int i = 0; i < listaUsuarios.size(); i++) {
+                            useraux = listaUsuarios.get(i);
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td><div class='personaje-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                                    + "<td>" + useraux.getApodo() + "</td>"
+                                    + "<td><button class='botonDentro' onclick=\"cambiarChat("+ useraux.getApodo()+")\" >Ir al chat</button></td>"
+                                    + "</tr>";
+                        }
+                    }
+                    resultado = resultado + "</table>";
                     System.out.println("PeticionAJAX Sale");
 
                     break;
@@ -300,7 +377,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         queryPMesas.setParameter("usuario", listaUsuarios.get(i).getId());
                         listaPerteneceMesa = queryPMesas.getResultList();
 
-                        boolean encontrado = false;
+                        encontrado = false;
                         if (listaPerteneceMesa.isEmpty() == false) {
                             int j = 0;
                             while (encontrado == false && j < listaPerteneceMesa.size()) {
@@ -502,7 +579,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         queryPMesas.setParameter("usuario", listaUsuarios.get(i).getId());
                         listaPerteneceMesa = queryPMesas.getResultList();
 
-                        boolean encontrado = false;
+                        encontrado = false;
                         if (listaPerteneceMesa.isEmpty() == false) {
                             int j = 0;
 
@@ -613,7 +690,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         queryPMesas.setParameter("usuario", listaUsuarios.get(i).getId());
                         listaPerteneceMesa = queryPMesas.getResultList();
 
-                        boolean encontrado = false;
+                        encontrado = false;
                         if (listaPerteneceMesa.isEmpty() == false) {
                             int j = 0;
 

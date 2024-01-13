@@ -1,7 +1,7 @@
-
 package entidades;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -28,7 +28,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Mensajesamigos.findById", query = "SELECT m FROM Mensajesamigos m WHERE m.id = :id"),
     @NamedQuery(name = "Mensajesamigos.findByMensaje", query = "SELECT m FROM Mensajesamigos m WHERE m.mensaje = :mensaje"),
     @NamedQuery(name = "Mensajesamigos.findByFecha", query = "SELECT m FROM Mensajesamigos m WHERE m.fecha = :fecha"),
-    @NamedQuery(name = "Mensajesamigos.findByHora", query = "SELECT m FROM Mensajesamigos m WHERE m.hora = :hora"),
     @NamedQuery(name = "Mensajesamigos.findByReceptor", query = "SELECT m FROM Mensajesamigos m WHERE m.receptor = :receptor"),
     @NamedQuery(name = "Mensajesamigos.findByEscritor", query = "SELECT m FROM Mensajesamigos m WHERE m.escritor = :escritor"),
     @NamedQuery(name = "Mensajesamigos.findByEscritorReceptor", query = "SELECT m FROM Mensajesamigos m WHERE m.escritor = :escritor and m.receptor = :receptor"),
@@ -50,10 +49,6 @@ public class Mensajesamigos implements Serializable {
     private Date fecha;
     @Basic(optional = false)
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date hora;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 36)
     private String receptor;
     @Basic(optional = false)
@@ -68,11 +63,17 @@ public class Mensajesamigos implements Serializable {
         this.id = id;
     }
 
-    public Mensajesamigos(String id, String mensaje, Date fecha, Date hora, String receptor, String escritor) {
+    public Mensajesamigos(String id, String mensaje, Date fecha, String receptor, String escritor) {
         this.id = id;
         this.mensaje = mensaje;
         this.fecha = fecha;
-        this.hora = hora;
+        this.receptor = receptor;
+        this.escritor = escritor;
+    }
+
+    public Mensajesamigos(String mensaje, Date fecha, String receptor, String escritor) {
+        this.mensaje = mensaje;
+        this.fecha = fecha;
         this.receptor = receptor;
         this.escritor = escritor;
     }
@@ -101,12 +102,13 @@ public class Mensajesamigos implements Serializable {
         this.fecha = fecha;
     }
 
-    public Date getHora() {
-        return hora;
-    }
+    public String getHora() {
 
-    public void setHora(Date hora) {
-        this.hora = hora;
+        // Formatear la hora
+        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+        String horaFormateada = formatoHora.format(fecha);
+
+        return horaFormateada;
     }
 
     public String getReceptor() {
@@ -149,5 +151,5 @@ public class Mensajesamigos implements Serializable {
     public String toString() {
         return "controlador.Mensajesamigos[ id=" + id + " ]";
     }
-    
+
 }

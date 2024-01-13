@@ -1,6 +1,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -27,7 +28,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Mensajesmesas.findById", query = "SELECT m FROM Mensajesmesas m WHERE m.id = :id"),
     @NamedQuery(name = "Mensajesmesas.findByMensaje", query = "SELECT m FROM Mensajesmesas m WHERE m.mensaje = :mensaje"),
     @NamedQuery(name = "Mensajesmesas.findByFecha", query = "SELECT m FROM Mensajesmesas m WHERE m.fecha = :fecha"),
-    @NamedQuery(name = "Mensajesmesas.findByHora", query = "SELECT m FROM Mensajesmesas m WHERE m.hora = :hora"),
     @NamedQuery(name = "Mensajesmesas.findByMesa", query = "SELECT m FROM Mensajesmesas m WHERE m.mesa = :mesa"),
     @NamedQuery(name = "Mensajesmesas.findByEscritor", query = "SELECT m FROM Mensajesmesas m WHERE m.escritor = :escritor")})
 public class Mensajesmesas implements Serializable {
@@ -46,10 +46,6 @@ public class Mensajesmesas implements Serializable {
     private Date fecha;
     @Basic(optional = false)
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date hora;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 36)
     private String mesa;
     @Basic(optional = false)
@@ -64,11 +60,10 @@ public class Mensajesmesas implements Serializable {
         this.id = id;
     }
 
-    public Mensajesmesas(String id, String mensaje, Date fecha, Date hora, String mesa, String escritor) {
+    public Mensajesmesas(String id, String mensaje, Date fecha, String mesa, String escritor) {
         this.id = id;
         this.mensaje = mensaje;
         this.fecha = fecha;
-        this.hora = hora;
         this.mesa = mesa;
         this.escritor = escritor;
     }
@@ -97,12 +92,13 @@ public class Mensajesmesas implements Serializable {
         this.fecha = fecha;
     }
 
-    public Date getHora() {
-        return hora;
-    }
+    public String getHora() {
 
-    public void setHora(Date hora) {
-        this.hora = hora;
+        // Formatear la hora
+        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+        String horaFormateada = formatoHora.format(fecha);
+
+        return horaFormateada;
     }
 
     public String getMesa() {
@@ -145,5 +141,5 @@ public class Mensajesmesas implements Serializable {
     public String toString() {
         return "controlador.Mensajesmesas[ id=" + id + " ]";
     }
-    
+
 }
