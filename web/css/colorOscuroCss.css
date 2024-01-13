@@ -1915,6 +1915,10 @@ input[type="button"]:active {
 /*************************************************CHAT: PERSONAL****************************************/
 /*******************************************************************************************************/
 
+#chatAmigos{
+    background-color: black;
+}
+
 .contenedorChatAmigos{
     background-color: black;
 }
@@ -1928,4 +1932,7 @@ input[type="button"]:active {
 }
 .contenedorEnviarMensajeAmigo{
     background-color: #555;
+}
+.amigo-elegido{
+    color: yellowgreen;
 }

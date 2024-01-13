@@ -1,3 +1,31 @@
+
+var chatP = "-1";
+
+function remostrarChat() {
+
+    let tabla = document.getElementById('TablaChat');
+
+    urlAJAX = "/TFG/ControladorPeticionesAJAX/ChatAmigos";
+
+    // Realizar la solicitud AJAX
+    $.ajax({
+        type: "GET",
+        url: urlAJAX,
+        data: {busqueda: chatP},
+        dataType: "text",
+        success: function (data) {
+            let htmlResultados = data;
+            // Limpiar el contenido actual de la tabla
+            tabla.innerHTML = '';
+            // Insertar el nuevo HTML en el contenedor
+            tabla.innerHTML = htmlResultados;
+        },
+        error: function (error) {
+            console.error("Error en la solicitud AJAX:", error);
+        }
+    });
+}
+
 function mostrarChat() {
 
     let chat = document.getElementById('chatAmigos');
@@ -5,31 +33,11 @@ function mostrarChat() {
 
     if (chat.style.display === "block") {
 
-        let tabla = document.getElementById('TablaChat');
-
-        urlAJAX = "/TFG/ControladorPeticionesAJAX/ChatAmigos";
-
-        // Realizar la solicitud AJAX
-        $.ajax({
-            type: "GET",
-            url: urlAJAX,
-            data: {busqueda: -1},
-            dataType: "text",
-            success: function (data) {
-                let htmlResultados = data;
-                // Limpiar el contenido actual de la tabla
-                tabla.innerHTML = '';
-                // Insertar el nuevo HTML en el contenedor
-                tabla.innerHTML = htmlResultados;
-            },
-            error: function (error) {
-                console.error("Error en la solicitud AJAX:", error);
-            }
-        });
+        remostrarChat();
     }
 }
 
-function cambiarChat(valor) {
+function recargaChat() {
 
     let msjChat = document.getElementById('MensajesChat');
 
@@ -39,7 +47,7 @@ function cambiarChat(valor) {
     $.ajax({
         type: "GET",
         url: urlAJAX,
-        data: {busqueda: valor},
+        data: {busqueda: chatP},
         dataType: "text",
         success: function (data) {
             let htmlResultados = data;
@@ -54,12 +62,18 @@ function cambiarChat(valor) {
     });
 }
 
+function cambiarChat(valor) {
+
+    chatP = valor;
+    remostrarChat();
+    recargaChat();
+
+}
+
 let chatActual = document.getElementById('chatActual');
 
 if (chatActual !== null) {
-    setInterval(function () {
-        cambiarChat(chatActual.innerText);
-    }, 1000);
+    setInterval(recargaChat(), 1000);
 }
 
 

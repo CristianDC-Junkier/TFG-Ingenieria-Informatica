@@ -203,7 +203,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
-                    id = request.getParameter("busqueda");
+                    nombre = request.getParameter("busqueda");
 
                     sql = "SELECT u2.* FROM Usuarios u "
                             + "INNER JOIN Amigos a ON u.id = a.amigo1 "
@@ -218,7 +218,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     encontrado = false;
 
                     while (encontrado == false && cont < listaUsuarios.size()) {
-                        if (listaUsuarios.get(cont).getId().equals(id)) {
+                        if (listaUsuarios.get(cont).getApodo().equals(nombre)) {
                             encontrado = true;
                         } else {
                             cont++;
@@ -236,7 +236,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         resultado
                                 = resultado
                                 + "<tr class='amigo-elegido'>"
-                                + "<td><div class='personaje-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
                                 + "<td id='chatActual'>" + useraux.getApodo() + "</td>"
                                 + "<td>" + "En el chat" + "</td>"
                                 + "</tr>";
@@ -246,7 +245,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             resultado
                                     = resultado
                                     + "<tr>"
-                                    + "<td><div class='personaje-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
                                     + "<td>" + useraux.getApodo() + "</td>"
                                     + "<td><button class='botonDentro' onclick=\"cambiarChat("+ useraux.getApodo()+")\" >Ir al chat</button></td>"
                                     + "</tr>";
@@ -258,9 +256,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             resultado
                                     = resultado
                                     + "<tr>"
-                                    + "<td><div class='personaje-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
                                     + "<td>" + useraux.getApodo() + "</td>"
-                                    + "<td><button class='botonDentro' onclick=\"cambiarChat("+ useraux.getApodo()+")\" >Ir al chat</button></td>"
+                                    + "<td><button class='botonDentro' onclick=\"cambiarChat('"+ useraux.getApodo()+"')\" >Ir al chat</button></td>"
                                     + "</tr>";
                         }
                     }
