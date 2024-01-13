@@ -1910,3 +1910,22 @@ input[type="button"]:active {
     background-color: black;
     box-shadow: 1px 1px 1px 1px #555;
 }
+
+/*******************************************************************************************************/
+/*************************************************CHAT: PERSONAL****************************************/
+/*******************************************************************************************************/
+
+.contenedorChatAmigos{
+    background-color: black;
+}
+.contenedorMensajesAmigos{
+    background-color: #333333;
+    color:white;
+}
+.contenedorlistaAmigos{
+    background-color: #333333;
+    color:white;
+}
+.contenedorEnviarMensajeAmigo{
+    background-color: #555;
+}
