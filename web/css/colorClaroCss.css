@@ -675,7 +675,7 @@ input[type="button"]:active {
 }
 .TitulosFormulario{
 
-    background-color: black;
+    background-color: #1f6161;
     color: white;
     border: #1f6161 2px solid;
     border-bottom: #1f6161 4px solid;
@@ -1911,3 +1911,35 @@ input[type="button"]:active {
     box-shadow: 1px 1px 1px 1px #555;
 }
 
+/*******************************************************************************************************/
+/*************************************************CHAT: PERSONAL****************************************/
+/*******************************************************************************************************/
+
+#chatAmigos{
+    background-color: #1f6161;
+}
+
+.contenedorChatAmigos{
+    background-color: #1f6161;
+}
+.contenedorMensajesAmigos{
+    background-color: #006666;
+    color:white;
+}
+.contenedorlistaAmigos{
+    background-color: #006666;
+    color:white;
+}
+.contenedorEnviarMensajeAmigo{
+    background-color: #007170;
+}
+.amigo-elegido{
+    color: yellow;
+}
+#mensajeInput {
+    background: #00cccc;
+    color: black;
+}
+#mensajeInput::placeholder {
+  color: black;
+}

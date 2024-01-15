@@ -133,61 +133,68 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     ListaMensajesOrdenados = new ArrayList();
 
-                    while (terminadaMensajesAmigos == false) {
+                    if (!listaMensajesEnviados.isEmpty() && !ListaMensajesRecibidos.isEmpty()) {
 
-                        MEAux = listaMensajesEnviados.get(contadorEnviados);
-                        MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
-                        vfecha = MEAux.getFecha().compareTo(MRAux.getFecha());// Menor a 0 es antes Mayor a 0 es después
 
-                        if (vfecha == 0) {//misma fecha = antes recibido
-                            contadorRecibidos++;
-                            ListaMensajesOrdenados.add(MRAux);
+                        while (terminadaMensajesAmigos == false) {
 
-                        } else if (vfecha < 0) {//antes el enviado
-                            contadorEnviados++;
-                            ListaMensajesOrdenados.add(MEAux);
+                            MEAux = listaMensajesEnviados.get(contadorEnviados);
+                            MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
+                            vfecha = MEAux.getFecha().compareTo(MRAux.getFecha());// Menor a 0 es antes Mayor a 0 es después
 
-                        } else if (vfecha > 0) {//antes el recibido
-                            contadorRecibidos++;
-                            ListaMensajesOrdenados.add(MRAux);
-                        }
+                            if (vfecha == 0) {//misma fecha = antes recibido
+                                contadorRecibidos++;
+                                ListaMensajesOrdenados.add(MRAux);
 
-                        if (contadorEnviados > listaMensajesEnviados.size()) {
-                            terminadaMensajesAmigos = true;
-                        } else if (contadorRecibidos > ListaMensajesRecibidos.size()) {
-                            terminadaMensajesAmigos = true;
+                            } else if (vfecha < 0) {//antes el enviado
+                                contadorEnviados++;
+                                ListaMensajesOrdenados.add(MEAux);
+
+                            } else if (vfecha > 0) {//antes el recibido
+                                contadorRecibidos++;
+                                ListaMensajesOrdenados.add(MRAux);
+                            }
+
+                            if (contadorEnviados == listaMensajesEnviados.size()) {
+                                terminadaMensajesAmigos = true;
+                            } else if (contadorRecibidos == ListaMensajesRecibidos.size()) {
+                                terminadaMensajesAmigos = true;
+                            }
                         }
                     }
-
                     //Por si quedan en alguna de las dos listas
                     while (contadorEnviados != listaMensajesEnviados.size()) {
-                        contadorEnviados++;
+                        MEAux = listaMensajesEnviados.get(contadorEnviados);
                         ListaMensajesOrdenados.add(MEAux);
+                        contadorEnviados++;
+
                     }
                     while (contadorRecibidos != ListaMensajesRecibidos.size()) {
-                        contadorRecibidos++;
+                        MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
                         ListaMensajesOrdenados.add(MRAux);
-                    }
+                        contadorRecibidos++;
 
-                    //NOTA: SI ES TU MENSAJE EL <P> ES UNA CLASE DIFERENTE PARA QUE SALGA A LA DERECHA??
-                    resultado = "<p>";
+                    }
 
                     for (int i = 0; i < ListaMensajesOrdenados.size(); i++) {
                         Mensajesamigos msj = ListaMensajesOrdenados.get(i);
-                        if (id.equals(user.getId())) {
+                        if (user.getId().equals(msj.getEscritor())) {
                             resultado
                                     = resultado
-                                    + user.getApodo();
+                                    + "<p style=\"color: darkgray;\">"
+                                    + "Tu";
                         } else {
                             resultado
                                     = resultado
+                                    + "<p>"
                                     + useraux.getApodo();
                         }
                         resultado
                                 = resultado
-                                + " - " + msj.getMensaje();
+                                + " - " + msj.getMensaje()
+                                +"</p>";
                     }
-                    resultado = resultado + "</p>";
+
 
                     System.out.println("PeticionAJAX Sale");
 
@@ -237,7 +244,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 = resultado
                                 + "<tr class='amigo-elegido'>"
                                 + "<td id='chatActual'>" + useraux.getApodo() + "</td>"
-                                + "<td>" + "En el chat" + "</td>"
+                                + "<td>" + " - En el chat" + "</td>"
                                 + "</tr>";
 
                         for (int i = 1; i < listaUsuarios.size(); i++) {
@@ -246,7 +253,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     = resultado
                                     + "<tr>"
                                     + "<td>" + useraux.getApodo() + "</td>"
-                                    + "<td><button class='botonDentro' onclick=\"cambiarChat("+ useraux.getApodo()+")\" >Ir al chat</button></td>"
+                                    + "<td><button class='botonDentro' onclick=\"cambiarChat('" + useraux.getApodo() + "')\" >Ir al chat</button></td>"
                                     + "</tr>";
                         }
 
@@ -257,7 +264,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     = resultado
                                     + "<tr>"
                                     + "<td>" + useraux.getApodo() + "</td>"
-                                    + "<td><button class='botonDentro' onclick=\"cambiarChat('"+ useraux.getApodo()+"')\" >Ir al chat</button></td>"
+                                    + "<td><button class='botonDentro' onclick=\"cambiarChat('" + useraux.getApodo() + "')\" >Ir al chat</button></td>"
                                     + "</tr>";
                         }
                     }

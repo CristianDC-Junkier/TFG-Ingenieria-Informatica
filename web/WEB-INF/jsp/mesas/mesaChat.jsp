@@ -145,7 +145,7 @@
                 </div>
             </div>
         </main>
-        <jsp:include page="/WEB-INF/jsp/footer.jsp" />
+        <jsp:include page="/WEB-INF/jsp/footerNoChat.jsp" />
         <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
         <script src="/TFG/js/principalJS.js"></script>
     </body>

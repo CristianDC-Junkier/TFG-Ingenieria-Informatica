@@ -30,8 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Mensajesamigos.findByFecha", query = "SELECT m FROM Mensajesamigos m WHERE m.fecha = :fecha"),
     @NamedQuery(name = "Mensajesamigos.findByReceptor", query = "SELECT m FROM Mensajesamigos m WHERE m.receptor = :receptor"),
     @NamedQuery(name = "Mensajesamigos.findByEscritor", query = "SELECT m FROM Mensajesamigos m WHERE m.escritor = :escritor"),
-    @NamedQuery(name = "Mensajesamigos.findByEscritorReceptor", query = "SELECT m FROM Mensajesamigos m WHERE m.escritor = :escritor and m.receptor = :receptor"),
-    @NamedQuery(name = "Mensajesamigos.findByReceptorEscritor", query = "SELECT m FROM Mensajesamigos m WHERE m.receptor = :receptor and m.escritor = :escritor")
+    @NamedQuery(name = "Mensajesamigos.findByEscritorReceptor", query = "SELECT m FROM Mensajesamigos m WHERE m.escritor = :escritor and m.receptor = :receptor ORDER BY m.fecha"),
+    @NamedQuery(name = "Mensajesamigos.findByReceptorEscritor", query = "SELECT m FROM Mensajesamigos m WHERE m.receptor = :receptor and m.escritor = :escritor ORDER BY m.fecha")
 })
 public class Mensajesamigos implements Serializable {
 

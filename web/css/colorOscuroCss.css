@@ -1936,3 +1936,10 @@ input[type="button"]:active {
 .amigo-elegido{
     color: yellowgreen;
 }
+#mensajeInput {
+    background: gray;
+    color: black;
+}
+#mensajeInput::placeholder {
+  color: black;
+}

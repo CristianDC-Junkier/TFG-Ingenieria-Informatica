@@ -21,9 +21,9 @@
         </div>
         <div class="contenedorEnviarMensajeAmigo">
             <form action="/TFG/Chats/mensajeamigo" method="POST">
-                <input type="hidden" name="amigo" value="id">
-                <input type="text" name="mensaje" placeholder="Enviar mensaje...">
-                <input id="botonEnviar" type="submit" value="Enviar">
+                <input type="text" id="mensajeInput" name="mensaje" placeholder="Enviar mensaje...">
+                <button id="botonEnviar" type="button" onclick="enviarMensaje()">Enviar</button>
+                <button id="IDadoButton" type="button" onclick="enviarTirada()"><img id="IDado" src="/TFG/img/iconos/d20White.png" alt="alt"/></button>
             </form>
         </div>
     </div>

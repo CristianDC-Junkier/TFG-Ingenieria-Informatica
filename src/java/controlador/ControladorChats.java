@@ -4,7 +4,9 @@ import entidades.Amigos;
 import entidades.Mensajesamigos;
 import entidades.Usuarios;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Random;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,60 +42,123 @@ public class ControladorChats extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String accion;
-        accion = request.getPathInfo();
+        try ( PrintWriter out = response.getWriter()) {
 
-        HttpSession session;
+            String accion;
+            accion = request.getPathInfo();
 
-        Usuarios user = null;
-        Usuarios useraux = null;
-        Amigos amigo = null;
-        Mensajesamigos msjA = null;
+            HttpSession session;
 
-        TypedQuery<Usuarios> queryUsuarios;
-        TypedQuery<Amigos> queryAmigos;
+            Usuarios user = null;
+            Usuarios useraux = null;
+            Amigos amigo = null;
+            Mensajesamigos msjA = null;
 
-        String msj;
-        String id;
+            TypedQuery<Usuarios> queryUsuarios;
+            TypedQuery<Amigos> queryAmigos;
 
-        Date fecha;
+            String msj = "";
+            String id;
+            String apodo;
 
-        switch (accion) {
-            //////////////////////////////////////////////////////////////////////////
-            //////////////////////////////CHAT NORMAL/////////////////////////////////
-            //////////////////////////////////////////////////////////////////////////
-            case "/enviarmensaje":
+            Date fecha;
 
-                /////////////////////////
-                /////////SESION//////////
-                /////////////////////////
-                session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+            switch (accion) {
+                //////////////////////////////////////////////////////////////////////////
+                //////////////////////////////CHAT NORMAL/////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////
+                case "/enviarmensaje":
 
-                if (user == null) {
-                    //No hacemos nada
-                } else {
-                    id = request.getParameter("amigo");
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
 
-                    queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
-                    queryAmigos.setParameter("amigo1", user.getId());
-                    queryAmigos.setParameter("amigo2", id);
-
-                    if (queryAmigos.getResultList().size() != 1) {
-                        //No hacemos nada
+                    if (user == null) {
+                        msj = "No Conseguido";
                     } else {
+                        apodo = request.getParameter("amigo");
 
-                        msj = request.getParameter("mensaje");
+                        if (apodo.equalsIgnoreCase("-1")) {
+                            msj = "No Conseguido";
+                        } else {
+                            queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                            queryUsuarios.setParameter("apodo", apodo);
+                            id = queryUsuarios.getSingleResult().getId();
 
-                        fecha = new Date();
+                            queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
+                            queryAmigos.setParameter("amigo1", user.getId());
+                            queryAmigos.setParameter("amigo2", id);
 
-                        msjA = new Mensajesamigos(msj, fecha, id, user.getId());
+                            if (queryAmigos.getResultList().size() != 1) {
+                                msj = "No Conseguido";
+                            } else {
 
-                        persist(msjA);
+                                msj = request.getParameter("mensaje");
+
+                                fecha = new Date();
+
+                                msjA = new Mensajesamigos(msj, fecha, id, user.getId());
+
+                                persist(msjA);
+
+                                msj = "Conseguido";
+                            }
+                        }
                     }
-                }
-                break;
+                    break;
+                case "/enviartirada":
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    if (user == null) {
+                        msj = "No Conseguido";
+                    } else {
+                        apodo = request.getParameter("amigo");
+
+                        if (apodo.equalsIgnoreCase("-1")) {
+                            msj = "No Conseguido";
+                        } else {
+                            queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                            queryUsuarios.setParameter("apodo", apodo);
+                            id = queryUsuarios.getSingleResult().getId();
+
+                            queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
+                            queryAmigos.setParameter("amigo1", user.getId());
+                            queryAmigos.setParameter("amigo2", id);
+
+                            if (queryAmigos.getResultList().size() != 1) {
+                                msj = "No Conseguido";
+                            } else {
+
+                                //msj = request.getParameter("tirada");
+
+                                long tiempoActual = System.currentTimeMillis();
+                                Random random = new Random(tiempoActual);
+                                msj = "Tiró de D20: " + String.valueOf(random.nextInt(20) + 1);
+
+                                fecha = new Date();
+
+                                msjA = new Mensajesamigos(msj, fecha, id, user.getId());
+
+                                persist(msjA);
+
+                                msj = "Conseguido";
+                            }
+                        }
+                    }
+                    break;
+            }
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(msj);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

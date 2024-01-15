@@ -324,8 +324,10 @@ public class ControladorUsuarios extends HttpServlet {
                 }
             } catch (Exception ex) {
                 vista = "/Formularios/iniciosesion";
-                msj = "<p style=\"margin-top: 25px\"> Error: " + ex.getMessage() + "</p>";
-                request.setAttribute("msj", msj);
+                if (!ex.getMessage().equals("null")) {
+                    msj = "<p style=\"margin-top: 25px\"> Error: " + ex.getMessage() + "</p>";
+                    request.setAttribute("msj", msj);
+                }
                 System.out.println("Exception: " + ex.getMessage());
             }
             break;

@@ -75,7 +75,7 @@
                 </form>
             </div>
         </main>
-        <jsp:include page="/WEB-INF/jsp/footer.jsp" />
+        <jsp:include page="/WEB-INF/jsp/footerNoChat.jsp" />
         <script>
             let comunidadActual = "${requestScope.mesa.comunidad}";
         </script>

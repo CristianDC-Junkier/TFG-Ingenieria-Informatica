@@ -13,6 +13,7 @@ const IReglas = document.getElementById('IReglas');
 const IAmigos = document.getElementById('IAmigos');
 const IPersonaje = document.getElementById('IPersonaje');
 const IChat = document.getElementById('IChat');
+const IDado = document.getElementById('IDado');
 
 
 
@@ -59,6 +60,9 @@ if (getCookie("cookies")) {
             }
             if (IChat !== null) {
                 IChat.src = '/TFG/img/iconos/Chat.png';
+            }
+            if (IDado !== null) {
+                IDado.src = '/TFG/img/iconos/d20.png';
             }
         }
     } else {
@@ -124,6 +128,10 @@ checkbox.addEventListener('change', function () {
         if (IChat !== null) {
             nuevaImagen = checkbox.checked ? '/TFG/img/iconos/Chat.png' : '/TFG/img/iconos/ChatWhite.png';
             IChat.src = nuevaImagen;
+        }
+        if (IDado !== null) {
+            nuevaImagen = checkbox.checked ? '/TFG/img/iconos/d20.png' : '/TFG/img/iconos/d20White.png';
+            IDado.src = nuevaImagen;
         }
     }
 });
