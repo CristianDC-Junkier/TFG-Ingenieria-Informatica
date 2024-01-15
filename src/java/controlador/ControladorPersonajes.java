@@ -40,6 +40,8 @@ public class ControladorPersonajes extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         String accion;
         accion = request.getPathInfo();
         String vista = "";
@@ -84,7 +86,7 @@ public class ControladorPersonajes extends HttpServlet {
                     queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
                     queryUsuarios.setParameter("id", id);
                     useraux = queryUsuarios.getSingleResult();
-                    
+
                     request.setAttribute("amigo", useraux);
 
                     vista = "/WEB-INF/jsp/personajes/personajesAmigo.jsp";

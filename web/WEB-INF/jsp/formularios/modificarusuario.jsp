@@ -54,7 +54,7 @@
                         <div>
                             <label for="bornMod" id="nacimientoUsuarioReg">Fecha de Nacimiento:</label>
                             <input type="date" id="bornMod" name="usuario_nacimiento" onkeyup="realizarBusqueda('bornMod', 'bornModInput')"
-                                   required  value = "${fecha}">
+                                   required>
                             <span id="bornModInput">✓</span>
                         </div>
                         <div>
@@ -139,7 +139,7 @@
         </main>
         <jsp:include page="/WEB-INF/jsp/footerNoChat.jsp" />
         <script>
-            let fechaNacimiento = new Date("${sessionScope.user.fechanac.getYear()+1900}-${sessionScope.user.fechanac.getMonth() + 1}-${sessionScope.user.fechanac.getDate()}");
+                let fechaNacimiento = new Date("${sessionScope.user.fechanac.getYear()+1900}-${sessionScope.user.fechanac.getMonth() + 1}-${sessionScope.user.fechanac.getDate()}");
                 let provinciaActual = "${sessionScope.user.provincia}";
                 let generoActual = "${sessionScope.user.genero}";
         </script>

@@ -46,6 +46,8 @@ public class ControladorImagenes extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         String accion;
         accion = request.getPathInfo();
         String vista = "";
@@ -130,9 +132,9 @@ public class ControladorImagenes extends HttpServlet {
                 queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
                 queryMesas.setParameter("id", id);
                 mesa = queryMesas.getSingleResult();
-                
+
                 imageData = mesa.getImagenmesa();
-                
+
                 // Configurar la respuesta para que sea una imagen
                 response.setContentType("image/jpeg"); // Cambia el tipo MIME según el formato de tu imagen
 

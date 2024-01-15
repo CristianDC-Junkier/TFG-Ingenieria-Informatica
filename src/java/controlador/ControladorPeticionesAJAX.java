@@ -49,6 +49,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         try ( PrintWriter out = response.getWriter()) {
 
             String accion;
@@ -135,7 +137,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     if (!listaMensajesEnviados.isEmpty() && !ListaMensajesRecibidos.isEmpty()) {
 
-
                         while (terminadaMensajesAmigos == false) {
 
                             MEAux = listaMensajesEnviados.get(contadorEnviados);
@@ -192,9 +193,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         resultado
                                 = resultado
                                 + " - " + msj.getMensaje()
-                                +"</p>";
+                                + "</p>";
                     }
-
 
                     System.out.println("PeticionAJAX Sale");
 
@@ -1346,9 +1346,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         calendarioAux.setTime(fechaActual);
                         calendarioAux.add(Calendar.YEAR, -120);
                         fechaActual = calendarioAux.getTime();
-                        System.out.println(fechaActual);
-                        System.out.println(fechaNacimiento);
-                        System.out.println(fechaActual.before(fechaNacimiento));
+
                         if (fechaActual.before(fechaNacimiento)) {
                             novalido = false;
                         } else {
@@ -1490,6 +1488,15 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                         if (fechaNacimiento.before(fechaActual)) {
                             novalido = false;
+                        }
+                        calendarioAux.setTime(fechaActual);
+                        calendarioAux.add(Calendar.YEAR, -120);
+                        fechaActual = calendarioAux.getTime();
+
+                        if (fechaActual.before(fechaNacimiento)) {
+                            novalido = false;
+                        } else {
+                            novalido = true;
                         }
                     } catch (ParseException ex) {
                         System.out.println("Error recogiendo la fecha");

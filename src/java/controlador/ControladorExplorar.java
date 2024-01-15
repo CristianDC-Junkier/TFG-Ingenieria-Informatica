@@ -1,4 +1,3 @@
-
 package controlador;
 
 import entidades.Estados;
@@ -27,7 +26,7 @@ public class ControladorExplorar extends HttpServlet {
     private EntityManager em;
     @Resource
     private javax.transaction.UserTransaction utx;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,20 +38,22 @@ public class ControladorExplorar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
+        request.setCharacterEncoding("UTF-8");
+
         String accion;
         accion = request.getPathInfo();
         String vista = "";
-        
+
         Estados estado = null;
-        
+
         Query queryAUX;
         TypedQuery<Estados> queryEstados;
-        
+
         List<Estados> listaEstados;
-        
+
         String sql;
-        
+
         switch (accion) {
             case "/clases":
                 vista = "/WEB-INF/jsp/explorar/clases.jsp";
@@ -64,14 +65,14 @@ public class ControladorExplorar extends HttpServlet {
                 vista = "/WEB-INF/jsp/explorar/equipo.jsp";
                 break;
             case "/estados":
-                
-                queryEstados = em.createNamedQuery("Estados.findAll",Estados.class);
+
+                queryEstados = em.createNamedQuery("Estados.findAll", Estados.class);
                 listaEstados = queryEstados.getResultList();
-                
+
                 System.out.println("estados: " + listaEstados.size());
-                
+
                 request.setAttribute("listaEstados", listaEstados);
-                
+
                 vista = "/WEB-INF/jsp/explorar/estados.jsp";
                 break;
             case "/hechizos":
@@ -90,7 +91,7 @@ public class ControladorExplorar extends HttpServlet {
                 vista = "/WEB-INF/jsp/explorar/trasfondos.jsp";
                 break;
         }
-        
+
         RequestDispatcher rd = request.getRequestDispatcher(vista);
         rd.forward(request, response);
     }

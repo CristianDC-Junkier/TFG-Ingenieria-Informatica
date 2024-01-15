@@ -45,6 +45,8 @@ public class ControladorMesas extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         String accion;
         accion = request.getPathInfo();
         String vista = "";
@@ -1140,7 +1142,7 @@ public class ControladorMesas extends HttpServlet {
                     }
                 }
                 break;
-                case "/mostrarMesaChat":
+            case "/mostrarMesaChat":
 
                 /////////////////////////
                 /////////SESION//////////

@@ -42,6 +42,8 @@ public class ControladorChats extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         try ( PrintWriter out = response.getWriter()) {
 
             String accion;
@@ -137,7 +139,6 @@ public class ControladorChats extends HttpServlet {
                             } else {
 
                                 //msj = request.getParameter("tirada");
-
                                 long tiempoActual = System.currentTimeMillis();
                                 Random random = new Random(tiempoActual);
                                 msj = "Tiró de D20: " + String.valueOf(random.nextInt(20) + 1);
