@@ -35,17 +35,17 @@ function mostrarChat() {
 
     if (chat.style.display === "block") {
         remostrarChat();
-        recargaChat();
+        cargaChat();
     } else {
         chatP = "-1";
     }
 }
 
-function recargaChat() {
+function cargaChat() {
 
     let msjChat = document.getElementById('MensajesChat');
 
-    let urlAJAX = "/TFG/ControladorPeticionesAJAX/ChatRecarga";
+    let urlAJAX = "/TFG/ControladorPeticionesAJAX/ChatCarga";
 
     // Realizar la solicitud AJAX
     $.ajax({
@@ -67,11 +67,35 @@ function recargaChat() {
     });
 }
 
+function recargaChat() {
+
+    let msjChat = document.getElementById('MensajesChat');
+
+    let urlAJAX = "/TFG/ControladorPeticionesAJAX/ChatRecarga";
+
+    // Realizar la solicitud AJAX
+    $.ajax({
+        type: "GET",
+        url: urlAJAX,
+        data: {busqueda: chatP},
+        dataType: "text",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        success: function (data) {
+            let htmlResultados = data;
+            msjChat.innerHTML = msjChat.innerHTML + htmlResultados;
+            timeoutRecarga = setTimeout(bucle, 5000);
+        },
+        error: function (error) {
+            console.error("Error en la solicitud AJAX:", error);
+        }
+    });
+}
+
 function cambiarChat(valor) {
 
     chatP = valor;
     remostrarChat();
-    recargaChat();
+    cargaChat();
 }
 
 function enviarMensaje() {
@@ -88,6 +112,8 @@ function enviarMensaje() {
         success: function (data) {
             //console.log("Mensaje Enviado:", data);
             mensajeInput.value = "";
+            clearTimeout(timeoutRecarga);
+            recargaChat();
         },
         error: function (error) {
             //console.error("Error en la solicitud AJAX:", error);
@@ -109,6 +135,8 @@ function enviarTirada() {
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         success: function (data) {
             //console.log("Mensaje Enviado:", data);
+            clearTimeout(timeoutRecarga);
+            recargaChat();
         },
         error: function (error) {
             //console.error("Error en la solicitud AJAX:", error);
@@ -116,32 +144,30 @@ function enviarTirada() {
     });
 }
 
-  function manejarCambioDeTamaño() {
+function manejarCambioDeTamaño() {
     let anchoVentana = window.innerWidth;
-    
+
     let chat = document.getElementById('chatAmigos');
 
     if (anchoVentana <= 400) {
-      chat.style.display = 'none';
+        chat.style.display = 'none';
     }
-  }
+}
 
 
-setInterval(function() {
+function bucle() {
     let chatActual = document.getElementById('chatActual');
-
-
     if (chatActual !== null) {
-        setInterval(function() {
-            try {
-                recargaChat();
-            } catch (error) {
-                console.error('Error en la recarga del chat:', error);
-            }
-        }, 1000);
+        try {
+            recargaChat();
+        } catch (error) {
+            console.error('Error en la recarga del chat:', error);
+        }
     }
-}, 1000);
+}
 
-  window.addEventListener('resize', manejarCambioDeTamaño);
-  manejarCambioDeTamaño();
+timeoutRecarga = setTimeout(bucle, 5000);
+
+window.addEventListener('resize', manejarCambioDeTamaño);
+manejarCambioDeTamaño();
 

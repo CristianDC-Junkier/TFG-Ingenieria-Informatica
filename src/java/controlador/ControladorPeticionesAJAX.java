@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -86,6 +88,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             int contadorRecibidos = 0;
             int vfecha;
             boolean terminadaMensajesAmigos = false;
+            Date fechaActual;
+            LocalDateTime fechaLimite;
 
             String nombre;
             String id;
@@ -105,6 +109,117 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                 //////////////////////////////////////////////////////////////////////////
                 //////////////////////////////////CHATS///////////////////////////////////
                 //////////////////////////////////////////////////////////////////////////
+                case "/ChatCarga":
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    if (nombre.equalsIgnoreCase("-1")) {
+
+                    } else {
+                        queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                        queryUsuarios.setParameter("apodo", nombre);
+                        useraux = queryUsuarios.getSingleResult();
+                        id = useraux.getId();
+
+                        queryMensajesAmigos = em.createNamedQuery("Mensajesamigos.findByEscritorReceptor", Mensajesamigos.class);
+                        queryMensajesAmigos.setParameter("escritor", user.getId());
+                        queryMensajesAmigos.setParameter("receptor", id);
+                        listaMensajesEnviados = queryMensajesAmigos.getResultList();
+
+                        queryMensajesAmigos = em.createNamedQuery("Mensajesamigos.findByReceptorEscritor", Mensajesamigos.class);
+                        queryMensajesAmigos.setParameter("escritor", id);
+                        queryMensajesAmigos.setParameter("receptor", user.getId());
+                        ListaMensajesRecibidos = queryMensajesAmigos.getResultList();
+
+                        ListaMensajesOrdenados = new ArrayList();
+
+                        if (!listaMensajesEnviados.isEmpty() && !ListaMensajesRecibidos.isEmpty()) {
+
+                            while (terminadaMensajesAmigos == false) {
+
+                                MEAux = listaMensajesEnviados.get(contadorEnviados);
+                                MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
+                                vfecha = MEAux.getFecha().compareTo(MRAux.getFecha());// Menor a 0 es antes Mayor a 0 es después
+
+                                if (vfecha == 0) {//misma fecha = antes recibido
+                                    contadorRecibidos++;
+                                    ListaMensajesOrdenados.add(MRAux);
+
+                                } else if (vfecha < 0) {//antes el enviado
+                                    contadorEnviados++;
+                                    ListaMensajesOrdenados.add(MEAux);
+
+                                } else if (vfecha > 0) {//antes el recibido
+                                    contadorRecibidos++;
+                                    ListaMensajesOrdenados.add(MRAux);
+                                }
+
+                                if (contadorEnviados == listaMensajesEnviados.size()) {
+                                    terminadaMensajesAmigos = true;
+                                } else if (contadorRecibidos == ListaMensajesRecibidos.size()) {
+                                    terminadaMensajesAmigos = true;
+                                }
+                            }
+                        }
+                        //Por si quedan en alguna de las dos listas
+                        while (contadorEnviados != listaMensajesEnviados.size()) {
+                            MEAux = listaMensajesEnviados.get(contadorEnviados);
+                            ListaMensajesOrdenados.add(MEAux);
+                            contadorEnviados++;
+
+                        }
+                        while (contadorRecibidos != ListaMensajesRecibidos.size()) {
+                            MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
+                            ListaMensajesOrdenados.add(MRAux);
+                            contadorRecibidos++;
+
+                        }
+
+                        for (int i = 0; i < ListaMensajesOrdenados.size(); i++) {
+                            Mensajesamigos msj = ListaMensajesOrdenados.get(i);
+                            if (i > 0) {
+                                if (msj.getFecha().getDay() != ListaMensajesOrdenados.get(i - 1).getFecha().getDay()) {
+                                    resultado
+                                            = resultado
+                                            + "<br><p style =\"color: yellow;\">"
+                                            + msj.getFecha().getDate()
+                                            + "-" + (msj.getFecha().getMonth() + 1)
+                                            + "-" + (msj.getFecha().getYear() + 1900)
+                                            + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
+                                }
+                            }
+                            if (user.getId().equals(msj.getEscritor())) {
+                                resultado
+                                        = resultado
+                                        + "<p style=\"color: darkgray;\">"
+                                        + "Tu - "
+                                        + msj.getHora();
+                            } else {
+                                resultado
+                                        = resultado
+                                        + "<p>"
+                                        + useraux.getApodo() + " - "
+                                        + msj.getHora();
+                            }
+                            resultado
+                                    = resultado
+                                    + " - " + msj.getMensaje()
+                                    + "</p>";
+                        }
+                    }
+
+                    System.out.println("PeticionAJAX Sale");
+
+                    break;
                 case "/ChatRecarga":
 
                     /////////////////////////
@@ -123,15 +238,30 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     useraux = queryUsuarios.getSingleResult();
                     id = useraux.getId();
 
-                    queryMensajesAmigos = em.createNamedQuery("Mensajesamigos.findByEscritorReceptor", Mensajesamigos.class);
-                    queryMensajesAmigos.setParameter("escritor", user.getId());
-                    queryMensajesAmigos.setParameter("receptor", id);
-                    listaMensajesEnviados = queryMensajesAmigos.getResultList();
+                    fechaLimite = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String fechaFormateada = fechaLimite.format(formatter);
 
-                    queryMensajesAmigos = em.createNamedQuery("Mensajesamigos.findByReceptorEscritor", Mensajesamigos.class);
-                    queryMensajesAmigos.setParameter("escritor", id);
-                    queryMensajesAmigos.setParameter("receptor", user.getId());
-                    ListaMensajesRecibidos = queryMensajesAmigos.getResultList();
+                    sql = "SELECT m.* FROM Mensajesamigos m"
+                            + " WHERE m.escritor = '" + user.getId() + "'"
+                            + " and m.receptor = '" + id + "'"
+                            + " and m.fecha >= TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
+                            + " ORDER BY m.fecha";
+
+                    queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
+                    listaMensajesEnviados = queryAUX.getResultList();
+
+                    fechaLimite = fechaLimite.minusSeconds(5);
+                    fechaFormateada = fechaLimite.format(formatter);
+
+                    sql = "SELECT m.* FROM Mensajesamigos m"
+                            + " WHERE m.escritor = '" + id + "'"
+                            + " and m.receptor = '" + user.getId() + "'"
+                            + " and m.fecha > TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
+                            + " ORDER BY m.fecha";
+
+                    queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
+                    ListaMensajesRecibidos = queryAUX.getResultList();
 
                     ListaMensajesOrdenados = new ArrayList();
 
@@ -139,7 +269,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                         while (terminadaMensajesAmigos == false) {
 
-                            MEAux = listaMensajesEnviados.get(contadorEnviados);
+                            MEAux = listaMensajesEnviados.get(listaMensajesEnviados.size() - 1);
+                            listaMensajesEnviados.clear();
+
                             MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
                             vfecha = MEAux.getFecha().compareTo(MRAux.getFecha());// Menor a 0 es antes Mayor a 0 es después
 
@@ -148,7 +280,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 ListaMensajesOrdenados.add(MRAux);
 
                             } else if (vfecha < 0) {//antes el enviado
-                                contadorEnviados++;
                                 ListaMensajesOrdenados.add(MEAux);
 
                             } else if (vfecha > 0) {//antes el recibido
@@ -156,19 +287,13 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 ListaMensajesOrdenados.add(MRAux);
                             }
 
-                            if (contadorEnviados == listaMensajesEnviados.size()) {
-                                terminadaMensajesAmigos = true;
-                            } else if (contadorRecibidos == ListaMensajesRecibidos.size()) {
-                                terminadaMensajesAmigos = true;
-                            }
+                            terminadaMensajesAmigos = true;
                         }
                     }
                     //Por si quedan en alguna de las dos listas
-                    while (contadorEnviados != listaMensajesEnviados.size()) {
-                        MEAux = listaMensajesEnviados.get(contadorEnviados);
+                    if (!listaMensajesEnviados.isEmpty()) {
+                        MEAux = listaMensajesEnviados.get(listaMensajesEnviados.size() - 1);
                         ListaMensajesOrdenados.add(MEAux);
-                        contadorEnviados++;
-
                     }
                     while (contadorRecibidos != ListaMensajesRecibidos.size()) {
                         MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
@@ -179,16 +304,29 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     for (int i = 0; i < ListaMensajesOrdenados.size(); i++) {
                         Mensajesamigos msj = ListaMensajesOrdenados.get(i);
+                        if (i > 0) {
+                            if (msj.getFecha().getDay() != ListaMensajesOrdenados.get(i - 1).getFecha().getDay()) {
+                                resultado
+                                        = resultado
+                                        + "<br><p style =\"color: yellow;\">"
+                                        + msj.getFecha().getDate()
+                                        + "-" + (msj.getFecha().getMonth() + 1)
+                                        + "-" + (msj.getFecha().getYear() + 1900)
+                                        + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
+                            }
+                        }
                         if (user.getId().equals(msj.getEscritor())) {
                             resultado
                                     = resultado
                                     + "<p style=\"color: darkgray;\">"
-                                    + "Tu";
+                                    + "Tu - "
+                                    + msj.getHora();
                         } else {
                             resultado
                                     = resultado
                                     + "<p>"
-                                    + useraux.getApodo();
+                                    + useraux.getApodo() + " - "
+                                    + msj.getHora();
                         }
                         resultado
                                 = resultado
@@ -1334,7 +1472,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
                         Date fechaNacimiento = formatoFecha.parse(nombre);
 
-                        Date fechaActual = new Date();
+                        fechaActual = new Date();
                         Calendar calendarioAux = Calendar.getInstance();
                         calendarioAux.setTime(fechaActual);
                         calendarioAux.add(Calendar.YEAR, -12);
@@ -1480,7 +1618,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
                         Date fechaNacimiento = formatoFecha.parse(nombre);
 
-                        Date fechaActual = new Date();
+                        fechaActual = new Date();
                         Calendar calendarioAux = Calendar.getInstance();
                         calendarioAux.setTime(fechaActual);
                         calendarioAux.add(Calendar.YEAR, -12);

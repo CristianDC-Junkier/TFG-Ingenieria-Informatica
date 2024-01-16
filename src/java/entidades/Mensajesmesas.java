@@ -93,7 +93,7 @@ public class Mensajesmesas implements Serializable {
     public String getHora() {
 
         // Formatear la hora
-        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
         String horaFormateada = formatoHora.format(fecha);
 
         return horaFormateada;
