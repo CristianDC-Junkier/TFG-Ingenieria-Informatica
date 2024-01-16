@@ -48,7 +48,7 @@
                     <c:choose>
                         <c:when test="${requestScope.sonAmigos == 1}">
                             <button class="boton" onclick="location.href ='/TFG/Mesas/mostrarMesasAmigo?amigo=${requestScope.amigo.id}'">Mesas</button>
-                            <button class="boton" onclick="location.href ='/TFG/Personajes/personajesAmigo?amigo=${requestScope.amigo.id}">Personajes</button>
+                            <button class="boton" onclick="location.href ='/TFG/Personajes/personajesAmigo?amigo=${requestScope.amigo.id}'">Personajes</button>
                             <button class="botonfinal" onclick="mostrarRecuadro()">Eliminar Amigo</button>
                         </c:when>
                         <c:otherwise>

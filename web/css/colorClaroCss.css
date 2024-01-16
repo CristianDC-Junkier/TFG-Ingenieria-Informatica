@@ -350,13 +350,18 @@ footer{
 /**************************************/
 
 
-.ResumenClase > h5{
+.ResumenClase > h5 {
 
     background-color: #1f6161;
-    color:yellow;
     border: black 4px ridge;
 
 }
+
+.ResumenClase > h5 > a{
+
+    color:yellow;
+}
+
 .ResumenClase > li{
 
     background-color: #00aaaa;

@@ -1,5 +1,6 @@
 package controlador;
 
+import entidades.Clases;
 import entidades.Estados;
 import java.io.IOException;
 import java.util.List;
@@ -49,14 +50,91 @@ public class ControladorExplorar extends HttpServlet {
 
         Query queryAUX;
         TypedQuery<Estados> queryEstados;
+        TypedQuery<Clases> queryClases;
 
         List<Estados> listaEstados;
+        List<Clases> listaClases;
+
+        Clases clase;
 
         String sql;
+        String nombre;
+        String resultado;
 
         switch (accion) {
             case "/clases":
+
+                queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                listaClases = queryClases.getResultList();
+
+                resultado = "";
+
+                for (int i = 0; i < listaClases.size(); i++) {
+                    resultado
+                            = resultado
+                            + "<ul>\n <div class=\"ResumenClase\">"
+                            + "<h5";
+                    switch (i) {
+                        case 0:
+                            resultado
+                                    = resultado + " id=\"Aa\"";
+                            break;
+                        case 1:
+                            resultado
+                                    = resultado + " id=\"B\"";
+                            break;
+                        case 4:
+                            resultado
+                                    = resultado + " id=\"C\"";
+                            break;
+                        case 7:
+                            resultado
+                                    = resultado + " id=\"D\"";
+                            break;
+                        case 8:
+                            resultado
+                                    = resultado + " id=\"E\"";
+                            break;
+                        case 9:
+                            resultado
+                                    = resultado + " id=\"H\"";
+                            break;
+                        case 10:
+                            resultado
+                                    = resultado + " id=\"L\"";
+                            break;
+                        case 11:
+                            resultado
+                                    = resultado + " id=\"M\"";
+                        case 13:
+                            resultado
+                                    = resultado + " id=\"Pp\"";
+                            break;
+                    }
+                    resultado
+                            = resultado
+                            + ">" + "<a href=\"/TFG/Explorar/clase?clase=" + listaClases.get(i).getNombre() + "\">" + listaClases.get(i).getNombre() + " </a></h5> "
+                            + "<li>" + "<a href=\"/TFG/Explorar/clase?clase=" + listaClases.get(i).getNombre() + "\"> "
+                            + "<img src=\"/TFG/img/clases/" + listaClases.get(i).getNombre().replaceAll("\\s", "") + ".jfif\"/> </a> "
+                            + "<p>" + listaClases.get(i).getDescripcion()
+                            + "</p> </li> </div> </ul>";
+                }
+
+                request.setAttribute("listaClases", resultado);
+
                 vista = "/WEB-INF/jsp/explorar/clases.jsp";
+                break;
+            case "/clase":
+
+                nombre = request.getParameter("clase");
+
+                queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
+                queryClases.setParameter("nombre", nombre);
+                clase = queryClases.getSingleResult();
+
+                request.setAttribute("clase", clase);
+
+                vista = "/WEB-INF/jsp/explorar/clase.jsp";
                 break;
             case "/dotes":
                 vista = "/WEB-INF/jsp/explorar/dotes.jsp";
@@ -68,8 +146,6 @@ public class ControladorExplorar extends HttpServlet {
 
                 queryEstados = em.createNamedQuery("Estados.findAll", Estados.class);
                 listaEstados = queryEstados.getResultList();
-
-                System.out.println("estados: " + listaEstados.size());
 
                 request.setAttribute("listaEstados", listaEstados);
 
