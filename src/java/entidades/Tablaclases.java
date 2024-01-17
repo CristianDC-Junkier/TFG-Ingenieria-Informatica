@@ -8,7 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -25,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(catalog = "", schema = "SYS_G4")
+@Table(name = "TABLACLASES", catalog = "", schema = "SYS_G4")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tablaclases.findAll", query = "SELECT t FROM Tablaclases t"),
@@ -38,24 +37,26 @@ public class Tablaclases implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
-    @Column(name = "ID")
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
     private String id;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "RASGOS", nullable = false)
     private short rasgos;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "BC", nullable = false)
     private short bc;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "TRUCOS", nullable = false)
     private short trucos;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "HECHIZOS", nullable = false)
     private short hechizos;
     @ManyToMany(mappedBy = "tablaclasesList", fetch = FetchType.LAZY)
     private List<Espacioshechizos> espacioshechizosList;
@@ -76,14 +77,13 @@ public class Tablaclases implements Serializable {
         this.trucos = trucos;
         this.hechizos = hechizos;
     }
-    
     public Tablaclases(short rasgos, short bc, short trucos, short hechizos) {
         this.rasgos = rasgos;
         this.bc = bc;
         this.trucos = trucos;
         this.hechizos = hechizos;
     }
-
+    
     public String getId() {
         return id;
     }

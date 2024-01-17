@@ -6,7 +6,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -24,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(catalog = "", schema = "SYS_G4")
+@Table(name = "ESPACIOSHECHIZOS", catalog = "", schema = "SYS_G4")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Espacioshechizos.findAll", query = "SELECT e FROM Espacioshechizos e"),
@@ -42,44 +41,46 @@ public class Espacioshechizos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
-    @Column(name = "ID")
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
     private String id;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "NV1", nullable = false)
     private short nv1;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "NV2", nullable = false)
     private short nv2;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "NV3", nullable = false)
     private short nv3;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "NV4", nullable = false)
     private short nv4;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "NV5", nullable = false)
     private short nv5;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "NV6", nullable = false)
     private short nv6;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "NV7", nullable = false)
     private short nv7;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "NV8", nullable = false)
     private short nv8;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "NV9", nullable = false)
     private short nv9;
     @JoinTable(name = "TABLAHECHIZOS", joinColumns = {
         @JoinColumn(name = "ESPACIOSHECHIZOS", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {

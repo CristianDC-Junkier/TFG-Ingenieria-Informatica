@@ -131,7 +131,8 @@ public class ControladorExplorar extends HttpServlet {
                 queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
                 queryClases.setParameter("nombre", nombre);
                 clase = queryClases.getSingleResult();
-
+                
+                request.setAttribute("imagen", clase.getNombre().replaceAll("\\s", ""));
                 request.setAttribute("clase", clase);
 
                 vista = "/WEB-INF/jsp/explorar/clase.jsp";

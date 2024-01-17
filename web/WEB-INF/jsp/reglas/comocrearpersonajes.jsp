@@ -27,8 +27,8 @@
                             sigilosa, véase el picaro, le aportará más la destreza que la resistencia
                             o la fuerza.</p>
                         <p> Tras esta pequeña introducción empezamos con las clases, existen un total
-                            de 13 clases completamente oficiales, en esta web añadimos tres más, dos 
-                            consideradas extraoficiales, y otra es un fanmade hecho por Guidance4.<br>
+                            de 13 clases completamente oficiales, en esta web añadimos dos más, una 
+                            considerada extraoficial, y otra es un fanmade hecho por Guidance4.<br>
                             Cada clase tiene a su vez subclases, la subclases se eligen según la clase, 
                             algunos la asumen en el nivel 2, como los Magos, otros la 
                             escogen al nivel 3 como los Luchadores y otros la tienen desde 

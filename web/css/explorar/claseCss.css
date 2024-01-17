@@ -1,0 +1,32 @@
+
+.arribaDatosClase {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+.datosIzquierdaClase {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.datosIzquierdaClase img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+.datosDerechaClase {
+    flex: 1;
+    margin-left: 20px;
+}
+.tablaHechizos {
+    width: 100%;
+    border-collapse: collapse;
+}
+.tablaHechizos th, .tablaHechizos td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+

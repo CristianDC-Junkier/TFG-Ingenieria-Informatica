@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "SUBCLASES", catalog = "", schema = "SYS_G4", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
@@ -38,22 +37,24 @@ public class Subclases implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
-    @Column(name = "ID")
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
     private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
-    @Column(nullable = false, length = 60)
+    @Column(name = "NOMBRE", nullable = false, length = 60)
     private String nombre;
     @Basic(optional = false)
     @NotNull
     @Lob
-    @Column(nullable = false)
+    @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "NIVEL", nullable = false)
     private short nivel;
     @ManyToMany(mappedBy = "subclasesList", fetch = FetchType.LAZY)
     private List<Clases> clasesList;

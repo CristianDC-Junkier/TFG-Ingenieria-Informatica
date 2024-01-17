@@ -18,12 +18,13 @@ public class TablaclasespornivelPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 36)
-    @Column(nullable = false, length = 36)
+    @Column(name = "SUBCLASES", nullable = false, length = 36)
     private String subclases;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "NIVEL", nullable = false)
     private short nivel;
+
 
     public TablaclasespornivelPK() {
     }
