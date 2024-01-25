@@ -8,25 +8,38 @@
 .datosIzquierdaClase {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    width: 45%;
 }
-.datosIzquierdaClase img {
+.datosIzquierdaArribaClase {
+    display: flex;
+}
+.datosIzquierdaArribaClase img {
     max-width: 100%;
     height: auto;
-    margin-bottom: 10px;
+    margin-right: 10px;
+}
+.caracteristicasClase {
+    margin-left: 20px;
+    margin-top: 25px;
+}
+.datosIzquierdaAbajoClase {
+    margin-top: 10px;
 }
 .datosDerechaClase {
     flex: 1;
     margin-left: 20px;
 }
 .tablaHechizos {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
+    margin-left: 20px;
+    margin-top: 20px;
 }
 .tablaHechizos th, .tablaHechizos td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
+
 
 

@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,13 +11,6 @@
     <body>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main> 
-            <div>
-                <h6 id="Arriba" class = "BusquedaDote">
-                    <a href="#Normal" id="A">&nbsp;&nbsp;Normales</a>
-                    <a href="#Racial">&nbsp;&nbsp;Raciales</a>
-                    <a href="#Draconido" id="P">&nbsp;&nbsp;Dracónidos&nbsp;</a>
-                </h6>
-            </div>
             <div class="ResumenDotes">
                 <h2 class="Titulos">Dotes</h2>
                 <hr color="black">
@@ -30,50 +24,17 @@
                     <p>Lo importante es divertirse.</p>
                 </div>
                 <div class="ListaDotes">
-                    <h4 id = Normal>Normales</h4>
-                    <div class="ResumenDote">
-                        <div class="tituloDote"><h5>Acechador</h5></div>
-                        <div class="ContenidoDote">
-                            <ul>
-                                <li class="RequisitoDote">Requisito: Destreza 13 o superior</li>
-                                <li>Puedes intentar esconderte cuando estás en 
-                                    penumbra de la criatura de la cual te estás 
-                                    ocultando.</li>
-                                <li>Cuando estás escondido de una criatura y 
-                                    fallas con un arma a distancia, hacer el 
-                                    ataque no delatará tu posición.</li>
-                                <li>La luz tenue no supone una desventaja para 
-                                    tus tiradas de Sabiduría (Percepción) si estas 
-                                    se basan en la vista. 
-                                </li>
-                            </ul>
+                    <c:forEach var="dote" items="${listaDotes}">
+                        <div class="ResumenDote">
+                            <div class="tituloDote"><h5>${dote.nombre}</h5></div>
+                            <div class="ContenidoDote">
+                                <ul>
+                                    <c:out value="${requestScope['listaRDotes' + dote.nombre]}" escapeXml="false" />
+                                    <c:out value="${requestScope['listaMDotes' + dote.nombre]}" escapeXml="false" /> 
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="ResumenDote">
-                        <div class="tituloDote"><h5>Actor</h5></div>
-                        <div class="ContenidoDote">
-                            <ul>
-                                <li>Incrementa tu puntuación de Carisma en 1, 
-                                    hasta un máximo de 20.</li>
-                                <li> Tienes ventaja en las tiradas de Carisma 
-                                    (Engañar) y Carisma (Interpretar) cuando 
-                                    intentas hacerte pasar por otra persona.</li>
-                                <li>Puedes imitar el habla de otra persona o los 
-                                    sonidos hechos por otras criaturas. Debes 
-                                    haber oído a la persona hablar, o haber 
-                                    escuchado a la criatura haber hecho el 
-                                    sonido, por al menos un minuto. Una tirada 
-                                    exitosa de Sabiduría (Perspicacia) 
-                                    contra tu tirada de Carisma (Engañar) 
-                                    permite a alguien o algo que escucha 
-                                    determinar que el efecto es falso.
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-
-
+                    </c:forEach>
                 </div>
             </div>
         </main>

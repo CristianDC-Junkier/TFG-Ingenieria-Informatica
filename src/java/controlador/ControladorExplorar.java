@@ -1,7 +1,10 @@
 package controlador;
 
 import entidades.Clases;
+import entidades.Dotes;
 import entidades.Estados;
+import entidades.Mejorasdote;
+import entidades.Requisitosdote;
 import java.io.IOException;
 import java.util.List;
 import javax.annotation.Resource;
@@ -51,9 +54,15 @@ public class ControladorExplorar extends HttpServlet {
         Query queryAUX;
         TypedQuery<Estados> queryEstados;
         TypedQuery<Clases> queryClases;
+        TypedQuery<Dotes> queryDotes;
+        TypedQuery<Mejorasdote> queryMDotes;
+        TypedQuery<Requisitosdote> queryRDotes;
 
         List<Estados> listaEstados;
         List<Clases> listaClases;
+        List<Dotes> listaDotes;
+        List<Mejorasdote> listaMDotes;
+        List<Requisitosdote> listaRDotes;
 
         Clases clase;
 
@@ -131,13 +140,95 @@ public class ControladorExplorar extends HttpServlet {
                 queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
                 queryClases.setParameter("nombre", nombre);
                 clase = queryClases.getSingleResult();
-                
+
+                resultado = "<table class=\"tablaHechizos\">"
+                        + "<thead>"
+                        + "<tr>"
+                        + "<th>Nivel</th>"
+                        + "<th>BC</th>"
+                        + "<th>H nv1</th>"
+                        + "<th>H nv2</th>"
+                        + "<th>H nv3</th>"
+                        + "<th>H nv4</th>"
+                        + "<th>H nv5</th>"
+                        + "<th>H nv6</th>"
+                        + "<th>H nv7</th>"
+                        + "<th>H nv8</th>"
+                        + "<th>H nv9</th>"
+                        + "</tr>"
+                        + "</thead>"
+                        + "<tbody";
+
+                for (int i = 0; i < 20; i++) {
+                    resultado
+                            = resultado
+                            + "<tr>"
+                            + "<td>" + (i + 1) + "</td>"
+                            + "<td>" + "-" + "</td>"
+                            + "<td>" + "-" + "</td>"
+                            + "<td>" + "-" + "</td>"
+                            + "<td>" + "-" + "</td>"
+                            + "<td>" + "-" + "</td>"
+                            + "<td>" + "-" + "</td>"
+                            + "<td>" + "-" + "</td>"
+                            + "<td>" + "-" + "</td>"
+                            + "<td>" + "-" + "</td>"
+                            + "<td>" + "-" + "</td>"
+                            + "</tr>";
+
+                }
+                resultado = resultado
+                        + "</tbody>"
+                        + "</table>";
+
+                request.setAttribute("tablaHechizos", resultado);
+
+                resultado = clase.getEquipoinicial().replace("•", "<br>•");
+                resultado = resultado.replaceFirst("<br>", "");
+
+                request.setAttribute("equipoinicial", resultado);
+
                 request.setAttribute("imagen", clase.getNombre().replaceAll("\\s", ""));
                 request.setAttribute("clase", clase);
 
                 vista = "/WEB-INF/jsp/explorar/clase.jsp";
                 break;
             case "/dotes":
+
+                queryDotes = em.createNamedQuery("Dotes.findAll", Dotes.class);
+                listaDotes = queryDotes.getResultList();
+
+                request.setAttribute("listaDotes", listaDotes);
+
+                for (int i = 0; i < listaDotes.size(); i++) {
+
+                    resultado = "";
+
+                    queryMDotes = em.createNamedQuery("Mejorasdote.findByNombre", Mejorasdote.class);
+                    queryMDotes.setParameter("nombre", listaDotes.get(i).getNombre());
+                    listaMDotes = queryMDotes.getResultList();
+
+                    for (Mejorasdote listaMDote : listaMDotes) {
+                        resultado
+                                = resultado
+                                + "<li>" + listaMDote.getValor() + "</li>";
+                    }
+                    request.setAttribute("listaMDotes" + listaDotes.get(i).getNombre(), resultado);
+                    
+                    resultado = "";
+                    
+                    queryRDotes = em.createNamedQuery("Requisitosdote.findByNombre", Requisitosdote.class);
+                    queryRDotes.setParameter("nombre", listaDotes.get(i).getNombre());
+                    listaRDotes = queryRDotes.getResultList();
+
+                    for (Requisitosdote listaRDote : listaRDotes) {
+                        resultado
+                                = resultado
+                                + "<li class=\"RequisitoDote\">" + listaRDote.getValor() + "</li>";
+                    }
+                    request.setAttribute("listaRDotes" + listaDotes.get(i).getNombre(), resultado);
+                }
+
                 vista = "/WEB-INF/jsp/explorar/dotes.jsp";
                 break;
             case "/equipo":

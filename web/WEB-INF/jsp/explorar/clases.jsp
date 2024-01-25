@@ -28,7 +28,7 @@
                 <h2 class="Titulos">Clases</h2>
                 <hr color="black">
                 <div class="ListaClases">
-                   <c:out value="${listaClases }" escapeXml="false" />    
+                   <c:out value="${listaClases}" escapeXml="false" />    
                 </div>
             </div>
         </main>

@@ -15,42 +15,47 @@
             <hr color="black">
             <div class="arribaDatosClase">
                 <div class="datosIzquierdaClase">
-                    <img src="/TFG/img/clases/${requestScope.imagen}.jfif"/>
-                    <div>
+                    <div class="datosIzquierdaArribaClase">
+                        <img src="/TFG/img/clases/${requestScope.imagen}.jfif"/>
+                        <div class="caracteristicasClase">
+                            <h3>Características</h3>
+                            <ul>
+                                <li>Dado de golpe: ${requestScope.clase.dpg} + Constitución</li>
+                                <li>Habilidad de hechizos: ${requestScope.clase.habhechizos}</li>                    
+                                <li>CA Hechizos: 8 + BC + ${requestScope.clase.habhechizos}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class = "datosIzquierdaAbajoClase">
                         <p>${requestScope.clase.descripcion}</p>
+                    </div>
+                    <br><br>
+                    <div>
+                        <h3>Competencias</h3>
+                        <p>Armaduras: ${requestScope.clase.comparmaduras}</p>
+                        <p>Armas: ${requestScope.clase.comparmas}</p>
+                        <p>Herramientas: ${requestScope.clase.compherramientas}</p>
+                    </div>
+                    <br><br>
+                    <div>
+                        <h3>Equipo Inicial</h3>
+                        <p>${requestScope.equipoinicial}</p>
+                        <p>Si no quieres nada: ${requestScope.clase.oroinicial}</p>
                     </div>
                 </div>
                 <div class="datosDerechaClase">
-                    <table class="tablaHechizos">
-                        <thead>
-                            <tr>
-                                <th>Columna 1</th>
-                                <th>Columna 2</th>
-                                <th>Columna 3</th>
-                                <th>Columna 4</th>
-                                <th>Columna 5</th>
-                                <th>Columna 6</th>
-                                <th>Columna 7</th>
-                                <th>Columna 8</th>
-                                <th>Columna 9</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Filas de la tabla (puedes ajustar según tus necesidades) -->
-                            <tr>
-                                <td>Dato 1</td>
-                                <td>Dato 2</td>
-                                <td>Dato 3</td>
-                                <td>Dato 4</td>
-                                <td>Dato 5</td>
-                                <td>Dato 6</td>
-                                <td>Dato 7</td>
-                                <td>Dato 8</td>
-                                <td>Dato 9</td>
-                            </tr>
-                            <!-- Otras filas... -->
-                        </tbody>
-                    </table>
+                    <c:out value="${tablaHechizos}" escapeXml="false" />  
+                </div>
+            </div>
+            <br><br>
+            <div class="abajoSubclasesClase">
+                <div>
+                    <h3>Subclases</h3>
+                </div>
+            </div>
+            <div class="abajoRasgosClase">
+                <div>
+                    <h3>Subclases</h3>
                 </div>
             </div>
         </main>
