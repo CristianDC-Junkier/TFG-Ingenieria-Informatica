@@ -24,17 +24,7 @@
                     <p>Lo importante es divertirse.</p>
                 </div>
                 <div class="ListaDotes">
-                    <c:forEach var="dote" items="${listaDotes}">
-                        <div class="ResumenDote">
-                            <div class="tituloDote"><h5>${dote.nombre}</h5></div>
-                            <div class="ContenidoDote">
-                                <ul>
-                                    <c:out value="${requestScope['listaRDotes' + dote.nombre]}" escapeXml="false" />
-                                    <c:out value="${requestScope['listaMDotes' + dote.nombre]}" escapeXml="false" /> 
-                                </ul>
-                            </div>
-                        </div>
-                    </c:forEach>
+                    <c:out value="${listaDotes}" escapeXml="false" />
                 </div>
             </div>
         </main>

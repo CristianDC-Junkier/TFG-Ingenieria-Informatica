@@ -198,27 +198,24 @@ public class ControladorExplorar extends HttpServlet {
                 queryDotes = em.createNamedQuery("Dotes.findAll", Dotes.class);
                 listaDotes = queryDotes.getResultList();
 
-                request.setAttribute("listaDotes", listaDotes);
+                resultado = "";
 
                 for (int i = 0; i < listaDotes.size(); i++) {
 
-                    resultado = "";
+                    nombre = listaDotes.get(i).getNombre();
 
-                    queryMDotes = em.createNamedQuery("Mejorasdote.findByNombre", Mejorasdote.class);
-                    queryMDotes.setParameter("nombre", listaDotes.get(i).getNombre());
-                    listaMDotes = queryMDotes.getResultList();
+                    resultado
+                            = resultado
+                            + "<div class=\"ResumenDote\">"
+                            + "<div class=\"tituloDote\">"
+                            + "<h5>"
+                            + nombre
+                            + "</h5></div>"
+                            + "<div class=\"ContenidoDote\">"
+                            + "<ul>";
 
-                    for (Mejorasdote listaMDote : listaMDotes) {
-                        resultado
-                                = resultado
-                                + "<li>" + listaMDote.getValor() + "</li>";
-                    }
-                    request.setAttribute("listaMDotes" + listaDotes.get(i).getNombre(), resultado);
-                    
-                    resultado = "";
-                    
                     queryRDotes = em.createNamedQuery("Requisitosdote.findByNombre", Requisitosdote.class);
-                    queryRDotes.setParameter("nombre", listaDotes.get(i).getNombre());
+                    queryRDotes.setParameter("nombre", nombre);
                     listaRDotes = queryRDotes.getResultList();
 
                     for (Requisitosdote listaRDote : listaRDotes) {
@@ -226,9 +223,27 @@ public class ControladorExplorar extends HttpServlet {
                                 = resultado
                                 + "<li class=\"RequisitoDote\">" + listaRDote.getValor() + "</li>";
                     }
-                    request.setAttribute("listaRDotes" + listaDotes.get(i).getNombre(), resultado);
-                }
 
+                    queryMDotes = em.createNamedQuery("Mejorasdote.findByNombre", Mejorasdote.class);
+                    queryMDotes.setParameter("nombre", nombre);
+                    listaMDotes = queryMDotes.getResultList();
+
+                    for (Mejorasdote listaMDote : listaMDotes) {
+                        System.out.println(listaMDote.getValor());
+                        resultado
+                                = resultado
+                                + "<li>" + listaMDote.getValor() + "</li>";
+                    }
+
+                    resultado
+                            = resultado
+                            + "</ul>"
+                            + "</div>"
+                            + "</div>";
+                }
+                
+                request.setAttribute("listaDotes", resultado);
+                
                 vista = "/WEB-INF/jsp/explorar/dotes.jsp";
                 break;
             case "/equipo":

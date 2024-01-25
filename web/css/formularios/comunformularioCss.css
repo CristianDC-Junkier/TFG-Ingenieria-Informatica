@@ -50,8 +50,9 @@ input[type="button"]:active {
     letter-spacing: 2px;
     border-radius: 0px 0px 10px 10px;
 }
+
 .contenedorFormulario{
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
