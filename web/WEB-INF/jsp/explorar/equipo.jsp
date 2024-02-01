@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,51 +31,50 @@
                     <form class="buscadorExplorar">
                         <input type="text" id=SelectName placeholder="Busqueda por nombre">
                         <select id="Selecttipo">
-                            <option value="tipo" selected>Tipo de objeto</option>
-                            <option value="tipo1">Armas</option>
-                            <option value="tipo2">Armaduras</option>
-                            <option value="tipo3">Otros</option>
+                            <option value="Tipo" selected>Tipo de objeto</option>
+                            <option value="Arma">Arma</option>
+                            <option value="Armadura">Armadura</option>
+                            <option value="Otros">Otros</option>
                         </select>
-                        <select id="Selectcategoría">
-                            <option value="categoria" selected>Categoría</option>
-                            <option value="categoria1">Armas Sencillas</option>
-                            <option value="categoria2">Armas Marciales</option>
-                            <option value="categoria3">Escudos</option>
-                            <option value="categoria4">Armadura Ligera</option>
-                            <option value="categoria5">Armadura Intermedia</option>
-                            <option value="categoria6">Armadura Pesada</option>
-                            <option value="categoria7">Herramientas</option>
-                            <option value="categoria8">Instrumentos Musicales</option>
-                            <option value="categoria9">Juegos</option>
-                            <option value="categoria10">Monturas</option>
-                            <option value="categoria11">Munición</option>
-                            <option value="categoria12">Paquete de Equipo</option>
-                            <option value="categoria13">Vehículos</option>
+                        <select id="Selectcategoria">
+                            <option value="Categoria" selected>Categoría</option>
+                            <option value="Armas Sencillas">Armas Sencillas</option>
+                            <option value="Armas Marciales">Armas Marciales</option>
+                            <option value="Escudos">Escudos</option>
+                            <option value="Armadura Ligera">Armadura Ligera</option>
+                            <option value="Armadura Intermedia">Armadura Intermedia</option>
+                            <option value="Armadura Pesada">Armadura Pesada</option>
+                            <option value="Herramientas">Herramientas</option>
+                            <option value="Instrumentos Musicales">Instrumentos Musicales</option>
+                            <option value="Juegos">Juegos</option>
+                            <option value="Monturas">Monturas</option>
+                            <option value="Munición">Munición</option>
+                            <option value="Paquete de Equipo">Paquete de Equipo</option>
+                            <option value="Vehículos">Vehículos</option>
                         </select>
-                        <select id="SelectOrden">
-                            <option value="propiedad" selected>Propiedad</option>
-                            <option value="propiedad1">Alcance</option>
-                            <option value="propiedad2">Arrojadiza</option>
-                            <option value="propiedad3">De Carga</option>
-                            <option value="propiedad4">Desventaja</option>
-                            <option value="propiedad5">Distancia</option>
-                            <option value="propiedad6">Dos Manos</option>
-                            <option value="propiedad7">Fuerza</option>
-                            <option value="propiedad8">Ligera</option>
-                            <option value="propiedad9">Munición</option>
-                            <option value="propiedad10">Pesada</option>
-                            <option value="propiedad11">Sutil</option>
-                            <option value="propiedad12">Versátil</option>
+                        <select id="Selectpropiedad">
+                            <option value="Propiedad" selected>Propiedad</option>
+                            <option value="Alcance">Alcance</option>
+                            <option value="Arrojadiza">Arrojadiza</option>
+                            <option value="De Carga">De Carga</option>
+                            <option value="Desventaja">Desventaja</option>
+                            <option value="Distancia">Distancia</option>
+                            <option value="Dos Manos">Dos Manos</option>
+                            <option value="Fuerza">Fuerza</option>
+                            <option value="Ligera">Ligera</option>
+                            <option value="Munición">Munición</option>
+                            <option value="Pesada">Pesada</option>
+                            <option value="Sutil">Sutil</option>
+                            <option value="Versátil">Versátil</option>
                         </select>
-                        <button onclick="guardarSeleccion()">Buscar</button>
                     </form>
                 </div>
                 <div class="listasExplorador" id="pestañasSeccion">
                     <div class="pestañasNavegacion">
                         <div class="pestaña" id="pestaña1">
                             <div class="ListaEquipo">
-                                <h3>Armas</h3>
-                                <h4>Armas sencillas</h4>
+                                <h3>${requestScope.titulo}</h3>
+                                <h4>${requestScope.subtitulo}</h4>
                                 <div class="diseñoTabla">
                                     <table>
                                         <tr class="titulosTabla">
@@ -83,104 +84,16 @@
                                             <th>Precio</th>
                                             <th>Peso</th>
                                         </tr>
-                                        <tr>
-                                            <td>Arco corto</td>
-                                            <td>1d6 Perforante(Des)</td>
-                                            <td>Distancia, Dos manos, Munición</td>
-                                            <td>25 po</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ballesta ligera</td>
-                                            <td>1d8 Perforante(Des)</td>
-                                            <td>De carga, Distancia, Dos manos, Munición</td>
-                                            <td>25 po</td>
-                                            <td>2,27 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bastón</td>
-                                            <td>1d6 Contundente(Fue)</td>
-                                            <td>Versátil</td>
-                                            <td>2 pp</td>
-                                            <td>1,81 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Clava</td>
-                                            <td>1d4 Contundente(Fue)</td>
-                                            <td>Ligera</td>
-                                            <td>1 pp</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Daga</td>
-                                            <td>1d4 Perforante(Des)</td>
-                                            <td>Arrojadiza, Ligera, Sutil</td>
-                                            <td>2 po</td>
-                                            <td>0,45 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dardo</td>
-                                            <td>1d4 Perforante(Des)</td>
-                                            <td>Arrojadiza, Distancia, Sutil</td>
-                                            <td>5 pc</td>
-                                            <td>0,11 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gran clava</td>
-                                            <td>1d8 Contundente(Fue)</td>
-                                            <td>Dos manos</td>
-                                            <td>2 pp</td>
-                                            <td>4,54 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hacha de mano</td>
-                                            <td>1d6 Cortante(Fue)</td>
-                                            <td>Arrojadiza, Ligera</td>
-                                            <td>5 po</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Honda</td>
-                                            <td>1d4 Contundente(Des)</td>
-                                            <td>Distancia, Munición</td>
-                                            <td>1 pp</td>
-                                            <td>0,45 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hoz</td>
-                                            <td>1d4 Cortante(Fue)</td>
-                                            <td>Ligera</td>
-                                            <td>1 po</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jabalina</td>
-                                            <td>1d6 Perforante(Fue)</td>
-                                            <td>Arrojadiza</td>
-                                            <td>5 pp</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lanza</td>
-                                            <td>1d6 Perforante(Fue)</td>
-                                            <td>Arrojadiza, Versátil</td>
-                                            <td>1 po</td>
-                                            <td>1,36 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Martillo ligero</td>
-                                            <td>1d4 Contundente(Fue)</td>
-                                            <td>Arrojadiza, Ligera</td>
-                                            <td>2 pp</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Maza</td>
-                                            <td>1d6 Contundente(Fue)</td>
-                                            <td>-</td>
-                                            <td>5 po</td>
-                                            <td>1,81 kg</td>
-                                        </tr>
+                                        <c:forEach var="i" begin="0" end="14">
+                                            <c:set var="equipo" value="${listaEquipo[i]}" />
+                                            <tr>
+                                                <td>${equipo.nombre}</td>
+                                                <td>${equipo.dano}</td>
+                                                <td>-</td>
+                                                <td>${equipo.precio}</td>
+                                                <td>${equipo.peso}</td>
+                                            </tr>
+                                        </c:forEach>
                                     </table>
                                 </div>
                             </div>
@@ -194,6 +107,16 @@
             </div>
         </main>
         <jsp:include page="/WEB-INF/jsp/footer.jsp" />
+        <script>
+            //Datos de las páginas
+            let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
+            let numpag = parseInt('<%= request.getAttribute("numpag")%>', 10);
+            let valorSeleccionado1 = '<%= request.getAttribute("vTipo")%>'
+            let valorSeleccionado2 = '<%= request.getAttribute("vCat")%>'
+            let valorSeleccionado3 = '<%= request.getAttribute("vPro")%>'
+        </script>
+        <script src="/TFG/js/mostrarBotonesJS.js"></script>
+        <script src="/TFG/js/explorar/equipoJS.js"></script>
         <script src="/TFG/js/principalJS.js"></script>
     </body>
 </html>

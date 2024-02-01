@@ -30,7 +30,7 @@ if (pag > 2) {
     });
 }
 //Pag Final
-if (urlDestinoPag > 1) {
+if (pagpordelante > 1) {
     Bfinal.addEventListener('click', function () {
         urlDestinoPag = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + numpag;
         window.location.href = urlDestinoPag;
@@ -44,7 +44,7 @@ if (pag > 1) {
     });
 }
 //Pag posterior
-if (urlDestinoPag > 0) {
+if (pagpordelante > 0) {
     BPosterior.addEventListener('click', function () {
         urlDestinoPag = "/TFG/Usuarios/mostrarAmigos?orden=" + orden + "&mesa=" + mesa + "&pag=" + (pag + 1);
         window.location.href = urlDestinoPag;

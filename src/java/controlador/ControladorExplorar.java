@@ -2,6 +2,7 @@ package controlador;
 
 import entidades.Clases;
 import entidades.Dotes;
+import entidades.Equipo;
 import entidades.Estados;
 import entidades.Mejorasdote;
 import entidades.Requisitosdote;
@@ -57,18 +58,31 @@ public class ControladorExplorar extends HttpServlet {
         TypedQuery<Dotes> queryDotes;
         TypedQuery<Mejorasdote> queryMDotes;
         TypedQuery<Requisitosdote> queryRDotes;
+        TypedQuery<Equipo> queryEquipo;
 
         List<Estados> listaEstados;
         List<Clases> listaClases;
         List<Dotes> listaDotes;
         List<Mejorasdote> listaMDotes;
         List<Requisitosdote> listaRDotes;
+        List<Equipo> listaEquipo;
 
         Clases clase;
 
         String sql;
         String nombre;
         String resultado;
+
+        String titulo;
+        String subtitulo;
+        String tipo;
+        String categoria;
+        String propiedad;
+        String numString;
+
+        int num;
+        int pag;
+        int numpag;
 
         switch (accion) {
             case "/clases":
@@ -241,12 +255,158 @@ public class ControladorExplorar extends HttpServlet {
                             + "</div>"
                             + "</div>";
                 }
-                
+
                 request.setAttribute("listaDotes", resultado);
-                
+
                 vista = "/WEB-INF/jsp/explorar/dotes.jsp";
                 break;
             case "/equipo":
+
+                numString = request.getParameter("pag");//numero de pag en la que estoy
+                tipo = request.getParameter("tipo");
+                categoria = request.getParameter("categoria");
+                propiedad = request.getParameter("propiedad");
+
+                if (numString != null) {
+                    pag = Integer.valueOf(numString);
+                    num = pag * 15;//offset
+                } else {
+                    pag = 0;
+                    num = 0;
+                }
+
+                if (numString == null) {
+                    titulo = "Todos";
+                    subtitulo = "Objetos";
+
+                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
+                    numpag = queryEquipo.getResultList().size();
+                    queryEquipo.setMaxResults(15);
+                    listaEquipo = queryEquipo.getResultList();
+
+                } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
+                    titulo = tipo;
+                    subtitulo = categoria;
+
+                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
+                    numpag = queryEquipo.getResultList().size();
+
+                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
+                    queryEquipo.setFirstResult(num);
+                    queryEquipo.setMaxResults(15);
+                    listaEquipo = queryEquipo.getResultList();
+                } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
+                    titulo = tipo;
+                    subtitulo = categoria;
+
+                    queryEquipo = em.createNamedQuery("Equipo.findByTipoCategoria", Equipo.class);
+                    queryEquipo.setParameter("tipo", tipo);
+                    queryEquipo.setParameter("categoria", categoria);
+                    numpag = queryEquipo.getResultList().size();
+
+                    queryEquipo = em.createNamedQuery("Equipo.findByTipoCategoria", Equipo.class);
+                    queryEquipo.setParameter("tipo", tipo);
+                    queryEquipo.setParameter("categoria", categoria);
+                    queryEquipo.setFirstResult(num);
+                    queryEquipo.setMaxResults(15);
+                    listaEquipo = queryEquipo.getResultList();
+
+                } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
+                    titulo = tipo;
+                    subtitulo = "Objetos";
+
+                    queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
+                    queryEquipo.setParameter("tipo", tipo);
+                    numpag = queryEquipo.getResultList().size();
+
+                    queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
+                    queryEquipo.setParameter("tipo", tipo);
+                    queryEquipo.setFirstResult(num);
+                    queryEquipo.setMaxResults(15);
+                    listaEquipo = queryEquipo.getResultList();
+
+                } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
+                    titulo = "Todos";
+                    subtitulo = categoria;
+
+                    queryEquipo = em.createNamedQuery("Equipo.findByCategoria", Equipo.class);
+                    queryEquipo.setParameter("categoria", categoria);
+                    numpag = queryEquipo.getResultList().size();
+
+                    queryEquipo = em.createNamedQuery("Equipo.findByCategoria", Equipo.class);
+                    queryEquipo.setParameter("categoria", categoria);
+                    queryEquipo.setFirstResult(num);
+                    queryEquipo.setMaxResults(15);
+                    listaEquipo = queryEquipo.getResultList();
+
+                } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
+                    titulo = tipo;
+                    subtitulo = "Objetos";
+
+                    queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
+                    System.out.println(tipo);
+                    queryEquipo.setParameter("tipo", tipo);
+                    numpag = queryEquipo.getResultList().size();
+                    
+                    System.out.println(numpag);
+
+                    queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
+                    queryEquipo.setParameter("tipo", tipo);
+                    queryEquipo.setFirstResult(num);
+                    queryEquipo.setMaxResults(15);
+                    listaEquipo = queryEquipo.getResultList();
+
+                } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
+                    titulo = "Todos";
+                    subtitulo = categoria;
+
+                    queryEquipo = em.createNamedQuery("Equipo.findByCategoria", Equipo.class);
+                    queryEquipo.setParameter("categoria", categoria);
+                    numpag = queryEquipo.getResultList().size();
+
+                    queryEquipo = em.createNamedQuery("Equipo.findByCategoria", Equipo.class);
+                    queryEquipo.setParameter("categoria", categoria);
+                    queryEquipo.setFirstResult(num);
+                    queryEquipo.setMaxResults(15);
+                    listaEquipo = queryEquipo.getResultList();
+
+                } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
+                    titulo = "Todos";
+                    subtitulo = "Objetos";
+
+                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
+                    numpag = queryEquipo.getResultList().size();
+
+                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
+                    queryEquipo.setFirstResult(num);
+                    queryEquipo.setMaxResults(15);
+                    listaEquipo = queryEquipo.getResultList();
+
+                } else {
+                    titulo = "Todos";
+                    subtitulo = "Objetos";
+
+                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
+                    numpag = queryEquipo.getResultList().size();
+
+                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
+                    queryEquipo.setFirstResult(num);
+                    queryEquipo.setMaxResults(15);
+                    listaEquipo = queryEquipo.getResultList();
+                }
+
+                
+                request.setAttribute("pag", pag);
+                request.setAttribute("numpag", (numpag/15));
+
+                request.setAttribute("vTipo", tipo);
+                request.setAttribute("vCat", categoria);
+                request.setAttribute("vPro", propiedad);
+
+                request.setAttribute("listaEquipo", listaEquipo);
+                request.setAttribute("titulo", titulo);
+                request.setAttribute("subtitulo", subtitulo);
+
                 vista = "/WEB-INF/jsp/explorar/equipo.jsp";
                 break;
             case "/estados":

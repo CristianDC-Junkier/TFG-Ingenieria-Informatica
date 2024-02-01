@@ -1,6 +1,7 @@
 //Select y botones
 let Orden = document.getElementById('ordenarUsuarios');
 let Mesa = document.getElementById('botonMesa');
+
 let Binicio = document.getElementById('pagInicio');
 let Bfinal = document.getElementById('pagFinal');
 let BAnterior = document.getElementById('pagAnterior');

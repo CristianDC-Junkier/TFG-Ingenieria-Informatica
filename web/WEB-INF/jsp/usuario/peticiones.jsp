@@ -122,7 +122,7 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/TFG/js/busquedasAJAXJS.js"></script>
-        <script src="/TFG/js/mostrarBotonesJS.js"></script>
+    <script src="/TFG/js/mostrarBotonesJS.js"></script>
     <script src="/TFG/js/usuarios/peticionesJS.js"></script>
     <script src="/TFG/js/principalJS.js"></script>
 </body>
