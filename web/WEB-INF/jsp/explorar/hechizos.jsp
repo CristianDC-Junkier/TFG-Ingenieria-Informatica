@@ -85,18 +85,36 @@
                                         </tr>
                                         <c:forEach var="i" begin="0" end="14">
                                             <c:set var="hechizo" value="${listaHechizos[i]}"/>
-                                            <tr>
-                                                <td>${hechizo.nombre}</td>
-                                                <td>${hechizo.nivel}</td>
-                                                <td>${hechizo.escuela}</td>
-                                                <td>${hechizo.tlanzamiento}</td>
-                                                <td>${hechizo.duracion}</td>
-                                                <td>${hechizo.alcance}</td>
-                                                <td>${hechizo.componentes}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="7" >${hechizo.descripcion}</td>
-                                            </tr>
+                                            <c:choose>
+                                                <c:when test="${hechizo != null}">
+                                                    <tr>
+                                                        <td>${hechizo.nombre}</td>
+                                                        <td>${hechizo.nivel}</td>
+                                                        <td>${hechizo.escuela}</td>
+                                                        <td>${hechizo.tlanzamiento}</td>
+                                                        <td>${hechizo.duracion}</td>
+                                                        <td>${hechizo.alcance}</td>
+                                                        <td>${hechizo.componentes}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="7" >${hechizo.descripcion}</td>
+                                                    </tr>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="7" >&nbsp;</td>
+                                                    </tr>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:forEach>
                                     </table>
                                 </div>

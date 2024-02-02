@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,47 +27,70 @@
                     <div class="tituloBuscadorExplorador">Buscar Monstruos </div>
                     <form class="buscadorExplorar">
                         <input type="text" id=SelectName placeholder="Busqueda por nombre">
-                        <select id="Selectorigen">
-                            <option value="origen" selected>Origen</option>
-                            <option value="origen1">Reglas Básicas</option>
-                            <option value="origen2">Manual de Monstruos</option>
-                            <option value="origen3">Monstruos de Volo</option>
-                            <option value="origen4">La Tesorería de Dragones de Fizban</option>
-                            <option value="origen5">Guía del Maestro de Gremio de Rávnica</option>
-                            <option value="origen6">Caldero de Tasha para todo</option>
+                        <select id="Selectdesafio">
+                            <option value="Valor de Desafio" selected>Valor de Desafio</option>
+                            <option value="0">0</option>
+                            <option value="1/8">1/8</option>
+                            <option value="1/4">1/4</option>
+                            <option value="1/2">1/2</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
                         </select>
                         <select id="Selecttipo">
-                            <option value="tipo" selected>Tipo</option>
-                            <option value="tipo1">Aberración</option>
-                            <option value="tipo2">Bestia</option>
-                            <option value="tipo3">Celestial</option>
-                            <option value="tipo4">Cieno</option>
-                            <option value="tipo5">Constructo</option>
-                            <option value="tipo6">Infernal</option>
-                            <option value="tipo7">Dragón</option>
-                            <option value="tipo8">Elemental</option>
-                            <option value="tipo9">Enjambres</option>
-                            <option value="tipo10">Fata</option>
-                            <option value="tipo11">Gigante</option>
-                            <option value="tipo12">Humanoide</option>
-                            <option value="tipo13">Monstruosidad</option>
-                            <option value="tipo14">No-Muerto</option>
-                            <option value="tipo15">Planta</option>
-                            <option value="tipo16">Otro</option>
+                            <option value="Tipo" selected>Tipo</option>
+                            <option value="Aberración">Aberración</option>
+                            <option value="Bestia">Bestia</option>
+                            <option value="Celestial">Celestial</option>
+                            <option value="Cieno">Cieno</option>
+                            <option value="Constructo">Constructo</option>
+                            <option value="Infernal">Infernal</option>
+                            <option value="Dragón">Dragón</option>
+                            <option value="Elemental">Elemental</option>
+                            <option value="Enjambres">Enjambres</option>
+                            <option value="Fata">Fata</option>
+                            <option value="Gigante">Gigante</option>
+                            <option value="Humanoide">Humanoide</option>
+                            <option value="Monstruosidad">Monstruosidad</option>
+                            <option value="No-Muerto">No-Muerto</option>
+                            <option value="Planta">Planta</option>
+                            <option value="Otro">Otro</option>
                         </select>
-                        <select id="Selectorden">
-                            <option value="orden" selected>Ordenar por Nombre</option>
-                            <option value="orden1">Ordenar por Desafio</option>
-                        </select>
-                        <button onclick="guardarSeleccion()">Buscar</button>
                     </form>
                 </div>
                 <div class="listasExplorador" id="pestañasSeccion">
                     <div class="pestañasNavegacion">
                         <div class="pestaña" id="pestaña1">
                             <div class="ListaEquipo">
-                                <h3>Monstruo</h3>
-                                <h4>Armas sencillas</h4>
+                                <h3>Monstruos</h3>
+                                <h4>${requestScope.subtitulo}</h4>
                                 <div class="diseñoTabla">
                                     <table>
                                         <tr class="titulosTabla">
@@ -73,113 +98,31 @@
                                             <th>Nombre</th>
                                             <th>Tipo</th>
                                             <th>Alineamiento</th>
-                                            <th>Origen</th>
+                                            <th>Tamaño</th>
                                         </tr>
-                                        <tr>
-                                            <td>Arco corto</td>
-                                            <td>1d6 Perforante(Des)</td>
-                                            <td>Distancia, Dos manos, Munición</td>
-                                            <td>25 po</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Arco corto</td>
-                                            <td>1d6 Perforante(Des)</td>
-                                            <td>Distancia, Dos manos, Munición</td>
-                                            <td>25 po</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ballesta ligera</td>
-                                            <td>1d8 Perforante(Des)</td>
-                                            <td>De carga, Distancia</td>
-                                            <td>25 po</td>
-                                            <td>2,27 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bastón</td>
-                                            <td>1d6 Contundente(Fue)</td>
-                                            <td>Versátil</td>
-                                            <td>2 pp</td>
-                                            <td>1,81 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Clava</td>
-                                            <td>1d4 Contundente(Fue)</td>
-                                            <td>Ligera</td>
-                                            <td>1 pp</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Daga</td>
-                                            <td>1d4 Perforante(Des)</td>
-                                            <td>Arrojadiza, Ligera, Sutil</td>
-                                            <td>2 po</td>
-                                            <td>0,45 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dardo</td>
-                                            <td>1d4 Perforante(Des)</td>
-                                            <td>Arrojadiza, Distancia, Sutil</td>
-                                            <td>5 pc</td>
-                                            <td>0,11 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gran clava</td>
-                                            <td>1d8 Contundente(Fue)</td>
-                                            <td>Dos manos</td>
-                                            <td>2 pp</td>
-                                            <td>4,54 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hacha de mano</td>
-                                            <td>1d6 Cortante(Fue)</td>
-                                            <td>Arrojadiza, Ligera</td>
-                                            <td>5 po</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Honda</td>
-                                            <td>1d4 Contundente(Des)</td>
-                                            <td>Distancia, Munición</td>
-                                            <td>1 pp</td>
-                                            <td>0,45 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hoz</td>
-                                            <td>1d4 Cortante(Fue)</td>
-                                            <td>Ligera</td>
-                                            <td>1 po</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jabalina</td>
-                                            <td>1d6 Perforante(Fue)</td>
-                                            <td>Arrojadiza</td>
-                                            <td>5 pp</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lanza</td>
-                                            <td>1d6 Perforante(Fue)</td>
-                                            <td>Arrojadiza, Versátil</td>
-                                            <td>1 po</td>
-                                            <td>1,36 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Martillo ligero</td>
-                                            <td>1d4 Contundente(Fue)</td>
-                                            <td>Arrojadiza, Ligera</td>
-                                            <td>2 pp</td>
-                                            <td>0,91 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Maza</td>
-                                            <td>1d6 Contundente(Fue)</td>
-                                            <td>-</td>
-                                            <td>5 po</td>
-                                            <td>1,81 kg</td>
-                                        </tr>
+                                        <c:forEach var="i" begin="0" end="14">
+                                            <c:set var="monstruo" value="${listaMonstruos[i]}"/>
+                                            <c:choose>
+                                                <c:when test="${monstruo != null}">
+                                                    <tr>
+                                                        <td>${monstruo.vdesafio}</td>
+                                                        <td>${monstruo.nombre}</td>
+                                                        <td>${monstruo.tipo}</td>
+                                                        <td>${monstruo.alineamiento}</td>
+                                                        <td>${monstruo.tamano}</td>
+                                                    </tr>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
                                     </table>
                                 </div>
                             </div>
@@ -193,6 +136,15 @@
             </div>
         </main>
         <jsp:include page="/WEB-INF/jsp/footer.jsp" />
+        <script>
+            //Datos de las páginas
+            let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
+            let numpag = parseInt('<%= request.getAttribute("numpag")%>', 10);
+            let valorSeleccionado1 = '<%= request.getAttribute("vVD")%>'
+            let valorSeleccionado2 = '<%= request.getAttribute("vTipo")%>'
+        </script>
+        <script src="/TFG/js/mostrarBotonesJS.js"></script>
+        <script src="/TFG/js/explorar/monstruosJS.js"></script>
         <script src="/TFG/js/principalJS.js"></script>
     </body>
 </html>

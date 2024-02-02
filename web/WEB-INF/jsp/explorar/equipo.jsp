@@ -86,13 +86,26 @@
                                         </tr>
                                         <c:forEach var="i" begin="0" end="14">
                                             <c:set var="equipo" value="${listaEquipo[i]}" />
-                                            <tr>
-                                                <td>${equipo.nombre}</td>
-                                                <td>${equipo.dano}</td>
-                                                <td>-</td>
-                                                <td>${equipo.precio}</td>
-                                                <td>${equipo.peso}</td>
-                                            </tr>
+                                            <c:choose>
+                                                <c:when test="${equipo != null}">
+                                                    <tr>
+                                                        <td>${equipo.nombre}</td>
+                                                        <td>${equipo.dano}</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>${equipo.precio}</td>
+                                                        <td>${equipo.peso}</td>
+                                                    </tr>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:forEach>
                                     </table>
                                 </div>

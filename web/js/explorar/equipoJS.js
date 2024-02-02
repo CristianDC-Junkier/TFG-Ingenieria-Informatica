@@ -63,7 +63,6 @@ if (pag > 2) {
 //Pag Final
 if (pagpordelante > 1) {
     Bfinal.addEventListener('click', function () {
-        alert("entro");
         urlDestinoPag = "/TFG/Explorar/equipo?tipo=" + Tipo.value + "&categoria=" + Categoria.value + "&propiedad=" + Propiedad.value + "&pag=" + numpag;
         window.location.href = urlDestinoPag;
     });

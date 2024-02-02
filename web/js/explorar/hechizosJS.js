@@ -63,7 +63,6 @@ if (pag > 2) {
 //Pag Final
 if (pagpordelante > 1) {
     Bfinal.addEventListener('click', function () {
-        alert("entro");
         urlDestinoPag = "/TFG/Explorar/hechizos?escuela=" + Escuela.value + "&nivel=" + Nivel.value + "&clase=" + Clase.value + "&pag=" + numpag;
         window.location.href = urlDestinoPag;
     });
