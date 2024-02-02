@@ -560,7 +560,7 @@ footer{
 /**************************************/
 
 .BusquedaEstados{
-    
+
     background-color: yellow;
     color: black;
     border:yellow 2px solid;
@@ -707,7 +707,8 @@ input[type="button"]:active {
     color: white;
     border: black 3px solid;
     box-shadow: 1px 1px 1px 1px #1f6161;
-}#botonVolverFormulario-Solo{
+}
+#botonVolverFormulario-Solo{
 
     background-color: black;
     color: white;
@@ -1851,6 +1852,28 @@ input[type="button"]:active {
     background-color: #00cccc;
 }
 
+.diseñoTablaHechizos table tr{
+
+    border: 2px black solid;
+}
+.diseñoTablaHechizos table td{
+
+    color: black;
+
+}
+.diseñoTablaHechizos table tr:nth-child(4n-2){
+    background-color: #00cccc;
+}
+.diseñoTablaHechizos table tr:nth-child(4n-1) {
+    background-color: #00cccc;
+}
+.diseñoTablaHechizos table tr:nth-child(4n-3) {
+    background-color: #00aaaa;
+}
+.diseñoTablaHechizos table tr:nth-child(4n) {
+    background-color: #00aaaa;
+}
+
 /**************************************/
 /***************Botones****************/
 /**************************************/
@@ -1946,5 +1969,5 @@ input[type="button"]:active {
     color: black;
 }
 #mensajeInput::placeholder {
-  color: black;
+    color: black;
 }

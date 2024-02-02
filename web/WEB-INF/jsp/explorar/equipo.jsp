@@ -32,25 +32,25 @@
                         <input type="text" id=SelectName placeholder="Busqueda por nombre">
                         <select id="Selecttipo">
                             <option value="Tipo" selected>Tipo de objeto</option>
-                            <option value="Arma">Arma</option>
-                            <option value="Armadura">Armadura</option>
+                            <option value="Arma">Armas</option>
+                            <option value="Armadura">Armaduras</option>
                             <option value="Otros">Otros</option>
                         </select>
                         <select id="Selectcategoria">
                             <option value="Categoria" selected>Categoría</option>
-                            <option value="Armas Sencillas">Armas Sencillas</option>
-                            <option value="Armas Marciales">Armas Marciales</option>
-                            <option value="Escudos">Escudos</option>
-                            <option value="Armadura Ligera">Armadura Ligera</option>
-                            <option value="Armadura Intermedia">Armadura Intermedia</option>
-                            <option value="Armadura Pesada">Armadura Pesada</option>
-                            <option value="Herramientas">Herramientas</option>
-                            <option value="Instrumentos Musicales">Instrumentos Musicales</option>
-                            <option value="Juegos">Juegos</option>
-                            <option value="Monturas">Monturas</option>
+                            <option value="Arma sencilla">Armas Sencillas</option>
+                            <option value="Arma marcial">Armas Marciales</option>
+                            <option value="Escudo">Escudos</option>
+                            <option value="Armadura ligera">Armadura Ligera</option>
+                            <option value="Armadura intermedia">Armadura Intermedia</option>
+                            <option value="Armadura pesada">Armadura Pesada</option>
+                            <option value="Herramienta">Herramientas</option>
+                            <option value="Instrumentos musical">Instrumentos Musicales</option>
+                            <option value="Juego">Juegos</option>
+                            <option value="Montura">Monturas</option>
                             <option value="Munición">Munición</option>
-                            <option value="Paquete de Equipo">Paquete de Equipo</option>
-                            <option value="Vehículos">Vehículos</option>
+                            <option value="Paquete de Equipo">Paquetes de Equipo</option>
+                            <option value="Vehículo">Vehículos</option>
                         </select>
                         <select id="Selectpropiedad">
                             <option value="Propiedad" selected>Propiedad</option>

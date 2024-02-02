@@ -1848,6 +1848,28 @@ input[type="button"]:active {
     background-color: #333333;
 }
 
+.diseñoTablaHechizos table tr{
+
+    border: 2px brown solid;
+}
+.diseñoTablaHechizos table td{
+
+    color: white;
+
+}
+.diseñoTablaHechizos table tr:nth-child(4n-2){
+    background-color: #333333;
+}
+.diseñoTablaHechizos table tr:nth-child(4n-1) {
+    background-color: #333333;
+}
+.diseñoTablaHechizos table tr:nth-child(4n-3) {
+    background-color: black;
+}
+.diseñoTablaHechizos table tr:nth-child(4n) {
+    background-color: black;
+}
+
 /**************************************/
 /***************Botones****************/
 /**************************************/
@@ -1946,5 +1968,5 @@ input[type="button"]:active {
     color: black;
 }
 #mensajeInput::placeholder {
-  color: black;
+    color: black;
 }

@@ -52,34 +52,38 @@ public class Clases implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
-    @Column(name = "NOMBRE", nullable = false, length = 60)
+    @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
     @NotNull
     @Lob()
-    @Column(name = "DESCRIPCION", nullable = false)
+    @Column(name = "DESCRIPCION")
     private String descripcion;
     @Size(max = 3)
-    @Column(name = "DPG", length = 3)
+    @Column(name = "DPG")
     private String dpg;
     @Size(max = 255)
-    @Column(name = "COMPARMAS", length = 255)
+    @Column(name = "COMPARMAS")
     private String comparmas;
     @Size(max = 255)
-    @Column(name = "COMPARMADURAS", length = 255)
+    @Column(name = "COMPARMADURAS")
     private String comparmaduras;
     @Size(max = 255)
-    @Column(name = "COMPHERRAMIENTAS", length = 255)
+    @Column(name = "COMPHERRAMIENTAS")
     private String compherramientas;
     @Size(max = 20)
-    @Column(name = "HABHECHIZOS", length = 20)
+    @Column(name = "HABHECHIZOS")
     private String habhechizos;
     @Size(max = 500)
-    @Column(name = "EQUIPOINICIAL", length = 500)
+    @Column(name = "EQUIPOINICIAL")
     private String equipoinicial;
     @Size(max = 15)
-    @Column(name = "OROINICIAL", length = 15)
+    @Column(name = "OROINICIAL")
     private String oroinicial;
+    
+    @ManyToMany(mappedBy = "clasesList", fetch = FetchType.LAZY)
+    private List<Hechizos> hechizosList;
+
     @JoinTable(name = "SUSSUBCLASESSON", joinColumns = {
         @JoinColumn(name = "CLASES", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "SUBCLASES", referencedColumnName = "ID", nullable = false)})
@@ -151,6 +155,20 @@ public class Clases implements Serializable {
     @Override
     public String toString() {
         return "entidades.Clases[ id=" + id + " ]";
+    }
+    @XmlTransient
+    public List<Subclases> getSubclasesList() {
+        return subclasesList;
+    }
+    public void setSubclasesList(List<Subclases> subclasesList) {
+        this.subclasesList = subclasesList;
+    }
+    @XmlTransient
+    public List<Tablaclasespornivel> getTablaclasespornivelList() {
+        return tablaclasespornivelList;
+    }
+    public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
+        this.tablaclasespornivelList = tablaclasespornivelList;
     }
 
     public String getNombre() {
@@ -226,21 +244,12 @@ public class Clases implements Serializable {
     }
 
     @XmlTransient
-    public List<Subclases> getSubclasesList() {
-        return subclasesList;
+    public List<Hechizos> getHechizosList() {
+        return hechizosList;
     }
 
-    public void setSubclasesList(List<Subclases> subclasesList) {
-        this.subclasesList = subclasesList;
-    }
-
-    @XmlTransient
-    public List<Tablaclasespornivel> getTablaclasespornivelList() {
-        return tablaclasespornivelList;
-    }
-
-    public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
-        this.tablaclasespornivelList = tablaclasespornivelList;
+    public void setHechizosList(List<Hechizos> hechizosList) {
+        this.hechizosList = hechizosList;
     }
 
 }
