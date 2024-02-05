@@ -9,6 +9,7 @@ import entidades.Mejorasdote;
 import entidades.Monstruos;
 import entidades.Razas;
 import entidades.Requisitosdote;
+import entidades.Trasfondos;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,7 @@ public class ControladorExplorar extends HttpServlet {
         TypedQuery<Hechizos> queryHechizos;
         TypedQuery<Monstruos> queryMonstruos;
         TypedQuery<Razas> queryRazas;
+        TypedQuery<Trasfondos> queryTrasfondos;
 
         List<Estados> listaEstados;
         List<Clases> listaClases;
@@ -77,6 +79,7 @@ public class ControladorExplorar extends HttpServlet {
         List<Monstruos> listaMontruos;
         List<Razas> listaRazas;
         List<String> listaRazasImagenes;
+        List<Trasfondos> listaTrasfondos;
 
         Clases clase;
 
@@ -700,6 +703,12 @@ public class ControladorExplorar extends HttpServlet {
                 vista = "/WEB-INF/jsp/explorar/razas.jsp";
                 break;
             case "/trasfondos":
+
+                queryTrasfondos = em.createNamedQuery("Trasfondos.findAll", Trasfondos.class);
+                listaTrasfondos = queryTrasfondos.getResultList();
+
+                request.setAttribute("listaTrasfondo", listaTrasfondos);
+
                 vista = "/WEB-INF/jsp/explorar/trasfondos.jsp";
                 break;
         }
