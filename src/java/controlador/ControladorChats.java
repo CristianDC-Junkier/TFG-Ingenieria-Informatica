@@ -62,6 +62,7 @@ public class ControladorChats extends HttpServlet {
             String msj = "";
             String id;
             String apodo;
+            String dado;
 
             Date fecha;
 
@@ -117,6 +118,11 @@ public class ControladorChats extends HttpServlet {
                     /////////////////////////
                     session = request.getSession();
                     user = (Usuarios) session.getAttribute("user");
+                    
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    dado = request.getParameter("dado");
 
                     if (user == null) {
                         msj = "No Conseguido";
@@ -141,7 +147,7 @@ public class ControladorChats extends HttpServlet {
                                 //msj = request.getParameter("tirada");
                                 long tiempoActual = System.currentTimeMillis();
                                 Random random = new Random(tiempoActual);
-                                msj = "Tiró de D20: " + String.valueOf(random.nextInt(20) + 1);
+                                msj = "Tiró de D"+dado+": " + String.valueOf(random.nextInt(Integer.valueOf(dado)) + 1);
 
                                 fecha = new Date();
 

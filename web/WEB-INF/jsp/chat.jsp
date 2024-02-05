@@ -8,14 +8,6 @@
             </div>
             <div class="contenedorlistaAmigos" id ="TablaChat">
                 <table>
-                    <tr>
-                        <td>Nombre1</td>
-                        <td>Apellido1</td>
-                    </tr>
-                    <tr>
-                        <td>Nombre2</td>
-                        <td>Apellido2</td>
-                    </tr>
                 </table>
             </div>
         </div>
@@ -23,6 +15,15 @@
             <form action="/TFG/Chats/mensajeamigo" method="POST">
                 <input type="text" maxlength="255" id="mensajeInput" name="mensaje" placeholder="Enviar mensaje...">
                 <button id="botonEnviar" type="button" onclick="enviarMensaje()">Enviar</button>
+                <select id="SDados">
+                    <option value="4">Dado-4</option>
+                    <option value="6">Dado-6</option>
+                    <option value="8">Dado-8</option>
+                    <option value="10">Dado10</option>
+                    <option value="12">Dado-12</option>
+                    <option value="20">Dado-20</option>
+                    <option value="100">Dado-100</option>
+                </select>
                 <button id="IDadoButton" type="button" onclick="enviarTirada()"><img id="IDado" src="/TFG/img/iconos/d20White.png" alt="alt"/></button>
             </form>
         </div>

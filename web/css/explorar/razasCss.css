@@ -5,10 +5,10 @@
 
     font-family: Times new roman;
     font-size: 25px;
-    display: flex;
     justify-content: space-between;
     width: auto;
     border-top: none;
+    text-align: center;
 }
 .BusquedaRazas > a{
 
@@ -36,10 +36,8 @@
 }
 .ResumenRazas > h3 > input{
 
-    background: url("./img/iconos/lupa.png") no-repeat 50px 0px;
-    background-size: 24px;
     width: 250px;
-    padding: 5px 5px 5px 80px;
+    padding: 0px 0px 3px 5px;
     margin-left: 20px;
     margin-bottom: 0px;
     margin-top: -10px;

@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,95 +13,37 @@
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main>       
             <h6 class = "BusquedaRazas">
-                <a href="#A">&nbsp;&nbsp;A</a>
-                <a href="#B">&nbsp;&nbsp;B</a>
-                <a href="#C">&nbsp;&nbsp;C</a>
-                <a href="#D">&nbsp;&nbsp;D</a>
-                <a href="#E">&nbsp;&nbsp;E</a>
-                <a href="#H">&nbsp;&nbsp;H</a>
-                <a href="#M">&nbsp;&nbsp;M</a>
-                <a href="#P">&nbsp;&nbsp;P&nbsp;</a>
+                <a href="#Normales">&nbsp;&nbsp;Normales</a>
+                <a href="#Monstruosas">&nbsp;&nbsp;Monstruosas</a>
             </h6>
             <div class="ResumenRazas">
                 <h2 class="Titulos">Razas</h2>
                 <hr color="black">
                 <h3>Busca por nombre: <input type="search" placeholder="Introduce el nombre"/> </h3>
                 <div class="ListaRazas">
-                    <h3>Normales</h3>
+                    <h3 id="Normales">Normales</h3>
                     <div class="ListaRazasTipo">
-                        <div class="ResumenRaza">
-                            <img src="/TFG/img/razas/enano.jpg" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Enano</div>
-                                <div class="DescripcionRaza">Los enanos son muy bajitos</div>
+                        <c:forEach var="razasN" items="${listaRazasNormales}" varStatus="status">
+                            <div class="ResumenRaza">
+                                <img src="${listaRazasImagenesNormales[status.index]}">
+                                <div class="ContenidoRaza">
+                                    <div class="TituloRaza">${razasN.nombre}</div>
+                                    <div class="DescripcionRaza">${razasN.resumen}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
-                    <h3>Monstruosas</h3>
+                    <h3 id="Monstruosas">Monstruosas</h3>
                     <div class="ListaRazasTipo">
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Enano</div>
-                                <div class="DescripcionRaza">Los enanos son to raros man</div>
+                        <c:forEach var="razasM" items="${listaRazasMonstruosas}" varStatus="status">
+                            <div class="ResumenRaza">
+                                <img src="${listaRazasImagenesMonstruosas[status.index]}">
+                                <div class="ContenidoRaza">
+                                    <div class="TituloRaza">${razasM.nombre}</div>
+                                    <div class="DescripcionRaza">${razasM.resumen}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
-                        <div class="ResumenRaza">
-                            <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-                            <div class="ContenidoRaza">
-                                <div class="TituloRaza">Elfo</div>
-                                <div class="DescripcionRaza">texto</div>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

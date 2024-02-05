@@ -125,12 +125,14 @@ function enviarMensaje() {
 function enviarTirada() {
 
     let urlAJAX = "/TFG/Chats/enviartirada?amigo=" + chatP;
+    
+    let SDados = document.getElementById("SDados").value;
 
     // Realizar la solicitud AJAX
     $.ajax({
         type: "GET",
         url: urlAJAX,
-        data: {mensaje: "20"},
+        data: {dado: SDados},
         dataType: "text",
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         success: function (data) {

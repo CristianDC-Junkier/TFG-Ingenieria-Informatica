@@ -302,6 +302,27 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     }
 
+                    formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    fechaFormateada = fechaLimite.format(formatter);
+
+                    sql = "SELECT m.* FROM Mensajesamigos m"
+                            + " WHERE m.escritor = '" + user.getId() + "'"
+                            + " and m.receptor = '" + id + "'"
+                            + " and m.fecha >= TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD')"
+                            + " ORDER BY m.fecha";
+
+                    queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
+                    listaMensajesEnviados = queryAUX.getResultList();
+
+                    if (listaMensajesEnviados.size() == 1 && !ListaMensajesOrdenados.isEmpty()) {
+                        resultado
+                                = resultado
+                                + "<br><p style =\"color: yellow;\">"
+                                + fechaLimite.getDayOfMonth()
+                                + "-" + fechaLimite.getMonthValue()
+                                + "-" + fechaLimite.getYear()
+                                + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
+                    }
                     for (int i = 0; i < ListaMensajesOrdenados.size(); i++) {
                         Mensajesamigos msj = ListaMensajesOrdenados.get(i);
                         if (i > 0) {
@@ -337,6 +358,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     System.out.println("PeticionAJAX Sale");
 
                     break;
+
                 case "/ChatAmigos":
 
                     /////////////////////////

@@ -7,8 +7,10 @@ import entidades.Estados;
 import entidades.Hechizos;
 import entidades.Mejorasdote;
 import entidades.Monstruos;
+import entidades.Razas;
 import entidades.Requisitosdote;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -63,6 +65,7 @@ public class ControladorExplorar extends HttpServlet {
         TypedQuery<Equipo> queryEquipo;
         TypedQuery<Hechizos> queryHechizos;
         TypedQuery<Monstruos> queryMonstruos;
+        TypedQuery<Razas> queryRazas;
 
         List<Estados> listaEstados;
         List<Clases> listaClases;
@@ -72,6 +75,8 @@ public class ControladorExplorar extends HttpServlet {
         List<Equipo> listaEquipo;
         List<Hechizos> listaHechizos;
         List<Monstruos> listaMontruos;
+        List<Razas> listaRazas;
+        List<String> listaRazasImagenes;
 
         Clases clase;
 
@@ -282,7 +287,7 @@ public class ControladorExplorar extends HttpServlet {
 
                 if (numString != null) {
                     pag = Integer.valueOf(numString);
-                    num = (pag-1) * 15;//offset
+                    num = (pag - 1) * 15;//offset
                 } else {
                     pag = 1;
                     num = 0;
@@ -439,7 +444,7 @@ public class ControladorExplorar extends HttpServlet {
 
                 if (numString != null) {
                     pag = Integer.valueOf(numString);
-                    num = (pag-1) * 15;//offset
+                    num = (pag - 1) * 15;//offset
                 } else {
                     pag = 1;
                     num = 0;
@@ -577,13 +582,12 @@ public class ControladorExplorar extends HttpServlet {
 
                 if (numString != null) {
                     pag = Integer.valueOf(numString);
-                    num = (pag-1) * 15;//offset
+                    num = (pag - 1) * 15;//offset
                 } else {
                     pag = 1;
                     num = 0;
                 }
 
-                
                 if (numString == null) {
                     subtitulo = "Todos";
 
@@ -659,10 +663,40 @@ public class ControladorExplorar extends HttpServlet {
 
                 vista = "/WEB-INF/jsp/explorar/monstruos.jsp";
                 break;
-            case "/propiedades":
-                vista = "/WEB-INF/jsp/explorar/propiedades.jsp";
-                break;
             case "/razas":
+
+                //Razas Normales
+                queryRazas = em.createNamedQuery("Razas.findByTipo", Razas.class);
+                queryRazas.setParameter("tipo", "Normal");
+                listaRazas = queryRazas.getResultList();
+
+                listaRazasImagenes = new ArrayList();
+
+                for (int i = 0; i < listaRazas.size(); i++) {
+
+                    listaRazasImagenes.add("/TFG/img/razas/" + listaRazas.get(i).getNombre().toLowerCase() + ".jpg");
+
+                }
+
+                request.setAttribute("listaRazasNormales", listaRazas);
+                request.setAttribute("listaRazasImagenesNormales", listaRazasImagenes);
+
+                //Razas Monstruos
+                queryRazas = em.createNamedQuery("Razas.findByTipo", Razas.class);
+                queryRazas.setParameter("tipo", "Monstruo");
+                listaRazas = queryRazas.getResultList();
+
+                listaRazasImagenes = new ArrayList();
+
+                for (int i = 0; i < listaRazas.size(); i++) {
+
+                    listaRazasImagenes.add("/TFG/img/razas/" + listaRazas.get(i).getNombre().toLowerCase() + ".jpg");
+
+                }
+
+                request.setAttribute("listaRazasMonstruosas", listaRazas);
+                request.setAttribute("listaRazasImagenesMonstruosas", listaRazasImagenes);
+
                 vista = "/WEB-INF/jsp/explorar/razas.jsp";
                 break;
             case "/trasfondos":

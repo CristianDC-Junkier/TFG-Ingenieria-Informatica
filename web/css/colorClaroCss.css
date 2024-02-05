@@ -722,6 +722,13 @@ input[type="button"]:active {
     border: black 3px solid;
     box-shadow: 1px 1px 1px 1px #1f6161;
 }
+#SDados{
+    
+    background-color: black;
+    color: white;
+    border: black 3px solid;
+    box-shadow: 1px 1px 1px 1px #1f6161;
+}
 #recuperarContrasena:hover,#recuperarUsuario:hover,#botonVolverFormulario:hover,#botonEnviar:hover{
 
     color:yellowgreen;

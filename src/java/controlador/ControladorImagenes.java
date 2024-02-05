@@ -136,7 +136,7 @@ public class ControladorImagenes extends HttpServlet {
                 imageData = mesa.getImagenmesa();
 
                 // Configurar la respuesta para que sea una imagen
-                response.setContentType("image/jpeg"); // Cambia el tipo MIME según el formato de tu imagen
+                response.setContentType("image/jpeg"); 
 
                 // Escribir los bytes de la imagen en la respuesta
                 try ( ServletOutputStream outputStream = response.getOutputStream()) {
