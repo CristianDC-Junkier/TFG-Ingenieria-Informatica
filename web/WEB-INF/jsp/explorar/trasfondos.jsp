@@ -42,12 +42,14 @@
                     <c:forEach var="trasfondo" items="${listaTrasfondo}">
                         <div class="ResumenTrasfondo">
                             <div class="NombreTrasfondo">
-                                <h5>${trasfondo.nombre}</h5>
+                                <a href="/TFG/Explorar/trasfondo?idTrasfondo=${trasfondo.id}">
+                                    <h5>${trasfondo.nombre}</h5>
+                                </a>
                             </div>
                             <div class="TextoTrasfondo">
-                                <p>
-                                    ${trasfondo.descripcion}
-                                </p>
+                                <a href="/TFG/Explorar/trasfondo?idTrasfondo=${trasfondo.id}">
+                                    <p>${trasfondo.descripcion}</p>
+                                </a>
                             </div>
                         </div>
                     </c:forEach>

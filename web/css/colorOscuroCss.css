@@ -546,9 +546,61 @@ footer{
     border-right: brown 5px solid;
     background: linear-gradient(yellowgreen,60%,yellow);
 }
+.NombreTrasfondo a:link {
+
+    text-decoration: none;
+    color:black;
+}
+.NombreTrasfondo a:visited {
+
+    text-decoration: none;
+    color:black;
+}
 .TextoTrasfondo{
 
     background-color: black;
+}
+.TextoTrasfondo a:link {
+
+    text-decoration: none;
+    color:white;
+}
+.TextoTrasfondo a:visited {
+
+    text-decoration: none;
+    color:white;
+}
+/**************************************/
+/***************Trasfondos*************/
+/**************************************/
+
+.arribaDatosTrasfondo{
+    color: white;
+}
+.caracteristicasTrasfondo h3{
+    color: yellow;
+}
+.datosIzquierdaArribaTrasfondo{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosIzquierdaAbajoTrasfondo{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosIzquierdaAbajoFinalTrasfondo{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosIzquierdaAbajoFinalTrasfondo h3{
+        color: yellow;
+}
+.datosDerechaTrasfondo{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosDerechaTrasfondo h3{
+    color: yellow;
 }
 
 /***************************************************************************************************/
@@ -1875,6 +1927,42 @@ input[type="button"]:active {
 }
 .diseñoTablaHechizos table tr:nth-child(4n) {
     background-color: black;
+}
+.tablaHechizosTR td:hover{
+    color: yellowgreen;
+}
+
+/**************************************/
+/***************Hechizo****************/
+/**************************************/
+
+.arribaDatosHechizo{
+    color: white;
+}
+.caracteristicasHechizo h3{
+    color: yellow;
+}
+.datosIzquierdaArribaHechizo{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosIzquierdaAbajoHechizo{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosIzquierdaAbajoFinalHechizo{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosIzquierdaAbajoFinalHechizo h3{
+        color: yellow;
+}
+.datosDerechaHechizo{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosDerechaHechizo h3{
+    color: yellow;
 }
 
 /**************************************/

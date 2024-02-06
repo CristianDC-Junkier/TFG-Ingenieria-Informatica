@@ -1,0 +1,30 @@
+
+.arribaDatosHechizo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+.datosIzquierdaHechizo {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+.datosIzquierdaArribaHechizo {
+    display: flex;
+}
+.caracteristicasHechizo {
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.datosIzquierdaAbajoHechizo {
+    margin-top: 10px;
+}
+.datosDerechaHechizo{
+    flex: 1;
+    margin-left: 20px;
+}
+
+
+
+

@@ -82,8 +82,14 @@ public class ControladorExplorar extends HttpServlet {
         List<Trasfondos> listaTrasfondos;
 
         Clases clase;
+        Trasfondos Trasfondo;
+        Razas Raza;
+        Hechizos Hechizo;
+        Equipo Equipo;
+        Dotes Dote;
 
         String sql;
+        String id;
         String nombre;
         String resultado;
 
@@ -438,6 +444,17 @@ public class ControladorExplorar extends HttpServlet {
 
                 vista = "/WEB-INF/jsp/explorar/estados.jsp";
                 break;
+            case "/hechizo":
+                id = request.getParameter("idHechizo");
+
+                queryHechizos = em.createNamedQuery("Hechizos.findById", Hechizos.class);
+                queryHechizos.setParameter("id", id);
+                Hechizo = queryHechizos.getSingleResult();
+
+                request.setAttribute("hechizo", Hechizo);
+
+                vista = "/WEB-INF/jsp/explorar/hechizo.jsp";
+                break;
             case "/hechizos":
 
                 numString = request.getParameter("pag");//numero de pag en la que estoy
@@ -701,6 +718,29 @@ public class ControladorExplorar extends HttpServlet {
                 request.setAttribute("listaRazasImagenesMonstruosas", listaRazasImagenes);
 
                 vista = "/WEB-INF/jsp/explorar/razas.jsp";
+                break;
+            case "/trasfondo":
+                id = request.getParameter("idTrasfondo");
+
+                queryTrasfondos = em.createNamedQuery("Trasfondos.findById", Trasfondos.class);
+                queryTrasfondos.setParameter("id", id);
+                Trasfondo = queryTrasfondos.getSingleResult();
+
+                request.setAttribute("trasfondo", Trasfondo);
+                request.setAttribute("htrasfondo1", Trasfondo.getHabilidadesList().get(0).getNombre());
+
+                switch (Trasfondo.getNombre()) {
+                    case "Agente de una Facción":
+                        request.setAttribute("htrasfondo2", "Elige 1 entre cualquier habilidad de Inteligencia, Sabiduría o Carisma");
+                        break;
+                    default:
+                        request.setAttribute("htrasfondo2", Trasfondo.getHabilidadesList().get(1).getNombre());
+
+                }
+
+                request.setAttribute("listaRasgosTrasfondos", Trasfondo.getRasgosList());
+
+                vista = "/WEB-INF/jsp/explorar/trasfondo.jsp";
                 break;
             case "/trasfondos":
 

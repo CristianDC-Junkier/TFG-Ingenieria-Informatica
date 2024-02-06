@@ -96,7 +96,7 @@
                                                         <td>${hechizo.alcance}</td>
                                                         <td>${hechizo.componentes}</td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr class="tablaHechizosTR" onclick="window.location = '/TFG/Explorar/hechizo?idHechizo=${hechizo.id}'">
                                                         <td colspan="7" >${hechizo.descripcion}</td>
                                                     </tr>
                                                 </c:when>

@@ -1,0 +1,30 @@
+
+.arribaDatosTrasfondo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+.datosIzquierdaTrasfondo {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+.datosIzquierdaArribaTrasfondo {
+    display: flex;
+}
+.caracteristicasTrasfondo {
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.datosIzquierdaAbajoTrasfondo {
+    margin-top: 10px;
+}
+.datosDerechaTrasfondo{
+    flex: 1;
+    margin-left: 20px;
+}
+
+
+
+

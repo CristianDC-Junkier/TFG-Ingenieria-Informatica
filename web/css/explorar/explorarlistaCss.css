@@ -234,6 +234,9 @@
     border-bottom: none;
     font-size: 10px;
 }
+.tablaHechizosTR{
+    cursor: pointer;
+}
 
 /*****Botones*****/
 

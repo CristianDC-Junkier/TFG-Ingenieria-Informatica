@@ -2,17 +2,20 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,14 +31,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Trasfondos.findByNombre", query = "SELECT t FROM Trasfondos t WHERE t.nombre = :nombre")})
 public class Trasfondos implements Serializable {
 
+    @Size(max = 80)
+    @Column(name = "NOMBRE", length = 80)
+    private String nombre;
+    @ManyToMany(mappedBy = "trasfondosList")
+    private List<Habilidades> habilidadesList;
+    @ManyToMany(mappedBy = "trasfondosList")
+    private List<Rasgos> rasgosList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private String id;
-    @Size(max = 80)
-    @Column(name = "NOMBRE")
-    private String nombre;
     @Lob
     @Column(name = "CHERRAMIENTAS")
     private String cherramientas;
@@ -64,13 +72,6 @@ public class Trasfondos implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public String getCherramientas() {
         return cherramientas;
@@ -127,6 +128,32 @@ public class Trasfondos implements Serializable {
     @Override
     public String toString() {
         return "entidades.Trasfondos[ id=" + id + " ]";
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @XmlTransient
+    public List<Habilidades> getHabilidadesList() {
+        return habilidadesList;
+    }
+
+    public void setHabilidadesList(List<Habilidades> habilidadesList) {
+        this.habilidadesList = habilidadesList;
+    }
+
+    @XmlTransient
+    public List<Rasgos> getRasgosList() {
+        return rasgosList;
+    }
+
+    public void setRasgosList(List<Rasgos> rasgosList) {
+        this.rasgosList = rasgosList;
     }
     
 }

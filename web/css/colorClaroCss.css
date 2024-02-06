@@ -545,10 +545,64 @@ footer{
     border-right: #00cccc 5px solid;
     background: linear-gradient(#1f6161,60%,#e3f7f6);
 }
+.NombreTrasfondo a:link {
+
+    text-decoration: none;
+    color:black;
+}
+.NombreTrasfondo a:visited {
+
+    text-decoration: none;
+    color:black;
+}
 .TextoTrasfondo{
 
     color:black;
     background-color: #c3ffe2;
+}
+.TextoTrasfondo a:link {
+
+    text-decoration: none;
+    color:black;
+}
+.TextoTrasfondo a:visited {
+
+    text-decoration: none;
+    color:black;
+}
+
+
+/**************************************/
+/***************Trasfondos*************/
+/**************************************/
+
+.arribaDatosTrasfondo{
+    color: black;
+}
+.caracteristicasTrasfondo h3{
+    color: yellow;
+}
+.datosIzquierdaArribaTrasfondo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoTrasfondo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoFinalTrasfondo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoFinalTrasfondo h3{
+        color: yellow;
+}
+.datosDerechaTrasfondo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosDerechaTrasfondo h3{
+    color: yellow;
 }
 
 /***************************************************************************************************/
@@ -723,7 +777,7 @@ input[type="button"]:active {
     box-shadow: 1px 1px 1px 1px #1f6161;
 }
 #SDados{
-    
+
     background-color: black;
     color: white;
     border: black 3px solid;
@@ -1880,6 +1934,43 @@ input[type="button"]:active {
 .diseñoTablaHechizos table tr:nth-child(4n) {
     background-color: #00aaaa;
 }
+.tablaHechizosTR td:hover{
+    color: yellowgreen;
+}
+
+/**************************************/
+/***************Hechizo****************/
+/**************************************/
+
+.arribaDatosHechizo{
+    color: black;
+}
+.caracteristicasHechizo h3{
+    color: yellow;
+}
+.datosIzquierdaArribaHechizo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoHechizo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoFinalHechizo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoFinalHechizo h3{
+        color: yellow;
+}
+.datosDerechaHechizo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosDerechaHechizo h3{
+    color: yellow;
+}
+
 
 /**************************************/
 /***************Botones****************/

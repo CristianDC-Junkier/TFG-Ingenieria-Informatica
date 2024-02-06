@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4\Explorar\Clases\Clase</title>
+        <title class="titulosPag">Guidance4\Explorar\Clases</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/explorar/claseCss.css"/>

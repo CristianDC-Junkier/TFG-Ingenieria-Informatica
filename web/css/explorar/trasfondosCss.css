@@ -41,7 +41,7 @@
     justify-content: center;
     font-size: 25px;
 }
-.NombreTrasfondo h5{
+.NombreTrasfondo > a > h5{
 
     font-family: Times new roman;
     font-size: 25px;
