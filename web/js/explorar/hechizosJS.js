@@ -10,7 +10,6 @@ let BPosterior = document.getElementById('pagPosterior');
 let urlDestinoPag;
 
 
-
 for (var i = 0; i < Escuela.options.length; i++) {
     if (Escuela.options[i].value === valorSeleccionado1) {
         Escuela.options[i].selected = true;

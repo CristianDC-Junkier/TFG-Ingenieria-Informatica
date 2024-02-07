@@ -192,6 +192,9 @@
     width: 100%;
 
 }
+.diseñoTabla table tr[data-id]:hover {
+    cursor: pointer;
+}
 
 /******Tabla Hechizos****/
 

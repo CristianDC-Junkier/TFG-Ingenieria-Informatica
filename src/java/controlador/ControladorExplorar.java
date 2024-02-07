@@ -76,7 +76,7 @@ public class ControladorExplorar extends HttpServlet {
         List<Requisitosdote> listaRDotes;
         List<Equipo> listaEquipo;
         List<Hechizos> listaHechizos;
-        List<Monstruos> listaMontruos;
+        List<Monstruos> listaMonstruos;
         List<Razas> listaRazas;
         List<String> listaRazasImagenes;
         List<Trasfondos> listaTrasfondos;
@@ -85,8 +85,8 @@ public class ControladorExplorar extends HttpServlet {
         Trasfondos Trasfondo;
         Razas Raza;
         Hechizos Hechizo;
+        Monstruos Monstruo;
         Equipo Equipo;
-        Dotes Dote;
 
         String sql;
         String id;
@@ -594,6 +594,17 @@ public class ControladorExplorar extends HttpServlet {
 
                 vista = "/WEB-INF/jsp/explorar/hechizos.jsp";
                 break;
+            case "/monstruo":
+                id = request.getParameter("idMonstruo");
+
+                queryMonstruos = em.createNamedQuery("Monstruos.findById", Monstruos.class);
+                queryMonstruos.setParameter("id", id);
+                Monstruo = queryMonstruos.getSingleResult();
+
+                request.setAttribute("monstruo", Monstruo);
+
+                vista = "/WEB-INF/jsp/explorar/monstruo.jsp";
+                break;
             case "/monstruos":
 
                 numString = request.getParameter("pag");//numero de pag en la que estoy
@@ -614,7 +625,7 @@ public class ControladorExplorar extends HttpServlet {
                     queryMonstruos = em.createNamedQuery("Monstruos.findAll", Monstruos.class);
                     numpag = queryMonstruos.getResultList().size();
                     queryMonstruos.setMaxResults(15);
-                    listaMontruos = queryMonstruos.getResultList();
+                    listaMonstruos = queryMonstruos.getResultList();
 
                 } else if (!tipo.equals("Tipo") && !vd.equals("Valor de Desafio")) {//TODOS
                     subtitulo = tipo;
@@ -629,24 +640,24 @@ public class ControladorExplorar extends HttpServlet {
                     queryMonstruos.setParameter("tipo", tipo);
                     queryMonstruos.setFirstResult(num);
                     queryMonstruos.setMaxResults(15);
-                    listaMontruos = queryMonstruos.getResultList();
+                    listaMonstruos = queryMonstruos.getResultList();
 
                 } else if (tipo.equals("Tipo") && !vd.equals("Valor de Desafio")) {//VD
-                    subtitulo = tipo;
-
-                    queryMonstruos = em.createNamedQuery("Monstruos.findByVdesafio", Monstruos.class);
-                    queryMonstruos.setParameter("vdesafio", vd);
-                    numpag = queryMonstruos.getResultList().size();
-
-                    queryMonstruos = em.createNamedQuery("Monstruos.findByVdesafio", Monstruos.class);
-                    queryMonstruos.setParameter("vdesafio", vd);
-                    queryMonstruos.setFirstResult(num);
-                    queryMonstruos.setMaxResults(15);
-                    listaMontruos = queryMonstruos.getResultList();
-
-                } else if (!tipo.equals("Tipo") && vd.equals("Valor de Desafio")) {//TIPO
                     subtitulo = "Todos";
 
+                    queryMonstruos = em.createNamedQuery("Monstruos.findByVdesafio", Monstruos.class);
+                    queryMonstruos.setParameter("vdesafio", vd);
+                    numpag = queryMonstruos.getResultList().size();
+
+                    queryMonstruos = em.createNamedQuery("Monstruos.findByVdesafio", Monstruos.class);
+                    queryMonstruos.setParameter("vdesafio", vd);
+                    queryMonstruos.setFirstResult(num);
+                    queryMonstruos.setMaxResults(15);
+                    listaMonstruos = queryMonstruos.getResultList();
+
+                } else if (!tipo.equals("Tipo") && vd.equals("Valor de Desafio")) {//TIPO
+                    subtitulo = tipo;
+
                     queryMonstruos = em.createNamedQuery("Monstruos.findByTipo", Monstruos.class);
                     queryMonstruos.setParameter("tipo", tipo);
                     numpag = queryMonstruos.getResultList().size();
@@ -655,7 +666,7 @@ public class ControladorExplorar extends HttpServlet {
                     queryMonstruos.setParameter("tipo", tipo);
                     queryMonstruos.setFirstResult(num);
                     queryMonstruos.setMaxResults(15);
-                    listaMontruos = queryMonstruos.getResultList();
+                    listaMonstruos = queryMonstruos.getResultList();
 
                 } else {
                     subtitulo = "Todos";
@@ -666,7 +677,7 @@ public class ControladorExplorar extends HttpServlet {
                     queryMonstruos = em.createNamedQuery("Monstruos.findAll", Monstruos.class);
                     queryMonstruos.setFirstResult(num);
                     queryMonstruos.setMaxResults(15);
-                    listaMontruos = queryMonstruos.getResultList();
+                    listaMonstruos = queryMonstruos.getResultList();
 
                     System.out.println(num);
                     System.out.println(numpag);
@@ -678,7 +689,7 @@ public class ControladorExplorar extends HttpServlet {
                 request.setAttribute("vTipo", tipo);
                 request.setAttribute("vVD", vd);
 
-                request.setAttribute("listaMonstruos", listaMontruos);
+                request.setAttribute("listaMonstruos", listaMonstruos);
                 request.setAttribute("subtitulo", subtitulo);
 
                 vista = "/WEB-INF/jsp/explorar/monstruos.jsp";

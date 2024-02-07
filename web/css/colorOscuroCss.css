@@ -593,7 +593,7 @@ footer{
     background-color: #333333;
 }
 .datosIzquierdaAbajoFinalTrasfondo h3{
-        color: yellow;
+    color: yellow;
 }
 .datosDerechaTrasfondo{
     border: black 5px solid;
@@ -773,7 +773,7 @@ input[type="button"]:active {
     box-shadow: 1px 1px 1px 1px brown;
 }
 #SDados{
-    
+
     background-color: black;
     color: white;
     border: black 3px solid;
@@ -1889,32 +1889,25 @@ input[type="button"]:active {
 /**************************************/
 
 .diseñoTabla table tr{
-
     border: 2px brown solid;
 }
 .diseñoTabla table td{
-
     color: white;
-
 }
 .diseñoTabla table tr:nth-child(odd) {
-
     background-color: black;
 }
-
 .diseñoTabla table tr:nth-child(even) {
-
     background-color: #333333;
 }
-
+.diseñoTabla table tr:hover > td{
+    color: yellowgreen;
+}
 .diseñoTablaHechizos table tr{
-
     border: 2px brown solid;
 }
 .diseñoTablaHechizos table td{
-
     color: white;
-
 }
 .diseñoTablaHechizos table tr:nth-child(4n-2){
     background-color: #333333;
@@ -1955,7 +1948,7 @@ input[type="button"]:active {
     background-color: #333333;
 }
 .datosIzquierdaAbajoFinalHechizo h3{
-        color: yellow;
+    color: yellow;
 }
 .datosDerechaHechizo{
     border: black 5px solid;

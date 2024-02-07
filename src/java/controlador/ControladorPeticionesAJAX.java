@@ -1,7 +1,9 @@
 package controlador;
 
+import entidades.Hechizos;
 import entidades.Mensajesamigos;
 import entidades.Mesas;
+import entidades.Monstruos;
 import entidades.Pertenecemesa;
 import entidades.Usuarios;
 import java.io.IOException;
@@ -61,24 +63,29 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             HttpSession session;
 
-            Usuarios user = null;
-            Usuarios useraux = null;
-            Mensajesamigos MEAux = null;
-            Mensajesamigos MRAux = null;
+            Usuarios user;
+            Usuarios useraux;
+            Mensajesamigos MEAux;
+            Mensajesamigos MRAux;
+            Hechizos hechizoAux;
+            Monstruos monstruoAux;
 
             TypedQuery<Usuarios> queryUsuarios;
             TypedQuery<Pertenecemesa> queryPMesas;
             TypedQuery<Mensajesamigos> queryMensajesAmigos;
+            TypedQuery<Hechizos> queryHechizos;
+            TypedQuery<Monstruos> queryMonstruos;
 
             Query queryAUX;
 
             List<Usuarios> listaUsuarios;
-            ArrayList<Usuarios> listaUsuariosAux;
             List<Pertenecemesa> listaPerteneceMesa;
             List<Mesas> listaMesas;
             List<Mensajesamigos> listaMensajesEnviados;
             List<Mensajesamigos> ListaMensajesRecibidos;
             List<Mensajesamigos> ListaMensajesOrdenados;
+            List<Hechizos> listaHechizos;
+            List<Monstruos> listaMonstruos;
 
             ArrayList<String> pertenecemesaUsuarios;
             ArrayList<Integer> listaCantidad;
@@ -96,10 +103,18 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             String ordenar;
             String mesa;
             String lleno;
+
+            String escuela;
+            String claseH;
+            String nivel;
+
+            String tipo;
+            String vd;
+
             int num = 0; //offset
-            int cantidad = 0;
+            int cantidad;
             boolean novalido;
-            boolean encontrado = false;
+            boolean encontrado;
 
             int cont;
 
@@ -1507,11 +1522,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         calendarioAux.add(Calendar.YEAR, -120);
                         fechaActual = calendarioAux.getTime();
 
-                        if (fechaActual.before(fechaNacimiento)) {
-                            novalido = false;
-                        } else {
-                            novalido = true;
-                        }
+                        novalido = !fechaActual.before(fechaNacimiento);
                     } catch (ParseException ex) {
                         System.out.println("Error recogiendo la fecha");
                     }
@@ -1649,15 +1660,12 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         if (fechaNacimiento.before(fechaActual)) {
                             novalido = false;
                         }
+
                         calendarioAux.setTime(fechaActual);
                         calendarioAux.add(Calendar.YEAR, -120);
                         fechaActual = calendarioAux.getTime();
 
-                        if (fechaActual.before(fechaNacimiento)) {
-                            novalido = false;
-                        } else {
-                            novalido = true;
-                        }
+                        novalido = !fechaActual.before(fechaNacimiento);
                     } catch (ParseException ex) {
                         System.out.println("Error recogiendo la fecha");
                     }
@@ -1667,6 +1675,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else {
                         resultado = "No Encontrado";
                     }
+                    break;
                 case "/CrearMesa":
 
                     ////////////////////////////////
@@ -1705,6 +1714,195 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             resultado = "No Encontrado";
                         }
                     }
+                    break;
+                //////////////////////////////////////////////////////////////////////////
+                //////////////////////////////////EXPLORAR////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////
+                case "/Hechizos":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    escuela = request.getParameter("vEscu");
+                    nivel = request.getParameter("vNiv");
+                    claseH = request.getParameter("vClas");
+
+                    if (!escuela.equals("null") && !nivel.equals("null") && !claseH.equals("null") 
+                            && !escuela.equals("Escuela") && !nivel.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
+                        queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
+                        listaHechizos = queryHechizos.getResultList();
+
+                    } else if (!escuela.equals("Escuela") && !nivel.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
+
+                        queryHechizos = em.createNamedQuery("Hechizos.findByEscuNivel", Hechizos.class);
+                        queryHechizos.setParameter("escuela", escuela);
+                        queryHechizos.setParameter("nivel", nivel);
+                        listaHechizos = queryHechizos.getResultList();
+
+                    } else if (!escuela.equals("Escuela") && nivel.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
+                        queryHechizos = em.createNamedQuery("Hechizos.findByEscuela", Hechizos.class);
+                        queryHechizos.setParameter("escuela", escuela);
+
+                        listaHechizos = queryHechizos.getResultList();
+
+                    } else if (escuela.equals("Escuela") && !nivel.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
+                        queryHechizos = em.createNamedQuery("Hechizos.findByNivel", Hechizos.class);
+                        queryHechizos.setParameter("nivel", nivel);
+                        listaHechizos = queryHechizos.getResultList();
+
+                    } else if (!escuela.equals("Escuela") && nivel.equals("Nivel") && claseH.equals("Clase")) {//ESCU
+                        queryHechizos = em.createNamedQuery("Hechizos.findByEscuela", Hechizos.class);
+                        queryHechizos.setParameter("escuela", escuela);
+                        listaHechizos = queryHechizos.getResultList();
+
+                    } else if (escuela.equals("Escuela") && !nivel.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
+                        queryHechizos = em.createNamedQuery("Hechizos.findByNivel", Hechizos.class);
+                        queryHechizos.setParameter("nivel", nivel);
+                        listaHechizos = queryHechizos.getResultList();
+
+                    } else if (escuela.equals("Escuela") && nivel.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
+
+                        queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
+                        listaHechizos = queryHechizos.getResultList();
+
+                    } else {
+                        queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
+                        listaHechizos = queryHechizos.getResultList();
+                    }
+
+                    resultado = "<table>"
+                            + "<tr class=\"titulosTabla\">"
+                            + "<th>Nombre</th>"
+                            + "<th>Nivel</th>"
+                            + "<th>Escuela</th>"
+                            + "<th>Tiempo Lanzamiento</th>"
+                            + "<th>Duración</th>"
+                            + "<th>Alcance</th>"
+                            + "<th>Componentes</th>"
+                            + "</tr>";
+
+                    cantidad = 0;
+                    num = 0;
+
+                    while (cantidad < 14 && num < listaHechizos.size()) {
+                        hechizoAux = listaHechizos.get(num);
+                        if (hechizoAux.getNombre().toLowerCase().startsWith(nombre.toLowerCase())) {
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + hechizoAux.getNombre() + "</td>"
+                                    + "<td>" + hechizoAux.getNivel() + "</td>"
+                                    + "<td>" + hechizoAux.getEscuela() + "</td>"
+                                    + "<td>" + hechizoAux.getTlanzamiento() + "</td>"
+                                    + "<td>" + hechizoAux.getDuracion() + "</td>"
+                                    + "<td>" + hechizoAux.getAlcance() + "</td>"
+                                    + "<td>" + hechizoAux.getComponentes() + "</td>"
+                                    + "</tr>"
+                                    + "<tr class=\"tablaHechizosTR\" onclick=\"window.location = \'/TFG/Explorar/hechizo?idHechizo=" + hechizoAux.getId() + "\'\">"
+                                    + "<td colspan=\"7\" >" + hechizoAux.getDescripcion() + "</td>"
+                                    + "</tr>";
+                            cantidad++;
+                        }
+                        num++;
+                    }
+                    while (cantidad < 14) {
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "</tr>"
+                                + "<tr>"
+                                + "<td colspan=\"7\" >&nbsp;</td>"
+                                + "</tr>";
+                        cantidad++;
+                    }
+                    resultado = resultado + "</table>";
+                    System.out.println("PeticionAJAX Sale Hechizos");
+                    break;
+                case "/Monstruos":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    vd = request.getParameter("vVD");
+                    tipo = request.getParameter("vTipo");
+
+                    if (!vd.equals("null") && !tipo.equals("null") && !tipo.equals("Tipo") && !vd.equals("Valor de Desafio")) {//TODOS
+                        queryMonstruos = em.createNamedQuery("Monstruos.findByTipoVD", Monstruos.class);
+                        queryMonstruos.setParameter("vdesafio", vd);
+                        queryMonstruos.setParameter("tipo", tipo);
+                        listaMonstruos = queryMonstruos.getResultList();
+
+                    } else if (tipo.equals("Tipo") && !vd.equals("Valor de Desafio")) {//VD
+
+                        queryMonstruos = em.createNamedQuery("Monstruos.findByVdesafio", Monstruos.class);
+                        queryMonstruos.setParameter("vdesafio", vd);
+                        listaMonstruos = queryMonstruos.getResultList();
+
+                    } else if (!tipo.equals("Tipo") && vd.equals("Valor de Desafio")) {//TIPO
+
+                        queryMonstruos = em.createNamedQuery("Monstruos.findByTipo", Monstruos.class);
+                        queryMonstruos.setParameter("tipo", tipo);
+                        listaMonstruos = queryMonstruos.getResultList();
+
+                    } else {
+                        queryMonstruos = em.createNamedQuery("Monstruos.findAll", Monstruos.class);
+                        listaMonstruos = queryMonstruos.getResultList();
+
+                    }
+
+                    resultado = "<table>"
+                            + "<tr class=\"titulosTabla\">"
+                            + "<th>VD</th>"
+                            + "<th>Nombre</th>"
+                            + "<th>Tipo</th>"
+                            + "<th>Alineamiento</th>"
+                            + "<th>Tamaño</th>"
+                            + "</tr>";
+
+                    cantidad = 0;
+                    num = 0;
+
+                    while (cantidad < 14 && num < listaMonstruos.size()) {
+                        monstruoAux = listaMonstruos.get(num);
+                        if (monstruoAux.getNombre().toLowerCase().startsWith(nombre.toLowerCase())) {
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + monstruoAux.getVdesafio() + "</td>"
+                                    + "<td>" + monstruoAux.getNombre() + "</td>"
+                                    + "<td>" + monstruoAux.getTipo() + "</td>"
+                                    + "<td>" + monstruoAux.getAlineamiento() + "</td>"
+                                    + "<td>" + monstruoAux.getTamano() + "</td>"
+                                    + "</tr>";
+                            cantidad++;
+                        }
+                        num++;
+                    }
+                    while (cantidad < 14) {
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "</tr>";
+                        cantidad++;
+                    }
+                    resultado = resultado + "</table>";
+                    System.out.println("PeticionAJAX Sale Monstruos");
                     break;
             }
 

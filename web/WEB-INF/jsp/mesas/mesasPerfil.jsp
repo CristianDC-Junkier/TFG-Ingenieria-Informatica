@@ -18,7 +18,8 @@
             <div class="contenedorMesa">
                 <div class="tituloBuscadorMesa">Mis Mesas</div>
                 <div class="buscadorMesa">
-                    <div>Busca por nombre: <input id="buscador" onkeyup="realizarBusqueda('MesasPerfil')" type="search" placeholder="Introduce el nombre"/> </div>
+                    <div>Busca por nombre: 
+                        <input id="buscador" onkeyup="realizarBusqueda('MesasPerfil')" onsearch="realizarBusqueda('MesasPerfil')" type="search" placeholder="Introduce el nombre"/> </div>
                     <div>
                         Ordenar:
                         <select id="ordenarMesa">

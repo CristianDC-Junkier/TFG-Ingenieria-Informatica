@@ -29,7 +29,7 @@ function realizarBusqueda(valor) {
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/Mesas?orden=" + orden + "&lleno=" + lleno;
                 break;
             case "MesasAmigos":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/MesasAmigos?amigo="+ amigo +"&orden=" + orden;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/MesasAmigos?amigo=" + amigo + "&orden=" + orden;
                 break;
             case "MesasPerfil":
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/MesasPerfil?orden=" + orden;
@@ -38,13 +38,19 @@ function realizarBusqueda(valor) {
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/Personajes?orden=" + orden;
                 break;
             case "PersonajesAmigo":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesAmigo?amigo="+ amigo +"&orden=" + orden;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesAmigo?amigo=" + amigo + "&orden=" + orden;
                 break;
             case "PersonajesAmigos":
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesAmigos?orden=" + orden;
                 break;
             case "PersonajesPerfil":
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesPerfil?orden=" + orden;
+                break;
+            case "Hechizos":
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/Hechizos?vEscu=" + valorSeleccionado1 + "&vNiv=" + valorSeleccionado2 + "&vClas=" + valorSeleccionado3;
+                break;
+            case "Monstruos":
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/Monstruos?vVD=" + valorSeleccionado1 + "&vTipo=" + valorSeleccionado2;
                 break;
         }
 

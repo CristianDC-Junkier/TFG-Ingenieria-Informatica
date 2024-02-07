@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Monstruos.findByInmdano", query = "SELECT m FROM Monstruos m WHERE m.inmdano = :inmdano"),
     @NamedQuery(name = "Monstruos.findBySentidos", query = "SELECT m FROM Monstruos m WHERE m.sentidos = :sentidos"),
     @NamedQuery(name = "Monstruos.findByIdiomas", query = "SELECT m FROM Monstruos m WHERE m.idiomas = :idiomas"),
+    @NamedQuery(name = "Monstruos.findByVuldano", query = "SELECT m FROM Monstruos m WHERE m.vuldano = :vuldano"),
     @NamedQuery(name = "Monstruos.findByTipoVD", query = "SELECT m FROM Monstruos m WHERE m.tipo = :tipo AND m.vdesafio = :vdesafio")
 })
 public class Monstruos implements Serializable {
@@ -99,6 +100,9 @@ public class Monstruos implements Serializable {
     @Size(max = 120)
     @Column(name = "IDIOMAS")
     private String idiomas;
+    @Size(max = 120)
+    @Column(name = "VULDANO")
+    private String vuldano;
     @Basic(optional = false)
     @NotNull()
     @Lob
@@ -112,7 +116,7 @@ public class Monstruos implements Serializable {
         this.id = id;
     }
 
-    public Monstruos(String id, String nombre, String tipo, String tamano, String vdesafio, String alineamiento, BigInteger carmadura, String pgolpe, String velocidad, String descripcion) {
+    public Monstruos(String id, String nombre, String tipo, String tamano, String vdesafio, String alineamiento, BigInteger carmadura, String pgolpe, String velocidad, String resdano, String inmdano, String sentidos, String idiomas, String vuldano, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -122,6 +126,11 @@ public class Monstruos implements Serializable {
         this.carmadura = carmadura;
         this.pgolpe = pgolpe;
         this.velocidad = velocidad;
+        this.resdano = resdano;
+        this.inmdano = inmdano;
+        this.sentidos = sentidos;
+        this.idiomas = idiomas;
+        this.vuldano = vuldano;
         this.descripcion = descripcion;
     }
 
@@ -236,6 +245,14 @@ public class Monstruos implements Serializable {
 
     public void setInmdano(String inmdano) {
         this.inmdano = inmdano;
+    }
+
+    public String getVuldano() {
+        return vuldano;
+    }
+
+    public void setVuldano(String vuldano) {
+        this.vuldano = vuldano;
     }
 
     public String getSentidos() {

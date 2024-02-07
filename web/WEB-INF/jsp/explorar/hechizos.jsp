@@ -25,7 +25,7 @@
                     <div class="tituloBuscadorExplorador">Buscar Hechizos 
                     </div>
                     <form class="buscadorExplorar">
-                        <input type="text" id=SelectName placeholder="Busqueda por nombre">
+                        <input  id="buscador" onkeyup="realizarBusqueda('Hechizos')" onsearch="realizarBusqueda('Hechizos')" type="search" placeholder="Busqueda por nombre">
                         <select id="Selectescuela">
                             <option value="Escuela" selected>Escuela</option>
                             <option value="Abjuración">Abjuración</option>
@@ -73,7 +73,7 @@
                                 <h3>Hechizos</h3>
                                 <h4>${requestScope.subtitulo}</h4>
                                 <div class="diseñoTablaHechizos">
-                                    <table>
+                                    <table id="Tabla">
                                         <tr class="titulosTabla">
                                             <th>Nombre</th>
                                             <th>Nivel</th>
@@ -136,7 +136,12 @@
             let valorSeleccionado1 = '<%= request.getAttribute("vEscu")%>'
             let valorSeleccionado2 = '<%= request.getAttribute("vNiv")%>'
             let valorSeleccionado3 = '<%= request.getAttribute("vClas")%>'
+            //Tabla
+            let tabla = document.getElementById('Tabla');
+            let tablaInicial = tabla.innerHTML;
         </script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="/TFG/js/busquedasAJAXJS.js"></script>
         <script src="/TFG/js/mostrarBotonesJS.js"></script>
         <script src="/TFG/js/explorar/hechizosJS.js"></script>
         <script src="/TFG/js/principalJS.js"></script>

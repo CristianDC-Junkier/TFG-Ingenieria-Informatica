@@ -26,7 +26,7 @@
                 <div class="contenedorExplorarListas">
                     <div class="tituloBuscadorExplorador">Buscar Monstruos </div>
                     <form class="buscadorExplorar">
-                        <input type="text" id=SelectName placeholder="Busqueda por nombre">
+                        <input id="buscador" onkeyup="realizarBusqueda('Monstruos')" onsearch="realizarBusqueda('Monstruos')" type="search" placeholder="Busqueda por nombre">
                         <select id="Selectdesafio">
                             <option value="Valor de Desafio" selected>Valor de Desafio</option>
                             <option value="0">0</option>
@@ -92,7 +92,7 @@
                                 <h3>Monstruos</h3>
                                 <h4>${requestScope.subtitulo}</h4>
                                 <div class="diseñoTabla">
-                                    <table>
+                                    <table id="Tabla">
                                         <tr class="titulosTabla">
                                             <th>VD</th>
                                             <th>Nombre</th>
@@ -104,7 +104,7 @@
                                             <c:set var="monstruo" value="${listaMonstruos[i]}"/>
                                             <c:choose>
                                                 <c:when test="${monstruo != null}">
-                                                    <tr>
+                                                    <tr data-id="${monstruo.id}">
                                                         <td>${monstruo.vdesafio}</td>
                                                         <td>${monstruo.nombre}</td>
                                                         <td>${monstruo.tipo}</td>
@@ -142,7 +142,12 @@
             let numpag = parseInt('<%= request.getAttribute("numpag")%>', 10);
             let valorSeleccionado1 = '<%= request.getAttribute("vVD")%>'
             let valorSeleccionado2 = '<%= request.getAttribute("vTipo")%>'
+            //Tabla
+            let tabla = document.getElementById('Tabla');
+            let tablaInicial = tabla.innerHTML;
         </script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="/TFG/js/busquedasAJAXJS.js"></script>
         <script src="/TFG/js/mostrarBotonesJS.js"></script>
         <script src="/TFG/js/explorar/monstruosJS.js"></script>
         <script src="/TFG/js/principalJS.js"></script>
