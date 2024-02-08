@@ -2,19 +2,26 @@ package entidades;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,70 +51,95 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class Monstruos implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 80)
+    @Column(name = "NOMBRE", nullable = false, length = 80)
+    private String nombre;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "TIPO", nullable = false, length = 30)
+    private String tipo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "TAMANO", nullable = false, length = 30)
+    private String tamano;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "VDESAFIO", nullable = false, length = 30)
+    private String vdesafio;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "ALINEAMIENTO", nullable = false, length = 30)
+    private String alineamiento;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "CARMADURA", nullable = false)
+    private BigInteger carmadura;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "PGOLPE", nullable = false, length = 30)
+    private String pgolpe;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "VELOCIDAD", nullable = false, length = 30)
+    private String velocidad;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 120)
+    @Column(name = "RESDANO", nullable = false, length = 120)
+    private String resdano;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 120)
+    @Column(name = "INMDANO", nullable = false, length = 120)
+    private String inmdano;
+    @Basic(optional = false)
+    @NotNull()
+    @Size(min = 1, max = 120)
+    @Column(name = "SENTIDOS", nullable = false, length = 120)
+    private String sentidos;
+    @Basic(optional = false)
+    @NotNull()
+    @Size(min = 1, max = 120)
+    @Column(name = "IDIOMAS", nullable = false, length = 120)
+    private String idiomas;
+    @Basic(optional = false)
+    @NotNull()
+    @Lob
+    @Column(name = "DESCRIPCION", nullable = false)
+    private String descripcion;
+    @Basic(optional = false)
+    @NotNull()
+    @Size(min = 1, max = 120)
+    @Column(name = "VULDANO", nullable = false, length = 120)
+    private String vuldano;
+    @JoinTable(name = "INMUNE", joinColumns = {@JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {@JoinColumn(name = "ESTADO", referencedColumnName = "NOMBRE", nullable = false)})
+    @ManyToMany()
+    private List<Estados> estadosList;
+    @JoinTable(name = "UTILIZAMONSTRUO", joinColumns = {@JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {@JoinColumn(name = "ACCION", referencedColumnName = "ID", nullable = false)})
+    @ManyToMany()
+    private List<Acciones> accionesList;
+    @JoinTable(name = "USAMONSTRUO", joinColumns = {
+        @JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)})
+    @ManyToMany
+    private List<Rasgos> rasgosList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "monstruos")
+    private List<Tienemonstruo> tienemonstruoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "monstruos")
+    private List<Competentemonstruo> competentemonstruoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private String id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 80)
-    @Column(name = "NOMBRE")
-    private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "TIPO")
-    private String tipo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "TAMANO")
-    private String tamano;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "VDESAFIO")
-    private String vdesafio;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "ALINEAMIENTO")
-    private String alineamiento;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "CARMADURA")
-    private BigInteger carmadura;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "PGOLPE")
-    private String pgolpe;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "VELOCIDAD")
-    private String velocidad;
-    @Size(max = 120)
-    @Column(name = "RESDANO")
-    private String resdano;
-    @Size(max = 120)
-    @Column(name = "INMDANO")
-    private String inmdano;
-    @Size(max = 120)
-    @Column(name = "SENTIDOS")
-    private String sentidos;
-    @Size(max = 120)
-    @Column(name = "IDIOMAS")
-    private String idiomas;
-    @Size(max = 120)
-    @Column(name = "VULDANO")
-    private String vuldano;
-    @Basic(optional = false)
-    @NotNull()
-    @Lob
-    @Column(name = "DESCRIPCION")
-    private String descripcion;
 
     public Monstruos() {
     }
@@ -247,14 +279,6 @@ public class Monstruos implements Serializable {
         this.inmdano = inmdano;
     }
 
-    public String getVuldano() {
-        return vuldano;
-    }
-
-    public void setVuldano(String vuldano) {
-        this.vuldano = vuldano;
-    }
-
     public String getSentidos() {
         return sentidos;
     }
@@ -277,6 +301,59 @@ public class Monstruos implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getVuldano() {
+        return vuldano;
+    }
+
+    public void setVuldano(String vuldano) {
+        this.vuldano = vuldano;
+    }
+
+    @XmlTransient
+    public List<Estados> getEstadosList() {
+        return estadosList;
+    }
+
+    public void setEstadosList(List<Estados> estadosList) {
+        this.estadosList = estadosList;
+    }
+
+    @XmlTransient
+    public List<Acciones> getAccionesList() {
+        return accionesList;
+    }
+
+    public void setAccionesList(List<Acciones> accionesList) {
+        this.accionesList = accionesList;
+    }
+
+    @XmlTransient
+    public List<Rasgos> getRasgosList() {
+        return rasgosList;
+    }
+
+    public void setRasgosList(List<Rasgos> rasgosList) {
+        this.rasgosList = rasgosList;
+    }
+
+    @XmlTransient
+    public List<Tienemonstruo> getTienemonstruoList() {
+        return tienemonstruoList;
+    }
+
+    public void setTienemonstruoList(List<Tienemonstruo> tienemonstruoList) {
+        this.tienemonstruoList = tienemonstruoList;
+    }
+
+    @XmlTransient
+    public List<Competentemonstruo> getCompetentemonstruoList() {
+        return competentemonstruoList;
+    }
+
+    public void setCompetentemonstruoList(List<Competentemonstruo> competentemonstruoList) {
+        this.competentemonstruoList = competentemonstruoList;
     }
 
 }

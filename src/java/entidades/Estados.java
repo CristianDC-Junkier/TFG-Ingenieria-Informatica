@@ -1,17 +1,20 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -25,6 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Estados.findByNombre", query = "SELECT e FROM Estados e WHERE e.nombre = :nombre")})
 public class Estados implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "DESCRIPCION", nullable = false)
+    private String descripcion;
+    @ManyToMany(mappedBy = "estadosList")
+    private List<Monstruos> monstruosList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -32,11 +43,6 @@ public class Estados implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "NOMBRE")
     private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Column(name = "DESCRIPCION")
-    private String descripcion;
 
     public Estados() {
     }
@@ -58,13 +64,6 @@ public class Estados implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
     @Override
     public int hashCode() {
@@ -89,6 +88,23 @@ public class Estados implements Serializable {
     @Override
     public String toString() {
         return "controlador.Estados[ nombre=" + nombre + " ]";
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Monstruos> getMonstruosList() {
+        return monstruosList;
+    }
+
+    public void setMonstruosList(List<Monstruos> monstruosList) {
+        this.monstruosList = monstruosList;
     }
     
 }

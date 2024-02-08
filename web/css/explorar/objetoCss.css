@@ -1,0 +1,30 @@
+
+.arribaDatosEquipo{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+.datosIzquierdaEquipo{
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+.datosIzquierdaArribaEquipo{
+    display: flex;
+}
+.caracteristicasEquipo{
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.datosIzquierdaAbajoEquipo{
+    margin-top: 10px;
+}
+.datosDerechaEquipo{
+    flex: 1;
+    margin-left: 20px;
+}
+
+
+
+

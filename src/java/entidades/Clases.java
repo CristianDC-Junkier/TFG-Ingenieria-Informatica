@@ -44,42 +44,42 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Clases.findByOroinicial", query = "SELECT c FROM Clases c WHERE c.oroinicial = :oroinicial")})
 public class Clases implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "NOMBRE", nullable = false, length = 60)
+    private String nombre;
+    @Basic(optional = false)
+    @NotNull
+    @Lob()
+    @Column(name = "DESCRIPCION", nullable = false)
+    private String descripcion;
+    @Size(max = 3)
+    @Column(name = "DPG", length = 3)
+    private String dpg;
+    @Size(max = 255)
+    @Column(name = "COMPARMAS", length = 255)
+    private String comparmas;
+    @Size(max = 255)
+    @Column(name = "COMPARMADURAS", length = 255)
+    private String comparmaduras;
+    @Size(max = 255)
+    @Column(name = "COMPHERRAMIENTAS", length = 255)
+    private String compherramientas;
+    @Size(max = 20)
+    @Column(name = "HABHECHIZOS", length = 20)
+    private String habhechizos;
+    @Size(max = 500)
+    @Column(name = "EQUIPOINICIAL", length = 500)
+    private String equipoinicial;
+    @Size(max = 15)
+    @Column(name = "OROINICIAL", length = 15)
+    private String oroinicial;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private String id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 60)
-    @Column(name = "NOMBRE")
-    private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Lob()
-    @Column(name = "DESCRIPCION")
-    private String descripcion;
-    @Size(max = 3)
-    @Column(name = "DPG")
-    private String dpg;
-    @Size(max = 255)
-    @Column(name = "COMPARMAS")
-    private String comparmas;
-    @Size(max = 255)
-    @Column(name = "COMPARMADURAS")
-    private String comparmaduras;
-    @Size(max = 255)
-    @Column(name = "COMPHERRAMIENTAS")
-    private String compherramientas;
-    @Size(max = 20)
-    @Column(name = "HABHECHIZOS")
-    private String habhechizos;
-    @Size(max = 500)
-    @Column(name = "EQUIPOINICIAL")
-    private String equipoinicial;
-    @Size(max = 15)
-    @Column(name = "OROINICIAL")
-    private String oroinicial;
     
     @ManyToMany(mappedBy = "clasesList", fetch = FetchType.LAZY)
     private List<Hechizos> hechizosList;
@@ -170,6 +170,13 @@ public class Clases implements Serializable {
     public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
         this.tablaclasespornivelList = tablaclasespornivelList;
     }
+    @XmlTransient
+    public List<Hechizos> getHechizosList() {
+        return hechizosList;
+    }
+    public void setHechizosList(List<Hechizos> hechizosList) {
+        this.hechizosList = hechizosList;
+    }
 
     public String getNombre() {
         return nombre;
@@ -241,15 +248,6 @@ public class Clases implements Serializable {
 
     public void setOroinicial(String oroinicial) {
         this.oroinicial = oroinicial;
-    }
-
-    @XmlTransient
-    public List<Hechizos> getHechizosList() {
-        return hechizosList;
-    }
-
-    public void setHechizosList(List<Hechizos> hechizosList) {
-        this.hechizosList = hechizosList;
     }
 
 }

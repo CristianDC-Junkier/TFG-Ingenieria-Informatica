@@ -45,6 +45,8 @@ public class Rasgos implements Serializable {
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
+    @ManyToMany(mappedBy = "rasgosList")
+    private List<Monstruos> monstruosList;
     @JoinTable(name = "USATRASFONDO", joinColumns = {
         @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TRASFONDO", referencedColumnName = "ID", nullable = false)})
@@ -104,6 +106,16 @@ public class Rasgos implements Serializable {
         return "entidades.Rasgos[ id=" + id + " ]";
     }
 
+
+    @XmlTransient
+    public List<Trasfondos> getTrasfondosList() {
+        return trasfondosList;
+    }
+
+    public void setTrasfondosList(List<Trasfondos> trasfondosList) {
+        this.trasfondosList = trasfondosList;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -121,12 +133,12 @@ public class Rasgos implements Serializable {
     }
 
     @XmlTransient
-    public List<Trasfondos> getTrasfondosList() {
-        return trasfondosList;
+    public List<Monstruos> getMonstruosList() {
+        return monstruosList;
     }
 
-    public void setTrasfondosList(List<Trasfondos> trasfondosList) {
-        this.trasfondosList = trasfondosList;
+    public void setMonstruosList(List<Monstruos> monstruosList) {
+        this.monstruosList = monstruosList;
     }
     
 }

@@ -76,7 +76,7 @@
                                 <h3>${requestScope.titulo}</h3>
                                 <h4>${requestScope.subtitulo}</h4>
                                 <div class="diseñoTabla">
-                                    <table>
+                                    <table id ="Tabla">
                                         <tr class="titulosTabla">
                                             <th>Nombre</th>
                                             <th>Daño</th>
@@ -86,12 +86,15 @@
                                         </tr>
                                         <c:forEach var="i" begin="0" end="14">
                                             <c:set var="equipo" value="${listaEquipo[i]}" />
+                                            <c:set var="listapropiedades" value="${listalistaPropiedades[i]}" />
                                             <c:choose>
                                                 <c:when test="${equipo != null}">
-                                                    <tr>
+                                                    <tr data-id="${equipo.id}">
                                                         <td>${equipo.nombre}</td>
                                                         <td>${equipo.dano}</td>
-                                                        <td>&nbsp;</td>
+                                                        <td><c:forEach var="proEquipo" items="${listapropiedades}" varStatus="status">
+                                                                ${proEquipo.nombre}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                                                            </c:forEach>
                                                         <td>${equipo.precio}</td>
                                                         <td>${equipo.peso}</td>
                                                     </tr>

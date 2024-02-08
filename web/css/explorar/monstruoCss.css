@@ -1,0 +1,43 @@
+
+.arribaDatosMonstruo{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+.datosIzquierdaMonstruo{
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+.datosIzquierdaArribaMonstruo{
+    display: flex;
+}
+.caracteristicasMonstruo{
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.datosIzquierdaAbajoMonstruo{
+    margin-top: 10px;
+}
+.datosIzquierdaAbajoMonstruo div{
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.datosIzquierdaAbajoFinalMonstruo{
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+.datosIzquierdaAbajoFinalMonstruo div{
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.datosDerechaMonstruo{
+    flex: 1;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+

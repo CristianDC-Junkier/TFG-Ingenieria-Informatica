@@ -1729,10 +1729,19 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     nivel = request.getParameter("vNiv");
                     claseH = request.getParameter("vClas");
 
-                    if (!escuela.equals("null") && !nivel.equals("null") && !claseH.equals("null") 
+                    if (!escuela.equals("null") && !nivel.equals("null") && !claseH.equals("null")
                             && !escuela.equals("Escuela") && !nivel.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
-                        queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
-                        listaHechizos = queryHechizos.getResultList();
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "INNER JOIN Clases c on c.id = lb.clase "
+                                + "WHERE h.ESCUELA = '" + escuela + "' "
+                                + "AND h.NIVEL = '" + nivel + "' "
+                                + "AND c.NOMBRE ='" + claseH + "' "
+                                + "ORDER BY h.nombre";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
 
                     } else if (!escuela.equals("Escuela") && !nivel.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
 
@@ -1742,15 +1751,28 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         listaHechizos = queryHechizos.getResultList();
 
                     } else if (!escuela.equals("Escuela") && nivel.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
-                        queryHechizos = em.createNamedQuery("Hechizos.findByEscuela", Hechizos.class);
-                        queryHechizos.setParameter("escuela", escuela);
 
-                        listaHechizos = queryHechizos.getResultList();
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "INNER JOIN Clases c on c.id = lb.clase "
+                                + "WHERE h.ESCUELA = '" + escuela + "' "
+                                + "AND c.NOMBRE ='" + claseH + "' "
+                                + "ORDER BY h.nombre";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
 
                     } else if (escuela.equals("Escuela") && !nivel.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
-                        queryHechizos = em.createNamedQuery("Hechizos.findByNivel", Hechizos.class);
-                        queryHechizos.setParameter("nivel", nivel);
-                        listaHechizos = queryHechizos.getResultList();
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "INNER JOIN Clases c on c.id = lb.clase "
+                                + "WHERE h.NIVEL = '" + nivel + "' "
+                                + "AND c.NOMBRE ='" + claseH + "' "
+                                + "ORDER BY h.nombre";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
 
                     } else if (!escuela.equals("Escuela") && nivel.equals("Nivel") && claseH.equals("Clase")) {//ESCU
                         queryHechizos = em.createNamedQuery("Hechizos.findByEscuela", Hechizos.class);
@@ -1764,8 +1786,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     } else if (escuela.equals("Escuela") && nivel.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
 
-                        queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
-                        listaHechizos = queryHechizos.getResultList();
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "INNER JOIN Clases c on c.id = lb.clase "
+                                + "WHERE c.NOMBRE ='" + claseH + "' "
+                                + "ORDER BY h.nombre";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
 
                     } else {
                         queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);

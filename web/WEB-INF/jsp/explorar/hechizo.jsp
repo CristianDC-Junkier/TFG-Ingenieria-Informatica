@@ -11,7 +11,7 @@
     <body>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main>
-            <h2 class="Titulos">Trasfondo ${requestScope.hechizo.nombre}</h2>
+            <h2 class="Titulos">Hechizo: ${requestScope.hechizo.nombre}</h2>
             <hr color="black">
             <div class="arribaDatosHechizo">
                 <div class="datosIzquierdaHechizo">
@@ -20,8 +20,13 @@
                             <h3>Hechizo</h3>
                             <ul>
                                 <li>Escuela: ${requestScope.hechizo.escuela}</li>
-                                <li>{requestScope.hechizo.nivel}</li>                    
+                                <li>${requestScope.hechizo.nivel}</li>                    
                                 <li>Componentes:${requestScope.hechizo.componentes}</li>
+                                <li>Hechizos de:
+                                    <c:forEach var="clase" items="${librodeHechizos}" varStatus="status">
+                                        ${clase.nombre}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                                    </c:forEach>
+                                </li>
                             </ul>
                         </div>
                     </div>

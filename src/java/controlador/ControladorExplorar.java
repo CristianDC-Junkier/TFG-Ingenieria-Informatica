@@ -1,5 +1,6 @@
 package controlador;
 
+import entidades.Alcance;
 import entidades.Clases;
 import entidades.Dotes;
 import entidades.Equipo;
@@ -7,6 +8,7 @@ import entidades.Estados;
 import entidades.Hechizos;
 import entidades.Mejorasdote;
 import entidades.Monstruos;
+import entidades.Propiedades;
 import entidades.Razas;
 import entidades.Requisitosdote;
 import entidades.Trasfondos;
@@ -64,6 +66,7 @@ public class ControladorExplorar extends HttpServlet {
         TypedQuery<Mejorasdote> queryMDotes;
         TypedQuery<Requisitosdote> queryRDotes;
         TypedQuery<Equipo> queryEquipo;
+        TypedQuery<Alcance> queryAlcance;
         TypedQuery<Hechizos> queryHechizos;
         TypedQuery<Monstruos> queryMonstruos;
         TypedQuery<Razas> queryRazas;
@@ -75,6 +78,7 @@ public class ControladorExplorar extends HttpServlet {
         List<Mejorasdote> listaMDotes;
         List<Requisitosdote> listaRDotes;
         List<Equipo> listaEquipo;
+        List<List<Propiedades>> listalistaPropiedades;
         List<Hechizos> listaHechizos;
         List<Monstruos> listaMonstruos;
         List<Razas> listaRazas;
@@ -87,6 +91,7 @@ public class ControladorExplorar extends HttpServlet {
         Hechizos Hechizo;
         Monstruos Monstruo;
         Equipo Equipo;
+        Alcance Alcance;
 
         String sql;
         String id;
@@ -287,6 +292,42 @@ public class ControladorExplorar extends HttpServlet {
 
                 vista = "/WEB-INF/jsp/explorar/dotes.jsp";
                 break;
+            case "/objeto":
+                id = request.getParameter("idEquipo");
+
+                queryEquipo = em.createNamedQuery("Equipo.findById", Equipo.class);
+                queryEquipo.setParameter("id", id);
+                Equipo = queryEquipo.getSingleResult();
+
+                try {
+                    queryAlcance = em.createNamedQuery("Alcance.findByNombre", Alcance.class);
+                    queryAlcance.setParameter("nombre", Equipo.getNombre());
+                    Alcance = queryAlcance.getSingleResult();
+                } catch (javax.persistence.NoResultException ex) {
+                    Alcance = null;
+                }
+
+                resultado = "<div class = \"datosDerechaEquipo\"> <h3>Propiedades</h3> ";
+                if (Equipo.getPropiedadesList().isEmpty()) {
+                    resultado = resultado + "<p>No tiene propiedades</p> </div>";
+                } else {
+                    resultado = resultado + "<ul>";
+                    for (int i = 0; i < Equipo.getPropiedadesList().size(); i++) {
+                        resultado
+                                = resultado + "<li>"
+                                + Equipo.getPropiedadesList().get(i).getNombre()
+                                + Equipo.getPropiedadesList().get(i).getDescripcion()
+                                + "</li>";
+                    }
+                    resultado = resultado + "</ul></div>";
+                }
+
+                request.setAttribute("equipo", Equipo);
+                request.setAttribute("proEquipo", resultado);
+                request.setAttribute("alcance", Alcance);
+
+                vista = "/WEB-INF/jsp/explorar/objeto.jsp";
+                break;
             case "/equipo":
 
                 numString = request.getParameter("pag");//numero de pag en la que estoy
@@ -429,6 +470,13 @@ public class ControladorExplorar extends HttpServlet {
                 request.setAttribute("vCat", categoria);
                 request.setAttribute("vPro", propiedad);
 
+                listalistaPropiedades = new ArrayList();
+
+                for (int i = 0; i < listaEquipo.size(); i++) {
+                    listalistaPropiedades.add(listaEquipo.get(i).getPropiedadesList());
+                }
+
+                request.setAttribute("listalistaPropiedades", listalistaPropiedades);
                 request.setAttribute("listaEquipo", listaEquipo);
                 request.setAttribute("titulo", titulo);
                 request.setAttribute("subtitulo", subtitulo);
@@ -452,6 +500,7 @@ public class ControladorExplorar extends HttpServlet {
                 Hechizo = queryHechizos.getSingleResult();
 
                 request.setAttribute("hechizo", Hechizo);
+                request.setAttribute("librodeHechizos", Hechizo.getClasesList());
 
                 vista = "/WEB-INF/jsp/explorar/hechizo.jsp";
                 break;
@@ -481,13 +530,21 @@ public class ControladorExplorar extends HttpServlet {
                 } else if (!escuela.equals("Escuela") && !nivel.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
                     subtitulo = escuela;
 
-                    queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
-                    numpag = queryHechizos.getResultList().size();
+                    sql = "SELECT h.* FROM Hechizos h "
+                            + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
+                            + "INNER JOIN Clases c on c.id = lb.clase "
+                            + "WHERE h.ESCUELA = '" + escuela + "' "
+                            + "AND h.NIVEL = '" + nivel + "' "
+                            + "AND c.NOMBRE ='" + claseH + "' "
+                            + "ORDER BY h.nombre";
 
-                    queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
-                    queryHechizos.setFirstResult(num);
-                    queryHechizos.setMaxResults(15);
-                    listaHechizos = queryHechizos.getResultList();
+                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                    numpag = queryAUX.getResultList().size();
+
+                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                    queryAUX.setFirstResult(num);
+                    queryAUX.setMaxResults(15);
+                    listaHechizos = queryAUX.getResultList();
 
                 } else if (!escuela.equals("Escuela") && !nivel.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
                     subtitulo = escuela;
@@ -507,28 +564,38 @@ public class ControladorExplorar extends HttpServlet {
                 } else if (!escuela.equals("Escuela") && nivel.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
                     subtitulo = claseH;
 
-                    queryHechizos = em.createNamedQuery("Hechizos.findByEscuela", Hechizos.class);
-                    queryHechizos.setParameter("escuela", escuela);
-                    numpag = queryHechizos.getResultList().size();
+                    sql = "SELECT h.* FROM Hechizos h "
+                            + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
+                            + "INNER JOIN Clases c on c.id = lb.clase "
+                            + "WHERE h.ESCUELA = '" + escuela + "' "
+                            + "AND c.NOMBRE ='" + claseH + "' "
+                            + "ORDER BY h.nombre";
 
-                    queryHechizos = em.createNamedQuery("Hechizos.findByEscuela", Hechizos.class);
-                    queryHechizos.setParameter("escuela", escuela);
-                    queryHechizos.setFirstResult(num);
-                    queryHechizos.setMaxResults(15);
-                    listaHechizos = queryHechizos.getResultList();
+                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                    numpag = queryAUX.getResultList().size();
+
+                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                    queryAUX.setFirstResult(num);
+                    queryAUX.setMaxResults(15);
+                    listaHechizos = queryAUX.getResultList();
 
                 } else if (escuela.equals("Escuela") && !nivel.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
                     subtitulo = claseH;
 
-                    queryHechizos = em.createNamedQuery("Hechizos.findByNivel", Hechizos.class);
-                    queryHechizos.setParameter("nivel", nivel);
-                    numpag = queryHechizos.getResultList().size();
+                    sql = "SELECT h.* FROM Hechizos h "
+                            + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
+                            + "INNER JOIN Clases c on c.id = lb.clase "
+                            + "WHERE h.NIVEL = '" + nivel + "' "
+                            + "AND c.NOMBRE ='" + claseH + "' "
+                            + "ORDER BY h.nombre";
 
-                    queryHechizos = em.createNamedQuery("Hechizos.findByNivel", Hechizos.class);
-                    queryHechizos.setParameter("nivel", nivel);
-                    queryHechizos.setFirstResult(num);
-                    queryHechizos.setMaxResults(15);
-                    listaHechizos = queryHechizos.getResultList();
+                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                    numpag = queryAUX.getResultList().size();
+
+                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                    queryAUX.setFirstResult(num);
+                    queryAUX.setMaxResults(15);
+                    listaHechizos = queryAUX.getResultList();
 
                 } else if (!escuela.equals("Escuela") && nivel.equals("Nivel") && claseH.equals("Clase")) {//ESCU
                     subtitulo = escuela;
@@ -559,13 +626,19 @@ public class ControladorExplorar extends HttpServlet {
                 } else if (escuela.equals("Escuela") && nivel.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
                     subtitulo = claseH;
 
-                    queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
-                    numpag = queryHechizos.getResultList().size();
+                    sql = "SELECT h.* FROM Hechizos h "
+                            + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
+                            + "INNER JOIN Clases c on c.id = lb.clase "
+                            + "WHERE c.NOMBRE ='" + claseH + "' "
+                            + "ORDER BY h.nombre";
 
-                    queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
-                    queryHechizos.setFirstResult(num);
-                    queryHechizos.setMaxResults(15);
-                    listaHechizos = queryHechizos.getResultList();
+                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                    numpag = queryAUX.getResultList().size();
+
+                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                    queryAUX.setFirstResult(num);
+                    queryAUX.setMaxResults(15);
+                    listaHechizos = queryAUX.getResultList();
 
                 } else {
                     subtitulo = "Todos";
@@ -602,6 +675,11 @@ public class ControladorExplorar extends HttpServlet {
                 Monstruo = queryMonstruos.getSingleResult();
 
                 request.setAttribute("monstruo", Monstruo);
+                request.setAttribute("habMonstruos", Monstruo.getCompetentemonstruoList());
+                request.setAttribute("atrMonstruos", Monstruo.getTienemonstruoList());
+                request.setAttribute("estMonstruos", Monstruo.getEstadosList());
+                request.setAttribute("accMonstruos", Monstruo.getAccionesList());
+                request.setAttribute("rasMonstruos", Monstruo.getRasgosList());
 
                 vista = "/WEB-INF/jsp/explorar/monstruo.jsp";
                 break;

@@ -11,7 +11,7 @@
     <body>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main>
-            <h2 class="Titulos">Trasfondo ${requestScope.trasfondo.nombre}</h2>
+            <h2 class="Titulos">Trasfondo: ${requestScope.trasfondo.nombre}</h2>
             <hr color="black">
             <div class="arribaDatosTrasfondo">
                 <div class="datosIzquierdaTrasfondo">

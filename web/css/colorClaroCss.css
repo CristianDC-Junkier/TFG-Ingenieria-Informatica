@@ -500,6 +500,132 @@ footer{
     border-top: 2px black solid;
     border-bottom: 2px black solid;
 }
+/**************************************/
+/*****************Equipo***************/
+/**************************************/
+
+.arribaDatosEquipo{
+    color: black;
+}
+.caracteristicasEquipo h3{
+    color: yellow;
+}
+.datosIzquierdaArribaEquipo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoEquipo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoFinalEquipo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoFinalEquipo h3{
+    color: yellow;
+}
+.datosDerechaTrasfondo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosDerechaTrasfondo h3{
+    color: yellow;
+}
+.diseñoTablaHechizos table tr{
+    border: 2px black solid;
+}
+.diseñoTablaHechizos table td{
+    color: black;
+}
+/**************************************/
+/***************Hechizo****************/
+/**************************************/
+.diseñoTablaHechizos table tr:nth-child(4n-2){
+    background-color: #00cccc;
+}
+.diseñoTablaHechizos table tr:nth-child(4n-1) {
+    background-color: #00cccc;
+}
+.diseñoTablaHechizos table tr:nth-child(4n-3) {
+    background-color: #00aaaa;
+}
+.diseñoTablaHechizos table tr:nth-child(4n) {
+    background-color: #00aaaa;
+}
+.tablaHechizosTR td:hover{
+    color: yellowgreen;
+}
+
+.arribaDatosHechizo{
+    color: black;
+}
+.caracteristicasHechizo h3{
+    color: yellow;
+}
+.datosIzquierdaArribaHechizo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoHechizo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoHechizo h3{
+    color: yellow;
+}
+.datosIzquierdaAbajoFinalHechizo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoFinalHechizo h3{
+    color: yellow;
+}
+.datosDerechaHechizo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosDerechaHechizo h3{
+    color: yellow;
+}
+/**************************************/
+/***************Monstruos**************/
+/**************************************/
+
+.arribaDatosMonstruo{
+    color: black;
+}
+.caracteristicasMonstruo h3{
+    color: yellow;
+}
+.datosIzquierdaArribaMonstruo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaArribaMonstruo h3{
+    color: yellow;
+}
+.datosIzquierdaAbajoMonstruo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoMonstruo h3{
+    color: yellow;
+}
+.datosIzquierdaAbajoFinalMonstruo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoFinalMonstruo h3{
+    color: yellow;
+}
+.datosDerechaMonstruo{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosDerechaMonstruo h3{
+    color: yellow;
+}
 
 /**************************************/
 /*****************IDS******************/
@@ -560,6 +686,7 @@ footer{
     color:black;
     background-color: #c3ffe2;
 }
+
 .TextoTrasfondo a:link {
 
     text-decoration: none;
@@ -570,7 +697,10 @@ footer{
     text-decoration: none;
     color:black;
 }
+.TextoTrasfondo a:hover{
 
+    color:yellowgreen;
+}
 
 /**************************************/
 /***************Trasfondos*************/
@@ -1906,65 +2036,9 @@ input[type="button"]:active {
 .diseñoTabla table tr:nth-child(even) {
     background-color: #00cccc;
 }
-.diseñoTablaHechizos table tr{
-    border: 2px black solid;
-}
-.diseñoTablaHechizos table td{
-    color: black;
-}
 .diseñoTabla table tr:hover > td{
     color: yellowgreen;
 }
-
-.diseñoTablaHechizos table tr:nth-child(4n-2){
-    background-color: #00cccc;
-}
-.diseñoTablaHechizos table tr:nth-child(4n-1) {
-    background-color: #00cccc;
-}
-.diseñoTablaHechizos table tr:nth-child(4n-3) {
-    background-color: #00aaaa;
-}
-.diseñoTablaHechizos table tr:nth-child(4n) {
-    background-color: #00aaaa;
-}
-.tablaHechizosTR td:hover{
-    color: yellowgreen;
-}
-
-/**************************************/
-/***************Hechizo****************/
-/**************************************/
-
-.arribaDatosHechizo{
-    color: black;
-}
-.caracteristicasHechizo h3{
-    color: yellow;
-}
-.datosIzquierdaArribaHechizo{
-    border: #003333 5px solid;
-    background-color: #00aaaa;
-}
-.datosIzquierdaAbajoHechizo{
-    border: #003333 5px solid;
-    background-color: #00aaaa;
-}
-.datosIzquierdaAbajoFinalHechizo{
-    border: #003333 5px solid;
-    background-color: #00aaaa;
-}
-.datosIzquierdaAbajoFinalHechizo h3{
-    color: yellow;
-}
-.datosDerechaHechizo{
-    border: #003333 5px solid;
-    background-color: #00aaaa;
-}
-.datosDerechaHechizo h3{
-    color: yellow;
-}
-
 
 /**************************************/
 /***************Botones****************/
