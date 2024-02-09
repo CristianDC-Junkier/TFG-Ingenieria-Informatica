@@ -1,5 +1,6 @@
 package controlador;
 
+import entidades.Equipo;
 import entidades.Hechizos;
 import entidades.Mensajesamigos;
 import entidades.Mesas;
@@ -69,12 +70,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             Mensajesamigos MRAux;
             Hechizos hechizoAux;
             Monstruos monstruoAux;
+            Equipo equipoAux;
 
             TypedQuery<Usuarios> queryUsuarios;
             TypedQuery<Pertenecemesa> queryPMesas;
             TypedQuery<Mensajesamigos> queryMensajesAmigos;
             TypedQuery<Hechizos> queryHechizos;
             TypedQuery<Monstruos> queryMonstruos;
+            TypedQuery<Equipo> queryEquipo;
 
             Query queryAUX;
 
@@ -86,6 +89,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             List<Mensajesamigos> ListaMensajesOrdenados;
             List<Hechizos> listaHechizos;
             List<Monstruos> listaMonstruos;
+            List<Equipo> listaEquipo;
 
             ArrayList<String> pertenecemesaUsuarios;
             ArrayList<Integer> listaCantidad;
@@ -110,6 +114,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             String tipo;
             String vd;
+
+            String categoria;
+            String propiedad;
 
             int num = 0; //offset
             int cantidad;
@@ -1931,6 +1938,162 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     }
                     resultado = resultado + "</table>";
                     System.out.println("PeticionAJAX Sale Monstruos");
+                    break;
+                case "/Equipo":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    tipo = request.getParameter("vTipo");
+                    categoria = request.getParameter("vCat");
+                    propiedad = request.getParameter("vPro");
+
+                    if (!categoria.equals("null") && !tipo.equals("null") && !propiedad.equals("null")
+                            && !tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "INNER JOIN Propiedades p on p.id = tp.propiedad "
+                                + "WHERE e.TIPO = '" + tipo + "' "
+                                + "AND e.CATEGORIA = '" + categoria + "' "
+                                + "AND p.NOMBRE ='" + propiedad + "' "
+                                + "ORDER BY e.nombre";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        queryAUX.setFirstResult(num);
+                        queryAUX.setMaxResults(15);
+                        listaEquipo = queryAUX.getResultList();
+                    } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
+
+                        queryEquipo = em.createNamedQuery("Equipo.findByTipoCategoria", Equipo.class);
+                        queryEquipo.setParameter("tipo", tipo);
+                        queryEquipo.setParameter("categoria", categoria);
+                        queryEquipo.setFirstResult(num);
+                        queryEquipo.setMaxResults(15);
+                        listaEquipo = queryEquipo.getResultList();
+
+                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "INNER JOIN Propiedades p on p.id = tp.propiedad "
+                                + "WHERE e.TIPO = '" + tipo + "' "
+                                + "AND p.NOMBRE ='" + propiedad + "' "
+                                + "ORDER BY e.nombre";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        queryAUX.setFirstResult(num);
+                        queryAUX.setMaxResults(15);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "INNER JOIN Propiedades p on p.id = tp.propiedad "
+                                + "WHERE e.CATEGORIA = '" + categoria + "' "
+                                + "AND p.NOMBRE ='" + propiedad + "' "
+                                + "ORDER BY e.nombre";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        queryAUX.setFirstResult(num);
+                        queryAUX.setMaxResults(15);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
+
+                        queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
+                        System.out.println(tipo);
+                        queryEquipo.setParameter("tipo", tipo);
+
+                        queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
+                        queryEquipo.setParameter("tipo", tipo);
+                        queryEquipo.setFirstResult(num);
+                        queryEquipo.setMaxResults(15);
+                        listaEquipo = queryEquipo.getResultList();
+
+                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
+
+                        queryEquipo = em.createNamedQuery("Equipo.findByCategoria", Equipo.class);
+                        queryEquipo.setParameter("categoria", categoria);
+                        queryEquipo.setFirstResult(num);
+                        queryEquipo.setMaxResults(15);
+                        listaEquipo = queryEquipo.getResultList();
+
+                    } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "INNER JOIN Propiedades p on p.id = tp.propiedad "
+                                + "WHERE p.NOMBRE ='" + propiedad + "' "
+                                + "ORDER BY e.nombre";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        queryAUX.setFirstResult(num);
+                        queryAUX.setMaxResults(15);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else {
+
+                        queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
+                        queryEquipo.setFirstResult(num);
+                        queryEquipo.setMaxResults(15);
+                        listaEquipo = queryEquipo.getResultList();
+                    }
+
+                    resultado = "<table>"
+                            + "<tr class=\"titulosTabla\">"
+                            + "<th>Nombre</th>"
+                            + "<th>Daño</th>"
+                            + "<th>Propiedades</th>"
+                            + "<th>Precio</th>"
+                            + "<th>Peso</th>"
+                            + "</tr>";
+
+                    cantidad = 0;
+                    num = 0;
+
+                    while (cantidad < 14 && num < listaEquipo.size()) {
+                        equipoAux = listaEquipo.get(num);
+                        if (equipoAux.getNombre().toLowerCase().startsWith(nombre.toLowerCase())) {
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + equipoAux.getNombre() + "</td>"
+                                    + "<td>" + equipoAux.getDano() + "</td>"
+                                    + "<td>";
+
+                            for (int i = 0; i < equipoAux.getPropiedadesList().size(); i++) {
+                                resultado
+                                        = resultado
+                                        + equipoAux.getPropiedadesList().get(i);
+                            }
+
+                            resultado = resultado
+                                    + "</td>"
+                                    + "<td>" + equipoAux.getPrecio() + "</td>"
+                                    + "<td>" + equipoAux.getPeso() + "</td>"
+                                    + "</tr>";
+                            cantidad++;
+                        }
+                        num++;
+                    }
+                    while (cantidad < 14) {
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "</tr>";
+                        cantidad++;
+                    }
+                    resultado = resultado + "</table>";
+                    System.out.println("PeticionAJAX Sale Equipo");
                     break;
             }
 

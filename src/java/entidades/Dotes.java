@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
@@ -21,34 +20,44 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "DOTES", catalog = "", schema = "SYS_G4", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Dotes.findAll", query = "SELECT d FROM Dotes d"),
     @NamedQuery(name = "Dotes.findById", query = "SELECT d FROM Dotes d WHERE d.id = :id"),
     @NamedQuery(name = "Dotes.findByNombre", query = "SELECT d FROM Dotes d WHERE d.nombre = :nombre"),
-    @NamedQuery(name = "Dotes.findByRaza", query = "SELECT d FROM Dotes d WHERE d.raza = :raza")})
+    @NamedQuery(name = "Dotes.findByRaza", query = "SELECT d FROM Dotes d WHERE d.raza = :raza"),
+    @NamedQuery(name = "Dotes.findByElegiratr", query = "SELECT d FROM Dotes d WHERE d.elegiratr = :elegiratr")})
 public class Dotes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
-    @Column(name = "ID")
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
     private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "NOMBRE")
+    @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
     @Basic(optional = false)
     @NotNull
     @Lob
-    @Column(name = "DESCRIPCION")
+    @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
-    @Size(max = 100)
-    @Column(name = "RAZA")
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "RAZA", nullable = false, length = 100)
     private String raza;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1)
+    @Column(name = "ELEGIRATR", nullable = false, length = 1)
+    private String elegiratr;
 
     public Dotes() {
     }
@@ -57,10 +66,12 @@ public class Dotes implements Serializable {
         this.id = id;
     }
 
-    public Dotes(String id, String nombre, String descripcion) {
+    public Dotes(String id, String nombre, String descripcion, String raza, String elegiratr) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.raza = raza;
+        this.elegiratr = elegiratr;
     }
 
     public String getId() {
@@ -93,6 +104,14 @@ public class Dotes implements Serializable {
 
     public void setRaza(String raza) {
         this.raza = raza;
+    }
+
+    public String getElegiratr() {
+        return elegiratr;
+    }
+
+    public void setElegiratr(String elegiratr) {
+        this.elegiratr = elegiratr;
     }
 
     @Override

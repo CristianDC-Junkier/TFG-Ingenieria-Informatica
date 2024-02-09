@@ -27,19 +27,20 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Mejorasdote.findByNombre", query = "SELECT m FROM Mejorasdote m WHERE m.nombre = :nombre")})
 public class Mejorasdote implements Serializable {
 
+    @Size(max = 100)
+    @Column(name = "NOMBRE", length = 100)
+    private String nombre;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "VALOR", nullable = false)
+    private String valor;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private String id;
-    @Size(max = 100)
-    @Column(name = "NOMBRE")
-    private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Column(name = "VALOR")
-    private String valor;
 
     public Mejorasdote() {
     }
@@ -61,21 +62,6 @@ public class Mejorasdote implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getValor() {
-        return valor;
-    }
-
-    public void setValor(String valor) {
-        this.valor = valor;
-    }
 
     @Override
     public int hashCode() {
@@ -100,6 +86,22 @@ public class Mejorasdote implements Serializable {
     @Override
     public String toString() {
         return "entidades.Mejorasdote[ id=" + id + " ]";
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
 }

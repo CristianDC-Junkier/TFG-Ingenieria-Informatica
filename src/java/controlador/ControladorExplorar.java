@@ -275,7 +275,6 @@ public class ControladorExplorar extends HttpServlet {
                     listaMDotes = queryMDotes.getResultList();
 
                     for (Mejorasdote listaMDote : listaMDotes) {
-                        System.out.println(listaMDote.getValor());
                         resultado
                                 = resultado
                                 + "<li>" + listaMDote.getValor() + "</li>";
@@ -356,13 +355,21 @@ public class ControladorExplorar extends HttpServlet {
                     titulo = tipo;
                     subtitulo = categoria;
 
-                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
-                    numpag = queryEquipo.getResultList().size();
+                    sql = "SELECT e.* FROM Equipo e "
+                            + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
+                            + "INNER JOIN Propiedades p on p.id = tp.propiedad "
+                            + "WHERE e.TIPO = '" + tipo + "' "
+                            + "AND e.CATEGORIA = '" + categoria + "' "
+                            + "AND p.NOMBRE ='" + propiedad + "' "
+                            + "ORDER BY e.nombre";
 
-                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
-                    queryEquipo.setFirstResult(num);
-                    queryEquipo.setMaxResults(15);
-                    listaEquipo = queryEquipo.getResultList();
+                    queryAUX = em.createNativeQuery(sql, Equipo.class);
+                    numpag = queryAUX.getResultList().size();
+
+                    queryAUX = em.createNativeQuery(sql, Equipo.class);
+                    queryAUX.setFirstResult(num);
+                    queryAUX.setMaxResults(15);
+                    listaEquipo = queryAUX.getResultList();
                 } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
                     titulo = tipo;
                     subtitulo = categoria;
@@ -383,40 +390,47 @@ public class ControladorExplorar extends HttpServlet {
                     titulo = tipo;
                     subtitulo = "Objetos";
 
-                    queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
-                    queryEquipo.setParameter("tipo", tipo);
-                    numpag = queryEquipo.getResultList().size();
+                    sql = "SELECT e.* FROM Equipo e "
+                            + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
+                            + "INNER JOIN Propiedades p on p.id = tp.propiedad "
+                            + "WHERE e.TIPO = '" + tipo + "' "
+                            + "AND p.NOMBRE ='" + propiedad + "' "
+                            + "ORDER BY e.nombre";
 
-                    queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
-                    queryEquipo.setParameter("tipo", tipo);
-                    queryEquipo.setFirstResult(num);
-                    queryEquipo.setMaxResults(15);
-                    listaEquipo = queryEquipo.getResultList();
+                    queryAUX = em.createNativeQuery(sql, Equipo.class);
+                    numpag = queryAUX.getResultList().size();
+
+                    queryAUX = em.createNativeQuery(sql, Equipo.class);
+                    queryAUX.setFirstResult(num);
+                    queryAUX.setMaxResults(15);
+                    listaEquipo = queryAUX.getResultList();
 
                 } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
                     titulo = "Todos";
                     subtitulo = categoria;
 
-                    queryEquipo = em.createNamedQuery("Equipo.findByCategoria", Equipo.class);
-                    queryEquipo.setParameter("categoria", categoria);
-                    numpag = queryEquipo.getResultList().size();
+                    sql = "SELECT e.* FROM Equipo e "
+                            + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
+                            + "INNER JOIN Propiedades p on p.id = tp.propiedad "
+                            + "WHERE e.CATEGORIA = '" + categoria + "' "
+                            + "AND p.NOMBRE ='" + propiedad + "' "
+                            + "ORDER BY e.nombre";
 
-                    queryEquipo = em.createNamedQuery("Equipo.findByCategoria", Equipo.class);
-                    queryEquipo.setParameter("categoria", categoria);
-                    queryEquipo.setFirstResult(num);
-                    queryEquipo.setMaxResults(15);
-                    listaEquipo = queryEquipo.getResultList();
+                    queryAUX = em.createNativeQuery(sql, Equipo.class);
+                    numpag = queryAUX.getResultList().size();
+
+                    queryAUX = em.createNativeQuery(sql, Equipo.class);
+                    queryAUX.setFirstResult(num);
+                    queryAUX.setMaxResults(15);
+                    listaEquipo = queryAUX.getResultList();
 
                 } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
                     titulo = tipo;
                     subtitulo = "Objetos";
 
                     queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
-                    System.out.println(tipo);
                     queryEquipo.setParameter("tipo", tipo);
                     numpag = queryEquipo.getResultList().size();
-
-                    System.out.println(numpag);
 
                     queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
                     queryEquipo.setParameter("tipo", tipo);
@@ -442,13 +456,19 @@ public class ControladorExplorar extends HttpServlet {
                     titulo = "Todos";
                     subtitulo = "Objetos";
 
-                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
-                    numpag = queryEquipo.getResultList().size();
+                    sql = "SELECT e.* FROM Equipo e "
+                            + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
+                            + "INNER JOIN Propiedades p on p.id = tp.propiedad "
+                            + "WHERE p.NOMBRE ='" + propiedad + "' "
+                            + "ORDER BY e.nombre";
 
-                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
-                    queryEquipo.setFirstResult(num);
-                    queryEquipo.setMaxResults(15);
-                    listaEquipo = queryEquipo.getResultList();
+                    queryAUX = em.createNativeQuery(sql, Equipo.class);
+                    numpag = queryAUX.getResultList().size();
+
+                    queryAUX = em.createNativeQuery(sql, Equipo.class);
+                    queryAUX.setFirstResult(num);
+                    queryAUX.setMaxResults(15);
+                    listaEquipo = queryAUX.getResultList();
 
                 } else {
                     titulo = "Todos";
@@ -816,16 +836,8 @@ public class ControladorExplorar extends HttpServlet {
                 Trasfondo = queryTrasfondos.getSingleResult();
 
                 request.setAttribute("trasfondo", Trasfondo);
-                request.setAttribute("htrasfondo1", Trasfondo.getHabilidadesList().get(0).getNombre());
-
-                switch (Trasfondo.getNombre()) {
-                    case "Agente de una Facción":
-                        request.setAttribute("htrasfondo2", "Elige 1 entre cualquier habilidad de Inteligencia, Sabiduría o Carisma");
-                        break;
-                    default:
-                        request.setAttribute("htrasfondo2", Trasfondo.getHabilidadesList().get(1).getNombre());
-
-                }
+                request.setAttribute("habtrasfondo", Trasfondo.getHabilidadesList());
+                request.setAttribute("eletrasfondo", Trasfondo.getHabilidadesList1());
 
                 request.setAttribute("listaRasgosTrasfondos", Trasfondo.getRasgosList());
 

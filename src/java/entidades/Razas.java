@@ -5,7 +5,9 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,11 +15,13 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,41 +38,43 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Razas.findByTipo", query = "SELECT r FROM Razas r WHERE r.tipo = :tipo ORDER BY r.nombre")})
 public class Razas implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 80)
+    @Column(name = "NOMBRE", nullable = false, length = 80)
+    private String nombre;
+    @Basic(optional = false)
+    @NotNull
+    @Lob()
+    @Column(name = "DESCRIPCION", nullable = false)
+    private String descripcion;
+    @Basic(optional = false)
+    @NotNull
+    @Lob()
+    @Column(name = "RESUMEN", nullable = false)
+    private String resumen;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "EDAD", nullable = false)
+    private String edad;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "IDIOMAS", nullable = false)
+    private String idiomas;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "TIPO", nullable = false, length = 30)
+    private String tipo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "raza")
+    private List<Subrazas> subrazasList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private String id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 80)
-    @Column(name = "NOMBRE")
-    private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Column(name = "DESCRIPCION")
-    private String descripcion;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Column(name = "RESUMEN")
-    private String resumen;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Column(name = "EDAD")
-    private String edad;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Column(name = "IDIOMAS")
-    private String idiomas;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "TIPO")
-    private String tipo;
 
     public Razas() {
     }
@@ -93,6 +99,28 @@ public class Razas implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Razas)) {
+            return false;
+        }
+        Razas other = (Razas) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public String toString() {
+        return "entidades.Razas[ id=" + id + " ]";
     }
 
     public String getNombre() {
@@ -143,29 +171,13 @@ public class Razas implements Serializable {
         this.tipo = tipo;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    @XmlTransient
+    public List<Subrazas> getSubrazasList() {
+        return subrazasList;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Razas)) {
-            return false;
-        }
-        Razas other = (Razas) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entidades.Razas[ id=" + id + " ]";
+    public void setSubrazasList(List<Subrazas> subrazasList) {
+        this.subrazasList = subrazasList;
     }
 
 }

@@ -20,8 +20,34 @@
                             <h3>Características</h3>
                             <ul>
                                 <li>Idiomas: ${requestScope.trasfondo.idiomas}</li>
-                                <li>Herramientas: ${requestScope.trasfondo.cherramientas}</li>                    
-                                <li>Habilidades:${requestScope.htrasfondo1},${requestScope.htrasfondo2}.</li>
+                                <li>Herramientas: ${requestScope.trasfondo.cherramientas}</li>
+                                <li>
+                                    <c:choose>
+                                        <c:when test="${requestScope.trasfondo.elegirhab == '0'}" >
+                                            Competencia en Habilidades:
+                                            <c:forEach var="habilidad" items="${habtrasfondo}" varStatus="status">
+                                                ${habilidad.nombre}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                                            </c:forEach> 
+                                        </c:when>
+                                        <c:when test="${requestScope.trasfondo.elegirhab == '1'}">
+                                            Competencia en Habilidades: 
+                                            <c:forEach var="habilidad" items="${habtrasfondo}">
+                                                ${habilidad.nombre}.
+                                            </c:forEach>
+                                            <br>Elige 1 entre: 
+                                            <c:forEach var="Ehabilidad" items="${eletrasfondo}" varStatus="status">
+                                                ${Ehabilidad.nombre}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                                            </c:forEach> 
+                                        </c:when>
+                                        <c:when test="${requestScope.trasfondo.elegirhab == '2'}">
+                                            Competencia en Habilidades:
+                                            Elige 2 entre: 
+                                            <c:forEach var="Ehabilidad" items="${eletrasfondo}" varStatus="status">
+                                                ${Ehabilidad.nombre}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                                            </c:forEach> 
+                                        </c:when>
+                                    </c:choose>
+                                </li>
                             </ul>
                         </div>
                     </div>

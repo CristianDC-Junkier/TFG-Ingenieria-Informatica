@@ -116,6 +116,16 @@ public class Rasgos implements Serializable {
         this.trasfondosList = trasfondosList;
     }
 
+
+    @XmlTransient
+    public List<Monstruos> getMonstruosList() {
+        return monstruosList;
+    }
+
+    public void setMonstruosList(List<Monstruos> monstruosList) {
+        this.monstruosList = monstruosList;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -130,15 +140,6 @@ public class Rasgos implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    @XmlTransient
-    public List<Monstruos> getMonstruosList() {
-        return monstruosList;
-    }
-
-    public void setMonstruosList(List<Monstruos> monstruosList) {
-        this.monstruosList = monstruosList;
     }
     
 }

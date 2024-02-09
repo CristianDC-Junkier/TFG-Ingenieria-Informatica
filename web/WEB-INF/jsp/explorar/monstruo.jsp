@@ -56,7 +56,7 @@
                                 </li>
                                 <c:if test="${requestScope.estMonstruo != null}"><li>Inmunidad a estados: 
                                         <c:forEach var="estMonstruo" items="${estMonstruos}" varStatus="status">
-                                        <li>${estMonstruo.nombre}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                                        ${estMonstruo.nombre}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
                                         </c:forEach>
                                     </li>
                                 </c:if>
