@@ -6,6 +6,7 @@ import entidades.Mensajesamigos;
 import entidades.Mesas;
 import entidades.Monstruos;
 import entidades.Pertenecemesa;
+import entidades.Razas;
 import entidades.Usuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -78,6 +79,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             TypedQuery<Hechizos> queryHechizos;
             TypedQuery<Monstruos> queryMonstruos;
             TypedQuery<Equipo> queryEquipo;
+            TypedQuery<Razas> queryRazas;
 
             Query queryAUX;
 
@@ -90,6 +92,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             List<Hechizos> listaHechizos;
             List<Monstruos> listaMonstruos;
             List<Equipo> listaEquipo;
+            List<Razas> listaRazas;
 
             ArrayList<String> pertenecemesaUsuarios;
             ArrayList<Integer> listaCantidad;
@@ -2094,6 +2097,72 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     }
                     resultado = resultado + "</table>";
                     System.out.println("PeticionAJAX Sale Equipo");
+                    break;
+                case "/Razas":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    //Razas Normales
+                    queryRazas = em.createNamedQuery("Razas.findByTipo", Razas.class);
+                    queryRazas.setParameter("tipo", "Normal");
+                    listaRazas = queryRazas.getResultList();
+
+                    num = 0;
+                    resultado = "<h3 id=\"Normales\">Normales</h3>"
+                            + "<div class=\"ListaRazasTipo\">";
+
+                    while (listaRazas.size() != num) {
+
+                        if (listaRazas.get(num).getNombre().toLowerCase().startsWith(nombre.toLowerCase())) {
+                            resultado
+                                    = resultado
+                                    + "<div class=\"ResumenRaza\" id=\"RazasNormales\" data-id=\"" + listaRazas.get(num).getId() + "\">"
+                                    + "<img src=\"" + "/TFG/img/razas/" + listaRazas.get(num).getNombre().toLowerCase() + ".jpg" + "\">"
+                                    + "<div class=\"ContenidoRaza\">"
+                                    + "<div class=\"TituloRaza\">" + listaRazas.get(num).getNombre() + "</div>"
+                                    + "<div class=\"DescripcionRaza\">" + listaRazas.get(num).getResumen() + "</div>"
+                                    + "</div>"
+                                    + "</div>";
+                        }
+                        num++;
+                    }
+
+                    resultado = resultado
+                            + "</div>";
+
+                    //Razas Monstruos
+                    queryRazas = em.createNamedQuery("Razas.findByTipo", Razas.class);
+                    queryRazas.setParameter("tipo", "Monstruo");
+                    listaRazas = queryRazas.getResultList();
+
+                    num = 0;
+                    resultado = resultado
+                            + "<h3 id=\"Normales\">Monstruosas</h3>"
+                            + "<div class=\"ListaRazasTipo\">";
+
+                    while (listaRazas.size() != num) {
+
+                        if (listaRazas.get(num).getNombre().toLowerCase().startsWith(nombre.toLowerCase())) {
+                            resultado
+                                    = resultado
+                                    + "<div class=\"ResumenRaza\" id=\"RazasMonstuosas\" data-id=\"" + listaRazas.get(num).getId() + "\">"
+                                    + "<img src=\"" + "/TFG/img/razas/" + listaRazas.get(num).getNombre().toLowerCase() + ".jpg" + "\">"
+                                    + "<div class=\"ContenidoRaza\">"
+                                    + "<div class=\"TituloRaza\">" + listaRazas.get(num).getNombre() + "</div>"
+                                    + "<div class=\"DescripcionRaza\">" + listaRazas.get(num).getResumen() + "</div>"
+                                    + "</div>"
+                                    + "</div>";
+                        }
+                        num++;
+                    }
+
+                    resultado = resultado
+                            + "</div>";
+
+                    System.out.println("PeticionAJAX Sale Razas");
                     break;
             }
 

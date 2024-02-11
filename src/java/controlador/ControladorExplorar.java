@@ -11,6 +11,7 @@ import entidades.Monstruos;
 import entidades.Propiedades;
 import entidades.Razas;
 import entidades.Requisitosdote;
+import entidades.Subrazas;
 import entidades.Trasfondos;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public class ControladorExplorar extends HttpServlet {
         TypedQuery<Hechizos> queryHechizos;
         TypedQuery<Monstruos> queryMonstruos;
         TypedQuery<Razas> queryRazas;
+        TypedQuery<Subrazas> querySubRazas;
         TypedQuery<Trasfondos> queryTrasfondos;
 
         List<Estados> listaEstados;
@@ -82,12 +84,14 @@ public class ControladorExplorar extends HttpServlet {
         List<Hechizos> listaHechizos;
         List<Monstruos> listaMonstruos;
         List<Razas> listaRazas;
+        List<Subrazas> listaSubRazas;
         List<String> listaRazasImagenes;
         List<Trasfondos> listaTrasfondos;
 
         Clases clase;
         Trasfondos Trasfondo;
         Razas Raza;
+        Subrazas SubRaza;
         Hechizos Hechizo;
         Monstruos Monstruo;
         Equipo Equipo;
@@ -791,6 +795,33 @@ public class ControladorExplorar extends HttpServlet {
                 request.setAttribute("subtitulo", subtitulo);
 
                 vista = "/WEB-INF/jsp/explorar/monstruos.jsp";
+                break;
+            case "/raza":
+
+                id = request.getParameter("idRaza");
+
+                queryRazas = em.createNamedQuery("Razas.findById", Razas.class);
+                queryRazas.setParameter("id", id);
+                Raza = queryRazas.getSingleResult();
+
+                //Subraza principal
+                querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
+                querySubRazas.setParameter("nombre", Raza.getNombre());
+                SubRaza = querySubRazas.getSingleResult();
+
+                //Subrazas que no son la principal
+                listaSubRazas = Raza.getSubrazasList();
+                listaSubRazas.remove(SubRaza);
+
+                request.setAttribute("raza", Raza);
+                request.setAttribute("razaRasgos", Raza.getRasgosList());
+                request.setAttribute("imagenRaza", "/TFG/img/razas/" + Raza.getNombre().toLowerCase() + ".jpg");
+                request.setAttribute("razaExtra", SubRaza);
+                request.setAttribute("razaAtributos", SubRaza.getSumarazaList());
+                request.setAttribute("razaEAtributos", SubRaza.getEleccionatributos());
+                request.setAttribute("listaSubRazas", listaSubRazas);
+
+                vista = "/WEB-INF/jsp/explorar/raza.jsp";
                 break;
             case "/razas":
 

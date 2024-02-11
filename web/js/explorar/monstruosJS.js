@@ -8,7 +8,7 @@ let BAnterior = document.getElementById('pagAnterior');
 let BPosterior = document.getElementById('pagPosterior');
 let urlDestinoPag;
 
-var Tfilas = document.querySelectorAll("#Tabla tr");
+let Tfilas = document.querySelectorAll("#Tabla tr");
 
 for (var i = 0; i < VD.options.length; i++) {
     if (VD.options[i].value === valorSeleccionado1) {

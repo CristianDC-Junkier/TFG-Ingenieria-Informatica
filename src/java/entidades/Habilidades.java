@@ -45,6 +45,10 @@ public class Habilidades implements Serializable {
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
+    @ManyToMany(mappedBy = "habilidadesList")
+    private List<Subrazas> subrazasList;
+    @ManyToMany(mappedBy = "habilidadesList1")
+    private List<Subrazas> subrazasList1;
 
     @JoinTable(name = "ELIGETRASFONDO", joinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
@@ -144,6 +148,24 @@ public class Habilidades implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Subrazas> getSubrazasList() {
+        return subrazasList;
+    }
+
+    public void setSubrazasList(List<Subrazas> subrazasList) {
+        this.subrazasList = subrazasList;
+    }
+
+    @XmlTransient
+    public List<Subrazas> getSubrazasList1() {
+        return subrazasList1;
+    }
+
+    public void setSubrazasList1(List<Subrazas> subrazasList1) {
+        this.subrazasList1 = subrazasList1;
     }
     
 }

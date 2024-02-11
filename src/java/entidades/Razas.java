@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entidades;
 
 import java.io.Serializable;
@@ -12,7 +9,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -68,6 +68,11 @@ public class Razas implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "TIPO", nullable = false, length = 30)
     private String tipo;
+    @JoinTable(name = "USARAZA", joinColumns = {
+        @JoinColumn(name = "RAZA", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)})
+    @ManyToMany
+    private List<Rasgos> rasgosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "raza")
     private List<Subrazas> subrazasList;
     private static final long serialVersionUID = 1L;
@@ -122,6 +127,13 @@ public class Razas implements Serializable {
     public String toString() {
         return "entidades.Razas[ id=" + id + " ]";
     }
+    @XmlTransient
+    public List<Subrazas> getSubrazasList() {
+        return subrazasList;
+    }
+    public void setSubrazasList(List<Subrazas> subrazasList) {
+        this.subrazasList = subrazasList;
+    }
 
     public String getNombre() {
         return nombre;
@@ -172,12 +184,12 @@ public class Razas implements Serializable {
     }
 
     @XmlTransient
-    public List<Subrazas> getSubrazasList() {
-        return subrazasList;
+    public List<Rasgos> getRasgosList() {
+        return rasgosList;
     }
 
-    public void setSubrazasList(List<Subrazas> subrazasList) {
-        this.subrazasList = subrazasList;
+    public void setRasgosList(List<Rasgos> rasgosList) {
+        this.rasgosList = rasgosList;
     }
 
 }

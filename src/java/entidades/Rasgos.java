@@ -46,6 +46,10 @@ public class Rasgos implements Serializable {
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @ManyToMany(mappedBy = "rasgosList")
+    private List<Razas> razasList;
+    @ManyToMany(mappedBy = "rasgosList")
+    private List<Subrazas> subrazasList;
+    @ManyToMany(mappedBy = "rasgosList")
     private List<Monstruos> monstruosList;
     @JoinTable(name = "USATRASFONDO", joinColumns = {
         @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
@@ -140,6 +144,24 @@ public class Rasgos implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Razas> getRazasList() {
+        return razasList;
+    }
+
+    public void setRazasList(List<Razas> razasList) {
+        this.razasList = razasList;
+    }
+
+    @XmlTransient
+    public List<Subrazas> getSubrazasList() {
+        return subrazasList;
+    }
+
+    public void setSubrazasList(List<Subrazas> subrazasList) {
+        this.subrazasList = subrazasList;
     }
     
 }
