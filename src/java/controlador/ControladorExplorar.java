@@ -815,13 +815,36 @@ public class ControladorExplorar extends HttpServlet {
 
                 request.setAttribute("raza", Raza);
                 request.setAttribute("razaRasgos", Raza.getRasgosList());
-                request.setAttribute("imagenRaza", "/TFG/img/razas/" + Raza.getNombre().toLowerCase() + ".jpg");
-                request.setAttribute("razaExtra", SubRaza);
                 request.setAttribute("razaAtributos", SubRaza.getSumarazaList());
                 request.setAttribute("razaEAtributos", SubRaza.getEleccionatributos());
+                request.setAttribute("imagenRaza", "/TFG/img/razas/" + Raza.getNombre().toLowerCase() + ".jpg");
+                request.setAttribute("razaExtra", SubRaza);
                 request.setAttribute("listaSubRazas", listaSubRazas);
 
                 vista = "/WEB-INF/jsp/explorar/raza.jsp";
+                break;
+            case "/subraza":
+
+                id = request.getParameter("idRaza");
+                nombre = request.getParameter("nombreSubRaza");
+
+                queryRazas = em.createNamedQuery("Razas.findById", Razas.class);
+                queryRazas.setParameter("id", id);
+                Raza = queryRazas.getSingleResult();
+
+                //Subraza
+                querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
+                querySubRazas.setParameter("nombre", nombre);
+                SubRaza = querySubRazas.getSingleResult();
+
+                request.setAttribute("idRaza", id);
+                request.setAttribute("subraza", SubRaza);
+                request.setAttribute("subrazaRasgos", SubRaza.getRasgosList());
+                request.setAttribute("subrazaAtributos", SubRaza.getSumarazaList());
+                request.setAttribute("razaEAtributos", SubRaza.getEleccionatributos());
+                request.setAttribute("imagenRaza", "/TFG/img/razas/" + Raza.getNombre().toLowerCase() + ".jpg");
+
+                vista = "/WEB-INF/jsp/explorar/subraza.jsp";
                 break;
             case "/razas":
 

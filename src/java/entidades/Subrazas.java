@@ -61,11 +61,6 @@ public class Subrazas implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Lob()
-    @Column(name = "COMPETENCIAS", nullable = false)
-    private String competencias;
-    @Basic(optional = false)
-    @NotNull
-    @Lob()
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @Basic(optional = false)
@@ -104,12 +99,11 @@ public class Subrazas implements Serializable {
         this.id = id;
     }
 
-    public Subrazas(String id, String nombre, String tamano, BigInteger velocidad, String competencias, String descripcion, String elegirhab) {
+    public Subrazas(String id, String nombre, String tamano, BigInteger velocidad, String descripcion, String elegirhab) {
         this.id = id;
         this.nombre = nombre;
         this.tamano = tamano;
         this.velocidad = velocidad;
-        this.competencias = competencias;
         this.descripcion = descripcion;
         this.elegirhab = elegirhab;
     }
@@ -178,14 +172,6 @@ public class Subrazas implements Serializable {
 
     public void setVelocidad(BigInteger velocidad) {
         this.velocidad = velocidad;
-    }
-
-    public String getCompetencias() {
-        return competencias;
-    }
-
-    public void setCompetencias(String competencias) {
-        this.competencias = competencias;
     }
 
     public String getDescripcion() {
