@@ -88,7 +88,7 @@ public class ControladorExplorar extends HttpServlet {
         List<String> listaRazasImagenes;
         List<Trasfondos> listaTrasfondos;
 
-        Clases clase;
+        Clases Clase;
         Trasfondos Trasfondo;
         Razas Raza;
         Subrazas SubRaza;
@@ -189,7 +189,7 @@ public class ControladorExplorar extends HttpServlet {
 
                 queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
                 queryClases.setParameter("nombre", nombre);
-                clase = queryClases.getSingleResult();
+                Clase = queryClases.getSingleResult();
 
                 resultado = "<table class=\"tablaHechizos\">"
                         + "<thead>"
@@ -233,13 +233,14 @@ public class ControladorExplorar extends HttpServlet {
 
                 request.setAttribute("tablaHechizos", resultado);
 
-                resultado = clase.getEquipoinicial().replace("•", "<br>•");
+                resultado = Clase.getEquipoinicial().replace("•", "<br>•");
                 resultado = resultado.replaceFirst("<br>", "");
 
                 request.setAttribute("equipoinicial", resultado);
+                request.setAttribute("listahabilidades", Clase.getHechizosList());//FALTA
 
-                request.setAttribute("imagen", clase.getNombre().replaceAll("\\s", ""));
-                request.setAttribute("clase", clase);
+                request.setAttribute("imagen", Clase.getNombre().replaceAll("\\s", ""));
+                request.setAttribute("clase", Clase);
 
                 vista = "/WEB-INF/jsp/explorar/clase.jsp";
                 break;

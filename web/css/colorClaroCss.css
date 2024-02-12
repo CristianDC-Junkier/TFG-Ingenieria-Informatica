@@ -849,6 +849,37 @@ footer{
     color: black;
 }
 
+/**************************************/
+/*****************Razas****************/
+/**************************************/
+
+.arribaDatosRaza{
+    color: black;
+}
+.caracteristicasRaza h3{
+    color: yellow;
+}
+.datosIzquierdaArribaRaza{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoRaza{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosDerechaRaza{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosDerechaRaza h3{
+    color: yellow;
+}
+.botonArribaSubRazas{
+    border: 2px solid black;
+    background: yellow;
+    color: #1f6161;
+}
+
 /***************************************************************************************************/
 /******************************************FORMULARIOS**********************************************/
 /***************************************************************************************************/

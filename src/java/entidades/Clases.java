@@ -75,6 +75,9 @@ public class Clases implements Serializable {
     @Size(max = 15)
     @Column(name = "OROINICIAL", length = 15)
     private String oroinicial;
+    @Size(max = 1)
+    @Column(name = "ELEGIRHAB", length = 1)
+    private String elegirhab;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
@@ -248,6 +251,14 @@ public class Clases implements Serializable {
 
     public void setOroinicial(String oroinicial) {
         this.oroinicial = oroinicial;
+    }
+
+    public String getElegirhab() {
+        return elegirhab;
+    }
+
+    public void setElegirhab(String elegirhab) {
+        this.elegirhab = elegirhab;
     }
 
 }

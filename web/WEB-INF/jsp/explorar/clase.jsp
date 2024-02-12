@@ -23,6 +23,11 @@
                                 <li>Dado de golpe: ${requestScope.clase.dpg} + Constitución</li>
                                 <li>Habilidad de hechizos: ${requestScope.clase.habhechizos}</li>                    
                                 <li>CA Hechizos: 8 + BC + ${requestScope.clase.habhechizos}</li>
+                                <li>Tiradas de salvación:
+                                    <c:forEach var="salClase" items="${listaSalvacion}" varStatus="status">
+                                        ${listaSalvacion}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                                    </c:forEach>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -35,6 +40,10 @@
                         <p>Armaduras: ${requestScope.clase.comparmaduras}</p>
                         <p>Armas: ${requestScope.clase.comparmas}</p>
                         <p>Herramientas: ${requestScope.clase.compherramientas}</p>
+                        <p>Elige ${requestScope.clase.elegirhab} entre:</p>
+                        <c:forEach var="habClase" items="${listahabilidades}" varStatus="status">
+                            ${habClase}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                        </c:forEach>
                     </div>
                     <br><br>
                     <div>

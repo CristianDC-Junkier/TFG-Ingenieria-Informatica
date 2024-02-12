@@ -704,8 +704,8 @@ footer{
     color:white;
 }
 .TextoTrasfondo a:hover{
-    
-        color:yellowgreen;
+
+    color:yellowgreen;
 }
 /**************************************/
 /***************Trasfondos*************/
@@ -850,6 +850,37 @@ footer{
 .ContenidoRaza {
 
     color: white;
+}
+
+/**************************************/
+/*****************Razas****************/
+/**************************************/
+
+.arribaDatosRaza{
+    color: white;
+}
+.caracteristicasRaza h3{
+    color: yellow;
+}
+.datosIzquierdaArribaRaza{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosIzquierdaAbajoRaza{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosDerechaRaza{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosDerechaRaza h3{
+    color: yellow;
+}
+.botonArribaSubRazas{
+    border: 2px solid brown;
+    background: yellow;
+    color: brown;
 }
 
 /***************************************************************************************************/

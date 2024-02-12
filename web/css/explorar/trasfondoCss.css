@@ -20,6 +20,9 @@
 .datosIzquierdaAbajoTrasfondo {
     margin-top: 10px;
 }
+.datosIzquierdaAbajoFinalTrasfondo{
+    margin-bottom: 30px;
+}
 .datosDerechaTrasfondo{
     flex: 1;
     margin-left: 20px;

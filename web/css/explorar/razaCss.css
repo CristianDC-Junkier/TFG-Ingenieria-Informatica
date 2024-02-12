@@ -1,0 +1,41 @@
+
+.arribaDatosRaza {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+.datosIzquierdaRaza {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+.datosIzquierdaArribaRaza {
+    display: flex;
+}
+.caracteristicasRaza {
+    padding: 20px;
+}
+.datosIzquierdaArribaRaza img {
+    max-width: 100%;
+    height: auto;
+    margin-right: 10px;
+}
+.caracteristicasClase {
+    margin-left: 20px;
+    margin-top: 25px;
+    padding: 20px;
+}
+.datosIzquierdaAbajoRaza {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.datosDerechaClase {
+    flex: 1;
+    margin-left: 10px;
+}
+.botonArribaSubRazas{
+    position: fixed;
+    right: 20px;
+}
+
