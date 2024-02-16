@@ -78,6 +78,16 @@ public class Clases implements Serializable {
     @Size(max = 1)
     @Column(name = "ELEGIRHAB", length = 1)
     private String elegirhab;
+    @JoinTable(name = "DACOMPETENCIACLASE", joinColumns = {
+        @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
+    @ManyToMany
+    private List<Habilidades> habilidadesList;
+    @JoinTable(name = "DASALVACIONCLASE", joinColumns = {
+        @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false)})
+    @ManyToMany
+    private List<Atributos> atributosList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
@@ -259,6 +269,24 @@ public class Clases implements Serializable {
 
     public void setElegirhab(String elegirhab) {
         this.elegirhab = elegirhab;
+    }
+
+    @XmlTransient
+    public List<Habilidades> getHabilidadesList() {
+        return habilidadesList;
+    }
+
+    public void setHabilidadesList(List<Habilidades> habilidadesList) {
+        this.habilidadesList = habilidadesList;
+    }
+
+    @XmlTransient
+    public List<Atributos> getAtributosList() {
+        return atributosList;
+    }
+
+    public void setAtributosList(List<Atributos> atributosList) {
+        this.atributosList = atributosList;
     }
 
 }

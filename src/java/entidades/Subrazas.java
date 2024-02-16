@@ -150,45 +150,6 @@ public class Subrazas implements Serializable {
         return "entidades.Subrazas[ id=" + id + " ]";
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTamano() {
-        return tamano;
-    }
-
-    public void setTamano(String tamano) {
-        this.tamano = tamano;
-    }
-
-    public BigInteger getVelocidad() {
-        return velocidad;
-    }
-
-    public void setVelocidad(BigInteger velocidad) {
-        this.velocidad = velocidad;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getElegirhab() {
-        return elegirhab;
-    }
-
-    public void setElegirhab(String elegirhab) {
-        this.elegirhab = elegirhab;
-    }
 
     @XmlTransient
     public List<Habilidades> getHabilidadesList() {
@@ -232,6 +193,46 @@ public class Subrazas implements Serializable {
 
     public void setSumarazaList(List<Sumaraza> sumarazaList) {
         this.sumarazaList = sumarazaList;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getTamano() {
+        return tamano;
+    }
+
+    public void setTamano(String tamano) {
+        this.tamano = tamano;
+    }
+
+    public BigInteger getVelocidad() {
+        return velocidad;
+    }
+
+    public void setVelocidad(BigInteger velocidad) {
+        this.velocidad = velocidad;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getElegirhab() {
+        return elegirhab;
+    }
+
+    public void setElegirhab(String elegirhab) {
+        this.elegirhab = elegirhab;
     }
     
 }

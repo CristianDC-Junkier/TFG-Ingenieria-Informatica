@@ -2,9 +2,9 @@
 package entidades;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -21,21 +21,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tablaclasespornivel.findAll", query = "SELECT t FROM Tablaclasespornivel t"),
+    @NamedQuery(name = "Tablaclasespornivel.findByClases", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.clases = :clases"),
     @NamedQuery(name = "Tablaclasespornivel.findBySubclases", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.subclases = :subclases"),
-    @NamedQuery(name = "Tablaclasespornivel.findByNivel", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.nivel = :nivel")})
+    @NamedQuery(name = "Tablaclasespornivel.findByNivel", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.nivel = :nivel"),
+    @NamedQuery(name = "Tablaclasespornivel.findByNivelClase", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.nivel = :nivel and t.tablaclasespornivelPK.clases = :clase")})
 public class Tablaclasespornivel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TablaclasespornivelPK tablaclasespornivelPK;
-    @JoinColumn(name = "CLASES", referencedColumnName = "ID", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Clases clases;
+    @JoinColumn(name = "CLASES", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Clases clases1;
     @JoinColumn(name = "SUBCLASES", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Subclases subclases1;
     @JoinColumn(name = "TABLACLASES", referencedColumnName = "ID", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Tablaclases tablaclases;
 
     public Tablaclasespornivel() {
@@ -45,8 +47,8 @@ public class Tablaclasespornivel implements Serializable {
         this.tablaclasespornivelPK = tablaclasespornivelPK;
     }
 
-    public Tablaclasespornivel(String subclases, short nivel) {
-        this.tablaclasespornivelPK = new TablaclasespornivelPK(subclases, nivel);
+    public Tablaclasespornivel(String clases, String subclases, BigInteger nivel) {
+        this.tablaclasespornivelPK = new TablaclasespornivelPK(clases, subclases, nivel);
     }
 
     public TablaclasespornivelPK getTablaclasespornivelPK() {
@@ -57,12 +59,12 @@ public class Tablaclasespornivel implements Serializable {
         this.tablaclasespornivelPK = tablaclasespornivelPK;
     }
 
-    public Clases getClases() {
-        return clases;
+    public Clases getClases1() {
+        return clases1;
     }
 
-    public void setClases(Clases clases) {
-        this.clases = clases;
+    public void setClases1(Clases clases1) {
+        this.clases1 = clases1;
     }
 
     public Subclases getSubclases1() {

@@ -29,14 +29,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Sumaraza.findByModificador", query = "SELECT s FROM Sumaraza s WHERE s.modificador = :modificador")})
 public class Sumaraza implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected SumarazaPK sumarazaPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
     @Column(name = "MODIFICADOR", nullable = false, length = 2)
     private String modificador;
+
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected SumarazaPK sumarazaPK;
     @JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Atributos atributos;
@@ -68,13 +69,6 @@ public class Sumaraza implements Serializable {
         this.sumarazaPK = sumarazaPK;
     }
 
-    public String getModificador() {
-        return modificador;
-    }
-
-    public void setModificador(String modificador) {
-        this.modificador = modificador;
-    }
 
     public Atributos getAtributos() {
         return atributos;
@@ -115,6 +109,14 @@ public class Sumaraza implements Serializable {
     @Override
     public String toString() {
         return "entidades.Sumaraza[ sumarazaPK=" + sumarazaPK + " ]";
+    }
+
+    public String getModificador() {
+        return modificador;
+    }
+
+    public void setModificador(String modificador) {
+        this.modificador = modificador;
     }
     
 }

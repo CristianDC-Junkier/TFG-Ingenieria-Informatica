@@ -134,6 +134,13 @@ public class Razas implements Serializable {
     public void setSubrazasList(List<Subrazas> subrazasList) {
         this.subrazasList = subrazasList;
     }
+    @XmlTransient
+    public List<Rasgos> getRasgosList() {
+        return rasgosList;
+    }
+    public void setRasgosList(List<Rasgos> rasgosList) {
+        this.rasgosList = rasgosList;
+    }
 
     public String getNombre() {
         return nombre;
@@ -181,15 +188,6 @@ public class Razas implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    @XmlTransient
-    public List<Rasgos> getRasgosList() {
-        return rasgosList;
-    }
-
-    public void setRasgosList(List<Rasgos> rasgosList) {
-        this.rasgosList = rasgosList;
     }
 
 }

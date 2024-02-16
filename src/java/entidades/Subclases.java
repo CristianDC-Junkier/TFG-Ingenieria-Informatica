@@ -35,13 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subclases.findByNivel", query = "SELECT s FROM Subclases s WHERE s.nivel = :nivel")})
 public class Subclases implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
-    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
@@ -56,6 +49,14 @@ public class Subclases implements Serializable {
     @NotNull
     @Column(name = "NIVEL", nullable = false)
     private short nivel;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @ManyToMany(mappedBy = "subclasesList", fetch = FetchType.LAZY)
     private List<Clases> clasesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subclases1", fetch = FetchType.LAZY)
@@ -89,29 +90,6 @@ public class Subclases implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public short getNivel() {
-        return nivel;
-    }
-
-    public void setNivel(short nivel) {
-        this.nivel = nivel;
-    }
 
     @XmlTransient
     public List<Clases> getClasesList() {
@@ -154,6 +132,30 @@ public class Subclases implements Serializable {
     @Override
     public String toString() {
         return "entidades.Subclases[ id=" + id + " ]";
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public short getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(short nivel) {
+        this.nivel = nivel;
     }
 
 }

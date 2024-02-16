@@ -46,6 +46,8 @@ public class Habilidades implements Serializable {
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @ManyToMany(mappedBy = "habilidadesList")
+    private List<Clases> clasesList;
+    @ManyToMany(mappedBy = "habilidadesList")
     private List<Subrazas> subrazasList;
     @ManyToMany(mappedBy = "habilidadesList1")
     private List<Subrazas> subrazasList1;
@@ -134,21 +136,6 @@ public class Habilidades implements Serializable {
         this.trasfondosList1 = trasfondosList1;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
     @XmlTransient
     public List<Subrazas> getSubrazasList() {
@@ -166,6 +153,31 @@ public class Habilidades implements Serializable {
 
     public void setSubrazasList1(List<Subrazas> subrazasList1) {
         this.subrazasList1 = subrazasList1;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Clases> getClasesList() {
+        return clasesList;
+    }
+
+    public void setClasesList(List<Clases> clasesList) {
+        this.clasesList = clasesList;
     }
     
 }

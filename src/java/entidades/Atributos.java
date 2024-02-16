@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -44,6 +45,8 @@ public class Atributos implements Serializable {
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
+    @ManyToMany(mappedBy = "atributosList")
+    private List<Clases> clasesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "atributos")
     private List<Sumaraza> sumarazaList;
 
@@ -100,6 +103,16 @@ public class Atributos implements Serializable {
         return "entidades.Atributos[ id=" + id + " ]";
     }
 
+
+    @XmlTransient
+    public List<Sumaraza> getSumarazaList() {
+        return sumarazaList;
+    }
+
+    public void setSumarazaList(List<Sumaraza> sumarazaList) {
+        this.sumarazaList = sumarazaList;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -117,12 +130,12 @@ public class Atributos implements Serializable {
     }
 
     @XmlTransient
-    public List<Sumaraza> getSumarazaList() {
-        return sumarazaList;
+    public List<Clases> getClasesList() {
+        return clasesList;
     }
 
-    public void setSumarazaList(List<Sumaraza> sumarazaList) {
-        this.sumarazaList = sumarazaList;
+    public void setClasesList(List<Clases> clasesList) {
+        this.clasesList = clasesList;
     }
     
 }

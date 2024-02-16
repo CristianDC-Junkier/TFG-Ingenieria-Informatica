@@ -45,6 +45,11 @@ public class Rasgos implements Serializable {
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
+    @JoinTable(name = "USACLASE", joinColumns = {
+        @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "TABLACLASE", referencedColumnName = "ID", nullable = false)})
+    @ManyToMany
+    private List<Tablaclases> tablaclasesList;
     @ManyToMany(mappedBy = "rasgosList")
     private List<Razas> razasList;
     @ManyToMany(mappedBy = "rasgosList")
@@ -130,21 +135,6 @@ public class Rasgos implements Serializable {
         this.monstruosList = monstruosList;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
     @XmlTransient
     public List<Razas> getRazasList() {
@@ -162,6 +152,31 @@ public class Rasgos implements Serializable {
 
     public void setSubrazasList(List<Subrazas> subrazasList) {
         this.subrazasList = subrazasList;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Tablaclases> getTablaclasesList() {
+        return tablaclasesList;
+    }
+
+    public void setTablaclasesList(List<Tablaclases> tablaclasesList) {
+        this.tablaclasesList = tablaclasesList;
     }
     
 }
