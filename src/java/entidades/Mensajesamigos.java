@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
@@ -33,26 +36,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class Mensajesamigos implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
+    @Column(name = "ID")
     private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
+    @Column(name = "MENSAJE", nullable = false, length = 255)
     private String mensaje;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "FECHA", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    private String receptor;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    private String escritor;
+    @JoinColumn(name = "RECEPTOR", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
+    private Usuarios receptor;
+    @JoinColumn(name = "ESCRITOR", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
+    private Usuarios escritor;
 
     public Mensajesamigos() {
     }
@@ -61,21 +64,25 @@ public class Mensajesamigos implements Serializable {
         this.id = id;
     }
 
-    public Mensajesamigos(String id, String mensaje, Date fecha, String receptor, String escritor) {
+    public Mensajesamigos(String id, String mensaje, Date fecha) {
         this.id = id;
         this.mensaje = mensaje;
         this.fecha = fecha;
-        this.receptor = receptor;
-        this.escritor = escritor;
     }
 
-    public Mensajesamigos(String mensaje, Date fecha, String receptor, String escritor) {
+    public Mensajesamigos(String mensaje, Date fecha) {
+        this.mensaje = mensaje;
+        this.fecha = fecha;
+    }
+
+    public Mensajesamigos(String mensaje, Date fecha, Usuarios receptor, Usuarios escritor) {
         this.mensaje = mensaje;
         this.fecha = fecha;
         this.receptor = receptor;
         this.escritor = escritor;
     }
-
+    
+   
     public String getId() {
         return id;
     }
@@ -109,22 +116,22 @@ public class Mensajesamigos implements Serializable {
         return horaFormateada;
     }
 
-    public String getReceptor() {
+    public Usuarios getReceptor() {
         return receptor;
     }
 
-    public void setReceptor(String receptor) {
+    public void setReceptor(Usuarios receptor) {
         this.receptor = receptor;
     }
 
-    public String getEscritor() {
+    public Usuarios getEscritor() {
         return escritor;
     }
 
-    public void setEscritor(String escritor) {
+    public void setEscritor(Usuarios escritor) {
         this.escritor = escritor;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -149,5 +156,4 @@ public class Mensajesamigos implements Serializable {
     public String toString() {
         return "controlador.Mensajesamigos[ id=" + id + " ]";
     }
-
 }

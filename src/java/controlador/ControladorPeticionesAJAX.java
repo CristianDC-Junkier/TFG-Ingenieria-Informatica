@@ -153,16 +153,15 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                         queryUsuarios.setParameter("apodo", nombre);
                         useraux = queryUsuarios.getSingleResult();
-                        id = useraux.getId();
 
                         queryMensajesAmigos = em.createNamedQuery("Mensajesamigos.findByEscritorReceptor", Mensajesamigos.class);
-                        queryMensajesAmigos.setParameter("escritor", user.getId());
-                        queryMensajesAmigos.setParameter("receptor", id);
+                        queryMensajesAmigos.setParameter("escritor", user);
+                        queryMensajesAmigos.setParameter("receptor", useraux);
                         listaMensajesEnviados = queryMensajesAmigos.getResultList();
 
                         queryMensajesAmigos = em.createNamedQuery("Mensajesamigos.findByReceptorEscritor", Mensajesamigos.class);
-                        queryMensajesAmigos.setParameter("escritor", id);
-                        queryMensajesAmigos.setParameter("receptor", user.getId());
+                        queryMensajesAmigos.setParameter("escritor", useraux);
+                        queryMensajesAmigos.setParameter("receptor", user);
                         ListaMensajesRecibidos = queryMensajesAmigos.getResultList();
 
                         ListaMensajesOrdenados = new ArrayList();
@@ -222,7 +221,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                             + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
                                 }
                             }
-                            if (user.getId().equals(msj.getEscritor())) {
+                            if (user.getId().equals(msj.getEscritor().getId())) {
                                 resultado
                                         = resultado
                                         + "<p style=\"color: darkgray;\">"
@@ -263,9 +262,36 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     useraux = queryUsuarios.getSingleResult();
                     id = useraux.getId();
 
+                    //Para saber si en el día ya hubo un mensaje o no
                     fechaLimite = LocalDateTime.now();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     String fechaFormateada = fechaLimite.format(formatter);
+                    
+
+                    sql = "SELECT DISTINCT m.* FROM Mensajesamigos m"
+                            + " WHERE ((m.escritor = '" + user.getId() + "' AND m.receptor = '" + id + "') "
+                            + " OR (m.escritor = '" + id + "' AND m.receptor = '" + user.getId() + "'))"
+                            + " AND m.fecha >= TO_DATE('" + fechaFormateada + "00:00:00', 'YYYY-MM-DD HH24:MI:SS')"; // Fecha de inicio del día
+
+                    queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
+                    resultado = "";
+
+                    System.out.println(queryAUX.getResultList().size());
+
+                    //si no hubo escribimos el dia (es decir el nuestro es el 1)
+                    if (queryAUX.getResultList().size() == 1) {
+                        resultado
+                                = resultado
+                                + "<br><p style =\"color: yellow;\">"
+                                + fechaLimite.getDayOfMonth()
+                                + "-" + fechaLimite.getMonthValue()
+                                + "-" + fechaLimite.getYear()
+                                + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
+                    }
+
+                    //mensajes enviados
+                    formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    fechaFormateada = fechaLimite.format(formatter);
 
                     sql = "SELECT m.* FROM Mensajesamigos m"
                             + " WHERE m.escritor = '" + user.getId() + "'"
@@ -276,6 +302,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
                     listaMensajesEnviados = queryAUX.getResultList();
 
+                    //mensajes recibidos
                     fechaLimite = fechaLimite.minusSeconds(5);
                     fechaFormateada = fechaLimite.format(formatter);
 
@@ -327,27 +354,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     }
 
-                    formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    fechaFormateada = fechaLimite.format(formatter);
-
-                    sql = "SELECT m.* FROM Mensajesamigos m"
-                            + " WHERE m.escritor = '" + user.getId() + "'"
-                            + " and m.receptor = '" + id + "'"
-                            + " and m.fecha >= TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD')"
-                            + " ORDER BY m.fecha";
-
-                    queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
-                    listaMensajesEnviados = queryAUX.getResultList();
-
-                    if (listaMensajesEnviados.size() == 1 && !ListaMensajesOrdenados.isEmpty()) {
-                        resultado
-                                = resultado
-                                + "<br><p style =\"color: yellow;\">"
-                                + fechaLimite.getDayOfMonth()
-                                + "-" + fechaLimite.getMonthValue()
-                                + "-" + fechaLimite.getYear()
-                                + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
-                    }
                     for (int i = 0; i < ListaMensajesOrdenados.size(); i++) {
                         Mensajesamigos msj = ListaMensajesOrdenados.get(i);
                         if (i > 0) {
@@ -361,7 +367,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
                             }
                         }
-                        if (user.getId().equals(msj.getEscritor())) {
+                        if (user.getId().equals(msj.getEscritor().getId())) {
                             resultado
                                     = resultado
                                     + "<p style=\"color: darkgray;\">"
@@ -378,6 +384,11 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 = resultado
                                 + " - " + msj.getMensaje()
                                 + "</p>";
+                    }
+
+                    //Si no hay ningun mensaje, borramos resultado
+                    if (ListaMensajesOrdenados.isEmpty()) {
+                        resultado = "";
                     }
 
                     System.out.println("PeticionAJAX Sale");

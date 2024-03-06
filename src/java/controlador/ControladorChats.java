@@ -53,7 +53,6 @@ public class ControladorChats extends HttpServlet {
 
             Usuarios user = null;
             Usuarios useraux = null;
-            Amigos amigo = null;
             Mensajesamigos msjA = null;
 
             TypedQuery<Usuarios> queryUsuarios;
@@ -88,11 +87,11 @@ public class ControladorChats extends HttpServlet {
                         } else {
                             queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                             queryUsuarios.setParameter("apodo", apodo);
-                            id = queryUsuarios.getSingleResult().getId();
+                            useraux = queryUsuarios.getSingleResult();
 
                             queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
                             queryAmigos.setParameter("amigo1", user.getId());
-                            queryAmigos.setParameter("amigo2", id);
+                            queryAmigos.setParameter("amigo2", useraux.getId());
 
                             if (queryAmigos.getResultList().size() != 1) {
                                 msj = "No Conseguido";
@@ -100,9 +99,15 @@ public class ControladorChats extends HttpServlet {
 
                                 msj = request.getParameter("mensaje");
 
+                                if (msj.toUpperCase().contains("UPDATE") || msj.toUpperCase().contains("CREATE")
+                                        || msj.toUpperCase().contains("DELETE") || msj.toUpperCase().contains("SELECT")
+                                        || msj.toUpperCase().contains("DROP")) {
+                                    msj = "*****";
+                                }
+
                                 fecha = new Date();
 
-                                msjA = new Mensajesamigos(msj, fecha, id, user.getId());
+                                msjA = new Mensajesamigos(msj, fecha, useraux, user);
 
                                 persist(msjA);
 
@@ -118,7 +123,7 @@ public class ControladorChats extends HttpServlet {
                     /////////////////////////
                     session = request.getSession();
                     user = (Usuarios) session.getAttribute("user");
-                    
+
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
@@ -134,11 +139,11 @@ public class ControladorChats extends HttpServlet {
                         } else {
                             queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                             queryUsuarios.setParameter("apodo", apodo);
-                            id = queryUsuarios.getSingleResult().getId();
+                            useraux = queryUsuarios.getSingleResult();
 
                             queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
                             queryAmigos.setParameter("amigo1", user.getId());
-                            queryAmigos.setParameter("amigo2", id);
+                            queryAmigos.setParameter("amigo2", useraux.getId());
 
                             if (queryAmigos.getResultList().size() != 1) {
                                 msj = "No Conseguido";
@@ -147,11 +152,11 @@ public class ControladorChats extends HttpServlet {
                                 //msj = request.getParameter("tirada");
                                 long tiempoActual = System.currentTimeMillis();
                                 Random random = new Random(tiempoActual);
-                                msj = "Tiró de D"+dado+": " + String.valueOf(random.nextInt(Integer.valueOf(dado)) + 1);
+                                msj = "Tiró de D" + dado + ": " + String.valueOf(random.nextInt(Integer.valueOf(dado)) + 1);
 
                                 fecha = new Date();
 
-                                msjA = new Mensajesamigos(msj, fecha, id, user.getId());
+                                msjA = new Mensajesamigos(msj, fecha, useraux, user);
 
                                 persist(msjA);
 

@@ -29,14 +29,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Competentemonstruo.findByCompetencia", query = "SELECT c FROM Competentemonstruo c WHERE c.competencia = :competencia")})
 public class Competentemonstruo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected CompetentemonstruoPK competentemonstruoPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "COMPETENCIA", nullable = false, length = 10)
     private String competencia;
+
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected CompetentemonstruoPK competentemonstruoPK;
     @JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Monstruos monstruos;
@@ -65,13 +66,6 @@ public class Competentemonstruo implements Serializable {
         this.competentemonstruoPK = competentemonstruoPK;
     }
 
-    public String getCompetencia() {
-        return competencia;
-    }
-
-    public void setCompetencia(String competencia) {
-        this.competencia = competencia;
-    }
 
     public Monstruos getMonstruos() {
         return monstruos;
@@ -104,6 +98,14 @@ public class Competentemonstruo implements Serializable {
     @Override
     public String toString() {
         return "entidades.Competentemonstruo[ competentemonstruoPK=" + competentemonstruoPK + " ]";
+    }
+
+    public String getCompetencia() {
+        return competencia;
+    }
+
+    public void setCompetencia(String competencia) {
+        this.competencia = competencia;
     }
     
 }

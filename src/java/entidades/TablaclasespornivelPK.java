@@ -31,6 +31,8 @@ public class TablaclasespornivelPK implements Serializable {
     @Column(name = "NIVEL", nullable = false)
     private BigInteger nivel;
 
+
+
     public TablaclasespornivelPK() {
     }
 

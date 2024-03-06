@@ -1,7 +1,9 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,39 +37,43 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Mesas.CountByCreador", query = "SELECT COUNT(m) FROM Mesas m WHERE m.creador = :creador")})
 public class Mesas implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "CREADOR", nullable = false, length = 50)
+    private String creador;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "COMUNIDAD", nullable = false, length = 100)
+    private String comunidad;
+    @Size(max = 100)
+    @Column(name = "CONTRASENA", length = 100)
+    private String contrasena;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "TAMANO", nullable = false)
+    private short tamano;
+    @Basic(optional = false)
+    @NotNull()
+    @Size(min = 1, max = 100)
+    @Column(name = "TITULO", nullable = false, length = 100)
+    private String titulo;
+    @Size(max = 255)
+    @Column(name = "DESCRIPCION", length = 255)
+    private String descripcion;
+    @Lob()
+    @Column(name = "IMAGENMESA")
+    private byte[] imagenmesa;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mesas")
+    private List<Pertenecemesa> pertenecemesaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mesa")
+    private List<Mensajesmesas> mensajesmesasList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private String id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "CREADOR")
-    private String creador;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "COMUNIDAD")
-    private String comunidad;
-    @Size(max = 100)
-    @Column(name = "CONTRASENA")
-    private String contrasena;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "TAMANO")
-    private short tamano;
-    @Basic(optional = false)
-    @NotNull()
-    @Size(min = 1, max = 100)
-    @Column(name = "TITULO")
-    private String titulo;
-    @Size(max = 255)
-    @Column(name = "DESCRIPCION")
-    private String descripcion;
-    @Lob()
-    @Column(name = "IMAGENMESA")
-    private byte[] imagenmesa;
     
     public Mesas() {
     }
@@ -104,6 +112,28 @@ public class Mesas implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Mesas)) {
+            return false;
+        }
+        Mesas other = (Mesas) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public String toString() {
+        return "entidades.Mesas[ id=" + id + " ]";
     }
 
     public String getCreador() {
@@ -162,29 +192,22 @@ public class Mesas implements Serializable {
         this.imagenmesa = imagenmesa;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    @XmlTransient
+    public List<Pertenecemesa> getPertenecemesaList() {
+        return pertenecemesaList;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Mesas)) {
-            return false;
-        }
-        Mesas other = (Mesas) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setPertenecemesaList(List<Pertenecemesa> pertenecemesaList) {
+        this.pertenecemesaList = pertenecemesaList;
     }
 
-    @Override
-    public String toString() {
-        return "entidades.Mesas[ id=" + id + " ]";
+    @XmlTransient
+    public List<Mensajesmesas> getMensajesmesasList() {
+        return mensajesmesasList;
+    }
+
+    public void setMensajesmesasList(List<Mensajesmesas> mensajesmesasList) {
+        this.mensajesmesasList = mensajesmesasList;
     }
 
 }

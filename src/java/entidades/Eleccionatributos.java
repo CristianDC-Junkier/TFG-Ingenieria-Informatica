@@ -29,13 +29,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Eleccionatributos.findByElegirmod", query = "SELECT e FROM Eleccionatributos e WHERE e.elegirmod = :elegirmod")})
 public class Eleccionatributos implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "SUBRAZA", nullable = false, length = 36)
-    private String subraza;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
@@ -46,6 +39,14 @@ public class Eleccionatributos implements Serializable {
     @Size(min = 1, max = 2)
     @Column(name = "ELEGIRMOD", nullable = false, length = 2)
     private String elegirmod;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "SUBRAZA", nullable = false, length = 36)
+    private String subraza;
     @JoinColumn(name = "SUBRAZA", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Subrazas subrazas;
@@ -71,21 +72,6 @@ public class Eleccionatributos implements Serializable {
         this.subraza = subraza;
     }
 
-    public String getElegircan() {
-        return elegircan;
-    }
-
-    public void setElegircan(String elegircan) {
-        this.elegircan = elegircan;
-    }
-
-    public String getElegirmod() {
-        return elegirmod;
-    }
-
-    public void setElegirmod(String elegirmod) {
-        this.elegirmod = elegirmod;
-    }
 
     public Subrazas getSubrazas() {
         return subrazas;
@@ -118,6 +104,22 @@ public class Eleccionatributos implements Serializable {
     @Override
     public String toString() {
         return "entidades.Eleccionatributos[ subraza=" + subraza + " ]";
+    }
+
+    public String getElegircan() {
+        return elegircan;
+    }
+
+    public void setElegircan(String elegircan) {
+        this.elegircan = elegircan;
+    }
+
+    public String getElegirmod() {
+        return elegirmod;
+    }
+
+    public void setElegirmod(String elegirmod) {
+        this.elegirmod = elegirmod;
     }
     
 }

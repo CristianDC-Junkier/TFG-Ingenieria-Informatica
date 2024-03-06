@@ -4,7 +4,6 @@ import entidades.Alcance;
 import entidades.Clases;
 import entidades.Dotes;
 import entidades.Equipo;
-import entidades.Espacioshechizos;
 import entidades.Estados;
 import entidades.Hechizos;
 import entidades.Mejorasdote;
@@ -13,6 +12,7 @@ import entidades.Propiedades;
 import entidades.Rasgos;
 import entidades.Razas;
 import entidades.Requisitosdote;
+import entidades.Subclases;
 import entidades.Subrazas;
 import entidades.Tablaclases;
 import entidades.Tablaclasespornivel;
@@ -62,11 +62,10 @@ public class ControladorExplorar extends HttpServlet {
         accion = request.getPathInfo();
         String vista = "";
 
-        Estados estado = null;
-
         Query queryAUX;
         TypedQuery<Estados> queryEstados;
         TypedQuery<Clases> queryClases;
+        TypedQuery<Subclases> querySubClases;
         TypedQuery<Dotes> queryDotes;
         TypedQuery<Mejorasdote> queryMDotes;
         TypedQuery<Requisitosdote> queryRDotes;
@@ -81,6 +80,7 @@ public class ControladorExplorar extends HttpServlet {
 
         List<Estados> listaEstados;
         List<Clases> listaClases;
+        List<Subclases> listaSubClases;
         List<Dotes> listaDotes;
         List<Mejorasdote> listaMDotes;
         List<Requisitosdote> listaRDotes;
@@ -97,6 +97,7 @@ public class ControladorExplorar extends HttpServlet {
         List<Rasgos> listaRasgos;
 
         Clases Clase;
+        Subclases SubClase;
         Trasfondos Trasfondo;
         Razas Raza;
         Subrazas SubRaza;
@@ -123,6 +124,12 @@ public class ControladorExplorar extends HttpServlet {
         String claseH;
 
         String vd;
+
+        String Trucos;
+        String ClaseValoEspecifico1;
+        String ClaseValoEspecifico2;
+        String ClaseValoEspecifico3;
+        String ClaseValoEspecifico4;
 
         String numString;
         int num;
@@ -200,7 +207,7 @@ public class ControladorExplorar extends HttpServlet {
                 queryClases.setParameter("nombre", nombre);
                 Clase = queryClases.getSingleResult();
 
-                queryTablaClaseNivel = em.createNamedQuery("Tablaclasespornivel.findByClase", Tablaclasespornivel.class);
+                queryTablaClaseNivel = em.createNamedQuery("Tablaclasespornivel.findByClases", Tablaclasespornivel.class);
                 queryTablaClaseNivel.setParameter("clases", Clase.getNombre());
                 listaTablaClaseNivel = queryTablaClaseNivel.getResultList();
 
@@ -216,7 +223,995 @@ public class ControladorExplorar extends HttpServlet {
                     }
                 }
 
-                
+                //TablaClase = listaTablaClaseNivel.get(listaTablaClaseNivel.size()).getTablaclases();
+                resultado = "<table class=\"tablaHechizos\">"
+                        + "<thead>"
+                        + "<tr>";
+
+                switch (nombre) {
+                    case "Artificiero":
+                        Trucos = "2";
+                        ClaseValoEspecifico1 = "-";
+                        ClaseValoEspecifico2 = "-";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Infusiones</th>"
+                                + "<th>Objetos</th>"
+                                + "<th>H nv1</th>"
+                                + "<th>H nv2</th>"
+                                + "<th>H nv3</th>"
+                                + "<th>H nv4</th>"
+                                + "<th>H nv5</th>"
+                                + "<th>H nv6</th>"
+                                + "<th>H nv7</th>"
+                                + "<th>H nv8</th>"
+                                + "<th>H nv9</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            switch (i) {
+                                case 1:
+                                    ClaseValoEspecifico1 = "4";
+                                    ClaseValoEspecifico2 = "2";
+                                    break;
+                                case 5:
+                                    ClaseValoEspecifico1 = "6";
+                                    ClaseValoEspecifico2 = "3";
+                                    break;
+                                case 9:
+                                    Trucos = "3";
+                                    ClaseValoEspecifico1 = "8";
+                                    ClaseValoEspecifico2 = "4";
+                                    break;
+                                case 13:
+                                    Trucos = "4";
+                                    ClaseValoEspecifico1 = "10";
+                                    ClaseValoEspecifico2 = "5";
+                                    break;
+                                case 17:
+                                    ClaseValoEspecifico1 = "12";
+                                    ClaseValoEspecifico2 = "6";
+                                    break;
+                            }
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico2 + "</td>"
+                                    + "<td>" + Trucos + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Bardo":
+                        Trucos = "2";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Trucos</th>"
+                                + "<th>H nv1</th>"
+                                + "<th>H nv2</th>"
+                                + "<th>H nv3</th>"
+                                + "<th>H nv4</th>"
+                                + "<th>H nv5</th>"
+                                + "<th>H nv6</th>"
+                                + "<th>H nv7</th>"
+                                + "<th>H nv8</th>"
+                                + "<th>H nv9</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            switch (i) {
+                                case 3:
+                                    Trucos = "3";
+                                    break;
+                                case 9:
+                                    Trucos = "4";
+                                    break;
+                            }
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + Trucos + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Brujo":
+                        Trucos = "-";
+                        ClaseValoEspecifico1 = "2";
+                        ClaseValoEspecifico2 = "1";
+                        ClaseValoEspecifico3 = "1";
+                        ClaseValoEspecifico4 = "-";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Trucos</th>"
+                                + "<th>Hechizos Conocidos</th>"
+                                + "<th>Espacio Hechizos</th>"
+                                + "<th>Nivel de Espacio</th>"
+                                + "<th>Invocaciones Conocidas</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            switch (i) {
+                                case 1:
+                                    ClaseValoEspecifico1 = "3";
+                                    ClaseValoEspecifico2 = "2";
+                                    ClaseValoEspecifico4 = "2";
+                                    break;
+                                case 2:
+                                    ClaseValoEspecifico1 = "4";
+                                    ClaseValoEspecifico3 = "2";
+                                    break;
+                                case 3:
+                                    Trucos = "3";
+                                    ClaseValoEspecifico1 = "5";
+                                    break;
+                                case 4:
+                                    ClaseValoEspecifico1 = "6";
+                                    ClaseValoEspecifico3 = "3";
+                                    ClaseValoEspecifico4 = "3";
+                                    break;
+                                case 5:
+                                    ClaseValoEspecifico1 = "7";
+                                    break;
+                                case 6:
+                                    ClaseValoEspecifico1 = "8";
+                                    ClaseValoEspecifico3 = "4";
+                                    ClaseValoEspecifico4 = "4";
+                                    break;
+                                case 7:
+                                    ClaseValoEspecifico1 = "9";
+                                    break;
+                                case 8:
+                                    ClaseValoEspecifico1 = "10";
+                                    ClaseValoEspecifico3 = "5";
+                                    ClaseValoEspecifico4 = "5";
+                                    break;
+                                case 9:
+                                    Trucos = "4";
+                                    break;
+                                case 10:
+                                    ClaseValoEspecifico1 = "11";
+                                    ClaseValoEspecifico2 = "3";
+                                    break;
+                                case 11:
+                                    ClaseValoEspecifico4 = "6";
+                                    break;
+                                case 12:
+                                    ClaseValoEspecifico1 = "12";
+                                    break;
+                                case 14:
+                                    ClaseValoEspecifico1 = "13";
+                                    ClaseValoEspecifico4 = "7";
+                                    break;
+                                case 15:
+                                    break;
+                                case 16:
+                                    ClaseValoEspecifico1 = "14";
+                                    ClaseValoEspecifico2 = "4";
+                                    break;
+                                case 17:
+                                    ClaseValoEspecifico4 = "8";
+                                    break;
+                                case 18:
+                                    ClaseValoEspecifico1 = "15";
+                                    break;
+                            }
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + Trucos + "</td>"
+                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico2 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico3 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico4 + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Bárbaro":
+                        Trucos = "-";
+                        ClaseValoEspecifico1 = "2";
+                        ClaseValoEspecifico2 = "+2";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Furias</th>"
+                                + "<th>Daño Furia</th>"
+                                + "<th>Trucos</th>"
+                                + "<th>H nv1</th>"
+                                + "<th>H nv2</th>"
+                                + "<th>H nv3</th>"
+                                + "<th>H nv4</th>"
+                                + "<th>H nv5</th>"
+                                + "<th>H nv6</th>"
+                                + "<th>H nv7</th>"
+                                + "<th>H nv8</th>"
+                                + "<th>H nv9</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            switch (i) {
+                                case 2:
+                                    ClaseValoEspecifico1 = "3";
+                                    break;
+                                case 5:
+                                    ClaseValoEspecifico1 = "4";
+                                    break;
+                                case 8:
+                                    ClaseValoEspecifico2 = "+3";
+                                    break;
+                                case 11:
+                                    ClaseValoEspecifico1 = "5";
+                                    break;
+                                case 15:
+                                    ClaseValoEspecifico2 = "+4";
+                                    break;
+                                case 16:
+                                    ClaseValoEspecifico1 = "6";
+                                    break;
+                                case 19:
+                                    ClaseValoEspecifico1 = "Infinita";
+                                    break;
+                            }
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico2 + "</td>"
+                                    + "<td>" + Trucos + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Caballero de la Muerte":
+                        ClaseValoEspecifico1 = "1";
+                        ClaseValoEspecifico2 = "1";
+                        ClaseValoEspecifico3 = "100";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Runa Sangre</th>"
+                                + "<th>Runa Escarcha</th>"
+                                + "<th>Runa Profano</th>"
+                                + "<th>Runa Subclase</th>"
+                                + "<th>Poder Rúnico</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            switch (i) {
+                                case 4:
+                                    ClaseValoEspecifico2 = "2";
+                                    break;
+                                case 6:
+                                    ClaseValoEspecifico3 = "125";
+                                    break;
+                                case 7:
+                                    ClaseValoEspecifico2 = "3";
+                                    break;
+                                case 9:
+                                    ClaseValoEspecifico1 = "2";
+                                    break;
+                                case 10:
+                                    ClaseValoEspecifico3 = "150";
+                                    break;
+                                case 11:
+                                    ClaseValoEspecifico2 = "4";
+                                    break;
+                                case 14:
+                                    ClaseValoEspecifico3 = "175";
+                                    break;
+                                case 18:
+                                    ClaseValoEspecifico3 = "200";
+                                    break;
+                            }
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico2 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico3 + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Cazador de Sangre":
+                        ClaseValoEspecifico1 = "1d4";
+                        ClaseValoEspecifico2 = "-";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Daño del Rito Carmesí</th>"
+                                + "<th>Maldiciones conocidas</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            switch (i) {
+                                case 1:
+                                    ClaseValoEspecifico2 = "1";
+                                    break;
+                                case 4:
+                                    ClaseValoEspecifico1 = "1d6";
+                                    ClaseValoEspecifico2 = "2";
+                                    break;
+                                case 8:
+                                    ClaseValoEspecifico2 = "3";
+                                    break;
+                                case 10:
+                                    ClaseValoEspecifico1 = "1d8";
+                                    break;
+                                case 12:
+                                    ClaseValoEspecifico2 = "4";
+                                    break;
+                                case 16:
+                                    ClaseValoEspecifico1 = "1d10";
+                                    ClaseValoEspecifico2 = "5";
+                                    break;
+                                case 19:
+                                    ClaseValoEspecifico2 = "6";
+                                    break;
+                            }
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico2 + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Clérigo":
+                        Trucos = "3";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Trucos</th>"
+                                + "<th>H nv1</th>"
+                                + "<th>H nv2</th>"
+                                + "<th>H nv3</th>"
+                                + "<th>H nv4</th>"
+                                + "<th>H nv5</th>"
+                                + "<th>H nv6</th>"
+                                + "<th>H nv7</th>"
+                                + "<th>H nv8</th>"
+                                + "<th>H nv9</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            switch (i) {
+                                case 3:
+                                    Trucos = "4";
+                                    break;
+                                case 9:
+                                    Trucos = "5";
+                                    break;
+                            }
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + Trucos + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Druida":
+                        Trucos = "2";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Trucos</th>"
+                                + "<th>H nv1</th>"
+                                + "<th>H nv2</th>"
+                                + "<th>H nv3</th>"
+                                + "<th>H nv4</th>"
+                                + "<th>H nv5</th>"
+                                + "<th>H nv6</th>"
+                                + "<th>H nv7</th>"
+                                + "<th>H nv8</th>"
+                                + "<th>H nv9</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            switch (i) {
+                                case 3:
+                                    Trucos = "3";
+                                    break;
+                                case 9:
+                                    Trucos = "4";
+                                    break;
+                            }
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + Trucos + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Explorador":
+                        ClaseValoEspecifico1 = "-";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Hechizos conocidos</th>"
+                                + "<th>H nv1</th>"
+                                + "<th>H nv2</th>"
+                                + "<th>H nv3</th>"
+                                + "<th>H nv4</th>"
+                                + "<th>H nv5</th>"
+                                + "<th>H nv6</th>"
+                                + "<th>H nv7</th>"
+                                + "<th>H nv8</th>"
+                                + "<th>H nv9</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            switch (i) {
+                                case 1:
+                                    ClaseValoEspecifico1 = "2";
+                                    break;
+                                case 2:
+                                    ClaseValoEspecifico1 = "3";
+                                    break;
+                                case 4:
+                                    ClaseValoEspecifico1 = "4";
+                                    break;
+                                case 6:
+                                    ClaseValoEspecifico1 = "5";
+                                    break;
+                                case 8:
+                                    ClaseValoEspecifico1 = "6";
+                                    break;
+                                case 10:
+                                    ClaseValoEspecifico1 = "7";
+                                    break;
+                                case 12:
+                                    ClaseValoEspecifico1 = "8";
+                                    break;
+                                case 14:
+                                    ClaseValoEspecifico1 = "9";
+                                    break;
+                                case 16:
+                                    ClaseValoEspecifico1 = "10";
+                                    break;
+                                case 18:
+                                    ClaseValoEspecifico1 = "11";
+                                    break;
+                            }
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Hechicero":
+                        Trucos = "4";
+                        ClaseValoEspecifico1 = "2";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Trucos</th>"
+                                + "<th>Hechizos conocidos</th>"
+                                + "<th>H nv1</th>"
+                                + "<th>H nv2</th>"
+                                + "<th>H nv3</th>"
+                                + "<th>H nv4</th>"
+                                + "<th>H nv5</th>"
+                                + "<th>H nv6</th>"
+                                + "<th>H nv7</th>"
+                                + "<th>H nv8</th>"
+                                + "<th>H nv9</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            switch (i) {
+                                case 1:
+                                    ClaseValoEspecifico1 = "3";
+                                    break;
+                                case 2:
+                                    ClaseValoEspecifico1 = "4";
+                                    break;
+                                case 3:
+                                    Trucos = "5";
+                                    ClaseValoEspecifico1 = "5";
+                                    break;
+                                case 4:
+                                    ClaseValoEspecifico1 = "6";
+                                    break;
+                                case 5:
+                                    ClaseValoEspecifico1 = "7";
+                                    break;
+                                case 6:
+                                    ClaseValoEspecifico1 = "8";
+                                    break;
+                                case 7:
+                                    ClaseValoEspecifico1 = "9";
+                                    break;
+                                case 8:
+                                    ClaseValoEspecifico1 = "10";
+                                    break;
+                                case 9:
+                                    Trucos = "6";
+                                    ClaseValoEspecifico1 = "11";
+                                    break;
+                                case 10:
+                                    Trucos = "6";
+                                    ClaseValoEspecifico1 = "12";
+                                    break;
+                                case 12:
+                                    Trucos = "6";
+                                    ClaseValoEspecifico1 = "13";
+                                    break;
+                                case 14:
+                                    Trucos = "6";
+                                    ClaseValoEspecifico1 = "14";
+                                    break;
+                                case 16:
+                                    Trucos = "6";
+                                    ClaseValoEspecifico1 = "15";
+                                    break;
+                            }
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + Trucos + "</td>"
+                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Luchador":
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>H nv1</th>"
+                                + "<th>H nv2</th>"
+                                + "<th>H nv3</th>"
+                                + "<th>H nv4</th>"
+                                + "<th>H nv5</th>"
+                                + "<th>H nv6</th>"
+                                + "<th>H nv7</th>"
+                                + "<th>H nv8</th>"
+                                + "<th>H nv9</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Mago":
+                        Trucos = "3";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Trucos</th>"
+                                + "<th>H nv1</th>"
+                                + "<th>H nv2</th>"
+                                + "<th>H nv3</th>"
+                                + "<th>H nv4</th>"
+                                + "<th>H nv5</th>"
+                                + "<th>H nv6</th>"
+                                + "<th>H nv7</th>"
+                                + "<th>H nv8</th>"
+                                + "<th>H nv9</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+                        for (int i = 0; i < 20; i++) {
+
+                            switch (i) {
+                                case 3:
+                                    Trucos = "4";
+                                    break;
+                                case 9:
+                                    Trucos = "5";
+                                    break;
+                            }
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + Trucos + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Monje":
+                        ClaseValoEspecifico1 = "1d4";
+                        ClaseValoEspecifico2 = "-";
+                        ClaseValoEspecifico3 = "-";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Artes Marciales</th>"
+                                + "<th>Puntos Ki</th>"
+                                + "<th>Mov sin Armadura</th>"
+                                + "<th>H nv1</th>"
+                                + "<th>H nv2</th>"
+                                + "<th>H nv3</th>"
+                                + "<th>H nv4</th>"
+                                + "<th>H nv5</th>"
+                                + "<th>H nv6</th>"
+                                + "<th>H nv7</th>"
+                                + "<th>H nv8</th>"
+                                + "<th>H nv9</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            ClaseValoEspecifico2 = String.valueOf(i + 1);
+
+                            switch (i) {
+                                case 1:
+                                    ClaseValoEspecifico3 = "+10 Pies (3m)";
+                                    break;
+                                case 3:
+                                    ClaseValoEspecifico1 = "1d6";
+                                    break;
+                                case 5:
+                                    ClaseValoEspecifico3 = "+15 Pies (5m)";
+                                    break;
+                                case 9:
+                                    ClaseValoEspecifico3 = "+20 Pies (6m)";
+                                    break;
+                                case 10:
+                                    ClaseValoEspecifico1 = "1d8";
+                                    break;
+                                case 13:
+                                    ClaseValoEspecifico3 = "+25 Pies (6m)";
+                                    break;
+                                case 16:
+                                    ClaseValoEspecifico1 = "1d10";
+                                    break;
+                                case 17:
+                                    ClaseValoEspecifico3 = "+30 Pies (10m)";
+                                    break;
+
+                            }
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico2 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico3 + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Paladin":
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Trucos</th>"
+                                + "<th>H nv1</th>"
+                                + "<th>H nv2</th>"
+                                + "<th>H nv3</th>"
+                                + "<th>H nv4</th>"
+                                + "<th>H nv5</th>"
+                                + "<th>H nv6</th>"
+                                + "<th>H nv7</th>"
+                                + "<th>H nv8</th>"
+                                + "<th>H nv9</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                    case "Pícaro":
+
+                        ClaseValoEspecifico1 = "1d6";
+
+                        resultado = resultado
+                                + "<th>Nivel</th>"
+                                + "<th>BC</th>"
+                                + "<th>Ataque Furtivo</th>"
+                                + "<th>H nv1</th>"
+                                + "<th>H nv2</th>"
+                                + "<th>H nv3</th>"
+                                + "<th>H nv4</th>"
+                                + "<th>H nv5</th>"
+                                + "<th>H nv6</th>"
+                                + "<th>H nv7</th>"
+                                + "<th>H nv8</th>"
+                                + "<th>H nv9</th>"
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>";
+
+                        for (int i = 0; i < 20; i++) {
+
+                            switch (i) {
+                                case 2:
+                                    ClaseValoEspecifico1 = "2d6";
+                                    break;
+                                case 4:
+                                    ClaseValoEspecifico1 = "3d6";
+                                    break;
+                                case 6:
+                                    ClaseValoEspecifico1 = "4d6";
+                                    break;
+                                case 8:
+                                    ClaseValoEspecifico1 = "5d6";
+                                    break;
+                                case 10:
+                                    ClaseValoEspecifico1 = "6d6";
+                                    break;
+                                case 12:
+                                    ClaseValoEspecifico1 = "7d6";
+                                    break;
+                                case 14:
+                                    ClaseValoEspecifico1 = "8d6";
+                                    break;
+                                case 16:
+                                    ClaseValoEspecifico1 = "9d6";
+                                    break;
+                                case 18:
+                                    ClaseValoEspecifico1 = "10d6";
+                                    break;
+                            }
+
+                            resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "</tr>";
+                        }
+                        break;
+                }
+                resultado = resultado
+                        + "</tbody>"
+                        + "</table>";
+
+                request.setAttribute("tablaHechizos", resultado);
+
+                resultado = Clase.getEquipoinicial().replace("•", "<br>•");
+                resultado = resultado.replaceFirst("<br>", "");
+
+                request.setAttribute("equipoinicial", resultado);
+                request.setAttribute("listahabilidades", Clase.getHabilidadesList());
+                request.setAttribute("listaatributos", Clase.getAtributosList());
+                request.setAttribute("listarasgos", listaRasgos);
+                request.setAttribute("listaSubclases", Clase.getSubclasesList());
+
+                request.setAttribute("imagen", Clase.getNombre().replaceAll("\\s", ""));
+                request.setAttribute("clase", Clase);
+
+                vista = "/WEB-INF/jsp/explorar/clase.jsp";
+                break;
+            case "/subclase":
+
+                nombre = request.getParameter("clase");
+                id = request.getParameter("subclase");
+
+                //Recogemos la clase
+                queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
+                queryClases.setParameter("nombre", nombre);
+                Clase = queryClases.getSingleResult();
+
+                //Recogemos la subclase
+                querySubClases = em.createNamedQuery("Subclases.findById", Subclases.class);
+                querySubClases.setParameter("id", id);
+                SubClase = querySubClases.getSingleResult();
+
+                //Recogemos la tabla de la subclase
+                queryTablaClaseNivel = em.createNamedQuery("Tablaclasespornivel.findBySubclases", Tablaclasespornivel.class);
+                queryTablaClaseNivel.setParameter("subclase", Clase.getNombre());
+                listaTablaClaseNivel = queryTablaClaseNivel.getResultList();
+
+                listaTablaClases = new ArrayList();
+                listaRasgos = new ArrayList();
+
+                //Recogemos todas las clases por nivel
+                for (int i = 0; i < listaTablaClaseNivel.size(); i++) {
+                    listaTablaClases.add(listaTablaClaseNivel.get(i).getTablaclases());
+                    //Añadimos todos los rasgos a la lista de rasgos general
+                    for (int j = 0; j < listaTablaClases.get(i).getRasgos(); j++) {
+                        listaRasgos.add(listaTablaClases.get(i).getRasgosList().get(j));
+                    }
+                }
+
                 TablaClase = listaTablaClaseNivel.get(listaTablaClaseNivel.size()).getTablaclases();
 
                 resultado = "<table class=\"tablaHechizos\">"

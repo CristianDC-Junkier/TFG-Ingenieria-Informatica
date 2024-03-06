@@ -1,3 +1,4 @@
+
 package entidades;
 
 import java.io.Serializable;
@@ -6,7 +7,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
@@ -31,8 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Subclases.findAll", query = "SELECT s FROM Subclases s"),
     @NamedQuery(name = "Subclases.findById", query = "SELECT s FROM Subclases s WHERE s.id = :id"),
-    @NamedQuery(name = "Subclases.findByNombre", query = "SELECT s FROM Subclases s WHERE s.nombre = :nombre"),
-    @NamedQuery(name = "Subclases.findByNivel", query = "SELECT s FROM Subclases s WHERE s.nivel = :nivel")})
+    @NamedQuery(name = "Subclases.findByNombre", query = "SELECT s FROM Subclases s WHERE s.nombre = :nombre")})
 public class Subclases implements Serializable {
 
     @Basic(optional = false)
@@ -45,10 +44,10 @@ public class Subclases implements Serializable {
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "NIVEL", nullable = false)
-    private short nivel;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subclases1")
+    private List<Tablaclasespornivel> tablaclasespornivelList;
+    @ManyToMany(mappedBy = "subclasesList")
+    private List<Clases> clasesList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,10 +56,6 @@ public class Subclases implements Serializable {
     @Size(min = 1, max = 36)
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
-    @ManyToMany(mappedBy = "subclasesList", fetch = FetchType.LAZY)
-    private List<Clases> clasesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subclases1", fetch = FetchType.LAZY)
-    private List<Tablaclasespornivel> tablaclasespornivelList;
 
     public Subclases() {
     }
@@ -69,17 +64,10 @@ public class Subclases implements Serializable {
         this.id = id;
     }
 
-    public Subclases(String id, String nombre, String descripcion, short nivel) {
+    public Subclases(String id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.nivel = nivel;
-    }
-
-    public Subclases(String nombre, String descripcion, short nivel) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.nivel = nivel;
     }
 
     public String getId() {
@@ -90,24 +78,6 @@ public class Subclases implements Serializable {
         this.id = id;
     }
 
-
-    @XmlTransient
-    public List<Clases> getClasesList() {
-        return clasesList;
-    }
-
-    public void setClasesList(List<Clases> clasesList) {
-        this.clasesList = clasesList;
-    }
-
-    @XmlTransient
-    public List<Tablaclasespornivel> getTablaclasespornivelList() {
-        return tablaclasespornivelList;
-    }
-
-    public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
-        this.tablaclasespornivelList = tablaclasespornivelList;
-    }
 
     @Override
     public int hashCode() {
@@ -134,6 +104,16 @@ public class Subclases implements Serializable {
         return "entidades.Subclases[ id=" + id + " ]";
     }
 
+
+    @XmlTransient
+    public List<Clases> getClasesList() {
+        return clasesList;
+    }
+
+    public void setClasesList(List<Clases> clasesList) {
+        this.clasesList = clasesList;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -150,12 +130,13 @@ public class Subclases implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public short getNivel() {
-        return nivel;
+    @XmlTransient
+    public List<Tablaclasespornivel> getTablaclasespornivelList() {
+        return tablaclasespornivelList;
     }
 
-    public void setNivel(short nivel) {
-        this.nivel = nivel;
+    public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
+        this.tablaclasespornivelList = tablaclasespornivelList;
     }
-
+    
 }

@@ -30,24 +30,25 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Alcance.findByMaximo", query = "SELECT a FROM Alcance a WHERE a.maximo = :maximo")})
 public class Alcance implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "NOMBRE", nullable = false, length = 30)
+    private String nombre;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MINIMO", nullable = false)
+    private BigInteger minimo;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MAXIMO", nullable = false)
+    private BigInteger maximo;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private String id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "NOMBRE")
-    private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "MINIMO")
-    private BigInteger minimo;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "MAXIMO")
-    private BigInteger maximo;
 
     public Alcance() {
     }
@@ -71,29 +72,6 @@ public class Alcance implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public BigInteger getMinimo() {
-        return minimo;
-    }
-
-    public void setMinimo(BigInteger minimo) {
-        this.minimo = minimo;
-    }
-
-    public BigInteger getMaximo() {
-        return maximo;
-    }
-
-    public void setMaximo(BigInteger maximo) {
-        this.maximo = maximo;
-    }
 
     @Override
     public int hashCode() {
@@ -118,6 +96,30 @@ public class Alcance implements Serializable {
     @Override
     public String toString() {
         return "entidades.Alcance[ id=" + id + " ]";
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public BigInteger getMinimo() {
+        return minimo;
+    }
+
+    public void setMinimo(BigInteger minimo) {
+        this.minimo = minimo;
+    }
+
+    public BigInteger getMaximo() {
+        return maximo;
+    }
+
+    public void setMaximo(BigInteger maximo) {
+        this.maximo = maximo;
     }
     
 }

@@ -154,6 +154,16 @@ public class Rasgos implements Serializable {
         this.subrazasList = subrazasList;
     }
 
+
+    @XmlTransient
+    public List<Tablaclases> getTablaclasesList() {
+        return tablaclasesList;
+    }
+
+    public void setTablaclasesList(List<Tablaclases> tablaclasesList) {
+        this.tablaclasesList = tablaclasesList;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -168,15 +178,6 @@ public class Rasgos implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    @XmlTransient
-    public List<Tablaclases> getTablaclasesList() {
-        return tablaclasesList;
-    }
-
-    public void setTablaclasesList(List<Tablaclases> tablaclasesList) {
-        this.tablaclasesList = tablaclasesList;
     }
     
 }

@@ -138,6 +138,13 @@ public class Tablaclases implements Serializable {
     public String toString() {
         return "entidades.Tablaclases[ id=" + id + " ]";
     }
+    @XmlTransient
+    public List<Rasgos> getRasgosList() {
+        return rasgosList;
+    }
+    public void setRasgosList(List<Rasgos> rasgosList) {
+        this.rasgosList = rasgosList;
+    }
 
     public short getRasgos() {
         return rasgos;
@@ -169,15 +176,6 @@ public class Tablaclases implements Serializable {
 
     public void setHechizos(short hechizos) {
         this.hechizos = hechizos;
-    }
-
-    @XmlTransient
-    public List<Rasgos> getRasgosList() {
-        return rasgosList;
-    }
-
-    public void setRasgosList(List<Rasgos> rasgosList) {
-        this.rasgosList = rasgosList;
     }
     
 }

@@ -60,11 +60,17 @@
             <div class="abajoSubclasesClase">
                 <div>
                     <h3>Subclases</h3>
+                    <div><c:forEach var="subClase" items="${listaSubclases}" varStatus="status">
+                            <p>${subClase.nombre}</p>
+                        </c:forEach></div>
                 </div>
             </div>
             <div class="abajoRasgosClase">
                 <div>
-                    <h3>Subclases</h3>
+                    <h3>Rasgos</h3>
+                    <div><c:forEach var="rasClase" items="${listarasgos}" varStatus="status">
+                            ${rasClase.nombre}:${rasClase.descripcion} <c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                        </c:forEach></div>
                 </div>
             </div>
         </main>

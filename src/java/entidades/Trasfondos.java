@@ -121,6 +121,34 @@ public class Trasfondos implements Serializable {
         return "entidades.Trasfondos[ id=" + id + " ]";
     }
 
+
+    @XmlTransient
+    public List<Habilidades> getHabilidadesList() {
+        return habilidadesList;
+    }
+
+    public void setHabilidadesList(List<Habilidades> habilidadesList) {
+        this.habilidadesList = habilidadesList;
+    }
+
+    @XmlTransient
+    public List<Habilidades> getHabilidadesList1() {
+        return habilidadesList1;
+    }
+
+    public void setHabilidadesList1(List<Habilidades> habilidadesList1) {
+        this.habilidadesList1 = habilidadesList1;
+    }
+
+    @XmlTransient
+    public List<Rasgos> getRasgosList() {
+        return rasgosList;
+    }
+
+    public void setRasgosList(List<Rasgos> rasgosList) {
+        this.rasgosList = rasgosList;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -167,33 +195,6 @@ public class Trasfondos implements Serializable {
 
     public void setElegirhab(String elegirhab) {
         this.elegirhab = elegirhab;
-    }
-
-    @XmlTransient
-    public List<Habilidades> getHabilidadesList() {
-        return habilidadesList;
-    }
-
-    public void setHabilidadesList(List<Habilidades> habilidadesList) {
-        this.habilidadesList = habilidadesList;
-    }
-
-    @XmlTransient
-    public List<Habilidades> getHabilidadesList1() {
-        return habilidadesList1;
-    }
-
-    public void setHabilidadesList1(List<Habilidades> habilidadesList1) {
-        this.habilidadesList1 = habilidadesList1;
-    }
-
-    @XmlTransient
-    public List<Rasgos> getRasgosList() {
-        return rasgosList;
-    }
-
-    public void setRasgosList(List<Rasgos> rasgosList) {
-        this.rasgosList = rasgosList;
     }
     
 }

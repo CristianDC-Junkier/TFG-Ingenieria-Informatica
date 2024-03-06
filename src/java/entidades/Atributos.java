@@ -113,6 +113,16 @@ public class Atributos implements Serializable {
         this.sumarazaList = sumarazaList;
     }
 
+
+    @XmlTransient
+    public List<Clases> getClasesList() {
+        return clasesList;
+    }
+
+    public void setClasesList(List<Clases> clasesList) {
+        this.clasesList = clasesList;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -127,15 +137,6 @@ public class Atributos implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    @XmlTransient
-    public List<Clases> getClasesList() {
-        return clasesList;
-    }
-
-    public void setClasesList(List<Clases> clasesList) {
-        this.clasesList = clasesList;
     }
     
 }

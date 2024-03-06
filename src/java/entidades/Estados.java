@@ -90,13 +90,6 @@ public class Estados implements Serializable {
         return "controlador.Estados[ nombre=" + nombre + " ]";
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
     @XmlTransient
     public List<Monstruos> getMonstruosList() {
@@ -105,6 +98,14 @@ public class Estados implements Serializable {
 
     public void setMonstruosList(List<Monstruos> monstruosList) {
         this.monstruosList = monstruosList;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
     
 }

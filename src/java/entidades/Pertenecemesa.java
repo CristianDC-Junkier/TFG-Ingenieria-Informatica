@@ -6,6 +6,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -31,14 +33,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class Pertenecemesa implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected PertenecemesaPK pertenecemesaPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "ROL")
+    @Column(name = "ROL", nullable = false, length = 50)
     private String rol;
+    @JoinColumn(name = "MESA", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Mesas mesas;
+    @JoinColumn(name = "USUARIO", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Usuarios usuarios;
+
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected PertenecemesaPK pertenecemesaPK;
 
     public Pertenecemesa() {
     }
@@ -65,13 +74,6 @@ public class Pertenecemesa implements Serializable {
         this.pertenecemesaPK = pertenecemesaPK;
     }
 
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
 
     @Override
     public int hashCode() {
@@ -96,6 +98,30 @@ public class Pertenecemesa implements Serializable {
     @Override
     public String toString() {
         return "entidades.Pertenecemesa[ pertenecemesaPK=" + pertenecemesaPK + " ]";
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public Mesas getMesas() {
+        return mesas;
+    }
+
+    public void setMesas(Mesas mesas) {
+        this.mesas = mesas;
+    }
+
+    public Usuarios getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(Usuarios usuarios) {
+        this.usuarios = usuarios;
     }
     
 }

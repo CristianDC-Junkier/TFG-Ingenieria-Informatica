@@ -199,6 +199,52 @@ public class Monstruos implements Serializable {
         return "entidades.Monstruos[ id=" + id + " ]";
     }
 
+
+    @XmlTransient
+    public List<Estados> getEstadosList() {
+        return estadosList;
+    }
+
+    public void setEstadosList(List<Estados> estadosList) {
+        this.estadosList = estadosList;
+    }
+
+    @XmlTransient
+    public List<Acciones> getAccionesList() {
+        return accionesList;
+    }
+
+    public void setAccionesList(List<Acciones> accionesList) {
+        this.accionesList = accionesList;
+    }
+
+    @XmlTransient
+    public List<Rasgos> getRasgosList() {
+        return rasgosList;
+    }
+
+    public void setRasgosList(List<Rasgos> rasgosList) {
+        this.rasgosList = rasgosList;
+    }
+
+    @XmlTransient
+    public List<Tienemonstruo> getTienemonstruoList() {
+        return tienemonstruoList;
+    }
+
+    public void setTienemonstruoList(List<Tienemonstruo> tienemonstruoList) {
+        this.tienemonstruoList = tienemonstruoList;
+    }
+
+    @XmlTransient
+    public List<Competentemonstruo> getCompetentemonstruoList() {
+        return competentemonstruoList;
+    }
+
+    public void setCompetentemonstruoList(List<Competentemonstruo> competentemonstruoList) {
+        this.competentemonstruoList = competentemonstruoList;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -309,51 +355,6 @@ public class Monstruos implements Serializable {
 
     public void setVuldano(String vuldano) {
         this.vuldano = vuldano;
-    }
-
-    @XmlTransient
-    public List<Estados> getEstadosList() {
-        return estadosList;
-    }
-
-    public void setEstadosList(List<Estados> estadosList) {
-        this.estadosList = estadosList;
-    }
-
-    @XmlTransient
-    public List<Acciones> getAccionesList() {
-        return accionesList;
-    }
-
-    public void setAccionesList(List<Acciones> accionesList) {
-        this.accionesList = accionesList;
-    }
-
-    @XmlTransient
-    public List<Rasgos> getRasgosList() {
-        return rasgosList;
-    }
-
-    public void setRasgosList(List<Rasgos> rasgosList) {
-        this.rasgosList = rasgosList;
-    }
-
-    @XmlTransient
-    public List<Tienemonstruo> getTienemonstruoList() {
-        return tienemonstruoList;
-    }
-
-    public void setTienemonstruoList(List<Tienemonstruo> tienemonstruoList) {
-        this.tienemonstruoList = tienemonstruoList;
-    }
-
-    @XmlTransient
-    public List<Competentemonstruo> getCompetentemonstruoList() {
-        return competentemonstruoList;
-    }
-
-    public void setCompetentemonstruoList(List<Competentemonstruo> competentemonstruoList) {
-        this.competentemonstruoList = competentemonstruoList;
     }
 
 }

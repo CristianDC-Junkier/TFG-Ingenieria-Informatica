@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
@@ -30,26 +33,26 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Mensajesmesas.findByEscritor", query = "SELECT m FROM Mensajesmesas m WHERE m.escritor = :escritor")})
 public class Mensajesmesas implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
+    @Column(name = "ID")
     private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
+    @Column(name = "MENSAJE", nullable = false, length = 255)
     private String mensaje;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "FECHA", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    private String mesa;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    private String escritor;
+    @JoinColumn(name = "MESA", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
+    private Mesas mesa;
+    @JoinColumn(name = "ESCRITOR", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
+    private Usuarios escritor;
 
     public Mensajesmesas() {
     }
@@ -58,12 +61,10 @@ public class Mensajesmesas implements Serializable {
         this.id = id;
     }
 
-    public Mensajesmesas(String id, String mensaje, Date fecha, String mesa, String escritor) {
+    public Mensajesmesas(String id, String mensaje, Date fecha) {
         this.id = id;
         this.mensaje = mensaje;
         this.fecha = fecha;
-        this.mesa = mesa;
-        this.escritor = escritor;
     }
 
     public String getId() {
@@ -99,19 +100,19 @@ public class Mensajesmesas implements Serializable {
         return horaFormateada;
     }
 
-    public String getMesa() {
+    public Mesas getMesa() {
         return mesa;
     }
 
-    public void setMesa(String mesa) {
+    public void setReceptor(Mesas mesa) {
         this.mesa = mesa;
     }
 
-    public String getEscritor() {
+    public Usuarios getEscritor() {
         return escritor;
     }
 
-    public void setEscritor(String escritor) {
+    public void setEscritor(Usuarios escritor) {
         this.escritor = escritor;
     }
 
@@ -139,5 +140,4 @@ public class Mensajesmesas implements Serializable {
     public String toString() {
         return "controlador.Mensajesmesas[ id=" + id + " ]";
     }
-
 }

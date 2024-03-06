@@ -1,3 +1,4 @@
+
 package entidades;
 
 import java.io.Serializable;
@@ -6,8 +7,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -32,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Clases.findAll", query = "SELECT c FROM Clases c ORDER BY c.nombre"),
+    @NamedQuery(name = "Clases.findAll", query = "SELECT c FROM Clases c"),
     @NamedQuery(name = "Clases.findById", query = "SELECT c FROM Clases c WHERE c.id = :id"),
     @NamedQuery(name = "Clases.findByNombre", query = "SELECT c FROM Clases c WHERE c.nombre = :nombre"),
     @NamedQuery(name = "Clases.findByDpg", query = "SELECT c FROM Clases c WHERE c.dpg = :dpg"),
@@ -41,7 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Clases.findByCompherramientas", query = "SELECT c FROM Clases c WHERE c.compherramientas = :compherramientas"),
     @NamedQuery(name = "Clases.findByHabhechizos", query = "SELECT c FROM Clases c WHERE c.habhechizos = :habhechizos"),
     @NamedQuery(name = "Clases.findByEquipoinicial", query = "SELECT c FROM Clases c WHERE c.equipoinicial = :equipoinicial"),
-    @NamedQuery(name = "Clases.findByOroinicial", query = "SELECT c FROM Clases c WHERE c.oroinicial = :oroinicial")})
+    @NamedQuery(name = "Clases.findByOroinicial", query = "SELECT c FROM Clases c WHERE c.oroinicial = :oroinicial"),
+    @NamedQuery(name = "Clases.findByElegirhab", query = "SELECT c FROM Clases c WHERE c.elegirhab = :elegirhab"),
+    @NamedQuery(name = "Clases.findByNivelsubclase", query = "SELECT c FROM Clases c WHERE c.nivelsubclase = :nivelsubclase")})
 public class Clases implements Serializable {
 
     @Basic(optional = false)
@@ -50,8 +51,8 @@ public class Clases implements Serializable {
     @Column(name = "NOMBRE", nullable = false, length = 60)
     private String nombre;
     @Basic(optional = false)
-    @NotNull
-    @Lob()
+    @NotNull()
+    @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @Size(max = 3)
@@ -75,35 +76,35 @@ public class Clases implements Serializable {
     @Size(max = 15)
     @Column(name = "OROINICIAL", length = 15)
     private String oroinicial;
-    @Size(max = 1)
-    @Column(name = "ELEGIRHAB", length = 1)
+    @Basic(optional = false)
+    @NotNull()
+    @Size(min = 1, max = 2)
+    @Column(name = "ELEGIRHAB", nullable = false, length = 2)
     private String elegirhab;
-    @JoinTable(name = "DACOMPETENCIACLASE", joinColumns = {
-        @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
+    @Basic(optional = false)
+    @NotNull()
+    @Column(name = "NIVELSUBCLASE", nullable = false)
+    private short nivelsubclase;
+    @JoinTable(name = "DACOMPETENCIACLASE", joinColumns = {@JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {@JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Habilidades> habilidadesList;
-    @JoinTable(name = "DASALVACIONCLASE", joinColumns = {
-        @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false)})
+    @JoinTable(name = "DASALVACIONCLASE", joinColumns = {@JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {@JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Atributos> atributosList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clases1")
+    private List<Tablaclasespornivel> tablaclasespornivelList;
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
-    @Column(name = "ID")
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
     private String id;
-    
-    @ManyToMany(mappedBy = "clasesList", fetch = FetchType.LAZY)
-    private List<Hechizos> hechizosList;
-
     @JoinTable(name = "SUSSUBCLASESSON", joinColumns = {
         @JoinColumn(name = "CLASES", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "SUBCLASES", referencedColumnName = "ID", nullable = false)})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<Subclases> subclasesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clases", fetch = FetchType.LAZY)
-    private List<Tablaclasespornivel> tablaclasespornivelList;
 
     public Clases() {
     }
@@ -112,29 +113,12 @@ public class Clases implements Serializable {
         this.id = id;
     }
 
-    public Clases(String id, String nombre, String descripcion) {
+    public Clases(String id, String nombre, String descripcion, String elegirhab, short nivelsubclase) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-    }
-
-    public Clases(String nombre, String descripcion) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
-
-    public Clases(String nombre, String descripcion, String dpg, String comparmas, String comparmaduras, String compherramientas, String habhechizos, String equipoinicial, String oroinicial, List<Subclases> subclasesList, List<Tablaclasespornivel> tablaclasespornivelList) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.dpg = dpg;
-        this.comparmas = comparmas;
-        this.comparmaduras = comparmaduras;
-        this.compherramientas = compherramientas;
-        this.habhechizos = habhechizos;
-        this.equipoinicial = equipoinicial;
-        this.oroinicial = oroinicial;
-        this.subclasesList = subclasesList;
-        this.tablaclasespornivelList = tablaclasespornivelList;
+        this.elegirhab = elegirhab;
+        this.nivelsubclase = nivelsubclase;
     }
 
     public String getId() {
@@ -144,14 +128,19 @@ public class Clases implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
-
+    @XmlTransient
+    public List<Subclases> getSubclasesList() {
+        return subclasesList;
+    }
+    public void setSubclasesList(List<Subclases> subclasesList) {
+        this.subclasesList = subclasesList;
+    }
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
-
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -164,31 +153,9 @@ public class Clases implements Serializable {
         }
         return true;
     }
-
     @Override
     public String toString() {
         return "entidades.Clases[ id=" + id + " ]";
-    }
-    @XmlTransient
-    public List<Subclases> getSubclasesList() {
-        return subclasesList;
-    }
-    public void setSubclasesList(List<Subclases> subclasesList) {
-        this.subclasesList = subclasesList;
-    }
-    @XmlTransient
-    public List<Tablaclasespornivel> getTablaclasespornivelList() {
-        return tablaclasespornivelList;
-    }
-    public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
-        this.tablaclasespornivelList = tablaclasespornivelList;
-    }
-    @XmlTransient
-    public List<Hechizos> getHechizosList() {
-        return hechizosList;
-    }
-    public void setHechizosList(List<Hechizos> hechizosList) {
-        this.hechizosList = hechizosList;
     }
 
     public String getNombre() {
@@ -271,6 +238,14 @@ public class Clases implements Serializable {
         this.elegirhab = elegirhab;
     }
 
+    public short getNivelsubclase() {
+        return nivelsubclase;
+    }
+
+    public void setNivelsubclase(short nivelsubclase) {
+        this.nivelsubclase = nivelsubclase;
+    }
+
     @XmlTransient
     public List<Habilidades> getHabilidadesList() {
         return habilidadesList;
@@ -289,4 +264,13 @@ public class Clases implements Serializable {
         this.atributosList = atributosList;
     }
 
+    @XmlTransient
+    public List<Tablaclasespornivel> getTablaclasespornivelList() {
+        return tablaclasespornivelList;
+    }
+
+    public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
+        this.tablaclasespornivelList = tablaclasespornivelList;
+    }
+    
 }

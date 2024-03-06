@@ -32,20 +32,22 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Propiedades.findByNombre", query = "SELECT p FROM Propiedades p WHERE p.nombre = :nombre")})
 public class Propiedades implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "NOMBRE", nullable = false, length = 30)
+    private String nombre;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "DESCRIPCION", nullable = false)
+    private String descripcion;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private String id;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "NOMBRE")
-    private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Column(name = "DESCRIPCION")
-    private String descripcion;
     @ManyToMany(mappedBy = "propiedadesList", fetch = FetchType.LAZY)
     private List<Equipo> equipoList;
 
@@ -70,21 +72,6 @@ public class Propiedades implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
     @XmlTransient
     public List<Equipo> getEquipoList() {
@@ -118,6 +105,22 @@ public class Propiedades implements Serializable {
     @Override
     public String toString() {
         return "entidades.Propiedades[ id=" + id + " ]";
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
     
 }
