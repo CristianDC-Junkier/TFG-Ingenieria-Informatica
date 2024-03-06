@@ -1,8 +1,10 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package entidades;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -21,21 +23,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tablaclasespornivel.findAll", query = "SELECT t FROM Tablaclasespornivel t"),
-    @NamedQuery(name = "Tablaclasespornivel.findByClases", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.clases = :clases"),
-    @NamedQuery(name = "Tablaclasespornivel.findBySubclases", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.subclases = :subclases"),
-    @NamedQuery(name = "Tablaclasespornivel.findByNivel", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.nivel = :nivel"),
-})
+    @NamedQuery(name = "Tablaclasespornivel.findByClase", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.clase = :clase"),
+    @NamedQuery(name = "Tablaclasespornivel.findByNivel", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.nivel = :nivel")})
 public class Tablaclasespornivel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TablaclasespornivelPK tablaclasespornivelPK;
-    @JoinColumn(name = "CLASES", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Clases clases1;
-    @JoinColumn(name = "SUBCLASES", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Subclases subclases1;
+    private Clases clases;
     @JoinColumn(name = "TABLACLASES", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
     private Tablaclases tablaclases;
@@ -47,8 +44,8 @@ public class Tablaclasespornivel implements Serializable {
         this.tablaclasespornivelPK = tablaclasespornivelPK;
     }
 
-    public Tablaclasespornivel(String clases, String subclases, BigInteger nivel) {
-        this.tablaclasespornivelPK = new TablaclasespornivelPK(clases, subclases, nivel);
+    public Tablaclasespornivel(String clase, short nivel) {
+        this.tablaclasespornivelPK = new TablaclasespornivelPK(clase, nivel);
     }
 
     public TablaclasespornivelPK getTablaclasespornivelPK() {
@@ -59,20 +56,12 @@ public class Tablaclasespornivel implements Serializable {
         this.tablaclasespornivelPK = tablaclasespornivelPK;
     }
 
-    public Clases getClases1() {
-        return clases1;
+    public Clases getClases() {
+        return clases;
     }
 
-    public void setClases1(Clases clases1) {
-        this.clases1 = clases1;
-    }
-
-    public Subclases getSubclases1() {
-        return subclases1;
-    }
-
-    public void setSubclases1(Subclases subclases1) {
-        this.subclases1 = subclases1;
+    public void setClases(Clases clases) {
+        this.clases = clases;
     }
 
     public Tablaclases getTablaclases() {

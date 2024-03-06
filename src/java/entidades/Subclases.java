@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package entidades;
 
 import java.io.Serializable;
@@ -8,8 +11,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,6 +38,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subclases.findByNombre", query = "SELECT s FROM Subclases s WHERE s.nombre = :nombre")})
 public class Subclases implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
@@ -44,18 +55,11 @@ public class Subclases implements Serializable {
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subclases1")
-    private List<Tablaclasespornivel> tablaclasespornivelList;
-    @ManyToMany(mappedBy = "subclasesList")
-    private List<Clases> clasesList;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
-    private String id;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subclases")
+    private List<Usasubclase> usasubclaseList;
+    @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
+    private Clases clase;
 
     public Subclases() {
     }
@@ -78,6 +82,38 @@ public class Subclases implements Serializable {
         this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Usasubclase> getUsasubclaseList() {
+        return usasubclaseList;
+    }
+
+    public void setUsasubclaseList(List<Usasubclase> usasubclaseList) {
+        this.usasubclaseList = usasubclaseList;
+    }
+
+    public Clases getClase() {
+        return clase;
+    }
+
+    public void setClase(Clases clase) {
+        this.clase = clase;
+    }
 
     @Override
     public int hashCode() {
@@ -102,41 +138,6 @@ public class Subclases implements Serializable {
     @Override
     public String toString() {
         return "entidades.Subclases[ id=" + id + " ]";
-    }
-
-
-    @XmlTransient
-    public List<Clases> getClasesList() {
-        return clasesList;
-    }
-
-    public void setClasesList(List<Clases> clasesList) {
-        this.clasesList = clasesList;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    @XmlTransient
-    public List<Tablaclasespornivel> getTablaclasespornivelList() {
-        return tablaclasespornivelList;
-    }
-
-    public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
-        this.tablaclasespornivelList = tablaclasespornivelList;
     }
     
 }

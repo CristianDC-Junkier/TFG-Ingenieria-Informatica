@@ -45,13 +45,20 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Clases.findByNivelsubclase", query = "SELECT c FROM Clases c WHERE c.nivelsubclase = :nivelsubclase")})
 public class Clases implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "NOMBRE", nullable = false, length = 60)
     private String nombre;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
@@ -77,33 +84,29 @@ public class Clases implements Serializable {
     @Column(name = "OROINICIAL", length = 15)
     private String oroinicial;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Size(min = 1, max = 2)
     @Column(name = "ELEGIRHAB", nullable = false, length = 2)
     private String elegirhab;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Column(name = "NIVELSUBCLASE", nullable = false)
     private short nivelsubclase;
-    @JoinTable(name = "DACOMPETENCIACLASE", joinColumns = {@JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {@JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
+    @JoinTable(name = "DACOMPETENCIACLASE", joinColumns = {
+        @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Habilidades> habilidadesList;
-    @JoinTable(name = "DASALVACIONCLASE", joinColumns = {@JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {@JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false)})
+    @JoinTable(name = "DASALVACIONCLASE", joinColumns = {
+        @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Atributos> atributosList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clases1")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clases")
+    private List<Usaclase> usaclaseList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clases")
     private List<Tablaclasespornivel> tablaclasespornivelList;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
-    private String id;
-    @JoinTable(name = "SUSSUBCLASESSON", joinColumns = {
-        @JoinColumn(name = "CLASES", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "SUBCLASES", referencedColumnName = "ID", nullable = false)})
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clase")
     private List<Subclases> subclasesList;
 
     public Clases() {
@@ -127,35 +130,6 @@ public class Clases implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-    @XmlTransient
-    public List<Subclases> getSubclasesList() {
-        return subclasesList;
-    }
-    public void setSubclasesList(List<Subclases> subclasesList) {
-        this.subclasesList = subclasesList;
-    }
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Clases)) {
-            return false;
-        }
-        Clases other = (Clases) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-    @Override
-    public String toString() {
-        return "entidades.Clases[ id=" + id + " ]";
     }
 
     public String getNombre() {
@@ -265,12 +239,55 @@ public class Clases implements Serializable {
     }
 
     @XmlTransient
+    public List<Usaclase> getUsaclaseList() {
+        return usaclaseList;
+    }
+
+    public void setUsaclaseList(List<Usaclase> usaclaseList) {
+        this.usaclaseList = usaclaseList;
+    }
+
+    @XmlTransient
     public List<Tablaclasespornivel> getTablaclasespornivelList() {
         return tablaclasespornivelList;
     }
 
     public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
         this.tablaclasespornivelList = tablaclasespornivelList;
+    }
+
+    @XmlTransient
+    public List<Subclases> getSubclasesList() {
+        return subclasesList;
+    }
+
+    public void setSubclasesList(List<Subclases> subclasesList) {
+        this.subclasesList = subclasesList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Clases)) {
+            return false;
+        }
+        Clases other = (Clases) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entidades.Clases[ id=" + id + " ]";
     }
     
 }

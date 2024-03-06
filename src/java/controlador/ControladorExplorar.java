@@ -17,6 +17,8 @@ import entidades.Subrazas;
 import entidades.Tablaclases;
 import entidades.Tablaclasespornivel;
 import entidades.Trasfondos;
+import entidades.Usaclase;
+import entidades.Usasubclase;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +97,8 @@ public class ControladorExplorar extends HttpServlet {
         List<Tablaclasespornivel> listaTablaClaseNivel;
         List<Tablaclases> listaTablaClases;
         List<Rasgos> listaRasgos;
+        List<Usasubclase> listaUsaSubClases;
+        List<Usaclase> listaUsaClases;
 
         Clases Clase;
         Subclases SubClase;
@@ -212,15 +216,18 @@ public class ControladorExplorar extends HttpServlet {
                 listaTablaClaseNivel = queryTablaClaseNivel.getResultList();
 
                 listaTablaClases = new ArrayList();
-                listaRasgos = new ArrayList();
 
                 //Recogemos todas las clases por nivel
                 for (int i = 0; i < listaTablaClaseNivel.size(); i++) {
                     listaTablaClases.add(listaTablaClaseNivel.get(i).getTablaclases());
-                    //Añadimos todos los rasgos a la lista de rasgos general
-                    for (int j = 0; j < listaTablaClases.get(i).getRasgos(); j++) {
-                        listaRasgos.add(listaTablaClases.get(i).getRasgosList().get(j));
-                    }
+                }
+
+                listaUsaClases = Clase.getUsaclaseList();
+                listaRasgos = new ArrayList();
+
+                //Añadimos todos los rasgos a la lista de rasgos general
+                for (int i = 0; i < listaUsaClases.size(); i++) {
+                    listaRasgos.add(listaUsaClases.get(i).getRasgos());
                 }
 
                 //TablaClase = listaTablaClaseNivel.get(listaTablaClaseNivel.size()).getTablaclases();
@@ -1201,18 +1208,19 @@ public class ControladorExplorar extends HttpServlet {
                 listaTablaClaseNivel = queryTablaClaseNivel.getResultList();
 
                 listaTablaClases = new ArrayList();
-                listaRasgos = new ArrayList();
 
                 //Recogemos todas las clases por nivel
                 for (int i = 0; i < listaTablaClaseNivel.size(); i++) {
                     listaTablaClases.add(listaTablaClaseNivel.get(i).getTablaclases());
-                    //Añadimos todos los rasgos a la lista de rasgos general
-                    for (int j = 0; j < listaTablaClases.get(i).getRasgos(); j++) {
-                        listaRasgos.add(listaTablaClases.get(i).getRasgosList().get(j));
-                    }
                 }
 
-                TablaClase = listaTablaClaseNivel.get(listaTablaClaseNivel.size()).getTablaclases();
+                listaUsaSubClases = SubClase.getUsasubclaseList();
+                listaRasgos = new ArrayList();
+
+                //Añadimos todos los rasgos a la lista de rasgos general
+                for (int i = 0; i < listaUsaSubClases.size(); i++) {
+                    listaRasgos.add(listaUsaSubClases.get(i).getRasgos());
+                }
 
                 resultado = "<table class=\"tablaHechizos\">"
                         + "<thead>"

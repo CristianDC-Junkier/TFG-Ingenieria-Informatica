@@ -4,6 +4,7 @@ package entidades;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -45,6 +47,14 @@ public class Rasgos implements Serializable {
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rasgos")
+    private List<Usaclase> usaclaseList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rasgos")
+    private List<Usasubclase> usasubclaseList;
+    @ManyToMany(mappedBy = "rasgosList")
+    private List<Clases> clasesList;
+    @ManyToMany(mappedBy = "rasgosList")
+    private List<Subclases> subclasesList;
     @JoinTable(name = "USACLASE", joinColumns = {
         @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TABLACLASE", referencedColumnName = "ID", nullable = false)})
@@ -164,6 +174,25 @@ public class Rasgos implements Serializable {
         this.tablaclasesList = tablaclasesList;
     }
 
+
+    @XmlTransient
+    public List<Clases> getClasesList() {
+        return clasesList;
+    }
+
+    public void setClasesList(List<Clases> clasesList) {
+        this.clasesList = clasesList;
+    }
+
+    @XmlTransient
+    public List<Subclases> getSubclasesList() {
+        return subclasesList;
+    }
+
+    public void setSubclasesList(List<Subclases> subclasesList) {
+        this.subclasesList = subclasesList;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -178,6 +207,24 @@ public class Rasgos implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Usaclase> getUsaclaseList() {
+        return usaclaseList;
+    }
+
+    public void setUsaclaseList(List<Usaclase> usaclaseList) {
+        this.usaclaseList = usaclaseList;
+    }
+
+    @XmlTransient
+    public List<Usasubclase> getUsasubclaseList() {
+        return usasubclaseList;
+    }
+
+    public void setUsasubclaseList(List<Usasubclase> usasubclaseList) {
+        this.usasubclaseList = usasubclaseList;
     }
     
 }

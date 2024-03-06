@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
  * @author Cristian
  */
 @Embeddable
-public class TablaclasespornivelPK implements Serializable {
+public class UsaclasePK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -25,15 +25,16 @@ public class TablaclasespornivelPK implements Serializable {
     private String clase;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "NIVEL", nullable = false)
-    private short nivel;
+    @Size(min = 1, max = 36)
+    @Column(name = "RASGO", nullable = false, length = 36)
+    private String rasgo;
 
-    public TablaclasespornivelPK() {
+    public UsaclasePK() {
     }
 
-    public TablaclasespornivelPK(String clase, short nivel) {
+    public UsaclasePK(String clase, String rasgo) {
         this.clase = clase;
-        this.nivel = nivel;
+        this.rasgo = rasgo;
     }
 
     public String getClase() {
@@ -44,33 +45,33 @@ public class TablaclasespornivelPK implements Serializable {
         this.clase = clase;
     }
 
-    public short getNivel() {
-        return nivel;
+    public String getRasgo() {
+        return rasgo;
     }
 
-    public void setNivel(short nivel) {
-        this.nivel = nivel;
+    public void setRasgo(String rasgo) {
+        this.rasgo = rasgo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (clase != null ? clase.hashCode() : 0);
-        hash += (int) nivel;
+        hash += (rasgo != null ? rasgo.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TablaclasespornivelPK)) {
+        if (!(object instanceof UsaclasePK)) {
             return false;
         }
-        TablaclasespornivelPK other = (TablaclasespornivelPK) object;
+        UsaclasePK other = (UsaclasePK) object;
         if ((this.clase == null && other.clase != null) || (this.clase != null && !this.clase.equals(other.clase))) {
             return false;
         }
-        if (this.nivel != other.nivel) {
+        if ((this.rasgo == null && other.rasgo != null) || (this.rasgo != null && !this.rasgo.equals(other.rasgo))) {
             return false;
         }
         return true;
@@ -78,7 +79,7 @@ public class TablaclasespornivelPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.TablaclasespornivelPK[ clase=" + clase + ", nivel=" + nivel + " ]";
+        return "entidades.UsaclasePK[ clase=" + clase + ", rasgo=" + rasgo + " ]";
     }
     
 }

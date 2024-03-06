@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package entidades;
 
 import java.io.Serializable;
@@ -7,7 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -51,8 +53,6 @@ public class Tablaclases implements Serializable {
     @NotNull
     @Column(name = "HECHIZOS", nullable = false)
     private short hechizos;
-    @ManyToMany(mappedBy = "tablaclasesList")
-    private List<Rasgos> rasgosList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -61,9 +61,9 @@ public class Tablaclases implements Serializable {
     @Size(min = 1, max = 36)
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
-    @ManyToMany(mappedBy = "tablaclasesList", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "tablaclasesList")
     private List<Espacioshechizos> espacioshechizosList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tablaclases", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tablaclases")
     private List<Tablaclasespornivel> tablaclasespornivelList;
 
     public Tablaclases() {
@@ -80,13 +80,7 @@ public class Tablaclases implements Serializable {
         this.trucos = trucos;
         this.hechizos = hechizos;
     }
-    public Tablaclases(short rasgos, short bc, short trucos, short hechizos) {
-        this.rasgos = rasgos;
-        this.bc = bc;
-        this.trucos = trucos;
-        this.hechizos = hechizos;
-    }
-    
+
     public String getId() {
         return id;
     }
@@ -137,13 +131,6 @@ public class Tablaclases implements Serializable {
     @Override
     public String toString() {
         return "entidades.Tablaclases[ id=" + id + " ]";
-    }
-    @XmlTransient
-    public List<Rasgos> getRasgosList() {
-        return rasgosList;
-    }
-    public void setRasgosList(List<Rasgos> rasgosList) {
-        this.rasgosList = rasgosList;
     }
 
     public short getRasgos() {
