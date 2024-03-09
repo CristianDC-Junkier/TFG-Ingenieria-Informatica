@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -35,6 +34,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Habilidades.findByNombre", query = "SELECT h FROM Habilidades h WHERE h.nombre = :nombre")})
 public class Habilidades implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -46,28 +52,21 @@ public class Habilidades implements Serializable {
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @ManyToMany(mappedBy = "habilidadesList")
-    private List<Clases> clasesList;
-    @ManyToMany(mappedBy = "habilidadesList")
     private List<Subrazas> subrazasList;
-    @ManyToMany(mappedBy = "habilidadesList1")
-    private List<Subrazas> subrazasList1;
-
     @JoinTable(name = "ELIGETRASFONDO", joinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TRASFONDO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Trasfondos> trasfondosList1;
+    private List<Trasfondos> trasfondosList;
+    @ManyToMany(mappedBy = "habilidadesList")
+    private List<Clases> clasesList;
     @JoinTable(name = "COMPETETRASFONDO", joinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TRASFONDO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Trasfondos> trasfondosList;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private String id;
+    private List<Trasfondos> trasfondosList1;
+    @ManyToMany(mappedBy = "habilidadesList1")
+    private List<Subrazas> subrazasList1;
 
     public Habilidades() {
     }
@@ -90,6 +89,66 @@ public class Habilidades implements Serializable {
         this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Subrazas> getSubrazasList() {
+        return subrazasList;
+    }
+
+    public void setSubrazasList(List<Subrazas> subrazasList) {
+        this.subrazasList = subrazasList;
+    }
+
+    @XmlTransient
+    public List<Trasfondos> getTrasfondosList() {
+        return trasfondosList;
+    }
+
+    public void setTrasfondosList(List<Trasfondos> trasfondosList) {
+        this.trasfondosList = trasfondosList;
+    }
+
+    @XmlTransient
+    public List<Clases> getClasesList() {
+        return clasesList;
+    }
+
+    public void setClasesList(List<Clases> clasesList) {
+        this.clasesList = clasesList;
+    }
+
+    @XmlTransient
+    public List<Trasfondos> getTrasfondosList1() {
+        return trasfondosList1;
+    }
+
+    public void setTrasfondosList1(List<Trasfondos> trasfondosList1) {
+        this.trasfondosList1 = trasfondosList1;
+    }
+
+    @XmlTransient
+    public List<Subrazas> getSubrazasList1() {
+        return subrazasList1;
+    }
+
+    public void setSubrazasList1(List<Subrazas> subrazasList1) {
+        this.subrazasList1 = subrazasList1;
+    }
 
     @Override
     public int hashCode() {
@@ -114,71 +173,6 @@ public class Habilidades implements Serializable {
     @Override
     public String toString() {
         return "entidades.Habilidades[ id=" + id + " ]";
-    }
-
-
-    @XmlTransient
-    public List<Trasfondos> getTrasfondosList() {
-        return trasfondosList;
-    }
-
-    public void setTrasfondosList(List<Trasfondos> trasfondosList) {
-        this.trasfondosList = trasfondosList;
-    }
-
-
-    @XmlTransient
-    public List<Trasfondos> getTrasfondosList1() {
-        return trasfondosList1;
-    }
-
-    public void setTrasfondosList1(List<Trasfondos> trasfondosList1) {
-        this.trasfondosList1 = trasfondosList1;
-    }
-
-
-    @XmlTransient
-    public List<Subrazas> getSubrazasList() {
-        return subrazasList;
-    }
-
-    public void setSubrazasList(List<Subrazas> subrazasList) {
-        this.subrazasList = subrazasList;
-    }
-
-    @XmlTransient
-    public List<Subrazas> getSubrazasList1() {
-        return subrazasList1;
-    }
-
-    public void setSubrazasList1(List<Subrazas> subrazasList1) {
-        this.subrazasList1 = subrazasList1;
-    }
-
-
-    @XmlTransient
-    public List<Clases> getClasesList() {
-        return clasesList;
-    }
-
-    public void setClasesList(List<Clases> clasesList) {
-        this.clasesList = clasesList;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
     
 }

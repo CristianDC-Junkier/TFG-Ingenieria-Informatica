@@ -220,6 +220,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                             + "-" + (msj.getFecha().getYear() + 1900)
                                             + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
                                 }
+                            } else {
+                                resultado
+                                        = resultado
+                                        + "<p style =\"color: yellow;\">"
+                                        + msj.getFecha().getDate()
+                                        + "-" + (msj.getFecha().getMonth() + 1)
+                                        + "-" + (msj.getFecha().getYear() + 1900)
+                                        + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
                             }
                             if (user.getId().equals(msj.getEscritor().getId())) {
                                 resultado
@@ -266,7 +274,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     fechaLimite = LocalDateTime.now();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     String fechaFormateada = fechaLimite.format(formatter);
-                    
 
                     sql = "SELECT DISTINCT m.* FROM Mensajesamigos m"
                             + " WHERE ((m.escritor = '" + user.getId() + "' AND m.receptor = '" + id + "') "

@@ -30,6 +30,7 @@
     margin-left: 20px;
 }
 .tablaHechizos {
+    max-width: 60vh;
     width: 90%;
     border-collapse: collapse;
     margin-left: 20px;
@@ -39,6 +40,32 @@
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
+}
+.abajoRasgosClase{
+
+    margin-left: 20px;
+    margin-bottom: 30px;
+    margin-right: 20px;
+}
+.botonArribaSubClases{
+    position: fixed;
+    right: 20px;
+    width: auto;
+}
+
+@media screen and (max-width: 1200px) {
+    .arribaDatosClase {
+        flex-direction: column;
+    }
+    .datosDerechaClase {
+        flex: none;
+        margin-left: 0;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .datosIzquierdaClase {
+        width: 75%;
+    }
 }
 
 

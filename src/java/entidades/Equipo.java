@@ -1,3 +1,4 @@
+
 package entidades;
 
 import java.io.Serializable;
@@ -5,8 +6,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "EQUIPO", catalog = "", schema = "SYS_G4", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
@@ -47,6 +46,13 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class Equipo implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
@@ -78,19 +84,14 @@ public class Equipo implements Serializable {
     @Column(name = "PGOLPE", length = 30)
     private String pgolpe;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private String id;
     @JoinTable(name = "TIENEPROPIEDADES", joinColumns = {
         @JoinColumn(name = "EQUIPO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "PROPIEDAD", referencedColumnName = "ID", nullable = false)})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<Propiedades> propiedadesList;
 
     public Equipo() {
@@ -114,35 +115,6 @@ public class Equipo implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-    @XmlTransient
-    public List<Propiedades> getPropiedadesList() {
-        return propiedadesList;
-    }
-    public void setPropiedadesList(List<Propiedades> propiedadesList) {
-        this.propiedadesList = propiedadesList;
-    }
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Equipo)) {
-            return false;
-        }
-        Equipo other = (Equipo) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-    @Override
-    public String toString() {
-        return "entidades.Equipo[ id=" + id + " ]";
     }
 
     public String getNombre() {
@@ -217,4 +189,38 @@ public class Equipo implements Serializable {
         this.descripcion = descripcion;
     }
 
+    @XmlTransient
+    public List<Propiedades> getPropiedadesList() {
+        return propiedadesList;
+    }
+
+    public void setPropiedadesList(List<Propiedades> propiedadesList) {
+        this.propiedadesList = propiedadesList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Equipo)) {
+            return false;
+        }
+        Equipo other = (Equipo) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entidades.Equipo[ id=" + id + " ]";
+    }
+    
 }

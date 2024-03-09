@@ -1,19 +1,19 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package entidades;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -35,6 +35,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Atributos.findByNombre", query = "SELECT a FROM Atributos a WHERE a.nombre = :nombre")})
 public class Atributos implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -47,14 +54,6 @@ public class Atributos implements Serializable {
     private String descripcion;
     @ManyToMany(mappedBy = "atributosList")
     private List<Clases> clasesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atributos")
-    private List<Sumaraza> sumarazaList;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private String id;
 
     public Atributos() {
     }
@@ -77,6 +76,30 @@ public class Atributos implements Serializable {
         this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Clases> getClasesList() {
+        return clasesList;
+    }
+
+    public void setClasesList(List<Clases> clasesList) {
+        this.clasesList = clasesList;
+    }
 
     @Override
     public int hashCode() {
@@ -101,42 +124,6 @@ public class Atributos implements Serializable {
     @Override
     public String toString() {
         return "entidades.Atributos[ id=" + id + " ]";
-    }
-
-
-    @XmlTransient
-    public List<Sumaraza> getSumarazaList() {
-        return sumarazaList;
-    }
-
-    public void setSumarazaList(List<Sumaraza> sumarazaList) {
-        this.sumarazaList = sumarazaList;
-    }
-
-
-    @XmlTransient
-    public List<Clases> getClasesList() {
-        return clasesList;
-    }
-
-    public void setClasesList(List<Clases> clasesList) {
-        this.clasesList = clasesList;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
     
 }

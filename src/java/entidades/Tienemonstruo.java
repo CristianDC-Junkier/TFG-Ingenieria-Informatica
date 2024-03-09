@@ -1,4 +1,3 @@
-
 package entidades;
 
 import java.io.Serializable;
@@ -30,6 +29,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Tienemonstruo.findByModificador", query = "SELECT t FROM Tienemonstruo t WHERE t.modificador = :modificador")})
 public class Tienemonstruo implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected TienemonstruoPK tienemonstruoPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -40,10 +42,6 @@ public class Tienemonstruo implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "MODIFICADOR", nullable = false, length = 10)
     private String modificador;
-
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected TienemonstruoPK tienemonstruoPK;
     @JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Monstruos monstruos;
@@ -73,6 +71,21 @@ public class Tienemonstruo implements Serializable {
         this.tienemonstruoPK = tienemonstruoPK;
     }
 
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+
+    public String getModificador() {
+        return modificador;
+    }
+
+    public void setModificador(String modificador) {
+        this.modificador = modificador;
+    }
 
     public Monstruos getMonstruos() {
         return monstruos;
@@ -105,22 +118,6 @@ public class Tienemonstruo implements Serializable {
     @Override
     public String toString() {
         return "entidades.Tienemonstruo[ tienemonstruoPK=" + tienemonstruoPK + " ]";
-    }
-
-    public String getValor() {
-        return valor;
-    }
-
-    public void setValor(String valor) {
-        this.valor = valor;
-    }
-
-    public String getModificador() {
-        return modificador;
-    }
-
-    public void setModificador(String modificador) {
-        this.modificador = modificador;
     }
     
 }

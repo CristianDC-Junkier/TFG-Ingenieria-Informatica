@@ -7,7 +7,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -51,6 +50,13 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class Monstruos implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
@@ -101,30 +107,34 @@ public class Monstruos implements Serializable {
     @Column(name = "INMDANO", nullable = false, length = 120)
     private String inmdano;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Size(min = 1, max = 120)
     @Column(name = "SENTIDOS", nullable = false, length = 120)
     private String sentidos;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Size(min = 1, max = 120)
     @Column(name = "IDIOMAS", nullable = false, length = 120)
     private String idiomas;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Size(min = 1, max = 120)
     @Column(name = "VULDANO", nullable = false, length = 120)
     private String vuldano;
-    @JoinTable(name = "INMUNE", joinColumns = {@JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {@JoinColumn(name = "ESTADO", referencedColumnName = "NOMBRE", nullable = false)})
-    @ManyToMany()
+    @JoinTable(name = "INMUNE", joinColumns = {
+        @JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "ESTADO", referencedColumnName = "NOMBRE", nullable = false)})
+    @ManyToMany
     private List<Estados> estadosList;
-    @JoinTable(name = "UTILIZAMONSTRUO", joinColumns = {@JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {@JoinColumn(name = "ACCION", referencedColumnName = "ID", nullable = false)})
-    @ManyToMany()
+    @JoinTable(name = "UTILIZAMONSTRUO", joinColumns = {
+        @JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "ACCION", referencedColumnName = "ID", nullable = false)})
+    @ManyToMany
     private List<Acciones> accionesList;
     @JoinTable(name = "USAMONSTRUO", joinColumns = {
         @JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
@@ -135,11 +145,6 @@ public class Monstruos implements Serializable {
     private List<Tienemonstruo> tienemonstruoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "monstruos")
     private List<Competentemonstruo> competentemonstruoList;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private String id;
 
     public Monstruos() {
     }
@@ -148,7 +153,7 @@ public class Monstruos implements Serializable {
         this.id = id;
     }
 
-    public Monstruos(String id, String nombre, String tipo, String tamano, String vdesafio, String alineamiento, BigInteger carmadura, String pgolpe, String velocidad, String resdano, String inmdano, String sentidos, String idiomas, String vuldano, String descripcion) {
+    public Monstruos(String id, String nombre, String tipo, String tamano, String vdesafio, String alineamiento, BigInteger carmadura, String pgolpe, String velocidad, String resdano, String inmdano, String sentidos, String idiomas, String descripcion, String vuldano) {
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -162,8 +167,8 @@ public class Monstruos implements Serializable {
         this.inmdano = inmdano;
         this.sentidos = sentidos;
         this.idiomas = idiomas;
-        this.vuldano = vuldano;
         this.descripcion = descripcion;
+        this.vuldano = vuldano;
     }
 
     public String getId() {
@@ -172,77 +177,6 @@ public class Monstruos implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Monstruos)) {
-            return false;
-        }
-        Monstruos other = (Monstruos) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entidades.Monstruos[ id=" + id + " ]";
-    }
-
-
-    @XmlTransient
-    public List<Estados> getEstadosList() {
-        return estadosList;
-    }
-
-    public void setEstadosList(List<Estados> estadosList) {
-        this.estadosList = estadosList;
-    }
-
-    @XmlTransient
-    public List<Acciones> getAccionesList() {
-        return accionesList;
-    }
-
-    public void setAccionesList(List<Acciones> accionesList) {
-        this.accionesList = accionesList;
-    }
-
-    @XmlTransient
-    public List<Rasgos> getRasgosList() {
-        return rasgosList;
-    }
-
-    public void setRasgosList(List<Rasgos> rasgosList) {
-        this.rasgosList = rasgosList;
-    }
-
-    @XmlTransient
-    public List<Tienemonstruo> getTienemonstruoList() {
-        return tienemonstruoList;
-    }
-
-    public void setTienemonstruoList(List<Tienemonstruo> tienemonstruoList) {
-        this.tienemonstruoList = tienemonstruoList;
-    }
-
-    @XmlTransient
-    public List<Competentemonstruo> getCompetentemonstruoList() {
-        return competentemonstruoList;
-    }
-
-    public void setCompetentemonstruoList(List<Competentemonstruo> competentemonstruoList) {
-        this.competentemonstruoList = competentemonstruoList;
     }
 
     public String getNombre() {
@@ -357,4 +291,74 @@ public class Monstruos implements Serializable {
         this.vuldano = vuldano;
     }
 
+    @XmlTransient
+    public List<Estados> getEstadosList() {
+        return estadosList;
+    }
+
+    public void setEstadosList(List<Estados> estadosList) {
+        this.estadosList = estadosList;
+    }
+
+    @XmlTransient
+    public List<Acciones> getAccionesList() {
+        return accionesList;
+    }
+
+    public void setAccionesList(List<Acciones> accionesList) {
+        this.accionesList = accionesList;
+    }
+
+    @XmlTransient
+    public List<Rasgos> getRasgosList() {
+        return rasgosList;
+    }
+
+    public void setRasgosList(List<Rasgos> rasgosList) {
+        this.rasgosList = rasgosList;
+    }
+
+    @XmlTransient
+    public List<Tienemonstruo> getTienemonstruoList() {
+        return tienemonstruoList;
+    }
+
+    public void setTienemonstruoList(List<Tienemonstruo> tienemonstruoList) {
+        this.tienemonstruoList = tienemonstruoList;
+    }
+
+    @XmlTransient
+    public List<Competentemonstruo> getCompetentemonstruoList() {
+        return competentemonstruoList;
+    }
+
+    public void setCompetentemonstruoList(List<Competentemonstruo> competentemonstruoList) {
+        this.competentemonstruoList = competentemonstruoList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Monstruos)) {
+            return false;
+        }
+        Monstruos other = (Monstruos) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entidades.Monstruos[ id=" + id + " ]";
+    }
+    
 }

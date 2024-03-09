@@ -6,7 +6,6 @@ import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(catalog = "", schema = "SYS_G4")
+@Table(name = "ALCANCE", catalog = "", schema = "SYS_G4")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Alcance.findAll", query = "SELECT a FROM Alcance a"),
@@ -30,6 +29,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Alcance.findByMaximo", query = "SELECT a FROM Alcance a WHERE a.maximo = :maximo")})
 public class Alcance implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
@@ -43,12 +49,6 @@ public class Alcance implements Serializable {
     @NotNull
     @Column(name = "MAXIMO", nullable = false)
     private BigInteger maximo;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private String id;
 
     public Alcance() {
     }
@@ -70,32 +70,6 @@ public class Alcance implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Alcance)) {
-            return false;
-        }
-        Alcance other = (Alcance) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entidades.Alcance[ id=" + id + " ]";
     }
 
     public String getNombre() {
@@ -120,6 +94,31 @@ public class Alcance implements Serializable {
 
     public void setMaximo(BigInteger maximo) {
         this.maximo = maximo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Alcance)) {
+            return false;
+        }
+        Alcance other = (Alcance) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entidades.Alcance[ id=" + id + " ]";
     }
     
 }

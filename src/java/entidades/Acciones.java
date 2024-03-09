@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
@@ -34,6 +33,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Acciones.findByTipo", query = "SELECT a FROM Acciones a WHERE a.tipo = :tipo")})
 public class Acciones implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
@@ -49,12 +55,6 @@ public class Acciones implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "TIPO", nullable = false, length = 30)
     private String tipo;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private String id;
     @ManyToMany(mappedBy = "accionesList")
     private List<Monstruos> monstruosList;
 
@@ -80,6 +80,29 @@ public class Acciones implements Serializable {
         this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     @XmlTransient
     public List<Monstruos> getMonstruosList() {
@@ -113,30 +136,6 @@ public class Acciones implements Serializable {
     @Override
     public String toString() {
         return "entidades.Acciones[ id=" + id + " ]";
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
     
 }

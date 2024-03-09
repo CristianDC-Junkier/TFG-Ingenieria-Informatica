@@ -372,6 +372,51 @@ footer{
 
     border: black 2px solid;
 }
+
+/**************************************/
+/*****************Clases****************/
+/**************************************/
+
+.arribaDatosClase{
+    color: black;
+}
+.caracteristicasClase h3{
+    color: yellow;
+}
+.datosIzquierdaArribaClase{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoClase{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaClase > div{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaClase div > h3{
+    color: yellow;
+}
+.abajoRasgosClase{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.abajoRasgosClase  h3{
+    color: yellow;
+}
+.datosDerechaClase{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosDerechaClase{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosDerechaClase h3{
+    color: yellow;
+}
+
 /***************************************************************************************************/
 /*****************************************EXPLORAR:DOTES********************************************/
 /***************************************************************************************************/

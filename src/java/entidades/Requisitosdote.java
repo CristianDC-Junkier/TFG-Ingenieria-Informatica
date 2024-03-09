@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
@@ -19,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(catalog = "", schema = "SYS_G4")
+@Table(name = "REQUISITOSDOTE", catalog = "", schema = "SYS_G4")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Requisitosdote.findAll", query = "SELECT r FROM Requisitosdote r"),
@@ -27,6 +26,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Requisitosdote.findByNombre", query = "SELECT r FROM Requisitosdote r WHERE r.nombre = :nombre")})
 public class Requisitosdote implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Size(max = 100)
     @Column(name = "NOMBRE", length = 100)
     private String nombre;
@@ -35,12 +41,6 @@ public class Requisitosdote implements Serializable {
     @Lob
     @Column(name = "VALOR", nullable = false)
     private String valor;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private String id;
 
     public Requisitosdote() {
     }
@@ -62,6 +62,21 @@ public class Requisitosdote implements Serializable {
         this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
 
     @Override
     public int hashCode() {
@@ -87,21 +102,5 @@ public class Requisitosdote implements Serializable {
     public String toString() {
         return "entidades.Requisitosdote[ id=" + id + " ]";
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getValor() {
-        return valor;
-    }
-
-    public void setValor(String valor) {
-        this.valor = valor;
-    }
-
+    
 }

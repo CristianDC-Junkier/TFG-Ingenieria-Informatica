@@ -37,6 +37,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tablaclases.findByHechizos", query = "SELECT t FROM Tablaclases t WHERE t.hechizos = :hechizos")})
 public class Tablaclases implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "RASGOS", nullable = false)
@@ -53,14 +60,6 @@ public class Tablaclases implements Serializable {
     @NotNull
     @Column(name = "HECHIZOS", nullable = false)
     private short hechizos;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
-    private String id;
     @ManyToMany(mappedBy = "tablaclasesList")
     private List<Espacioshechizos> espacioshechizosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tablaclases")
@@ -89,6 +88,37 @@ public class Tablaclases implements Serializable {
         this.id = id;
     }
 
+    public short getRasgos() {
+        return rasgos;
+    }
+
+    public void setRasgos(short rasgos) {
+        this.rasgos = rasgos;
+    }
+
+    public short getBc() {
+        return bc;
+    }
+
+    public void setBc(short bc) {
+        this.bc = bc;
+    }
+
+    public short getTrucos() {
+        return trucos;
+    }
+
+    public void setTrucos(short trucos) {
+        this.trucos = trucos;
+    }
+
+    public short getHechizos() {
+        return hechizos;
+    }
+
+    public void setHechizos(short hechizos) {
+        this.hechizos = hechizos;
+    }
 
     @XmlTransient
     public List<Espacioshechizos> getEspacioshechizosList() {
@@ -131,38 +161,6 @@ public class Tablaclases implements Serializable {
     @Override
     public String toString() {
         return "entidades.Tablaclases[ id=" + id + " ]";
-    }
-
-    public short getRasgos() {
-        return rasgos;
-    }
-
-    public void setRasgos(short rasgos) {
-        this.rasgos = rasgos;
-    }
-
-    public short getBc() {
-        return bc;
-    }
-
-    public void setBc(short bc) {
-        this.bc = bc;
-    }
-
-    public short getTrucos() {
-        return trucos;
-    }
-
-    public void setTrucos(short trucos) {
-        this.trucos = trucos;
-    }
-
-    public short getHechizos() {
-        return hechizos;
-    }
-
-    public void setHechizos(short hechizos) {
-        this.hechizos = hechizos;
     }
     
 }

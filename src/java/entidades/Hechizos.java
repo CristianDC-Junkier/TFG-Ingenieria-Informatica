@@ -6,8 +6,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -26,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(catalog = "", schema = "SYS_G4")
+@Table(name = "HECHIZOS", catalog = "", schema = "SYS_G4")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Hechizos.findAll", query = "SELECT h FROM Hechizos h ORDER BY h.nombre"),
@@ -46,6 +44,13 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class Hechizos implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
@@ -88,24 +93,19 @@ public class Hechizos implements Serializable {
     @Column(name = "DANO", length = 50)
     private String dano;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Size(min = 1, max = 2)
     @Column(name = "RITUAL", nullable = false, length = 2)
     private String ritual;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private String id;
     @JoinTable(name = "LISTAHECHIZOS", joinColumns = {
         @JoinColumn(name = "HECHIZO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<Clases> clasesList;
 
     public Hechizos() {
@@ -134,35 +134,6 @@ public class Hechizos implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-    @XmlTransient
-    public List<Clases> getClasesList() {
-        return clasesList;
-    }
-    public void setClasesList(List<Clases> clasesList) {
-        this.clasesList = clasesList;
-    }
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Hechizos)) {
-            return false;
-        }
-        Hechizos other = (Hechizos) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-    @Override
-    public String toString() {
-        return "entidades.Hechizos[ id=" + id + " ]";
     }
 
     public String getNombre() {
@@ -251,6 +222,40 @@ public class Hechizos implements Serializable {
 
     public void setRitual(String ritual) {
         this.ritual = ritual;
+    }
+
+    @XmlTransient
+    public List<Clases> getClasesList() {
+        return clasesList;
+    }
+
+    public void setClasesList(List<Clases> clasesList) {
+        this.clasesList = clasesList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Hechizos)) {
+            return false;
+        }
+        Hechizos other = (Hechizos) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entidades.Hechizos[ id=" + id + " ]";
     }
     
 }

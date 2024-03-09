@@ -1,4 +1,3 @@
-
 package entidades;
 
 import java.io.Serializable;
@@ -7,7 +6,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -17,7 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,8 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "RASGOS", catalog = "", schema = "SYS_G4", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"NOMBRE"})})
+@Table(name = "RASGOS", catalog = "", schema = "SYS_G4")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Rasgos.findAll", query = "SELECT r FROM Rasgos r"),
@@ -37,6 +33,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Rasgos.findByNombre", query = "SELECT r FROM Rasgos r WHERE r.nombre = :nombre")})
 public class Rasgos implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -47,36 +50,21 @@ public class Rasgos implements Serializable {
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rasgos")
-    private List<Usaclase> usaclaseList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rasgos")
-    private List<Usasubclase> usasubclaseList;
-    @ManyToMany(mappedBy = "rasgosList")
-    private List<Clases> clasesList;
-    @ManyToMany(mappedBy = "rasgosList")
-    private List<Subclases> subclasesList;
-    @JoinTable(name = "USACLASE", joinColumns = {
-        @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "TABLACLASE", referencedColumnName = "ID", nullable = false)})
-    @ManyToMany
-    private List<Tablaclases> tablaclasesList;
-    @ManyToMany(mappedBy = "rasgosList")
-    private List<Razas> razasList;
     @ManyToMany(mappedBy = "rasgosList")
     private List<Subrazas> subrazasList;
-    @ManyToMany(mappedBy = "rasgosList")
-    private List<Monstruos> monstruosList;
     @JoinTable(name = "USATRASFONDO", joinColumns = {
         @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TRASFONDO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Trasfondos> trasfondosList;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private String id;
+    @ManyToMany(mappedBy = "rasgosList")
+    private List<Monstruos> monstruosList;
+    @ManyToMany(mappedBy = "rasgosList")
+    private List<Razas> razasList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rasgos")
+    private List<Usasubclase> usasubclaseList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rasgos")
+    private List<Usaclase> usaclaseList;
 
     public Rasgos() {
     }
@@ -99,6 +87,75 @@ public class Rasgos implements Serializable {
         this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Subrazas> getSubrazasList() {
+        return subrazasList;
+    }
+
+    public void setSubrazasList(List<Subrazas> subrazasList) {
+        this.subrazasList = subrazasList;
+    }
+
+    @XmlTransient
+    public List<Trasfondos> getTrasfondosList() {
+        return trasfondosList;
+    }
+
+    public void setTrasfondosList(List<Trasfondos> trasfondosList) {
+        this.trasfondosList = trasfondosList;
+    }
+
+    @XmlTransient
+    public List<Monstruos> getMonstruosList() {
+        return monstruosList;
+    }
+
+    public void setMonstruosList(List<Monstruos> monstruosList) {
+        this.monstruosList = monstruosList;
+    }
+
+    @XmlTransient
+    public List<Razas> getRazasList() {
+        return razasList;
+    }
+
+    public void setRazasList(List<Razas> razasList) {
+        this.razasList = razasList;
+    }
+
+    @XmlTransient
+    public List<Usasubclase> getUsasubclaseList() {
+        return usasubclaseList;
+    }
+
+    public void setUsasubclaseList(List<Usasubclase> usasubclaseList) {
+        this.usasubclaseList = usasubclaseList;
+    }
+
+    @XmlTransient
+    public List<Usaclase> getUsaclaseList() {
+        return usaclaseList;
+    }
+
+    public void setUsaclaseList(List<Usaclase> usaclaseList) {
+        this.usaclaseList = usaclaseList;
+    }
 
     @Override
     public int hashCode() {
@@ -123,108 +180,6 @@ public class Rasgos implements Serializable {
     @Override
     public String toString() {
         return "entidades.Rasgos[ id=" + id + " ]";
-    }
-
-
-    @XmlTransient
-    public List<Trasfondos> getTrasfondosList() {
-        return trasfondosList;
-    }
-
-    public void setTrasfondosList(List<Trasfondos> trasfondosList) {
-        this.trasfondosList = trasfondosList;
-    }
-
-
-    @XmlTransient
-    public List<Monstruos> getMonstruosList() {
-        return monstruosList;
-    }
-
-    public void setMonstruosList(List<Monstruos> monstruosList) {
-        this.monstruosList = monstruosList;
-    }
-
-
-    @XmlTransient
-    public List<Razas> getRazasList() {
-        return razasList;
-    }
-
-    public void setRazasList(List<Razas> razasList) {
-        this.razasList = razasList;
-    }
-
-    @XmlTransient
-    public List<Subrazas> getSubrazasList() {
-        return subrazasList;
-    }
-
-    public void setSubrazasList(List<Subrazas> subrazasList) {
-        this.subrazasList = subrazasList;
-    }
-
-
-    @XmlTransient
-    public List<Tablaclases> getTablaclasesList() {
-        return tablaclasesList;
-    }
-
-    public void setTablaclasesList(List<Tablaclases> tablaclasesList) {
-        this.tablaclasesList = tablaclasesList;
-    }
-
-
-    @XmlTransient
-    public List<Clases> getClasesList() {
-        return clasesList;
-    }
-
-    public void setClasesList(List<Clases> clasesList) {
-        this.clasesList = clasesList;
-    }
-
-    @XmlTransient
-    public List<Subclases> getSubclasesList() {
-        return subclasesList;
-    }
-
-    public void setSubclasesList(List<Subclases> subclasesList) {
-        this.subclasesList = subclasesList;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    @XmlTransient
-    public List<Usaclase> getUsaclaseList() {
-        return usaclaseList;
-    }
-
-    public void setUsaclaseList(List<Usaclase> usaclaseList) {
-        this.usaclaseList = usaclaseList;
-    }
-
-    @XmlTransient
-    public List<Usasubclase> getUsasubclaseList() {
-        return usasubclaseList;
-    }
-
-    public void setUsasubclaseList(List<Usasubclase> usasubclaseList) {
-        this.usasubclaseList = usasubclaseList;
     }
     
 }

@@ -19,7 +19,7 @@
                     <option value="4">Dado-4</option>
                     <option value="6">Dado-6</option>
                     <option value="8">Dado-8</option>
-                    <option value="10">Dado10</option>
+                    <option value="10">Dado-10</option>
                     <option value="12">Dado-12</option>
                     <option value="20">Dado-20</option>
                     <option value="100">Dado-100</option>

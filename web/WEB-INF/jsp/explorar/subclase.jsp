@@ -11,7 +11,8 @@
     <body>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main>
-            <h2 class="Titulos">Clase: ${requestScope.clase.nombre}</h2>
+            <h2 class="Titulos">Clase: ${requestScope.subclase.nombre}
+                <button class="botonArribaSubClases" onclick="location.href = '/TFG/Explorar/clase?clase=${requestScope.clase.nombre}'">Volver</button></h2>
             <hr color="black">
             <div class="arribaDatosClase">
                 <div class="datosIzquierdaClase">
@@ -31,40 +32,10 @@
                             </ul>
                         </div>
                     </div>
-                    <div class = "datosIzquierdaAbajoClase">
-                        <p>${requestScope.clase.descripcion}</p>
-                    </div>
-                    <br><br>
-                    <div>
-                        <h3>Competencias</h3>
-                        <br>
-                        <p>Armaduras: ${requestScope.clase.comparmaduras}</p>
-                        <p>Armas: ${requestScope.clase.comparmas}</p>
-                        <p>Herramientas: ${requestScope.clase.compherramientas}</p>
-                        <p>Elige ${requestScope.clase.elegirhab} entre:</p>
-                        <c:forEach var="habClase" items="${listahabilidades}" varStatus="status">
-                            ${habClase}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
-                        </c:forEach>
-                    </div>
-                    <br><br>
-                    <div>
-                        <h3>Equipo Inicial</h3>
-                        <br>
-                        <p>${requestScope.equipoinicial}</p>
-                        <p>Si no quieres nada: ${requestScope.clase.oroinicial}</p>
-                    </div>
-                    <br><br>
-                    <div>
-                        <h3>Subclases</h3>
-                        <br>
-                        <div><c:forEach var="subClase" items="${listaSubclases}" varStatus="status">
-                                <button class="botonArriba" onclick="location.href = '/TFG/Explorar/subclase?idClase=${clase.id}&nombreSubClase=${subClase.nombre}'">
-                                    <h4>${subClase.nombre}</h4></button><c:if test="${not status.last}"><br></c:if>
-                            </c:forEach></div>
-                    </div>
                 </div>
-                <div class="datosDerechaClase">
-                    <c:out value="${tablaHechizos}" escapeXml="false" />  
+                <div class = "datosDerechaClase">
+                    <br>
+                    <p>${requestScope.subclase.descripcion}</p>
                 </div>
             </div>
             <div class="abajoRasgosClase">

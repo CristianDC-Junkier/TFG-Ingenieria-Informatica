@@ -82,7 +82,6 @@ public class ControladorExplorar extends HttpServlet {
 
         List<Estados> listaEstados;
         List<Clases> listaClases;
-        List<Subclases> listaSubClases;
         List<Dotes> listaDotes;
         List<Mejorasdote> listaMDotes;
         List<Requisitosdote> listaRDotes;
@@ -109,7 +108,6 @@ public class ControladorExplorar extends HttpServlet {
         Monstruos Monstruo;
         Equipo Equipo;
         Alcance Alcance;
-        Tablaclases TablaClase;
 
         String sql;
         String id;
@@ -211,8 +209,8 @@ public class ControladorExplorar extends HttpServlet {
                 queryClases.setParameter("nombre", nombre);
                 Clase = queryClases.getSingleResult();
 
-                queryTablaClaseNivel = em.createNamedQuery("Tablaclasespornivel.findByClases", Tablaclasespornivel.class);
-                queryTablaClaseNivel.setParameter("clases", Clase.getNombre());
+                queryTablaClaseNivel = em.createNamedQuery("Tablaclasespornivel.findByClase", Tablaclasespornivel.class);
+                queryTablaClaseNivel.setParameter("clase", Clase.getNombre());
                 listaTablaClaseNivel = queryTablaClaseNivel.getResultList();
 
                 listaTablaClases = new ArrayList();
@@ -1041,19 +1039,19 @@ public class ControladorExplorar extends HttpServlet {
                                     = resultado
                                     + "<tr>"
                                     + "<td>" + (i + 1) + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getBc() + */ "</td>"
                                     + "<td>" + ClaseValoEspecifico1 + "</td>"
                                     + "<td>" + ClaseValoEspecifico2 + "</td>"
                                     + "<td>" + ClaseValoEspecifico3 + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + */ "</td>"
                                     + "</tr>";
                         }
                         break;
@@ -1189,30 +1187,18 @@ public class ControladorExplorar extends HttpServlet {
                 break;
             case "/subclase":
 
-                nombre = request.getParameter("clase");
-                id = request.getParameter("subclase");
+                nombre = request.getParameter("nombreSubClase");
+                id = request.getParameter("idClase");
 
                 //Recogemos la clase
-                queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
-                queryClases.setParameter("nombre", nombre);
+                queryClases = em.createNamedQuery("Clases.findById", Clases.class);
+                queryClases.setParameter("id", id);
                 Clase = queryClases.getSingleResult();
 
                 //Recogemos la subclase
-                querySubClases = em.createNamedQuery("Subclases.findById", Subclases.class);
-                querySubClases.setParameter("id", id);
+                querySubClases = em.createNamedQuery("Subclases.findByNombre", Subclases.class);
+                querySubClases.setParameter("nombre", nombre);
                 SubClase = querySubClases.getSingleResult();
-
-                //Recogemos la tabla de la subclase
-                queryTablaClaseNivel = em.createNamedQuery("Tablaclasespornivel.findBySubclases", Tablaclasespornivel.class);
-                queryTablaClaseNivel.setParameter("subclase", Clase.getNombre());
-                listaTablaClaseNivel = queryTablaClaseNivel.getResultList();
-
-                listaTablaClases = new ArrayList();
-
-                //Recogemos todas las clases por nivel
-                for (int i = 0; i < listaTablaClaseNivel.size(); i++) {
-                    listaTablaClases.add(listaTablaClaseNivel.get(i).getTablaclases());
-                }
 
                 listaUsaSubClases = SubClase.getUsasubclaseList();
                 listaRasgos = new ArrayList();
@@ -1222,60 +1208,12 @@ public class ControladorExplorar extends HttpServlet {
                     listaRasgos.add(listaUsaSubClases.get(i).getRasgos());
                 }
 
-                resultado = "<table class=\"tablaHechizos\">"
-                        + "<thead>"
-                        + "<tr>"
-                        + "<th>Nivel</th>"
-                        + "<th>BC</th>"
-                        + "<th>H nv1</th>"
-                        + "<th>H nv2</th>"
-                        + "<th>H nv3</th>"
-                        + "<th>H nv4</th>"
-                        + "<th>H nv5</th>"
-                        + "<th>H nv6</th>"
-                        + "<th>H nv7</th>"
-                        + "<th>H nv8</th>"
-                        + "<th>H nv9</th>"
-                        + "</tr>"
-                        + "</thead>"
-                        + "<tbody";
-
-                for (int i = 0; i < 20; i++) {
-                    resultado
-                            = resultado
-                            + "<tr>"
-                            + "<td>" + (i + 1) + "</td>"
-                            + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
-                            + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
-                            + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
-                            + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
-                            + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
-                            + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
-                            + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
-                            + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
-                            + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
-                            + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
-                            + "</tr>";
-
-                }
-                resultado = resultado
-                        + "</tbody>"
-                        + "</table>";
-
-                request.setAttribute("tablaHechizos", resultado);
-
-                resultado = Clase.getEquipoinicial().replace("•", "<br>•");
-                resultado = resultado.replaceFirst("<br>", "");
-
-                request.setAttribute("equipoinicial", resultado);
-                request.setAttribute("listahabilidades", Clase.getHabilidadesList());
-                request.setAttribute("listaatributos", Clase.getAtributosList());
                 request.setAttribute("listarasgos", listaRasgos);
-
                 request.setAttribute("imagen", Clase.getNombre().replaceAll("\\s", ""));
                 request.setAttribute("clase", Clase);
+                request.setAttribute("subclase", SubClase);
 
-                vista = "/WEB-INF/jsp/explorar/clase.jsp";
+                vista = "/WEB-INF/jsp/explorar/subclase.jsp";
                 break;
             case "/dotes":
 

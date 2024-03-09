@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Clases.findAll", query = "SELECT c FROM Clases c"),
+    @NamedQuery(name = "Clases.findAll", query = "SELECT c FROM Clases c ORDER BY c.nombre"),
     @NamedQuery(name = "Clases.findById", query = "SELECT c FROM Clases c WHERE c.id = :id"),
     @NamedQuery(name = "Clases.findByNombre", query = "SELECT c FROM Clases c WHERE c.nombre = :nombre"),
     @NamedQuery(name = "Clases.findByDpg", query = "SELECT c FROM Clases c WHERE c.dpg = :dpg"),
@@ -97,17 +97,19 @@ public class Clases implements Serializable {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Habilidades> habilidadesList;
+    @ManyToMany(mappedBy = "clasesList")
+    private List<Hechizos> hechizosList;
     @JoinTable(name = "DASALVACIONCLASE", joinColumns = {
         @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Atributos> atributosList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clase")
+    private List<Subclases> subclasesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clases")
     private List<Usaclase> usaclaseList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clases")
     private List<Tablaclasespornivel> tablaclasespornivelList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clase")
-    private List<Subclases> subclasesList;
 
     public Clases() {
     }
@@ -230,12 +232,30 @@ public class Clases implements Serializable {
     }
 
     @XmlTransient
+    public List<Hechizos> getHechizosList() {
+        return hechizosList;
+    }
+
+    public void setHechizosList(List<Hechizos> hechizosList) {
+        this.hechizosList = hechizosList;
+    }
+
+    @XmlTransient
     public List<Atributos> getAtributosList() {
         return atributosList;
     }
 
     public void setAtributosList(List<Atributos> atributosList) {
         this.atributosList = atributosList;
+    }
+
+    @XmlTransient
+    public List<Subclases> getSubclasesList() {
+        return subclasesList;
+    }
+
+    public void setSubclasesList(List<Subclases> subclasesList) {
+        this.subclasesList = subclasesList;
     }
 
     @XmlTransient
@@ -254,15 +274,6 @@ public class Clases implements Serializable {
 
     public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
         this.tablaclasespornivelList = tablaclasespornivelList;
-    }
-
-    @XmlTransient
-    public List<Subclases> getSubclasesList() {
-        return subclasesList;
-    }
-
-    public void setSubclasesList(List<Subclases> subclasesList) {
-        this.subclasesList = subclasesList;
     }
 
     @Override

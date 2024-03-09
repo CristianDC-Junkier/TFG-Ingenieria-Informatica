@@ -149,7 +149,6 @@ public class ControladorChats extends HttpServlet {
                                 msj = "No Conseguido";
                             } else {
 
-                                //msj = request.getParameter("tirada");
                                 long tiempoActual = System.currentTimeMillis();
                                 Random random = new Random(tiempoActual);
                                 msj = "Tiró de D" + dado + ": " + String.valueOf(random.nextInt(Integer.valueOf(dado)) + 1);

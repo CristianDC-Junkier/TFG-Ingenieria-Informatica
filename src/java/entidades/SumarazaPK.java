@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidades;
 
 import java.io.Serializable;
@@ -25,8 +21,8 @@ public class SumarazaPK implements Serializable {
     private String subraza;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ATRIBUTO", nullable = false, length = 36)
+    @Size(min = 1, max = 100)
+    @Column(name = "ATRIBUTO", nullable = false, length = 100)
     private String atributo;
 
     public SumarazaPK() {

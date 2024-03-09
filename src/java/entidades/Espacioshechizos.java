@@ -1,3 +1,4 @@
+
 package entidades;
 
 import java.io.Serializable;
@@ -5,7 +6,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -39,12 +39,19 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Espacioshechizos.findByNv9", query = "SELECT e FROM Espacioshechizos e WHERE e.nv9 = :nv9")})
 public class Espacioshechizos implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "NV1", nullable = false)
     private short nv1;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Column(name = "NV2", nullable = false)
     private short nv2;
     @Basic(optional = false)
@@ -75,17 +82,10 @@ public class Espacioshechizos implements Serializable {
     @NotNull
     @Column(name = "NV9", nullable = false)
     private short nv9;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
-    private String id;
     @JoinTable(name = "TABLAHECHIZOS", joinColumns = {
         @JoinColumn(name = "ESPACIOSHECHIZOS", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TABLACLASES", referencedColumnName = "ID", nullable = false)})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<Tablaclases> tablaclasesList;
 
     public Espacioshechizos() {
@@ -108,53 +108,12 @@ public class Espacioshechizos implements Serializable {
         this.nv9 = nv9;
     }
 
-    public Espacioshechizos(short nv1, short nv2, short nv3, short nv4, short nv5, short nv6, short nv7, short nv8, short nv9) {
-        this.nv1 = nv1;
-        this.nv2 = nv2;
-        this.nv3 = nv3;
-        this.nv4 = nv4;
-        this.nv5 = nv5;
-        this.nv6 = nv6;
-        this.nv7 = nv7;
-        this.nv8 = nv8;
-        this.nv9 = nv9;
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-    @XmlTransient
-    public List<Tablaclases> getTablaclasesList() {
-        return tablaclasesList;
-    }
-    public void setTablaclasesList(List<Tablaclases> tablaclasesList) {
-        this.tablaclasesList = tablaclasesList;
-    }
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Espacioshechizos)) {
-            return false;
-        }
-        Espacioshechizos other = (Espacioshechizos) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-    @Override
-    public String toString() {
-        return "entidades.Espacioshechizos[ id=" + id + " ]";
     }
 
     public short getNv1() {
@@ -229,4 +188,38 @@ public class Espacioshechizos implements Serializable {
         this.nv9 = nv9;
     }
 
+    @XmlTransient
+    public List<Tablaclases> getTablaclasesList() {
+        return tablaclasesList;
+    }
+
+    public void setTablaclasesList(List<Tablaclases> tablaclasesList) {
+        this.tablaclasesList = tablaclasesList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Espacioshechizos)) {
+            return false;
+        }
+        Espacioshechizos other = (Espacioshechizos) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entidades.Espacioshechizos[ id=" + id + " ]";
+    }
+    
 }

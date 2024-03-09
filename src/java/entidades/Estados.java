@@ -1,3 +1,4 @@
+
 package entidades;
 
 import java.io.Serializable;
@@ -21,13 +22,20 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "ESTADOS")
+@Table(name = "ESTADOS", catalog = "", schema = "SYS_G4")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Estados.findAll", query = "SELECT e FROM Estados e"),
     @NamedQuery(name = "Estados.findByNombre", query = "SELECT e FROM Estados e WHERE e.nombre = :nombre")})
 public class Estados implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "NOMBRE", nullable = false, length = 30)
+    private String nombre;
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -35,14 +43,6 @@ public class Estados implements Serializable {
     private String descripcion;
     @ManyToMany(mappedBy = "estadosList")
     private List<Monstruos> monstruosList;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "NOMBRE")
-    private String nombre;
 
     public Estados() {
     }
@@ -64,6 +64,22 @@ public class Estados implements Serializable {
         this.nombre = nombre;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Monstruos> getMonstruosList() {
+        return monstruosList;
+    }
+
+    public void setMonstruosList(List<Monstruos> monstruosList) {
+        this.monstruosList = monstruosList;
+    }
 
     @Override
     public int hashCode() {
@@ -87,25 +103,7 @@ public class Estados implements Serializable {
 
     @Override
     public String toString() {
-        return "controlador.Estados[ nombre=" + nombre + " ]";
-    }
-
-
-    @XmlTransient
-    public List<Monstruos> getMonstruosList() {
-        return monstruosList;
-    }
-
-    public void setMonstruosList(List<Monstruos> monstruosList) {
-        this.monstruosList = monstruosList;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        return "entidades.Estados[ nombre=" + nombre + " ]";
     }
     
 }
