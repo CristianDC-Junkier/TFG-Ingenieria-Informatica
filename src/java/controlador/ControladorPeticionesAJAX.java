@@ -1,5 +1,6 @@
 package controlador;
 
+import entidades.Clases;
 import entidades.Equipo;
 import entidades.Hechizos;
 import entidades.Mensajesamigos;
@@ -7,6 +8,8 @@ import entidades.Mesas;
 import entidades.Monstruos;
 import entidades.Pertenecemesa;
 import entidades.Razas;
+import entidades.Subclases;
+import entidades.Subrazas;
 import entidades.Usuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -80,6 +83,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             TypedQuery<Monstruos> queryMonstruos;
             TypedQuery<Equipo> queryEquipo;
             TypedQuery<Razas> queryRazas;
+            TypedQuery<Clases> queryClases;
+            TypedQuery<Subclases> querySubClases;
+            TypedQuery<Subrazas> querySubRazas;
 
             Query queryAUX;
 
@@ -93,6 +99,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             List<Monstruos> listaMonstruos;
             List<Equipo> listaEquipo;
             List<Razas> listaRazas;
+            List<Clases> listaClases;
+            List<Subclases> listaSubClases;
+            List<Subrazas> listaSubRazas;
 
             ArrayList<String> pertenecemesaUsuarios;
             ArrayList<Integer> listaCantidad;
@@ -120,6 +129,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             String categoria;
             String propiedad;
+
+            Clases Clase;
+            Razas Raza;
 
             int num = 0; //offset
             int cantidad;
@@ -2179,6 +2191,80 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     resultado = resultado
                             + "</div>";
+
+                    System.out.println("PeticionAJAX Sale Razas");
+                    break;
+
+                case "/CrearPersonajesSubclase":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+                    
+
+                    //Encontramos la Clase
+                    queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
+                    queryClases.setParameter("nombre", nombre);
+                    Clase = queryClases.getSingleResult();
+
+                    //Si se escoge al nivel 1
+                    if (Clase.getNivelsubclase() == 1) {
+
+                        listaSubClases = Clase.getSubclasesList();
+
+                        resultado = "";
+
+                        for (int i = 0; i < listaSubClases.size(); i++) {
+                            resultado = resultado
+                                    + "<option value=\""
+                                    + listaSubClases.get(i).getNombre()
+                                    + "\">"
+                                    + listaSubClases.get(i).getNombre()
+                                    + "</option>";
+                        }
+
+                    } else {
+                        resultado = "<option value=\"-\">-</option>";
+                    }
+
+                    System.out.println("PeticionAJAX Sale Razas");
+                    break;
+
+                case "/CrearPersonajesSubraza":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    //Encontramos la Raza
+                    queryRazas = em.createNamedQuery("Razas.findByNombre", Razas.class);
+                    queryRazas.setParameter("nombre", nombre);
+                    Raza = queryRazas.getSingleResult();
+
+                    //Si hay almenos 2 razas
+                    if (Raza.getSubrazasList().size() > 1) {
+
+                        listaSubRazas = Raza.getSubrazasList();
+
+                        resultado = "";
+
+                        for (int i = 0; i < listaSubRazas.size(); i++) {
+                            //Si no es el mismo
+                            if (!listaSubRazas.get(i).getNombre().equals(Raza.getNombre())) {
+                                resultado = resultado
+                                        + "<option value=\""
+                                        + listaSubRazas.get(i).getNombre()
+                                        + "\">"
+                                        + listaSubRazas.get(i).getNombre()
+                                        + "</option>";
+                            }
+                        }
+
+                    } else {
+                        resultado = "<option value=\"-\">-</option>";
+                    }
 
                     System.out.println("PeticionAJAX Sale Razas");
                     break;

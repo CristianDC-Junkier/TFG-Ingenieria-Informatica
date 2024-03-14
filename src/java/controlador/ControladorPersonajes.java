@@ -1,8 +1,13 @@
 package controlador;
 
+import entidades.Clases;
+import entidades.Razas;
+import entidades.Subclases;
+import entidades.Subrazas;
 import entidades.Usuarios;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -52,8 +57,18 @@ public class ControladorPersonajes extends HttpServlet {
         Object result;
 
         TypedQuery<Usuarios> queryUsuarios;
+        TypedQuery<Clases> queryClases;
+        TypedQuery<Razas> queryRazas;
+        TypedQuery<Subclases> querySubClases;
+        TypedQuery<Subrazas> querySubRazas;
+
         Query queryAUX;
-        ArrayList<Usuarios> listaUsuarios;
+
+        List<Usuarios> listaUsuarios;
+        List<Clases> listaClases;
+        List<Razas> listaRazas;
+        List<Subclases> listaSubClases;
+        List<Subrazas> listaSubRazas;
 
         Usuarios user = null;
         Usuarios useraux = null;

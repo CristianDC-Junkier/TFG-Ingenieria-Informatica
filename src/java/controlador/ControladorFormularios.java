@@ -1,8 +1,11 @@
 package controlador;
 
+import entidades.Clases;
 import entidades.Mesas;
+import entidades.Razas;
 import entidades.Usuarios;
 import java.io.IOException;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -47,6 +50,12 @@ public class ControladorFormularios extends HttpServlet {
         Mesas mesa = null;
 
         TypedQuery<Mesas> queryMesas;
+        TypedQuery<Clases> queryClases;
+        TypedQuery<Razas> queryRazas;
+
+        List<Clases> listaClases;
+        List<Razas> listaRazas;
+
         String id;
         int numMesasCreadas;
 
@@ -134,8 +143,26 @@ public class ControladorFormularios extends HttpServlet {
                 vista = "/WEB-INF/jsp/formularios/usuarioperdido.jsp";
                 break;
             case "/crearpersonaje":
-                vista = "/WEB-INF/jsp/inicio/inicio.jsp";
-                break;
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+
+                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                    listaClases = queryClases.getResultList();
+                    request.setAttribute("listaClases", listaClases);
+                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                    listaRazas = queryRazas.getResultList();
+                    request.setAttribute("listaRazas", listaRazas);
+
+                    vista = "/WEB-INF/jsp/formularios/crearpersonaje.jsp";
+                }
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(vista);

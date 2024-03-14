@@ -98,3 +98,40 @@ function realizarBusquedaContrasenas(inputID, spanID, inputID2) {
         spanInput.innerHTML = "✖";
     }
 }
+
+function escogiendoPersonaje(valor, valorBusqueda, etiqueta) {
+
+    if (valorBusqueda !== "-") {
+
+        switch (valor) {
+            case "CrearPersonajesSubraza":
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/CrearPersonajesSubraza";
+                break;
+            case "CrearPersonajesSubclase":
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/CrearPersonajesSubclase";
+                break;
+        }
+
+
+        // Realizar la solicitud AJAX
+        $.ajax({
+            type: "GET",
+            url: urlAJAX,
+            data: {busqueda: valorBusqueda},
+            dataType: "text",
+            success: function (data) {
+                let htmlResultados = data;
+                // Limpiar el contenido actual de la tabla
+                etiqueta.innerHTML = '';
+                // Insertar el nuevo HTML en el contenedor
+                etiqueta.innerHTML = htmlResultados;
+            },
+            error: function (error) {
+                console.error("Error en la solicitud AJAX:", error);
+            }
+        });
+    } else {
+        etiqueta.innerHTML = '';
+        etiqueta.innerHTML = '<option value="-">-</option>';
+    }
+}

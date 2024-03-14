@@ -58,8 +58,8 @@ function realizarBusqueda(valor) {
             case "Razas":
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/Razas";
                 break;
-        }
 
+        }
         // Realizar la solicitud AJAX
         $.ajax({
             type: "GET",
