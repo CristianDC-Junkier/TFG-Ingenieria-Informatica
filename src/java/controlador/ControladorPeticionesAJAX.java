@@ -2,7 +2,6 @@ package controlador;
 
 import entidades.Clases;
 import entidades.Equipo;
-import entidades.Habilidades;
 import entidades.Hechizos;
 import entidades.Mensajesamigos;
 import entidades.Mesas;
@@ -144,6 +143,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             int cont;
 
             String sql = "";
+
+            System.out.println("PeticionAJAX entre: " + accion);
 
             switch (accion) {
                 //////////////////////////////////////////////////////////////////////////
@@ -2274,11 +2275,11 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     System.out.println("PeticionAJAX Sale CrearPersonajesSubraza");
                     break;
-                case "CrearPersonajesHabilidades":
+                case "/CrearPersonajesHabilidades":
+
                     //////////////////////////////////
                     /////////VALORES DE AJAX//////////
                     //////////////////////////////////
-
                     nombre = request.getParameter("busqueda");
                     id = request.getParameter("busqueda2");
 
@@ -2287,9 +2288,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     querySubRazas.setParameter("nombre", nombre);
                     Subraza = querySubRazas.getSingleResult();
 
-                    if (!Subraza.getHabilidadesListC().isEmpty() || Integer.getInteger(Subraza.getElegirhab()) != 0) {
+                    resultado = "<div id=\"habilidadesRaza\"";
 
-                        resultado = "<div id=\"habilidadesRaza\"";
+                    if (!Subraza.getHabilidadesListC().isEmpty() || !Subraza.getElegirhab().equals("0")) {
 
                         //Enseñamos que Habilidades te dan
                         if (!Subraza.getHabilidadesListC().isEmpty()) {
@@ -2302,11 +2303,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             }
                             resultado = resultado
                                     + "</label>";
-
                         }
 
                         //Enseñamos que Habilidades debes escoger
-                        if (Integer.getInteger(Subraza.getElegirhab()) != 0) {
+                        if (!Subraza.getElegirhab().equals("0")) {
 
                             resultado = "<label>Por Raza, elige "
                                     + Subraza.getElegirhab()
@@ -2330,8 +2330,15 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             }
                         }
 
-                        resultado = resultado + "</div";
                     }
+                    else{
+                        resultado = resultado 
+                                + "<p>"
+                                + "No ganas ninguna habilidad por tu Raza"
+                                + "</p>";
+                    }
+
+                    resultado = resultado + "</div>";
 
                     //Encontramos la Clase
                     queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
@@ -2339,7 +2346,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     Clase = queryClases.getSingleResult();
 
                     //Enseñamos que Habilidades debes escoger
-                    if (Integer.getInteger(Clase.getElegirhab()) != 0) {
+                    if (!Clase.getElegirhab().equals("0")) {
 
                         resultado = resultado + "<div id=\"habilidadesClase\""
                                 + "<label>Por Clase, elige "
@@ -2363,6 +2370,12 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                         }
                         resultado = resultado + "</div";
+                    }
+                    else{//IRREAL SIEMPRE GANARÁS ALGUNA
+                        resultado = resultado 
+                                + "<p>"
+                                + "No ganas ninguna habilidad por tu Clase"
+                                + "</p>";
                     }
 
                     System.out.println("PeticionAJAX Sale CrearPersonajesHabilidades");

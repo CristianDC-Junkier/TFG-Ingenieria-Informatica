@@ -54,18 +54,18 @@
                                         <option value="-">-</option>
                                     </select>
                                 </div>
-                                <c:if test="${requestScope.msj!=null}">
-                                    <div>
+                                <div id="mensajeError">
+                                    <c:if test="${requestScope.msj!=null}">
                                         ${requestScope.msj}
-                                    </div>
-                                </c:if>
+                                    </c:if>
+                                </div>
                             </div>
                             <div id="Bloque2" style="display: none;">
                                 <div id="habilidadesRaza">
-                                    
+
                                 </div>
                                 <div id="habilidadesClase">
-                                    
+
                                 </div>
                             </div>
                             <div class="contenedorBotonFormulario">
