@@ -51,7 +51,7 @@ public class Habilidades implements Serializable {
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
-    @ManyToMany(mappedBy = "habilidadesList")
+    @ManyToMany(mappedBy = "habilidadesListC")
     private List<Subrazas> subrazasList;
     @JoinTable(name = "ELIGETRASFONDO", joinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
@@ -65,7 +65,7 @@ public class Habilidades implements Serializable {
         @JoinColumn(name = "TRASFONDO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Trasfondos> trasfondosList1;
-    @ManyToMany(mappedBy = "habilidadesList1")
+    @ManyToMany(mappedBy = "habilidadesListE")
     private List<Subrazas> subrazasList1;
 
     public Habilidades() {

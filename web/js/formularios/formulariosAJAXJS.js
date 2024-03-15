@@ -135,3 +135,26 @@ function escogiendoPersonaje(valor, valorBusqueda, etiqueta) {
         etiqueta.innerHTML = '<option value="-">-</option>';
     }
 }
+
+function cambiarHabilidades(valorBusqueda, valorBusqueda2, etiqueta) {
+
+    urlAJAX = "/TFG/ControladorPeticionesAJAX/CrearPersonajesHabilidades";
+
+    // Realizar la solicitud AJAX
+    $.ajax({
+        type: "GET",
+        url: urlAJAX,
+        data: {busqueda: valorBusqueda, busqueda2: valorBusqueda2},
+        dataType: "text",
+        success: function (data) {
+            let htmlResultados = data;
+            // Limpiar el contenido actual de la tabla
+            etiqueta.innerHTML = '';
+            // Insertar el nuevo HTML en el contenedor
+            etiqueta.innerHTML = htmlResultados;
+        },
+        error: function (error) {
+            console.error("Error en la solicitud AJAX:", error);
+        }
+    });
+}

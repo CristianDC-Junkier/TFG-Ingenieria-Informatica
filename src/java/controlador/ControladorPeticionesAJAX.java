@@ -2,6 +2,7 @@ package controlador;
 
 import entidades.Clases;
 import entidades.Equipo;
+import entidades.Habilidades;
 import entidades.Hechizos;
 import entidades.Mensajesamigos;
 import entidades.Mesas;
@@ -11,6 +12,7 @@ import entidades.Razas;
 import entidades.Subclases;
 import entidades.Subrazas;
 import entidades.Usuarios;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
@@ -132,6 +134,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             Clases Clase;
             Razas Raza;
+            Subrazas Subraza;
 
             int num = 0; //offset
             int cantidad;
@@ -2201,7 +2204,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
 
                     nombre = request.getParameter("busqueda");
-                    
 
                     //Encontramos la Clase
                     queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
@@ -2228,7 +2230,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         resultado = "<option value=\"-\">-</option>";
                     }
 
-                    System.out.println("PeticionAJAX Sale Razas");
+                    System.out.println("PeticionAJAX Sale CrearPersonajesSubclase");
                     break;
 
                 case "/CrearPersonajesSubraza":
@@ -2263,10 +2265,107 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         }
 
                     } else {
-                        resultado = "<option value=\"-\">-</option>";
+                        resultado = "<option value=\""
+                                + nombre
+                                + "\">"
+                                + nombre
+                                + "</option>";
                     }
 
-                    System.out.println("PeticionAJAX Sale Razas");
+                    System.out.println("PeticionAJAX Sale CrearPersonajesSubraza");
+                    break;
+                case "CrearPersonajesHabilidades":
+                    //////////////////////////////////
+                    /////////VALORES DE AJAX//////////
+                    //////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+                    id = request.getParameter("busqueda2");
+
+                    //Encontramos la SubRaza
+                    querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
+                    querySubRazas.setParameter("nombre", nombre);
+                    Subraza = querySubRazas.getSingleResult();
+
+                    if (!Subraza.getHabilidadesListC().isEmpty() || Integer.getInteger(Subraza.getElegirhab()) != 0) {
+
+                        resultado = "<div id=\"habilidadesRaza\"";
+
+                        //Enseñamos que Habilidades te dan
+                        if (!Subraza.getHabilidadesListC().isEmpty()) {
+
+                            resultado = "<label>Por Raza obtienes: ";
+                            for (int i = 0; i < Subraza.getHabilidadesListC().size(); i++) {
+                                resultado = resultado
+                                        + Subraza.getHabilidadesListC().get(i).getNombre()
+                                        + " ";
+                            }
+                            resultado = resultado
+                                    + "</label>";
+
+                        }
+
+                        //Enseñamos que Habilidades debes escoger
+                        if (Integer.getInteger(Subraza.getElegirhab()) != 0) {
+
+                            resultado = "<label>Por Raza, elige "
+                                    + Subraza.getElegirhab()
+                                    + " entre estas opciones:</label>";
+
+                            for (int i = 0; i < Subraza.getHabilidadesListE().size(); i++) {
+
+                                String auxHName = Subraza.getHabilidadesListE().get(i).getNombre();
+
+                                resultado = resultado
+                                        + "<input type=\"checkbox\" id=\""
+                                        + auxHName
+                                        + "\" name=\"Habilidades[]\" value=\""
+                                        + auxHName
+                                        + "<label for=\""
+                                        + auxHName
+                                        + "\">"
+                                        + auxHName
+                                        + "</label>";
+
+                            }
+                        }
+
+                        resultado = resultado + "</div";
+                    }
+
+                    //Encontramos la Clase
+                    queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
+                    queryClases.setParameter("nombre", id);
+                    Clase = queryClases.getSingleResult();
+
+                    //Enseñamos que Habilidades debes escoger
+                    if (Integer.getInteger(Clase.getElegirhab()) != 0) {
+
+                        resultado = resultado + "<div id=\"habilidadesClase\""
+                                + "<label>Por Clase, elige "
+                                + Clase.getElegirhab()
+                                + " entre estas opciones:</label>";
+
+                        for (int i = 0; i < Clase.getHabilidadesList().size(); i++) {
+
+                            String auxHName = Clase.getHabilidadesList().get(i).getNombre();
+
+                            resultado = resultado
+                                    + "<input type=\"checkbox\" id=\""
+                                    + auxHName
+                                    + "\" name=\"Habilidades[]\" value=\""
+                                    + auxHName
+                                    + "<label for=\""
+                                    + auxHName
+                                    + "\">"
+                                    + auxHName
+                                    + "</label>";
+
+                        }
+                        resultado = resultado + "</div";
+                    }
+
+                    System.out.println("PeticionAJAX Sale CrearPersonajesHabilidades");
                     break;
             }
 

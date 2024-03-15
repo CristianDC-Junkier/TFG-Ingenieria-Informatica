@@ -82,12 +82,12 @@ public class Subrazas implements Serializable {
         @JoinColumn(name = "SUBRAZA", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Habilidades> habilidadesList;
+    private List<Habilidades> habilidadesListC;
     @JoinTable(name = "ELIGERAZA", joinColumns = {
         @JoinColumn(name = "SUBRAZA", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Habilidades> habilidadesList1;
+    private List<Habilidades> habilidadesListE;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "subrazas")
     private Eleccionatributos eleccionatributos;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subrazas")
@@ -170,21 +170,21 @@ public class Subrazas implements Serializable {
     }
 
     @XmlTransient
-    public List<Habilidades> getHabilidadesList() {
-        return habilidadesList;
+    public List<Habilidades> getHabilidadesListC() {
+        return habilidadesListC;
     }
 
-    public void setHabilidadesList(List<Habilidades> habilidadesList) {
-        this.habilidadesList = habilidadesList;
+    public void setHabilidadesListC(List<Habilidades> habilidadesListC) {
+        this.habilidadesListC = habilidadesListC;
     }
 
     @XmlTransient
-    public List<Habilidades> getHabilidadesList1() {
-        return habilidadesList1;
+    public List<Habilidades> getHabilidadesListE() {
+        return habilidadesListE;
     }
 
-    public void setHabilidadesList1(List<Habilidades> habilidadesList1) {
-        this.habilidadesList1 = habilidadesList1;
+    public void setHabilidadesListE(List<Habilidades> habilidadesListE) {
+        this.habilidadesListE = habilidadesListE;
     }
 
     public Eleccionatributos getEleccionatributos() {

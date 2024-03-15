@@ -54,7 +54,6 @@
                                         <option value="-">-</option>
                                     </select>
                                 </div>
-
                                 <c:if test="${requestScope.msj!=null}">
                                     <div>
                                         ${requestScope.msj}
@@ -62,6 +61,12 @@
                                 </c:if>
                             </div>
                             <div id="Bloque2" style="display: none;">
+                                <div id="habilidadesRaza">
+                                    
+                                </div>
+                                <div id="habilidadesClase">
+                                    
+                                </div>
                             </div>
                             <div class="contenedorBotonFormulario">
                                 <input id="botonVolverFormulario" type="button" onclick="location.pathname = 'TFG/Principal/inicio'" value="Volver">
