@@ -160,7 +160,7 @@
                     <c:when test="${sessionScope.user != null}">
                         <li class="unoDrop cuarto">
                             <div class = "barraVerticalContenido">
-                                <a href="/TFG/Formularios/">Personajes</a>
+                                <a href="/TFG/Personajes/personajes">Personajes</a>
                             </div>
                             <ul class="barraVerticalDos">
                                 <li><a href="/TFG/Personajes/personajes">Explorar</a></li>

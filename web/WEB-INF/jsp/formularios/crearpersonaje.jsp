@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4\Crear_Mesa</title>
+        <title class="titulosPag">Guidance4\Crear_Personaje</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/principalCss.css"/>
@@ -19,8 +19,8 @@
                         <c:when test="${requestScope.personajesTotales != 10}">
                             <div id="Bloque1">
                                 <div>
-                                    <label for="nombrePersonaje" id="nombrePersonaje">Nombre:</label>
-                                    <input type="text" id="namePersonaje" name="personaje_nombre" onkeyup="realizarBusqueda('namePersonaje', 'namePersonajeInput')" required/>
+                                    <label for="nombrePersonaje" id="namePersonaje">Nombre:</label>
+                                    <input type="text" id="nombrePersonaje" name="personaje_nombre" onkeyup="realizarBusqueda('namePersonaje', 'namePersonajeInput')" required/>
                                     <span  id="namePersonajeInput">✖</span>
                                 </div>
                                 <div>
@@ -66,68 +66,48 @@
                                 </div>
                             </div>
                             <div id="Bloque3" style="display: none;">
-                                <div class="puntos">
-                                    <div class="number-container">
-                                        <input type="number" value="8" min="8" max="15" readonly>
-                                        <div class="modificadores">-1</div>
+                                <c:forEach var="atributo" items="${listaAtributos}">
+                                    <div class="puntos">
+                                        <div class="number-container">
+                                            <label for="Atributo_${atributo.nombre}" id="atrPersonaje_${atributo.nombre}">${atributo.nombre}</label>
+                                            <input type="number" id="Atributo_${atributo.nombre}" value="8" min="8" max="15" readonly>
+                                            <div class="modificadores">-1</div>
+                                        </div>
+                                        <div class="btn-container">
+                                            <button type="button" class="botonaumentar">+</button>
+                                            <button type="button" class="botondecrementar">-</button>
+                                        </div>
                                     </div>
-                                    <div class="btn-container">
-                                        <button type="button" class="botonaumentar">+</button>
-                                        <button type="button" class="botondecrementar">-</button>
-                                    </div>
-                                </div>
-                                <div class="puntos">
-                                    <div class="number-container">
-                                        <input type="number" value="8" min="8" max="15" readonly>
-                                        <div class="modificadores">-1</div>
-                                    </div>
-                                    <div class="btn-container">
-                                        <button type="button" class="botonaumentar">+</button>
-                                        <button type="button" class="botondecrementar">-</button>
-                                    </div>
-                                </div>
-                                <div class="puntos">
-                                    <div class="number-container">
-                                        <input type="number" value="8" min="8" max="15" readonly>
-                                        <div class="modificadores">-1</div>
-                                    </div>
-                                    <div class="btn-container">
-                                        <button type="button" class="botonaumentar">+</button>
-                                        <button type="button" class="botondecrementar">-</button>
-                                    </div>
-                                </div>
-                                <div class="puntos">
-                                    <div class="number-container">
-                                        <input type="number" value="8" min="8" max="15" readonly>
-                                        <div class="modificadores">-1</div>
-                                    </div>
-                                    <div class="btn-container">
-                                        <button type="button" class="botonaumentar">+</button>
-                                        <button type="button" class="botondecrementar">-</button>
-                                    </div>
-                                </div>
-                                <div class="puntos">
-                                    <div class="number-container">
-                                        <label for="1" id="razaPersonaje">Constitución: </label>
-                                        <input type="number" id="1" value="8" min="8" max="15" readonly>
-                                        <div class="modificadores">-1</div>
-                                    </div>
-                                    <div class="btn-containe">
-                                        <button type="button" class="botonaumentar">+</button>
-                                        <button type="button" class="botondecrementar">-</button>
-                                    </div>
-                                </div>
-                                <div class="puntos">
-                                    <div class="number-container">
-                                        <input type="number" value="8" min="8" max="15" readonly>
-                                        <div class="modificadores">-1</div>
-                                    </div>
-                                    <div class="btn-container">
-                                        <button type="button" class="botonaumentar">+</button>
-                                        <button type="button" class="botondecrementar">-</button>
-                                    </div>
-                                </div>
+                                </c:forEach>
                                 <div id="suma">La suma total es: 0 <br> Lo normal para un héroe es tener 21 puntos</div>
+                            </div>
+                            <div id="Bloque4" style="display: none;">
+                                <label for="alinPersonaje" id="alineamientoPersonaje">Alineamiento:</label>
+                                <select required name="alineamiento" id="alinPersonaje" >
+                                    <option value="Legal Bueno">Legal Bueno</option>
+                                    <option value="Neutral Bueno">Neutral Bueno</option>
+                                    <option value="Caótico Bueno">Caótico Bueno</option>
+                                    <option value="Caótico Neutral">Caótico Neutral</option>
+                                    <option value="Neutral">Neutral</option>
+                                    <option value="Legal Neutral">Legal Neutral</option>
+                                    <option value="Caótico Malvado">Caótico Malvado</option>
+                                    <option value="Neutral Malvado">Neutral Malvado</option>
+                                    <option value="Legal Malvado">Legal Malvado</option>
+                                </select>
+                                <label for="edadPersonaje" id="agePersonaje">Edad:</label>
+                                <input type="number" id="edadPersonaje" name="personaje_edad" min="8" required/>
+                                <label for="aparienciaPersonaje" id="lookPersonaje">Apariencia:</label>
+                                <textarea id="aparienciaPersonaje" name="personaje_apariencia" required/></textarea>
+                                <label for="rasgosPersonaje" id="rasPersonaje">Rasgos:</label>
+                                <textarea id="rasgosPersonaje" name="personaje_rasgos" required/></textarea>
+                                <label for="defectosPersonaje" id="defPersonaje">Defectos:</label>
+                                <textarea id="defectosPersonaje" name="personaje_defectos" required/></textarea>
+                                <label for="vinculosPersonaje" id="vinPersonaje">Vinculos:</label>
+                                <textarea id="vinculosPersonaje" name="personaje_vinculos" required/></textarea>
+                                <label for="idiomasPersonaje" id="idiPersonaje">Idiomas:</label>
+                                <input type="text" id="idiomasPersonaje" name="personaje_idiomas"required/>
+                                <label for="historiaPersonaje" id="historyPersonaje">Historia:</label>
+                                <textarea id="historiaPersonaje" name="personaje_historia" required/></textarea>
                             </div>
                             <div class="contenedorBotonFormulario">
                                 <input id="botonVolverFormulario" type="button" onclick="location.pathname = 'TFG/Principal/inicio'" value="Volver">

@@ -41,13 +41,21 @@
                         </select>
                     </div>
                     <div>
-                        Raza:
+                        Elección de Raza:
                         <select id="filtroRaza">
+                            <option value="Raza" selected>Raza</option>
+                            <c:forEach var="raza" items="${listaRazas}">
+                                <option value="${raza.nombre}" >${raza.nombre}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div>
-                        Clase:
+                        Elección de Clase:
                         <select id="filtroClase">
+                            <option value="Clase" selected>Clase</option>
+                            <c:forEach var="clase" items="${listaClases}">
+                                <option value="${clase.nombre}" >${clase.nombre}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div>
@@ -66,7 +74,7 @@
                         </select>
                     </div>
                     <c:if test="${sessionScope.user != null}">
-                        <div><button class="botonDentro" onclick="location.href = '/TFG/Formularios/crearpersonaje'">Crear Personaje</button>
+                        <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/crearpersonaje'">Crear Personaje</button>
                             <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajesAmigos'">De Amigos</button>
                             <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajesPerfil'">Mis Personajes</button></div>
                         </c:if>

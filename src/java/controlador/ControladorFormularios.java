@@ -1,5 +1,6 @@
 package controlador;
 
+import entidades.Atributos;
 import entidades.Clases;
 import entidades.Mesas;
 import entidades.Razas;
@@ -46,15 +47,10 @@ public class ControladorFormularios extends HttpServlet {
 
         HttpSession session;
 
-        Usuarios user = null;
-        Mesas mesa = null;
+        Usuarios user;
+        Mesas mesa;
 
         TypedQuery<Mesas> queryMesas;
-        TypedQuery<Clases> queryClases;
-        TypedQuery<Razas> queryRazas;
-
-        List<Clases> listaClases;
-        List<Razas> listaRazas;
 
         String id;
         int numMesasCreadas;
@@ -142,27 +138,6 @@ public class ControladorFormularios extends HttpServlet {
             case "/usuarioperdido":
                 vista = "/WEB-INF/jsp/formularios/usuarioperdido.jsp";
                 break;
-            case "/crearpersonaje":
-
-                /////////////////////////
-                /////////SESION//////////
-                /////////////////////////
-                session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
-
-                if (user == null) {
-                    vista = "/Principal/inicio";
-                } else {
-
-                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
-                    listaClases = queryClases.getResultList();
-                    request.setAttribute("listaClases", listaClases);
-                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
-                    listaRazas = queryRazas.getResultList();
-                    request.setAttribute("listaRazas", listaRazas);
-
-                    vista = "/WEB-INF/jsp/formularios/crearpersonaje.jsp";
-                }
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(vista);

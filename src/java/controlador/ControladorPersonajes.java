@@ -1,12 +1,12 @@
 package controlador;
 
+import entidades.Atributos;
 import entidades.Clases;
 import entidades.Razas;
 import entidades.Subclases;
 import entidades.Subrazas;
 import entidades.Usuarios;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -59,6 +59,7 @@ public class ControladorPersonajes extends HttpServlet {
         TypedQuery<Usuarios> queryUsuarios;
         TypedQuery<Clases> queryClases;
         TypedQuery<Razas> queryRazas;
+        TypedQuery<Atributos> queryAtributos;
         TypedQuery<Subclases> querySubClases;
         TypedQuery<Subrazas> querySubRazas;
 
@@ -70,17 +71,67 @@ public class ControladorPersonajes extends HttpServlet {
         List<Subclases> listaSubClases;
         List<Subrazas> listaSubRazas;
 
-        Usuarios user = null;
-        Usuarios useraux = null;
+        Usuarios user;
+        Usuarios useraux;
 
         String id;
 
         switch (accion) {
+            case "/crearpersonaje":
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    
+                    //Numero total de personajes
+                    request.setAttribute("personajesTotales", 0);
+                    
+                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                    request.setAttribute("listaClases", queryClases.getResultList());
+                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                    request.setAttribute("listaRazas", queryRazas.getResultList());
+                    queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                    request.setAttribute("listaAtributos", queryAtributos.getResultList());
+
+                    vista = "/WEB-INF/jsp/formularios/crearpersonaje.jsp";
+                }
+                break;
             case "/personajes":
+
+                queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                request.setAttribute("listaClases", queryClases.getResultList());
+
+                queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                request.setAttribute("listaRazas", queryRazas.getResultList());
+
                 vista = "/WEB-INF/jsp/personajes/personajes.jsp";
+
                 break;
             case "/personajesAmigos":
-                vista = "/WEB-INF/jsp/personajes/personajesAmigos.jsp";
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+
+                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                    request.setAttribute("listaClases", queryClases.getResultList());
+
+                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                    request.setAttribute("listaRazas", queryRazas.getResultList());
+
+                    vista = "/WEB-INF/jsp/personajes/personajesAmigos.jsp";
+                }
                 break;
             case "/personajesAmigo":
                 /////////////////////////
@@ -108,7 +159,24 @@ public class ControladorPersonajes extends HttpServlet {
                 }
                 break;
             case "/personajesPerfil":
-                vista = "/WEB-INF/jsp/personajes/personajesPerfil.jsp";
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+
+                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                    request.setAttribute("listaClases", queryClases.getResultList());
+
+                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                    request.setAttribute("listaRazas", queryRazas.getResultList());
+
+                    vista = "/WEB-INF/jsp/personajes/personajesPerfil.jsp";
+                }
                 break;
             case "/personaje":
                 vista = "/WEB-INF/jsp/personaje/personaje.jsp";

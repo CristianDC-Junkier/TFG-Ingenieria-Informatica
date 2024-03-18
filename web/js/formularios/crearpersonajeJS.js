@@ -3,6 +3,7 @@
 let Bloque_1 = document.getElementById("Bloque1");
 let Bloque_2 = document.getElementById("Bloque2");
 let Bloque_3 = document.getElementById("Bloque3");
+let Bloque_4 = document.getElementById("Bloque4");
 
 //Bloque 1
 let Nombre = document.getElementById('namePersonaje');
@@ -74,6 +75,17 @@ function AvanzarFormulario(Pag) {
                 RetrocederFormulario(2);
             };
             break;
+        case 4:
+            //Mostrar Bloques
+            Bloque_3.style.display = "none";
+            Bloque_4.style.display = "block";
+            //Cambiar botones
+            Avanzar.type = "hidden";
+            Enviar.type = "submit";
+            Volver.onclick = function () {
+                RetrocederFormulario(3);
+            };
+            break;
     }
 }
 
@@ -95,10 +107,21 @@ function RetrocederFormulario(Pag) {
             Bloque_3.style.display = "none";
             //Cambiar botones
             Avanzar.onclick = function () {
-                AvanzarFormulario(2);
+                AvanzarFormulario(3);
             };
             Volver.onclick = function () {
                 RetrocederFormulario(1);
+            };
+            break;
+        case 3:
+            //Mostrar Bloques
+            Bloque_3.style.display = "block";
+            Bloque_4.style.display = "none";
+            //Cambiar botones
+            Enviar.type = "hidden";
+            Avanzar.type = "submit";
+            Volver.onclick = function () {
+                RetrocederFormulario(2);
             };
             break;
     }

@@ -67,10 +67,10 @@ public class ControladorUsuarios extends HttpServlet {
         Object result;
 
         Usuarios user = null;
-        Usuarios useraux = null;
-        Amigos amigo = null;
-        Bloqueados bloqueado = null;
-        Pideamistad pamistad = null;
+        Usuarios useraux;
+        Amigos amigo;
+        Bloqueados bloqueado;
+        Pideamistad pamistad;
 
         TypedQuery<Usuarios> queryUsuarios;
         TypedQuery<Amigos> queryAmigos;

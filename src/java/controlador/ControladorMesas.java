@@ -692,7 +692,7 @@ public class ControladorMesas extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Mesas.class);
                     listaMesas = queryAUX.getResultList();
 
-                    System.out.println("Esto: " + listaMesas.size());
+                    //System.out.println("Esto: " + listaMesas.size());
 
                     listaCantidad = new ArrayList();
                     fotosMesas = new ArrayList();

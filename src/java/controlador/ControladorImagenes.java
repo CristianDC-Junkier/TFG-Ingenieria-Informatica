@@ -54,9 +54,8 @@ public class ControladorImagenes extends HttpServlet {
 
         HttpSession session;
 
-        Usuarios user = null;
-        Mesas mesa = null;
-        Pertenecemesa pmesa = null;
+        Usuarios user;
+        Mesas mesa;
 
         TypedQuery<Mesas> queryMesas;
         TypedQuery<Pertenecemesa> queryPertenecemesas;

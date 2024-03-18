@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
-    <title class="titulosPag">Guidance4\Personajes\Amistad\Perfil</title>
+    <title class="titulosPag">Guidance4\Personajes\Amistad</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/personajesCss.css"/>
@@ -41,13 +41,21 @@
                         </select>
                     </div>
                     <div>
-                        Raza:
+                        Elección de Raza:
                         <select id="filtroRaza">
+                            <option value="Raza" selected>Raza</option>
+                            <c:forEach var="raza" items="${listaRazas}">
+                                <option value="${raza.nombre}" >${raza.nombre}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div>
-                        Clase:
+                        Elección de Clase:
                         <select id="filtroClase">
+                            <option value="Clase" selected>Clase</option>
+                            <c:forEach var="clase" items="${listaClases}">
+                                <option value="${clase.nombre}" >${clase.nombre}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div>
