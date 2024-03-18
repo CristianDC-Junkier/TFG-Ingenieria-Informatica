@@ -2,6 +2,7 @@
 //Bloques
 let Bloque_1 = document.getElementById("Bloque1");
 let Bloque_2 = document.getElementById("Bloque2");
+let Bloque_3 = document.getElementById("Bloque3");
 
 //Bloque 1
 let Nombre = document.getElementById('namePersonaje');
@@ -10,8 +11,10 @@ let Clase = document.getElementById('classPersonaje');
 let SubRaza = document.getElementById('subracePersonaje');
 let SubClase = document.getElementById('subclassPersonaje');
 
-//Bloque 2
-
+//Bloque 3
+let puntos = document.querySelectorAll('.puntos input');
+let sumaVariable = document.getElementById('suma');
+let modificadores = document.querySelectorAll('.modificadores');
 
 //Botones
 let Avanzar = document.getElementById("botonAvanzarFormulario");
@@ -43,8 +46,8 @@ function AvanzarFormulario(Pag) {
             } else {
                 //Borro Mensaje de Error si había
                 MensajeError.innerHTML = "";
-                //Comprobar Cosas
-                realizarBusqueda()
+                //Comprobar Nombre
+                //realizarBusqueda();
                 //Mostrar Bloques
                 Bloque_1.style.display = "none";
                 Bloque_2.style.display = "block";
@@ -60,6 +63,16 @@ function AvanzarFormulario(Pag) {
             }
             break;
         case 3:
+            //Mostrar Bloques
+            Bloque_2.style.display = "none";
+            Bloque_3.style.display = "block";
+            //Cambiar botones
+            Avanzar.onclick = function () {
+                AvanzarFormulario(4);
+            };
+            Volver.onclick = function () {
+                RetrocederFormulario(2);
+            };
             break;
     }
 }
@@ -77,9 +90,85 @@ function RetrocederFormulario(Pag) {
             Volver.onclick = "location.pathname = 'TFG/Principal/inicio'";
             break;
         case 2:
+            //Mostrar Bloques
+            Bloque_2.style.display = "block";
+            Bloque_3.style.display = "none";
+            //Cambiar botones
+            Avanzar.onclick = function () {
+                AvanzarFormulario(2);
+            };
+            Volver.onclick = function () {
+                RetrocederFormulario(1);
+            };
             break;
     }
 }
+
+//Bloque 3
+
+function calcularSuma() {
+    let suma = 0;
+
+    puntos.forEach(function (input) {
+
+        var value = parseInt(input.value);
+        if (value === 14) {
+            suma += (value - 8) + 1;
+        } else if (value === 15) {
+            suma += (value - 8) + 2;
+        } else {
+            suma += (value - 8);
+        }
+    });
+    sumaVariable.innerHTML = "La suma total es: " + suma + "<br> Lo normal para un héroe es tener 21 puntos";
+}
+
+function calcularModificadores() {
+    modificadores.forEach(function (modificador, index) {
+        let valorMod = puntos[index];
+        let valor = parseInt(valorMod.value);
+
+        if (valor === 8 || valor === 9) {
+            modificador.innerHTML = "-1";
+        } else if (valor === 10 || valor === 11) {
+            modificador.innerHTML = "0";
+        } else if (valor === 12 || valor === 13) {
+            modificador.innerHTML = "+1";
+        } else {
+            modificador.innerHTML = "+2";
+        }
+    });
+}
+
+puntos.forEach(function (input) {
+    input.addEventListener('change', calcularSuma);
+});
+
+document.querySelectorAll('.puntos').forEach(function (container) {
+    let valorCuadro = container.querySelector('input');
+    let botonAumentar = container.querySelector('.botonaumentar');
+    let botonDecrementar = container.querySelector('.botondecrementar');
+
+    botonAumentar.addEventListener('click', function () {
+        let valor = parseInt(valorCuadro.value);
+        let max = parseInt(valorCuadro.getAttribute('max'));
+        if (valor < max) {
+            valorCuadro.value = valor + 1;
+            calcularSuma();
+            calcularModificadores();
+        }
+    });
+
+    botonDecrementar.addEventListener('click', function () {
+        var valor = parseInt(valorCuadro.value);
+        var min = parseInt(valorCuadro.getAttribute('min'));
+        if (valor > min) {
+            valorCuadro.value = valor - 1;
+            calcularSuma();
+            calcularModificadores();
+        }
+    });
+});
 
 
 

@@ -47,7 +47,6 @@
                                         </c:forEach>
                                     </select>
                                 </div>
-
                                 <div>
                                     <label for="subracePersonaje" id="subrazaPersonaje">SubRaza:</label>
                                     <select required name="subraza" id="subracePersonaje" >
@@ -62,11 +61,73 @@
                             </div>
                             <div id="Bloque2" style="display: none;">
                                 <div id="habilidadesRaza">
-
                                 </div>
                                 <div id="habilidadesClase">
-
                                 </div>
+                            </div>
+                            <div id="Bloque3" style="display: none;">
+                                <div class="puntos">
+                                    <div class="number-container">
+                                        <input type="number" value="8" min="8" max="15" readonly>
+                                        <div class="modificadores">-1</div>
+                                    </div>
+                                    <div class="btn-container">
+                                        <button type="button" class="botonaumentar">+</button>
+                                        <button type="button" class="botondecrementar">-</button>
+                                    </div>
+                                </div>
+                                <div class="puntos">
+                                    <div class="number-container">
+                                        <input type="number" value="8" min="8" max="15" readonly>
+                                        <div class="modificadores">-1</div>
+                                    </div>
+                                    <div class="btn-container">
+                                        <button type="button" class="botonaumentar">+</button>
+                                        <button type="button" class="botondecrementar">-</button>
+                                    </div>
+                                </div>
+                                <div class="puntos">
+                                    <div class="number-container">
+                                        <input type="number" value="8" min="8" max="15" readonly>
+                                        <div class="modificadores">-1</div>
+                                    </div>
+                                    <div class="btn-container">
+                                        <button type="button" class="botonaumentar">+</button>
+                                        <button type="button" class="botondecrementar">-</button>
+                                    </div>
+                                </div>
+                                <div class="puntos">
+                                    <div class="number-container">
+                                        <input type="number" value="8" min="8" max="15" readonly>
+                                        <div class="modificadores">-1</div>
+                                    </div>
+                                    <div class="btn-container">
+                                        <button type="button" class="botonaumentar">+</button>
+                                        <button type="button" class="botondecrementar">-</button>
+                                    </div>
+                                </div>
+                                <div class="puntos">
+                                    <div class="number-container">
+                                        <label for="1" id="razaPersonaje">Constitución: </label>
+                                        <input type="number" id="1" value="8" min="8" max="15" readonly>
+                                        <div class="modificadores">-1</div>
+                                    </div>
+                                    <div class="btn-containe">
+                                        <button type="button" class="botonaumentar">+</button>
+                                        <button type="button" class="botondecrementar">-</button>
+                                    </div>
+                                </div>
+                                <div class="puntos">
+                                    <div class="number-container">
+                                        <input type="number" value="8" min="8" max="15" readonly>
+                                        <div class="modificadores">-1</div>
+                                    </div>
+                                    <div class="btn-container">
+                                        <button type="button" class="botonaumentar">+</button>
+                                        <button type="button" class="botondecrementar">-</button>
+                                    </div>
+                                </div>
+                                <div id="suma">La suma total es: 0 <br> Lo normal para un héroe es tener 21 puntos</div>
                             </div>
                             <div class="contenedorBotonFormulario">
                                 <input id="botonVolverFormulario" type="button" onclick="location.pathname = 'TFG/Principal/inicio'" value="Volver">
