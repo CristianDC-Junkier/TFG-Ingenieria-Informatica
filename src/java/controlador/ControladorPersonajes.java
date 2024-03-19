@@ -101,7 +101,7 @@ public class ControladorPersonajes extends HttpServlet {
                     queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
                     request.setAttribute("listaAtributos", queryAtributos.getResultList());
                     queryTrasfondos = em.createNamedQuery("Trasfondos.findAll", Trasfondos.class);
-                    request.setAttribute("listaTrasfondos", queryAtributos.getResultList());
+                    request.setAttribute("listaTrasfondos", queryTrasfondos.getResultList());
 
                     vista = "/WEB-INF/jsp/formularios/crearpersonaje.jsp";
                 }

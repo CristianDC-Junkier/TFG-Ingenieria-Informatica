@@ -54,7 +54,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="trasPersonaje" id="trasfondoPersonaje">Raza:</label>
+                                    <label for="trasPersonaje" id="trasfondoPersonaje">Trasfondo:</label>
                                     <select required name="trasfondo" id="trasPersonaje" >
                                         <option value="-" selected>-</option>
                                         <c:forEach var="trasfondo" items="${listaTrasfondos}">
