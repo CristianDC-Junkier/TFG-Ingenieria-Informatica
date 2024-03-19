@@ -4,6 +4,7 @@ package entidades;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -61,6 +63,8 @@ public class Trasfondos implements Serializable {
     @Size(max = 1)
     @Column(name = "ELEGIRHAB", length = 1)
     private String elegirhab;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trasfondo")
+    private List<Personajes> personajesList;
     @ManyToMany(mappedBy = "trasfondosList")
     private List<Habilidades> habilidadesList;
     @ManyToMany(mappedBy = "trasfondosList1")
@@ -195,6 +199,15 @@ public class Trasfondos implements Serializable {
 
     public void setElegirhab(String elegirhab) {
         this.elegirhab = elegirhab;
+    }
+
+    @XmlTransient
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
+    }
+
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
     }
     
 }

@@ -45,20 +45,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Clases.findByNivelsubclase", query = "SELECT c FROM Clases c WHERE c.nivelsubclase = :nivelsubclase")})
 public class Clases implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
-    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "NOMBRE", nullable = false, length = 60)
     private String nombre;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
@@ -84,14 +77,23 @@ public class Clases implements Serializable {
     @Column(name = "OROINICIAL", length = 15)
     private String oroinicial;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 2)
     @Column(name = "ELEGIRHAB", nullable = false, length = 2)
     private String elegirhab;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Column(name = "NIVELSUBCLASE", nullable = false)
     private short nivelsubclase;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clase")
+    private List<Personajes> personajesList;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @JoinTable(name = "DACOMPETENCIACLASE", joinColumns = {
         @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
@@ -132,6 +134,86 @@ public class Clases implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+
+    @XmlTransient
+    public List<Habilidades> getHabilidadesList() {
+        return habilidadesList;
+    }
+
+    public void setHabilidadesList(List<Habilidades> habilidadesList) {
+        this.habilidadesList = habilidadesList;
+    }
+
+    @XmlTransient
+    public List<Hechizos> getHechizosList() {
+        return hechizosList;
+    }
+
+    public void setHechizosList(List<Hechizos> hechizosList) {
+        this.hechizosList = hechizosList;
+    }
+
+    @XmlTransient
+    public List<Atributos> getAtributosList() {
+        return atributosList;
+    }
+
+    public void setAtributosList(List<Atributos> atributosList) {
+        this.atributosList = atributosList;
+    }
+
+    @XmlTransient
+    public List<Subclases> getSubclasesList() {
+        return subclasesList;
+    }
+
+    public void setSubclasesList(List<Subclases> subclasesList) {
+        this.subclasesList = subclasesList;
+    }
+
+    @XmlTransient
+    public List<Usaclase> getUsaclaseList() {
+        return usaclaseList;
+    }
+
+    public void setUsaclaseList(List<Usaclase> usaclaseList) {
+        this.usaclaseList = usaclaseList;
+    }
+
+    @XmlTransient
+    public List<Tablaclasespornivel> getTablaclasespornivelList() {
+        return tablaclasespornivelList;
+    }
+
+    public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
+        this.tablaclasespornivelList = tablaclasespornivelList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Clases)) {
+            return false;
+        }
+        Clases other = (Clases) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entidades.Clases[ id=" + id + " ]";
     }
 
     public String getNombre() {
@@ -223,82 +305,12 @@ public class Clases implements Serializable {
     }
 
     @XmlTransient
-    public List<Habilidades> getHabilidadesList() {
-        return habilidadesList;
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
     }
 
-    public void setHabilidadesList(List<Habilidades> habilidadesList) {
-        this.habilidadesList = habilidadesList;
-    }
-
-    @XmlTransient
-    public List<Hechizos> getHechizosList() {
-        return hechizosList;
-    }
-
-    public void setHechizosList(List<Hechizos> hechizosList) {
-        this.hechizosList = hechizosList;
-    }
-
-    @XmlTransient
-    public List<Atributos> getAtributosList() {
-        return atributosList;
-    }
-
-    public void setAtributosList(List<Atributos> atributosList) {
-        this.atributosList = atributosList;
-    }
-
-    @XmlTransient
-    public List<Subclases> getSubclasesList() {
-        return subclasesList;
-    }
-
-    public void setSubclasesList(List<Subclases> subclasesList) {
-        this.subclasesList = subclasesList;
-    }
-
-    @XmlTransient
-    public List<Usaclase> getUsaclaseList() {
-        return usaclaseList;
-    }
-
-    public void setUsaclaseList(List<Usaclase> usaclaseList) {
-        this.usaclaseList = usaclaseList;
-    }
-
-    @XmlTransient
-    public List<Tablaclasespornivel> getTablaclasespornivelList() {
-        return tablaclasespornivelList;
-    }
-
-    public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
-        this.tablaclasespornivelList = tablaclasespornivelList;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Clases)) {
-            return false;
-        }
-        Clases other = (Clases) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entidades.Clases[ id=" + id + " ]";
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
     }
     
 }

@@ -61,8 +61,6 @@ public class Usuarios implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "CONTRASENA", nullable = false, length = 100)
     private String contrasena;
-    @Column(name = "TELEFONO")
-    private BigInteger telefono;
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHANAC", nullable = false)
@@ -71,7 +69,7 @@ public class Usuarios implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
-    @Column(name = "PROVINCIA", nullable = false, length = 40)
+    @Column(name="PROVINCIA", nullable = false, length = 40)
     private String provincia;
     @Basic(optional = false)
     @NotNull
@@ -82,6 +80,10 @@ public class Usuarios implements Serializable {
     @NotNull
     @Column(name = "ADMIN", nullable = false)
     private short admin;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Personajes> personajesList;
+    @Column(name = "TELEFONO")
+    private BigInteger telefono;
     @JoinTable(name = "BLOQUEADOS", joinColumns = {
         @JoinColumn(name = "BLOQUEADO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "BLOQUEADOR", referencedColumnName = "ID", nullable = false)})
@@ -157,37 +159,6 @@ public class Usuarios implements Serializable {
         this.id = id;
     }
 
-    public String getApodo() {
-        return apodo;
-    }
-
-    public void setApodo(String apodo) {
-        this.apodo = apodo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
 
     public BigInteger getTelefono() {
         return telefono;
@@ -197,37 +168,6 @@ public class Usuarios implements Serializable {
         this.telefono = telefono;
     }
 
-    public Date getFechanac() {
-        return fechanac;
-    }
-
-    public void setFechanac(Date fechanac) {
-        this.fechanac = fechanac;
-    }
-
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public short getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(short admin) {
-        this.admin = admin;
-    }
 
     @Override
     public int hashCode() {
@@ -337,5 +277,78 @@ if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals
 
     public void setMensajesamigosList1(List<Mensajesamigos> mensajesamigosList1) {
         this.mensajesamigosList1 = mensajesamigosList1;
+    }
+
+    public String getApodo() {
+        return apodo;
+    }
+
+    public void setApodo(String apodo) {
+        this.apodo = apodo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public Date getFechanac() {
+        return fechanac;
+    }
+
+    public void setFechanac(Date fechanac) {
+        this.fechanac = fechanac;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public short getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(short admin) {
+        this.admin = admin;
+    }
+
+    @XmlTransient
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
+    }
+
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
     }
 }

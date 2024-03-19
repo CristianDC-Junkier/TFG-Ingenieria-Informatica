@@ -36,26 +36,19 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Razas.findByTipo", query = "SELECT r FROM Razas r WHERE r.tipo = :tipo")})
 public class Razas implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
-    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "NOMBRE", nullable = false, length = 80)
     private String nombre;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @Basic(optional = false)
     @NotNull
-    @Lob
+    @Lob()
     @Column(name = "RESUMEN", nullable = false)
     private String resumen;
     @Basic(optional = false)
@@ -73,6 +66,15 @@ public class Razas implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "TIPO", nullable = false, length = 30)
     private String tipo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "raza")
+    private List<Personajes> personajesList;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @JoinTable(name = "USARAZA", joinColumns = {
         @JoinColumn(name = "RAZA", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)})
@@ -104,6 +106,50 @@ public class Razas implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+
+    @XmlTransient
+    public List<Rasgos> getRasgosList() {
+        return rasgosList;
+    }
+
+    public void setRasgosList(List<Rasgos> rasgosList) {
+        this.rasgosList = rasgosList;
+    }
+
+    @XmlTransient
+    public List<Subrazas> getSubrazasList() {
+        return subrazasList;
+    }
+
+    public void setSubrazasList(List<Subrazas> subrazasList) {
+        this.subrazasList = subrazasList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Razas)) {
+            return false;
+        }
+        Razas other = (Razas) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entidades.Razas[ id=" + id + " ]";
     }
 
     public String getNombre() {
@@ -155,46 +201,12 @@ public class Razas implements Serializable {
     }
 
     @XmlTransient
-    public List<Rasgos> getRasgosList() {
-        return rasgosList;
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
     }
 
-    public void setRasgosList(List<Rasgos> rasgosList) {
-        this.rasgosList = rasgosList;
-    }
-
-    @XmlTransient
-    public List<Subrazas> getSubrazasList() {
-        return subrazasList;
-    }
-
-    public void setSubrazasList(List<Subrazas> subrazasList) {
-        this.subrazasList = subrazasList;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Razas)) {
-            return false;
-        }
-        Razas other = (Razas) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entidades.Razas[ id=" + id + " ]";
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
     }
     
 }

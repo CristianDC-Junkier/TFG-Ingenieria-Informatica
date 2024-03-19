@@ -53,6 +53,15 @@
                                         <option value="-">-</option>
                                     </select>
                                 </div>
+                                <div>
+                                    <label for="trasPersonaje" id="trasfondoPersonaje">Raza:</label>
+                                    <select required name="trasfondo" id="trasPersonaje" >
+                                        <option value="-" selected>-</option>
+                                        <c:forEach var="trasfondo" items="${listaTrasfondos}">
+                                            <option value="${trasfondo.nombre}">${trasfondo.nombre}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
                                 <div id="mensajeError">
                                     <c:if test="${requestScope.msj!=null}">
                                         ${requestScope.msj}

@@ -38,13 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subclases.findByNombre", query = "SELECT s FROM Subclases s WHERE s.nombre = :nombre")})
 public class Subclases implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
-    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
@@ -55,6 +48,16 @@ public class Subclases implements Serializable {
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
+    @OneToMany(mappedBy = "subclase")
+    private List<Personajes> personajesList;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subclases")
     private List<Usasubclase> usasubclaseList;
     @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)
@@ -82,21 +85,6 @@ public class Subclases implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
     @XmlTransient
     public List<Usasubclase> getUsasubclaseList() {
@@ -138,6 +126,31 @@ public class Subclases implements Serializable {
     @Override
     public String toString() {
         return "entidades.Subclases[ id=" + id + " ]";
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
+    }
+
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
     }
     
 }

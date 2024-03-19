@@ -5,6 +5,7 @@ import entidades.Clases;
 import entidades.Razas;
 import entidades.Subclases;
 import entidades.Subrazas;
+import entidades.Trasfondos;
 import entidades.Usuarios;
 import java.io.IOException;
 import java.util.List;
@@ -60,6 +61,7 @@ public class ControladorPersonajes extends HttpServlet {
         TypedQuery<Clases> queryClases;
         TypedQuery<Razas> queryRazas;
         TypedQuery<Atributos> queryAtributos;
+        TypedQuery<Trasfondos> queryTrasfondos;
         TypedQuery<Subclases> querySubClases;
         TypedQuery<Subrazas> querySubRazas;
 
@@ -98,6 +100,8 @@ public class ControladorPersonajes extends HttpServlet {
                     request.setAttribute("listaRazas", queryRazas.getResultList());
                     queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
                     request.setAttribute("listaAtributos", queryAtributos.getResultList());
+                    queryTrasfondos = em.createNamedQuery("Trasfondos.findAll", Trasfondos.class);
+                    request.setAttribute("listaTrasfondos", queryAtributos.getResultList());
 
                     vista = "/WEB-INF/jsp/formularios/crearpersonaje.jsp";
                 }

@@ -11,6 +11,7 @@ let Raza = document.getElementById('racePersonaje');
 let Clase = document.getElementById('classPersonaje');
 let SubRaza = document.getElementById('subracePersonaje');
 let SubClase = document.getElementById('subclassPersonaje');
+let Trasfondo = document.getElementById('trasPersonaje');
 
 //Bloque 3
 let puntos = document.querySelectorAll('.puntos input');
@@ -41,9 +42,9 @@ function AvanzarFormulario(Pag) {
     switch (Pag) {
         case 2:
             //Compruebo que elegí cosas
-            if (Clase.value === "-" || Raza.value === "-" || Nombre.value === "") {
+            if (Clase.value === "-" || Raza.value === "-" || Nombre.value === "" ||Trasfondo.value === "") {
                 MensajeError.innerHTML = "";
-                MensajeError.innerHTML = "<br> Debes introducir nombre y elegir raza y clase";
+                MensajeError.innerHTML = "<br> Debes introducir nombre y elegir raza , clase y trasfondo";
             } else {
                 //Borro Mensaje de Error si había
                 MensajeError.innerHTML = "";

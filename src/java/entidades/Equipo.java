@@ -46,20 +46,13 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class Equipo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
-    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "NOMBRE", nullable = false, length = 80)
     private String nombre;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 20)
     @Column(name = "TIPO", nullable = false, length = 20)
     private String tipo;
@@ -84,10 +77,19 @@ public class Equipo implements Serializable {
     @Column(name = "PGOLPE", length = 30)
     private String pgolpe;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
+    @ManyToMany(mappedBy = "equipoList")
+    private List<Personajes> personajesList;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @JoinTable(name = "TIENEPROPIEDADES", joinColumns = {
         @JoinColumn(name = "EQUIPO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "PROPIEDAD", referencedColumnName = "ID", nullable = false)})
@@ -115,6 +117,35 @@ public class Equipo implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+    @XmlTransient
+    public List<Propiedades> getPropiedadesList() {
+        return propiedadesList;
+    }
+    public void setPropiedadesList(List<Propiedades> propiedadesList) {
+        this.propiedadesList = propiedadesList;
+    }
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Equipo)) {
+            return false;
+        }
+        Equipo other = (Equipo) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public String toString() {
+        return "entidades.Equipo[ id=" + id + " ]";
     }
 
     public String getNombre() {
@@ -190,37 +221,12 @@ public class Equipo implements Serializable {
     }
 
     @XmlTransient
-    public List<Propiedades> getPropiedadesList() {
-        return propiedadesList;
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
     }
 
-    public void setPropiedadesList(List<Propiedades> propiedadesList) {
-        this.propiedadesList = propiedadesList;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Equipo)) {
-            return false;
-        }
-        Equipo other = (Equipo) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entidades.Equipo[ id=" + id + " ]";
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
     }
     
 }

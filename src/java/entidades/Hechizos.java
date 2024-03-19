@@ -44,20 +44,13 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class Hechizos implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
-    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "NOMBRE", nullable = false, length = 80)
     private String nombre;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 10)
     @Column(name = "NIVEL", nullable = false, length = 10)
     private String nivel;
@@ -93,15 +86,24 @@ public class Hechizos implements Serializable {
     @Column(name = "DANO", length = 50)
     private String dano;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 2)
     @Column(name = "RITUAL", nullable = false, length = 2)
     private String ritual;
+    @ManyToMany(mappedBy = "hechizosList")
+    private List<Personajes> personajesList;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @JoinTable(name = "LISTAHECHIZOS", joinColumns = {
         @JoinColumn(name = "HECHIZO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)})
@@ -134,6 +136,35 @@ public class Hechizos implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+    @XmlTransient
+    public List<Clases> getClasesList() {
+        return clasesList;
+    }
+    public void setClasesList(List<Clases> clasesList) {
+        this.clasesList = clasesList;
+    }
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Hechizos)) {
+            return false;
+        }
+        Hechizos other = (Hechizos) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public String toString() {
+        return "entidades.Hechizos[ id=" + id + " ]";
     }
 
     public String getNombre() {
@@ -225,37 +256,12 @@ public class Hechizos implements Serializable {
     }
 
     @XmlTransient
-    public List<Clases> getClasesList() {
-        return clasesList;
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
     }
 
-    public void setClasesList(List<Clases> clasesList) {
-        this.clasesList = clasesList;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Hechizos)) {
-            return false;
-        }
-        Hechizos other = (Hechizos) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entidades.Hechizos[ id=" + id + " ]";
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
     }
     
 }

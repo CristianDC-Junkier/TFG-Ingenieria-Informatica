@@ -42,13 +42,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subrazas.findByElegirhab", query = "SELECT s FROM Subrazas s WHERE s.elegirhab = :elegirhab")})
 public class Subrazas implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
-    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -73,6 +66,16 @@ public class Subrazas implements Serializable {
     @Size(min = 1, max = 1)
     @Column(name = "ELEGIRHAB", nullable = false, length = 1)
     private String elegirhab;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subraza")
+    private List<Personajes> personajesList;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @JoinTable(name = "USASUBRAZA", joinColumns = {
         @JoinColumn(name = "SUBRAZA", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)})
@@ -120,45 +123,6 @@ public class Subrazas implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTamano() {
-        return tamano;
-    }
-
-    public void setTamano(String tamano) {
-        this.tamano = tamano;
-    }
-
-    public BigInteger getVelocidad() {
-        return velocidad;
-    }
-
-    public void setVelocidad(BigInteger velocidad) {
-        this.velocidad = velocidad;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getElegirhab() {
-        return elegirhab;
-    }
-
-    public void setElegirhab(String elegirhab) {
-        this.elegirhab = elegirhab;
-    }
 
     @XmlTransient
     public List<Rasgos> getRasgosList() {
@@ -235,6 +199,55 @@ public class Subrazas implements Serializable {
     @Override
     public String toString() {
         return "entidades.Subrazas[ id=" + id + " ]";
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getTamano() {
+        return tamano;
+    }
+
+    public void setTamano(String tamano) {
+        this.tamano = tamano;
+    }
+
+    public BigInteger getVelocidad() {
+        return velocidad;
+    }
+
+    public void setVelocidad(BigInteger velocidad) {
+        this.velocidad = velocidad;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getElegirhab() {
+        return elegirhab;
+    }
+
+    public void setElegirhab(String elegirhab) {
+        this.elegirhab = elegirhab;
+    }
+
+    @XmlTransient
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
+    }
+
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
     }
     
 }
