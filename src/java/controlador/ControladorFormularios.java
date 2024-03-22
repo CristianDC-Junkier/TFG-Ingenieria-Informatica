@@ -4,9 +4,9 @@ import entidades.Atributos;
 import entidades.Clases;
 import entidades.Mesas;
 import entidades.Razas;
+import entidades.Trasfondos;
 import entidades.Usuarios;
 import java.io.IOException;
-import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -51,6 +51,10 @@ public class ControladorFormularios extends HttpServlet {
         Mesas mesa;
 
         TypedQuery<Mesas> queryMesas;
+        TypedQuery<Clases> queryClases;
+        TypedQuery<Razas> queryRazas;
+        TypedQuery<Atributos> queryAtributos;
+        TypedQuery<Trasfondos> queryTrasfondos;
 
         String id;
         int numMesasCreadas;
@@ -137,6 +141,32 @@ public class ControladorFormularios extends HttpServlet {
                 break;
             case "/usuarioperdido":
                 vista = "/WEB-INF/jsp/formularios/usuarioperdido.jsp";
+                break;
+            case "/crearpersonaje":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    
+                    //Numero total de personajes
+                    request.setAttribute("personajesTotales", 0);
+                    
+                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                    request.setAttribute("listaClases", queryClases.getResultList());
+                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                    request.setAttribute("listaRazas", queryRazas.getResultList());
+                    queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                    request.setAttribute("listaAtributos", queryAtributos.getResultList());
+                    queryTrasfondos = em.createNamedQuery("Trasfondos.findAll", Trasfondos.class);
+                    request.setAttribute("listaTrasfondos", queryTrasfondos.getResultList());
+
+                    vista = "/WEB-INF/jsp/formularios/crearpersonaje.jsp";
+                }
                 break;
         }
 

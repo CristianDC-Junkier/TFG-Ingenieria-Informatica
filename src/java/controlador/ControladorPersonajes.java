@@ -1,13 +1,11 @@
 package controlador;
 
-import entidades.Atributos;
 import entidades.Clases;
+import entidades.Personajes;
 import entidades.Razas;
-import entidades.Subclases;
-import entidades.Subrazas;
-import entidades.Trasfondos;
 import entidades.Usuarios;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -60,59 +58,299 @@ public class ControladorPersonajes extends HttpServlet {
         TypedQuery<Usuarios> queryUsuarios;
         TypedQuery<Clases> queryClases;
         TypedQuery<Razas> queryRazas;
-        TypedQuery<Atributos> queryAtributos;
-        TypedQuery<Trasfondos> queryTrasfondos;
-        TypedQuery<Subclases> querySubClases;
-        TypedQuery<Subrazas> querySubRazas;
+        TypedQuery<Personajes> queryPersonajes;
+
+        List<Personajes> listaPersonajes;
+        List<Usuarios> listaUsuariosAmigos;
+        List<String> listaUsuariosNombres;
 
         Query queryAUX;
-
-        List<Usuarios> listaUsuarios;
-        List<Clases> listaClases;
-        List<Razas> listaRazas;
-        List<Subclases> listaSubClases;
-        List<Subrazas> listaSubRazas;
 
         Usuarios user;
         Usuarios useraux;
 
         String id;
 
+        String ordenar;
+        String raza;
+        String clase;
+        String nivelString;
+        String numString;
+        int num;
+        int numPag;
+        int nivel;
+
+        String sql;
+
         switch (accion) {
             case "/crearpersonaje":
-
                 /////////////////////////
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                if (user == null) {
-                    vista = "/Principal/inicio";
-                } else {
-                    
-                    //Numero total de personajes
-                    request.setAttribute("personajesTotales", 0);
-                    
-                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
-                    request.setAttribute("listaClases", queryClases.getResultList());
-                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
-                    request.setAttribute("listaRazas", queryRazas.getResultList());
-                    queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
-                    request.setAttribute("listaAtributos", queryAtributos.getResultList());
-                    queryTrasfondos = em.createNamedQuery("Trasfondos.findAll", Trasfondos.class);
-                    request.setAttribute("listaTrasfondos", queryTrasfondos.getResultList());
+                conseguido = false;
+                msj = "";
 
-                    vista = "/WEB-INF/jsp/formularios/crearpersonaje.jsp";
+                //apodo = request.getParameter("nombre_usuario");
+                //nombre = request.getParameter("nombre_real");
+                //correo = request.getParameter("correo_usuario");
+                //contrasena = request.getParameter("usuario_contrasena");
+                //telefono = request.getParameter("usuario_telefono");
+                //fechaNacimientoString = request.getParameter("usuario_nacimiento");
+                //provincia = request.getParameter("provincia");
+                //genero = request.getParameter("genero");
+                /*if (nombre != null && apodo != null && correo != null && contrasena != null && fechaNacimientoString != null
+                        && provincia != null && genero != null) {
+
+                    try {
+
+                        //////////////////
+                        //////NOMBRE//////
+                        ////////////////// //CONTEXT
+                        if (nombre.toUpperCase().contains("UPDATE") || nombre.toUpperCase().contains("CREATE")
+                                || nombre.toUpperCase().contains("DELETE") || nombre.toUpperCase().contains("SELECT")
+                                || nombre.toUpperCase().contains("DROP")) {
+                            throw new Exception("El Nombre no es válido");
+                        }
+
+                        //////////////////////
+                        //////CONTRASEÑA//////
+                        //////////////////////
+                        if (contrasena.toUpperCase().contains("UPDATE") || contrasena.toUpperCase().contains("CREATE")
+                                || contrasena.toUpperCase().contains("DELETE") || contrasena.toUpperCase().contains("SELECT")
+                                || contrasena.toUpperCase().contains("DROP")) {
+                            throw new Exception("La contrasena no es válida");
+                        }
+
+                        //////////////////////
+                        /////////HASH/////////
+                        //////////////////////
+                        contrasenahash = BCrypt.hashpw(contrasena, BCrypt.gensalt());
+
+                        /////////////////
+                        //////FECHA//////
+                        /////////////////
+                        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                        Date fechaNacimiento = formatoFecha.parse(fechaNacimientoString);
+
+                        Date fechaActual = new Date();
+                        Calendar calendarioAux = Calendar.getInstance();
+                        calendarioAux.setTime(fechaActual);
+                        calendarioAux.add(Calendar.YEAR, -12);
+                        fechaActual = calendarioAux.getTime();
+
+                        // Comparar las fechas
+                        if (!fechaNacimiento.before(fechaActual)) {
+                            throw new Exception("La fecha de nacimiento debe ser más pequeña que " + fechaActual.getDate()
+                                    + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
+                        }
+
+                        calendarioAux.setTime(fechaActual);
+                        calendarioAux.add(Calendar.YEAR, -120);
+                        fechaActual = calendarioAux.getTime();
+                        if (!fechaActual.before(fechaNacimiento)) {
+                            throw new Exception("La fecha de nacimiento debe ser más grande que " + fechaActual.getDate()
+                                    + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
+                        }
+
+                        /////////////////////
+                        /////////APODO///////
+                        /////////////////////
+                        if (apodo.toUpperCase().contains("UPDATE") || apodo.toUpperCase().contains("CREATE")
+                                || apodo.toUpperCase().contains("DELETE") || apodo.toUpperCase().contains("SELECT")
+                                || apodo.toUpperCase().contains("DROP")) {
+                            throw new Exception("El Nombre de usuario no es válido");
+                        }
+
+                        queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                        queryUsuarios.setParameter("apodo", apodo);
+                        listaUsuarios = queryUsuarios.getResultList();
+
+                        if (!listaUsuarios.isEmpty()) {
+                            throw new Exception("El Nombre de usuario debe ser único ");
+                        }
+                        //////////////////////////
+                        //////////CORREO//////////
+                        //////////////////////////
+
+                        queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                        queryUsuarios.setParameter("correo", correo);
+                        listaUsuarios = queryUsuarios.getResultList();
+
+                        if (!listaUsuarios.isEmpty()) {
+                            throw new Exception("El Correo debe ser único ");
+                        }
+
+                        ///////////////////////////
+                        //////////TELEFONO/////////
+                        ///////////////////////////
+                        BigInteger telefonoBI;
+
+                        if (telefono != null && !telefono.equals("")) {
+                            telefonoBI = new BigInteger(telefono);
+
+                            queryUsuarios = em.createNamedQuery("Usuarios.findByTelefono", Usuarios.class);
+                            queryUsuarios.setParameter("telefono", telefonoBI);
+                            listaUsuarios = queryUsuarios.getResultList();
+
+                            if (!listaUsuarios.isEmpty()) {
+                                throw new Exception("El Teléfono debe ser único ");
+                            }
+
+                        } else {
+                            telefonoBI = null;
+                        }
+
+                        //////////////////////////
+                        //////////CREAMOS/////////
+                        //////////////////////////
+                        user = new Usuarios(apodo, nombre, correo, contrasenahash, fechaNacimiento, provincia, genero, (short) 0);
+                        user.setTelefono(telefonoBI);
+                        persist(user);
+                        System.out.println("Registrado: " + nombre);
+                        conseguido = true;
+                        
+                    
+                    } catch (NumberFormatException ex) {
+                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
+                        System.out.println("Error: Imposible registrar en este momento: " + nombre);
+                        System.out.println("NumberFormatException: " + ex.getMessage());
+                    } catch (ParseException ex) {
+                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
+                        System.out.println("Error: Imposible registrar en este momento: " + nombre);
+                        System.out.println("ParseException: " + ex.getMessage());
+                    } catch (RuntimeException ex) {
+                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
+                        System.out.println("Error: Imposible registrar en este momento: " + nombre);
+                        System.out.println("ParseException: " + ex.getMessage());
+                    } catch (Exception ex) {
+                        msj = "<p style=\"margin-left: 10px\"> Error: " + ex.getMessage() + "</p>";
+                        System.out.println("Exception: " + ex.getMessage());
+                    }
+                
+                } else {
+                    msj = "<p style=\"margin-left: 10px\"> Error: Introduzca los campos de forma correcta </p>";
+                    System.out.println("Error: Introduzca los campos de forma correcta ");
                 }
+                if (conseguido == true) {
+                    vista = "/Personajes/personajes";
+                } else {
+                    request.setAttribute("msj", msj);
+                    vista = "/Formularios/crearpersonaje";
+                }
+                 */
                 break;
             case "/personajes":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                //Para saber si estamos conectados o no
+                if (user == null) {
+                    id = "nulo";
+                } else {
+                    id = user.getId();
+                }
+
+                //Recogemos los datos
+                numString = request.getParameter("pag");//numero de pag en la que estoy
+                ordenar = request.getParameter("orden");//como ordenar
+                raza = request.getParameter("raza");//como ordenar
+                clase = request.getParameter("clase");//como ordenar
+                nivelString = request.getParameter("nivel");//como ordenar
+
+                //Comprobamos los datos
+                if (ordenar == null || raza == null || clase == null || nivelString == null || numString == null) {
+
+                    ordenar = "ordenar1";
+                    raza = "%";
+                    clase = "%";
+                    nivelString = "%";
+                    numString = "1";
+                    num = 0;
+
+                } else {
+                    //Pagina actual
+                    num = (Integer.valueOf(numString) - 1) * 6;//offset
+                    //Nivel
+                    nivel = Integer.parseInt(nivelString);
+                }
+
+                System.out.println("Llega pag: " + numString);
+                System.out.println("Llega orden: " + ordenar);
+                System.out.println("Llega raza: " + raza);
+                System.out.println("Llega clase: " + clase);
+                System.out.println("Llega nivel: " + nivelString);
+
+                /////////////////////////////////////
+                ////////NUMERO DE PERSONAJES/////////
+                /////////////////////////////////////
+                sql = "SELECT COUNT(*) FROM PERSONAJES p "
+                        + "WHERE p.USUARIO <> '" + id + "' "
+                        + "AND p.NIVEL = '" + nivelString + "' "
+                        + "AND p.CLASE = '" + clase + "' "
+                        + "AND p.RAZA = '" + raza + "' ";
+
+                queryAUX = em.createNativeQuery(sql);
+                result = queryAUX.getSingleResult();
+
+                //PAGINAS QUE HAY (6 PERSONAJES POR PAGINA)
+                numPag = (((Number) result).intValue() / 7) + 1;
+
+                switch (ordenar) {
+                    case "ordenar1":
+                        sql = "SELECT p.* FROM PERSONAJES p "
+                                + "WHERE p.USUARIO <> '" + id + "' "
+                                + "AND p.NIVEL = '" + nivelString + "' "
+                                + "AND p.CLASE = '" + clase + "' "
+                                + "AND p.RAZA = '" + raza + "' "
+                                + "ORDER BY p.nombre ASC "
+                                + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                        break;
+                    case "ordenar2":
+                        sql = "SELECT p.* FROM PERSONAJES p "
+                                + "WHERE p.USUARIO <> '" + id + "' "
+                                + "AND p.NIVEL = '" + nivelString + "' "
+                                + "AND p.CLASE = '" + clase + "' "
+                                + "AND p.RAZA = '" + raza + "' "
+                                + "ORDER BY u.apodo DESC "
+                                + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                        break;
+                }
+
+                queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                listaPersonajes = queryAUX.getResultList();
+
+                listaUsuariosNombres = new ArrayList();
+
+                for (int i = 0; i < listaPersonajes.size(); i++) {
+                    listaUsuariosNombres.add(listaPersonajes.get(i).getUsuario().getNombre());
+                }
+                request.setAttribute("listaPersonajes", listaPersonajes);
+                request.setAttribute("listaCreador", listaUsuariosNombres);
+
+                System.out.println("Sale pag:" + numString);
+                System.out.println("Sale orden:" + ordenar);
+                System.out.println("Sale raza:" + raza);
+                System.out.println("Sale clase:" + clase);
+                System.out.println("Sale nivel:" + nivelString);
+                System.out.println("Sale npag:" + numPag);
 
                 queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
                 request.setAttribute("listaClases", queryClases.getResultList());
-
                 queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
                 request.setAttribute("listaRazas", queryRazas.getResultList());
+
+                request.setAttribute("orden", ordenar);
+                request.setAttribute("filtroRaza", raza);
+                request.setAttribute("filtroClase", clase);
+                request.setAttribute("filtroNivel", nivelString);
+                request.setAttribute("pag", numString);//numero de la pag
+                request.setAttribute("numPag", numPag);//numero total de pag
 
                 vista = "/WEB-INF/jsp/personajes/personajes.jsp";
 
@@ -128,11 +366,107 @@ public class ControladorPersonajes extends HttpServlet {
                     vista = "/Principal/inicio";
                 } else {
 
+                    //Recogemos los datos
+                    numString = request.getParameter("pag");//numero de pag en la que estoy
+                    ordenar = request.getParameter("orden");//como ordenar
+                    raza = request.getParameter("raza");//como ordenar
+                    clase = request.getParameter("clase");//como ordenar
+                    nivelString = request.getParameter("nivel");//como ordenar
+
+                    //Comprobamos los datos
+                    if (ordenar == null || raza == null || clase == null || nivelString == null || numString == null) {
+
+                        ordenar = "ordenar1";
+                        raza = "%";
+                        clase = "%";
+                        nivelString = "%";
+                        numString = "1";
+                        num = 0;
+
+                    } else {
+                        //Pagina actual
+                        num = (Integer.valueOf(numString) - 1) * 6;//offset
+                        //Nivel
+                        nivel = Integer.parseInt(nivelString);
+                    }
+
+                    System.out.println("Llega pag: " + numString);
+                    System.out.println("Llega orden: " + ordenar);
+                    System.out.println("Llega raza: " + raza);
+                    System.out.println("Llega clase: " + clase);
+                    System.out.println("Llega nivel: " + nivelString);
+
+                    /////////////////////////////////////
+                    ////////NUMERO DE PERSONAJES/////////
+                    /////////////////////////////////////
+                    sql = "SELECT COUNT(*) FROM PERSONAJES p "
+                            + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
+                            + "WHERE a.AMIGO1 = '" + user.getId() + "' "
+                            + "p.USUARIO <> '" + user.getId() + "' "
+                            + "AND p.NIVEL = '" + nivelString + "' "
+                            + "AND p.CLASE = '" + clase + "' "
+                            + "AND p.RAZA = '" + raza + "' ";
+
+                    queryAUX = em.createNativeQuery(sql);
+                    result = queryAUX.getSingleResult();
+
+                    //PAGINAS QUE HAY (6 PERSONAJES POR PAGINA)
+                    numPag = (((Number) result).intValue() / 7) + 1;
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
+                                    + "WHERE a.AMIGO1 = '" + user.getId() + "' "
+                                    + "p.USUARIO <> '" + user.getId() + "' "
+                                    + "AND p.NIVEL = '" + nivelString + "' "
+                                    + "AND p.CLASE = '" + clase + "' "
+                                    + "AND p.RAZA = '" + raza + "' "
+                                    + "ORDER BY u.apodo ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                            break;
+                        case "ordenar2":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
+                                    + "WHERE a.AMIGO1 = '" + user.getId() + "' "
+                                    + "p.USUARIO <> '" + user.getId() + "' "
+                                    + "AND p.NIVEL = '" + nivelString + "' "
+                                    + "AND p.CLASE = '" + clase + "' "
+                                    + "AND p.RAZA = '" + raza + "' "
+                                    + "ORDER BY u.apodo DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaPersonajes = queryAUX.getResultList();
+
+                    listaUsuariosNombres = new ArrayList();
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+                        listaUsuariosNombres.add(listaPersonajes.get(i).getUsuario().getNombre());
+                    }
+                    request.setAttribute("listaPersonajes", listaPersonajes);
+                    request.setAttribute("listaCreador", listaUsuariosNombres);
+
+                    System.out.println("Sale pag:" + numString);
+                    System.out.println("Sale orden:" + ordenar);
+                    System.out.println("Sale raza:" + raza);
+                    System.out.println("Sale clase:" + clase);
+                    System.out.println("Sale nivel:" + nivelString);
+                    System.out.println("Sale npag:" + numPag);
+
                     queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
                     request.setAttribute("listaClases", queryClases.getResultList());
-
                     queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
                     request.setAttribute("listaRazas", queryRazas.getResultList());
+
+                    request.setAttribute("orden", ordenar);
+                    request.setAttribute("filtroRaza", raza);
+                    request.setAttribute("filtroClase", clase);
+                    request.setAttribute("filtroNivel", nivelString);
+                    request.setAttribute("pag", numString);//numero de la pag
+                    request.setAttribute("numPag", numPag);//numero total de pag
 
                     vista = "/WEB-INF/jsp/personajes/personajesAmigos.jsp";
                 }
@@ -153,11 +487,97 @@ public class ControladorPersonajes extends HttpServlet {
                     ////////////////////////////
                     id = request.getParameter("amigo");
 
+                    //Recogemos los datos
+                    numString = request.getParameter("pag");//numero de pag en la que estoy
+                    ordenar = request.getParameter("orden");//como ordenar
+                    raza = request.getParameter("raza");//como ordenar
+                    clase = request.getParameter("clase");//como ordenar
+                    nivelString = request.getParameter("nivel");//como ordenar
+
+                    //Comprobamos los datos
+                    if (ordenar == null || raza == null || clase == null || nivelString == null || numString == null) {
+
+                        ordenar = "ordenar1";
+                        raza = "%";
+                        clase = "%";
+                        nivelString = "%";
+                        numString = "1";
+                        num = 0;
+
+                    } else {
+                        //Pagina actual
+                        num = (Integer.valueOf(numString) - 1) * 6;//offset
+                        //Nivel
+                        nivel = Integer.parseInt(nivelString);
+                    }
+
+                    System.out.println("Llega pag: " + numString);
+                    System.out.println("Llega orden: " + ordenar);
+                    System.out.println("Llega raza: " + raza);
+                    System.out.println("Llega clase: " + clase);
+                    System.out.println("Llega nivel: " + nivelString);
+
+                    /////////////////////////////////////
+                    ////////NUMERO DE PERSONAJES/////////
+                    /////////////////////////////////////
+                    sql = "SELECT COUNT(*) FROM PERSONAJES p "
+                            + "WHERE p.USUARIO = '" + id + "' "
+                            + "AND p.NIVEL = '" + nivelString + "' "
+                            + "AND p.CLASE = '" + clase + "' "
+                            + "AND p.RAZA = '" + raza + "' ";
+
+                    queryAUX = em.createNativeQuery(sql);
+                    result = queryAUX.getSingleResult();
+
+                    //PAGINAS QUE HAY (6 PERSONAJES POR PAGINA)
+                    numPag = (((Number) result).intValue() / 7) + 1;
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "WHERE p.USUARIO = '" + id + "' "
+                                    + "AND p.NIVEL = '" + nivelString + "' "
+                                    + "AND p.CLASE = '" + clase + "' "
+                                    + "AND p.RAZA = '" + raza + "' "
+                                    + "ORDER BY u.apodo ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                            break;
+                        case "ordenar2":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "WHERE p.USUARIO = '" + id + "' "
+                                    + "AND p.NIVEL = '" + nivelString + "' "
+                                    + "AND p.CLASE = '" + clase + "' "
+                                    + "AND p.RAZA = '" + raza + "' "
+                                    + "ORDER BY u.apodo DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaPersonajes = queryAUX.getResultList();
+                    request.setAttribute("listaPersonajes", listaPersonajes);
+
+                    System.out.println("Sale pag:" + numString);
+                    System.out.println("Sale orden:" + ordenar);
+                    System.out.println("Sale raza:" + raza);
+                    System.out.println("Sale clase:" + clase);
+                    System.out.println("Sale nivel:" + nivelString);
+                    System.out.println("Sale npag:" + numPag);
+
+                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                    request.setAttribute("listaClases", queryClases.getResultList());
+                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                    request.setAttribute("listaRazas", queryRazas.getResultList());
                     queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
                     queryUsuarios.setParameter("id", id);
-                    useraux = queryUsuarios.getSingleResult();
+                    request.setAttribute("amigo", queryUsuarios.getSingleResult());
 
-                    request.setAttribute("amigo", useraux);
+                    request.setAttribute("orden", ordenar);
+                    request.setAttribute("filtroRaza", raza);
+                    request.setAttribute("filtroClase", clase);
+                    request.setAttribute("filtroNivel", nivelString);
+                    request.setAttribute("pag", numString);//numero de la pag
+                    request.setAttribute("numPag", numPag);//numero total de pag
 
                     vista = "/WEB-INF/jsp/personajes/personajesAmigo.jsp";
                 }
@@ -173,11 +593,101 @@ public class ControladorPersonajes extends HttpServlet {
                     vista = "/Principal/inicio";
                 } else {
 
+                    //Recogemos los datos
+                    numString = request.getParameter("pag");//numero de pag en la que estoy
+                    ordenar = request.getParameter("orden");//como ordenar
+                    raza = request.getParameter("raza");//como ordenar
+                    clase = request.getParameter("clase");//como ordenar
+                    nivelString = request.getParameter("nivel");//como ordenar
+
+                    //Comprobamos los datos
+                    if (ordenar == null || raza == null || clase == null || nivelString == null || numString == null) {
+
+                        ordenar = "ordenar1";
+                        raza = "%";
+                        clase = "%";
+                        nivelString = "%";
+                        numString = "1";
+                        num = 0;
+
+                    } else {
+                        //Pagina actual
+                        num = (Integer.valueOf(numString) - 1) * 6;//offset
+                        //Nivel
+                        nivel = Integer.parseInt(nivelString);
+                    }
+
+                    System.out.println("Llega pag: " + numString);
+                    System.out.println("Llega orden: " + ordenar);
+                    System.out.println("Llega raza: " + raza);
+                    System.out.println("Llega clase: " + clase);
+                    System.out.println("Llega nivel: " + nivelString);
+
+                    /////////////////////////////////////
+                    ////////NUMERO DE PERSONAJES/////////
+                    /////////////////////////////////////
+                    sql = "SELECT COUNT(*) FROM PERSONAJES p "
+                            + "WHERE p.USUARIO = '" + user.getId() + "' "
+                            + "AND p.NIVEL = '" + nivelString + "' "
+                            + "AND p.CLASE = '" + clase + "' "
+                            + "AND p.RAZA = '" + raza + "' ";
+
+                    queryAUX = em.createNativeQuery(sql);
+                    result = queryAUX.getSingleResult();
+
+                    //PAGINAS QUE HAY (6 PERSONAJES POR PAGINA)
+                    numPag = (((Number) result).intValue() / 7) + 1;
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                    + "AND p.NIVEL = '" + nivelString + "' "
+                                    + "AND p.CLASE = '" + clase + "' "
+                                    + "AND p.RAZA = '" + raza + "' "
+                                    + "ORDER BY u.apodo ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                            break;
+                        case "ordenar2":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "WHERE p.USUARIO = '" + user.getId()+ "' "
+                                    + "AND p.NIVEL = '" + nivelString + "' "
+                                    + "AND p.CLASE = '" + clase + "' "
+                                    + "AND p.RAZA = '" + raza + "' "
+                                    + "ORDER BY u.apodo DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaPersonajes = queryAUX.getResultList();
+
+                    listaUsuariosNombres = new ArrayList();
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+                        listaUsuariosNombres.add(listaPersonajes.get(i).getUsuario().getNombre());
+                    }
+                    request.setAttribute("listaPersonajes", listaPersonajes);
+                    request.setAttribute("listaCreador", listaUsuariosNombres);
+
+                    System.out.println("Sale pag:" + numString);
+                    System.out.println("Sale orden:" + ordenar);
+                    System.out.println("Sale raza:" + raza);
+                    System.out.println("Sale clase:" + clase);
+                    System.out.println("Sale nivel:" + nivelString);
+                    System.out.println("Sale npag:" + numPag);
+
                     queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
                     request.setAttribute("listaClases", queryClases.getResultList());
-
                     queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
                     request.setAttribute("listaRazas", queryRazas.getResultList());
+
+                    request.setAttribute("orden", ordenar);
+                    request.setAttribute("filtroRaza", raza);
+                    request.setAttribute("filtroClase", clase);
+                    request.setAttribute("filtroNivel", nivelString);
+                    request.setAttribute("pag", numString);//numero de la pag
+                    request.setAttribute("numPag", numPag);//numero total de pag
 
                     vista = "/WEB-INF/jsp/personajes/personajesPerfil.jsp";
                 }

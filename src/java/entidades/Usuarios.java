@@ -97,7 +97,7 @@ public class Usuarios implements Serializable {
     @ManyToMany
     private List<Usuarios> usuariosList2;
     @ManyToMany(mappedBy = "usuariosList2")
-    private List<Usuarios> usuariosList3;
+    private List<Usuarios> usuariosAmigos;
     @JoinTable(name = "AMIGOS", joinColumns = {
         @JoinColumn(name = "AMIGO1", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "AMIGO2", referencedColumnName = "ID", nullable = false)})
@@ -217,12 +217,12 @@ if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals
     }
 
     @XmlTransient
-    public List<Usuarios> getUsuariosList3() {
-        return usuariosList3;
+    public List<Usuarios> getUsuariosAmigos() {
+        return usuariosAmigos;
     }
 
-    public void setUsuariosList3(List<Usuarios> usuariosList3) {
-        this.usuariosList3 = usuariosList3;
+    public void setUsuariosAmigos(List<Usuarios> usuariosAmigos) {
+        this.usuariosAmigos = usuariosAmigos;
     }
 
     @XmlTransient

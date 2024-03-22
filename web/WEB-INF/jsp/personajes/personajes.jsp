@@ -61,20 +61,21 @@
                     <div>
                         Nivel:
                         <select id="filtroNivel">
+                            <option value="0" selected>Nivel</option>
                             <c:forEach var="i" begin="1" end="20">
                                 <c:choose>
                                     <c:when test="${requestScope.filtronivel == i}">
-                                        <option value="ordenar${i}" selected>Nivel ${i}</option>
+                                        <option value="${i}" selected>Nivel ${i}</option>
                                     </c:when>
                                     <c:otherwise>
-                                        <option value="ordenar${i}">Nivel ${i}</option>
+                                        <option value="${i}">Nivel ${i}</option>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
                         </select>
                     </div>
                     <c:if test="${sessionScope.user != null}">
-                        <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/crearpersonaje'">Crear Personaje</button>
+                        <div><button class="botonDentro" onclick="location.href = '/TFG/Formularios/crearpersonaje'">Crear Personaje</button>
                             <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajesAmigos'">De Amigos</button>
                             <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajesPerfil'">Mis Personajes</button></div>
                         </c:if>
@@ -95,7 +96,7 @@
                             </c:choose>
                             <div class="diseñoTabla">
                                 <table>
-                                    <c:forEach var="personaje" items="${listaPersonaje}" varStatus="status">
+                                    <c:forEach var="personaje" items="${listaPersonajes}" varStatus="status">
                                         <tr>
                                             <td><div class="personaje-foto">
                                                     <img src="/TFG/img/iconos/IMGNEGRO.png">
@@ -104,7 +105,7 @@
                                             <td>${personaje.clase}</td>
                                             <td>${personaje.raza}</td>
                                             <td>${personaje.nivel}</td>
-                                            <td>${listacreador[status.index]}</td>
+                                            <td>${listaCreador[status.index]}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Personaje/personaje?id=${personaje.id}'">Detalles</button></td>
                                         </tr>
                                     </c:forEach>

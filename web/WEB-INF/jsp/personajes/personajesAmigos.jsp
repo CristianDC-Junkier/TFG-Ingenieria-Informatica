@@ -61,6 +61,7 @@
                     <div>
                         Nivel:
                         <select id="filtroNivel">
+                            <option value="0" selected>Nivel</option>
                             <c:forEach var="i" begin="1" end="20">
                                 <c:choose>
                                     <c:when test="${requestScope.filtronivel == i}">
@@ -91,7 +92,7 @@
                             </c:choose>
                             <div class="diseñoTabla">
                                 <table>
-                                    <c:forEach var="personaje" items="${listaPersonaje}" varStatus="status">
+                                    <c:forEach var="personaje" items="${listaPersonajes}" varStatus="status">
                                         <tr>
                                             <td><div class="personaje-foto">
                                                     <img src="/TFG/img/iconos/IMGNEGRO.png">
@@ -100,7 +101,7 @@
                                             <td>${personaje.clase}</td>
                                             <td>${personaje.raza}</td>
                                             <td>${personaje.nivel}</td>
-                                            <td>${listacreador[status.index]}</td>
+                                            <td>${listaCreador[status.index]}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Personaje/personajeAmigo?id=${personaje.id}&amigo=${listacreador[status.index]}'">Detalles</button></td>
                                         </tr>
                                     </c:forEach>

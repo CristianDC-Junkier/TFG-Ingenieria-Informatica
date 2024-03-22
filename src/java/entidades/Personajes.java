@@ -44,7 +44,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Personajes.findByNivel", query = "SELECT p FROM Personajes p WHERE p.nivel = :nivel"),
     @NamedQuery(name = "Personajes.findByPvida", query = "SELECT p FROM Personajes p WHERE p.pvida = :pvida"),
     @NamedQuery(name = "Personajes.findByPvidaactuales", query = "SELECT p FROM Personajes p WHERE p.pvidaactuales = :pvidaactuales"),
-    @NamedQuery(name = "Personajes.findByClasearmadura", query = "SELECT p FROM Personajes p WHERE p.clasearmadura = :clasearmadura")})
+    @NamedQuery(name = "Personajes.findByClasearmadura", query = "SELECT p FROM Personajes p WHERE p.clasearmadura = :clasearmadura"),
+    @NamedQuery(name = "Personajes.findByCreador", query = "SELECT p FROM Personajes p WHERE p.usuario = :creador")
+})
 public class Personajes implements Serializable {
 
     private static final long serialVersionUID = 1L;

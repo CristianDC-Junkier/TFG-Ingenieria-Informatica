@@ -534,7 +534,7 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////////////////////////////////
                     if (mesa == null || mesa.equalsIgnoreCase("false")) {
                         sql = "SELECT COUNT(*) FROM USUARIOS u "
-                                + "WHERE u.APODO <> '" + user.getApodo() + "'"
+                                + "WHERE u.APODO <> '" + user.getApodo() + "' "
                                 + "AND u.ID NOT IN ("
                                 + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
                                 + "    UNION "

@@ -1486,12 +1486,143 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                 //////////////////////////////PERSONAJES//////////////////////////////////
                 //////////////////////////////////////////////////////////////////////////
                 case "/Personajes":
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+                    
+                    //Para saber si estamos conectados o no
+                    if (user == null) {
+                        id = "nulo";
+                    } else {
+                        id = user.getId();
+                    }
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+                    
+                    /*
+                    //Recogemos los datos
+                    numString = request.getParameter("pag");//numero de pag en la que estoy
+                    ordenar = request.getParameter("orden");//como ordenar
+                    raza = request.getParameter("raza");//como ordenar
+                    clase = request.getParameter("clase");//como ordenar
+                    nivelString = request.getParameter("nivel");//como ordenar
+
+                    //Comprobamos los datos
+                    if (ordenar == null || raza == null || clase == null || nivelString == null || numString == null) {
+
+                        ordenar = "ordenar1";
+                        raza = "%";
+                        clase = "%";
+                        nivelString = "%";
+                        numString = "1";
+                        num = 0;
+
+                    } else {
+                        //Pagina actual
+                        num = (Integer.valueOf(numString) - 1) * 6;//offset
+                        //Nivel
+                        nivel = Integer.parseInt(nivelString);
+                    }
+
+                    System.out.println("Llega pag: " + numString);
+                    System.out.println("Llega orden: " + ordenar);
+                    System.out.println("Llega raza: " + raza);
+                    System.out.println("Llega clase: " + clase);
+                    System.out.println("Llega nivel: " + nivelString);
+
+                    /////////////////////////////////////
+                    ////////NUMERO DE PERSONAJES/////////
+                    /////////////////////////////////////
+                    sql = "SELECT COUNT(*) FROM PERSONAJES p "
+                            + "WHERE p.USUARIO <> '" + id + "' "
+                            + "AND p.NIVEL = '" + nivelString + "' "
+                            + "AND p.CLASE = '" + clase + "' "
+                            + "AND p.RAZA = '" + raza + "' ";
+
+                    queryAUX = em.createNativeQuery(sql);
+                    result = queryAUX.getSingleResult();
+
+                    //PAGINAS QUE HAY (6 PERSONAJES POR PAGINA)
+                    numPag = (((Number) result).intValue() / 7) + 1;
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "WHERE p.USUARIO <> '" + id + "' "
+                                    + "AND p.NIVEL = '" + nivelString + "' "
+                                    + "AND p.CLASE = '" + clase + "' "
+                                    + "AND p.RAZA = '" + raza + "' "
+                                    + "ORDER BY p.nombre ASC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                            break;
+                        case "ordenar2":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "WHERE p.USUARIO <> '" + id + "' "
+                                    + "AND p.NIVEL = '" + nivelString + "' "
+                                    + "AND p.CLASE = '" + clase + "' "
+                                    + "AND p.RAZA = '" + raza + "' "
+                                    + "ORDER BY u.apodo DESC "
+                                    + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaPersonajes = queryAUX.getResultList();
+
+                    listaUsuariosNombres = new ArrayList();
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+                        listaUsuariosNombres.add(listaPersonajes.get(i).getUsuario().getNombre());
+                    }
+                    request.setAttribute("listaPersonajes", listaPersonajes);
+                    request.setAttribute("listaCreador", listaUsuariosNombres);
+
+                    System.out.println("Sale pag:" + numString);
+                    System.out.println("Sale orden:" + ordenar);
+                    System.out.println("Sale raza:" + raza);
+                    System.out.println("Sale clase:" + clase);
+                    System.out.println("Sale nivel:" + nivelString);
+                    System.out.println("Sale npag:" + numPag);
+
+                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                    request.setAttribute("listaClases", queryClases.getResultList());
+                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                    request.setAttribute("listaRazas", queryRazas.getResultList());
+
+                    request.setAttribute("orden", ordenar);
+                    request.setAttribute("filtroRaza", raza);
+                    request.setAttribute("filtroClase", clase);
+                    request.setAttribute("filtroNivel", nivelString);
+                    request.setAttribute("pag", numString);//numero de la pag
+                    request.setAttribute("numPag", numPag);//numero total de pag
+                     */
+
                     break;
                 case "/PersonajesAmigo":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
                     break;
                 case "/PersonajesAmigos":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
                     break;
                 case "/PersonajesPerfil":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
                     break;
                 //////////////////////////////////////////////////////////////////////////
                 ///////////////////////////////FORMULARIOS////////////////////////////////
@@ -2330,9 +2461,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             }
                         }
 
-                    }
-                    else{
-                        resultado = resultado 
+                    } else {
+                        resultado = resultado
                                 + "<p>"
                                 + "No ganas ninguna habilidad por tu Raza"
                                 + "</p>";
@@ -2370,9 +2500,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                         }
                         resultado = resultado + "</div";
-                    }
-                    else{//IRREAL SIEMPRE GANARÁS ALGUNA
-                        resultado = resultado 
+                    } else {//IRREAL SIEMPRE GANARÁS ALGUNA
+                        resultado = resultado
                                 + "<p>"
                                 + "No ganas ninguna habilidad por tu Clase"
                                 + "</p>";
