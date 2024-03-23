@@ -12,25 +12,25 @@ let totalaux = numpag - pag;
 
 Orden.addEventListener('change', function () {
     let valorSeleccionado = Orden.value;
-    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + valorSeleccionado + "&raza=" + raza + "&clase=" + raza + "&nivel=" + raza + "&pag=" + pag;
+    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + valorSeleccionado + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel + "&pag=" + pag;
     window.location.href = urlDestinoOrden;
 });
 
 Raza.addEventListener('change', function () {
     let valorSeleccionado = Raza.value;
-    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + valorSeleccionado + "&clase=" + raza + "&nivel=" + raza + "&pag=" + pag;
+    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + valorSeleccionado + "&clase=" + clase + "&nivel=" + nivel + "&pag=" + pag;
     window.location.href = urlDestinoOrden;
 });
 
 Clase.addEventListener('change', function () {
     let valorSeleccionado = Clase.value;
-    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + valorSeleccionado + "&nivel=" + raza + "&pag=" + pag;
+    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + valorSeleccionado + "&nivel=" + nivel + "&pag=" + pag;
     window.location.href = urlDestinoOrden;
 });
 
 Nivel.addEventListener('change', function () {
     let valorSeleccionado = Nivel.value;
-    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + raza + "&nivel=" + valorSeleccionado + "&pag=" + pag;
+    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + valorSeleccionado + "&pag=" + pag;
     window.location.href = urlDestinoOrden;
 });
 
@@ -38,7 +38,7 @@ Nivel.addEventListener('change', function () {
 if (pag > 2) {
     Binicio.addEventListener('click', function () {
         let urlDestinoPagIni;
-        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + raza + "&nivel=" + raza + "&pag=" + "1";
+        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel + "&pag=" + "1";
         window.location.href = urlDestinoPagIni;
     });
 }
@@ -46,7 +46,7 @@ if (pag > 2) {
 if (totalaux > 1) {
     Bfinal.addEventListener('click', function () {
         let urlDestinoPagIni;
-        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + raza + "&nivel=" + raza + "&pag=" + numpag;
+        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel + "&pag=" + numpag;
         window.location.href = urlDestinoPagIni;
     });
 }
@@ -54,7 +54,7 @@ if (totalaux > 1) {
 if (pag > 1) {
     BAnterior.addEventListener('click', function () {
         let urlDestinoPagIni;
-        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + raza + "&nivel=" + raza + "&pag=" + (pag - 1);
+        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel + "&pag=" + (pag - 1);
         window.location.href = urlDestinoPagIni;
     });
 }
@@ -62,7 +62,7 @@ if (pag > 1) {
 if (totalaux > 2) {
     BPosterior.addEventListener('click', function () {
         let urlDestinoPagIni;
-        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + raza + "&nivel=" + raza + "&pag=" + (pag + 1);
+        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel + "&pag=" + (pag + 1);
         window.location.href = urlDestinoPagIni;
     });
 }

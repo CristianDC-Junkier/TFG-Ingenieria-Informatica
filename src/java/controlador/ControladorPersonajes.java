@@ -76,6 +76,10 @@ public class ControladorPersonajes extends HttpServlet {
         String clase;
         String nivelString;
         String numString;
+        String razaSQL;
+        String claseSQL;
+        String nivelSQL;
+
         int num;
         int numPag;
         int nivel;
@@ -264,12 +268,12 @@ public class ControladorPersonajes extends HttpServlet {
                 nivelString = request.getParameter("nivel");//como ordenar
 
                 //Comprobamos los datos
-                if (ordenar == null || raza == null || clase == null || nivelString == null || numString == null) {
+                if (ordenar == null) {
 
                     ordenar = "ordenar1";
-                    raza = "%";
-                    clase = "%";
-                    nivelString = "%";
+                    raza = " ";
+                    clase = " ";
+                    nivelString = " ";
                     numString = "1";
                     num = 0;
 
@@ -278,6 +282,22 @@ public class ControladorPersonajes extends HttpServlet {
                     num = (Integer.valueOf(numString) - 1) * 6;//offset
                     //Nivel
                     nivel = Integer.parseInt(nivelString);
+
+                    if (raza.equals("Raza")) {
+                        raza = " ";
+                    } else {
+                        raza = "AND p.RAZA = '" + raza + "' ";
+                    }
+                    if (clase.equals("Clase")) {
+                        clase = " ";
+                    } else {
+                        clase = "AND p.CLASE = '" + clase + "' ";
+                    }
+                    if (nivelString.equals("Nivel")) {
+                        nivelString = " ";
+                    } else {
+                        nivelString = "AND p.NIVEL = '" + nivelString + "' ";
+                    }
                 }
 
                 System.out.println("Llega pag: " + numString);
@@ -291,9 +311,9 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////////////////////////////////
                 sql = "SELECT COUNT(*) FROM PERSONAJES p "
                         + "WHERE p.USUARIO <> '" + id + "' "
-                        + "AND p.NIVEL = '" + nivelString + "' "
-                        + "AND p.CLASE = '" + clase + "' "
-                        + "AND p.RAZA = '" + raza + "' ";
+                        + nivelString
+                        + clase
+                        + raza;
 
                 queryAUX = em.createNativeQuery(sql);
                 result = queryAUX.getSingleResult();
@@ -305,19 +325,19 @@ public class ControladorPersonajes extends HttpServlet {
                     case "ordenar1":
                         sql = "SELECT p.* FROM PERSONAJES p "
                                 + "WHERE p.USUARIO <> '" + id + "' "
-                                + "AND p.NIVEL = '" + nivelString + "' "
-                                + "AND p.CLASE = '" + clase + "' "
-                                + "AND p.RAZA = '" + raza + "' "
-                                + "ORDER BY p.nombre ASC "
+                                + nivelString
+                                + clase
+                                + raza
+                                + "ORDER BY  p.NOMBRE ASC "
                                 + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                         break;
                     case "ordenar2":
                         sql = "SELECT p.* FROM PERSONAJES p "
                                 + "WHERE p.USUARIO <> '" + id + "' "
-                                + "AND p.NIVEL = '" + nivelString + "' "
-                                + "AND p.CLASE = '" + clase + "' "
-                                + "AND p.RAZA = '" + raza + "' "
-                                + "ORDER BY u.apodo DESC "
+                                + nivelString
+                                + clase
+                                + raza
+                                + "ORDER BY  p.NOMBRE DESC "
                                 + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                         break;
                 }
@@ -374,12 +394,12 @@ public class ControladorPersonajes extends HttpServlet {
                     nivelString = request.getParameter("nivel");//como ordenar
 
                     //Comprobamos los datos
-                    if (ordenar == null || raza == null || clase == null || nivelString == null || numString == null) {
+                    if (ordenar == null) {
 
                         ordenar = "ordenar1";
-                        raza = "%";
-                        clase = "%";
-                        nivelString = "%";
+                        razaSQL = " ";
+                        claseSQL = " ";
+                        nivelSQL = " ";
                         numString = "1";
                         num = 0;
 
@@ -388,6 +408,22 @@ public class ControladorPersonajes extends HttpServlet {
                         num = (Integer.valueOf(numString) - 1) * 6;//offset
                         //Nivel
                         nivel = Integer.parseInt(nivelString);
+
+                        if (raza.equals("Raza")) {
+                            razaSQL = " ";
+                        } else {
+                            razaSQL = "AND p.RAZA = '" + raza + "' ";
+                        }
+                        if (clase.equals("Clase")) {
+                            claseSQL = " ";
+                        } else {
+                            claseSQL = "AND p.CLASE = '" + clase + "' ";
+                        }
+                        if (nivelString.equals("Nivel")) {
+                            nivelSQL = " ";
+                        } else {
+                            nivelSQL = "AND p.NIVEL = '" + nivelString + "' ";
+                        }
                     }
 
                     System.out.println("Llega pag: " + numString);
@@ -403,9 +439,9 @@ public class ControladorPersonajes extends HttpServlet {
                             + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
                             + "WHERE a.AMIGO1 = '" + user.getId() + "' "
                             + "p.USUARIO <> '" + user.getId() + "' "
-                            + "AND p.NIVEL = '" + nivelString + "' "
-                            + "AND p.CLASE = '" + clase + "' "
-                            + "AND p.RAZA = '" + raza + "' ";
+                            + nivelSQL
+                            + claseSQL
+                            + razaSQL;
 
                     queryAUX = em.createNativeQuery(sql);
                     result = queryAUX.getSingleResult();
@@ -419,10 +455,10 @@ public class ControladorPersonajes extends HttpServlet {
                                     + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
                                     + "WHERE a.AMIGO1 = '" + user.getId() + "' "
                                     + "p.USUARIO <> '" + user.getId() + "' "
-                                    + "AND p.NIVEL = '" + nivelString + "' "
-                                    + "AND p.CLASE = '" + clase + "' "
-                                    + "AND p.RAZA = '" + raza + "' "
-                                    + "ORDER BY u.apodo ASC "
+                                    + nivelSQL
+                                    + claseSQL
+                                    + razaSQL
+                                    + "ORDER BY  p.NOMBRE ASC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             break;
                         case "ordenar2":
@@ -430,10 +466,10 @@ public class ControladorPersonajes extends HttpServlet {
                                     + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
                                     + "WHERE a.AMIGO1 = '" + user.getId() + "' "
                                     + "p.USUARIO <> '" + user.getId() + "' "
-                                    + "AND p.NIVEL = '" + nivelString + "' "
-                                    + "AND p.CLASE = '" + clase + "' "
-                                    + "AND p.RAZA = '" + raza + "' "
-                                    + "ORDER BY u.apodo DESC "
+                                    + nivelSQL
+                                    + claseSQL
+                                    + razaSQL
+                                    + "ORDER BY p.NOMBRE DESC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             break;
                     }
@@ -498,9 +534,9 @@ public class ControladorPersonajes extends HttpServlet {
                     if (ordenar == null || raza == null || clase == null || nivelString == null || numString == null) {
 
                         ordenar = "ordenar1";
-                        raza = "%";
-                        clase = "%";
-                        nivelString = "%";
+                        razaSQL = " ";
+                        claseSQL = " ";
+                        nivelSQL = " ";
                         numString = "1";
                         num = 0;
 
@@ -509,6 +545,22 @@ public class ControladorPersonajes extends HttpServlet {
                         num = (Integer.valueOf(numString) - 1) * 6;//offset
                         //Nivel
                         nivel = Integer.parseInt(nivelString);
+
+                        if (raza.equals("Raza")) {
+                            razaSQL = " ";
+                        } else {
+                            razaSQL = "AND p.RAZA = '" + raza + "' ";
+                        }
+                        if (clase.equals("Clase")) {
+                            claseSQL = " ";
+                        } else {
+                            claseSQL = "AND p.CLASE = '" + clase + "' ";
+                        }
+                        if (nivelString.equals("Nivel")) {
+                            nivelSQL = " ";
+                        } else {
+                            nivelSQL = "AND p.NIVEL = '" + nivelString + "' ";
+                        }
                     }
 
                     System.out.println("Llega pag: " + numString);
@@ -522,9 +574,9 @@ public class ControladorPersonajes extends HttpServlet {
                     /////////////////////////////////////
                     sql = "SELECT COUNT(*) FROM PERSONAJES p "
                             + "WHERE p.USUARIO = '" + id + "' "
-                            + "AND p.NIVEL = '" + nivelString + "' "
-                            + "AND p.CLASE = '" + clase + "' "
-                            + "AND p.RAZA = '" + raza + "' ";
+                            + nivelString
+                            + clase
+                            + raza;
 
                     queryAUX = em.createNativeQuery(sql);
                     result = queryAUX.getSingleResult();
@@ -536,19 +588,19 @@ public class ControladorPersonajes extends HttpServlet {
                         case "ordenar1":
                             sql = "SELECT p.* FROM PERSONAJES p "
                                     + "WHERE p.USUARIO = '" + id + "' "
-                                    + "AND p.NIVEL = '" + nivelString + "' "
-                                    + "AND p.CLASE = '" + clase + "' "
-                                    + "AND p.RAZA = '" + raza + "' "
-                                    + "ORDER BY u.apodo ASC "
+                                    + nivelSQL
+                                    + claseSQL
+                                    + razaSQL
+                                    + "ORDER BY p.NOMBRE ASC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             break;
                         case "ordenar2":
                             sql = "SELECT p.* FROM PERSONAJES p "
                                     + "WHERE p.USUARIO = '" + id + "' "
-                                    + "AND p.NIVEL = '" + nivelString + "' "
-                                    + "AND p.CLASE = '" + clase + "' "
-                                    + "AND p.RAZA = '" + raza + "' "
-                                    + "ORDER BY u.apodo DESC "
+                                    + nivelSQL
+                                    + claseSQL
+                                    + razaSQL
+                                    + "ORDER BY p.NOMBRE DESC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             break;
                     }
@@ -604,9 +656,9 @@ public class ControladorPersonajes extends HttpServlet {
                     if (ordenar == null || raza == null || clase == null || nivelString == null || numString == null) {
 
                         ordenar = "ordenar1";
-                        raza = "%";
-                        clase = "%";
-                        nivelString = "%";
+                        razaSQL = " ";
+                        claseSQL = " ";
+                        nivelSQL = " ";
                         numString = "1";
                         num = 0;
 
@@ -615,6 +667,22 @@ public class ControladorPersonajes extends HttpServlet {
                         num = (Integer.valueOf(numString) - 1) * 6;//offset
                         //Nivel
                         nivel = Integer.parseInt(nivelString);
+
+                        if (raza.equals("Raza")) {
+                            razaSQL = " ";
+                        } else {
+                            razaSQL  = "AND p.RAZA = '" + raza + "' ";
+                        }
+                        if (clase.equals("Clase")) {
+                            claseSQL  = " ";
+                        } else {
+                            claseSQL  = "AND p.CLASE = '" + clase + "' ";
+                        }
+                        if (nivelString.equals("Nivel")) {
+                            nivelSQL  = " ";
+                        } else {
+                            nivelSQL = "AND p.NIVEL = '" + nivelString + "' ";
+                        }
                     }
 
                     System.out.println("Llega pag: " + numString);
@@ -628,9 +696,9 @@ public class ControladorPersonajes extends HttpServlet {
                     /////////////////////////////////////
                     sql = "SELECT COUNT(*) FROM PERSONAJES p "
                             + "WHERE p.USUARIO = '" + user.getId() + "' "
-                            + "AND p.NIVEL = '" + nivelString + "' "
-                            + "AND p.CLASE = '" + clase + "' "
-                            + "AND p.RAZA = '" + raza + "' ";
+                            + nivelSQL
+                            + claseSQL
+                            + razaSQL;
 
                     queryAUX = em.createNativeQuery(sql);
                     result = queryAUX.getSingleResult();
@@ -642,19 +710,19 @@ public class ControladorPersonajes extends HttpServlet {
                         case "ordenar1":
                             sql = "SELECT p.* FROM PERSONAJES p "
                                     + "WHERE p.USUARIO = '" + user.getId() + "' "
-                                    + "AND p.NIVEL = '" + nivelString + "' "
-                                    + "AND p.CLASE = '" + clase + "' "
-                                    + "AND p.RAZA = '" + raza + "' "
-                                    + "ORDER BY u.apodo ASC "
+                                    + nivelSQL 
+                                    + claseSQL 
+                                    + razaSQL 
+                                    + "ORDER BY p.NOMBRE ASC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             break;
                         case "ordenar2":
                             sql = "SELECT p.* FROM PERSONAJES p "
-                                    + "WHERE p.USUARIO = '" + user.getId()+ "' "
-                                    + "AND p.NIVEL = '" + nivelString + "' "
-                                    + "AND p.CLASE = '" + clase + "' "
-                                    + "AND p.RAZA = '" + raza + "' "
-                                    + "ORDER BY u.apodo DESC "
+                                    + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                    + nivelSQL 
+                                    + claseSQL 
+                                    + razaSQL 
+                                    + "ORDER BY p.NOMBRE DESC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             break;
                     }
@@ -662,13 +730,7 @@ public class ControladorPersonajes extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Usuarios.class);
                     listaPersonajes = queryAUX.getResultList();
 
-                    listaUsuariosNombres = new ArrayList();
-
-                    for (int i = 0; i < listaPersonajes.size(); i++) {
-                        listaUsuariosNombres.add(listaPersonajes.get(i).getUsuario().getNombre());
-                    }
                     request.setAttribute("listaPersonajes", listaPersonajes);
-                    request.setAttribute("listaCreador", listaUsuariosNombres);
 
                     System.out.println("Sale pag:" + numString);
                     System.out.println("Sale orden:" + ordenar);

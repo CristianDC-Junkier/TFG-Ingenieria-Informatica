@@ -6,6 +6,7 @@ import entidades.Hechizos;
 import entidades.Mensajesamigos;
 import entidades.Mesas;
 import entidades.Monstruos;
+import entidades.Personajes;
 import entidades.Pertenecemesa;
 import entidades.Razas;
 import entidades.Subclases;
@@ -103,6 +104,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             List<Clases> listaClases;
             List<Subclases> listaSubClases;
             List<Subrazas> listaSubRazas;
+            List<Personajes> listaPersonajes;
+            List<String> listaUsuariosNombres;
 
             ArrayList<String> pertenecemesaUsuarios;
             ArrayList<Integer> listaCantidad;
@@ -123,7 +126,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             String escuela;
             String claseH;
-            String nivel;
+            String nivelString;
 
             String tipo;
             String vd;
@@ -134,6 +137,11 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             Clases Clase;
             Razas Raza;
             Subrazas Subraza;
+
+            String raza;
+            String clase;
+            String numString;
+            int nivel;
 
             int num = 0; //offset
             int cantidad;
@@ -1429,7 +1437,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         if (listaMesas.get(i).getImagenmesa() == null) {
                             fotosMesas.add("-");
                         } else {
-                            System.out.println("entro");
                             fotosMesas.add("/TFG/Imagenes/mostrarImagenMesa?id=" + listaMesas.get(i).getId());
                         }
                     }
@@ -1491,7 +1498,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////////////////////
                     session = request.getSession();
                     user = (Usuarios) session.getAttribute("user");
-                    
+
                     //Para saber si estamos conectados o no
                     if (user == null) {
                         id = "nulo";
@@ -1503,71 +1510,54 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
-                    
-                    /*
+
                     //Recogemos los datos
-                    numString = request.getParameter("pag");//numero de pag en la que estoy
                     ordenar = request.getParameter("orden");//como ordenar
                     raza = request.getParameter("raza");//como ordenar
                     clase = request.getParameter("clase");//como ordenar
                     nivelString = request.getParameter("nivel");//como ordenar
 
                     //Comprobamos los datos
-                    if (ordenar == null || raza == null || clase == null || nivelString == null || numString == null) {
-
+                    if (ordenar == null) {
                         ordenar = "ordenar1";
-                        raza = "%";
-                        clase = "%";
-                        nivelString = "%";
-                        numString = "1";
-                        num = 0;
-
+                    }
+                    if (raza.equals("Raza")) {
+                        raza = " ";
                     } else {
-                        //Pagina actual
-                        num = (Integer.valueOf(numString) - 1) * 6;//offset
-                        //Nivel
-                        nivel = Integer.parseInt(nivelString);
+                        raza = "AND p.RAZA = '" + raza + "' ";
+                    }
+                    if (clase.equals("Clase")) {
+                        clase = " ";
+                    } else {
+                        clase = "AND p.CLASE = '" + clase + "' ";
+                    }
+                    if (nivelString.equals("Nivel")) {
+                        nivelString = " ";
+                    } else {
+                        nivelString = "AND p.NIVEL = '" + nivelString + "' ";
                     }
 
-                    System.out.println("Llega pag: " + numString);
-                    System.out.println("Llega orden: " + ordenar);
-                    System.out.println("Llega raza: " + raza);
-                    System.out.println("Llega clase: " + clase);
-                    System.out.println("Llega nivel: " + nivelString);
-
-                    /////////////////////////////////////
-                    ////////NUMERO DE PERSONAJES/////////
-                    /////////////////////////////////////
-                    sql = "SELECT COUNT(*) FROM PERSONAJES p "
-                            + "WHERE p.USUARIO <> '" + id + "' "
-                            + "AND p.NIVEL = '" + nivelString + "' "
-                            + "AND p.CLASE = '" + clase + "' "
-                            + "AND p.RAZA = '" + raza + "' ";
-
-                    queryAUX = em.createNativeQuery(sql);
-                    result = queryAUX.getSingleResult();
-
-                    //PAGINAS QUE HAY (6 PERSONAJES POR PAGINA)
-                    numPag = (((Number) result).intValue() / 7) + 1;
+                    //Nivel
+                    nivel = Integer.parseInt(nivelString);
 
                     switch (ordenar) {
                         case "ordenar1":
                             sql = "SELECT p.* FROM PERSONAJES p "
                                     + "WHERE p.USUARIO <> '" + id + "' "
-                                    + "AND p.NIVEL = '" + nivelString + "' "
-                                    + "AND p.CLASE = '" + clase + "' "
-                                    + "AND p.RAZA = '" + raza + "' "
-                                    + "ORDER BY p.nombre ASC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                                    + nivelString
+                                    + clase
+                                    + raza
+                                    + "AND p.NOMBRE LIKE '" + nombre + "%' "
+                                    + "ORDER BY p.NOMBRE ASC ";
                             break;
                         case "ordenar2":
                             sql = "SELECT p.* FROM PERSONAJES p "
                                     + "WHERE p.USUARIO <> '" + id + "' "
-                                    + "AND p.NIVEL = '" + nivelString + "' "
-                                    + "AND p.CLASE = '" + clase + "' "
-                                    + "AND p.RAZA = '" + raza + "' "
-                                    + "ORDER BY u.apodo DESC "
-                                    + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                                    + nivelString
+                                    + clase
+                                    + raza
+                                    + "AND p.NOMBRE LIKE '" + nombre + "%' "
+                                    + "ORDER BY p.NOMBRE DESC ";
                             break;
                     }
 
@@ -1579,35 +1569,11 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     for (int i = 0; i < listaPersonajes.size(); i++) {
                         listaUsuariosNombres.add(listaPersonajes.get(i).getUsuario().getNombre());
                     }
-                    request.setAttribute("listaPersonajes", listaPersonajes);
-                    request.setAttribute("listaCreador", listaUsuariosNombres);
 
-                    System.out.println("Sale pag:" + numString);
-                    System.out.println("Sale orden:" + ordenar);
-                    System.out.println("Sale raza:" + raza);
-                    System.out.println("Sale clase:" + clase);
-                    System.out.println("Sale nivel:" + nivelString);
-                    System.out.println("Sale npag:" + numPag);
+                    //FALTA ESTO
+                    resultado = "";
 
-                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
-                    request.setAttribute("listaClases", queryClases.getResultList());
-                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
-                    request.setAttribute("listaRazas", queryRazas.getResultList());
-
-                    request.setAttribute("orden", ordenar);
-                    request.setAttribute("filtroRaza", raza);
-                    request.setAttribute("filtroClase", clase);
-                    request.setAttribute("filtroNivel", nivelString);
-                    request.setAttribute("pag", numString);//numero de la pag
-                    request.setAttribute("numPag", numPag);//numero total de pag
-                     */
-
-                    break;
-                case "/PersonajesAmigo":
-                    ////////////////////////////////
-                    /////////VALOR DE AJAX//////////
-                    ////////////////////////////////
-                    nombre = request.getParameter("busqueda");
+                    System.out.println("PeticionAJAX Sale Personajes");
 
                     break;
                 case "/PersonajesAmigos":
@@ -1616,12 +1582,224 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    //Recogemos los datos
+                    ordenar = request.getParameter("orden");//como ordenar
+                    raza = request.getParameter("raza");//como ordenar
+                    clase = request.getParameter("clase");//como ordenar
+                    nivelString = request.getParameter("nivel");//como ordenar
+
+                    //Comprobamos los datos
+                    if (ordenar == null) {
+                        ordenar = "ordenar1";
+                    }
+                    if (raza.equals("Raza")) {
+                        raza = " ";
+                    } else {
+                        raza = "AND p.RAZA = '" + raza + "' ";
+                    }
+                    if (clase.equals("Clase")) {
+                        clase = " ";
+                    } else {
+                        clase = "AND p.CLASE = '" + clase + "' ";
+                    }
+                    if (nivelString.equals("Nivel")) {
+                        nivelString = " ";
+                    } else {
+                        nivelString = "AND p.NIVEL = '" + nivelString + "' ";
+                    }
+
+                    //Nivel
+                    nivel = Integer.parseInt(nivelString);
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
+                                    + "WHERE a.AMIGO1 = '" + user.getId() + "' "
+                                    + "p.USUARIO <> '" + user.getId() + "' "
+                                    + nivelString
+                                    + clase
+                                    + raza
+                                    + "AND p.NOMBRE LIKE '" + nombre + "%' "
+                                    + "ORDER BY p.NOMBRE ASC ";
+                            break;
+                        case "ordenar2":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
+                                    + "WHERE a.AMIGO1 = '" + user.getId() + "' "
+                                    + "p.USUARIO <> '" + user.getId() + "' "
+                                    + nivelString
+                                    + clase
+                                    + raza
+                                    + "AND p.NOMBRE LIKE '" + nombre + "%' "
+                                    + "ORDER BY p.NOMBRE DESC ";
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaPersonajes = queryAUX.getResultList();
+
+                    listaUsuariosNombres = new ArrayList();
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+                        listaUsuariosNombres.add(listaPersonajes.get(i).getUsuario().getNombre());
+                    }
+
+                    //FALTA ESTO
+                    resultado = "";
+
+                    System.out.println("PeticionAJAX Sale Personajes");
+
+                    break;
+                case "/PersonajesAmigo":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    ////////////////////////////
+                    ////////////AMIGO///////////
+                    ////////////////////////////
+                    id = request.getParameter("amigo");
+
+                    //Recogemos los datos
+                    ordenar = request.getParameter("orden");//como ordenar
+                    raza = request.getParameter("raza");//como ordenar
+                    clase = request.getParameter("clase");//como ordenar
+                    nivelString = request.getParameter("nivel");//como ordenar
+
+                    //Comprobamos los datos
+                    if (ordenar == null) {
+                        ordenar = "ordenar1";
+                    }
+                    if (raza.equals("Raza")) {
+                        raza = " ";
+                    } else {
+                        raza = "AND p.RAZA = '" + raza + "' ";
+                    }
+                    if (clase.equals("Clase")) {
+                        clase = " ";
+                    } else {
+                        clase = "AND p.CLASE = '" + clase + "' ";
+                    }
+                    if (nivelString.equals("Nivel")) {
+                        nivelString = " ";
+                    } else {
+                        nivelString = "AND p.NIVEL = '" + nivelString + "' ";
+                    }
+
+                    //Nivel
+                    nivel = Integer.parseInt(nivelString);
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "WHERE p.USUARIO = '" + id + "' "
+                                    + nivelString
+                                    + clase
+                                    + raza
+                                    + "AND p.NOMBRE LIKE '" + nombre + "%' "
+                                    + "ORDER BY p.NOMBRE ASC ";
+                            break;
+                        case "ordenar2":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "WHERE p.USUARIO = '" + id + "' "
+                                    + nivelString
+                                    + clase
+                                    + raza
+                                    + "AND p.NOMBRE LIKE '" + nombre + "%' "
+                                    + "ORDER BY p.NOMBRE DESC ";
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaPersonajes = queryAUX.getResultList();
+
+                    queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                    queryUsuarios.setParameter("id", id);
+                    useraux = queryUsuarios.getSingleResult();
+
+                    //FALTA ESTO
+                    resultado = "";
+
+                    System.out.println("PeticionAJAX Sale Personajes");
+
                     break;
                 case "/PersonajesPerfil":
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    //Recogemos los datos
+                    ordenar = request.getParameter("orden");//como ordenar
+                    raza = request.getParameter("raza");//como ordenar
+                    clase = request.getParameter("clase");//como ordenar
+                    nivelString = request.getParameter("nivel");//como ordenar
+
+                    //Comprobamos los datos
+                    if (ordenar == null) {
+                        ordenar = "ordenar1";
+                    }
+                    if (raza.equals("Raza")) {
+                        raza = " ";
+                    } else {
+                        raza = "AND p.RAZA = '" + raza + "' ";
+                    }
+                    if (clase.equals("Clase")) {
+                        clase = " ";
+                    } else {
+                        clase = "AND p.CLASE = '" + clase + "' ";
+                    }
+                    if (nivelString.equals("Nivel")) {
+                        nivelString = " ";
+                    } else {
+                        nivelString = "AND p.NIVEL = '" + nivelString + "' ";
+                    }
+
+                    //Nivel
+                    nivel = Integer.parseInt(nivelString);
+
+                    switch (ordenar) {
+                        case "ordenar1":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                    + nivelString
+                                    + clase
+                                    + raza
+                                    + "AND p.NOMBRE LIKE '" + nombre + "%' "
+                                    + "ORDER BY p.NOMBRE ASC ";
+                            break;
+                        case "ordenar2":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                    + nivelString
+                                    + clase
+                                    + raza
+                                    + "AND p.NOMBRE LIKE '" + nombre + "%' "
+                                    + "ORDER BY p.NOMBRE DESC ";
+                            break;
+                    }
+
+                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    listaPersonajes = queryAUX.getResultList();
+
+                    //FALTA ESTO
+                    resultado = "";
+
+                    System.out.println("PeticionAJAX Sale Personajes");
 
                     break;
                 //////////////////////////////////////////////////////////////////////////
@@ -1901,31 +2079,31 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     nombre = request.getParameter("busqueda");
 
                     escuela = request.getParameter("vEscu");
-                    nivel = request.getParameter("vNiv");
+                    nivelString = request.getParameter("vNiv");
                     claseH = request.getParameter("vClas");
 
-                    if (!escuela.equals("null") && !nivel.equals("null") && !claseH.equals("null")
-                            && !escuela.equals("Escuela") && !nivel.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
+                    if (!escuela.equals("null") && !nivelString.equals("null") && !claseH.equals("null")
+                            && !escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
 
                         sql = "SELECT h.* FROM Hechizos h "
                                 + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
                                 + "INNER JOIN Clases c on c.id = lb.clase "
                                 + "WHERE h.ESCUELA = '" + escuela + "' "
-                                + "AND h.NIVEL = '" + nivel + "' "
+                                + "AND h.NIVEL = '" + nivelString + "' "
                                 + "AND c.NOMBRE ='" + claseH + "' "
                                 + "ORDER BY h.nombre";
 
                         queryAUX = em.createNativeQuery(sql, Hechizos.class);
                         listaHechizos = queryAUX.getResultList();
 
-                    } else if (!escuela.equals("Escuela") && !nivel.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
+                    } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
 
                         queryHechizos = em.createNamedQuery("Hechizos.findByEscuNivel", Hechizos.class);
                         queryHechizos.setParameter("escuela", escuela);
-                        queryHechizos.setParameter("nivel", nivel);
+                        queryHechizos.setParameter("nivel", nivelString);
                         listaHechizos = queryHechizos.getResultList();
 
-                    } else if (!escuela.equals("Escuela") && nivel.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
+                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
 
                         sql = "SELECT h.* FROM Hechizos h "
                                 + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
@@ -1937,29 +2115,29 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         queryAUX = em.createNativeQuery(sql, Hechizos.class);
                         listaHechizos = queryAUX.getResultList();
 
-                    } else if (escuela.equals("Escuela") && !nivel.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
+                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
 
                         sql = "SELECT h.* FROM Hechizos h "
                                 + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
                                 + "INNER JOIN Clases c on c.id = lb.clase "
-                                + "WHERE h.NIVEL = '" + nivel + "' "
+                                + "WHERE h.NIVEL = '" + nivelString + "' "
                                 + "AND c.NOMBRE ='" + claseH + "' "
                                 + "ORDER BY h.nombre";
 
                         queryAUX = em.createNativeQuery(sql, Hechizos.class);
                         listaHechizos = queryAUX.getResultList();
 
-                    } else if (!escuela.equals("Escuela") && nivel.equals("Nivel") && claseH.equals("Clase")) {//ESCU
+                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
                         queryHechizos = em.createNamedQuery("Hechizos.findByEscuela", Hechizos.class);
                         queryHechizos.setParameter("escuela", escuela);
                         listaHechizos = queryHechizos.getResultList();
 
-                    } else if (escuela.equals("Escuela") && !nivel.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
+                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
                         queryHechizos = em.createNamedQuery("Hechizos.findByNivel", Hechizos.class);
-                        queryHechizos.setParameter("nivel", nivel);
+                        queryHechizos.setParameter("nivel", nivelString);
                         listaHechizos = queryHechizos.getResultList();
 
-                    } else if (escuela.equals("Escuela") && nivel.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
+                    } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
 
                         sql = "SELECT h.* FROM Hechizos h "
                                 + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
@@ -2342,7 +2520,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryClases.setParameter("nombre", nombre);
                     Clase = queryClases.getSingleResult();
 
-                    //Si se escoge al nivel 1
+                    //Si se escoge al nivelString 1
                     if (Clase.getNivelsubclase() == 1) {
 
                         listaSubClases = Clase.getSubclasesList();
