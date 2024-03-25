@@ -1,6 +1,4 @@
-
 package entidades;
-
 
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -62,9 +60,8 @@ public class Personajes implements Serializable {
     @Column(name = "NOMBRE", nullable = false, length = 120)
     private String nombre;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "EDAD", nullable = false)
-    private int edad;
+    private BigInteger edad;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
@@ -92,7 +89,7 @@ public class Personajes implements Serializable {
     private String historia;
     @Lob
     @Column(name = "IMAGENPERSONAJE")
-    private Serializable imagenpersonaje;
+    private byte[] imagenpersonaje;
     @Basic(optional = false)
     @NotNull
     @Column(name = "NIVEL", nullable = false)
@@ -154,7 +151,7 @@ public class Personajes implements Serializable {
         this.id = id;
     }
 
-    public Personajes(String id, String nombre, int edad, String alineamiento, BigInteger nivel, BigInteger pvida, BigInteger pvidaactuales, BigInteger clasearmadura) {
+    public Personajes(String id, String nombre, BigInteger edad, String alineamiento, BigInteger nivel, BigInteger pvida, BigInteger pvidaactuales, BigInteger clasearmadura) {
         this.id = id;
         this.nombre = nombre;
         this.edad = edad;
@@ -163,6 +160,57 @@ public class Personajes implements Serializable {
         this.pvida = pvida;
         this.pvidaactuales = pvidaactuales;
         this.clasearmadura = clasearmadura;
+    }
+
+    public Personajes(String nombre, String alineamiento, BigInteger nivel, BigInteger pvida, BigInteger pvidaactuales, BigInteger clasearmadura) {
+        this.nombre = nombre;
+        this.alineamiento = alineamiento;
+        this.nivel = nivel;
+        this.pvida = pvida;
+        this.pvidaactuales = pvidaactuales;
+        this.clasearmadura = clasearmadura;
+    }
+
+    public Personajes(Personajes personaje) {
+        this.alineamiento = personaje.getAlineamiento();
+        this.apariencia = personaje.getApariencia();
+        this.clase = personaje.getClase();
+        this.clasearmadura = personaje.getClasearmadura();
+        this.defectos = personaje.getDefectos();
+        this.dotesList = personaje.getDotesList();
+        this.edad = personaje.getEdad();
+        this.equipoList = personaje.getEquipoList();
+        this.hechizosList = personaje.getHechizosList();
+        this.historia = personaje.getHistoria();
+        this.idiomas = personaje.getIdiomas();
+        this.imagenpersonaje = personaje.getImagenpersonaje();
+        this.nivel = personaje.getNivel();
+
+        this.nombre = personaje.getNombre();
+
+        //Comprobar si el nombre contiene un numero
+        if (this.nombre.matches(".*_\\d+")) {
+            //Extraer el número después del "_"
+            String[] partes = this.nombre.split("_");
+            int numero = Integer.parseInt(partes[1]);
+            numero++;
+            this.nombre = partes[0] + "_" + numero;
+        } else {
+            this.nombre = this.nombre + "_2";
+        }
+
+        this.personajeatributosList = personaje.getPersonajeatributosList();
+        this.personajehabilidadesList = personaje.getPersonajehabilidadesList();
+        this.pexp = personaje.getPexp();
+        this.pvida = personaje.getPvida();
+        this.pvidaactuales = personaje.getPvidaactuales();
+        this.raspersonalidad = personaje.getRaspersonalidad();
+        this.raza = personaje.getRaza();
+        this.subclase = personaje.getSubclase();
+        this.subraza = personaje.getSubraza();
+        this.trasfondo = personaje.getTrasfondo();
+        this.usuario = personaje.getUsuario();
+        this.vinculos = personaje.getVinculos();
     }
 
     public String getId() {
@@ -181,11 +229,11 @@ public class Personajes implements Serializable {
         this.nombre = nombre;
     }
 
-    public int getEdad() {
+    public BigInteger getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(BigInteger edad) {
         this.edad = edad;
     }
 
@@ -253,11 +301,11 @@ public class Personajes implements Serializable {
         this.historia = historia;
     }
 
-    public Serializable getImagenpersonaje() {
+    public byte[] getImagenpersonaje() {
         return imagenpersonaje;
     }
 
-    public void setImagenpersonaje(Serializable imagenpersonaje) {
+    public void setImagenpersonaje(byte[] imagenpersonaje) {
         this.imagenpersonaje = imagenpersonaje;
     }
 
@@ -410,5 +458,5 @@ public class Personajes implements Serializable {
     public String toString() {
         return "controlador.Personajes[ id=" + id + " ]";
     }
-    
+
 }

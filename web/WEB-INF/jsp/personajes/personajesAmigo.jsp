@@ -94,9 +94,18 @@
                                 <table>
                                     <c:forEach var="personaje" items="${listaPersonajes}" varStatus="status">
                                         <tr>
-                                            <td><div class="personaje-foto">
-                                                    <img src="/TFG/img/iconos/IMGNEGRO.png">
-                                                </div></td>
+                                            <td>
+                                                <div class="personaje-foto">
+                                                    <c:choose>
+                                                        <c:when test="${personaje.imagenpersonaje == null}">
+                                                            <img src="/TFG/img/iconos/IMGNEGRO.png">
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <img src="${urlImagenes[status.index]}">
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </div>
+                                            </td>
                                             <td>${personaje.nombre}</td>
                                             <td>${personaje.clase}</td>
                                             <td>${personaje.raza}</td>

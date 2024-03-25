@@ -1,6 +1,7 @@
 package controlador;
 
 import entidades.Mesas;
+import entidades.Personajes;
 import entidades.Pertenecemesa;
 import entidades.Usuarios;
 import java.io.ByteArrayOutputStream;
@@ -56,9 +57,10 @@ public class ControladorImagenes extends HttpServlet {
 
         Usuarios user;
         Mesas mesa;
+        Personajes personaje;
 
         TypedQuery<Mesas> queryMesas;
-        TypedQuery<Pertenecemesa> queryPertenecemesas;
+        TypedQuery<Personajes> queryPersonajes;
 
         Part filePart;
 
@@ -80,6 +82,7 @@ public class ControladorImagenes extends HttpServlet {
                 /////////ES TU MESA//////////
                 /////////////////////////////
                 id = request.getParameter("id");
+
                 queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
                 queryMesas.setParameter("id", id);
                 mesa = queryMesas.getSingleResult();
@@ -88,22 +91,13 @@ public class ControladorImagenes extends HttpServlet {
                     vista = "/TFG/Principal/inicio";
                 } else {
 
-                    id = request.getParameter("id");
-
-                    /////////////////////
-                    /////////MESA////////
-                    /////////////////////
-                    queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
-                    queryMesas.setParameter("id", id);
-                    mesa = queryMesas.getSingleResult();
-
                     filePart = request.getPart("imagen");
                     fileContent = filePart.getInputStream();
 
                     //Leer el contenido y almacenarlo en un array de bytes
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                     byte[] buffer = new byte[4096];
-                    int bytesRead = -1;
+                    int bytesRead;
 
                     while ((bytesRead = fileContent.read(buffer)) != -1) {
                         byteArrayOutputStream.write(buffer, 0, bytesRead);
@@ -135,7 +129,72 @@ public class ControladorImagenes extends HttpServlet {
                 imageData = mesa.getImagenmesa();
 
                 // Configurar la respuesta para que sea una imagen
-                response.setContentType("image/jpeg"); 
+                response.setContentType("image/jpeg");
+
+                // Escribir los bytes de la imagen en la respuesta
+                try ( ServletOutputStream outputStream = response.getOutputStream()) {
+                    outputStream.write(imageData);
+                }
+                break;
+            case "/actualizarFotoPersonaje":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                /////////////////////////////
+                ///////ES TU PERSONAJE///////
+                /////////////////////////////
+                id = request.getParameter("id");
+
+                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes.setParameter("id", id);
+                personaje = queryPersonajes.getSingleResult();
+
+                if (user == null || !personaje.getUsuario().getId().equals(user.getId())) {
+                    vista = "/TFG/Principal/inicio";
+                } else {
+
+                    filePart = request.getPart("imagen");
+                    fileContent = filePart.getInputStream();
+
+                    //Leer el contenido y almacenarlo en un array de bytes
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+
+                    while ((bytesRead = fileContent.read(buffer)) != -1) {
+                        byteArrayOutputStream.write(buffer, 0, bytesRead);
+                    }
+
+                    //Convertir el contenido a un array de bytes
+                    imageData = byteArrayOutputStream.toByteArray();
+
+                    personaje.setImagenpersonaje(imageData);
+
+                    updatePersonajes(personaje);
+
+                    request.setAttribute("id", id);
+
+                    vista = "/Personajes/personaje";
+                }
+                break;
+            case "/mostrarImagenPersonaje":
+
+                id = request.getParameter("id");
+
+                ///////////////////////
+                ///////PERSONAJE///////
+                ///////////////////////
+                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes.setParameter("id", id);
+                personaje = queryPersonajes.getSingleResult();
+
+                imageData = personaje.getImagenpersonaje();
+
+                // Configurar la respuesta para que sea una imagen
+                response.setContentType("image/jpeg");
 
                 // Escribir los bytes de la imagen en la respuesta
                 try ( ServletOutputStream outputStream = response.getOutputStream()) {
@@ -191,6 +250,16 @@ public class ControladorImagenes extends HttpServlet {
         try {
             utx.begin();
             em.merge((Mesas) object);
+            utx.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void updatePersonajes(Object object) {
+        try {
+            utx.begin();
+            em.merge((Personajes) object);
             utx.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);

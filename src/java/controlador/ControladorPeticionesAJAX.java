@@ -105,10 +105,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             List<Subclases> listaSubClases;
             List<Subrazas> listaSubRazas;
             List<Personajes> listaPersonajes;
-
-            ArrayList<String> pertenecemesaUsuarios;
-            ArrayList<Integer> listaCantidad;
-            ArrayList<String> fotosMesas;
+            List<String> pertenecemesaUsuarios;
+            List<Integer> listaCantidad;
+            List<String> fotosMesas;
+            List<String> fotosPersonajes;
 
             int contadorEnviados = 0;
             int contadorRecibidos = 0;
@@ -1592,10 +1592,18 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
 
+                    fotosPersonajes = new ArrayList();
                     listaUsuarios = new ArrayList();
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
+
                         listaUsuarios.add(listaPersonajes.get(i).getUsuario());
+
+                        if (listaPersonajes.get(i).getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaPersonajes.get(i).getId());
+                        }
                     }
 
                     resultado = "";
@@ -1604,9 +1612,18 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         Personajes pejaux = listaPersonajes.get(i);
                         resultado = "<table>"
                                 + "<tr>"
-                                + "<td><div class=\"personaje-foto\">\n"
-                                + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n"
-                                + "</div></td>\n"
+                                + "<td>"
+                                + "<div class=\"personaje-foto\">\n";
+                        if (pejaux.getImagenpersonaje() == null) {
+                            resultado = resultado
+                                    + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
+                        } else {
+                            resultado = resultado
+                                    + fotosPersonajes.get(i);
+                        }
+                        resultado = resultado
+                                + "</div>"
+                                + "</td>\n"
                                 + "<td>" + pejaux.getNombre() + "</td>\n"
                                 + "<td>" + pejaux.getClase() + "</td>\n"
                                 + "<td>" + pejaux.getRaza() + "</td>\n"
@@ -1689,10 +1706,18 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
 
+                    fotosPersonajes = new ArrayList();
                     listaUsuarios = new ArrayList();
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
+
                         listaUsuarios.add(listaPersonajes.get(i).getUsuario());
+
+                        if (listaPersonajes.get(i).getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaPersonajes.get(i).getId());
+                        }
                     }
 
                     resultado = "";
@@ -1701,15 +1726,23 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         Personajes pejaux = listaPersonajes.get(i);
                         resultado = "<table>"
                                 + "<tr>"
-                                + "<td><div class=\"personaje-foto\">\n"
-                                + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n"
-                                + "</div></td>\n"
+                                + "<div class=\"personaje-foto\">\n";
+                        if (pejaux.getImagenpersonaje() == null) {
+                            resultado = resultado
+                                    + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
+                        } else {
+                            resultado = resultado
+                                    + fotosPersonajes.get(i);
+                        }
+                        resultado = resultado
+                                + "</div>"
+                                + "</td>\n"
                                 + "<td>" + pejaux.getNombre() + "</td>\n"
                                 + "<td>" + pejaux.getClase() + "</td>\n"
                                 + "<td>" + pejaux.getRaza() + "</td>\n"
                                 + "<td>" + pejaux.getNivel() + "</td>\n"
                                 + "<td>" + listaUsuarios.get(i).getApodo() + "</td>\n"
-                                + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personajeAmigo?id=" + pejaux.getId() + "&amigo=" + listaUsuarios.get(i).getApodo() + "'\">Detalles</button></td>\n"
+                                + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personajeAmigo?id=" + pejaux.getId() + "&amigo=" + listaUsuarios.get(i).getId() + "'\">Detalles</button></td>\n"
                                 + "</tr>\n"
                                 + "</table>";
                     }
@@ -1785,15 +1818,33 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryUsuarios.setParameter("id", id);
                     useraux = queryUsuarios.getSingleResult();
 
+                    fotosPersonajes = new ArrayList();
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+                        if (listaPersonajes.get(i).getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaPersonajes.get(i).getId());
+                        }
+                    }
+
                     resultado = "";
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
                         Personajes pejaux = listaPersonajes.get(i);
                         resultado = "<table>"
                                 + "<tr>"
-                                + "<td><div class=\"personaje-foto\">\n"
-                                + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n"
-                                + "</div></td>\n"
+                                + "<div class=\"personaje-foto\">\n";
+                        if (pejaux.getImagenpersonaje() == null) {
+                            resultado = resultado
+                                    + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
+                        } else {
+                            resultado = resultado
+                                    + fotosPersonajes.get(i);
+                        }
+                        resultado = resultado
+                                + "</div>"
+                                + "</td>\n"
                                 + "<td>" + pejaux.getNombre() + "</td>\n"
                                 + "<td>" + pejaux.getClase() + "</td>\n"
                                 + "<td>" + pejaux.getRaza() + "</td>\n"
@@ -1872,14 +1923,33 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
 
+                    fotosPersonajes = new ArrayList();
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+                        if (listaPersonajes.get(i).getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaPersonajes.get(i).getId());
+                        }
+                    }
+
                     resultado = "";
+
                     for (int i = 0; i < listaPersonajes.size(); i++) {
                         Personajes pejaux = listaPersonajes.get(i);
                         resultado = "<table>"
                                 + "<tr>"
-                                + "<td><div class=\"personaje-foto\">\n"
-                                + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n"
-                                + "</div></td>\n"
+                                + "<div class=\"personaje-foto\">\n";
+                        if (pejaux.getImagenpersonaje() == null) {
+                            resultado = resultado
+                                    + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
+                        } else {
+                            resultado = resultado
+                                    + fotosPersonajes.get(i);
+                        }
+                        resultado = resultado
+                                + "</div>"
+                                + "</td>\n"
                                 + "<td>" + pejaux.getNombre() + "</td>\n"
                                 + "<td>" + pejaux.getClase() + "</td>\n"
                                 + "<td>" + pejaux.getRaza() + "</td>\n"

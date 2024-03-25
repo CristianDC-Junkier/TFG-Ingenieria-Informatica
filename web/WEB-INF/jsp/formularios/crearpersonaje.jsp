@@ -79,7 +79,7 @@
                                     <div class="puntos">
                                         <div class="number-container">
                                             <label for="Atributo_${atributo.nombre}" id="atrPersonaje_${atributo.nombre}">${atributo.nombre}</label>
-                                            <input type="number" id="Atributo_${atributo.nombre}" value="8" min="8" max="15" readonly>
+                                            <input type="number" name="atributo_${atributo.nombre}" id="Atributo_${atributo.nombre}" value="8" min="8" max="15" readonly>
                                             <div class="modificadores">-1</div>
                                         </div>
                                         <div class="btn-container">

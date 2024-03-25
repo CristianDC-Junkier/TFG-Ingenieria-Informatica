@@ -3,8 +3,12 @@ package controlador;
 import entidades.Clases;
 import entidades.Personajes;
 import entidades.Razas;
+import entidades.Subclases;
+import entidades.Subrazas;
+import entidades.Trasfondos;
 import entidades.Usuarios;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
@@ -57,23 +61,28 @@ public class ControladorPersonajes extends HttpServlet {
 
         TypedQuery<Usuarios> queryUsuarios;
         TypedQuery<Clases> queryClases;
+        TypedQuery<Subclases> querySubclases;
         TypedQuery<Razas> queryRazas;
+        TypedQuery<Subrazas> querySubrazas;
+        TypedQuery<Trasfondos> queryTrasfondos;
         TypedQuery<Personajes> queryPersonajes;
 
         List<Personajes> listaPersonajes;
         List<Usuarios> listaUsuariosAmigos;
         List<Usuarios> listaUsuarios;
+        List<String> fotosPersonajes;
 
         Query queryAUX;
 
         Usuarios user;
         Usuarios useraux;
+        Personajes personaje;
 
         String id;
 
         String ordenar;
-        String raza;
-        String clase;
+        String razaString;
+        String claseString;
         String nivelString;
         String numString;
         String razaSQL;
@@ -86,9 +95,24 @@ public class ControladorPersonajes extends HttpServlet {
         String personaje_raza;
         String personaje_subraza;
         String personaje_trasfondo;
+
+        Clases clase;
+        Subclases subclase;
+        Razas raza;
+        Subrazas subraza;
+        Trasfondos transfondo;
+
         String[] personaje_habilidades;
+
+        String atributo_constitucion;
+        String atributo_fuerza;
+        String atributo_destreza;
+        String atributo_sabiduria;
+        String atributo_inteligencia;
+        String atributo_carisma;
+
         String personaje_alineamiento;
-        int personaje_edad;
+        String personaje_edad;
         String personaje_apariencia;
         String personaje_rasgos;
         String personaje_defectos;
@@ -123,146 +147,125 @@ public class ControladorPersonajes extends HttpServlet {
                 //Bloque 2
                 personaje_habilidades = request.getParameterValues("habilidades");
                 //Bloque 3
-                //Atributos
+                atributo_constitucion = request.getParameter("atributo_constitución");
+                atributo_fuerza = request.getParameter("atributo_fuerza");
+                atributo_destreza = request.getParameter("atributo_destreza");
+                atributo_sabiduria = request.getParameter("atributo_sabiduría");
+                atributo_inteligencia = request.getParameter("atributo_inteligencia");
+                atributo_carisma = request.getParameter("atributo_carisma");
                 //Bloque 4
                 personaje_alineamiento = request.getParameter("alineamiento");
-                personaje_edad = Integer.valueOf(request.getParameter("personaje_edad"));
+                personaje_edad = request.getParameter("personaje_edad");
                 personaje_apariencia = request.getParameter("personaje_apariencia");
                 personaje_rasgos = request.getParameter("personaje_rasgos");
                 personaje_defectos = request.getParameter("personaje_defectos");
                 personaje_vinculos = request.getParameter("personaje_vinculos");
                 personaje_idiomas = request.getParameter("personaje_idiomas");
                 personaje_historia = request.getParameter("personaje_historia");
-                
-                /*if (nombre != null && apodo != null && correo != null && contrasena != null && fechaNacimientoString != null
-                        && provincia != null && genero != null) {
 
+                if (personaje_nombre != null && personaje_alineamiento != null && personaje_clase != null && personaje_raza != null
+                        && personaje_subraza != null && personaje_trasfondo != null) {
                     try {
 
                         //////////////////
                         //////NOMBRE//////
-                        ////////////////// //CONTEXT
-                        if (nombre.toUpperCase().contains("UPDATE") || nombre.toUpperCase().contains("CREATE")
-                                || nombre.toUpperCase().contains("DELETE") || nombre.toUpperCase().contains("SELECT")
-                                || nombre.toUpperCase().contains("DROP")) {
+                        ////////////////// 
+                        if (personaje_nombre.toUpperCase().contains("UPDATE") || personaje_nombre.toUpperCase().contains("CREATE")
+                                || personaje_nombre.toUpperCase().contains("DELETE") || personaje_nombre.toUpperCase().contains("SELECT")
+                                || personaje_nombre.toUpperCase().contains("DROP")) {
                             throw new Exception("El Nombre no es válido");
                         }
 
-                        //////////////////////
-                        //////CONTRASEÑA//////
-                        //////////////////////
-                        if (contrasena.toUpperCase().contains("UPDATE") || contrasena.toUpperCase().contains("CREATE")
-                                || contrasena.toUpperCase().contains("DELETE") || contrasena.toUpperCase().contains("SELECT")
-                                || contrasena.toUpperCase().contains("DROP")) {
-                            throw new Exception("La contrasena no es válida");
+                        queryPersonajes = em.createNamedQuery("Personajes.findByNombre", Personajes.class);
+                        queryPersonajes.setParameter("nombre", personaje_nombre);
+                        listaPersonajes = queryPersonajes.getResultList();
+
+                        if (!listaPersonajes.isEmpty()) {
+                            throw new Exception("El Nombre del personaje debe ser único ");
                         }
-
-                        //////////////////////
-                        /////////HASH/////////
-                        //////////////////////
-                        contrasenahash = BCrypt.hashpw(contrasena, BCrypt.gensalt());
-
-                        /////////////////
-                        //////FECHA//////
-                        /////////////////
-                        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                        Date fechaNacimiento = formatoFecha.parse(fechaNacimientoString);
-
-                        Date fechaActual = new Date();
-                        Calendar calendarioAux = Calendar.getInstance();
-                        calendarioAux.setTime(fechaActual);
-                        calendarioAux.add(Calendar.YEAR, -12);
-                        fechaActual = calendarioAux.getTime();
-
-                        // Comparar las fechas
-                        if (!fechaNacimiento.before(fechaActual)) {
-                            throw new Exception("La fecha de nacimiento debe ser más pequeña que " + fechaActual.getDate()
-                                    + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
-                        }
-
-                        calendarioAux.setTime(fechaActual);
-                        calendarioAux.add(Calendar.YEAR, -120);
-                        fechaActual = calendarioAux.getTime();
-                        if (!fechaActual.before(fechaNacimiento)) {
-                            throw new Exception("La fecha de nacimiento debe ser más grande que " + fechaActual.getDate()
-                                    + "/" + (fechaActual.getMonth() + 1) + "/" + (fechaActual.getYear() + 1900));
-                        }
-
-                        /////////////////////
-                        /////////APODO///////
-                        /////////////////////
-                        if (apodo.toUpperCase().contains("UPDATE") || apodo.toUpperCase().contains("CREATE")
-                                || apodo.toUpperCase().contains("DELETE") || apodo.toUpperCase().contains("SELECT")
-                                || apodo.toUpperCase().contains("DROP")) {
-                            throw new Exception("El Nombre de usuario no es válido");
-                        }
-
-                        queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
-                        queryUsuarios.setParameter("apodo", apodo);
-                        listaUsuarios = queryUsuarios.getResultList();
-
-                        if (!listaUsuarios.isEmpty()) {
-                            throw new Exception("El Nombre de usuario debe ser único ");
-                        }
-                        //////////////////////////
-                        //////////CORREO//////////
-                        //////////////////////////
-
-                        queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
-                        queryUsuarios.setParameter("correo", correo);
-                        listaUsuarios = queryUsuarios.getResultList();
-
-                        if (!listaUsuarios.isEmpty()) {
-                            throw new Exception("El Correo debe ser único ");
-                        }
-
-                        ///////////////////////////
-                        //////////TELEFONO/////////
-                        ///////////////////////////
-                        BigInteger telefonoBI;
-
-                        if (telefono != null && !telefono.equals("")) {
-                            telefonoBI = new BigInteger(telefono);
-
-                            queryUsuarios = em.createNamedQuery("Usuarios.findByTelefono", Usuarios.class);
-                            queryUsuarios.setParameter("telefono", telefonoBI);
-                            listaUsuarios = queryUsuarios.getResultList();
-
-                            if (!listaUsuarios.isEmpty()) {
-                                throw new Exception("El Teléfono debe ser único ");
-                            }
-
-                        } else {
-                            telefonoBI = null;
-                        }
+                        //////////////////
+                        //////CLASE///////
+                        //////////////////
+                        queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
+                        queryClases.setParameter("nombre", personaje_clase);
+                        clase = queryClases.getSingleResult();
+                        //////////////////
+                        ///////RAZA///////
+                        //////////////////
+                        queryRazas = em.createNamedQuery("Razas.findByNombre", Razas.class);
+                        queryRazas.setParameter("nombre", personaje_raza);
+                        raza = queryRazas.getSingleResult();
+                        //////////////////
+                        //////SUBRAZA/////
+                        //////////////////
+                        querySubrazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
+                        querySubrazas.setParameter("nombre", personaje_subraza);
+                        subraza = querySubrazas.getSingleResult();
+                        //////////////////
+                        ////TRASFONDO/////
+                        //////////////////
+                        queryTrasfondos = em.createNamedQuery("Trasfondos.findByNombre", Trasfondos.class);
+                        queryTrasfondos.setParameter("nombre", personaje_trasfondo);
+                        transfondo = queryTrasfondos.getSingleResult();
 
                         //////////////////////////
                         //////////CREAMOS/////////
                         //////////////////////////
-                        user = new Usuarios(apodo, nombre, correo, contrasenahash, fechaNacimiento, provincia, genero, (short) 0);
-                        user.setTelefono(telefonoBI);
-                        persist(user);
-                        System.out.println("Registrado: " + nombre);
+                        //FALTA
+                        personaje = new Personajes(personaje_nombre, personaje_alineamiento, BigInteger.valueOf(1), BigInteger.valueOf(clase.getDpg().charAt(1)),
+                                BigInteger.valueOf(clase.getDpg().charAt(1)), BigInteger.valueOf(10));
+                        personaje.setClase(clase);
+                        personaje.setRaza(raza);
+                        personaje.setSubraza(subraza);
+                        personaje.setTrasfondo(transfondo);
+
+                        if (!personaje_subclase.equalsIgnoreCase("-")) {
+                            //////////////////
+                            /////SUBCLASE/////
+                            //////////////////
+                            querySubclases = em.createNamedQuery("Subclases.findByNombre", Subclases.class);
+                            querySubclases.setParameter("nombre", personaje_trasfondo);
+                            subclase = querySubclases.getSingleResult();
+                            personaje.setSubclase(subclase);
+                        }
+
+                        if (personaje_edad != null) {
+                            personaje.setEdad(BigInteger.valueOf(Integer.valueOf(personaje_edad)));
+                        }
+                        if (personaje_apariencia != null) {
+                            personaje.setApariencia(personaje_apariencia);
+                        }
+                        if (personaje_rasgos != null) {
+                            personaje.setRaspersonalidad(personaje_rasgos);
+                        }
+                        //FALTAN
+                        if (personaje_edad != null) {
+                            personaje.setEdad(BigInteger.valueOf(Integer.valueOf(personaje_edad)));
+                        }
+                        if (personaje_edad != null) {
+                            personaje.setEdad(BigInteger.valueOf(Integer.valueOf(personaje_edad)));
+                        }
+                        if (personaje_edad != null) {
+                            personaje.setEdad(BigInteger.valueOf(Integer.valueOf(personaje_edad)));
+                        }
+
+                        persist(personaje);
+                        System.out.println("Creado el personaje: " + personaje_nombre + " de " + user.getId());
                         conseguido = true;
-                        
-                    
+
                     } catch (NumberFormatException ex) {
                         msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
-                        System.out.println("Error: Imposible registrar en este momento: " + nombre);
+                        System.out.println("Error: Imposible crear un personaje en este momento");
                         System.out.println("NumberFormatException: " + ex.getMessage());
-                    } catch (ParseException ex) {
-                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
-                        System.out.println("Error: Imposible registrar en este momento: " + nombre);
-                        System.out.println("ParseException: " + ex.getMessage());
                     } catch (RuntimeException ex) {
                         msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
-                        System.out.println("Error: Imposible registrar en este momento: " + nombre);
+                        System.out.println("Error: Imposible crear un personaje en este momento: ");
                         System.out.println("ParseException: " + ex.getMessage());
                     } catch (Exception ex) {
                         msj = "<p style=\"margin-left: 10px\"> Error: " + ex.getMessage() + "</p>";
                         System.out.println("Exception: " + ex.getMessage());
                     }
-                
+
                 } else {
                     msj = "<p style=\"margin-left: 10px\"> Error: Introduzca los campos de forma correcta </p>";
                     System.out.println("Error: Introduzca los campos de forma correcta ");
@@ -273,7 +276,6 @@ public class ControladorPersonajes extends HttpServlet {
                     request.setAttribute("msj", msj);
                     vista = "/Formularios/crearpersonaje";
                 }
-                 */
                 break;
             case "/personajes":
                 /////////////////////////
@@ -292,16 +294,16 @@ public class ControladorPersonajes extends HttpServlet {
                 //Recogemos los datos
                 numString = request.getParameter("pag");//numero de pag en la que estoy
                 ordenar = request.getParameter("orden");//como ordenar
-                raza = request.getParameter("raza");//como ordenar
-                clase = request.getParameter("clase");//como ordenar
+                razaString = request.getParameter("raza");//como ordenar
+                claseString = request.getParameter("clase");//como ordenar
                 nivelString = request.getParameter("nivel");//como ordenar
 
                 //Comprobamos los datos
                 if (ordenar == null) {
 
                     ordenar = "ordenar1";
-                    raza = " ";
-                    clase = " ";
+                    razaString = " ";
+                    claseString = " ";
                     nivelString = " ";
                     numString = "1";
                     num = 0;
@@ -312,15 +314,15 @@ public class ControladorPersonajes extends HttpServlet {
                     //Nivel
                     nivel = Integer.parseInt(nivelString);
 
-                    if (raza.equals("Raza")) {
-                        raza = " ";
+                    if (razaString.equals("Raza")) {
+                        razaString = " ";
                     } else {
-                        raza = "AND p.RAZA = '" + raza + "' ";
+                        razaString = "AND p.RAZA = '" + razaString + "' ";
                     }
-                    if (clase.equals("Clase")) {
-                        clase = " ";
+                    if (claseString.equals("Clase")) {
+                        claseString = " ";
                     } else {
-                        clase = "AND p.CLASE = '" + clase + "' ";
+                        claseString = "AND p.CLASE = '" + claseString + "' ";
                     }
                     if (nivelString.equals("Nivel")) {
                         nivelString = " ";
@@ -331,8 +333,8 @@ public class ControladorPersonajes extends HttpServlet {
 
                 System.out.println("Llega pag: " + numString);
                 System.out.println("Llega orden: " + ordenar);
-                System.out.println("Llega raza: " + raza);
-                System.out.println("Llega clase: " + clase);
+                System.out.println("Llega raza: " + razaString);
+                System.out.println("Llega clase: " + claseString);
                 System.out.println("Llega nivel: " + nivelString);
 
                 /////////////////////////////////////
@@ -341,8 +343,8 @@ public class ControladorPersonajes extends HttpServlet {
                 sql = "SELECT COUNT(*) FROM PERSONAJES p "
                         + "WHERE p.USUARIO <> '" + id + "' "
                         + nivelString
-                        + clase
-                        + raza;
+                        + claseString
+                        + razaString;
 
                 queryAUX = em.createNativeQuery(sql);
                 result = queryAUX.getSingleResult();
@@ -355,8 +357,8 @@ public class ControladorPersonajes extends HttpServlet {
                         sql = "SELECT p.* FROM PERSONAJES p "
                                 + "WHERE p.USUARIO <> '" + id + "' "
                                 + nivelString
-                                + clase
-                                + raza
+                                + claseString
+                                + razaString
                                 + "ORDER BY  p.NOMBRE ASC "
                                 + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                         break;
@@ -364,8 +366,8 @@ public class ControladorPersonajes extends HttpServlet {
                         sql = "SELECT p.* FROM PERSONAJES p "
                                 + "WHERE p.USUARIO <> '" + id + "' "
                                 + nivelString
-                                + clase
-                                + raza
+                                + claseString
+                                + razaString
                                 + "ORDER BY  p.NOMBRE DESC "
                                 + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                         break;
@@ -374,18 +376,27 @@ public class ControladorPersonajes extends HttpServlet {
                 queryAUX = em.createNativeQuery(sql, Usuarios.class);
                 listaPersonajes = queryAUX.getResultList();
 
+                fotosPersonajes = new ArrayList();
                 listaUsuarios = new ArrayList();
 
                 for (int i = 0; i < listaPersonajes.size(); i++) {
+
                     listaUsuarios.add(listaPersonajes.get(i).getUsuario());
+
+                    if (listaPersonajes.get(i).getImagenpersonaje() == null) {
+                        fotosPersonajes.add("-");
+                    } else {
+                        fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaPersonajes.get(i).getId());
+                    }
                 }
+
                 request.setAttribute("listaPersonajes", listaPersonajes);
                 request.setAttribute("listaCreador", listaUsuarios);
 
                 System.out.println("Sale pag:" + numString);
                 System.out.println("Sale orden:" + ordenar);
-                System.out.println("Sale raza:" + raza);
-                System.out.println("Sale clase:" + clase);
+                System.out.println("Sale raza:" + razaString);
+                System.out.println("Sale clase:" + claseString);
                 System.out.println("Sale nivel:" + nivelString);
                 System.out.println("Sale npag:" + numPag);
 
@@ -395,9 +406,10 @@ public class ControladorPersonajes extends HttpServlet {
                 request.setAttribute("listaRazas", queryRazas.getResultList());
 
                 request.setAttribute("orden", ordenar);
-                request.setAttribute("filtroRaza", raza);
-                request.setAttribute("filtroClase", clase);
+                request.setAttribute("filtroRaza", razaString);
+                request.setAttribute("filtroClase", claseString);
                 request.setAttribute("filtroNivel", nivelString);
+                request.setAttribute("urlImagenes", fotosPersonajes);
                 request.setAttribute("pag", numString);//numero de la pag
                 request.setAttribute("numPag", numPag);//numero total de pag
 
@@ -418,8 +430,8 @@ public class ControladorPersonajes extends HttpServlet {
                     //Recogemos los datos
                     numString = request.getParameter("pag");//numero de pag en la que estoy
                     ordenar = request.getParameter("orden");//como ordenar
-                    raza = request.getParameter("raza");//como ordenar
-                    clase = request.getParameter("clase");//como ordenar
+                    razaString = request.getParameter("raza");//como ordenar
+                    claseString = request.getParameter("clase");//como ordenar
                     nivelString = request.getParameter("nivel");//como ordenar
 
                     //Comprobamos los datos
@@ -438,15 +450,15 @@ public class ControladorPersonajes extends HttpServlet {
                         //Nivel
                         nivel = Integer.parseInt(nivelString);
 
-                        if (raza.equals("Raza")) {
+                        if (razaString.equals("Raza")) {
                             razaSQL = " ";
                         } else {
-                            razaSQL = "AND p.RAZA = '" + raza + "' ";
+                            razaSQL = "AND p.RAZA = '" + razaString + "' ";
                         }
-                        if (clase.equals("Clase")) {
+                        if (claseString.equals("Clase")) {
                             claseSQL = " ";
                         } else {
-                            claseSQL = "AND p.CLASE = '" + clase + "' ";
+                            claseSQL = "AND p.CLASE = '" + claseString + "' ";
                         }
                         if (nivelString.equals("Nivel")) {
                             nivelSQL = " ";
@@ -457,8 +469,8 @@ public class ControladorPersonajes extends HttpServlet {
 
                     System.out.println("Llega pag: " + numString);
                     System.out.println("Llega orden: " + ordenar);
-                    System.out.println("Llega raza: " + raza);
-                    System.out.println("Llega clase: " + clase);
+                    System.out.println("Llega raza: " + razaString);
+                    System.out.println("Llega clase: " + claseString);
                     System.out.println("Llega nivel: " + nivelString);
 
                     /////////////////////////////////////
@@ -506,18 +518,27 @@ public class ControladorPersonajes extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Usuarios.class);
                     listaPersonajes = queryAUX.getResultList();
 
+                    fotosPersonajes = new ArrayList();
                     listaUsuarios = new ArrayList();
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
+
                         listaUsuarios.add(listaPersonajes.get(i).getUsuario());
+
+                        if (listaPersonajes.get(i).getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaPersonajes.get(i).getId());
+                        }
                     }
+
                     request.setAttribute("listaPersonajes", listaPersonajes);
                     request.setAttribute("listaCreador", listaUsuarios);
 
                     System.out.println("Sale pag:" + numString);
                     System.out.println("Sale orden:" + ordenar);
-                    System.out.println("Sale raza:" + raza);
-                    System.out.println("Sale clase:" + clase);
+                    System.out.println("Sale raza:" + razaString);
+                    System.out.println("Sale clase:" + claseString);
                     System.out.println("Sale nivel:" + nivelString);
                     System.out.println("Sale npag:" + numPag);
 
@@ -527,9 +548,10 @@ public class ControladorPersonajes extends HttpServlet {
                     request.setAttribute("listaRazas", queryRazas.getResultList());
 
                     request.setAttribute("orden", ordenar);
-                    request.setAttribute("filtroRaza", raza);
-                    request.setAttribute("filtroClase", clase);
+                    request.setAttribute("filtroRaza", razaString);
+                    request.setAttribute("filtroClase", claseString);
                     request.setAttribute("filtroNivel", nivelString);
+                    request.setAttribute("urlImagenes", fotosPersonajes);
                     request.setAttribute("pag", numString);//numero de la pag
                     request.setAttribute("numPag", numPag);//numero total de pag
 
@@ -555,12 +577,12 @@ public class ControladorPersonajes extends HttpServlet {
                     //Recogemos los datos
                     numString = request.getParameter("pag");//numero de pag en la que estoy
                     ordenar = request.getParameter("orden");//como ordenar
-                    raza = request.getParameter("raza");//como ordenar
-                    clase = request.getParameter("clase");//como ordenar
+                    razaString = request.getParameter("raza");//como ordenar
+                    claseString = request.getParameter("clase");//como ordenar
                     nivelString = request.getParameter("nivel");//como ordenar
 
                     //Comprobamos los datos
-                    if (ordenar == null || raza == null || clase == null || nivelString == null || numString == null) {
+                    if (ordenar == null || razaString == null || claseString == null || nivelString == null || numString == null) {
 
                         ordenar = "ordenar1";
                         razaSQL = " ";
@@ -575,15 +597,15 @@ public class ControladorPersonajes extends HttpServlet {
                         //Nivel
                         nivel = Integer.parseInt(nivelString);
 
-                        if (raza.equals("Raza")) {
+                        if (razaString.equals("Raza")) {
                             razaSQL = " ";
                         } else {
-                            razaSQL = "AND p.RAZA = '" + raza + "' ";
+                            razaSQL = "AND p.RAZA = '" + razaString + "' ";
                         }
-                        if (clase.equals("Clase")) {
+                        if (claseString.equals("Clase")) {
                             claseSQL = " ";
                         } else {
-                            claseSQL = "AND p.CLASE = '" + clase + "' ";
+                            claseSQL = "AND p.CLASE = '" + claseString + "' ";
                         }
                         if (nivelString.equals("Nivel")) {
                             nivelSQL = " ";
@@ -594,8 +616,8 @@ public class ControladorPersonajes extends HttpServlet {
 
                     System.out.println("Llega pag: " + numString);
                     System.out.println("Llega orden: " + ordenar);
-                    System.out.println("Llega raza: " + raza);
-                    System.out.println("Llega clase: " + clase);
+                    System.out.println("Llega raza: " + razaString);
+                    System.out.println("Llega clase: " + claseString);
                     System.out.println("Llega nivel: " + nivelString);
 
                     /////////////////////////////////////
@@ -604,8 +626,8 @@ public class ControladorPersonajes extends HttpServlet {
                     sql = "SELECT COUNT(*) FROM PERSONAJES p "
                             + "WHERE p.USUARIO = '" + id + "' "
                             + nivelString
-                            + clase
-                            + raza;
+                            + claseString
+                            + razaString;
 
                     queryAUX = em.createNativeQuery(sql);
                     result = queryAUX.getSingleResult();
@@ -640,8 +662,8 @@ public class ControladorPersonajes extends HttpServlet {
 
                     System.out.println("Sale pag:" + numString);
                     System.out.println("Sale orden:" + ordenar);
-                    System.out.println("Sale raza:" + raza);
-                    System.out.println("Sale clase:" + clase);
+                    System.out.println("Sale raza:" + razaString);
+                    System.out.println("Sale clase:" + claseString);
                     System.out.println("Sale nivel:" + nivelString);
                     System.out.println("Sale npag:" + numPag);
 
@@ -653,10 +675,22 @@ public class ControladorPersonajes extends HttpServlet {
                     queryUsuarios.setParameter("id", id);
                     request.setAttribute("amigo", queryUsuarios.getSingleResult());
 
+                    fotosPersonajes = new ArrayList();
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+
+                        if (listaPersonajes.get(i).getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaPersonajes.get(i).getId());
+                        }
+                    }
+
                     request.setAttribute("orden", ordenar);
-                    request.setAttribute("filtroRaza", raza);
-                    request.setAttribute("filtroClase", clase);
+                    request.setAttribute("filtroRaza", razaString);
+                    request.setAttribute("filtroClase", claseString);
                     request.setAttribute("filtroNivel", nivelString);
+                    request.setAttribute("urlImagenes", fotosPersonajes);
                     request.setAttribute("pag", numString);//numero de la pag
                     request.setAttribute("numPag", numPag);//numero total de pag
 
@@ -677,12 +711,12 @@ public class ControladorPersonajes extends HttpServlet {
                     //Recogemos los datos
                     numString = request.getParameter("pag");//numero de pag en la que estoy
                     ordenar = request.getParameter("orden");//como ordenar
-                    raza = request.getParameter("raza");//como ordenar
-                    clase = request.getParameter("clase");//como ordenar
+                    razaString = request.getParameter("raza");//como ordenar
+                    claseString = request.getParameter("clase");//como ordenar
                     nivelString = request.getParameter("nivel");//como ordenar
 
                     //Comprobamos los datos
-                    if (ordenar == null || raza == null || clase == null || nivelString == null || numString == null) {
+                    if (ordenar == null || razaString == null || claseString == null || nivelString == null || numString == null) {
 
                         ordenar = "ordenar1";
                         razaSQL = " ";
@@ -697,15 +731,15 @@ public class ControladorPersonajes extends HttpServlet {
                         //Nivel
                         nivel = Integer.parseInt(nivelString);
 
-                        if (raza.equals("Raza")) {
+                        if (razaString.equals("Raza")) {
                             razaSQL = " ";
                         } else {
-                            razaSQL = "AND p.RAZA = '" + raza + "' ";
+                            razaSQL = "AND p.RAZA = '" + razaString + "' ";
                         }
-                        if (clase.equals("Clase")) {
+                        if (claseString.equals("Clase")) {
                             claseSQL = " ";
                         } else {
-                            claseSQL = "AND p.CLASE = '" + clase + "' ";
+                            claseSQL = "AND p.CLASE = '" + claseString + "' ";
                         }
                         if (nivelString.equals("Nivel")) {
                             nivelSQL = " ";
@@ -716,8 +750,8 @@ public class ControladorPersonajes extends HttpServlet {
 
                     System.out.println("Llega pag: " + numString);
                     System.out.println("Llega orden: " + ordenar);
-                    System.out.println("Llega raza: " + raza);
-                    System.out.println("Llega clase: " + clase);
+                    System.out.println("Llega raza: " + razaString);
+                    System.out.println("Llega clase: " + claseString);
                     System.out.println("Llega nivel: " + nivelString);
 
                     /////////////////////////////////////
@@ -763,8 +797,8 @@ public class ControladorPersonajes extends HttpServlet {
 
                     System.out.println("Sale pag:" + numString);
                     System.out.println("Sale orden:" + ordenar);
-                    System.out.println("Sale raza:" + raza);
-                    System.out.println("Sale clase:" + clase);
+                    System.out.println("Sale raza:" + razaString);
+                    System.out.println("Sale clase:" + claseString);
                     System.out.println("Sale nivel:" + nivelString);
                     System.out.println("Sale npag:" + numPag);
 
@@ -773,10 +807,22 @@ public class ControladorPersonajes extends HttpServlet {
                     queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
                     request.setAttribute("listaRazas", queryRazas.getResultList());
 
+                    fotosPersonajes = new ArrayList();
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+
+                        if (listaPersonajes.get(i).getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaPersonajes.get(i).getId());
+                        }
+                    }
+
                     request.setAttribute("orden", ordenar);
-                    request.setAttribute("filtroRaza", raza);
-                    request.setAttribute("filtroClase", clase);
+                    request.setAttribute("filtroRaza", razaString);
+                    request.setAttribute("filtroClase", claseString);
                     request.setAttribute("filtroNivel", nivelString);
+                    request.setAttribute("urlImagenes", fotosPersonajes);
                     request.setAttribute("pag", numString);//numero de la pag
                     request.setAttribute("numPag", numPag);//numero total de pag
 
@@ -833,5 +879,36 @@ public class ControladorPersonajes extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    public void persist(Object object) {
+        try {
+            utx.begin();
+            em.persist(object);
+            utx.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void deletePersonajes(Object object) {
+        try {
+            utx.begin();
+            object = (Personajes) em.merge(object);
+            em.remove(object);
+            utx.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void updatePersonajes(Object object) {
+        try {
+            utx.begin();
+            em.merge((Personajes) object);
+            utx.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
