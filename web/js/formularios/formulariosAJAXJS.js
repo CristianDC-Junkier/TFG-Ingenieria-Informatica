@@ -52,7 +52,7 @@ function realizarBusqueda(inputID, spanID) {
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/ModificarMesa?mesaTitulo=" + tituloMesaJS;
                 break;
             case "namePersonaje":
-                //urlAJAX = "/TFG/ControladorPeticionesAJAX/ModificarMesa?mesaTitulo=" + tituloMesaJS;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/CrearPersonaje";
                 break;
         }
 
@@ -68,7 +68,13 @@ function realizarBusqueda(inputID, spanID) {
                 if (v !== "Encontrado" && input.checkValidity()) {
                     spanInput.innerHTML = "✓";
                 } else {
-                    input.title = "El usuario esta repetido o no es valido";
+                    if (inputID === "tittleMesaMod" || inputID === "tittleMesa") {
+                        input.title = "La mesa esta repetido o no es valido";
+                    } else if (inputID === "namePersonaje") {
+                        input.title = "El personaje esta repetido o no es valido";
+                    } else {
+                        input.title = "El usuario esta repetido o no es valido";
+                    }
                     spanInput.innerHTML = "✖";
 
                 }
@@ -114,7 +120,6 @@ function escogiendoPersonaje(valor, valorBusqueda, etiqueta) {
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/CrearPersonajesSubclase";
                 break;
         }
-
 
         // Realizar la solicitud AJAX
         $.ajax({

@@ -94,7 +94,7 @@
                                     <h4>Ordenado por nombre (Z-A)</h4>
                                 </c:otherwise>
                             </c:choose>
-                            <div class="diseñoTabla">
+                            <div class="diseñoTabla" id ="Tabla">
                                 <table>
                                     <c:forEach var="personaje" items="${listaPersonajes}" varStatus="status">
                                         <tr>
@@ -105,7 +105,7 @@
                                             <td>${personaje.clase}</td>
                                             <td>${personaje.raza}</td>
                                             <td>${personaje.nivel}</td>
-                                            <td>${listaCreador[status.index]}</td>
+                                            <td>${listaCreador[status.index].apodo}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Personaje/personaje?id=${personaje.id}'">Detalles</button></td>
                                         </tr>
                                     </c:forEach>
@@ -131,6 +131,9 @@
         //Datos de las páginas
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
+        //Tabla
+        let tabla = document.getElementById('Tabla');
+        let tablaInicial = tabla.innerHTML;
     </script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/TFG/js/busquedasAJAXJS.js"></script>

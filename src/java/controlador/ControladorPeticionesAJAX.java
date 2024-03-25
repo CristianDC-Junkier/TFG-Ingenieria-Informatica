@@ -105,7 +105,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             List<Subclases> listaSubClases;
             List<Subrazas> listaSubRazas;
             List<Personajes> listaPersonajes;
-            List<String> listaUsuariosNombres;
 
             ArrayList<String> pertenecemesaUsuarios;
             ArrayList<Integer> listaCantidad;
@@ -1492,6 +1491,35 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                 //////////////////////////////////////////////////////////////////////////
                 //////////////////////////////PERSONAJES//////////////////////////////////
                 //////////////////////////////////////////////////////////////////////////
+                case "/CrearPersonaje":
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    sql = "SELECT p.* FROM PERSONAJES p "
+                            + "WHERE p.USUARIO == '" + user.getId() + "' "
+                            + "AND p.NOMBRE LIKE '" + nombre + "%' "
+                            + "ORDER BY p.NOMBRE ASC ";
+                    queryAUX = em.createNativeQuery(sql, Personajes.class);
+                    listaPersonajes = queryAUX.getResultList();
+
+                    if (listaPersonajes.isEmpty() == true) {
+                        resultado = "No encontrado";
+                    } else {
+                        resultado = "Encontrado";
+                    }
+
+                    System.out.println("PeticionAJAX Sale CrearPersonaje");
+
+                    break;
                 case "/Personajes":
                     /////////////////////////
                     /////////SESION//////////
@@ -1561,17 +1589,33 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
 
-                    listaUsuariosNombres = new ArrayList();
+                    listaUsuarios = new ArrayList();
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
-                        listaUsuariosNombres.add(listaPersonajes.get(i).getUsuario().getNombre());
+                        listaUsuarios.add(listaPersonajes.get(i).getUsuario());
                     }
 
-                    //FALTA ESTO
                     resultado = "";
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+                        Personajes pejaux = listaPersonajes.get(i);
+                        resultado = "<table>"
+                                + "<tr>"
+                                + "<td><div class=\"personaje-foto\">\n"
+                                + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n"
+                                + "</div></td>\n"
+                                + "<td>" + pejaux.getNombre() + "</td>\n"
+                                + "<td>" + pejaux.getClase() + "</td>\n"
+                                + "<td>" + pejaux.getRaza() + "</td>\n"
+                                + "<td>" + pejaux.getNivel() + "</td>\n"
+                                + "<td>" + listaUsuarios.get(i).getApodo() + "</td>\n"
+                                + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personaje?id=" + pejaux.getId() + "'\">Detalles</button></td>\n"
+                                + "</tr>\n"
+                                + "</table>";
+                    }
 
                     System.out.println("PeticionAJAX Sale Personajes");
 
@@ -1642,17 +1686,33 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
 
-                    listaUsuariosNombres = new ArrayList();
+                    listaUsuarios = new ArrayList();
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
-                        listaUsuariosNombres.add(listaPersonajes.get(i).getUsuario().getNombre());
+                        listaUsuarios.add(listaPersonajes.get(i).getUsuario());
                     }
 
-                    //FALTA ESTO
                     resultado = "";
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+                        Personajes pejaux = listaPersonajes.get(i);
+                        resultado = "<table>"
+                                + "<tr>"
+                                + "<td><div class=\"personaje-foto\">\n"
+                                + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n"
+                                + "</div></td>\n"
+                                + "<td>" + pejaux.getNombre() + "</td>\n"
+                                + "<td>" + pejaux.getClase() + "</td>\n"
+                                + "<td>" + pejaux.getRaza() + "</td>\n"
+                                + "<td>" + pejaux.getNivel() + "</td>\n"
+                                + "<td>" + listaUsuarios.get(i).getApodo() + "</td>\n"
+                                + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personajeAmigo?id=" + pejaux.getId() + "&amigo=" + listaUsuarios.get(i).getApodo() + "'\">Detalles</button></td>\n"
+                                + "</tr>\n"
+                                + "</table>";
+                    }
 
                     System.out.println("PeticionAJAX Sale Personajes");
 
@@ -1718,15 +1778,31 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
 
                     queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
                     queryUsuarios.setParameter("id", id);
                     useraux = queryUsuarios.getSingleResult();
 
-                    //FALTA ESTO
                     resultado = "";
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+                        Personajes pejaux = listaPersonajes.get(i);
+                        resultado = "<table>"
+                                + "<tr>"
+                                + "<td><div class=\"personaje-foto\">\n"
+                                + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n"
+                                + "</div></td>\n"
+                                + "<td>" + pejaux.getNombre() + "</td>\n"
+                                + "<td>" + pejaux.getClase() + "</td>\n"
+                                + "<td>" + pejaux.getRaza() + "</td>\n"
+                                + "<td>" + pejaux.getNivel() + "</td>\n"
+                                + "<td>" + useraux.getApodo() + "</td>\n"
+                                + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personajeAmigo?id=" + pejaux.getId() + "&amigo=" + useraux.getId() + "'\">Detalles</button></td>\n"
+                                + "</tr>\n"
+                                + "</table>";
+                    }
 
                     System.out.println("PeticionAJAX Sale Personajes");
 
@@ -1793,11 +1869,26 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
 
-                    //FALTA ESTO
                     resultado = "";
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+                        Personajes pejaux = listaPersonajes.get(i);
+                        resultado = "<table>"
+                                + "<tr>"
+                                + "<td><div class=\"personaje-foto\">\n"
+                                + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n"
+                                + "</div></td>\n"
+                                + "<td>" + pejaux.getNombre() + "</td>\n"
+                                + "<td>" + pejaux.getClase() + "</td>\n"
+                                + "<td>" + pejaux.getRaza() + "</td>\n"
+                                + "<td>" + pejaux.getNivel() + "</td>\n"
+                                + "<td>" + user.getApodo() + "</td>\n"
+                                + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personaje?id=" + pejaux.getId() + "&amigo=" + user.getId() + "'\">Detalles</button></td>\n"
+                                + "</tr>\n"
+                                + "</table>";
+                    }
 
                     System.out.println("PeticionAJAX Sale Personajes");
 
@@ -2628,14 +2719,13 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 resultado = resultado
                                         + "<input type=\"checkbox\" id=\""
                                         + auxHName
-                                        + "\" name=\"Habilidades[]\" value=\""
+                                        + "\" name=\"habilidades\" value=\""
                                         + auxHName
                                         + "<label for=\""
                                         + auxHName
                                         + "\">"
                                         + auxHName
                                         + "</label>";
-
                             }
                         }
 
@@ -2668,7 +2758,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             resultado = resultado
                                     + "<input type=\"checkbox\" id=\""
                                     + auxHName
-                                    + "\" name=\"Habilidades[]\" value=\""
+                                    + "\" name=\"habilidades\" value=\""
                                     + auxHName
                                     + "<label for=\""
                                     + auxHName
