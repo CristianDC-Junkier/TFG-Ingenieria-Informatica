@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4\Personaje</title>
+        <title class="titulosPag">Guidance4\Tu_Personaje</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/perfilCss.css"/>
@@ -16,7 +16,7 @@
             <div class="cajaGeneral">
                 <div class="cajaPersonaje">
                     <h2>PERSONAJE: ${requestScope.personaje.nombre}</h2>
-                    <div class="personaje">
+                    <<div class="personaje">
                         <div class="personaje-fotoboton">
                             <div class="personaje-fotoG">
                                 <img src="${requestScope.imagenpersonaje}">
@@ -56,18 +56,23 @@
                                 falta boton para cambiarlo</div>
                         </div>
                     </div>
-
-                    <div class="usuarioDatos">
-                        <div><span>Rasgos:  </span>${requestScope.personaje.nombre} </div>
-                        <div><span>Habilidades:  </span>${requestScope.personaje.nombre}</div>
-                        <div><span>Atributos:  </span>${requestScope.personaje.nombre}</div>
-                        <div><span>Características:  </span>${requestScope.personaje.nombre}</div>
-                        <div><span>Creador:  </span>${requestScope.personaje.usuario.apodo}</div>
-                    </div>
-                    <div class="botones">
-                        <button class="botonfinal" onclick="location.href = '/TFG/Personajes/personajes'">Volver</button>
-                    </div>
                 </div>
+
+                <div class="usuarioDatos">
+                    <div><span>Rasgos:  </span>${requestScope.personaje.nombre} </div>
+                    <div><span>Habilidades:  </span>${requestScope.personaje.nombre}</div>
+                    <div><span>Atributos:  </span>${requestScope.personaje.nombre}</div>
+                    <div><span>Características:  </span>${requestScope.personaje.nombre}</div>
+                </div>
+                <div class="botones">
+                    <button class="boton" onclick="location.href = '/TFG/'">Subir de Nivel</button>
+                    <button class="boton" onclick="location.href = '/TFG/'">Hechizos</button>
+                    <button class="boton" onclick="location.href = '/TFG/'">Equipo</button>
+                    <button class="boton" onclick="location.href = '/TFG/'">Dotes</button>
+                    <button class="botonfinal" onclick="location.href = '/TFG/'">Eliminar</button>
+                    <button class="botonfinal" onclick="location.href = '/TFG/Personajes/personajesPerfil'">Volver</button>
+                </div>
+            </div>
         </main>
         <jsp:include page="/WEB-INF/jsp/footer.jsp" />
         <script src="/TFG/js/principalJS.js"></script>

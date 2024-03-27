@@ -24,6 +24,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -207,38 +208,35 @@ public class ControladorPersonajes extends HttpServlet {
                             throw new Exception("El Nombre no es válido");
                         }
 
-                        queryPersonajes = em.createNamedQuery("Personajes.findByNombre", Personajes.class);
+                        queryPersonajes = em.createNamedQuery("Personajes.findByNombreCreador", Personajes.class);
                         queryPersonajes.setParameter("nombre", personaje_nombre);
+                        queryPersonajes.setParameter("creador", user);
                         listaPersonajes = queryPersonajes.getResultList();
 
                         if (!listaPersonajes.isEmpty()) {
-                            throw new Exception("El Nombre del personaje debe ser único ");
+                            throw new Exception("Solo puedes tener un personaje con ese nombre ");
                         }
                         //////////////////
                         //////CLASE///////
                         //////////////////
-                        System.out.println("1");
                         queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
                         queryClases.setParameter("nombre", personaje_clase);
                         clase = queryClases.getSingleResult();
                         //////////////////
                         ///////RAZA///////
                         //////////////////
-                        System.out.println("2");
                         queryRazas = em.createNamedQuery("Razas.findByNombre", Razas.class);
                         queryRazas.setParameter("nombre", personaje_raza);
                         raza = queryRazas.getSingleResult();
                         //////////////////
                         //////SUBRAZA/////
                         //////////////////
-                        System.out.println("3");
                         querySubrazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
                         querySubrazas.setParameter("nombre", personaje_subraza);
                         subraza = querySubrazas.getSingleResult();
                         //////////////////
                         ////TRASFONDO/////
                         //////////////////
-                        System.out.println("4");
                         queryTrasfondos = em.createNamedQuery("Trasfondos.findByNombre", Trasfondos.class);
                         queryTrasfondos.setParameter("nombre", personaje_trasfondo);
                         transfondo = queryTrasfondos.getSingleResult();
@@ -246,15 +244,13 @@ public class ControladorPersonajes extends HttpServlet {
                         //////////////////////////
                         //////////CREAMOS/////////
                         //////////////////////////
-                        personaje = new Personajes(personaje_nombre, personaje_alineamiento, BigInteger.valueOf(1), BigInteger.valueOf(clase.getDpg().charAt(1)),
-                                BigInteger.valueOf(clase.getDpg().charAt(1)), BigInteger.valueOf(10), user);
+                        personaje = new Personajes(personaje_nombre, personaje_alineamiento, 1, Integer.parseInt(clase.getDpg().substring(1)),
+                                Integer.parseInt(clase.getDpg().substring(1)), 10, user);
 
                         personaje.setClase(clase);
                         personaje.setRaza(raza);
                         personaje.setSubraza(subraza);
                         personaje.setTrasfondo(transfondo);
-
-                        System.out.println("5");
 
                         if (!personaje_subclase.equalsIgnoreCase("-")) {
                             querySubclases = em.createNamedQuery("Subclases.findByNombre", Subclases.class);
@@ -263,7 +259,7 @@ public class ControladorPersonajes extends HttpServlet {
                             personaje.setSubclase(subclase);
                         }
                         if (personaje_edad != null && !personaje_edad.equals("")) {
-                            personaje.setEdad(BigInteger.valueOf(Integer.valueOf(personaje_edad)));
+                            personaje.setEdad(Integer.valueOf(personaje_edad));
                         }
                         if (personaje_apariencia != null && !personaje_apariencia.equals("")) {
                             personaje.setApariencia(personaje_apariencia);
@@ -283,8 +279,6 @@ public class ControladorPersonajes extends HttpServlet {
                         if (personaje_historia != null && !personaje_historia.equals("")) {
                             personaje.setHistoria(personaje_historia);
                         }
-
-                        System.out.println("6");
 
                         persist(personaje);
 
@@ -324,8 +318,6 @@ public class ControladorPersonajes extends HttpServlet {
                                     break;
                             }
 
-                            System.out.println("6.1");
-
                             index = 0;
                             encontrado = false;
 
@@ -354,16 +346,11 @@ public class ControladorPersonajes extends HttpServlet {
                                 }
                             }
 
-                            System.out.println("6.2");
-                           
-                            
                             personajeAtributo = new Personajeatributos(personaje.getId(), atributo.getId(),
                                     valorAtributo, "No");
 
                             listaPersonajeAtributos.add(personajeAtributo);
                         }
-
-                        System.out.println("6.3");
 
                         listaAtributosAux = clase.getAtributosList();
 
@@ -382,11 +369,7 @@ public class ControladorPersonajes extends HttpServlet {
                             }
                         }
 
-                        System.out.println("6.4");
-
                         personaje.setPersonajeatributosList(listaPersonajeAtributos);
-
-                        System.out.println("7");//LLEGAMOS AQUI
 
                         //////////////////////
                         /////HABILIDADES//////
@@ -404,28 +387,30 @@ public class ControladorPersonajes extends HttpServlet {
 
                             personajeHabilidad = new Personajehabilidades(personaje.getId(), habilidad.getId(), "No");
 
-                            while (encontrado == false && index < personaje_habilidades.length) {
-                                if (personaje_habilidades[index].equalsIgnoreCase(habilidad.getNombre())) {
+                            if (personaje_habilidades != null) {
 
-                                    encontrado = true;
-                                    personajeHabilidad.setCompetencia("Si");
+                                while (encontrado == false && index < personaje_habilidades.length) {
+                                    if (personaje_habilidades[index].equalsIgnoreCase(habilidad.getNombre())) {
 
+                                        encontrado = true;
+                                        personajeHabilidad.setCompetencia("Si");
+
+                                    }
+                                    index++;
                                 }
-                                index++;
                             }
                             listaPersonajeHabilidades.add(personajeHabilidad);
                         }
 
                         personaje.setPersonajehabilidadesList(listaPersonajeHabilidades);
 
-                        System.out.println("8");
-
                         ////////////////////
                         ///////IMAGEN///////
                         ////////////////////
-                        String rutaImagen = "/TFG/img/razas/" + raza.getNombre().toLowerCase() + ".jpg";
-
+                        ServletContext context = request.getServletContext();
+                        String rutaImagen = context.getRealPath("/img/razas/" + raza.getNombre().toLowerCase() + ".jpg");
                         contenidoImagen = new FileInputStream(rutaImagen);
+
                         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                         byte[] buffer = new byte[4096];
                         int bytesRead;
@@ -459,7 +444,7 @@ public class ControladorPersonajes extends HttpServlet {
                     System.out.println("Error: Introduzca los campos de forma correcta ");
                 }
                 if (conseguido == true) {
-                    vista = "/Personajes/personajes";
+                    vista = "/Personajes/personajesPerfil";
                 } else {
                     request.setAttribute("msj", msj);
                     vista = "/Formularios/crearpersonaje";
@@ -560,7 +545,7 @@ public class ControladorPersonajes extends HttpServlet {
                     } else {
                         claseSQL = "AND p.CLASE = '" + claseString + "' ";
                     }
-                    if (nivelString.equals("Nivel")) {
+                    if (nivelString.equals("0")) {
                         nivelSQL = " ";
                     } else {
                         nivelSQL = "AND p.NIVEL = '" + nivelString + "' ";
@@ -694,7 +679,7 @@ public class ControladorPersonajes extends HttpServlet {
                         } else {
                             claseSQL = "AND p.CLASE = '" + claseString + "' ";
                         }
-                        if (nivelString.equals("Nivel")) {
+                        if (nivelString.equals("0")) {
                             nivelSQL = " ";
                         } else {
                             nivelSQL = "AND p.NIVEL = '" + nivelString + "' ";
@@ -713,7 +698,7 @@ public class ControladorPersonajes extends HttpServlet {
                     sql = "SELECT COUNT(*) FROM PERSONAJES p "
                             + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
                             + "WHERE a.AMIGO1 = '" + user.getId() + "' "
-                            + "p.USUARIO <> '" + user.getId() + "' "
+                            + "AND p.USUARIO <> '" + user.getId() + "' "
                             + nivelSQL
                             + claseSQL
                             + razaSQL;
@@ -729,7 +714,7 @@ public class ControladorPersonajes extends HttpServlet {
                             sql = "SELECT p.* FROM PERSONAJES p "
                                     + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
                                     + "WHERE a.AMIGO1 = '" + user.getId() + "' "
-                                    + "p.USUARIO <> '" + user.getId() + "' "
+                                    + "AND p.USUARIO <> '" + user.getId() + "' "
                                     + nivelSQL
                                     + claseSQL
                                     + razaSQL
@@ -740,7 +725,7 @@ public class ControladorPersonajes extends HttpServlet {
                             sql = "SELECT p.* FROM PERSONAJES p "
                                     + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
                                     + "WHERE a.AMIGO1 = '" + user.getId() + "' "
-                                    + "p.USUARIO <> '" + user.getId() + "' "
+                                    + "AND p.USUARIO <> '" + user.getId() + "' "
                                     + nivelSQL
                                     + claseSQL
                                     + razaSQL
@@ -816,7 +801,7 @@ public class ControladorPersonajes extends HttpServlet {
                     nivelString = request.getParameter("nivel");//como ordenar
 
                     //Comprobamos los datos
-                    if (ordenar == null || razaString == null || claseString == null || nivelString == null || numString == null) {
+                    if (ordenar == null) {
 
                         ordenar = "ordenar1";
                         razaSQL = " ";
@@ -839,7 +824,7 @@ public class ControladorPersonajes extends HttpServlet {
                         } else {
                             claseSQL = "AND p.CLASE = '" + claseString + "' ";
                         }
-                        if (nivelString.equals("Nivel")) {
+                        if (nivelString.equals("0")) {
                             nivelSQL = " ";
                         } else {
                             nivelSQL = "AND p.NIVEL = '" + nivelString + "' ";
@@ -857,9 +842,9 @@ public class ControladorPersonajes extends HttpServlet {
                     /////////////////////////////////////
                     sql = "SELECT COUNT(*) FROM PERSONAJES p "
                             + "WHERE p.USUARIO = '" + id + "' "
-                            + nivelString
-                            + claseString
-                            + razaString;
+                            + nivelSQL
+                            + claseSQL
+                            + razaSQL;
 
                     queryAUX = em.createNativeQuery(sql);
                     result = queryAUX.getSingleResult();
@@ -948,7 +933,7 @@ public class ControladorPersonajes extends HttpServlet {
                     nivelString = request.getParameter("nivel");//como ordenar
 
                     //Comprobamos los datos
-                    if (ordenar == null || razaString == null || claseString == null || nivelString == null || numString == null) {
+                    if (ordenar == null) {
 
                         ordenar = "ordenar1";
                         razaSQL = " ";
@@ -971,7 +956,7 @@ public class ControladorPersonajes extends HttpServlet {
                         } else {
                             claseSQL = "AND p.CLASE = '" + claseString + "' ";
                         }
-                        if (nivelString.equals("Nivel")) {
+                        if (nivelString.equals("0")) {
                             nivelSQL = " ";
                         } else {
                             nivelSQL = "AND p.NIVEL = '" + nivelString + "' ";
@@ -1060,10 +1045,61 @@ public class ControladorPersonajes extends HttpServlet {
                 }
                 break;
             case "/personaje":
-                vista = "/WEB-INF/jsp/personaje/personaje.jsp";
+                //Recogemos los datos
+                id = request.getParameter("id");
+
+                //Comprobamos que exista
+                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes.setParameter("id", id);
+                personaje = queryPersonajes.getResultList().get(0);
+
+                if (personaje == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    request.setAttribute("personaje", personaje);
+                    request.setAttribute("imagenpersonaje", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + personaje.getId());
+                    vista = "/WEB-INF/jsp/personajes/personaje.jsp";
+                }
+
+                break;
+            case "/personajePerfil":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+                //Recogemos los datos
+                id = request.getParameter("id");
+
+                //Comprobamos que sea tuyo
+                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes.setParameter("id", id);
+                queryPersonajes.setParameter("creador", user);
+                personaje = queryPersonajes.getResultList().get(0);
+
+                if (personaje == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    request.setAttribute("personaje", personaje);
+                    request.setAttribute("imagenpersonaje", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + personaje.getId());
+                    vista = "/WEB-INF/jsp/personajes/personajePerfil.jsp";
+                }
+
                 break;
             case "/personajeAmigo":
-                vista = "/WEB-INF/jsp/personaje/personajeAmigo.jsp";
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+
+                    //Recogemos los datos
+                    //numString = request.getParameter("pag");//numero de pag en la que estoy
+                    vista = "/WEB-INF/jsp/personajes/personajeAmigo.jsp";
+                }
                 break;
         }
 

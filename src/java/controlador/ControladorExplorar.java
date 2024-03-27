@@ -208,7 +208,7 @@ public class ControladorExplorar extends HttpServlet {
                 queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
                 queryClases.setParameter("nombre", nombre);
                 Clase = queryClases.getSingleResult();
-
+                
                 queryTablaClaseNivel = em.createNamedQuery("Tablaclasespornivel.findByClase", Tablaclasespornivel.class);
                 queryTablaClaseNivel.setParameter("clase", Clase.getNombre());
                 listaTablaClaseNivel = queryTablaClaseNivel.getResultList();

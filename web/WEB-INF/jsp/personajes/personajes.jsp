@@ -6,7 +6,7 @@
     <title class="titulosPag">Guidance4\Personajes</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/personajesCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/personajesCss.css"/>
     <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css"/>
 </head>
 <body>
@@ -61,7 +61,7 @@
                     <div>
                         Nivel:
                         <select id="filtroNivel">
-                            <option value="1" selected>Nivel</option>
+                            <option value="0" selected>Nivel</option>
                             <c:forEach var="i" begin="1" end="20">
                                 <c:choose>
                                     <c:when test="${requestScope.filtronivel == i}">
@@ -75,10 +75,10 @@
                         </select>
                     </div>
                     <c:if test="${sessionScope.user != null}">
-                        <div><button class="botonDentro" onclick="location.href = '/TFG/Formularios/crearpersonaje'">Crear Personaje</button>
-                            <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajesAmigos'">De Amigos</button>
-                            <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajesPerfil'">Mis Personajes</button></div>
-                        </c:if>
+                        <button class="botonDentro" onclick="location.href = '/TFG/Formularios/crearpersonaje'">Crear Personaje</button>
+                        <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajesAmigos'">De Amigos</button>
+                        <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajesPerfil'">Mis Personajes</button>
+                    </c:if>
                 </div>
             </div>
             <div class="listasPersonaje" id="pestañasSeccion">
@@ -115,7 +115,7 @@
                                             <td>${personaje.raza.nombre}</td>
                                             <td>${personaje.nivel}</td>
                                             <td>${listaCreador[status.index].apodo}</td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personaje/personaje?id=${personaje.id}'">Detalles</button></td>
+                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personaje?id=${personaje.id}'">Detalles</button></td>
                                         </tr>
                                     </c:forEach>
                                 </table>
@@ -146,8 +146,8 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/TFG/js/busquedasAJAXJS.js"></script>
-    <script src="/TFG/js/principalJS.js"></script>
-    <script src="/TFG/js/personajes/personajesJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>
+    <script src="/TFG/js/personajes/personajesJS.js"></script>
+    <script src="/TFG/js/principalJS.js"></script>
 </body>
 </html>

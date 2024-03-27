@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -64,7 +65,6 @@ public class Usuarios implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHANAC", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechanac;
     @Basic(optional = false)
     @NotNull
@@ -80,6 +80,9 @@ public class Usuarios implements Serializable {
     @NotNull
     @Column(name = "ADMIN", nullable = false)
     private short admin;
+    @JoinColumn(name = "PERSONAJEACTUAL", referencedColumnName = "ID")
+    @ManyToOne
+    private Personajes personajeactual;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Personajes> personajesList;
     @Column(name = "TELEFONO")
@@ -278,6 +281,13 @@ if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals
     public void setMensajesamigosList1(List<Mensajesamigos> mensajesamigosList1) {
         this.mensajesamigosList1 = mensajesamigosList1;
     }
+    @XmlTransient
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
+    }
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
+    }
 
     public String getApodo() {
         return apodo;
@@ -343,12 +353,11 @@ if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals
         this.admin = admin;
     }
 
-    @XmlTransient
-    public List<Personajes> getPersonajesList() {
-        return personajesList;
+    public Personajes getPersonajeactual() {
+        return personajeactual;
     }
 
-    public void setPersonajesList(List<Personajes> personajesList) {
-        this.personajesList = personajesList;
+    public void setPersonajeactual(Personajes personajeactual) {
+        this.personajeactual = personajeactual;
     }
 }

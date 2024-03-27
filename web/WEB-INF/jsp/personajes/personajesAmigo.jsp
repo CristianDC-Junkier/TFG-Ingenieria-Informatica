@@ -3,16 +3,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
-    <title class="titulosPag">Guidance4\Personajes\Amistad</title>
+    <title class="titulosPag">Guidance4\Personajes\Amigo</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/personajesCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/personajesCss.css"/>
     <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css"/>
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
-        <h2 class="Titulos">Personajes</h2>
+        <h2 class="Titulos">Personajes de ${requestScope.amigo.apodo}</h2>
         <hr color="black">
         <div class="contenedoresPersonaje"> 
             <div class="contenedorPersonaje">
@@ -45,7 +45,7 @@
                         <select id="filtroRaza">
                             <option value="Raza" selected>Raza</option>
                             <c:forEach var="raza" items="${listaRazas}">
-                                <option value="${raza.nombre}" >${raza.nombre}</option>
+                                <option value="${raza.id}" >${raza.nombre}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -54,7 +54,7 @@
                         <select id="filtroClase">
                             <option value="Clase" selected>Clase</option>
                             <c:forEach var="clase" items="${listaClases}">
-                                <option value="${clase.nombre}" >${clase.nombre}</option>
+                                <option value="${clase.id}" >${clase.nombre}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -65,16 +65,16 @@
                             <c:forEach var="i" begin="1" end="20">
                                 <c:choose>
                                     <c:when test="${requestScope.filtronivel == i}">
-                                        <option value="ordenar${i}" selected>Nivel ${i}</option>
+                                        <option value="${i}" selected>Nivel ${i}</option>
                                     </c:when>
                                     <c:otherwise>
-                                        <option value="ordenar${i}">Nivel ${i}</option>
+                                        <option value="${i}">Nivel ${i}</option>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
                         </select>
                     </div>
-                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajes'">Explorar</button></div>
+                    <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajes'">Explorar</button>
                 </div>
             </div>
             <div class="listasPersonaje" id="pestañasSeccion">
@@ -111,7 +111,7 @@
                                             <td>${personaje.raza.nombre}</td>
                                             <td>${personaje.nivel}</td>
                                             <td>${requestScope.amigo.apodo}</td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personaje/personajeAmigo?id=${personaje.id}&amigo=${requestScope.amigo.id}'">Detalles</button></td>
+                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigo?id=${personaje.id}&amigo=${requestScope.amigo.id}'">Detalles</button></td>
                                         </tr>
                                     </c:forEach>
                                 </table>
@@ -143,7 +143,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/TFG/js/busquedasAJAXJS.js"></script>
     <script src="/TFG/js/principalJS.js"></script>
-    <script src="/TFG/js/personajes/personajesAmigoJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>
+    <script src="/TFG/js/personajes/personajesAmigoJS.js"></script>
 </body>
 </html>

@@ -152,6 +152,13 @@ public class Trasfondos implements Serializable {
     public void setRasgosList(List<Rasgos> rasgosList) {
         this.rasgosList = rasgosList;
     }
+    @XmlTransient
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
+    }
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
+    }
 
     public String getNombre() {
         return nombre;
@@ -199,15 +206,6 @@ public class Trasfondos implements Serializable {
 
     public void setElegirhab(String elegirhab) {
         this.elegirhab = elegirhab;
-    }
-
-    @XmlTransient
-    public List<Personajes> getPersonajesList() {
-        return personajesList;
-    }
-
-    public void setPersonajesList(List<Personajes> personajesList) {
-        this.personajesList = personajesList;
     }
     
 }

@@ -1621,7 +1621,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
                         } else {
                             resultado = resultado
-                                    + fotosPersonajes.get(i);
+                                    + "<img src=\""+fotosPersonajes.get(i)+"\">\n";
                         }
                         resultado = resultado
                                 + "</div>"
@@ -1733,7 +1733,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
                         } else {
                             resultado = resultado
-                                    + fotosPersonajes.get(i);
+                                    + "<img src=\""+fotosPersonajes.get(i)+"\">\n";
                         }
                         resultado = resultado
                                 + "</div>"
@@ -1838,7 +1838,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
                         } else {
                             resultado = resultado
-                                    + fotosPersonajes.get(i);
+                                    + "<img src=\""+fotosPersonajes.get(i)+"\">\n";
                         }
                         resultado = resultado
                                 + "</div>"
@@ -1940,7 +1940,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
                         } else {
                             resultado = resultado
-                                    + fotosPersonajes.get(i);
+                                    + "<img src=\""+fotosPersonajes.get(i)+"\">\n";
                         }
                         resultado = resultado
                                 + "</div>"

@@ -215,6 +215,13 @@ public class Clases implements Serializable {
     public String toString() {
         return "entidades.Clases[ id=" + id + " ]";
     }
+    @XmlTransient
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
+    }
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
+    }
 
     public String getNombre() {
         return nombre;
@@ -302,15 +309,6 @@ public class Clases implements Serializable {
 
     public void setNivelsubclase(short nivelsubclase) {
         this.nivelsubclase = nivelsubclase;
-    }
-
-    @XmlTransient
-    public List<Personajes> getPersonajesList() {
-        return personajesList;
-    }
-
-    public void setPersonajesList(List<Personajes> personajesList) {
-        this.personajesList = personajesList;
     }
     
 }

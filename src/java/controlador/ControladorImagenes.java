@@ -67,6 +67,8 @@ public class ControladorImagenes extends HttpServlet {
         InputStream fileContent;
         byte[] imageData;
 
+        boolean cambiarVista = true;
+
         switch (accion) {
             case "/actualizarFotoMesa":
                 /////////////////////////
@@ -131,6 +133,7 @@ public class ControladorImagenes extends HttpServlet {
                 // Escribir los bytes de la imagen en la respuesta
                 try ( ServletOutputStream outputStream = response.getOutputStream()) {
                     outputStream.write(imageData);
+                    cambiarVista = false;
                 }
                 break;
             case "/actualizarFotoPersonaje":
@@ -196,12 +199,15 @@ public class ControladorImagenes extends HttpServlet {
                 // Escribir los bytes de la imagen en la respuesta
                 try ( ServletOutputStream outputStream = response.getOutputStream()) {
                     outputStream.write(imageData);
+                    cambiarVista = false;
                 }
                 break;
         }
+        if (cambiarVista == true) {
+            RequestDispatcher rd = request.getRequestDispatcher(vista);
+            rd.forward(request, response);
+        }
 
-        RequestDispatcher rd = request.getRequestDispatcher(vista);
-        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

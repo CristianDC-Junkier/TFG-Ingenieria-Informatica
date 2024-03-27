@@ -44,28 +44,54 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Personajes.findByPvida", query = "SELECT p FROM Personajes p WHERE p.pvida = :pvida"),
     @NamedQuery(name = "Personajes.findByPvidaactuales", query = "SELECT p FROM Personajes p WHERE p.pvidaactuales = :pvidaactuales"),
     @NamedQuery(name = "Personajes.findByClasearmadura", query = "SELECT p FROM Personajes p WHERE p.clasearmadura = :clasearmadura"),
-    @NamedQuery(name = "Personajes.findByCreador", query = "SELECT p FROM Personajes p WHERE p.usuario = :creador")
+    @NamedQuery(name = "Personajes.findByCreador", query = "SELECT p FROM Personajes p WHERE p.usuario = :creador"),
+    @NamedQuery(name = "Personajes.findByNombreCreador", query = "SELECT p FROM Personajes p WHERE p.nombre = :nombre AND p.usuario = :creador"),
+    @NamedQuery(name = "Personajes.findByIDCreador", query = "SELECT p FROM Personajes p WHERE p.id = :id AND p.usuario = :creador")
 })
 public class Personajes implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 120)
+    @Column(name = "NOMBRE", nullable = false, length = 120)
+    private String nombre;
+    @Column(name = "EDAD")
+    private Integer edad;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "ALINEAMIENTO", nullable = false, length = 30)
+    private String alineamiento;
+    @Size(max = 255)
+    @Column(name = "IDIOMAS", length = 255)
+    private String idiomas;
+    @Lob
+    @Column(name = "IMAGENPERSONAJE")
+    private byte[] imagenpersonaje;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "NIVEL", nullable = false)
+    private Integer nivel;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "PVIDA", nullable = false)
+    private Integer pvida;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "PVIDAACTUALES", nullable = false)
+    private Integer pvidaactuales;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "CLASEARMADURA", nullable = false)
+    private Integer clasearmadura;
+    @OneToMany(mappedBy = "personajeactual")
+    private List<Usuarios> usuariosList;
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private String id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 120)
-    @Column(name = "NOMBRE", nullable = false, length = 120)
-    private String nombre;
-    @Basic(optional = false)
-    @Column(name = "EDAD", nullable = false)
-    private BigInteger edad;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "ALINEAMIENTO", nullable = false, length = 30)
-    private String alineamiento;
     @Lob
     @Column(name = "APARIENCIA")
     private String apariencia;
@@ -78,33 +104,11 @@ public class Personajes implements Serializable {
     @Lob
     @Column(name = "VINCULOS")
     private String vinculos;
-    @Size(max = 255)
-    @Column(name = "IDIOMAS", length = 255)
-    private String idiomas;
     @Column(name = "PEXP")
     private Long pexp;
     @Lob
     @Column(name = "HISTORIA")
     private String historia;
-    @Lob
-    @Column(name = "IMAGENPERSONAJE")
-    private byte[] imagenpersonaje;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "NIVEL", nullable = false)
-    private BigInteger nivel;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "PVIDA", nullable = false)
-    private BigInteger pvida;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "PVIDAACTUALES", nullable = false)
-    private BigInteger pvidaactuales;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "CLASEARMADURA", nullable = false)
-    private BigInteger clasearmadura;
     @JoinTable(name = "PERSONAJEHECHIZOS", joinColumns = {
         @JoinColumn(name = "PERSONAJE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "HECHIZO", referencedColumnName = "ID", nullable = false)})
@@ -150,7 +154,7 @@ public class Personajes implements Serializable {
         this.id = id;
     }
 
-    public Personajes(String id, String nombre, BigInteger edad, String alineamiento, BigInteger nivel, BigInteger pvida, BigInteger pvidaactuales, BigInteger clasearmadura) {
+    public Personajes(String id, String nombre, Integer edad, String alineamiento, Integer nivel, Integer pvida, Integer pvidaactuales, Integer clasearmadura) {
         this.id = id;
         this.nombre = nombre;
         this.edad = edad;
@@ -161,7 +165,7 @@ public class Personajes implements Serializable {
         this.clasearmadura = clasearmadura;
     }
 
-    public Personajes(String nombre, String alineamiento, BigInteger nivel, BigInteger pvida, BigInteger pvidaactuales, BigInteger clasearmadura, Usuarios usuario) {
+    public Personajes(String nombre, String alineamiento, Integer nivel, Integer pvida, Integer pvidaactuales, Integer clasearmadura, Usuarios usuario) {
         this.nombre = nombre;
         this.alineamiento = alineamiento;
         this.nivel = nivel;
@@ -171,7 +175,7 @@ public class Personajes implements Serializable {
         this.usuario = usuario;
     }
 
-    public Personajes(Personajes personaje , Usuarios usuario) {
+    public Personajes(Personajes personaje, Usuarios usuario) {
         this.alineamiento = personaje.getAlineamiento();
         this.apariencia = personaje.getApariencia();
         this.clase = personaje.getClase();
@@ -196,7 +200,7 @@ public class Personajes implements Serializable {
             numero++;
             this.nombre = partes[0] + "_" + numero;
         } else {
-            this.nombre = this.nombre + "_2";
+            this.nombre = this.nombre + "_1";
         }
 
         this.personajeatributosList = personaje.getPersonajeatributosList();
@@ -210,7 +214,7 @@ public class Personajes implements Serializable {
         this.subraza = personaje.getSubraza();
         this.trasfondo = personaje.getTrasfondo();
         this.vinculos = personaje.getVinculos();
-        
+
         this.usuario = usuario;
     }
 
@@ -222,29 +226,6 @@ public class Personajes implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public BigInteger getEdad() {
-        return edad;
-    }
-
-    public void setEdad(BigInteger edad) {
-        this.edad = edad;
-    }
-
-    public String getAlineamiento() {
-        return alineamiento;
-    }
-
-    public void setAlineamiento(String alineamiento) {
-        this.alineamiento = alineamiento;
-    }
 
     public String getApariencia() {
         return apariencia;
@@ -278,13 +259,6 @@ public class Personajes implements Serializable {
         this.vinculos = vinculos;
     }
 
-    public String getIdiomas() {
-        return idiomas;
-    }
-
-    public void setIdiomas(String idiomas) {
-        this.idiomas = idiomas;
-    }
 
     public Long getPexp() {
         return pexp;
@@ -302,45 +276,6 @@ public class Personajes implements Serializable {
         this.historia = historia;
     }
 
-    public byte[] getImagenpersonaje() {
-        return imagenpersonaje;
-    }
-
-    public void setImagenpersonaje(byte[] imagenpersonaje) {
-        this.imagenpersonaje = imagenpersonaje;
-    }
-
-    public BigInteger getNivel() {
-        return nivel;
-    }
-
-    public void setNivel(BigInteger nivel) {
-        this.nivel = nivel;
-    }
-
-    public BigInteger getPvida() {
-        return pvida;
-    }
-
-    public void setPvida(BigInteger pvida) {
-        this.pvida = pvida;
-    }
-
-    public BigInteger getPvidaactuales() {
-        return pvidaactuales;
-    }
-
-    public void setPvidaactuales(BigInteger pvidaactuales) {
-        this.pvidaactuales = pvidaactuales;
-    }
-
-    public BigInteger getClasearmadura() {
-        return clasearmadura;
-    }
-
-    public void setClasearmadura(BigInteger clasearmadura) {
-        this.clasearmadura = clasearmadura;
-    }
 
     @XmlTransient
     public List<Hechizos> getHechizosList() {
@@ -458,6 +393,87 @@ public class Personajes implements Serializable {
     @Override
     public String toString() {
         return "controlador.Personajes[ id=" + id + " ]";
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Integer getEdad() {
+        return edad;
+    }
+
+    public void setEdad(Integer edad) {
+        this.edad = edad;
+    }
+
+    public String getAlineamiento() {
+        return alineamiento;
+    }
+
+    public void setAlineamiento(String alineamiento) {
+        this.alineamiento = alineamiento;
+    }
+
+    public String getIdiomas() {
+        return idiomas;
+    }
+
+    public void setIdiomas(String idiomas) {
+        this.idiomas = idiomas;
+    }
+
+    public byte[] getImagenpersonaje() {
+        return imagenpersonaje;
+    }
+
+    public void setImagenpersonaje(byte[] imagenpersonaje) {
+        this.imagenpersonaje = imagenpersonaje;
+    }
+
+    public Integer getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(Integer nivel) {
+        this.nivel = nivel;
+    }
+
+    public Integer getPvida() {
+        return pvida;
+    }
+
+    public void setPvida(Integer pvida) {
+        this.pvida = pvida;
+    }
+
+    public Integer getPvidaactuales() {
+        return pvidaactuales;
+    }
+
+    public void setPvidaactuales(Integer pvidaactuales) {
+        this.pvidaactuales = pvidaactuales;
+    }
+
+    public Integer getClasearmadura() {
+        return clasearmadura;
+    }
+
+    public void setClasearmadura(Integer clasearmadura) {
+        this.clasearmadura = clasearmadura;
+    }
+
+    @XmlTransient
+    public List<Usuarios> getUsuariosList() {
+        return usuariosList;
+    }
+
+    public void setUsuariosList(List<Usuarios> usuariosList) {
+        this.usuariosList = usuariosList;
     }
 
 }

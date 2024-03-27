@@ -54,7 +54,7 @@ public class ControladorUsuarios extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
 
         String accion;
@@ -83,7 +83,8 @@ public class ControladorUsuarios extends HttpServlet {
         List<Usuarios> listaUsuarios;
         List<Pideamistad> listaPideAmistad;
         List<Pertenecemesa> listaPerteneceMesa;
-        ArrayList<String> pertenecemesaUsuarios;
+        List<String> pertenecemesaUsuarios;
+        List<String> imagenesUsuarios;
 
         String id;
         String apodo;
@@ -658,11 +659,18 @@ public class ControladorUsuarios extends HttpServlet {
                     listaUsuarios = queryAUX.getResultList();
 
                     pertenecemesaUsuarios = new ArrayList();
+                    imagenesUsuarios = new ArrayList();
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuario", Pertenecemesa.class);
                         queryPMesas.setParameter("usuario", listaUsuarios.get(i).getId());
                         listaPerteneceMesa = queryPMesas.getResultList();
+
+                        if (listaUsuarios.get(i).getPersonajeactual() != null) {
+                            imagenesUsuarios.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaUsuarios.get(i).getPersonajeactual().getId());
+                        } else {
+                            imagenesUsuarios.add("-");
+                        }
 
                         boolean encontrado = false;
                         if (listaPerteneceMesa.isEmpty() == false) {
@@ -692,6 +700,7 @@ public class ControladorUsuarios extends HttpServlet {
                     System.out.println("Sale npag:" + numPag);
 
                     request.setAttribute("listaUsuarios", listaUsuarios);
+                    request.setAttribute("listaImagenes", imagenesUsuarios);
                     request.setAttribute("listaMesas", pertenecemesaUsuarios);
                     request.setAttribute("orden", ordenar);
                     request.setAttribute("mesa", mesa);
@@ -712,6 +721,11 @@ public class ControladorUsuarios extends HttpServlet {
                 if (user == null) {
                     vista = "/Principal/inicio";
                 } else {
+                    request.setAttribute("numpersonajes", (user.getPersonajesList() != null) ? user.getPersonajesList().size() : 0);
+                    if (user.getPersonajeactual() != null) {
+                        request.setAttribute("personajeactual", user.getPersonajeactual());
+                        request.setAttribute("imagenactual", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + user.getPersonajeactual().getId());
+                    }
                     vista = "/WEB-INF/jsp/usuario/perfil.jsp";
                 }
                 break;
@@ -824,11 +838,18 @@ public class ControladorUsuarios extends HttpServlet {
                     listaUsuarios = queryAUX.getResultList();
 
                     pertenecemesaUsuarios = new ArrayList();
+                    imagenesUsuarios = new ArrayList();
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuario", Pertenecemesa.class);
                         queryPMesas.setParameter("usuario", listaUsuarios.get(i).getId());
                         listaPerteneceMesa = queryPMesas.getResultList();
+
+                        if (listaUsuarios.get(i).getPersonajeactual() != null) {
+                            imagenesUsuarios.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaUsuarios.get(i).getPersonajeactual().getId());
+                        } else {
+                            imagenesUsuarios.add("-");
+                        }
 
                         boolean encontrado = false;
                         if (listaPerteneceMesa.isEmpty() == false) {
@@ -860,6 +881,7 @@ public class ControladorUsuarios extends HttpServlet {
                     System.out.println(peticiones);
 
                     request.setAttribute("listaUsuarios", listaUsuarios);
+                    request.setAttribute("listaImagenes", imagenesUsuarios);
                     request.setAttribute("listaMesas", pertenecemesaUsuarios);
                     request.setAttribute("orden", ordenar);
                     request.setAttribute("mesa", mesa);
@@ -980,11 +1002,18 @@ public class ControladorUsuarios extends HttpServlet {
                     listaUsuarios = queryAUX.getResultList();
 
                     pertenecemesaUsuarios = new ArrayList();
+                    imagenesUsuarios = new ArrayList();
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         queryPMesas = em.createNamedQuery("Pertenecemesa.findByUsuario", Pertenecemesa.class);
                         queryPMesas.setParameter("usuario", listaUsuarios.get(i).getId());
                         listaPerteneceMesa = queryPMesas.getResultList();
+
+                        if (listaUsuarios.get(i).getPersonajeactual() != null) {
+                            imagenesUsuarios.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaUsuarios.get(i).getPersonajeactual().getId());
+                        } else {
+                            imagenesUsuarios.add("-");
+                        }
 
                         boolean encontrado = false;
                         if (listaPerteneceMesa.isEmpty() == false) {
@@ -1015,6 +1044,7 @@ public class ControladorUsuarios extends HttpServlet {
                     System.out.println(peticiones);
 
                     request.setAttribute("listaUsuarios", listaUsuarios);
+                    request.setAttribute("listaImagenes", imagenesUsuarios);
                     request.setAttribute("listaMesas", pertenecemesaUsuarios);
                     request.setAttribute("orden", ordenar);
                     request.setAttribute("mesa", mesa);
@@ -1243,12 +1273,23 @@ public class ControladorUsuarios extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Usuarios.class);
                     listaUsuarios = queryAUX.getResultList();
 
+                    imagenesUsuarios = new ArrayList();
+
+                    for (int i = 0; i < listaUsuarios.size(); i++) {
+                        if (listaUsuarios.get(i).getPersonajeactual() != null) {
+                            imagenesUsuarios.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaUsuarios.get(i).getPersonajeactual().getId());
+                        } else {
+                            imagenesUsuarios.add("-");
+                        }
+                    }
+
                     System.out.println("Sale pag:" + numString);
                     System.out.println("Sale orden:" + ordenar);
                     System.out.println("Sale mesa:" + mesa);
                     System.out.println("Sale npag:" + numPag);
 
                     request.setAttribute("listaUsuarios", listaUsuarios);
+                    request.setAttribute("listaImagenes", imagenesUsuarios);
                     request.setAttribute("orden", ordenar);
                     request.setAttribute("mesa", mesa);
                     request.setAttribute("pag", numString);//numero de la pag
@@ -1287,6 +1328,9 @@ public class ControladorUsuarios extends HttpServlet {
                         request.setAttribute("sonAmigos", 0);
                     }
 
+                    request.setAttribute("numpersonajes", (useraux.getPersonajesList() != null) ? useraux.getPersonajesList().size() : 0);
+                    request.setAttribute("personajeactual", useraux.getPersonajeactual());
+                    request.setAttribute("imagenactual", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + useraux.getPersonajeactual().getId());
                     request.setAttribute("amigo", useraux);
 
                     vista = "/WEB-INF/jsp/usuario/amigo.jsp";
@@ -1393,11 +1437,22 @@ public class ControladorUsuarios extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Usuarios.class);
                     listaUsuarios = queryAUX.getResultList();
 
+                    imagenesUsuarios = new ArrayList();
+
+                    for (int i = 0; i < listaUsuarios.size(); i++) {
+                        if (listaUsuarios.get(i).getPersonajeactual() != null) {
+                            imagenesUsuarios.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaUsuarios.get(i).getPersonajeactual().getId());
+                        } else {
+                            imagenesUsuarios.add("-");
+                        }
+                    }
+
                     System.out.println("Sale pag:" + numString);
                     System.out.println("Sale orden:" + ordenar);
                     System.out.println("Sale npag:" + numPag);
 
                     request.setAttribute("listaUsuarios", listaUsuarios);
+                    request.setAttribute("listaImagenes", imagenesUsuarios);
                     request.setAttribute("orden", ordenar);
                     request.setAttribute("pag", numString);//numero de la pag
                     request.setAttribute("numPag", numPag);//numero total de pag
