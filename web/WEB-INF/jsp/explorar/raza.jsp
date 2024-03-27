@@ -25,15 +25,25 @@
                                 <li>Idiomas:${requestScope.raza.idiomas}</li>
                                 <li>Edad:${requestScope.raza.edad}</li>
                                 <li>Atributos:
-                                    <c:forEach var="atributo" items="${razaAtributos}" varStatus="status">
-                                        ${atributo.modificador} ${atributo.atributo}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
-                                    </c:forEach> <c:if test="${razaEAtributos!= null}"> ó Elige ${razaEAtributos.elegircan} atributos con ${razaEAtributos.elegirmod}.</c:if>
-                                    </li>
-                                </ul>
-                            </div>
+                                    <c:choose>
+                                        <c:when test="${razaEAtributos == '1'}">
+                                            Elige una habilidad con un +2 y otra con un +1
+                                        </c:when>
+                                        <c:when test="${razaEAtributos == '2'}">
+                                            Elige 3 habilidades con un +1
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:forEach var="atributo" items="${razaAtributos}" varStatus="status">
+                                                ${atributo.modificador} ${atributo.atributo}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                                            </c:forEach> 
+                                        </c:otherwise>
+                                    </c:choose>
+                                </li>
+                            </ul>
                         </div>
-                        <div class = "datosIzquierdaAbajoRaza">
-                            <p>${requestScope.raza.descripcion}</p>
+                    </div>
+                    <div class = "datosIzquierdaAbajoRaza">
+                        <p>${requestScope.raza.descripcion}</p>
                     </div>
                 </div>
                 <div class="datosDerechaRaza">
@@ -47,7 +57,7 @@
                             <br>
                             <button class="botonArriba" onclick="location.href = '/TFG/Explorar/subraza?idRaza=${raza.id}&nombreSubRaza=${subraza.nombre}'">
                             <h4>${subraza.nombre}</h4></button>
-                    </c:forEach>
+                        </c:forEach>
                 </div>
             </div>
         </main>

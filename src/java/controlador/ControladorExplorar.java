@@ -1653,7 +1653,7 @@ public class ControladorExplorar extends HttpServlet {
 
                 request.setAttribute("pag", pag);
                 request.setAttribute("numpag", (numpag / 15));
-
+                
                 request.setAttribute("vEscu", escuela);
                 request.setAttribute("vNiv", nivel);
                 request.setAttribute("vClas", claseH);
@@ -1788,7 +1788,7 @@ public class ControladorExplorar extends HttpServlet {
                 request.setAttribute("raza", Raza);
                 request.setAttribute("razaRasgos", Raza.getRasgosList());
                 request.setAttribute("razaAtributos", SubRaza.getSumarazaList());
-                request.setAttribute("razaEAtributos", SubRaza.getEleccionatributos());
+                request.setAttribute("razaEAtributos", SubRaza.getEligeatr());
                 request.setAttribute("imagenRaza", "/TFG/img/razas/" + Raza.getNombre().toLowerCase() + ".jpg");
                 request.setAttribute("razaExtra", SubRaza);
                 request.setAttribute("listaSubRazas", listaSubRazas);
@@ -1813,7 +1813,7 @@ public class ControladorExplorar extends HttpServlet {
                 request.setAttribute("subraza", SubRaza);
                 request.setAttribute("subrazaRasgos", SubRaza.getRasgosList());
                 request.setAttribute("subrazaAtributos", SubRaza.getSumarazaList());
-                request.setAttribute("razaEAtributos", SubRaza.getEleccionatributos());
+                request.setAttribute("razaEAtributos", SubRaza.getEligeatr());
                 request.setAttribute("imagenRaza", "/TFG/img/razas/" + Raza.getNombre().toLowerCase() + ".jpg");
 
                 vista = "/WEB-INF/jsp/explorar/subraza.jsp";

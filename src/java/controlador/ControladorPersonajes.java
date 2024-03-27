@@ -1,13 +1,20 @@
 package controlador;
 
+import entidades.Atributos;
 import entidades.Clases;
+import entidades.Habilidades;
+import entidades.Personajeatributos;
+import entidades.Personajehabilidades;
 import entidades.Personajes;
 import entidades.Razas;
 import entidades.Subclases;
 import entidades.Subrazas;
 import entidades.Trasfondos;
 import entidades.Usuarios;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +30,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -66,17 +74,33 @@ public class ControladorPersonajes extends HttpServlet {
         TypedQuery<Subrazas> querySubrazas;
         TypedQuery<Trasfondos> queryTrasfondos;
         TypedQuery<Personajes> queryPersonajes;
+        TypedQuery<Atributos> queryAtributos;
+        TypedQuery<Habilidades> queryHabilidades;
 
         List<Personajes> listaPersonajes;
         List<Usuarios> listaUsuariosAmigos;
         List<Usuarios> listaUsuarios;
         List<String> fotosPersonajes;
+        List<Atributos> listaAtributos;
+        List<Atributos> listaAtributosAux;
+        List<Personajeatributos> listaPersonajeAtributos;
+        List<Habilidades> listaHabilidades;
+        List<Personajehabilidades> listaPersonajeHabilidades;
 
         Query queryAUX;
 
         Usuarios user;
         Usuarios useraux;
         Personajes personaje;
+        Clases clase;
+        Subclases subclase;
+        Razas raza;
+        Subrazas subraza;
+        Trasfondos transfondo;
+        Atributos atributo;
+        Personajeatributos personajeAtributo;
+        Habilidades habilidad;
+        Personajehabilidades personajeHabilidad;
 
         String id;
 
@@ -89,18 +113,14 @@ public class ControladorPersonajes extends HttpServlet {
         String claseSQL;
         String nivelSQL;
 
+        String personaje_id;
+
         String personaje_nombre;
         String personaje_clase;
         String personaje_subclase;
         String personaje_raza;
         String personaje_subraza;
         String personaje_trasfondo;
-
-        Clases clase;
-        Subclases subclase;
-        Razas raza;
-        Subrazas subraza;
-        Trasfondos transfondo;
 
         String[] personaje_habilidades;
 
@@ -110,6 +130,10 @@ public class ControladorPersonajes extends HttpServlet {
         String atributo_sabiduria;
         String atributo_inteligencia;
         String atributo_carisma;
+        int valorAtributo;
+        String[] atributos;
+        String atributo1;
+        String atributo2;
 
         String personaje_alineamiento;
         String personaje_edad;
@@ -119,6 +143,10 @@ public class ControladorPersonajes extends HttpServlet {
         String personaje_vinculos;
         String personaje_idiomas;
         String personaje_historia;
+
+        Part filePart;
+        InputStream contenidoImagen;
+        byte[] imageData;
 
         int num;
         int numPag;
@@ -147,12 +175,15 @@ public class ControladorPersonajes extends HttpServlet {
                 //Bloque 2
                 personaje_habilidades = request.getParameterValues("habilidades");
                 //Bloque 3
-                atributo_constitucion = request.getParameter("atributo_constitución");
-                atributo_fuerza = request.getParameter("atributo_fuerza");
-                atributo_destreza = request.getParameter("atributo_destreza");
-                atributo_sabiduria = request.getParameter("atributo_sabiduría");
-                atributo_inteligencia = request.getParameter("atributo_inteligencia");
-                atributo_carisma = request.getParameter("atributo_carisma");
+                atributo_constitucion = request.getParameter("atributo_Constitución");
+                atributo_fuerza = request.getParameter("atributo_Fuerza");
+                atributo_destreza = request.getParameter("atributo_Destreza");
+                atributo_sabiduria = request.getParameter("atributo_Sabiduría");
+                atributo_inteligencia = request.getParameter("atributo_Inteligencia");
+                atributo_carisma = request.getParameter("atributo_Carisma");
+                atributos = request.getParameterValues("atributos");
+                atributo1 = request.getParameter("obtienes_atr1");
+                atributo2 = request.getParameter("obtienes_atr2");
                 //Bloque 4
                 personaje_alineamiento = request.getParameter("alineamiento");
                 personaje_edad = request.getParameter("personaje_edad");
@@ -186,24 +217,28 @@ public class ControladorPersonajes extends HttpServlet {
                         //////////////////
                         //////CLASE///////
                         //////////////////
+                        System.out.println("1");
                         queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
                         queryClases.setParameter("nombre", personaje_clase);
                         clase = queryClases.getSingleResult();
                         //////////////////
                         ///////RAZA///////
                         //////////////////
+                        System.out.println("2");
                         queryRazas = em.createNamedQuery("Razas.findByNombre", Razas.class);
                         queryRazas.setParameter("nombre", personaje_raza);
                         raza = queryRazas.getSingleResult();
                         //////////////////
                         //////SUBRAZA/////
                         //////////////////
+                        System.out.println("3");
                         querySubrazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
                         querySubrazas.setParameter("nombre", personaje_subraza);
                         subraza = querySubrazas.getSingleResult();
                         //////////////////
                         ////TRASFONDO/////
                         //////////////////
+                        System.out.println("4");
                         queryTrasfondos = em.createNamedQuery("Trasfondos.findByNombre", Trasfondos.class);
                         queryTrasfondos.setParameter("nombre", personaje_trasfondo);
                         transfondo = queryTrasfondos.getSingleResult();
@@ -211,54 +246,207 @@ public class ControladorPersonajes extends HttpServlet {
                         //////////////////////////
                         //////////CREAMOS/////////
                         //////////////////////////
-                        //FALTA
                         personaje = new Personajes(personaje_nombre, personaje_alineamiento, BigInteger.valueOf(1), BigInteger.valueOf(clase.getDpg().charAt(1)),
-                                BigInteger.valueOf(clase.getDpg().charAt(1)), BigInteger.valueOf(10));
+                                BigInteger.valueOf(clase.getDpg().charAt(1)), BigInteger.valueOf(10), user);
+
                         personaje.setClase(clase);
                         personaje.setRaza(raza);
                         personaje.setSubraza(subraza);
                         personaje.setTrasfondo(transfondo);
 
+                        System.out.println("5");
+
                         if (!personaje_subclase.equalsIgnoreCase("-")) {
-                            //////////////////
-                            /////SUBCLASE/////
-                            //////////////////
                             querySubclases = em.createNamedQuery("Subclases.findByNombre", Subclases.class);
-                            querySubclases.setParameter("nombre", personaje_trasfondo);
+                            querySubclases.setParameter("nombre", personaje_subclase);
                             subclase = querySubclases.getSingleResult();
                             personaje.setSubclase(subclase);
                         }
-
-                        if (personaje_edad != null) {
+                        if (personaje_edad != null && !personaje_edad.equals("")) {
                             personaje.setEdad(BigInteger.valueOf(Integer.valueOf(personaje_edad)));
                         }
-                        if (personaje_apariencia != null) {
+                        if (personaje_apariencia != null && !personaje_apariencia.equals("")) {
                             personaje.setApariencia(personaje_apariencia);
                         }
-                        if (personaje_rasgos != null) {
+                        if (personaje_rasgos != null && !personaje_rasgos.equals("")) {
                             personaje.setRaspersonalidad(personaje_rasgos);
                         }
-                        //FALTAN
-                        if (personaje_edad != null) {
-                            personaje.setEdad(BigInteger.valueOf(Integer.valueOf(personaje_edad)));
+                        if (personaje_defectos != null && !personaje_defectos.equals("")) {
+                            personaje.setDefectos(personaje_defectos);
                         }
-                        if (personaje_edad != null) {
-                            personaje.setEdad(BigInteger.valueOf(Integer.valueOf(personaje_edad)));
+                        if (personaje_vinculos != null && !personaje_vinculos.equals("")) {
+                            personaje.setVinculos(personaje_vinculos);
                         }
-                        if (personaje_edad != null) {
-                            personaje.setEdad(BigInteger.valueOf(Integer.valueOf(personaje_edad)));
+                        if (personaje_idiomas != null && !personaje_idiomas.equals("")) {
+                            personaje.setIdiomas(personaje_idiomas);
+                        }
+                        if (personaje_historia != null && !personaje_historia.equals("")) {
+                            personaje.setHistoria(personaje_historia);
                         }
 
+                        System.out.println("6");
+
                         persist(personaje);
+
+                        //////////////////////
+                        //////ATRIBUTOS///////
+                        //////////////////////
+                        listaPersonajeAtributos = new ArrayList();
+
+                        queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                        listaAtributos = queryAtributos.getResultList();
+
+                        boolean encontrado;
+                        int index;
+
+                        for (int i = 0; i < listaAtributos.size(); i++) {
+                            atributo = listaAtributos.get(i);
+                            valorAtributo = 0;
+
+                            switch (atributo.getNombre()) {
+                                case "Constitución":
+                                    valorAtributo = Integer.valueOf(atributo_constitucion);
+                                    break;
+                                case "Fuerza":
+                                    valorAtributo = Integer.valueOf(atributo_fuerza);
+                                    break;
+                                case "Destreza":
+                                    valorAtributo = Integer.valueOf(atributo_destreza);
+                                    break;
+                                case "Sabiduría":
+                                    valorAtributo = Integer.valueOf(atributo_sabiduria);
+                                    break;
+                                case "Inteligencia":
+                                    valorAtributo = Integer.valueOf(atributo_inteligencia);
+                                    break;
+                                case "Carisma":
+                                    valorAtributo = Integer.valueOf(atributo_carisma);
+                                    break;
+                            }
+
+                            System.out.println("6.1");
+
+                            index = 0;
+                            encontrado = false;
+
+                            if (atributos != null) {
+                                while (encontrado == false && index < atributos.length) {
+                                    if (atributo.getNombre().equals(atributos[index])) {
+                                        encontrado = true;
+                                        valorAtributo = valorAtributo + 1;
+                                    }
+                                    index++;
+                                }
+                            } else if (atributo1 != null) {
+                                if (atributo.getNombre().equals(atributo1)) {
+                                    valorAtributo = valorAtributo + 1;
+                                }
+                                if (atributo.getNombre().equals(atributo2)) {
+                                    valorAtributo = valorAtributo + 2;
+                                }
+                            } else {
+                                while (encontrado == false && index < subraza.getSumarazaList().size()) {
+                                    if (atributo.getId().equals(subraza.getSumarazaList().get(index).getAtributoID())) {
+                                        encontrado = true;
+                                        valorAtributo = valorAtributo + Integer.valueOf(subraza.getSumarazaList().get(index).getModificador());
+                                    }
+                                    index++;
+                                }
+                            }
+
+                            System.out.println("6.2");
+                           
+                            
+                            personajeAtributo = new Personajeatributos(personaje.getId(), atributo.getId(),
+                                    valorAtributo, "No");
+
+                            listaPersonajeAtributos.add(personajeAtributo);
+                        }
+
+                        System.out.println("6.3");
+
+                        listaAtributosAux = clase.getAtributosList();
+
+                        for (int i = 0; i < listaAtributosAux.size(); i++) {
+
+                            atributo = listaAtributosAux.get(i);
+                            index = 0;
+                            encontrado = false;
+
+                            while (encontrado == false && index < listaPersonajeAtributos.size()) {
+                                if (atributo.getNombre().equals(listaPersonajeAtributos.get(index).getAtributos().getNombre())) {
+                                    encontrado = true;
+                                    listaPersonajeAtributos.get(index).setSalvacion("Si");
+                                }
+                                index++;
+                            }
+                        }
+
+                        System.out.println("6.4");
+
+                        personaje.setPersonajeatributosList(listaPersonajeAtributos);
+
+                        System.out.println("7");//LLEGAMOS AQUI
+
+                        //////////////////////
+                        /////HABILIDADES//////
+                        //////////////////////
+                        listaPersonajeHabilidades = new ArrayList();
+
+                        queryHabilidades = em.createNamedQuery("Habilidades.findAll", Habilidades.class);
+                        listaHabilidades = queryHabilidades.getResultList();
+
+                        for (int i = 0; i < listaHabilidades.size(); i++) {
+
+                            habilidad = listaHabilidades.get(i);
+                            index = 0;
+                            encontrado = false;
+
+                            personajeHabilidad = new Personajehabilidades(personaje.getId(), habilidad.getId(), "No");
+
+                            while (encontrado == false && index < personaje_habilidades.length) {
+                                if (personaje_habilidades[index].equalsIgnoreCase(habilidad.getNombre())) {
+
+                                    encontrado = true;
+                                    personajeHabilidad.setCompetencia("Si");
+
+                                }
+                                index++;
+                            }
+                            listaPersonajeHabilidades.add(personajeHabilidad);
+                        }
+
+                        personaje.setPersonajehabilidadesList(listaPersonajeHabilidades);
+
+                        System.out.println("8");
+
+                        ////////////////////
+                        ///////IMAGEN///////
+                        ////////////////////
+                        String rutaImagen = "/TFG/img/razas/" + raza.getNombre().toLowerCase() + ".jpg";
+
+                        contenidoImagen = new FileInputStream(rutaImagen);
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+
+                        while ((bytesRead = contenidoImagen.read(buffer)) != -1) {
+                            byteArrayOutputStream.write(buffer, 0, bytesRead);
+                        }
+                        imageData = byteArrayOutputStream.toByteArray();
+                        personaje.setImagenpersonaje(imageData);
+
+                        updatePersonajes(personaje);
+
                         System.out.println("Creado el personaje: " + personaje_nombre + " de " + user.getId());
                         conseguido = true;
 
                     } catch (NumberFormatException ex) {
-                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
+                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible crear un personaje en este momento </p>";
                         System.out.println("Error: Imposible crear un personaje en este momento");
                         System.out.println("NumberFormatException: " + ex.getMessage());
                     } catch (RuntimeException ex) {
-                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible registrar en este momento </p>";
+                        msj = "<p style=\"margin-left: 10px\"> Error: Imposible crear un personaje en este momento </p>";
                         System.out.println("Error: Imposible crear un personaje en este momento: ");
                         System.out.println("ParseException: " + ex.getMessage());
                     } catch (Exception ex) {
@@ -276,6 +464,56 @@ public class ControladorPersonajes extends HttpServlet {
                     request.setAttribute("msj", msj);
                     vista = "/Formularios/crearpersonaje";
                 }
+                break;
+            case "/modificarPersonajeNombre":
+                break;
+            case "/modificarPersonajeHabilidades":
+                break;
+            case "/modificarPersonajeAtributos":
+                break;
+            case "/modificarPersonajeExtra":
+                break;
+            case "/eliminarPersonaje":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                personaje_id = request.getParameter("personaje");
+
+                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes.setParameter("id", personaje_id);
+                personaje = queryPersonajes.getSingleResult();
+
+                //Comprobamos que es tuyo
+                if (!personaje.getUsuario().getId().equalsIgnoreCase(user.getId())) {
+                    vista = "/Principal/inicio.jsp";
+                } else {
+                    deletePersonajes(personaje);
+                    vista = "/WEB-INF/jsp/personajes/personajesPerfil.jsp";
+                }
+
+                break;
+
+            case "/copiarPersonaje":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                personaje_id = request.getParameter("personaje");
+
+                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes.setParameter("id", personaje_id);
+
+                personaje = new Personajes(queryPersonajes.getSingleResult(), user);
+
+                persist(personaje);
+
+                vista = "/WEB-INF/jsp/personajes/personajesPerfil.jsp";
+
                 break;
             case "/personajes":
                 /////////////////////////
@@ -302,32 +540,30 @@ public class ControladorPersonajes extends HttpServlet {
                 if (ordenar == null) {
 
                     ordenar = "ordenar1";
-                    razaString = " ";
-                    claseString = " ";
-                    nivelString = " ";
+                    razaSQL = " ";
+                    claseSQL = " ";
+                    nivelSQL = " ";
                     numString = "1";
                     num = 0;
 
                 } else {
                     //Pagina actual
                     num = (Integer.valueOf(numString) - 1) * 6;//offset
-                    //Nivel
-                    nivel = Integer.parseInt(nivelString);
 
                     if (razaString.equals("Raza")) {
-                        razaString = " ";
+                        razaSQL = " ";
                     } else {
-                        razaString = "AND p.RAZA = '" + razaString + "' ";
+                        razaSQL = "AND p.RAZA = '" + razaString + "' ";
                     }
                     if (claseString.equals("Clase")) {
-                        claseString = " ";
+                        claseSQL = " ";
                     } else {
-                        claseString = "AND p.CLASE = '" + claseString + "' ";
+                        claseSQL = "AND p.CLASE = '" + claseString + "' ";
                     }
                     if (nivelString.equals("Nivel")) {
-                        nivelString = " ";
+                        nivelSQL = " ";
                     } else {
-                        nivelString = "AND p.NIVEL = '" + nivelString + "' ";
+                        nivelSQL = "AND p.NIVEL = '" + nivelString + "' ";
                     }
                 }
 
@@ -342,9 +578,9 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////////////////////////////////
                 sql = "SELECT COUNT(*) FROM PERSONAJES p "
                         + "WHERE p.USUARIO <> '" + id + "' "
-                        + nivelString
-                        + claseString
-                        + razaString;
+                        + nivelSQL
+                        + claseSQL
+                        + razaSQL;
 
                 queryAUX = em.createNativeQuery(sql);
                 result = queryAUX.getSingleResult();
@@ -356,24 +592,24 @@ public class ControladorPersonajes extends HttpServlet {
                     case "ordenar1":
                         sql = "SELECT p.* FROM PERSONAJES p "
                                 + "WHERE p.USUARIO <> '" + id + "' "
-                                + nivelString
-                                + claseString
-                                + razaString
+                                + nivelSQL
+                                + claseSQL
+                                + razaSQL
                                 + "ORDER BY  p.NOMBRE ASC "
                                 + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                         break;
                     case "ordenar2":
                         sql = "SELECT p.* FROM PERSONAJES p "
                                 + "WHERE p.USUARIO <> '" + id + "' "
-                                + nivelString
-                                + claseString
-                                + razaString
+                                + nivelSQL
+                                + claseSQL
+                                + razaSQL
                                 + "ORDER BY  p.NOMBRE DESC "
                                 + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                         break;
                 }
 
-                queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                queryAUX = em.createNativeQuery(sql, Personajes.class);
                 listaPersonajes = queryAUX.getResultList();
 
                 fotosPersonajes = new ArrayList();
@@ -447,8 +683,6 @@ public class ControladorPersonajes extends HttpServlet {
                     } else {
                         //Pagina actual
                         num = (Integer.valueOf(numString) - 1) * 6;//offset
-                        //Nivel
-                        nivel = Integer.parseInt(nivelString);
 
                         if (razaString.equals("Raza")) {
                             razaSQL = " ";
@@ -515,7 +749,7 @@ public class ControladorPersonajes extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
 
                     fotosPersonajes = new ArrayList();
@@ -594,8 +828,6 @@ public class ControladorPersonajes extends HttpServlet {
                     } else {
                         //Pagina actual
                         num = (Integer.valueOf(numString) - 1) * 6;//offset
-                        //Nivel
-                        nivel = Integer.parseInt(nivelString);
 
                         if (razaString.equals("Raza")) {
                             razaSQL = " ";
@@ -656,7 +888,7 @@ public class ControladorPersonajes extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
                     request.setAttribute("listaPersonajes", listaPersonajes);
 
@@ -728,8 +960,6 @@ public class ControladorPersonajes extends HttpServlet {
                     } else {
                         //Pagina actual
                         num = (Integer.valueOf(numString) - 1) * 6;//offset
-                        //Nivel
-                        nivel = Integer.parseInt(nivelString);
 
                         if (razaString.equals("Raza")) {
                             razaSQL = " ";
@@ -790,7 +1020,7 @@ public class ControladorPersonajes extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
 
                     request.setAttribute("listaPersonajes", listaPersonajes);

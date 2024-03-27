@@ -80,6 +80,10 @@ public class Sumaraza implements Serializable {
         this.subrazas = subrazas;
     }
 
+    public String getAtributoID() {
+        return sumarazaPK.getAtributo();
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -104,5 +108,5 @@ public class Sumaraza implements Serializable {
     public String toString() {
         return "entidades.Sumaraza[ sumarazaPK=" + sumarazaPK + " ]";
     }
-    
+
 }

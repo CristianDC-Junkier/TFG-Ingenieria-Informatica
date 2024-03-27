@@ -151,6 +151,13 @@ public class Razas implements Serializable {
     public String toString() {
         return "entidades.Razas[ id=" + id + " ]";
     }
+    @XmlTransient
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
+    }
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
+    }
 
     public String getNombre() {
         return nombre;
@@ -198,15 +205,6 @@ public class Razas implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    @XmlTransient
-    public List<Personajes> getPersonajesList() {
-        return personajesList;
-    }
-
-    public void setPersonajesList(List<Personajes> personajesList) {
-        this.personajesList = personajesList;
     }
     
 }

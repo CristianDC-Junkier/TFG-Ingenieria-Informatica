@@ -970,6 +970,13 @@ input[type="button"]:active {
     border: black 3px solid;
     box-shadow: 1px 1px 1px 1px brown;
 }
+#botonAvanzarFormulario{
+
+    background-color: black;
+    color: white;
+    border: black 3px solid;
+    box-shadow: 1px 1px 1px 1px brown;
+}
 #botonVolverFormulario-Solo{
 
     background-color: black;
@@ -1173,6 +1180,61 @@ input[type="button"]:active {
     background-color:brown;
 }
 
+/***************************************************************************************************/
+/********************************FORMULARIOS:CREACION PERSONAJE*************************************/
+/***************************************************************************************************/
+
+.bloqueRegistroPersonaje{
+
+    background-color: yellow;
+    border: brown 2px solid;
+    box-shadow: 5px 5px 5px 5px black;
+    background: linear-gradient(yellow,60%,white);
+}
+.bloqueRegistroPersonaje > form > div{
+
+    border: brown 2px solid;
+    color:black;
+}
+.bloqueRegistroPersonaje label{
+
+    border-bottom: black 2px solid;
+}
+.bloqueRegistroPersonaje input{
+
+    color: white;
+    background-color:brown;
+}
+.bloqueRegistroPersonaje select{
+
+    color: white;
+    background-color:brown;
+}
+
+/****************************************/
+/*********CREACION PERSONAJE: Id's*******/
+/****************************************/
+
+#aparienciaPersonaje{
+    color: white;
+    background-color:brown;
+}
+#rasgosPersonaje{
+    color: white;
+    background-color:brown;
+}
+#defectosPersonaje{
+    color: white;
+    background-color:brown;
+}
+#vinculosPersonaje{
+    color: white;
+    background-color:brown;
+}
+#historiaPersonaje{
+    color: white;
+    background-color:brown;
+}
 
 /***************************************************************************************************/
 /**********************************LISTAS USUARIOS EN MESAS*****************************************/

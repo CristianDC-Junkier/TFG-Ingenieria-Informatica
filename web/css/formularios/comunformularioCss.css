@@ -80,6 +80,12 @@ input[type="button"]:active {
     border-radius: 5px;
     cursor: pointer;
 }
+#botonAvanzarFormulario{
+
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
 #botonVolverFormulario-Solo{
 
     margin: auto;

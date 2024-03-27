@@ -12,11 +12,13 @@ let Clase = document.getElementById('classPersonaje');
 let SubRaza = document.getElementById('subracePersonaje');
 let SubClase = document.getElementById('subclassPersonaje');
 let Trasfondo = document.getElementById('trasPersonaje');
+let NombreError = document.getElementById('namePersonajeInput');
 
 //Bloque 3
 let puntos = document.querySelectorAll('.puntos input');
 let sumaVariable = document.getElementById('suma');
 let modificadores = document.querySelectorAll('.modificadores');
+let elecAtr = document.getElementById('eleccionAtr');
 
 //Botones
 let Avanzar = document.getElementById("botonAvanzarFormulario");
@@ -25,6 +27,7 @@ let Enviar = document.getElementById("botonEnviar");
 
 //Error
 let MensajeError = document.getElementById("mensajeError");
+let MensajeErrorB3 = document.getElementById("mensajeErrorB3");
 
 /*Colocar SubClase si tiene*/
 Clase.addEventListener('change', function () {
@@ -42,14 +45,16 @@ function AvanzarFormulario(Pag) {
     switch (Pag) {
         case 2:
             //Compruebo que elegí cosas
-            if (Clase.value === "-" || Raza.value === "-" || Nombre.value === "" ||Trasfondo.value === "") {
+            if (Clase.value === "-" || Raza.value === "-" || Nombre.value === "" || Trasfondo.value === "") {
                 MensajeError.innerHTML = "";
                 MensajeError.innerHTML = "<br> Debes introducir nombre y elegir raza , clase y trasfondo";
-            } else {
+            }else if(NombreError.innerHTML === "✖"){
+                MensajeError.innerHTML = "";
+                MensajeError.innerHTML = "<br> El nombre introducido ya está en uso";
+            }
+                else {
                 //Borro Mensaje de Error si había
                 MensajeError.innerHTML = "";
-                //Comprobar Nombre
-                //realizarBusqueda();
                 //Mostrar Bloques
                 Bloque_1.style.display = "none";
                 Bloque_2.style.display = "block";
@@ -68,6 +73,8 @@ function AvanzarFormulario(Pag) {
             //Mostrar Bloques
             Bloque_2.style.display = "none";
             Bloque_3.style.display = "block";
+            //Mostrar Atributos que ganas
+            indicarAtr(SubRaza.value, elecAtr);
             //Cambiar botones
             Avanzar.onclick = function () {
                 AvanzarFormulario(4);
@@ -77,15 +84,58 @@ function AvanzarFormulario(Pag) {
             };
             break;
         case 4:
-            //Mostrar Bloques
-            Bloque_3.style.display = "none";
-            Bloque_4.style.display = "block";
-            //Cambiar botones
-            Avanzar.type = "hidden";
-            Enviar.type = "submit";
-            Volver.onclick = function () {
-                RetrocederFormulario(3);
-            };
+            //Recojo los datos
+            let atributo1 = document.getElementById('atr1');
+            let atributo2 = document.getElementById('atr2');
+            let atributos1 = document.getElementById('atrs1');
+            let atributos2 = document.getElementById('atrs2');
+            let atributos3 = document.getElementById('atrs3');
+            //Compruebo el tipo
+            if (atributo1 !== null) {
+                if (atributo1.value === atributo2.value) {
+                    MensajeErrorB3.innerHTML = "";
+                    MensajeErrorB3.innerHTML = "<br> Debes elegir diferentes atributos";
+                } else {
+                    //Borro Mensaje de Error si había
+                    MensajeErrorB3.innerHTML = "";
+                    //Mostrar Bloques
+                    Bloque_3.style.display = "none";
+                    Bloque_4.style.display = "block";
+                    //Cambiar botones
+                    Avanzar.type = "hidden";
+                    Enviar.type = "submit";
+                    Volver.onclick = function () {
+                        RetrocederFormulario(3);
+                    };
+                }
+            } else if (atributos1 !== null) {
+                if (atributos1.value === atributos2.value || atributos2.value === atributos3.value || atributos1.value === atributos3.value) {
+                    MensajeErrorB3.innerHTML = "";
+                    MensajeErrorB3.innerHTML = "<br> Debes elegir diferentes atributos";
+                } else {
+                    //Borro Mensaje de Error si había
+                    MensajeErrorB3.innerHTML = "";
+                    //Mostrar Bloques
+                    Bloque_3.style.display = "none";
+                    Bloque_4.style.display = "block";
+                    //Cambiar botones
+                    Avanzar.type = "hidden";
+                    Enviar.type = "submit";
+                    Volver.onclick = function () {
+                        RetrocederFormulario(3);
+                    };
+                }
+            } else {
+                //Mostrar Bloques
+                Bloque_3.style.display = "none";
+                Bloque_4.style.display = "block";
+                //Cambiar botones
+                Avanzar.type = "hidden";
+                Enviar.type = "submit";
+                Volver.onclick = function () {
+                    RetrocederFormulario(3);
+                };
+            }
             break;
     }
 }

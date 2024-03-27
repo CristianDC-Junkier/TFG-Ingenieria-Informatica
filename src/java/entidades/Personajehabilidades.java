@@ -1,4 +1,3 @@
-
 package entidades;
 
 import java.io.Serializable;
@@ -60,6 +59,11 @@ public class Personajehabilidades implements Serializable {
         this.personajehabilidadesPK = new PersonajehabilidadesPK(personaje, habilidad);
     }
 
+    public Personajehabilidades(String personaje, String habilidad, String competencia) {
+        this.personajehabilidadesPK = new PersonajehabilidadesPK(personaje, habilidad);
+        this.competencia = competencia;
+    }
+
     public PersonajehabilidadesPK getPersonajehabilidadesPK() {
         return personajehabilidadesPK;
     }
@@ -116,5 +120,5 @@ public class Personajehabilidades implements Serializable {
     public String toString() {
         return "controlador.Personajehabilidades[ personajehabilidadesPK=" + personajehabilidadesPK + " ]";
     }
-    
+
 }

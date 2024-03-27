@@ -45,7 +45,7 @@
                         <select id="filtroRaza">
                             <option value="Raza" selected>Raza</option>
                             <c:forEach var="raza" items="${listaRazas}">
-                                <option value="${raza.nombre}" >${raza.nombre}</option>
+                                <option value="${raza.id}" >${raza.nombre}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -54,14 +54,14 @@
                         <select id="filtroClase">
                             <option value="Clase" selected>Clase</option>
                             <c:forEach var="clase" items="${listaClases}">
-                                <option value="${clase.nombre}" >${clase.nombre}</option>
+                                <option value="${clase.id}" >${clase.nombre}</option>
                             </c:forEach>
                         </select>
                     </div>
                     <div>
                         Nivel:
                         <select id="filtroNivel">
-                            <option value="0" selected>Nivel</option>
+                            <option value="1" selected>Nivel</option>
                             <c:forEach var="i" begin="1" end="20">
                                 <c:choose>
                                     <c:when test="${requestScope.filtronivel == i}">
@@ -111,8 +111,8 @@
                                                 </div>
                                             </td>
                                             <td>${personaje.nombre}</td>
-                                            <td>${personaje.clase}</td>
-                                            <td>${personaje.raza}</td>
+                                            <td>${personaje.clase.nombre}</td>
+                                            <td>${personaje.raza.nombre}</td>
                                             <td>${personaje.nivel}</td>
                                             <td>${listaCreador[status.index].apodo}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Personaje/personaje?id=${personaje.id}'">Detalles</button></td>

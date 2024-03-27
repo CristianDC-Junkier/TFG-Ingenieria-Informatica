@@ -2,7 +2,6 @@ package controlador;
 
 import entidades.Mesas;
 import entidades.Personajes;
-import entidades.Pertenecemesa;
 import entidades.Usuarios;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -67,8 +66,6 @@ public class ControladorImagenes extends HttpServlet {
         String id;
         InputStream fileContent;
         byte[] imageData;
-
-        String sql;
 
         switch (accion) {
             case "/actualizarFotoMesa":

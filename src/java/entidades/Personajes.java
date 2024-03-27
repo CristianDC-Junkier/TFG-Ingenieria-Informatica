@@ -7,6 +7,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -49,10 +50,8 @@ public class Personajes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
+    @GeneratedValue
+    @Column(name = "ID")
     private String id;
     @Basic(optional = false)
     @NotNull
@@ -162,16 +161,17 @@ public class Personajes implements Serializable {
         this.clasearmadura = clasearmadura;
     }
 
-    public Personajes(String nombre, String alineamiento, BigInteger nivel, BigInteger pvida, BigInteger pvidaactuales, BigInteger clasearmadura) {
+    public Personajes(String nombre, String alineamiento, BigInteger nivel, BigInteger pvida, BigInteger pvidaactuales, BigInteger clasearmadura, Usuarios usuario) {
         this.nombre = nombre;
         this.alineamiento = alineamiento;
         this.nivel = nivel;
         this.pvida = pvida;
         this.pvidaactuales = pvidaactuales;
         this.clasearmadura = clasearmadura;
+        this.usuario = usuario;
     }
 
-    public Personajes(Personajes personaje) {
+    public Personajes(Personajes personaje , Usuarios usuario) {
         this.alineamiento = personaje.getAlineamiento();
         this.apariencia = personaje.getApariencia();
         this.clase = personaje.getClase();
@@ -209,8 +209,9 @@ public class Personajes implements Serializable {
         this.subclase = personaje.getSubclase();
         this.subraza = personaje.getSubraza();
         this.trasfondo = personaje.getTrasfondo();
-        this.usuario = personaje.getUsuario();
         this.vinculos = personaje.getVinculos();
+        
+        this.usuario = usuario;
     }
 
     public String getId() {

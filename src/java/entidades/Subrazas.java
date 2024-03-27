@@ -66,6 +66,11 @@ public class Subrazas implements Serializable {
     @Size(min = 1, max = 1)
     @Column(name = "ELEGIRHAB", nullable = false, length = 1)
     private String elegirhab;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1)
+    @Column(name = "ELIGEATR", nullable = false, length = 1)
+    private String eligeatr;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subraza")
     private List<Personajes> personajesList;
 
@@ -92,8 +97,6 @@ public class Subrazas implements Serializable {
     @ManyToMany
     private List<Habilidades> habilidadesListE;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "subrazas")
-    private Eleccionatributos eleccionatributos;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subrazas")
     private List<Sumaraza> sumarazaList;
     @JoinColumn(name = "RAZA", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
@@ -151,14 +154,6 @@ public class Subrazas implements Serializable {
         this.habilidadesListE = habilidadesListE;
     }
 
-    public Eleccionatributos getEleccionatributos() {
-        return eleccionatributos;
-    }
-
-    public void setEleccionatributos(Eleccionatributos eleccionatributos) {
-        this.eleccionatributos = eleccionatributos;
-    }
-
     @XmlTransient
     public List<Sumaraza> getSumarazaList() {
         return sumarazaList;
@@ -199,6 +194,13 @@ public class Subrazas implements Serializable {
     @Override
     public String toString() {
         return "entidades.Subrazas[ id=" + id + " ]";
+    }
+    @XmlTransient
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
+    }
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
     }
 
     public String getNombre() {
@@ -241,13 +243,12 @@ public class Subrazas implements Serializable {
         this.elegirhab = elegirhab;
     }
 
-    @XmlTransient
-    public List<Personajes> getPersonajesList() {
-        return personajesList;
+    public String getEligeatr() {
+        return eligeatr;
     }
 
-    public void setPersonajesList(List<Personajes> personajesList) {
-        this.personajesList = personajesList;
+    public void setEligeatr(String eligeatr) {
+        this.eligeatr = eligeatr;
     }
     
 }

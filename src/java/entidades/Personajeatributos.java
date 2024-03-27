@@ -1,4 +1,3 @@
-
 package entidades;
 
 import java.io.Serializable;
@@ -36,7 +35,7 @@ public class Personajeatributos implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "VALOR", nullable = false)
-    private short valor;
+    private int valor;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
@@ -56,7 +55,7 @@ public class Personajeatributos implements Serializable {
         this.personajeatributosPK = personajeatributosPK;
     }
 
-    public Personajeatributos(PersonajeatributosPK personajeatributosPK, short valor, String salvacion) {
+    public Personajeatributos(PersonajeatributosPK personajeatributosPK, int valor, String salvacion) {
         this.personajeatributosPK = personajeatributosPK;
         this.valor = valor;
         this.salvacion = salvacion;
@@ -64,6 +63,12 @@ public class Personajeatributos implements Serializable {
 
     public Personajeatributos(String personaje, String atributo) {
         this.personajeatributosPK = new PersonajeatributosPK(personaje, atributo);
+    }
+
+    public Personajeatributos(String personaje, String atributo, int valor, String salvacion) {
+        this.personajeatributosPK = new PersonajeatributosPK(personaje, atributo);
+        this.valor = valor;
+        this.salvacion = salvacion;
     }
 
     public PersonajeatributosPK getPersonajeatributosPK() {
@@ -74,11 +79,11 @@ public class Personajeatributos implements Serializable {
         this.personajeatributosPK = personajeatributosPK;
     }
 
-    public short getValor() {
+    public int getValor() {
         return valor;
     }
 
-    public void setValor(short valor) {
+    public void setValor(int valor) {
         this.valor = valor;
     }
 
@@ -130,5 +135,5 @@ public class Personajeatributos implements Serializable {
     public String toString() {
         return "controlador.Personajeatributos[ personajeatributosPK=" + personajeatributosPK + " ]";
     }
-    
+
 }

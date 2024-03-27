@@ -107,8 +107,8 @@
                                                 </div>
                                             </td>
                                             <td>${personaje.nombre}</td>
-                                            <td>${personaje.clase}</td>
-                                            <td>${personaje.raza}</td>
+                                            <td>${personaje.clase.nombre}</td>
+                                            <td>${personaje.raza.nombre}</td>
                                             <td>${personaje.nivel}</td>
                                             <td>${listaCreador[status.index].apodo}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Personaje/personajeAmigo?id=${personaje.id}&amigo=${listacreador[status.index].id}'">Detalles</button></td>

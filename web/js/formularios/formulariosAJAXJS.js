@@ -51,11 +51,13 @@ function realizarBusqueda(inputID, spanID) {
                 var tituloMesaJS = '<%= request.getAttribute("mesa.titulo") %>';
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/ModificarMesa?mesaTitulo=" + tituloMesaJS;
                 break;
-            case "namePersonaje":
+            case "nombrePersonaje":
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/CrearPersonaje";
                 break;
         }
-
+        
+        console.log("llega " + inputID);
+        
         // Realizar la solicitud AJAX
         $.ajax({
             type: "GET",
@@ -153,6 +155,28 @@ function cambiarHabilidades(valorBusqueda, valorBusqueda2, etiqueta) {
         type: "GET",
         url: urlAJAX,
         data: {busqueda: valorBusqueda, busqueda2: valorBusqueda2},
+        dataType: "text",
+        success: function (data) {
+            let htmlResultados = data;
+            // Limpiar el contenido actual de la tabla
+            etiqueta.innerHTML = '';
+            // Insertar el nuevo HTML en el contenedor
+            etiqueta.innerHTML = htmlResultados;
+        },
+        error: function (error) {
+            console.error("Error en la solicitud AJAX:", error);
+        }
+    });
+}
+
+function indicarAtr(valorBusqueda, etiqueta) {
+    urlAJAX = "/TFG/ControladorPeticionesAJAX/CrearPersonajesAtributos";
+
+    // Realizar la solicitud AJAX
+    $.ajax({
+        type: "GET",
+        url: urlAJAX,
+        data: {busqueda: valorBusqueda},
         dataType: "text",
         success: function (data) {
             let htmlResultados = data;

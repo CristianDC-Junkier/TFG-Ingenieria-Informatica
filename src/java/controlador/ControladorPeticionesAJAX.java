@@ -1,5 +1,6 @@
 package controlador;
 
+import entidades.Atributos;
 import entidades.Clases;
 import entidades.Equipo;
 import entidades.Hechizos;
@@ -77,6 +78,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             Hechizos hechizoAux;
             Monstruos monstruoAux;
             Equipo equipoAux;
+            Atributos Atributo;
 
             TypedQuery<Usuarios> queryUsuarios;
             TypedQuery<Pertenecemesa> queryPMesas;
@@ -88,6 +90,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             TypedQuery<Clases> queryClases;
             TypedQuery<Subclases> querySubClases;
             TypedQuery<Subrazas> querySubRazas;
+            TypedQuery<Atributos> queryAtributos;
 
             Query queryAUX;
 
@@ -102,6 +105,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             List<Equipo> listaEquipo;
             List<Razas> listaRazas;
             List<Clases> listaClases;
+            List<Atributos> listaAtributos;
             List<Subclases> listaSubClases;
             List<Subrazas> listaSubRazas;
             List<Personajes> listaPersonajes;
@@ -151,7 +155,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             String sql = "";
 
-            System.out.println("PeticionAJAX entre: " + accion);
+            System.out.println("PeticionAJAX entra: " + accion);
 
             switch (accion) {
                 //////////////////////////////////////////////////////////////////////////
@@ -1505,18 +1509,17 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     nombre = request.getParameter("busqueda");
 
                     sql = "SELECT p.* FROM PERSONAJES p "
-                            + "WHERE p.USUARIO == '" + user.getId() + "' "
-                            + "AND p.NOMBRE LIKE '" + nombre + "%' "
-                            + "ORDER BY p.NOMBRE ASC ";
+                            + "WHERE p.USUARIO = '" + user.getId() + "' "
+                            + "AND p.NOMBRE LIKE '" + nombre + "%'";
                     queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
-
-                    if (listaPersonajes.isEmpty() == true) {
+                    
+                    if (listaPersonajes.isEmpty()) {
                         resultado = "No encontrado";
                     } else {
                         resultado = "Encontrado";
                     }
-
+                    
                     System.out.println("PeticionAJAX Sale CrearPersonaje");
 
                     break;
@@ -1546,28 +1549,27 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     nivelString = request.getParameter("nivel");//como ordenar
 
                     //Comprobamos los datos
-                    if (ordenar == null) {
+                    if (ordenar == null || ordenar.equals("null")) {
                         ordenar = "ordenar1";
                     }
-                    if (raza.equals("Raza")) {
+                    if (raza == null || raza.equals("null") || raza.equals("Raza")) {
                         raza = " ";
                     } else {
                         raza = "AND p.RAZA = '" + raza + "' ";
                     }
-                    if (clase.equals("Clase")) {
+                    if (clase == null || clase.equals("null") || clase.equals("Clase")) {
                         clase = " ";
                     } else {
                         clase = "AND p.CLASE = '" + clase + "' ";
                     }
-                    if (nivelString.equals("Nivel")) {
+                    if (nivelString == null || nivelString.equals("null") || nivelString.equals("Nivel")) {
                         nivelString = " ";
                     } else {
                         nivelString = "AND p.NIVEL = '" + nivelString + "' ";
                     }
-
-                    //Nivel
-                    nivel = Integer.parseInt(nivelString);
-
+                    
+                    System.out.println(raza);
+                    
                     switch (ordenar) {
                         case "ordenar1":
                             sql = "SELECT p.* FROM PERSONAJES p "
@@ -1625,15 +1627,17 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "</div>"
                                 + "</td>\n"
                                 + "<td>" + pejaux.getNombre() + "</td>\n"
-                                + "<td>" + pejaux.getClase() + "</td>\n"
-                                + "<td>" + pejaux.getRaza() + "</td>\n"
+                                + "<td>" + pejaux.getClase().getNombre() + "</td>\n"
+                                + "<td>" + pejaux.getRaza().getNombre() + "</td>\n"
                                 + "<td>" + pejaux.getNivel() + "</td>\n"
                                 + "<td>" + listaUsuarios.get(i).getApodo() + "</td>\n"
                                 + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personaje?id=" + pejaux.getId() + "'\">Detalles</button></td>\n"
                                 + "</tr>\n"
                                 + "</table>";
                     }
-
+                    
+                    System.out.println(sql);
+                    
                     System.out.println("PeticionAJAX Sale Personajes");
 
                     break;
@@ -1656,27 +1660,24 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     nivelString = request.getParameter("nivel");//como ordenar
 
                     //Comprobamos los datos
-                    if (ordenar == null) {
+                    if (ordenar == null || ordenar.equals("null")) {
                         ordenar = "ordenar1";
                     }
-                    if (raza.equals("Raza")) {
+                    if (raza == null || raza.equals("null") || raza.equals("Raza")) {
                         raza = " ";
                     } else {
                         raza = "AND p.RAZA = '" + raza + "' ";
                     }
-                    if (clase.equals("Clase")) {
+                    if (clase == null || clase.equals("null") || clase.equals("Clase")) {
                         clase = " ";
                     } else {
                         clase = "AND p.CLASE = '" + clase + "' ";
                     }
-                    if (nivelString.equals("Nivel")) {
+                    if (nivelString == null || nivelString.equals("null") || nivelString.equals("Nivel")) {
                         nivelString = " ";
                     } else {
                         nivelString = "AND p.NIVEL = '" + nivelString + "' ";
                     }
-
-                    //Nivel
-                    nivel = Integer.parseInt(nivelString);
 
                     switch (ordenar) {
                         case "ordenar1":
@@ -1738,8 +1739,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "</div>"
                                 + "</td>\n"
                                 + "<td>" + pejaux.getNombre() + "</td>\n"
-                                + "<td>" + pejaux.getClase() + "</td>\n"
-                                + "<td>" + pejaux.getRaza() + "</td>\n"
+                                + "<td>" + pejaux.getClase().getNombre() + "</td>\n"
+                                + "<td>" + pejaux.getRaza().getNombre() + "</td>\n"
                                 + "<td>" + pejaux.getNivel() + "</td>\n"
                                 + "<td>" + listaUsuarios.get(i).getApodo() + "</td>\n"
                                 + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personajeAmigo?id=" + pejaux.getId() + "&amigo=" + listaUsuarios.get(i).getId() + "'\">Detalles</button></td>\n"
@@ -1768,27 +1769,24 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     nivelString = request.getParameter("nivel");//como ordenar
 
                     //Comprobamos los datos
-                    if (ordenar == null) {
+                    if (ordenar == null || ordenar.equals("null")) {
                         ordenar = "ordenar1";
                     }
-                    if (raza.equals("Raza")) {
+                    if (raza == null || raza.equals("null") || raza.equals("Raza")) {
                         raza = " ";
                     } else {
                         raza = "AND p.RAZA = '" + raza + "' ";
                     }
-                    if (clase.equals("Clase")) {
+                    if (clase == null || clase.equals("null") || clase.equals("Clase")) {
                         clase = " ";
                     } else {
                         clase = "AND p.CLASE = '" + clase + "' ";
                     }
-                    if (nivelString.equals("Nivel")) {
+                    if (nivelString == null || nivelString.equals("null") || nivelString.equals("Nivel")) {
                         nivelString = " ";
                     } else {
                         nivelString = "AND p.NIVEL = '" + nivelString + "' ";
                     }
-
-                    //Nivel
-                    nivel = Integer.parseInt(nivelString);
 
                     switch (ordenar) {
                         case "ordenar1":
@@ -1846,8 +1844,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "</div>"
                                 + "</td>\n"
                                 + "<td>" + pejaux.getNombre() + "</td>\n"
-                                + "<td>" + pejaux.getClase() + "</td>\n"
-                                + "<td>" + pejaux.getRaza() + "</td>\n"
+                                + "<td>" + pejaux.getClase().getNombre() + "</td>\n"
+                                + "<td>" + pejaux.getRaza().getNombre() + "</td>\n"
                                 + "<td>" + pejaux.getNivel() + "</td>\n"
                                 + "<td>" + useraux.getApodo() + "</td>\n"
                                 + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personajeAmigo?id=" + pejaux.getId() + "&amigo=" + useraux.getId() + "'\">Detalles</button></td>\n"
@@ -1877,27 +1875,24 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     nivelString = request.getParameter("nivel");//como ordenar
 
                     //Comprobamos los datos
-                    if (ordenar == null) {
+                    if (ordenar == null || ordenar.equals("null")) {
                         ordenar = "ordenar1";
                     }
-                    if (raza.equals("Raza")) {
+                    if (raza == null || raza.equals("null") || raza.equals("Raza")) {
                         raza = " ";
                     } else {
                         raza = "AND p.RAZA = '" + raza + "' ";
                     }
-                    if (clase.equals("Clase")) {
+                    if (clase == null || clase.equals("null") || clase.equals("Clase")) {
                         clase = " ";
                     } else {
                         clase = "AND p.CLASE = '" + clase + "' ";
                     }
-                    if (nivelString.equals("Nivel")) {
+                    if (nivelString == null || nivelString.equals("null") || nivelString.equals("Nivel")) {
                         nivelString = " ";
                     } else {
                         nivelString = "AND p.NIVEL = '" + nivelString + "' ";
                     }
-
-                    //Nivel
-                    nivel = Integer.parseInt(nivelString);
 
                     switch (ordenar) {
                         case "ordenar1":
@@ -1951,8 +1946,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "</div>"
                                 + "</td>\n"
                                 + "<td>" + pejaux.getNombre() + "</td>\n"
-                                + "<td>" + pejaux.getClase() + "</td>\n"
-                                + "<td>" + pejaux.getRaza() + "</td>\n"
+                                + "<td>" + pejaux.getClase().getNombre() + "</td>\n"
+                                + "<td>" + pejaux.getRaza().getNombre() + "</td>\n"
                                 + "<td>" + pejaux.getNivel() + "</td>\n"
                                 + "<td>" + user.getApodo() + "</td>\n"
                                 + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personaje?id=" + pejaux.getId() + "&amigo=" + user.getId() + "'\">Detalles</button></td>\n"
@@ -2029,9 +2024,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         calendarioAux.add(Calendar.YEAR, -12);
                         fechaActual = calendarioAux.getTime();
 
-                        if (fechaNacimiento.before(fechaActual)) {
-                            novalido = false;
-                        }
                         calendarioAux.setTime(fechaActual);
                         calendarioAux.add(Calendar.YEAR, -120);
                         fechaActual = calendarioAux.getTime();
@@ -2170,10 +2162,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         calendarioAux.setTime(fechaActual);
                         calendarioAux.add(Calendar.YEAR, -12);
                         fechaActual = calendarioAux.getTime();
-
-                        if (fechaNacimiento.before(fechaActual)) {
-                            novalido = false;
-                        }
 
                         calendarioAux.setTime(fechaActual);
                         calendarioAux.add(Calendar.YEAR, -120);
@@ -2846,6 +2834,84 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     }
 
                     System.out.println("PeticionAJAX Sale CrearPersonajesHabilidades");
+                    break;
+
+                case "/CrearPersonajesAtributos":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    //Encontramos la SubRaza
+                    querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
+                    querySubRazas.setParameter("nombre", nombre);
+                    Subraza = querySubRazas.getSingleResult();
+
+                    switch (Subraza.getEligeatr()) {
+                        case "0":
+                            //Encontramos los Atributos que da
+                            resultado = "";
+                            for (int i = 0; i < Subraza.getSumarazaList().size(); i++) {
+                                //Encontramos el atributo
+                                queryAtributos = em.createNamedQuery("Atributos.findById", Atributos.class);
+                                queryAtributos.setParameter("id", Subraza.getSumarazaList().get(i).getAtributoID());
+                                Atributo = queryAtributos.getSingleResult();
+
+                                resultado = "Obtienes +" + Subraza.getSumarazaList().get(i).getModificador() + " de " + Atributo.getNombre() + "<br>";
+                            }
+                            break;
+                        case "1":
+                            queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                            listaAtributos = queryAtributos.getResultList();
+
+                            resultado = resultado + "<label for=\"atr1\">Obtienes +1:</label>"
+                                    + "<select id=\"atr1\" name=\"obtienes_atr1\">";
+                            for (int i = 0; i < listaAtributos.size(); i++) {
+                                Atributo = listaAtributos.get(i);
+                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
+                            }
+                            resultado = resultado + "</select><br>"
+                                    + "<label for=\"atr2\">Obtienes +2:</label>"
+                                    + "<select id=\"atr2\" name=\"obtienes_atr2\">";
+                            for (int i = 0; i < listaAtributos.size(); i++) {
+                                Atributo = listaAtributos.get(i);
+                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
+                            }
+                            resultado = resultado + "</select>";
+
+                            break;
+                        case "2":
+                            queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                            listaAtributos = queryAtributos.getResultList();
+
+                            resultado = "<p> Elige +1 en tres atributos: </p>";
+                            resultado = resultado + "<label for=\"atrs1\">Obtienes +1:</label>"
+                                    + "<select id=\"atrs1\" name=\"atributos[]\">";
+
+                            for (int i = 0; i < listaAtributos.size(); i++) {
+                                Atributo = listaAtributos.get(i);
+                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
+                            }
+                            resultado = resultado + "</select><br>"
+                                    + "<label for=\"atrs2\">Obtienes +1:</label>"
+                                    + "<select id=\"atrs2\" name=\"atributos[]\">";
+                            for (int i = 0; i < listaAtributos.size(); i++) {
+                                Atributo = listaAtributos.get(i);
+                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
+                            }
+                            resultado = resultado + "</select><br>"
+                                    + "<label for=\"atrs3\">Obtienes +1:</label>"
+                                    + "<select id=\"atrs3\" name=\"atributos[]\">";
+                            for (int i = 0; i < listaAtributos.size(); i++) {
+                                Atributo = listaAtributos.get(i);
+                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
+                            }
+                            resultado = resultado + "</select>";
+                            break;
+                    }
+
+                    System.out.println("PeticionAJAX Sale CrearPersonajesAtributo");
                     break;
             }
 

@@ -10,27 +10,52 @@ let BPosterior = document.getElementById('pagPosterior');
 
 let totalaux = numpag - pag;
 
+for (var i = 0; i < Raza.options.length; i++) {
+    if (Raza.options[i].value === raza) {
+        Raza.options[i].selected = true;
+        break;
+    } else {
+        Raza.options[i].selected = false;
+    }
+}
+for (var i = 0; i < Clase.options.length; i++) {
+    if (Clase.options[i].value === clase) {
+        Clase.options[i].selected = true;
+        break;
+    } else {
+        Nivel.options[i].selected = false;
+    }
+}
+for (var i = 0; i < Nivel.options.length; i++) {
+    if (Nivel.options[i].value === nivel) {
+        Nivel.options[i].selected = true;
+        break;
+    } else {
+        Nivel.options[i].selected = false;
+    }
+}
+
 Orden.addEventListener('change', function () {
     let valorSeleccionado = Orden.value;
-    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + valorSeleccionado + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel + "&pag=" + pag;
+    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + valorSeleccionado + "&raza=" + Raza.value + "&clase=" + Clase.value + "&nivel=" + Nivel.value + "&pag=" + pag;
     window.location.href = urlDestinoOrden;
 });
 
 Raza.addEventListener('change', function () {
     let valorSeleccionado = Raza.value;
-    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + valorSeleccionado + "&clase=" + clase + "&nivel=" + nivel + "&pag=" + pag;
+    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + Orden.value + "&raza=" + valorSeleccionado + "&clase=" + Clase.value + "&nivel=" + Nivel.value + "&pag=" + pag;
     window.location.href = urlDestinoOrden;
 });
 
 Clase.addEventListener('change', function () {
     let valorSeleccionado = Clase.value;
-    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + valorSeleccionado + "&nivel=" + nivel + "&pag=" + pag;
+    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + Orden.value + "&raza=" + Raza.value + "&clase=" + valorSeleccionado + "&nivel=" + Nivel.value + "&pag=" + pag;
     window.location.href = urlDestinoOrden;
 });
 
 Nivel.addEventListener('change', function () {
     let valorSeleccionado = Nivel.value;
-    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + valorSeleccionado + "&pag=" + pag;
+    let urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + Orden.value + "&raza=" + Raza.value + "&clase=" + Clase.value + "&nivel=" + valorSeleccionado + "&pag=" + pag;
     window.location.href = urlDestinoOrden;
 });
 
@@ -38,7 +63,7 @@ Nivel.addEventListener('change', function () {
 if (pag > 2) {
     Binicio.addEventListener('click', function () {
         let urlDestinoPagIni;
-        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel + "&pag=" + "1";
+        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + Orden.value + "&raza=" + Raza.value + "&clase=" + Clase.value + "&nivel=" + Nivel.value + "&pag=" + "1";
         window.location.href = urlDestinoPagIni;
     });
 }
@@ -46,7 +71,7 @@ if (pag > 2) {
 if (totalaux > 1) {
     Bfinal.addEventListener('click', function () {
         let urlDestinoPagIni;
-        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel + "&pag=" + numpag;
+        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + Orden.value + "&raza=" + Raza.value + "&clase=" + Clase.value + "&nivel=" + Nivel.value + "&pag=" + numpag;
         window.location.href = urlDestinoPagIni;
     });
 }
@@ -54,7 +79,7 @@ if (totalaux > 1) {
 if (pag > 1) {
     BAnterior.addEventListener('click', function () {
         let urlDestinoPagIni;
-        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel + "&pag=" + (pag - 1);
+        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + Orden.value + "&raza=" + Raza.value + "&clase=" + Clase.value + "&nivel=" + Nivel.value + "&pag=" + (pag - 1);
         window.location.href = urlDestinoPagIni;
     });
 }
@@ -62,7 +87,7 @@ if (pag > 1) {
 if (totalaux > 2) {
     BPosterior.addEventListener('click', function () {
         let urlDestinoPagIni;
-        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel + "&pag=" + (pag + 1);
+        urlDestinoOrden = "/TFG/Personajes/personajes?orden=" + Orden.value + "&raza=" + Raza.value + "&clase=" + Clase.value + "&nivel=" + Nivel.value + "&pag=" + (pag + 1);
         window.location.href = urlDestinoPagIni;
     });
 }

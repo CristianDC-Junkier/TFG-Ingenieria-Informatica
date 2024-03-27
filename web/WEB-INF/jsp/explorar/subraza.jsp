@@ -24,13 +24,23 @@
                                 <li>Velocidad: ${requestScope.subraza.velocidad}</li>
                                 <li>Tamaño:${requestScope.subraza.tamano}</li>                    
                                 <li>Atributos:
-                                    <c:forEach var="atributo" items="${subrazaAtributos}" varStatus="status">
-                                        ${atributo.modificador} ${atributo.atributo}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
-                                    </c:forEach> <c:if test="${razaEAtributos!= null}"> ó Elige ${razaEAtributos.elegircan} atributos con ${razaEAtributos.elegirmod}.</c:if>
-                                    </li>
-                                </ul>
-                            </div>
+                                    <c:choose>
+                                        <c:when test="${razaEAtributos == '1'}">
+                                            Elige una habilidad con un +2 y otra con un +1
+                                        </c:when>
+                                        <c:when test="${razaEAtributos == '2'}">
+                                            Elige 3 habilidades con un +1
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:forEach var="atributo" items="${razaAtributos}" varStatus="status">
+                                                ${atributo.modificador} ${atributo.atributo}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                                            </c:forEach> 
+                                        </c:otherwise>
+                                    </c:choose>
+                                </li>
+                            </ul>
                         </div>
+                    </div>
                     <c:if test="${requestScope.subraza.descripcion!='-'}">
                         <div class = "datosIzquierdaAbajoRaza">
                             <p>${requestScope.subraza.descripcion}</p>

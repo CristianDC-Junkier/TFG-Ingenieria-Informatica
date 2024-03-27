@@ -1,0 +1,446 @@
+/*******Registro*******/
+
+.bloqueRegistroPersonaje{
+
+    max-width: 80%;
+    width: 400px;
+    height: 30%;
+    min-height: 250px;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Times New Roman';
+    border-radius: 5px 5px 5px 5px;
+    margin-bottom: 25px;
+}
+.bloqueRegistroPersonaje > form > div{
+
+    border-radius: 5px 5px 5px 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.bloqueRegistroPersonaje > form >
+.contenedorBotonFormulario{
+
+    border: none;
+    border-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 15px;
+}
+.bloqueRegistroPersonaje > form > div > div {
+
+    margin-bottom: 5px;
+    text-align: left;
+}
+.bloqueRegistroPersonaje > form > div > div > p {
+
+    margin-left: 5px;
+}
+.bloqueRegistroPersonaje label{
+
+    margin-left: 10px;
+    font-size: 15px;
+}
+.bloqueRegistroPersonaje input{
+
+    width: 150px;
+    border-radius: 5px;
+}
+.bloqueRegistroPersonaje select{
+
+    width: 155px;
+    border-radius: 5px;
+}
+
+.puntos {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.puntos-contenedor {
+    display: flex;
+    align-items: center;
+}
+
+.modificadores {
+
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.puntos-contenedor > input[type="number"] {
+
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.botones-contenedor {
+
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.botones-contenedor button {
+
+    margin-bottom: 5px;
+    cursor: pointer;
+    padding: auto;
+    background: white;
+
+    padding-block: 1px;
+    padding-inline: 6px;
+
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
+}
+
+#suma {
+
+    margin-top: 20px;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+
+/*************************/
+/***********Id's**********/
+/*************************/
+
+#nombrePersonaje{
+    margin-left: 50px;
+}
+#classPersonaje{
+    margin-left: 66px;
+}
+#subclassPersonaje{
+    margin-left: 43px;
+}
+#racePersonaje{
+    margin-left: 69px;
+}
+#subracePersonaje{
+    margin-left: 45px;
+}
+#trasPersonaje{
+    margin-left: 37px;
+}
+#habilidadesRaza{
+    margin-left: 5px;
+}
+#habilidadesClase{
+    margin-left: 5px;
+}
+#Atributo_Fuerza{
+    margin-left: 136px;
+}
+#Atributo_Destreza{
+    margin-left: 124px;
+}
+#Atributo_Inteligencia{
+    margin-left: 106px;
+}
+#Atributo_Constitución{
+    margin-left: 100px;
+}
+#Atributo_Sabiduría{
+    margin-left: 119px;
+}
+#Atributo_Carisma{
+    margin-left: 127px;
+}
+#atr1{
+     margin-left: 5px;
+}
+#atr2{
+    margin-left: 5px;
+}
+#atrs1{
+    margin-left: 5px;
+}
+#atrs2{
+    margin-left: 5px;
+}
+#atrs3{
+    margin-left: 5px;
+}
+#alinPersonaje{
+    margin-left: 84px;
+}
+#edadPersonaje{
+    margin-left: 136px;
+}
+#idiomasPersonaje{
+    margin-left: 118px;
+}
+#aparienciaPersonaje{
+    margin-left: 116px;
+    resize: none;
+    height: 100px;
+    width: 240px;
+    border-radius: 5px;
+}
+#rasgosPersonaje{
+    margin-left: 116px;
+    resize: none;
+    height: 100px;
+    width: 240px;
+    border-radius: 5px;
+}
+#defectosPersonaje{
+    margin-left: 116px;
+    resize: none;
+    height: 100px;
+    width: 240px;
+    border-radius: 5px;
+}
+#vinculosPersonaje{
+    margin-left: 116px;
+    resize: none;
+    height: 100px;
+    width: 240px;
+    border-radius: 5px;
+}
+#historiaPersonaje{
+    margin-left: 116px;
+    resize: none;
+    height: 100px;
+    width: 240px;
+    border-radius: 5px;
+}
+#mensajeError{
+    margin-left: 5px;
+}
+#mensajeErrorB3{
+    margin-left: 5px;
+}
+
+
+@media screen and (max-width: 450px){
+    .bloqueRegistroPersonaje input{
+        width: 100px;
+        height: 20px;
+        font-size: 10px;
+    }
+    .bloqueRegistroPersonaje select{
+        width: 105px;
+        height: 24px;
+        font-size: 10px;
+    }
+    .bloqueRegistroPersonaje label{
+        font-size: 8px;
+        border-bottom: black 2px solid;
+    }
+    .botones-contenedor button{
+        font-size: 12px;
+    }
+    #nombrePersonaje{
+        margin-left: 57px;
+    }
+    #classPersonaje{
+        margin-left: 66px;
+    }
+    #subclassPersonaje{
+        margin-left: 54px;
+    }
+    #racePersonaje{
+        margin-left: 68px;
+    }
+    #subracePersonaje{
+        margin-left: 56px;
+    }
+    #trasPersonaje{
+        margin-left: 52px;
+    }
+    #desMesaMod{
+        margin-left: 101px;
+        height: 80px;
+        width: 240px;
+    }
+    #Atributo_Fuerza{
+        margin-left: 60px;
+    }
+    #Atributo_Destreza{
+        margin-left: 54px;
+    }
+    #Atributo_Inteligencia{
+        margin-left: 45px;
+    }
+    #Atributo_Constitución{
+        margin-left: 42px;
+    }
+    #Atributo_Sabiduría{
+        margin-left: 52px;
+    }
+    #Atributo_Carisma{
+        margin-left: 56px;
+    }
+    #suma{
+        font-size:10px;
+    }
+    #alinPersonaje{
+        margin-left: 84px;
+    }
+    #edadPersonaje{
+        margin-left: 112px;
+    }
+    #idiomasPersonaje{
+        margin-left: 103px;
+    }
+    #aparienciaPersonaje{
+        margin-left: 60px;
+        resize: none;
+        height: 100px;
+        width: 190px;
+        border-radius: 5px;
+    }
+    #rasgosPersonaje{
+        margin-left: 60px;
+        resize: none;
+        height: 100px;
+        width: 190px;
+        border-radius: 5px;
+    }
+    #defectosPersonaje{
+        margin-left: 60px;
+        resize: none;
+        height: 100px;
+        width: 190px;
+        border-radius: 5px;
+    }
+    #vinculosPersonaje{
+        margin-left: 60px;
+        resize: none;
+        height: 100px;
+        width: 190px;
+        border-radius: 5px;
+    }
+    #historiaPersonaje{
+        margin-left: 60px;
+        resize: none;
+        height: 100px;
+        width: 190px;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (max-width: 350px){
+    .bloqueRegistroPersonaje input{
+        width: 82px;
+        height: 18px;
+        font-size: 10px;
+    }
+    .bloqueRegistroPersonaje select{
+        width: 85px;
+        height: 20px;
+        font-size: 10px;
+    }
+    .bloqueRegistroPersonaje label{
+        font-size: 8px;
+        border-bottom: black 2px solid;
+    }
+    .botones-contenedor button{
+        font-size: 12px;
+    }
+    #nombrePersonaje{
+        margin-left: 45px;
+    }
+    #classPersonaje{
+        margin-left: 54px;
+    }
+    #subclassPersonaje{
+        margin-left: 42px;
+    }
+    #racePersonaje{
+        margin-left: 57px;
+    }
+    #subracePersonaje{
+        margin-left: 45px;
+    }
+    #trasPersonaje{
+        margin-left: 41px;
+    }
+    #desMesaMod{
+        margin-left: 40px;
+        height: 60px;
+        width: 100px;
+    }
+    #Atributo_Fuerza{
+        margin-left: 39px;
+    }
+    #Atributo_Destreza{
+        margin-left: 33px;
+    }
+    #Atributo_Inteligencia{
+        margin-left: 23px;
+    }
+    #Atributo_Constitución{
+        margin-left: 20px;
+    }
+    #Atributo_Sabiduría{
+        margin-left: 31px;
+    }
+    #Atributo_Carisma{
+        margin-left: 35px;
+    }
+    #alinPersonaje{
+        margin-left: 50px;
+    }
+    #edadPersonaje{
+        margin-left: 77px;
+    }
+    #idiomasPersonaje{
+        margin-left: 68px;
+    }
+    #aparienciaPersonaje{
+        margin-left: 60px;
+        resize: none;
+        height: 80px;
+        width: 135px;
+        border-radius: 5px;
+    }
+    #rasgosPersonaje{
+        margin-left: 60px;
+        resize: none;
+        height: 80px;
+        width: 135px;
+        border-radius: 5px;
+    }
+    #defectosPersonaje{
+        margin-left: 60px;
+        resize: none;
+        height: 80px;
+        width: 135px;
+        border-radius: 5px;
+    }
+    #vinculosPersonaje{
+        margin-left: 60px;
+        resize: none;
+        height: 80px;
+        width: 135px;
+        border-radius: 5px;
+    }
+    #historiaPersonaje{
+        margin-left: 60px;
+        resize: none;
+        height: 80px;
+        width: 135px;
+        border-radius: 5px;
+    }
+}

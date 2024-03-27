@@ -107,8 +107,8 @@
                                                 </div>
                                             </td>
                                             <td>${personaje.nombre}</td>
-                                            <td>${personaje.clase}</td>
-                                            <td>${personaje.raza}</td>
+                                            <td>${personaje.clase.nombre}</td>
+                                            <td>${personaje.raza.nombre}</td>
                                             <td>${personaje.nivel}</td>
                                             <td>${sessionScope.user.apodo}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Personaje/personaje?id=${personaje.id}'">Detalles</button></td>
