@@ -100,24 +100,24 @@
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/mostrarMesa?id=${mesa.id}'">Detalles</button></td>
                                             <c:choose> 
                                                 <c:when test="${sessionScope.user.apodo == listalideres[status.index]}">
-                                                    <td><button class="botonDentro" onclick="mostrarRecuadro()">Borrar Mesa</button></td>
+                                                    <td><button class="botonDentro" onclick="mostrarRecuadroX('/TFG/Mesas/eliminarMesa?id=',${mesa.id})">Borrar Mesa</button></td>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/salirdeMesa?id=${mesa.id}'">Salir</button></td>
                                                 </c:otherwise>
                                             </c:choose>
                                         </tr>
-                                        <div class="opcionRecuadro" id="recuadro" style="display: none;">
-                                            <div class="contenidoRecuadro">
-                                                <div class="tituloRecuadro">¿Esta seguro que quieres Borrarla?
-                                                    <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
-                                                </div>
-                                                <hr>
-                                                <button class="botonDentro" onclick="location.href = '/TFG/Mesas/eliminarMesa?id=${mesa.id}'">Si</button>
-                                                <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
-                                            </div>
-                                        </div>
                                     </c:forEach>
+                                    <div class="opcionRecuadro" id="recuadroX" style="display: none;">
+                                        <div class="contenidoRecuadro">
+                                            <div class="tituloRecuadro">¿Esta seguro que quieres Borrarla?
+                                                <span class="cierreRecuadro" onclick="cerrarRecuadroX()">X</span>
+                                            </div>
+                                            <hr>
+                                            <button class="botonDentro" >Si</button>
+                                            <button class="botonDentro" onclick="cerrarRecuadroX()">No</button>
+                                        </div>
+                                    </div>
                                 </table>
                             </div>
                         </div>

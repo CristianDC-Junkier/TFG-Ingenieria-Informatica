@@ -3,6 +3,7 @@ package controlador;
 import entidades.Atributos;
 import entidades.Clases;
 import entidades.Mesas;
+import entidades.Personajes;
 import entidades.Razas;
 import entidades.Trasfondos;
 import entidades.Usuarios;
@@ -55,6 +56,7 @@ public class ControladorFormularios extends HttpServlet {
         TypedQuery<Razas> queryRazas;
         TypedQuery<Atributos> queryAtributos;
         TypedQuery<Trasfondos> queryTrasfondos;
+        TypedQuery<Personajes> queryPersonajes;
 
         String id;
         int numMesasCreadas;
@@ -154,7 +156,9 @@ public class ControladorFormularios extends HttpServlet {
                 } else {
                     
                     //Numero total de personajes
-                    request.setAttribute("personajesTotales", 0);
+                    queryPersonajes = em.createNamedQuery("Personajes.findByCreador", Personajes.class);
+                    queryPersonajes.setParameter("creador", user);
+                    request.setAttribute("personajesTotales", queryPersonajes.getResultList().size());
                     
                     queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
                     request.setAttribute("listaClases", queryClases.getResultList());

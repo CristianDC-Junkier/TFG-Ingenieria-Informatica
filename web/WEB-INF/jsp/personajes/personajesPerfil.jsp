@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
-    <title class="titulosPag">Guidance4\Personajes\Perfil</title>
+    <title class="titulosPag">Guidance4\Personajes\PersonajesPerfil</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/personajesCss.css"/>
@@ -75,6 +75,9 @@
                         </select>
                     </div>
                     <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajes'">Explorar</button>
+                    <c:if test="${sessionScope.user.personajesList.size() < 10}">
+                        <button class="botonDentro" onclick="location.href = '/TFG/Formularios/crearpersonaje'">Crear Personaje</button>
+                    </c:if>
                 </div>
             </div>
             <div class="listasPersonaje" id="pestañasSeccion">
@@ -112,10 +115,22 @@
                                             <td>${personaje.nivel}</td>
                                             <td>${sessionScope.user.apodo}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfil?id=${personaje.id}'">Detalles</button></td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfil?id=${personaje.id}'">Copiar</button></td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfil?id=${personaje.id}'">Eliminar</button></td>
+                                            <c:if test="${sessionScope.user.personajesList.size() < 10}">
+                                                <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/copiarPersonaje?id=${personaje.id}'">Copiar</button></td>
+                                            </c:if>
+                                            <td><button class="botonDentro" onclick="mostrarRecuadroX('/TFG/Personajes/eliminarPersonaje?id=',${personaje.id})">Eliminar</button></td>
                                         </tr>
                                     </c:forEach>
+                                    <div class="opcionRecuadro" id="recuadroX" style="display: none;">
+                                        <div class="contenidoRecuadro">
+                                            <div class="tituloRecuadro">¿Está seguro de que quieres Borrarlo?
+                                                <span class="cierreRecuadro" onclick="cerrarRecuadroX()">X</span>
+                                            </div>
+                                            <hr>
+                                            <button class="botonDentro" id="eliminar">Si</button>
+                                            <button class="botonDentro" onclick="cerrarRecuadroX()">No</button>
+                                        </div>
+                                    </div>
                                 </table>
                             </div>
                         </div>
@@ -146,6 +161,7 @@
     <script src="/TFG/js/busquedasAJAXJS.js"></script>
     <script src="/TFG/js/principalJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>
+    <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
     <script src="/TFG/js/personajes/personajesPerfilJS.js"></script>
 </body>
 </html>

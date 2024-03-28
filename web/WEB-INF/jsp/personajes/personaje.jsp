@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4\Personaje</title>
+        <title class="titulosPag">Guidance4\Personajes\Personaje</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/perfilCss.css"/>
@@ -21,7 +21,6 @@
                             <div class="personaje-fotoG">
                                 <img src="${requestScope.imagenpersonaje}">
                             </div>
-                            <button class="cambiarPersonaje" onclick="agregarArchivo()">Cambiar imagen personaje</button>
                         </div>
                         <div class="datosPersonaje">
                             <div>Clase:&nbsp;${requestScope.personaje.clase.nombre}:</div>

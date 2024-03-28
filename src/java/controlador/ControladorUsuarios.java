@@ -1328,9 +1328,11 @@ public class ControladorUsuarios extends HttpServlet {
                         request.setAttribute("sonAmigos", 0);
                     }
 
-                    request.setAttribute("numpersonajes", (useraux.getPersonajesList() != null) ? useraux.getPersonajesList().size() : 0);
-                    request.setAttribute("personajeactual", useraux.getPersonajeactual());
-                    request.setAttribute("imagenactual", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + useraux.getPersonajeactual().getId());
+                    request.setAttribute("numpersonajes", (user.getPersonajesList() != null) ? user.getPersonajesList().size() : 0);
+                    if (user.getPersonajeactual() != null) {
+                        request.setAttribute("personajeactual", user.getPersonajeactual());
+                        request.setAttribute("imagenactual", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + user.getPersonajeactual().getId());
+                    }
                     request.setAttribute("amigo", useraux);
 
                     vista = "/WEB-INF/jsp/usuario/amigo.jsp";

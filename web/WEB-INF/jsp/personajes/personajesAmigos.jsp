@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
-    <title class="titulosPag">Guidance4\Personajes\Amigos</title>
+    <title class="titulosPag">Guidance4\Personajes\PersonajesAmistades</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/personajesCss.css"/>
@@ -111,7 +111,7 @@
                                             <td>${personaje.raza.nombre}</td>
                                             <td>${personaje.nivel}</td>
                                             <td>${listaCreador[status.index].apodo}</td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigo?id=${personaje.id}&amigo=${listacreador[status.index].id}'">Detalles</button></td>
+                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigo?id=${personaje.id}&amigo=${listaCreador[status.index].id}'">Detalles</button></td>
                                         </tr>
                                     </c:forEach>
                                 </table>

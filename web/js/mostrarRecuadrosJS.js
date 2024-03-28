@@ -22,3 +22,19 @@ function cerrarRecuadro3() {
     document.getElementById('recuadro3').style.display = 'none';
 }
 
+
+function mostrarRecuadroX(href,id) {
+
+    document.getElementById('recuadroX').style.display = 'flex';
+
+    let botonEliminar = document.getElementById('eliminar');
+    botonEliminar.onclick = function () {
+        // Redirigir a la página de eliminación con el ID adecuado
+        location.href = href + id;
+    };
+}
+
+function cerrarRecuadroX() {
+    document.getElementById('recuadroX').style.display = 'none';
+}
+

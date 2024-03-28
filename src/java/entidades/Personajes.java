@@ -1,7 +1,7 @@
 package entidades;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -175,7 +175,8 @@ public class Personajes implements Serializable {
         this.usuario = usuario;
     }
 
-    public Personajes(Personajes personaje, Usuarios usuario) {
+    public Personajes(Personajes personaje, Usuarios usuario, List<Personajes> personajes) {
+
         this.alineamiento = personaje.getAlineamiento();
         this.apariencia = personaje.getApariencia();
         this.clase = personaje.getClase();
@@ -192,19 +193,24 @@ public class Personajes implements Serializable {
 
         this.nombre = personaje.getNombre();
 
-        //Comprobar si el nombre contiene un numero
-        if (this.nombre.matches(".*_\\d+")) {
-            //Extraer el número después del "_"
-            String[] partes = this.nombre.split("_");
-            int numero = Integer.parseInt(partes[1]);
-            numero++;
-            this.nombre = partes[0] + "_" + numero;
-        } else {
-            this.nombre = this.nombre + "_1";
+        //Si ya existe sumamos uno
+        for (int i = 0; i < personajes.size(); i++) {
+            System.out.println(i + " " + personajes.get(i).getNombre());
+            if (this.nombre.equals(personajes.get(i).getNombre())) {
+                //Comprobar si el nombre contiene un numero
+                if (this.nombre.matches(".*_\\d+")) {
+                    //Extraer el número después del "_"
+                    String[] partes = this.nombre.split("_");
+                    int numero = Integer.parseInt(partes[1]);
+                    numero++;
+                    this.nombre = partes[0] + "_" + numero;
+                } else {
+                    this.nombre = this.nombre + "_1";
+                }
+                i=-1;
+            }
         }
 
-        this.personajeatributosList = personaje.getPersonajeatributosList();
-        this.personajehabilidadesList = personaje.getPersonajehabilidadesList();
         this.pexp = personaje.getPexp();
         this.pvida = personaje.getPvida();
         this.pvidaactuales = personaje.getPvidaactuales();
@@ -225,7 +231,6 @@ public class Personajes implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
-
 
     public String getApariencia() {
         return apariencia;
@@ -259,7 +264,6 @@ public class Personajes implements Serializable {
         this.vinculos = vinculos;
     }
 
-
     public Long getPexp() {
         return pexp;
     }
@@ -275,7 +279,6 @@ public class Personajes implements Serializable {
     public void setHistoria(String historia) {
         this.historia = historia;
     }
-
 
     @XmlTransient
     public List<Hechizos> getHechizosList() {

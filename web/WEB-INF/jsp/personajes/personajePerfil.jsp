@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4\Tu_Personaje</title>
+        <title class="titulosPag">Guidance4\Personajes\MiPersonaje</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/perfilCss.css"/>
-        <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/comunUsuariosCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css"/>
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
@@ -21,7 +21,22 @@
                             <div class="personaje-fotoG">
                                 <img src="${requestScope.imagenpersonaje}">
                             </div>
-                            <button class="cambiarPersonaje" onclick="agregarArchivo()">Cambiar imagen personaje</button>
+                            <button class="cambiarPersonaje" onclick="mostrarRecuadro2()">Cambiar imagen personaje</button>
+                            <div class="opcionRecuadro" id="recuadro2" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro">Añada la foto
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
+                                    </div>
+                                    <hr>
+                                    <form id = "formRegistro" action="/TFG/Imagenes/actualizarFotoPersonaje" 
+                                          method="POST" enctype="multipart/form-data">
+                                        <input type="hidden" name="id" value="${requestScope.personaje.id}">
+                                        <input class="botonDentro" type="file" name="imagen" id="imagen" accept="image/*">
+                                        <br>
+                                        <input class="botonDentro" type="submit" value="Subir Imagen">
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                         <div class="datosPersonaje">
                             <div>Clase:&nbsp;${requestScope.personaje.clase.nombre}:</div>
@@ -69,12 +84,23 @@
                     <button class="boton" onclick="location.href = '/TFG/'">Hechizos</button>
                     <button class="boton" onclick="location.href = '/TFG/'">Equipo</button>
                     <button class="boton" onclick="location.href = '/TFG/'">Dotes</button>
-                    <button class="botonfinal" onclick="location.href = '/TFG/'">Eliminar</button>
+                    <button class="botonfinal" onclick="mostrarRecuadro()">Eliminar</button>
                     <button class="botonfinal" onclick="location.href = '/TFG/Personajes/personajesPerfil'">Volver</button>
+                </div>
+                <div class="opcionRecuadro" id="recuadro" style="display: none;">
+                    <div class="contenidoRecuadro">
+                        <div class="tituloRecuadro">¿Está seguro de que quieres Borrarlo?
+                            <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
+                        </div>
+                        <hr>
+                        <button class="botonDentro" onclick="location.href = '/TFG/Personajes/eliminarPersonaje?id=${requestScope.personaje.id}'">Si</button>
+                        <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
+                    </div>
                 </div>
             </div>
         </main>
         <jsp:include page="/WEB-INF/jsp/footer.jsp" />
+        <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
         <script src="/TFG/js/principalJS.js"></script>
     </body>
 </html>

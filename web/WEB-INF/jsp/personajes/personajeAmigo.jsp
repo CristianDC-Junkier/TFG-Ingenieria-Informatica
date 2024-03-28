@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4\Perfil</title>
+        <title class="titulosPag">Guidance4\Personajes\PersonajeAmigo</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/perfilCss.css"/>
@@ -19,7 +19,6 @@
                             <div class="personaje-fotoG">
                                 <img src="${requestScope.imagenpersonaje}">
                             </div>
-                            <button class="cambiarPersonaje" onclick="agregarArchivo()">Cambiar imagen personaje</button>
                         </div>
                         <div class="datosPersonaje">
                             <div>Clase:&nbsp;${requestScope.personaje.clase.nombre}:</div>
@@ -64,7 +63,7 @@
                     <div><span>Creador:  </span>${requestScope.personaje.usuario.apodo}</div>
                 </div>
                 <div class="botones">
-                    <button class="botonfinal" onclick="location.href = '/TFG/Personajes/personajes'">Volver</button>
+                    <button class="botonfinal" onclick="location.href = '/TFG/Personajes/personajesAmigos'">Volver</button>
                 </div>
             </div>
         </main>

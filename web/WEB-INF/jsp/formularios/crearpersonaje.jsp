@@ -16,7 +16,7 @@
                 <h2 class="TitulosFormulario">Crear Personaje</h2>
                 <form id = formRegistro action="/TFG/Personajes/crearpersonaje" method="POST">
                     <c:choose>
-                        <c:when test="${requestScope.personajesTotales != 10}">
+                        <c:when test="${requestScope.personajesTotales < 10}">
                             <div id="Bloque1">
                                 <div>
                                     <label for="nombrePersonaje" id="namePersonaje">Nombre:</label>

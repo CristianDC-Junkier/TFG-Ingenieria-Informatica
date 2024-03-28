@@ -15,7 +15,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
@@ -93,6 +92,7 @@ public class ControladorPersonajes extends HttpServlet {
         Usuarios user;
         Usuarios useraux;
         Personajes personaje;
+        Personajes personajeaux;
         Clases clase;
         Subclases subclase;
         Razas raza;
@@ -465,18 +465,22 @@ public class ControladorPersonajes extends HttpServlet {
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                personaje_id = request.getParameter("personaje");
-
-                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
-                queryPersonajes.setParameter("id", personaje_id);
-                personaje = queryPersonajes.getSingleResult();
-
-                //Comprobamos que es tuyo
-                if (!personaje.getUsuario().getId().equalsIgnoreCase(user.getId())) {
-                    vista = "/Principal/inicio.jsp";
+                if (user == null) {
+                    vista = "/Principal/inicio";
                 } else {
-                    deletePersonajes(personaje);
-                    vista = "/WEB-INF/jsp/personajes/personajesPerfil.jsp";
+                    personaje_id = request.getParameter("id");
+
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+                    personaje = queryPersonajes.getSingleResult();
+
+                    //Comprobamos que es tuyo
+                    if (!personaje.getUsuario().getId().equalsIgnoreCase(user.getId())) {
+                        vista = "/Principal/inicio";
+                    } else {
+                        deletePersonajes(personaje);
+                        vista = "/Personajes/personajesPerfil";
+                    }
                 }
 
                 break;
@@ -488,16 +492,52 @@ public class ControladorPersonajes extends HttpServlet {
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                personaje_id = request.getParameter("personaje");
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
 
-                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
-                queryPersonajes.setParameter("id", personaje_id);
+                    //Tienes el limite
+                    if (user.getPersonajesList().size() == 10) {
+                        vista = "/WEB-INF/jsp/personajes/personajesPerfil.jsp";
+                    } else {
+                        personaje_id = request.getParameter("id");
 
-                personaje = new Personajes(queryPersonajes.getSingleResult(), user);
+                        queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                        queryPersonajes.setParameter("id", personaje_id);
+                        personaje = queryPersonajes.getSingleResult();
 
-                persist(personaje);
+                        //Comprobamos que es tuyo
+                        if (!personaje.getUsuario().getId().equalsIgnoreCase(user.getId())) {
+                            vista = "/Principal/inicio";
+                        } else {
 
-                vista = "/WEB-INF/jsp/personajes/personajesPerfil.jsp";
+                            queryPersonajes = em.createNamedQuery("Personajes.findByCreador", Personajes.class);
+                            queryPersonajes.setParameter("creador", user);
+
+                            personajeaux = new Personajes(personaje, user, queryPersonajes.getResultList());
+                            persist(personajeaux);
+
+                            listaPersonajeAtributos = new ArrayList();
+                            listaPersonajeHabilidades = new ArrayList();
+
+                            for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
+                                personajeAtributo = personaje.getPersonajeatributosList().get(i);
+                                listaPersonajeAtributos.add(new Personajeatributos(personajeaux.getId(), personajeAtributo.getAtributos().getId(),
+                                        personajeAtributo.getValor(), personajeAtributo.getSalvacion()));
+
+                            }
+                            for (int i = 0; i < personaje.getPersonajehabilidadesList().size(); i++) {
+                                personajeHabilidad = personaje.getPersonajehabilidadesList().get(i);
+                                listaPersonajeHabilidades.add(new Personajehabilidades(personajeaux.getId(), personajeHabilidad.getHabilidades().getId(),
+                                        personajeHabilidad.getCompetencia()));
+                            }
+                            personajeaux.setPersonajeatributosList(listaPersonajeAtributos);
+                            personajeaux.setPersonajehabilidadesList(listaPersonajeHabilidades);
+
+                            vista = "/Personajes/personajesPerfil";
+                        }
+                    }
+                }
 
                 break;
             case "/personajes":
@@ -1092,13 +1132,30 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////////////////////
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
-                if (user == null) {
+
+                //Recogemos los datos
+                personaje_id = request.getParameter("id");
+                id = request.getParameter("amigo");
+
+                queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                queryUsuarios.setParameter("id", id);
+                useraux = queryUsuarios.getResultList().get(0);
+                if (useraux == null) {
                     vista = "/Principal/inicio";
                 } else {
+                    //Comprobamos que sea suyo
+                    queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+                    queryPersonajes.setParameter("creador", useraux);
+                    personaje = queryPersonajes.getResultList().get(0);
 
-                    //Recogemos los datos
-                    //numString = request.getParameter("pag");//numero de pag en la que estoy
-                    vista = "/WEB-INF/jsp/personajes/personajeAmigo.jsp";
+                    if (personaje == null) {
+                        vista = "/Principal/inicio";
+                    } else {
+                        request.setAttribute("personaje", personaje);
+                        request.setAttribute("imagenpersonaje", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + personaje.getId());
+                        vista = "/WEB-INF/jsp/personajes/personajeAmigo.jsp";
+                    }
                 }
                 break;
         }

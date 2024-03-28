@@ -177,7 +177,7 @@ public class ControladorImagenes extends HttpServlet {
 
                     request.setAttribute("id", id);
 
-                    vista = "/Personajes/personaje";
+                    vista = "/Personajes/personajePerfil";
                 }
                 break;
             case "/mostrarImagenPersonaje":

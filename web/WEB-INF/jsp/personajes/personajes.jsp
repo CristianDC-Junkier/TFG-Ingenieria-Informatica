@@ -75,7 +75,9 @@
                         </select>
                     </div>
                     <c:if test="${sessionScope.user != null}">
-                        <button class="botonDentro" onclick="location.href = '/TFG/Formularios/crearpersonaje'">Crear Personaje</button>
+                        <c:if test="${sessionScope.user.personajesList.size() < 10}">
+                            <button class="botonDentro" onclick="location.href = '/TFG/Formularios/crearpersonaje'">Crear Personaje</button>
+                        </c:if>
                         <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajesAmigos'">De Amigos</button>
                         <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajesPerfil'">Mis Personajes</button>
                     </c:if>

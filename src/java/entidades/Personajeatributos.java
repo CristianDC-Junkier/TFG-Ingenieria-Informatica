@@ -107,6 +107,10 @@ public class Personajeatributos implements Serializable {
         return personajes;
     }
 
+    public void setPersonajes(String personaje) {
+        this.personajeatributosPK = new PersonajeatributosPK(personaje,this.getAtributos().getId());
+    }
+
     public void setPersonajes(Personajes personajes) {
         this.personajes = personajes;
     }
