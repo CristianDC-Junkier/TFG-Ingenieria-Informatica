@@ -632,16 +632,34 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         }
                     }
 
-                    System.out.println(listaUsuarios.size());
+                    fotosPersonajes = new ArrayList();
+
+                    for (int i = 0; i < listaUsuarios.size(); i++) {
+                        Personajes pejaux = listaUsuarios.get(i).getPersonajeactual();
+                        if (pejaux.getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + pejaux.getId());
+                        }
+                    }
 
                     resultado = "<table>";
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         Usuarios usuario = listaUsuarios.get(i);
-                        resultado
-                                = resultado
-                                + "<tr>"
-                                + "<td><div class='personaje-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                        resultado = resultado
+                                + "<tr><td>"
+                                + "<div class=\"personaje-foto\">\n";
+                        if (fotosPersonajes.get(i).equals("-")) {
+                            resultado = resultado
+                                    + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
+                        } else {
+                            resultado = resultado
+                                    + "<img src=\"" + fotosPersonajes.get(i) + "\">\n";
+                        }
+                        resultado = resultado
+                                + "</div>"
+                                + "</td>"
                                 + "<td>" + usuario.getApodo() + "</td>"
                                 + "<td>" + pertenecemesaUsuarios.get(i) + "</td>"
                                 + "<td><button class='botonDentro' onclick=\"location.href = '/TFG/Usuarios/enviarPeticion?pamistad=" + usuario.getId() + "'\">Añadir Amigo</button></td>"
@@ -710,16 +728,34 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Usuarios.class);
                     listaUsuarios = queryAUX.getResultList();
 
-                    System.out.println(listaUsuarios.size());
+                    fotosPersonajes = new ArrayList();
+
+                    for (int i = 0; i < listaUsuarios.size(); i++) {
+                        Personajes pejaux = listaUsuarios.get(i).getPersonajeactual();
+                        if (pejaux.getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + pejaux.getId());
+                        }
+                    }
 
                     resultado = "<table>";
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         Usuarios usuario = listaUsuarios.get(i);
-                        resultado
-                                = resultado
-                                + "<tr>"
-                                + "<td><div class='personaje-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                        resultado = resultado
+                                + "<tr><td>"
+                                + "<div class=\"personaje-foto\">\n";
+                        if (fotosPersonajes.get(i).equals("-")) {
+                            resultado = resultado
+                                    + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
+                        } else {
+                            resultado = resultado
+                                    + "<img src=\"" + fotosPersonajes.get(i) + "\">\n";
+                        }
+                        resultado = resultado
+                                + "</div>"
+                                + "</td>"
                                 + "<td>" + usuario.getApodo() + "</td>"
                                 + "<td>" + usuario.getProvincia() + "</td>"
                                 + "<td>" + usuario.getGenero() + "</td>"
@@ -835,16 +871,34 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         }
                     }
 
-                    System.out.println(listaUsuarios.size());
+                    fotosPersonajes = new ArrayList();
+
+                    for (int i = 0; i < listaUsuarios.size(); i++) {
+                        Personajes pejaux = listaUsuarios.get(i).getPersonajeactual();
+                        if (pejaux.getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + pejaux.getId());
+                        }
+                    }
 
                     resultado = "<table>";
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         Usuarios usuario = listaUsuarios.get(i);
-                        resultado
-                                = resultado
-                                + "<tr>"
-                                + "<td><div class='personaje-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                        resultado = resultado
+                                + "<tr><td>"
+                                + "<div class=\"personaje-foto\">\n";
+                        if (fotosPersonajes.get(i).equals("-")) {
+                            resultado = resultado
+                                    + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
+                        } else {
+                            resultado = resultado
+                                    + "<img src=\"" + fotosPersonajes.get(i) + "\">\n";
+                        }
+                        resultado = resultado
+                                + "</div>"
+                                + "</td>"
                                 + "<td>" + usuario.getApodo() + "</td>"
                                 + "<td>" + pertenecemesaUsuarios.get(i) + "</td>"
                                 + "<td><button class='botonDentro' onclick=\"location.href = '/TFG/Usuarios/eliminarPeticion?pamistad=" + usuario.getId() + "'\">Eliminar</button></td>"
@@ -946,16 +1000,34 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         }
                     }
 
-                    System.out.println(listaUsuarios.size());
+                    fotosPersonajes = new ArrayList();
+
+                    for (int i = 0; i < listaUsuarios.size(); i++) {
+                        Personajes pejaux = listaUsuarios.get(i).getPersonajeactual();
+                        if (pejaux.getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + pejaux.getId());
+                        }
+                    }
 
                     resultado = "<table>";
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         Usuarios usuario = listaUsuarios.get(i);
-                        resultado
-                                = resultado
-                                + "<tr>"
-                                + "<td><div class='personaje-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                        resultado = resultado
+                                + "<tr><td>"
+                                + "<div class=\"personaje-foto\">\n";
+                        if (fotosPersonajes.get(i).equals("-")) {
+                            resultado = resultado
+                                    + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
+                        } else {
+                            resultado = resultado
+                                    + "<img src=\"" + fotosPersonajes.get(i) + "\">\n";
+                        }
+                        resultado = resultado
+                                + "</div>"
+                                + "</td>"
                                 + "<td>" + usuario.getApodo() + "</td>"
                                 + "<td>" + pertenecemesaUsuarios.get(i) + "</td>"
                                 + "<td><button class='botonDentro' onclick=\"location.href = '/TFG/Usuarios/aceptarPeticion?pamistad=" + usuario.getId() + "'\">Aceptar</button></td>"
@@ -1002,16 +1074,34 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Usuarios.class);
                     listaUsuarios = queryAUX.getResultList();
 
-                    System.out.println(listaUsuarios.size());
+                    fotosPersonajes = new ArrayList();
+
+                    for (int i = 0; i < listaUsuarios.size(); i++) {
+                        Personajes pejaux = listaUsuarios.get(i).getPersonajeactual();
+                        if (pejaux.getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + pejaux.getId());
+                        }
+                    }
 
                     resultado = "<table>";
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
                         Usuarios usuario = listaUsuarios.get(i);
-                        resultado
-                                = resultado
-                                + "<tr>"
-                                + "<td><div class='personaje-foto'>" + "<img src='/TFG/img/iconos/IMGNEGRO.png'>" + "</div></td>"
+                        resultado = resultado
+                                + "<tr><td>"
+                                + "<div class=\"personaje-foto\">\n";
+                        if (fotosPersonajes.get(i).equals("-")) {
+                            resultado = resultado
+                                    + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
+                        } else {
+                            resultado = resultado
+                                    + "<img src=\"" + fotosPersonajes.get(i) + "\">\n";
+                        }
+                        resultado = resultado
+                                + "</div>"
+                                + "</td>"
                                 + "<td>" + usuario.getApodo() + "</td>"
                                 + "<td>" + usuario.getProvincia() + "</td>"
                                 + "<td>" + usuario.getGenero() + "</td>"
@@ -1513,13 +1603,13 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             + "AND p.NOMBRE LIKE '" + nombre + "%'";
                     queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
-                    
+
                     if (listaPersonajes.isEmpty()) {
                         resultado = "No encontrado";
                     } else {
                         resultado = "Encontrado";
                     }
-                    
+
                     System.out.println("PeticionAJAX Sale CrearPersonaje");
 
                     break;
@@ -1567,9 +1657,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else {
                         nivelString = "AND p.NIVEL = '" + nivelString + "' ";
                     }
-                    
+
                     System.out.println(raza);
-                    
+
                     switch (ordenar) {
                         case "ordenar1":
                             sql = "SELECT p.* FROM PERSONAJES p "
@@ -1621,7 +1711,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
                         } else {
                             resultado = resultado
-                                    + "<img src=\""+fotosPersonajes.get(i)+"\">\n";
+                                    + "<img src=\"" + fotosPersonajes.get(i) + "\">\n";
                         }
                         resultado = resultado
                                 + "</div>"
@@ -1635,9 +1725,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "</tr>\n"
                                 + "</table>";
                     }
-                    
+
                     System.out.println(sql);
-                    
+
                     System.out.println("PeticionAJAX Sale Personajes");
 
                     break;
@@ -1721,19 +1811,20 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         }
                     }
 
-                    resultado = "";
+                    resultado = "<table>";
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
                         Personajes pejaux = listaPersonajes.get(i);
-                        resultado = "<table>"
+                        resultado = resultado
                                 + "<tr>"
+                                + "<td>"
                                 + "<div class=\"personaje-foto\">\n";
                         if (pejaux.getImagenpersonaje() == null) {
                             resultado = resultado
                                     + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
                         } else {
                             resultado = resultado
-                                    + "<img src=\""+fotosPersonajes.get(i)+"\">\n";
+                                    + "<img src=\"" + fotosPersonajes.get(i) + "\">\n";
                         }
                         resultado = resultado
                                 + "</div>"
@@ -1744,9 +1835,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "<td>" + pejaux.getNivel() + "</td>\n"
                                 + "<td>" + listaUsuarios.get(i).getApodo() + "</td>\n"
                                 + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personajeAmigo?id=" + pejaux.getId() + "&amigo=" + listaUsuarios.get(i).getId() + "'\">Detalles</button></td>\n"
-                                + "</tr>\n"
-                                + "</table>";
+                                + "</tr>\n";
                     }
+                    resultado = resultado
+                            + "</table>";
 
                     System.out.println("PeticionAJAX Sale Personajes");
 
@@ -1826,19 +1918,20 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         }
                     }
 
-                    resultado = "";
+                    resultado = "<table>";
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
                         Personajes pejaux = listaPersonajes.get(i);
-                        resultado = "<table>"
+                        resultado = resultado
                                 + "<tr>"
+                                + "<td>"
                                 + "<div class=\"personaje-foto\">\n";
                         if (pejaux.getImagenpersonaje() == null) {
                             resultado = resultado
                                     + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
                         } else {
                             resultado = resultado
-                                    + "<img src=\""+fotosPersonajes.get(i)+"\">\n";
+                                    + "<img src=\"" + fotosPersonajes.get(i) + "\">\n";
                         }
                         resultado = resultado
                                 + "</div>"
@@ -1849,9 +1942,11 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "<td>" + pejaux.getNivel() + "</td>\n"
                                 + "<td>" + useraux.getApodo() + "</td>\n"
                                 + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personajeAmigo?id=" + pejaux.getId() + "&amigo=" + useraux.getId() + "'\">Detalles</button></td>\n"
-                                + "</tr>\n"
-                                + "</table>";
+                                + "</tr>\n";
                     }
+
+                    resultado = resultado
+                            + "</table>";
 
                     System.out.println("PeticionAJAX Sale Personajes");
 
@@ -1928,19 +2023,20 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         }
                     }
 
-                    resultado = "";
+                    resultado = "<table>";
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
                         Personajes pejaux = listaPersonajes.get(i);
-                        resultado = "<table>"
+                        resultado = resultado
                                 + "<tr>"
+                                + "<td>"
                                 + "<div class=\"personaje-foto\">\n";
                         if (pejaux.getImagenpersonaje() == null) {
                             resultado = resultado
                                     + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
                         } else {
                             resultado = resultado
-                                    + "<img src=\""+fotosPersonajes.get(i)+"\">\n";
+                                    + "<img src=\"" + fotosPersonajes.get(i) + "\">\n";
                         }
                         resultado = resultado
                                 + "</div>"
@@ -1950,13 +2046,381 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "<td>" + pejaux.getRaza().getNombre() + "</td>\n"
                                 + "<td>" + pejaux.getNivel() + "</td>\n"
                                 + "<td>" + user.getApodo() + "</td>\n"
+                                + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personajes/personajePerfil?id=${personaje.id}'\">Detalles</button></td>\n";
+
+                        if (user.getPersonajesList().size() < 10) {
+                            resultado = resultado
+                                    + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personajes/copiarPersonaje?id=${personaje.id}'\">Copiar</button></td>\n";
+                        }
+                        resultado = resultado
                                 + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personaje?id=" + pejaux.getId() + "&amigo=" + user.getId() + "'\">Detalles</button></td>\n"
-                                + "</tr>\n"
-                                + "</table>";
+                                + "</tr>\n";
+
+                    }
+                    resultado = resultado
+                            + "</table>";
+
+                    System.out.println("PeticionAJAX Sale PersonajesPerfil");
+
+                    break;
+                case "/PersonajesPerfilElegir":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    //Recogemos los datos
+                    ordenar = request.getParameter("orden");//como ordenar
+                    raza = request.getParameter("raza");//como ordenar
+                    clase = request.getParameter("clase");//como ordenar
+                    nivelString = request.getParameter("nivel");//como ordenar
+
+                    //Comprobamos los datos
+                    if (ordenar == null || ordenar.equals("null")) {
+                        ordenar = "ordenar1";
+                    }
+                    if (raza == null || raza.equals("null") || raza.equals("Raza")) {
+                        raza = " ";
+                    } else {
+                        raza = "AND p.RAZA = '" + raza + "' ";
+                    }
+                    if (clase == null || clase.equals("null") || clase.equals("Clase")) {
+                        clase = " ";
+                    } else {
+                        clase = "AND p.CLASE = '" + clase + "' ";
+                    }
+                    if (nivelString == null || nivelString.equals("null") || nivelString.equals("Nivel")) {
+                        nivelString = " ";
+                    } else {
+                        nivelString = "AND p.NIVEL = '" + nivelString + "' ";
                     }
 
-                    System.out.println("PeticionAJAX Sale Personajes");
+                    switch (ordenar) {
+                        case "ordenar1":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                    + nivelString
+                                    + clase
+                                    + raza
+                                    + "AND p.NOMBRE LIKE '" + nombre + "%' "
+                                    + "ORDER BY p.NOMBRE ASC ";
+                            break;
+                        case "ordenar2":
+                            sql = "SELECT p.* FROM PERSONAJES p "
+                                    + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                    + nivelString
+                                    + clase
+                                    + raza
+                                    + "AND p.NOMBRE LIKE '" + nombre + "%' "
+                                    + "ORDER BY p.NOMBRE DESC ";
+                            break;
+                    }
 
+                    queryAUX = em.createNativeQuery(sql, Personajes.class);
+                    listaPersonajes = queryAUX.getResultList();
+
+                    fotosPersonajes = new ArrayList();
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+                        if (listaPersonajes.get(i).getImagenpersonaje() == null) {
+                            fotosPersonajes.add("-");
+                        } else {
+                            fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaPersonajes.get(i).getId());
+                        }
+                    }
+
+                    resultado = "<table>";
+
+                    for (int i = 0; i < listaPersonajes.size(); i++) {
+                        Personajes pejaux = listaPersonajes.get(i);
+                        resultado = resultado
+                                + "<tr><td>"
+                                + "<div class=\"personaje-foto\">\n";
+                        if (pejaux.getImagenpersonaje() == null) {
+                            resultado = resultado
+                                    + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n";
+                        } else {
+                            resultado = resultado
+                                    + "<img src=\"" + fotosPersonajes.get(i) + "\">\n";
+                        }
+                        resultado = resultado
+                                + "</div>"
+                                + "</td>\n"
+                                + "<td>" + pejaux.getNombre() + "</td>\n"
+                                + "<td>" + pejaux.getClase().getNombre() + "</td>\n"
+                                + "<td>" + pejaux.getRaza().getNombre() + "</td>\n"
+                                + "<td>" + pejaux.getNivel() + "</td>\n"
+                                + "<td>" + user.getApodo() + "</td>\n"
+                                + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Usuarios/personajeActual?id=" + pejaux.getId() + "'\">Elegir</button></td>\n"
+                                + "</tr>\n";
+                    }
+                    resultado = resultado
+                            + "</table>";
+
+                    System.out.println("PeticionAJAX Sale PersonajesElegir");
+
+                    break;
+                case "/CrearPersonajesSubclase":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    //Encontramos la Clase
+                    queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
+                    queryClases.setParameter("nombre", nombre);
+                    Clase = queryClases.getSingleResult();
+
+                    //Si se escoge al nivelString 1
+                    if (Clase.getNivelsubclase() == 1) {
+
+                        listaSubClases = Clase.getSubclasesList();
+
+                        resultado = "";
+
+                        for (int i = 0; i < listaSubClases.size(); i++) {
+                            resultado = resultado
+                                    + "<option value=\""
+                                    + listaSubClases.get(i).getNombre()
+                                    + "\">"
+                                    + listaSubClases.get(i).getNombre()
+                                    + "</option>";
+                        }
+
+                    } else {
+                        resultado = "<option value=\"-\">-</option>";
+                    }
+
+                    System.out.println("PeticionAJAX Sale CrearPersonajesSubclase");
+                    break;
+
+                case "/CrearPersonajesSubraza":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    //Encontramos la Raza
+                    queryRazas = em.createNamedQuery("Razas.findByNombre", Razas.class);
+                    queryRazas.setParameter("nombre", nombre);
+                    Raza = queryRazas.getSingleResult();
+
+                    //Si hay almenos 2 razas
+                    if (Raza.getSubrazasList().size() > 1) {
+
+                        listaSubRazas = Raza.getSubrazasList();
+
+                        resultado = "";
+
+                        for (int i = 0; i < listaSubRazas.size(); i++) {
+                            //Si no es el mismo
+                            if (!listaSubRazas.get(i).getNombre().equals(Raza.getNombre())) {
+                                resultado = resultado
+                                        + "<option value=\""
+                                        + listaSubRazas.get(i).getNombre()
+                                        + "\">"
+                                        + listaSubRazas.get(i).getNombre()
+                                        + "</option>";
+                            }
+                        }
+
+                    } else {
+                        resultado = "<option value=\""
+                                + nombre
+                                + "\">"
+                                + nombre
+                                + "</option>";
+                    }
+
+                    System.out.println("PeticionAJAX Sale CrearPersonajesSubraza");
+                    break;
+                case "/CrearPersonajesHabilidades":
+
+                    //////////////////////////////////
+                    /////////VALORES DE AJAX//////////
+                    //////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+                    id = request.getParameter("busqueda2");
+
+                    //Encontramos la SubRaza
+                    querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
+                    querySubRazas.setParameter("nombre", nombre);
+                    Subraza = querySubRazas.getSingleResult();
+
+                    resultado = "<div id=\"habilidadesRaza\"";
+
+                    if (!Subraza.getHabilidadesListC().isEmpty() || !Subraza.getElegirhab().equals("0")) {
+
+                        //Enseñamos que Habilidades te dan
+                        if (!Subraza.getHabilidadesListC().isEmpty()) {
+
+                            resultado = "<label>Por Raza obtienes: ";
+                            for (int i = 0; i < Subraza.getHabilidadesListC().size(); i++) {
+                                resultado = resultado
+                                        + Subraza.getHabilidadesListC().get(i).getNombre()
+                                        + " ";
+                            }
+                            resultado = resultado
+                                    + "</label>";
+                        }
+
+                        //Enseñamos que Habilidades debes escoger
+                        if (!Subraza.getElegirhab().equals("0")) {
+
+                            resultado = "<label>Por Raza, elige "
+                                    + Subraza.getElegirhab()
+                                    + " entre estas opciones:</label>";
+
+                            for (int i = 0; i < Subraza.getHabilidadesListE().size(); i++) {
+
+                                String auxHName = Subraza.getHabilidadesListE().get(i).getNombre();
+
+                                resultado = resultado
+                                        + "<input type=\"checkbox\" id=\""
+                                        + auxHName
+                                        + "\" name=\"habilidades\" value=\""
+                                        + auxHName
+                                        + "<label for=\""
+                                        + auxHName
+                                        + "\">"
+                                        + auxHName
+                                        + "</label>";
+                            }
+                        }
+
+                    } else {
+                        resultado = resultado
+                                + "<p>"
+                                + "No ganas ninguna habilidad por tu Raza"
+                                + "</p>";
+                    }
+
+                    resultado = resultado + "</div>";
+
+                    //Encontramos la Clase
+                    queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
+                    queryClases.setParameter("nombre", id);
+                    Clase = queryClases.getSingleResult();
+
+                    //Enseñamos que Habilidades debes escoger
+                    if (!Clase.getElegirhab().equals("0")) {
+
+                        resultado = resultado + "<div id=\"habilidadesClase\""
+                                + "<label>Por Clase, elige "
+                                + Clase.getElegirhab()
+                                + " entre estas opciones:</label>";
+
+                        for (int i = 0; i < Clase.getHabilidadesList().size(); i++) {
+
+                            String auxHName = Clase.getHabilidadesList().get(i).getNombre();
+
+                            resultado = resultado
+                                    + "<input type=\"checkbox\" id=\""
+                                    + auxHName
+                                    + "\" name=\"habilidades\" value=\""
+                                    + auxHName
+                                    + "<label for=\""
+                                    + auxHName
+                                    + "\">"
+                                    + auxHName
+                                    + "</label>";
+
+                        }
+                        resultado = resultado + "</div";
+                    } else {//IRREAL SIEMPRE GANARÁS ALGUNA
+                        resultado = resultado
+                                + "<p>"
+                                + "No ganas ninguna habilidad por tu Clase"
+                                + "</p>";
+                    }
+
+                    System.out.println("PeticionAJAX Sale CrearPersonajesHabilidades");
+                    break;
+
+                case "/CrearPersonajesAtributos":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    //Encontramos la SubRaza
+                    querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
+                    querySubRazas.setParameter("nombre", nombre);
+                    Subraza = querySubRazas.getSingleResult();
+
+                    switch (Subraza.getEligeatr()) {
+                        case "0":
+                            //Encontramos los Atributos que da
+                            resultado = "";
+                            for (int i = 0; i < Subraza.getSumarazaList().size(); i++) {
+                                //Encontramos el atributo
+                                queryAtributos = em.createNamedQuery("Atributos.findById", Atributos.class);
+                                queryAtributos.setParameter("id", Subraza.getSumarazaList().get(i).getAtributoID());
+                                Atributo = queryAtributos.getSingleResult();
+
+                                resultado = "Obtienes +" + Subraza.getSumarazaList().get(i).getModificador() + " de " + Atributo.getNombre() + "<br>";
+                            }
+                            break;
+                        case "1":
+                            queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                            listaAtributos = queryAtributos.getResultList();
+
+                            resultado = resultado + "<label for=\"atr1\">Obtienes +1:</label>"
+                                    + "<select id=\"atr1\" name=\"obtienes_atr1\">";
+                            for (int i = 0; i < listaAtributos.size(); i++) {
+                                Atributo = listaAtributos.get(i);
+                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
+                            }
+                            resultado = resultado + "</select><br>"
+                                    + "<label for=\"atr2\">Obtienes +2:</label>"
+                                    + "<select id=\"atr2\" name=\"obtienes_atr2\">";
+                            for (int i = 0; i < listaAtributos.size(); i++) {
+                                Atributo = listaAtributos.get(i);
+                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
+                            }
+                            resultado = resultado + "</select>";
+
+                            break;
+                        case "2":
+                            queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                            listaAtributos = queryAtributos.getResultList();
+
+                            resultado = "<p> Elige +1 en tres atributos: </p>";
+                            resultado = resultado + "<label for=\"atrs1\">Obtienes +1:</label>"
+                                    + "<select id=\"atrs1\" name=\"atributos[]\">";
+
+                            for (int i = 0; i < listaAtributos.size(); i++) {
+                                Atributo = listaAtributos.get(i);
+                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
+                            }
+                            resultado = resultado + "</select><br>"
+                                    + "<label for=\"atrs2\">Obtienes +1:</label>"
+                                    + "<select id=\"atrs2\" name=\"atributos[]\">";
+                            for (int i = 0; i < listaAtributos.size(); i++) {
+                                Atributo = listaAtributos.get(i);
+                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
+                            }
+                            resultado = resultado + "</select><br>"
+                                    + "<label for=\"atrs3\">Obtienes +1:</label>"
+                                    + "<select id=\"atrs3\" name=\"atributos[]\">";
+                            for (int i = 0; i < listaAtributos.size(); i++) {
+                                Atributo = listaAtributos.get(i);
+                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
+                            }
+                            resultado = resultado + "</select>";
+                            break;
+                    }
+
+                    System.out.println("PeticionAJAX Sale CrearPersonajesAtributo");
                     break;
                 //////////////////////////////////////////////////////////////////////////
                 ///////////////////////////////FORMULARIOS////////////////////////////////
@@ -2657,262 +3121,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     System.out.println("PeticionAJAX Sale Razas");
                     break;
 
-                case "/CrearPersonajesSubclase":
-                    ////////////////////////////////
-                    /////////VALOR DE AJAX//////////
-                    ////////////////////////////////
-
-                    nombre = request.getParameter("busqueda");
-
-                    //Encontramos la Clase
-                    queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
-                    queryClases.setParameter("nombre", nombre);
-                    Clase = queryClases.getSingleResult();
-
-                    //Si se escoge al nivelString 1
-                    if (Clase.getNivelsubclase() == 1) {
-
-                        listaSubClases = Clase.getSubclasesList();
-
-                        resultado = "";
-
-                        for (int i = 0; i < listaSubClases.size(); i++) {
-                            resultado = resultado
-                                    + "<option value=\""
-                                    + listaSubClases.get(i).getNombre()
-                                    + "\">"
-                                    + listaSubClases.get(i).getNombre()
-                                    + "</option>";
-                        }
-
-                    } else {
-                        resultado = "<option value=\"-\">-</option>";
-                    }
-
-                    System.out.println("PeticionAJAX Sale CrearPersonajesSubclase");
-                    break;
-
-                case "/CrearPersonajesSubraza":
-                    ////////////////////////////////
-                    /////////VALOR DE AJAX//////////
-                    ////////////////////////////////
-
-                    nombre = request.getParameter("busqueda");
-
-                    //Encontramos la Raza
-                    queryRazas = em.createNamedQuery("Razas.findByNombre", Razas.class);
-                    queryRazas.setParameter("nombre", nombre);
-                    Raza = queryRazas.getSingleResult();
-
-                    //Si hay almenos 2 razas
-                    if (Raza.getSubrazasList().size() > 1) {
-
-                        listaSubRazas = Raza.getSubrazasList();
-
-                        resultado = "";
-
-                        for (int i = 0; i < listaSubRazas.size(); i++) {
-                            //Si no es el mismo
-                            if (!listaSubRazas.get(i).getNombre().equals(Raza.getNombre())) {
-                                resultado = resultado
-                                        + "<option value=\""
-                                        + listaSubRazas.get(i).getNombre()
-                                        + "\">"
-                                        + listaSubRazas.get(i).getNombre()
-                                        + "</option>";
-                            }
-                        }
-
-                    } else {
-                        resultado = "<option value=\""
-                                + nombre
-                                + "\">"
-                                + nombre
-                                + "</option>";
-                    }
-
-                    System.out.println("PeticionAJAX Sale CrearPersonajesSubraza");
-                    break;
-                case "/CrearPersonajesHabilidades":
-
-                    //////////////////////////////////
-                    /////////VALORES DE AJAX//////////
-                    //////////////////////////////////
-                    nombre = request.getParameter("busqueda");
-                    id = request.getParameter("busqueda2");
-
-                    //Encontramos la SubRaza
-                    querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
-                    querySubRazas.setParameter("nombre", nombre);
-                    Subraza = querySubRazas.getSingleResult();
-
-                    resultado = "<div id=\"habilidadesRaza\"";
-
-                    if (!Subraza.getHabilidadesListC().isEmpty() || !Subraza.getElegirhab().equals("0")) {
-
-                        //Enseñamos que Habilidades te dan
-                        if (!Subraza.getHabilidadesListC().isEmpty()) {
-
-                            resultado = "<label>Por Raza obtienes: ";
-                            for (int i = 0; i < Subraza.getHabilidadesListC().size(); i++) {
-                                resultado = resultado
-                                        + Subraza.getHabilidadesListC().get(i).getNombre()
-                                        + " ";
-                            }
-                            resultado = resultado
-                                    + "</label>";
-                        }
-
-                        //Enseñamos que Habilidades debes escoger
-                        if (!Subraza.getElegirhab().equals("0")) {
-
-                            resultado = "<label>Por Raza, elige "
-                                    + Subraza.getElegirhab()
-                                    + " entre estas opciones:</label>";
-
-                            for (int i = 0; i < Subraza.getHabilidadesListE().size(); i++) {
-
-                                String auxHName = Subraza.getHabilidadesListE().get(i).getNombre();
-
-                                resultado = resultado
-                                        + "<input type=\"checkbox\" id=\""
-                                        + auxHName
-                                        + "\" name=\"habilidades\" value=\""
-                                        + auxHName
-                                        + "<label for=\""
-                                        + auxHName
-                                        + "\">"
-                                        + auxHName
-                                        + "</label>";
-                            }
-                        }
-
-                    } else {
-                        resultado = resultado
-                                + "<p>"
-                                + "No ganas ninguna habilidad por tu Raza"
-                                + "</p>";
-                    }
-
-                    resultado = resultado + "</div>";
-
-                    //Encontramos la Clase
-                    queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
-                    queryClases.setParameter("nombre", id);
-                    Clase = queryClases.getSingleResult();
-
-                    //Enseñamos que Habilidades debes escoger
-                    if (!Clase.getElegirhab().equals("0")) {
-
-                        resultado = resultado + "<div id=\"habilidadesClase\""
-                                + "<label>Por Clase, elige "
-                                + Clase.getElegirhab()
-                                + " entre estas opciones:</label>";
-
-                        for (int i = 0; i < Clase.getHabilidadesList().size(); i++) {
-
-                            String auxHName = Clase.getHabilidadesList().get(i).getNombre();
-
-                            resultado = resultado
-                                    + "<input type=\"checkbox\" id=\""
-                                    + auxHName
-                                    + "\" name=\"habilidades\" value=\""
-                                    + auxHName
-                                    + "<label for=\""
-                                    + auxHName
-                                    + "\">"
-                                    + auxHName
-                                    + "</label>";
-
-                        }
-                        resultado = resultado + "</div";
-                    } else {//IRREAL SIEMPRE GANARÁS ALGUNA
-                        resultado = resultado
-                                + "<p>"
-                                + "No ganas ninguna habilidad por tu Clase"
-                                + "</p>";
-                    }
-
-                    System.out.println("PeticionAJAX Sale CrearPersonajesHabilidades");
-                    break;
-
-                case "/CrearPersonajesAtributos":
-                    ////////////////////////////////
-                    /////////VALOR DE AJAX//////////
-                    ////////////////////////////////
-
-                    nombre = request.getParameter("busqueda");
-
-                    //Encontramos la SubRaza
-                    querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
-                    querySubRazas.setParameter("nombre", nombre);
-                    Subraza = querySubRazas.getSingleResult();
-
-                    switch (Subraza.getEligeatr()) {
-                        case "0":
-                            //Encontramos los Atributos que da
-                            resultado = "";
-                            for (int i = 0; i < Subraza.getSumarazaList().size(); i++) {
-                                //Encontramos el atributo
-                                queryAtributos = em.createNamedQuery("Atributos.findById", Atributos.class);
-                                queryAtributos.setParameter("id", Subraza.getSumarazaList().get(i).getAtributoID());
-                                Atributo = queryAtributos.getSingleResult();
-
-                                resultado = "Obtienes +" + Subraza.getSumarazaList().get(i).getModificador() + " de " + Atributo.getNombre() + "<br>";
-                            }
-                            break;
-                        case "1":
-                            queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
-                            listaAtributos = queryAtributos.getResultList();
-
-                            resultado = resultado + "<label for=\"atr1\">Obtienes +1:</label>"
-                                    + "<select id=\"atr1\" name=\"obtienes_atr1\">";
-                            for (int i = 0; i < listaAtributos.size(); i++) {
-                                Atributo = listaAtributos.get(i);
-                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
-                            }
-                            resultado = resultado + "</select><br>"
-                                    + "<label for=\"atr2\">Obtienes +2:</label>"
-                                    + "<select id=\"atr2\" name=\"obtienes_atr2\">";
-                            for (int i = 0; i < listaAtributos.size(); i++) {
-                                Atributo = listaAtributos.get(i);
-                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
-                            }
-                            resultado = resultado + "</select>";
-
-                            break;
-                        case "2":
-                            queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
-                            listaAtributos = queryAtributos.getResultList();
-
-                            resultado = "<p> Elige +1 en tres atributos: </p>";
-                            resultado = resultado + "<label for=\"atrs1\">Obtienes +1:</label>"
-                                    + "<select id=\"atrs1\" name=\"atributos[]\">";
-
-                            for (int i = 0; i < listaAtributos.size(); i++) {
-                                Atributo = listaAtributos.get(i);
-                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
-                            }
-                            resultado = resultado + "</select><br>"
-                                    + "<label for=\"atrs2\">Obtienes +1:</label>"
-                                    + "<select id=\"atrs2\" name=\"atributos[]\">";
-                            for (int i = 0; i < listaAtributos.size(); i++) {
-                                Atributo = listaAtributos.get(i);
-                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
-                            }
-                            resultado = resultado + "</select><br>"
-                                    + "<label for=\"atrs3\">Obtienes +1:</label>"
-                                    + "<select id=\"atrs3\" name=\"atributos[]\">";
-                            for (int i = 0; i < listaAtributos.size(); i++) {
-                                Atributo = listaAtributos.get(i);
-                                resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
-                            }
-                            resultado = resultado + "</select>";
-                            break;
-                    }
-
-                    System.out.println("PeticionAJAX Sale CrearPersonajesAtributo");
-                    break;
             }
 
             response.setContentType("application/json");

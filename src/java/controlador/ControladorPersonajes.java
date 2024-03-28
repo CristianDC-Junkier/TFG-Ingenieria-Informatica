@@ -2,10 +2,13 @@ package controlador;
 
 import entidades.Atributos;
 import entidades.Clases;
+import entidades.Equipo;
 import entidades.Habilidades;
+import entidades.Hechizos;
 import entidades.Personajeatributos;
 import entidades.Personajehabilidades;
 import entidades.Personajes;
+import entidades.Propiedades;
 import entidades.Razas;
 import entidades.Subclases;
 import entidades.Subrazas;
@@ -76,6 +79,8 @@ public class ControladorPersonajes extends HttpServlet {
         TypedQuery<Personajes> queryPersonajes;
         TypedQuery<Atributos> queryAtributos;
         TypedQuery<Habilidades> queryHabilidades;
+        TypedQuery<Equipo> queryEquipo;
+        TypedQuery<Hechizos> queryHechizos;
 
         List<Personajes> listaPersonajes;
         List<Usuarios> listaUsuariosAmigos;
@@ -86,6 +91,9 @@ public class ControladorPersonajes extends HttpServlet {
         List<Personajeatributos> listaPersonajeAtributos;
         List<Habilidades> listaHabilidades;
         List<Personajehabilidades> listaPersonajeHabilidades;
+        List<Equipo> listaEquipo;
+        List<Hechizos> listaHechizos;
+        List<List<Propiedades>> listalistaPropiedades;
 
         Query queryAUX;
 
@@ -144,6 +152,15 @@ public class ControladorPersonajes extends HttpServlet {
         String personaje_vinculos;
         String personaje_idiomas;
         String personaje_historia;
+
+        String tipo;
+        String categoria;
+        String propiedad;
+        String tipoSQL;
+        String categoriaSQL;
+        String propiedadSQL;
+        String titulo;
+        String subtitulo;
 
         Part filePart;
         InputStream contenidoImagen;
@@ -1157,6 +1174,393 @@ public class ControladorPersonajes extends HttpServlet {
                         vista = "/WEB-INF/jsp/personajes/personajeAmigo.jsp";
                     }
                 }
+                break;
+            case "/elegirPJActual":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    //Recogemos los suyos
+                    queryPersonajes = em.createNamedQuery("Personajes.findByCreador", Personajes.class);
+                    queryPersonajes.setParameter("creador", user);
+                    listaPersonajes = queryPersonajes.getResultList();
+
+                    if (listaPersonajes == null || listaPersonajes.isEmpty()) {
+                        vista = "/Usuarios/perfil";
+                    } else {
+                        //Recogemos los datos
+                        numString = request.getParameter("pag");//numero de pag en la que estoy
+                        ordenar = request.getParameter("orden");//como ordenar
+                        razaString = request.getParameter("raza");//como ordenar
+                        claseString = request.getParameter("clase");//como ordenar
+                        nivelString = request.getParameter("nivel");//como ordenar
+
+                        //Comprobamos los datos
+                        if (ordenar == null) {
+
+                            ordenar = "ordenar1";
+                            razaSQL = " ";
+                            claseSQL = " ";
+                            nivelSQL = " ";
+                            numString = "1";
+                            num = 0;
+
+                        } else {
+                            num = (Integer.valueOf(numString) - 1) * 6;//offset
+
+                            if (razaString.equals("Raza")) {
+                                razaSQL = " ";
+                            } else {
+                                razaSQL = "AND p.RAZA = '" + razaString + "' ";
+                            }
+                            if (claseString.equals("Clase")) {
+                                claseSQL = " ";
+                            } else {
+                                claseSQL = "AND p.CLASE = '" + claseString + "' ";
+                            }
+                            if (nivelString.equals("0")) {
+                                nivelSQL = " ";
+                            } else {
+                                nivelSQL = "AND p.NIVEL = '" + nivelString + "' ";
+                            }
+                        }
+
+                        System.out.println("Llega pag: " + numString);
+                        System.out.println("Llega orden: " + ordenar);
+                        System.out.println("Llega raza: " + razaString);
+                        System.out.println("Llega clase: " + claseString);
+                        System.out.println("Llega nivel: " + nivelString);
+
+                        /////////////////////////////////////
+                        ////////NUMERO DE PERSONAJES/////////
+                        /////////////////////////////////////
+                        sql = "SELECT COUNT(*) FROM PERSONAJES p "
+                                + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                + nivelSQL
+                                + claseSQL
+                                + razaSQL;
+
+                        queryAUX = em.createNativeQuery(sql);
+                        result = queryAUX.getSingleResult();
+
+                        //PAGINAS QUE HAY (6 PERSONAJES POR PAGINA)
+                        numPag = (((Number) result).intValue() / 7) + 1;
+
+                        switch (ordenar) {
+                            case "ordenar1":
+                                sql = "SELECT p.* FROM PERSONAJES p "
+                                        + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                        + nivelSQL
+                                        + claseSQL
+                                        + razaSQL
+                                        + "ORDER BY p.NOMBRE ASC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                                break;
+                            case "ordenar2":
+                                sql = "SELECT p.* FROM PERSONAJES p "
+                                        + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                        + nivelSQL
+                                        + claseSQL
+                                        + razaSQL
+                                        + "ORDER BY p.NOMBRE DESC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                                break;
+                        }
+
+                        queryAUX = em.createNativeQuery(sql, Personajes.class);
+                        listaPersonajes = queryAUX.getResultList();
+
+                        request.setAttribute("listaPersonajes", listaPersonajes);
+
+                        System.out.println("Sale pag:" + numString);
+                        System.out.println("Sale orden:" + ordenar);
+                        System.out.println("Sale raza:" + razaString);
+                        System.out.println("Sale clase:" + claseString);
+                        System.out.println("Sale nivel:" + nivelString);
+                        System.out.println("Sale npag:" + numPag);
+
+                        queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                        request.setAttribute("listaClases", queryClases.getResultList());
+                        queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                        request.setAttribute("listaRazas", queryRazas.getResultList());
+
+                        fotosPersonajes = new ArrayList();
+
+                        for (int i = 0; i < listaPersonajes.size(); i++) {
+
+                            if (listaPersonajes.get(i).getImagenpersonaje() == null) {
+                                fotosPersonajes.add("-");
+                            } else {
+                                fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaPersonajes.get(i).getId());
+                            }
+                        }
+
+                        request.setAttribute("orden", ordenar);
+                        request.setAttribute("filtroRaza", razaString);
+                        request.setAttribute("filtroClase", claseString);
+                        request.setAttribute("filtroNivel", nivelString);
+                        request.setAttribute("urlImagenes", fotosPersonajes);
+                        request.setAttribute("pag", numString);//numero de la pag
+                        request.setAttribute("numPag", numPag);//numero total de pag
+
+                        vista = "/WEB-INF/jsp/personajes/personajesPerfilElegir.jsp";
+                    }
+                }
+                break;
+            case "/personajeDotes":
+                break;
+            case "/personajeDotesElegir":
+                break;
+            case "/personajeEquipo":
+                //Recogemos los datos
+                personaje_id = request.getParameter("id");
+
+                numString = request.getParameter("pag");//numero de pag en la que estoy
+                tipo = request.getParameter("tipo");
+                categoria = request.getParameter("categoria");
+                propiedad = request.getParameter("propiedad");
+
+                //Comprobamos los datos
+                if (numString == null) {
+
+                    tipoSQL = " ";
+                    categoriaSQL = " ";
+                    propiedadSQL = " ";
+                    numString = "1";
+                    num = 0;
+
+                    titulo = "Todos";
+                    subtitulo = "Objetos";
+
+                } else {
+                    num = (Integer.valueOf(numString) - 1) * 15;//offset
+
+                    if (tipo.equals("Tipo")) {
+                        tipoSQL = " ";
+                    } else {
+                        tipoSQL = "AND e.TIPO = '" + tipo + "' ";
+                    }
+                    if (categoria.equals("Categoria")) {
+                        categoriaSQL = " ";
+                    } else {
+                        categoriaSQL = "AND e.CATEGORIA = '" + categoria + "' ";
+                    }
+                    if (propiedad.equals("Propiedad")) {
+                        propiedadSQL = " ";
+                    } else {
+                        propiedadSQL = "AND p.NOMBRE = '" + propiedad + "' ";
+                    }
+
+                    if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
+                        titulo = tipo;
+                        subtitulo = categoria;
+                    } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
+                        titulo = tipo;
+                        subtitulo = categoria;
+                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
+                        titulo = tipo;
+                        subtitulo = "Objetos";
+                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
+                        titulo = "Todos";
+                        subtitulo = categoria;
+                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
+                        titulo = tipo;
+                        subtitulo = "Objetos";
+                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
+                        titulo = "Todos";
+                        subtitulo = categoria;
+                    } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
+                        titulo = "Todos";
+                        subtitulo = "Objetos";
+                    } else {
+                        titulo = "Todos";
+                        subtitulo = "Objetos";
+                    }
+
+                }
+
+                /////////////////////////////////
+                ////////NUMERO DE EQUIPO/////////
+                /////////////////////////////////
+                sql = "SELECT DISTINCT COUNT(*) FROM Equipo e "
+                        + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                        + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                        + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
+                        + "WHERE pe.personaje IS NOT NULL "
+                        + tipoSQL
+                        + categoriaSQL
+                        + propiedadSQL;
+
+                queryAUX = em.createNativeQuery(sql);
+                result = queryAUX.getSingleResult();
+
+                //PAGINAS QUE HAY (15 OBJETOS POR PAGINA)
+                numPag = (((Number) result).intValue() / 14) + 1;
+
+                sql = "SELECT e.* FROM Equipo e "
+                        + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                        + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                        + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
+                        + "WHERE pe.personaje IS NOT NULL "
+                        + tipoSQL
+                        + categoriaSQL
+                        + propiedadSQL
+                        + "ORDER BY e.nombre "
+                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+
+                queryAUX = em.createNativeQuery(sql, Equipo.class);
+                listaEquipo = queryAUX.getResultList();
+
+                request.setAttribute("pag", numString);
+                request.setAttribute("numpag", numPag);
+                request.setAttribute("vTipo", tipo);
+                request.setAttribute("vCat", categoria);
+                request.setAttribute("vPro", propiedad);
+
+                listalistaPropiedades = new ArrayList();
+
+                for (int i = 0; i < listaEquipo.size(); i++) {
+                    listalistaPropiedades.add(listaEquipo.get(i).getPropiedadesList());
+                }
+
+                request.setAttribute("listalistaPropiedades", listalistaPropiedades);
+                request.setAttribute("listaEquipo", listaEquipo);
+                request.setAttribute("titulo", titulo);
+                request.setAttribute("subtitulo", subtitulo);
+                request.setAttribute("id", personaje_id);
+
+                vista = "/WEB-INF/jsp/personajes/personajeEquipo.jsp";
+                break;
+            case "/personajeEquipoElegir":
+                //Recogemos los datos
+                personaje_id = request.getParameter("id");
+
+                numString = request.getParameter("pag");//numero de pag en la que estoy
+                tipo = request.getParameter("tipo");
+                categoria = request.getParameter("categoria");
+                propiedad = request.getParameter("propiedad");
+
+                //Comprobamos los datos
+                if (numString == null) {
+
+                    tipoSQL = " ";
+                    categoriaSQL = " ";
+                    propiedadSQL = " ";
+                    numString = "1";
+                    num = 0;
+
+                    titulo = "Todos";
+                    subtitulo = "Objetos";
+
+                } else {
+                    num = (Integer.valueOf(numString) - 1) * 15;//offset
+
+                    if (tipo.equals("Tipo")) {
+                        tipoSQL = " ";
+                    } else {
+                        tipoSQL = "AND e.TIPO = '" + tipo + "' ";
+                    }
+                    if (categoria.equals("Categoria")) {
+                        categoriaSQL = " ";
+                    } else {
+                        categoriaSQL = "AND e.CATEGORIA = '" + categoria + "' ";
+                    }
+                    if (propiedad.equals("Propiedad")) {
+                        propiedadSQL = " ";
+                    } else {
+                        propiedadSQL = "AND p.NOMBRE = '" + propiedad + "' ";
+                    }
+
+                    if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
+                        titulo = tipo;
+                        subtitulo = categoria;
+                    } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
+                        titulo = tipo;
+                        subtitulo = categoria;
+                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
+                        titulo = tipo;
+                        subtitulo = "Objetos";
+                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
+                        titulo = "Todos";
+                        subtitulo = categoria;
+                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
+                        titulo = tipo;
+                        subtitulo = "Objetos";
+                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
+                        titulo = "Todos";
+                        subtitulo = categoria;
+                    } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
+                        titulo = "Todos";
+                        subtitulo = "Objetos";
+                    } else {
+                        titulo = "Todos";
+                        subtitulo = "Objetos";
+                    }
+
+                }
+
+                /////////////////////////////////
+                ////////NUMERO DE EQUIPO/////////
+                /////////////////////////////////
+                sql = "SELECT DISTINCT COUNT(*) FROM Equipo e "
+                        + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                        + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                        + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
+                        + "WHERE pe.personaje IS NULL "
+                        + tipoSQL
+                        + categoriaSQL
+                        + propiedadSQL;
+
+                queryAUX = em.createNativeQuery(sql);
+                result = queryAUX.getSingleResult();
+
+                //PAGINAS QUE HAY (15 OBJETOS POR PAGINA)
+                numPag = (((Number) result).intValue() / 14) + 1;
+
+                sql = "SELECT e.* FROM Equipo e "
+                        + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                        + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                        + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
+                        + "WHERE pe.personaje IS NULL "
+                        + tipoSQL
+                        + categoriaSQL
+                        + propiedadSQL
+                        + "ORDER BY e.nombre "
+                        + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
+
+                queryAUX = em.createNativeQuery(sql, Equipo.class);
+                listaEquipo = queryAUX.getResultList();
+
+                request.setAttribute("pag", numString);
+                request.setAttribute("numpag", numPag);
+                request.setAttribute("vTipo", tipo);
+                request.setAttribute("vCat", categoria);
+                request.setAttribute("vPro", propiedad);
+
+                listalistaPropiedades = new ArrayList();
+
+                for (int i = 0; i < listaEquipo.size(); i++) {
+                    listalistaPropiedades.add(listaEquipo.get(i).getPropiedadesList());
+                }
+
+                request.setAttribute("listalistaPropiedades", listalistaPropiedades);
+                request.setAttribute("listaEquipo", listaEquipo);
+                request.setAttribute("titulo", titulo);
+                request.setAttribute("subtitulo", subtitulo);
+                request.setAttribute("id", personaje_id);
+
+                vista = "/WEB-INF/jsp/personajes/personajeEquipoElegir.jsp";
+                break;
+            case "/personajeHechizos":
+                vista = "/WEB-INF/jsp/personajes/personajeHechizos.jsp";
+                break;
+            case "/personajeHechizosElegir":
+                vista = "/WEB-INF/jsp/personajes/personajeHechizosElegir.jsp";
                 break;
         }
 

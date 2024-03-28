@@ -2,6 +2,7 @@ package controlador;
 
 import entidades.Amigos;
 import entidades.Bloqueados;
+import entidades.Personajes;
 import entidades.Pertenecemesa;
 import entidades.Pideamistad;
 import entidades.Usuarios;
@@ -71,12 +72,14 @@ public class ControladorUsuarios extends HttpServlet {
         Amigos amigo;
         Bloqueados bloqueado;
         Pideamistad pamistad;
+        Personajes personaje;
 
         TypedQuery<Usuarios> queryUsuarios;
         TypedQuery<Amigos> queryAmigos;
         TypedQuery<Bloqueados> queryBloqueados;
         TypedQuery<Pideamistad> queryPideAmistad;
         TypedQuery<Pertenecemesa> queryPMesas;
+        TypedQuery<Personajes> queryPersonajes;
 
         Query queryAUX;
 
@@ -1330,8 +1333,8 @@ public class ControladorUsuarios extends HttpServlet {
 
                     request.setAttribute("numpersonajes", (user.getPersonajesList() != null) ? user.getPersonajesList().size() : 0);
                     if (user.getPersonajeactual() != null) {
-                        request.setAttribute("personajeactual", user.getPersonajeactual());
-                        request.setAttribute("imagenactual", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + user.getPersonajeactual().getId());
+                        request.setAttribute("personajeactual", useraux.getPersonajeactual());
+                        request.setAttribute("imagenactual", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + useraux.getPersonajeactual().getId());
                     }
                     request.setAttribute("amigo", useraux);
 
@@ -1506,6 +1509,35 @@ public class ControladorUsuarios extends HttpServlet {
                     persist(bloqueado);
 
                     vista = "/Usuarios/mostrarUsuarios";
+                }
+                break;
+
+            case "/personajeActual":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                //Recogemos los datos
+                id = request.getParameter("id");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    //Comprobamos que sea suyo
+                    queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                    queryPersonajes.setParameter("id", id);
+                    queryPersonajes.setParameter("creador", user);
+                    personaje = queryPersonajes.getResultList().get(0);
+
+                    if (personaje == null) {
+                        vista = "/Principal/inicio";
+                    } else {
+                        user.setPersonajeactual(personaje);
+                        update(user);
+                        vista = "/Usuarios/perfil";
+                    }
                 }
                 break;
 

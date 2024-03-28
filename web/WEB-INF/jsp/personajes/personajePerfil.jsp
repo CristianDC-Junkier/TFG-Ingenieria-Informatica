@@ -81,9 +81,9 @@
                 </div>
                 <div class="botones">
                     <button class="boton" onclick="location.href = '/TFG/'">Subir de Nivel</button>
-                    <button class="boton" onclick="location.href = '/TFG/'">Hechizos</button>
-                    <button class="boton" onclick="location.href = '/TFG/'">Equipo</button>
-                    <button class="boton" onclick="location.href = '/TFG/'">Dotes</button>
+                    <button class="boton" onclick="location.href = '/TFG/Personajes/personajeHechizos?id=${requestScope.personaje.id}'">Hechizos</button>
+                    <button class="boton" onclick="location.href = '/TFG/Personajes/personajeEquipo?id=${requestScope.personaje.id}'">Equipo</button>
+                    <button class="boton" onclick="location.href = '/TFG/Personajes/personajeDotes?id=${requestScope.personaje.id}'">Dotes</button>
                     <button class="botonfinal" onclick="mostrarRecuadro()">Eliminar</button>
                     <button class="botonfinal" onclick="location.href = '/TFG/Personajes/personajesPerfil'">Volver</button>
                 </div>
@@ -93,7 +93,7 @@
                             <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
                         </div>
                         <hr>
-                        <button class="botonDentro" onclick="location.href = '/TFG/Personajes/eliminarPersonaje?id=${requestScope.personaje.id}'">Si</button>
+                        <button class="botonDentro" onclick= "location.href = '/TFG/Personajes/eliminarPersonaje?id=${requestScope.personaje.id}'">Si</button>
                         <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
                     </div>
                 </div>

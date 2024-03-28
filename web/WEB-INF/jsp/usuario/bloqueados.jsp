@@ -62,9 +62,20 @@
                                 <table>
                                     <c:forEach var="usuario" items="${listaUsuarios}">
                                         <tr>
-                                            <td><div class="personaje-foto">
-                                                    <img src="/TFG/img/iconos/IMGNEGRO.png">
-                                                </div></td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${requestScope.listaImagenes[status.index] == '-'}">
+                                                        <div class="personaje-foto">
+                                                            <img src="/TFG/img/iconos/IMGNEGRO.png">
+                                                        </div>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div class="personaje-foto">
+                                                            <img src="${requestScope.listaImagenes[status.index]}">
+                                                        </div>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                             <td>${usuario.apodo}</td>
                                             <td>${usuario.provincia}</td>
                                             <td>${usuario.genero}</td>

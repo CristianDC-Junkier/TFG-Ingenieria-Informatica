@@ -35,16 +35,19 @@ function realizarBusqueda(valor) {
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/MesasPerfil?orden=" + orden;
                 break;
             case "Personajes":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/Personajes?orden=" + orden + "&raza=" + raza + "&clase=" + clase +"&nivel=" + nivel;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/Personajes?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel;
                 break;
             case "PersonajesAmigo":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesAmigo?amigo=" + amigo + "&orden=" + orden + "&raza=" + raza + "&clase=" + clase +"&nivel=" + nivel;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesAmigo?amigo=" + amigo + "&orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel;
                 break;
             case "PersonajesAmigos":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesAmigos?orden=" + orden + "&raza=" + raza + "&clase=" + clase +"&nivel=" + nivel;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesAmigos?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel;
                 break;
             case "PersonajesPerfil":
-                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesPerfil?orden=" + orden + "&raza=" + raza + "&clase=" + clase +"&nivel=" + nivel;
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesPerfil?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel;
+                break;
+            case "PersonajesPerfilElegir":
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/PersonajesPerfilElegir?orden=" + orden + "&raza=" + raza + "&clase=" + clase + "&nivel=" + nivel;
                 break;
             case "Hechizos":
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/Hechizos?vEscu=" + valorSeleccionado1 + "&vNiv=" + valorSeleccionado2 + "&vClas=" + valorSeleccionado3;

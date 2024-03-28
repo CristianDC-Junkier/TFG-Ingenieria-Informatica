@@ -23,7 +23,6 @@
                                     <div class="personaje-fotoG">
                                         <img src="/TFG/img/iconos/IMGNEGRO.png">
                                     </div>
-                                    <button class="cambiarPersonaje" onclick="agregarArchivo()">Cambiar personaje Actual</button>
                                 </div>
                                 <div class="datosPersonaje">
                                 </div>
@@ -36,7 +35,6 @@
                                     <div class="personaje-fotoG">
                                         <img src="${requestScope.imagenactual}">
                                     </div>
-                                    <button class="cambiarPersonaje" onclick="agregarArchivo()">Cambiar personaje Actual</button>
                                 </div>
                                 <div class="datosPersonaje">
                                     <div>Clase:&nbsp;${requestScope.personajeactual.clase.nombre}:</div>
@@ -63,12 +61,9 @@
                                     <div>Trasfondo:&nbsp;${requestScope.personajeactual.trasfondo.nombre} </div>
                                     <br><hr><br>
                                     <div>Nivel:&nbsp;${requestScope.personajeactual.nivel}&nbsp;/&nbsp;20</div>
-                                    <div>Clase de Armadura:&nbsp;${requestScope.personajeactual.clasearmadura} 
-                                        falta boton para cambiarlo</div>
-                                    <div>Puntos de vida:&nbsp;${requestScope.personajeactual.pvidaactuales}&nbsp;/&nbsp;${requestScope.personajeactual.pvida}
-                                        falta boton para cambiarlo</div>
-                                    <div>Puntos de experiencia:&nbsp;${requestScope.personajeactual.pexp}
-                                        falta boton para cambiarlo</div>
+                                    <div>Clase de Armadura:&nbsp;${requestScope.personajeactual.clasearmadura}</div>
+                                    <div>Puntos de vida:&nbsp;${requestScope.personajeactual.pvidaactuales}&nbsp;/&nbsp;${requestScope.personajeactual.pvida}</div>
+                                    <div>Puntos de experiencia:&nbsp;${requestScope.personajeactual.pexp}</div>
                                 </div>
                             </div>
                         </c:otherwise>
