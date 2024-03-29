@@ -12,17 +12,8 @@
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main> 
             <div class="ResumenDotes">
-                <h2 class="Titulos">Dotes</h2>
+                <h2 class="Titulos">Dotes<button class="botonfinal" onclick="location.href = '/TFG/Personajes/personajePerfil?id=${requestScope.id}'">Volver</button></h2>
                 <hr color="black">
-                <div class="explicacionesPestañas">
-                    <p>Todo lo explicado aquí solo es una guía, es decir,
-                        el DM puede moldear o ajustar según su propio criterio.</p>
-                    <p>Los Dotes pueden ser usados o no por los jugadores, el 
-                        DM puede decidir si se permite usarse o no, cuantos se usan
-                        y cuales combinaciones no estan permitidas, o definir
-                        otros nuevos.</p>
-                    <p>Lo importante es divertirse.</p>
-                </div>
                 <div class="ListaDotes">
                     <c:out value="${listaDotes}" escapeXml="false" />
                 </div>

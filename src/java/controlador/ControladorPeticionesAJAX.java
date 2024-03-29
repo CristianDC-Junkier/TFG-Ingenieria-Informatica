@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -152,6 +153,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             boolean encontrado;
 
             int cont;
+
+            HashSet<Hechizos> hashAuxHechizos;
+            HashSet<Equipo> hashAuxEquipo;
+            HashSet<Monstruos> hashAuxMonstruos;
 
             String sql = "";
 
@@ -2422,6 +2427,759 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     System.out.println("PeticionAJAX Sale CrearPersonajesAtributo");
                     break;
+                case "/personajeHechizos":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    //Recogemos los datos
+                    id = request.getParameter("id");
+
+                    escuela = request.getParameter("vEscu");
+                    nivelString = request.getParameter("vNiv");
+                    claseH = request.getParameter("vClas");
+
+                    if (!escuela.equals("null") && !nivelString.equals("null") && !claseH.equals("null")
+                            && !escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NOT NULL "
+                                + "AND h.ESCUELA = '" + escuela + "' "
+                                + "AND h.NIVEL = '" + nivelString + "' "
+                                + "AND c.NOMBRE ='" + claseH + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+                        System.out.println("");
+
+                    } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NOT NULL "
+                                + "AND h.ESCUELA = '" + escuela + "' "
+                                + "AND h.NIVEL = '" + nivelString + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NOT NULL "
+                                + "AND h.ESCUELA = '" + escuela + "' "
+                                + "AND c.NOMBRE ='" + claseH + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NOT NULL "
+                                + "AND h.NIVEL = '" + nivelString + "' "
+                                + "AND c.NOMBRE ='" + claseH + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NOT NULL "
+                                + "AND h.ESCUELA = '" + escuela + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NOT NULL "
+                                + "AND h.NIVEL = '" + nivelString + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                    } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NOT NULL "
+                                + "AND c.NOMBRE ='" + claseH + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                    } else {
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NOT NULL "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+                    }
+
+                    resultado = "<table>"
+                            + "<tr class=\"titulosTabla\">"
+                            + "<th>Nombre</th>"
+                            + "<th>Nivel</th>"
+                            + "<th>Escuela</th>"
+                            + "<th>Tiempo Lanzamiento</th>"
+                            + "<th>Duración</th>"
+                            + "<th>Alcance</th>"
+                            + "<th>Componentes</th>"
+                            + "</tr>";
+
+                    //Eliminar duplicados utilizando HashSet
+                    hashAuxHechizos = new HashSet<>(listaHechizos);
+                    listaHechizos.clear(); //Limpiar el ArrayList
+                    listaHechizos.addAll(hashAuxHechizos);
+
+                    cantidad = listaHechizos.size();
+                    for (int i = 0; i < cantidad; i++) {
+                        hechizoAux = listaHechizos.get(i);
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>" + hechizoAux.getNombre() + "</td>"
+                                + "<td>" + hechizoAux.getNivel() + "</td>"
+                                + "<td>" + hechizoAux.getEscuela() + "</td>"
+                                + "<td>" + hechizoAux.getTlanzamiento() + "</td>"
+                                + "<td>" + hechizoAux.getDuracion() + "</td>"
+                                + "<td>" + hechizoAux.getAlcance() + "</td>"
+                                + "<td>" + hechizoAux.getComponentes() + "</td>"
+                                + "</tr>"
+                                + "<tr class=\"tablaHechizosTR\" onclick=\"window.location = \'/TFG/Explorar/hechizo?idHechizo=" + hechizoAux.getId() + "\'\">"
+                                + "<td colspan=\"7\" >" + hechizoAux.getDescripcion() + "</td>"
+                                + "</tr>";
+                    }
+                    while (cantidad < 15) {
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "</tr>"
+                                + "<tr>"
+                                + "<td colspan=\"7\" >&nbsp;</td>"
+                                + "</tr>";
+                        cantidad++;
+                    }
+                    resultado = resultado + "</table>";
+                    System.out.println("PeticionAJAX Sale personajeHechizos");
+                    break;
+                case "/personajeHechizosElegir":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    //Recogemos los datos
+                    id = request.getParameter("id");
+
+                    escuela = request.getParameter("vEscu");
+                    nivelString = request.getParameter("vNiv");
+                    claseH = request.getParameter("vClas");
+
+                    if (!escuela.equals("null") && !nivelString.equals("null") && !claseH.equals("null")
+                            && !escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NULL "
+                                + "AND h.ESCUELA = '" + escuela + "' "
+                                + "AND h.NIVEL = '" + nivelString + "' "
+                                + "AND c.NOMBRE ='" + claseH + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+                        System.out.println("");
+
+                    } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NULL "
+                                + "AND h.ESCUELA = '" + escuela + "' "
+                                + "AND h.NIVEL = '" + nivelString + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NULL "
+                                + "AND h.ESCUELA = '" + escuela + "' "
+                                + "AND c.NOMBRE ='" + claseH + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NULL "
+                                + "AND h.NIVEL = '" + nivelString + "' "
+                                + "AND c.NOMBRE ='" + claseH + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NULL "
+                                + "AND h.ESCUELA = '" + escuela + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NULL "
+                                + "AND h.NIVEL = '" + nivelString + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                    } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NULL "
+                                + "AND c.NOMBRE ='" + claseH + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                    } else {
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "WHERE ph.personaje IS NULL "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+                    }
+
+                    resultado = "<table>"
+                            + "<tr class=\"titulosTabla\">"
+                            + "<th>Nombre</th>"
+                            + "<th>Nivel</th>"
+                            + "<th>Escuela</th>"
+                            + "<th>Tiempo Lanzamiento</th>"
+                            + "<th>Duración</th>"
+                            + "<th>Alcance</th>"
+                            + "<th>Componentes</th>"
+                            + "</tr>";
+
+                    //Eliminar duplicados utilizando HashSet
+                    hashAuxHechizos = new HashSet<>(listaHechizos);
+                    listaHechizos.clear(); //Limpiar el ArrayList
+                    listaHechizos.addAll(hashAuxHechizos);
+
+                    cantidad = listaHechizos.size();
+                    for (int i = 0; i < cantidad; i++) {
+                        hechizoAux = listaHechizos.get(i);
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>" + hechizoAux.getNombre() + "</td>"
+                                + "<td>" + hechizoAux.getNivel() + "</td>"
+                                + "<td>" + hechizoAux.getEscuela() + "</td>"
+                                + "<td>" + hechizoAux.getTlanzamiento() + "</td>"
+                                + "<td>" + hechizoAux.getDuracion() + "</td>"
+                                + "<td>" + hechizoAux.getAlcance() + "</td>"
+                                + "<td>" + hechizoAux.getComponentes() + "</td>"
+                                + "</tr>"
+                                + "<tr class=\"tablaHechizosTR\" onclick=\"window.location = \'/TFG/Explorar/hechizo?idHechizo=" + hechizoAux.getId() + "\'\">"
+                                + "<td colspan=\"7\" >" + hechizoAux.getDescripcion() + "</td>"
+                                + "</tr>";
+                    }
+                    while (cantidad < 15) {
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "</tr>"
+                                + "<tr>"
+                                + "<td colspan=\"7\" >&nbsp;</td>"
+                                + "</tr>";
+                        cantidad++;
+                    }
+                    resultado = resultado + "</table>";
+                    System.out.println("PeticionAJAX Sale personajeHechizosElegir");
+                    break;
+                case "/personajeEquipo":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    //Recogemos los datos
+                    id = request.getParameter("id");
+
+                    tipo = request.getParameter("vTipo");
+                    categoria = request.getParameter("vCat");
+                    propiedad = request.getParameter("vPro");
+
+                    if (!categoria.equals("null") && !tipo.equals("null") && !propiedad.equals("null")
+                            && !tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NOT NULL "
+                                + "AND e.TIPO = '" + tipo + "' "
+                                + "AND e.CATEGORIA = '" + categoria + "' "
+                                + "AND p.NOMBRE ='" + propiedad + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NOT NULL "
+                                + "AND e.TIPO = '" + tipo + "' "
+                                + "AND e.CATEGORIA = '" + categoria + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NOT NULL "
+                                + "AND e.TIPO = '" + tipo + "' "
+                                + "AND p.NOMBRE ='" + propiedad + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "WHERE e.CATEGORIA = '" + categoria + "' "
+                                + "AND p.NOMBRE ='" + propiedad + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NOT NULL "
+                                + "AND e.TIPO = '" + tipo + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NOT NULL "
+                                + "AND e.CATEGORIA = '" + categoria + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NOT NULL "
+                                + "AND p.NOMBRE ='" + propiedad + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else {
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NOT NULL "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+                    }
+
+                    System.out.println(sql);
+                    resultado = "<table>"
+                            + "<tr class=\"titulosTabla\">"
+                            + "<th>Nombre</th>"
+                            + "<th>Daño</th>"
+                            + "<th>Propiedades</th>"
+                            + "<th>Precio</th>"
+                            + "<th>Peso</th>"
+                            + "</tr>";
+
+                    //Eliminar duplicados utilizando HashSet
+                    hashAuxEquipo = new HashSet<>(listaEquipo);
+                    listaEquipo.clear(); //Limpiar el ArrayList
+                    listaEquipo.addAll(hashAuxEquipo);
+
+                    cantidad = listaEquipo.size();
+
+                    for (int i = 0; i < cantidad; i++) {
+                        equipoAux = listaEquipo.get(i);
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>" + equipoAux.getNombre() + "</td>"
+                                + "<td>" + equipoAux.getDano() + "</td>"
+                                + "<td>";
+
+                        for (int j = 0; j < equipoAux.getPropiedadesList().size(); j++) {
+                            resultado
+                                    = resultado
+                                    + equipoAux.getPropiedadesList().get(j);
+                        }
+
+                        resultado = resultado
+                                + "</td>"
+                                + "<td>" + equipoAux.getPrecio() + "</td>"
+                                + "<td>" + equipoAux.getPeso() + "</td>"
+                                + "</tr>";
+                    }
+
+                    while (cantidad < 15) {
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "</tr>";
+                        cantidad++;
+                    }
+                    resultado = resultado + "</table>";
+                    System.out.println("PeticionAJAX Sale personajeEquipo");
+                    break;
+                case "/personajeEquipoElegir":
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+
+                    nombre = request.getParameter("busqueda");
+
+                    //Recogemos los datos
+                    id = request.getParameter("id");
+
+                    tipo = request.getParameter("vTipo");
+                    categoria = request.getParameter("vCat");
+                    propiedad = request.getParameter("vPro");
+
+                    if (!categoria.equals("null") && !tipo.equals("null") && !propiedad.equals("null")
+                            && !tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NULL "
+                                + "AND e.TIPO = '" + tipo + "' "
+                                + "AND e.CATEGORIA = '" + categoria + "' "
+                                + "AND p.NOMBRE ='" + propiedad + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NULL "
+                                + "AND e.TIPO = '" + tipo + "' "
+                                + "AND e.CATEGORIA = '" + categoria + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NULL "
+                                + "AND e.TIPO = '" + tipo + "' "
+                                + "AND p.NOMBRE ='" + propiedad + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NULL "
+                                + "AND e.CATEGORIA = '" + categoria + "' "
+                                + "AND p.NOMBRE ='" + propiedad + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NULL "
+                                + "AND e.TIPO = '" + tipo + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NULL "
+                                + "AND e.CATEGORIA = '" + categoria + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NULL "
+                                + "AND p.NOMBRE ='" + propiedad + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                    } else {
+
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
+                                + "WHERE pe.personaje IS NULL "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+                    }
+
+                    resultado = "<table>"
+                            + "<tr class=\"titulosTabla\">"
+                            + "<th>Nombre</th>"
+                            + "<th>Daño</th>"
+                            + "<th>Propiedades</th>"
+                            + "<th>Precio</th>"
+                            + "<th>Peso</th>"
+                            + "</tr>";
+
+                    //Eliminar duplicados utilizando HashSet
+                    hashAuxEquipo = new HashSet<>(listaEquipo);
+                    listaEquipo.clear(); //Limpiar el ArrayList
+                    listaEquipo.addAll(hashAuxEquipo);
+
+                    cantidad = listaEquipo.size();
+
+                    for (int i = 0; i < cantidad; i++) {
+                        equipoAux = listaEquipo.get(i);
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>" + equipoAux.getNombre() + "</td>"
+                                + "<td>" + equipoAux.getDano() + "</td>"
+                                + "<td>";
+
+                        for (int j = 0; j < equipoAux.getPropiedadesList().size(); j++) {
+                            resultado
+                                    = resultado
+                                    + equipoAux.getPropiedadesList().get(j);
+                        }
+
+                        resultado = resultado
+                                + "</td>"
+                                + "<td>" + equipoAux.getPrecio() + "</td>"
+                                + "<td>" + equipoAux.getPeso() + "</td>"
+                                + "</tr>";
+                    }
+
+                    while (cantidad < 15) {
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
+                                + "</tr>";
+                        cantidad++;
+                    }
+                    resultado = resultado + "</table>";
+                    System.out.println("PeticionAJAX Sale personajeEquipoElegir");
+                    break;
                 //////////////////////////////////////////////////////////////////////////
                 ///////////////////////////////FORMULARIOS////////////////////////////////
                 //////////////////////////////////////////////////////////////////////////
@@ -2699,31 +3457,43 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             && !escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
 
                         sql = "SELECT h.* FROM Hechizos h "
-                                + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "INNER JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
                                 + "WHERE h.ESCUELA = '" + escuela + "' "
                                 + "AND h.NIVEL = '" + nivelString + "' "
                                 + "AND c.NOMBRE ='" + claseH + "' "
-                                + "ORDER BY h.nombre";
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+                        System.out.println("");
+
+                    } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "WHERE h.ESCUELA = '" + escuela + "' "
+                                + "AND h.NIVEL = '" + nivelString + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
                         queryAUX = em.createNativeQuery(sql, Hechizos.class);
                         listaHechizos = queryAUX.getResultList();
 
-                    } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
-
-                        queryHechizos = em.createNamedQuery("Hechizos.findByEscuNivel", Hechizos.class);
-                        queryHechizos.setParameter("escuela", escuela);
-                        queryHechizos.setParameter("nivel", nivelString);
-                        listaHechizos = queryHechizos.getResultList();
-
                     } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
 
                         sql = "SELECT h.* FROM Hechizos h "
-                                + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "INNER JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
                                 + "WHERE h.ESCUELA = '" + escuela + "' "
                                 + "AND c.NOMBRE ='" + claseH + "' "
-                                + "ORDER BY h.nombre";
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
                         queryAUX = em.createNativeQuery(sql, Hechizos.class);
                         listaHechizos = queryAUX.getResultList();
@@ -2731,39 +3501,62 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
 
                         sql = "SELECT h.* FROM Hechizos h "
-                                + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "INNER JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
                                 + "WHERE h.NIVEL = '" + nivelString + "' "
                                 + "AND c.NOMBRE ='" + claseH + "' "
-                                + "ORDER BY h.nombre";
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
                         queryAUX = em.createNativeQuery(sql, Hechizos.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
-                        queryHechizos = em.createNamedQuery("Hechizos.findByEscuela", Hechizos.class);
-                        queryHechizos.setParameter("escuela", escuela);
-                        listaHechizos = queryHechizos.getResultList();
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "WHERE h.ESCUELA = '" + escuela + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
 
                     } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
-                        queryHechizos = em.createNamedQuery("Hechizos.findByNivel", Hechizos.class);
-                        queryHechizos.setParameter("nivel", nivelString);
-                        listaHechizos = queryHechizos.getResultList();
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "WHERE h.NIVEL = '" + nivelString + "' "
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
 
                     } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
 
                         sql = "SELECT h.* FROM Hechizos h "
-                                + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "INNER JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
                                 + "WHERE c.NOMBRE ='" + claseH + "' "
-                                + "ORDER BY h.nombre";
+                                + "AND h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
                         queryAUX = em.createNativeQuery(sql, Hechizos.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else {
-                        queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
-                        listaHechizos = queryHechizos.getResultList();
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "WHERE h.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY h.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
                     }
 
                     resultado = "<table>"
@@ -2777,31 +3570,30 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             + "<th>Componentes</th>"
                             + "</tr>";
 
-                    cantidad = 0;
-                    num = 0;
+                    //Eliminar duplicados utilizando HashSet
+                    hashAuxHechizos = new HashSet<>(listaHechizos);
+                    listaHechizos.clear(); //Limpiar el ArrayList
+                    listaHechizos.addAll(hashAuxHechizos);
 
-                    while (cantidad < 14 && num < listaHechizos.size()) {
-                        hechizoAux = listaHechizos.get(num);
-                        if (hechizoAux.getNombre().toLowerCase().startsWith(nombre.toLowerCase())) {
-                            resultado
-                                    = resultado
-                                    + "<tr>"
-                                    + "<td>" + hechizoAux.getNombre() + "</td>"
-                                    + "<td>" + hechizoAux.getNivel() + "</td>"
-                                    + "<td>" + hechizoAux.getEscuela() + "</td>"
-                                    + "<td>" + hechizoAux.getTlanzamiento() + "</td>"
-                                    + "<td>" + hechizoAux.getDuracion() + "</td>"
-                                    + "<td>" + hechizoAux.getAlcance() + "</td>"
-                                    + "<td>" + hechizoAux.getComponentes() + "</td>"
-                                    + "</tr>"
-                                    + "<tr class=\"tablaHechizosTR\" onclick=\"window.location = \'/TFG/Explorar/hechizo?idHechizo=" + hechizoAux.getId() + "\'\">"
-                                    + "<td colspan=\"7\" >" + hechizoAux.getDescripcion() + "</td>"
-                                    + "</tr>";
-                            cantidad++;
-                        }
-                        num++;
+                    cantidad = listaHechizos.size();
+                    for (int i = 0; i < cantidad; i++) {
+                        hechizoAux = listaHechizos.get(i);
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>" + hechizoAux.getNombre() + "</td>"
+                                + "<td>" + hechizoAux.getNivel() + "</td>"
+                                + "<td>" + hechizoAux.getEscuela() + "</td>"
+                                + "<td>" + hechizoAux.getTlanzamiento() + "</td>"
+                                + "<td>" + hechizoAux.getDuracion() + "</td>"
+                                + "<td>" + hechizoAux.getAlcance() + "</td>"
+                                + "<td>" + hechizoAux.getComponentes() + "</td>"
+                                + "</tr>"
+                                + "<tr class=\"tablaHechizosTR\" onclick=\"window.location = \'/TFG/Explorar/hechizo?idHechizo=" + hechizoAux.getId() + "\'\">"
+                                + "<td colspan=\"7\" >" + hechizoAux.getDescripcion() + "</td>"
+                                + "</tr>";
                     }
-                    while (cantidad < 14) {
+                    while (cantidad < 15) {
                         resultado
                                 = resultado
                                 + "<tr>"
@@ -2821,6 +3613,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = resultado + "</table>";
                     System.out.println("PeticionAJAX Sale Hechizos");
                     break;
+
                 case "/Monstruos":
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -2832,26 +3625,42 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     tipo = request.getParameter("vTipo");
 
                     if (!vd.equals("null") && !tipo.equals("null") && !tipo.equals("Tipo") && !vd.equals("Valor de Desafio")) {//TODOS
-                        queryMonstruos = em.createNamedQuery("Monstruos.findByTipoVD", Monstruos.class);
-                        queryMonstruos.setParameter("vdesafio", vd);
-                        queryMonstruos.setParameter("tipo", tipo);
-                        listaMonstruos = queryMonstruos.getResultList();
+                        sql = "SELECT m.* FROM Monstruos m "
+                                + "WHERE m.vdesafio ='" + vd + "' "
+                                + "AND m.tipo ='" + tipo + "' "
+                                + "AND m.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY m.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+                        queryAUX = em.createNativeQuery(sql, Monstruos.class);
+                        listaMonstruos = queryAUX.getResultList();
 
                     } else if (tipo.equals("Tipo") && !vd.equals("Valor de Desafio")) {//VD
 
-                        queryMonstruos = em.createNamedQuery("Monstruos.findByVdesafio", Monstruos.class);
-                        queryMonstruos.setParameter("vdesafio", vd);
-                        listaMonstruos = queryMonstruos.getResultList();
+                        sql = "SELECT m.* FROM Monstruos m "
+                                + "WHERE m.vdesafio ='" + vd + "' "
+                                + "AND m.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY m.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+                        queryAUX = em.createNativeQuery(sql, Monstruos.class);
+                        listaMonstruos = queryAUX.getResultList();
 
                     } else if (!tipo.equals("Tipo") && vd.equals("Valor de Desafio")) {//TIPO
 
-                        queryMonstruos = em.createNamedQuery("Monstruos.findByTipo", Monstruos.class);
-                        queryMonstruos.setParameter("tipo", tipo);
-                        listaMonstruos = queryMonstruos.getResultList();
+                        sql = "SELECT m.* FROM Monstruos m "
+                                + "WHERE m.tipo ='" + tipo + "' "
+                                + "AND m.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY m.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+                        queryAUX = em.createNativeQuery(sql, Monstruos.class);
+                        listaMonstruos = queryAUX.getResultList();
 
                     } else {
-                        queryMonstruos = em.createNamedQuery("Monstruos.findAll", Monstruos.class);
-                        listaMonstruos = queryMonstruos.getResultList();
+                        sql = "SELECT m.* FROM Monstruos m "
+                                + "WHERE m.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY m.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+                        queryAUX = em.createNativeQuery(sql, Monstruos.class);
+                        listaMonstruos = queryAUX.getResultList();
 
                     }
 
@@ -2864,26 +3673,26 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             + "<th>Tamaño</th>"
                             + "</tr>";
 
-                    cantidad = 0;
-                    num = 0;
+                    //Eliminar duplicados utilizando HashSet
+                    hashAuxMonstruos = new HashSet<>(listaMonstruos);
+                    listaMonstruos.clear(); //Limpiar el ArrayList
+                    listaMonstruos.addAll(hashAuxMonstruos);
 
-                    while (cantidad < 14 && num < listaMonstruos.size()) {
-                        monstruoAux = listaMonstruos.get(num);
-                        if (monstruoAux.getNombre().toLowerCase().startsWith(nombre.toLowerCase())) {
-                            resultado
-                                    = resultado
-                                    + "<tr>"
-                                    + "<td>" + monstruoAux.getVdesafio() + "</td>"
-                                    + "<td>" + monstruoAux.getNombre() + "</td>"
-                                    + "<td>" + monstruoAux.getTipo() + "</td>"
-                                    + "<td>" + monstruoAux.getAlineamiento() + "</td>"
-                                    + "<td>" + monstruoAux.getTamano() + "</td>"
-                                    + "</tr>";
-                            cantidad++;
-                        }
-                        num++;
+                    cantidad = listaMonstruos.size();
+
+                    for (int i = 0; i < cantidad; i++) {
+                        monstruoAux = listaMonstruos.get(i);
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>" + monstruoAux.getVdesafio() + "</td>"
+                                + "<td>" + monstruoAux.getNombre() + "</td>"
+                                + "<td>" + monstruoAux.getTipo() + "</td>"
+                                + "<td>" + monstruoAux.getAlineamiento() + "</td>"
+                                + "<td>" + monstruoAux.getTamano() + "</td>"
+                                + "</tr>";
                     }
-                    while (cantidad < 14) {
+                    while (cantidad < 15) {
                         resultado
                                 = resultado
                                 + "<tr>"
@@ -2913,93 +3722,104 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             && !tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "INNER JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
                                 + "WHERE e.TIPO = '" + tipo + "' "
                                 + "AND e.CATEGORIA = '" + categoria + "' "
                                 + "AND p.NOMBRE ='" + propiedad + "' "
-                                + "ORDER BY e.nombre";
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
                         queryAUX = em.createNativeQuery(sql, Equipo.class);
-                        queryAUX.setFirstResult(num);
-                        queryAUX.setMaxResults(15);
                         listaEquipo = queryAUX.getResultList();
+
                     } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
 
-                        queryEquipo = em.createNamedQuery("Equipo.findByTipoCategoria", Equipo.class);
-                        queryEquipo.setParameter("tipo", tipo);
-                        queryEquipo.setParameter("categoria", categoria);
-                        queryEquipo.setFirstResult(num);
-                        queryEquipo.setMaxResults(15);
-                        listaEquipo = queryEquipo.getResultList();
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "WHERE e.TIPO = '" + tipo + "' "
+                                + "AND e.CATEGORIA = '" + categoria + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
 
                     } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "INNER JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
                                 + "WHERE e.TIPO = '" + tipo + "' "
                                 + "AND p.NOMBRE ='" + propiedad + "' "
-                                + "ORDER BY e.nombre";
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
                         queryAUX = em.createNativeQuery(sql, Equipo.class);
-                        queryAUX.setFirstResult(num);
-                        queryAUX.setMaxResults(15);
                         listaEquipo = queryAUX.getResultList();
 
                     } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "INNER JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
                                 + "WHERE e.CATEGORIA = '" + categoria + "' "
                                 + "AND p.NOMBRE ='" + propiedad + "' "
-                                + "ORDER BY e.nombre";
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
                         queryAUX = em.createNativeQuery(sql, Equipo.class);
-                        queryAUX.setFirstResult(num);
-                        queryAUX.setMaxResults(15);
                         listaEquipo = queryAUX.getResultList();
 
                     } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
 
-                        queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
-                        System.out.println(tipo);
-                        queryEquipo.setParameter("tipo", tipo);
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "WHERE e.TIPO = '" + tipo + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
-                        queryEquipo.setParameter("tipo", tipo);
-                        queryEquipo.setFirstResult(num);
-                        queryEquipo.setMaxResults(15);
-                        listaEquipo = queryEquipo.getResultList();
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
 
                     } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
 
-                        queryEquipo = em.createNamedQuery("Equipo.findByCategoria", Equipo.class);
-                        queryEquipo.setParameter("categoria", categoria);
-                        queryEquipo.setFirstResult(num);
-                        queryEquipo.setMaxResults(15);
-                        listaEquipo = queryEquipo.getResultList();
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "WHERE e.CATEGORIA = '" + categoria + "' "
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
 
                     } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "INNER JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
                                 + "WHERE p.NOMBRE ='" + propiedad + "' "
-                                + "ORDER BY e.nombre";
+                                + "AND e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
                         queryAUX = em.createNativeQuery(sql, Equipo.class);
-                        queryAUX.setFirstResult(num);
-                        queryAUX.setMaxResults(15);
                         listaEquipo = queryAUX.getResultList();
 
                     } else {
 
-                        queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
-                        queryEquipo.setFirstResult(num);
-                        queryEquipo.setMaxResults(15);
-                        listaEquipo = queryEquipo.getResultList();
+                        sql = "SELECT e.* FROM Equipo e "
+                                + "WHERE e.nombre LIKE '" + nombre + "%' "
+                                + "ORDER BY e.nombre "
+                                + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
                     }
 
                     resultado = "<table>"
@@ -3011,35 +3831,36 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             + "<th>Peso</th>"
                             + "</tr>";
 
-                    cantidad = 0;
-                    num = 0;
+                    //Eliminar duplicados utilizando HashSet
+                    hashAuxEquipo = new HashSet<>(listaEquipo);
+                    listaEquipo.clear(); //Limpiar el ArrayList
+                    listaEquipo.addAll(hashAuxEquipo);
 
-                    while (cantidad < 14 && num < listaEquipo.size()) {
-                        equipoAux = listaEquipo.get(num);
-                        if (equipoAux.getNombre().toLowerCase().startsWith(nombre.toLowerCase())) {
+                    cantidad = listaEquipo.size();
+
+                    for (int i = 0; i < cantidad; i++) {
+                        equipoAux = listaEquipo.get(i);
+                        resultado
+                                = resultado
+                                + "<tr>"
+                                + "<td>" + equipoAux.getNombre() + "</td>"
+                                + "<td>" + equipoAux.getDano() + "</td>"
+                                + "<td>";
+
+                        for (int j = 0; j < equipoAux.getPropiedadesList().size(); j++) {
                             resultado
                                     = resultado
-                                    + "<tr>"
-                                    + "<td>" + equipoAux.getNombre() + "</td>"
-                                    + "<td>" + equipoAux.getDano() + "</td>"
-                                    + "<td>";
-
-                            for (int i = 0; i < equipoAux.getPropiedadesList().size(); i++) {
-                                resultado
-                                        = resultado
-                                        + equipoAux.getPropiedadesList().get(i);
-                            }
-
-                            resultado = resultado
-                                    + "</td>"
-                                    + "<td>" + equipoAux.getPrecio() + "</td>"
-                                    + "<td>" + equipoAux.getPeso() + "</td>"
-                                    + "</tr>";
-                            cantidad++;
+                                    + equipoAux.getPropiedadesList().get(j);
                         }
-                        num++;
+
+                        resultado = resultado
+                                + "</td>"
+                                + "<td>" + equipoAux.getPrecio() + "</td>"
+                                + "<td>" + equipoAux.getPeso() + "</td>"
+                                + "</tr>";
                     }
-                    while (cantidad < 14) {
+
+                    while (cantidad < 15) {
                         resultado
                                 = resultado
                                 + "<tr>"

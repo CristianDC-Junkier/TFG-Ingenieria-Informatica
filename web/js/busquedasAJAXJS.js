@@ -58,6 +58,18 @@ function realizarBusqueda(valor) {
             case "Equipo":
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/Equipo?vTipo=" + valorSeleccionado1 + "&vCat=" + valorSeleccionado2 + "&vPro=" + valorSeleccionado3;
                 break;
+            case "personajeHechizos":
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/personajeHechizos?vEscu=" + valorSeleccionado1 + "&vNiv=" + valorSeleccionado2 + "&vClas=" + valorSeleccionado3 + "&id=" + idPJ;
+                break;
+            case "personajeEquipo":
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/personajeEquipo?vTipo=" + valorSeleccionado1 + "&vCat=" + valorSeleccionado2 + "&vPro=" + valorSeleccionado3 + "&id=" + idPJ;
+                break;
+            case "personajeHechizosElegir":
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/personajeHechizosElegir?vEscu=" + valorSeleccionado1 + "&vNiv=" + valorSeleccionado2 + "&vClas=" + valorSeleccionado3 + "&id=" + idPJ;
+                break;
+            case "personajeEquipoElegir":
+            urlAJAX = "/TFG/ControladorPeticionesAJAX/personajeEquipoElegir?vTipo=" + valorSeleccionado1 + "&vCat=" + valorSeleccionado2 + "&vPro=" + valorSeleccionado3 + "&id=" + idPJ;
+                break;
             case "Razas":
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/Razas";
                 break;

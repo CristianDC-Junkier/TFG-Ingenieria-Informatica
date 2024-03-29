@@ -2,14 +2,17 @@ package controlador;
 
 import entidades.Atributos;
 import entidades.Clases;
+import entidades.Dotes;
 import entidades.Equipo;
 import entidades.Habilidades;
 import entidades.Hechizos;
+import entidades.Mejorasdote;
 import entidades.Personajeatributos;
 import entidades.Personajehabilidades;
 import entidades.Personajes;
 import entidades.Propiedades;
 import entidades.Razas;
+import entidades.Requisitosdote;
 import entidades.Subclases;
 import entidades.Subrazas;
 import entidades.Trasfondos;
@@ -82,11 +85,12 @@ public class ControladorPersonajes extends HttpServlet {
         TypedQuery<Habilidades> queryHabilidades;
         TypedQuery<Equipo> queryEquipo;
         TypedQuery<Hechizos> queryHechizos;
+        TypedQuery<Requisitosdote> queryRDotes;
+        TypedQuery<Mejorasdote> queryMDotes;
 
         Query queryAUX;
 
         List<Personajes> listaPersonajes;
-        List<Usuarios> listaUsuariosAmigos;
         List<Usuarios> listaUsuarios;
         List<String> fotosPersonajes;
         List<Atributos> listaAtributos;
@@ -97,6 +101,9 @@ public class ControladorPersonajes extends HttpServlet {
         List<Equipo> listaEquipo;
         List<Hechizos> listaHechizos;
         List<List<Propiedades>> listalistaPropiedades;
+        List<Dotes> listaDotes;
+        List<Requisitosdote> listaRDotes;
+        List<Mejorasdote> listaMDotes;
 
         HashSet<Hechizos> hashAuxHechizos;
         HashSet<Equipo> hashAuxEquipo;
@@ -118,16 +125,6 @@ public class ControladorPersonajes extends HttpServlet {
         Hechizos hechizo;
 
         String id;
-
-        String ordenar;
-        String razaString;
-        String claseString;
-        String nivelString;
-        String numString;
-        String razaSQL;
-        String claseSQL;
-        String nivelSQL;
-
         String personaje_id;
 
         String personaje_nombre;
@@ -169,8 +166,17 @@ public class ControladorPersonajes extends HttpServlet {
         String tipoSQL;
         String categoriaSQL;
         String propiedadSQL;
+        String ordenar;
+        String razaString;
+        String claseString;
+        String nivelString;
+        String numString;
+        String razaSQL;
+        String claseSQL;
+        String nivelSQL;
         String titulo;
         String subtitulo;
+        String nombre;
 
         Part filePart;
         InputStream contenidoImagen;
@@ -178,7 +184,6 @@ public class ControladorPersonajes extends HttpServlet {
 
         int num;
         int numPag;
-        int nivel;
 
         String sql;
 
@@ -1185,6 +1190,10 @@ public class ControladorPersonajes extends HttpServlet {
                     }
                 }
                 break;
+
+            ////////////////////////////////////
+            /////////ELEGIR PJ ACTUAL///////////
+            ////////////////////////////////////
             case "/elegirPJActual":
                 /////////////////////////
                 /////////SESION//////////
@@ -1322,259 +1331,388 @@ public class ControladorPersonajes extends HttpServlet {
                     }
                 }
                 break;
+            /////////////////////////////////////////
+            /////////VALORES POST CREACION///////////
+            /////////////////////////////////////////
             case "/personajeDotes":
-                break;
-            case "/personajeDotesElegir":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    //Recogemos los datos
+                    personaje_id = request.getParameter("id");
+
+                    //Comprobamos si es tuyo
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+                    personaje = queryPersonajes.getResultList().get(0);
+
+                    if (personaje == null || !personaje.getUsuario().getId().equals(user.getId())) {
+                        vista = "/Principal/inicio";
+                    } else {
+                        sql = "SELECT d.* FROM DOTES d "
+                                + "LEFT JOIN PERSONAJEDOTES pd on pd.dote = d.id "
+                                + "WHERE pd.personaje = '" + personaje_id + "' "
+                                + "ORDER BY d.NOMBRE DESC ";
+
+                        queryAUX = em.createNativeQuery(sql, Dotes.class);
+                        listaDotes = queryAUX.getResultList();
+
+                        result = "";
+
+                        for (int i = 0; i < listaDotes.size(); i++) {
+
+                            nombre = listaDotes.get(i).getNombre();
+
+                            result
+                                    = result
+                                    + "<div class=\"ResumenDote\">"
+                                    + "<div class=\"tituloDote\">"
+                                    + "<h5>"
+                                    + nombre
+                                    + "</h5></div>"
+                                    + "<div class=\"ContenidoDote\">"
+                                    + "<ul>";
+
+                            queryRDotes = em.createNamedQuery("Requisitosdote.findByNombre", Requisitosdote.class);
+                            queryRDotes.setParameter("nombre", nombre);
+                            listaRDotes = queryRDotes.getResultList();
+
+                            for (Requisitosdote listaRDote : listaRDotes) {
+                                result
+                                        = result
+                                        + "<li class=\"RequisitoDote\">" + listaRDote.getValor() + "</li>";
+                            }
+
+                            queryMDotes = em.createNamedQuery("Mejorasdote.findByNombre", Mejorasdote.class);
+                            queryMDotes.setParameter("nombre", nombre);
+                            listaMDotes = queryMDotes.getResultList();
+
+                            for (Mejorasdote listaMDote : listaMDotes) {
+                                result
+                                        = result
+                                        + "<li>" + listaMDote.getValor() + "</li>";
+                            }
+
+                            result
+                                    = result
+                                    + "</ul>"
+                                    + "</div>"
+                                    + "</div>";
+                        }
+
+                        if (result.equals("")) {
+                            result
+                                    = result
+                                    + "<div class=\"ResumenDote\">"
+                                    + "<div class=\"tituloDote\">"
+                                    + "<h5>"
+                                    + "Aún no hay dotes añadidos"
+                                    + "</h5></div></div>";
+                        }
+
+                        request.setAttribute("id", personaje_id);
+                        request.setAttribute("listaDotes", result);
+                        vista = "/WEB-INF/jsp/personajes/personajeDotes.jsp";
+                    }
+                }
+
                 break;
             case "/personajeEquipo":
-                //Recogemos los datos
-                personaje_id = request.getParameter("id");
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
 
-                numString = request.getParameter("pag");//numero de pag en la que estoy
-                tipo = request.getParameter("tipo");
-                categoria = request.getParameter("categoria");
-                propiedad = request.getParameter("propiedad");
-
-                //Comprobamos los datos
-                if (numString == null) {
-
-                    tipoSQL = " ";
-                    categoriaSQL = " ";
-                    propiedadSQL = " ";
-                    numString = "1";
-                    num = 0;
-
-                    titulo = "Todos";
-                    subtitulo = "Objetos";
-
+                if (user == null) {
+                    vista = "/Principal/inicio";
                 } else {
-                    num = (Integer.valueOf(numString) - 1) * 15;//offset
+                    //Recogemos los datos
+                    personaje_id = request.getParameter("id");
 
-                    if (tipo.equals("Tipo")) {
-                        tipoSQL = " ";
-                    } else {
-                        tipoSQL = "AND e.TIPO = '" + tipo + "' ";
-                    }
-                    if (categoria.equals("Categoria")) {
-                        categoriaSQL = " ";
-                    } else {
-                        categoriaSQL = "AND e.CATEGORIA = '" + categoria + "' ";
-                    }
-                    if (propiedad.equals("Propiedad")) {
-                        propiedadSQL = " ";
-                    } else {
-                        propiedadSQL = "AND p.NOMBRE = '" + propiedad + "' ";
-                    }
+                    //Comprovamos si es tuyo
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+                    personaje = queryPersonajes.getResultList().get(0);
 
-                    if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
-                        titulo = tipo;
-                        subtitulo = categoria;
-                    } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
-                        titulo = tipo;
-                        subtitulo = categoria;
-                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
-                        titulo = tipo;
-                        subtitulo = "Objetos";
-                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
-                        titulo = "Todos";
-                        subtitulo = categoria;
-                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
-                        titulo = tipo;
-                        subtitulo = "Objetos";
-                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
-                        titulo = "Todos";
-                        subtitulo = categoria;
-                    } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
-                        titulo = "Todos";
-                        subtitulo = "Objetos";
+                    if (personaje == null || !personaje.getUsuario().getId().equals(user.getId())) {
+                        vista = "/Principal/inicio";
                     } else {
-                        titulo = "Todos";
-                        subtitulo = "Objetos";
-                    }
 
+                        numString = request.getParameter("pag");//numero de pag en la que estoy
+                        tipo = request.getParameter("tipo");
+                        categoria = request.getParameter("categoria");
+                        propiedad = request.getParameter("propiedad");
+
+                        //Comprobamos los datos
+                        if (numString == null) {
+
+                            tipoSQL = " ";
+                            categoriaSQL = " ";
+                            propiedadSQL = " ";
+                            numString = "1";
+                            num = 0;
+
+                            titulo = "Todos";
+                            subtitulo = "Objetos";
+
+                        } else {
+                            num = (Integer.valueOf(numString) - 1) * 15;//offset
+
+                            if (tipo.equals("Tipo")) {
+                                tipoSQL = " ";
+                            } else {
+                                tipoSQL = "AND e.TIPO = '" + tipo + "' ";
+                            }
+                            if (categoria.equals("Categoria")) {
+                                categoriaSQL = " ";
+                            } else {
+                                categoriaSQL = "AND e.CATEGORIA = '" + categoria + "' ";
+                            }
+                            if (propiedad.equals("Propiedad")) {
+                                propiedadSQL = " ";
+                            } else {
+                                propiedadSQL = "AND p.NOMBRE = '" + propiedad + "' ";
+                            }
+
+                            if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
+                                titulo = tipo;
+                                subtitulo = categoria;
+                            } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
+                                titulo = tipo;
+                                subtitulo = categoria;
+                            } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
+                                titulo = tipo;
+                                subtitulo = "Objetos";
+                            } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
+                                titulo = "Todos";
+                                subtitulo = categoria;
+                            } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
+                                titulo = tipo;
+                                subtitulo = "Objetos";
+                            } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
+                                titulo = "Todos";
+                                subtitulo = categoria;
+                            } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
+                                titulo = "Todos";
+                                subtitulo = "Objetos";
+                            } else {
+                                titulo = "Todos";
+                                subtitulo = "Objetos";
+                            }
+
+                        }
+
+                        /////////////////////////////////
+                        ////////NUMERO DE EQUIPO/////////
+                        /////////////////////////////////
+                        sql = "SELECT DISTINCT COUNT(*) FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
+                                + "WHERE pe.personaje IS NOT NULL "
+                                + tipoSQL
+                                + categoriaSQL
+                                + propiedadSQL;
+
+                        queryAUX = em.createNativeQuery(sql);
+                        result = queryAUX.getSingleResult();
+
+                        //PAGINAS QUE HAY (15 OBJETOS POR PAGINA)
+                        numPag = (((Number) result).intValue() / 14) + 1;
+
+                        sql = "SELECT DISTINCT * FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
+                                + "WHERE pe.personaje IS NOT NULL "
+                                + tipoSQL
+                                + categoriaSQL
+                                + propiedadSQL
+                                + "ORDER BY e.nombre "
+                                + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                        //Eliminar duplicados utilizando HashSet
+                        hashAuxEquipo = new HashSet<>(listaEquipo);
+                        hashAuxEquipo.clear(); //Limpiar el ArrayList
+                        listaEquipo.addAll(hashAuxEquipo);
+
+                        request.setAttribute("pag", numString);
+                        request.setAttribute("numpag", numPag);
+                        request.setAttribute("vTipo", tipo);
+                        request.setAttribute("vCat", categoria);
+                        request.setAttribute("vPro", propiedad);
+
+                        listalistaPropiedades = new ArrayList();
+
+                        for (int i = 0; i < listaEquipo.size(); i++) {
+                            listalistaPropiedades.add(listaEquipo.get(i).getPropiedadesList());
+                        }
+
+                        request.setAttribute("listalistaPropiedades", listalistaPropiedades);
+                        request.setAttribute("listaEquipo", listaEquipo);
+                        request.setAttribute("titulo", titulo);
+                        request.setAttribute("subtitulo", subtitulo);
+                        request.setAttribute("id", personaje_id);
+
+                        vista = "/WEB-INF/jsp/personajes/personajeEquipo.jsp";
+                    }
                 }
 
-                /////////////////////////////////
-                ////////NUMERO DE EQUIPO/////////
-                /////////////////////////////////
-                sql = "SELECT DISTINCT COUNT(*) FROM Equipo e "
-                        + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                        + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
-                        + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
-                        + "WHERE pe.personaje IS NOT NULL "
-                        + tipoSQL
-                        + categoriaSQL
-                        + propiedadSQL;
-
-                queryAUX = em.createNativeQuery(sql);
-                result = queryAUX.getSingleResult();
-
-                //PAGINAS QUE HAY (15 OBJETOS POR PAGINA)
-                numPag = (((Number) result).intValue() / 14) + 1;
-
-                sql = "SELECT DISTINCT * FROM Equipo e "
-                        + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                        + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
-                        + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
-                        + "WHERE pe.personaje IS NOT NULL "
-                        + tipoSQL
-                        + categoriaSQL
-                        + propiedadSQL
-                        + "ORDER BY e.nombre "
-                        + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
-
-                queryAUX = em.createNativeQuery(sql, Equipo.class);
-                listaEquipo = queryAUX.getResultList();
-
-                //Eliminar duplicados utilizando HashSet
-                hashAuxEquipo = new HashSet<>(listaEquipo);
-                hashAuxEquipo.clear(); //Limpiar el ArrayList
-                listaEquipo.addAll(hashAuxEquipo);
-
-                request.setAttribute("pag", numString);
-                request.setAttribute("numpag", numPag);
-                request.setAttribute("vTipo", tipo);
-                request.setAttribute("vCat", categoria);
-                request.setAttribute("vPro", propiedad);
-
-                listalistaPropiedades = new ArrayList();
-
-                for (int i = 0; i < listaEquipo.size(); i++) {
-                    listalistaPropiedades.add(listaEquipo.get(i).getPropiedadesList());
-                }
-
-                request.setAttribute("listalistaPropiedades", listalistaPropiedades);
-                request.setAttribute("listaEquipo", listaEquipo);
-                request.setAttribute("titulo", titulo);
-                request.setAttribute("subtitulo", subtitulo);
-                request.setAttribute("id", personaje_id);
-
-                vista = "/WEB-INF/jsp/personajes/personajeEquipo.jsp";
                 break;
             case "/personajeEquipoElegir":
-                //Recogemos los datos
-                personaje_id = request.getParameter("id");
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
 
-                numString = request.getParameter("pag");//numero de pag en la que estoy
-                tipo = request.getParameter("tipo");
-                categoria = request.getParameter("categoria");
-                propiedad = request.getParameter("propiedad");
-
-                //Comprobamos los datos
-                if (numString == null) {
-
-                    tipoSQL = " ";
-                    categoriaSQL = " ";
-                    propiedadSQL = " ";
-                    numString = "1";
-                    num = 0;
-
-                    titulo = "Todos";
-                    subtitulo = "Objetos";
-
+                if (user == null) {
+                    vista = "/Principal/inicio";
                 } else {
-                    num = (Integer.valueOf(numString) - 1) * 15;//offset
+                    //Recogemos los datos
+                    personaje_id = request.getParameter("id");
 
-                    if (tipo.equals("Tipo")) {
-                        tipoSQL = " ";
-                    } else {
-                        tipoSQL = "AND e.TIPO = '" + tipo + "' ";
-                    }
-                    if (categoria.equals("Categoria")) {
-                        categoriaSQL = " ";
-                    } else {
-                        categoriaSQL = "AND e.CATEGORIA = '" + categoria + "' ";
-                    }
-                    if (propiedad.equals("Propiedad")) {
-                        propiedadSQL = " ";
-                    } else {
-                        propiedadSQL = "AND p.NOMBRE = '" + propiedad + "' ";
-                    }
+                    //Comprovamos si es tuyo
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+                    personaje = queryPersonajes.getResultList().get(0);
 
-                    if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
-                        titulo = tipo;
-                        subtitulo = categoria;
-                    } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
-                        titulo = tipo;
-                        subtitulo = categoria;
-                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
-                        titulo = tipo;
-                        subtitulo = "Objetos";
-                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
-                        titulo = "Todos";
-                        subtitulo = categoria;
-                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
-                        titulo = tipo;
-                        subtitulo = "Objetos";
-                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
-                        titulo = "Todos";
-                        subtitulo = categoria;
-                    } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
-                        titulo = "Todos";
-                        subtitulo = "Objetos";
+                    if (personaje == null || !personaje.getUsuario().getId().equals(user.getId())) {
+                        vista = "/Principal/inicio";
                     } else {
-                        titulo = "Todos";
-                        subtitulo = "Objetos";
-                    }
 
+                        numString = request.getParameter("pag");//numero de pag en la que estoy
+                        tipo = request.getParameter("tipo");
+                        categoria = request.getParameter("categoria");
+                        propiedad = request.getParameter("propiedad");
+
+                        //Comprobamos los datos
+                        if (numString == null) {
+
+                            tipoSQL = " ";
+                            categoriaSQL = " ";
+                            propiedadSQL = " ";
+                            numString = "1";
+                            num = 0;
+
+                            titulo = "Todos";
+                            subtitulo = "Objetos";
+
+                        } else {
+                            num = (Integer.valueOf(numString) - 1) * 15;//offset
+
+                            if (tipo.equals("Tipo")) {
+                                tipoSQL = " ";
+                            } else {
+                                tipoSQL = "AND e.TIPO = '" + tipo + "' ";
+                            }
+                            if (categoria.equals("Categoria")) {
+                                categoriaSQL = " ";
+                            } else {
+                                categoriaSQL = "AND e.CATEGORIA = '" + categoria + "' ";
+                            }
+                            if (propiedad.equals("Propiedad")) {
+                                propiedadSQL = " ";
+                            } else {
+                                propiedadSQL = "AND p.NOMBRE = '" + propiedad + "' ";
+                            }
+
+                            if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
+                                titulo = tipo;
+                                subtitulo = categoria;
+                            } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
+                                titulo = tipo;
+                                subtitulo = categoria;
+                            } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
+                                titulo = tipo;
+                                subtitulo = "Objetos";
+                            } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
+                                titulo = "Todos";
+                                subtitulo = categoria;
+                            } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
+                                titulo = tipo;
+                                subtitulo = "Objetos";
+                            } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
+                                titulo = "Todos";
+                                subtitulo = categoria;
+                            } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
+                                titulo = "Todos";
+                                subtitulo = "Objetos";
+                            } else {
+                                titulo = "Todos";
+                                subtitulo = "Objetos";
+                            }
+
+                        }
+
+                        /////////////////////////////////
+                        ////////NUMERO DE EQUIPO/////////
+                        /////////////////////////////////
+                        sql = "SELECT COUNT(DISTINCT e.id) FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
+                                + "WHERE pe.personaje IS NULL "
+                                + tipoSQL
+                                + categoriaSQL
+                                + propiedadSQL;
+
+                        queryAUX = em.createNativeQuery(sql);
+                        result = queryAUX.getSingleResult();
+
+                        //PAGINAS QUE HAY (15 OBJETOS POR PAGINA)
+                        numPag = (((Number) result).intValue() / 14) + 1;
+
+                        sql = "SELECT DISTINCT * FROM Equipo e "
+                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
+                                + "WHERE pe.personaje IS NULL "
+                                + tipoSQL
+                                + categoriaSQL
+                                + propiedadSQL
+                                + "ORDER BY e.nombre "
+                                + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Equipo.class);
+                        listaEquipo = queryAUX.getResultList();
+
+                        //Eliminar duplicados utilizando HashSet
+                        hashAuxEquipo = new HashSet<>(listaEquipo);
+                        hashAuxEquipo.clear(); //Limpiar el ArrayList
+                        listaEquipo.addAll(hashAuxEquipo);
+
+                        request.setAttribute("pag", numString);
+                        request.setAttribute("numpag", numPag);
+                        request.setAttribute("vTipo", tipo);
+                        request.setAttribute("vCat", categoria);
+                        request.setAttribute("vPro", propiedad);
+
+                        listalistaPropiedades = new ArrayList();
+
+                        for (int i = 0; i < listaEquipo.size(); i++) {
+                            listalistaPropiedades.add(listaEquipo.get(i).getPropiedadesList());
+                        }
+
+                        request.setAttribute("listalistaPropiedades", listalistaPropiedades);
+                        request.setAttribute("listaEquipo", listaEquipo);
+                        request.setAttribute("titulo", titulo);
+                        request.setAttribute("subtitulo", subtitulo);
+                        request.setAttribute("id", personaje_id);
+
+                        vista = "/WEB-INF/jsp/personajes/personajeEquipoElegir.jsp";
+                    }
                 }
-
-                /////////////////////////////////
-                ////////NUMERO DE EQUIPO/////////
-                /////////////////////////////////
-                sql = "SELECT DISTINCT COUNT(*) FROM Equipo e "
-                        + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                        + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
-                        + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
-                        + "WHERE pe.personaje IS NULL "
-                        + tipoSQL
-                        + categoriaSQL
-                        + propiedadSQL;
-
-                queryAUX = em.createNativeQuery(sql);
-                result = queryAUX.getSingleResult();
-
-                //PAGINAS QUE HAY (15 OBJETOS POR PAGINA)
-                numPag = (((Number) result).intValue() / 14) + 1;
-
-                sql = "SELECT DISTINCT * FROM Equipo e "
-                        + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                        + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
-                        + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
-                        + "WHERE pe.personaje IS NULL "
-                        + tipoSQL
-                        + categoriaSQL
-                        + propiedadSQL
-                        + "ORDER BY e.nombre "
-                        + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
-
-                queryAUX = em.createNativeQuery(sql, Equipo.class);
-                listaEquipo = queryAUX.getResultList();
-
-                //Eliminar duplicados utilizando HashSet
-                hashAuxEquipo = new HashSet<>(listaEquipo);
-                hashAuxEquipo.clear(); //Limpiar el ArrayList
-                listaEquipo.addAll(hashAuxEquipo);
-
-                request.setAttribute("pag", numString);
-                request.setAttribute("numpag", numPag);
-                request.setAttribute("vTipo", tipo);
-                request.setAttribute("vCat", categoria);
-                request.setAttribute("vPro", propiedad);
-
-                listalistaPropiedades = new ArrayList();
-
-                for (int i = 0; i < listaEquipo.size(); i++) {
-                    listalistaPropiedades.add(listaEquipo.get(i).getPropiedadesList());
-                }
-
-                request.setAttribute("listalistaPropiedades", listalistaPropiedades);
-                request.setAttribute("listaEquipo", listaEquipo);
-                request.setAttribute("titulo", titulo);
-                request.setAttribute("subtitulo", subtitulo);
-                request.setAttribute("id", personaje_id);
-
-                vista = "/WEB-INF/jsp/personajes/personajeEquipoElegir.jsp";
                 break;
             case "/personajeEquipoAnadir":
                 /////////////////////////
@@ -1648,226 +1786,265 @@ public class ControladorPersonajes extends HttpServlet {
                 }
                 break;
             case "/personajeHechizos":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
 
-                //Recogemos los datos
-                personaje_id = request.getParameter("id");
-
-                numString = request.getParameter("pag");//numero de pag en la que estoy
-                escuela = request.getParameter("escuela");
-                nivelString = request.getParameter("nivel");
-                claseH = request.getParameter("clase");
-
-                //Comprobamos los datos
-                if (numString == null) {
-
-                    escuelaSQL = " ";
-                    nivelSQL = " ";
-                    claseHSQL = " ";
-                    numString = "1";
-                    num = 0;
-
-                    subtitulo = "Todos";
-
+                if (user == null) {
+                    vista = "/Principal/inicio";
                 } else {
+                    //Recogemos los datos
+                    personaje_id = request.getParameter("id");
 
-                    num = (Integer.valueOf(numString) - 1) * 15;//offset
+                    //Comprovamos si es tuyo
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+                    personaje = queryPersonajes.getResultList().get(0);
 
-                    if (escuela.equals("Escuela")) {
-                        escuelaSQL = " ";
+                    if (personaje == null || !personaje.getUsuario().getId().equals(user.getId())) {
+                        vista = "/Principal/inicio";
                     } else {
-                        escuelaSQL = "AND h.ESCUELA = '" + escuela + "' ";
-                    }
-                    if (nivelString.equals("Nivel")) {
-                        nivelSQL = " ";
-                    } else {
-                        nivelSQL = "AND h.NIVEL = '" + nivelString + "' ";
-                    }
-                    if (claseH.equals("Clase")) {
-                        claseHSQL = " ";
-                    } else {
-                        claseHSQL = "AND c.NOMBRE = '" + claseH + "' ";
-                    }
 
-                    if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
-                        subtitulo = escuela;
-                    } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
-                        subtitulo = escuela;
-                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
-                        subtitulo = claseH;
-                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
-                        subtitulo = claseH;
-                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
-                        subtitulo = escuela;
-                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
-                        subtitulo = nivelString;
-                    } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
-                        subtitulo = claseH;
-                    } else {
-                        subtitulo = "Todos";
-                    }
+                        numString = request.getParameter("pag");//numero de pag en la que estoy
+                        escuela = request.getParameter("escuela");
+                        nivelString = request.getParameter("nivel");
+                        claseH = request.getParameter("clase");
 
+                        //Comprobamos los datos
+                        if (numString == null) {
+
+                            escuelaSQL = " ";
+                            nivelSQL = " ";
+                            claseHSQL = " ";
+                            numString = "1";
+                            num = 0;
+
+                            subtitulo = "Todos";
+
+                        } else {
+
+                            num = (Integer.valueOf(numString) - 1) * 15;//offset
+
+                            if (escuela.equals("Escuela")) {
+                                escuelaSQL = " ";
+                            } else {
+                                escuelaSQL = "AND h.ESCUELA = '" + escuela + "' ";
+                            }
+                            if (nivelString.equals("Nivel")) {
+                                nivelSQL = " ";
+                            } else {
+                                nivelSQL = "AND h.NIVEL = '" + nivelString + "' ";
+                            }
+                            if (claseH.equals("Clase")) {
+                                claseHSQL = " ";
+                            } else {
+                                claseHSQL = "AND c.NOMBRE = '" + claseH + "' ";
+                            }
+
+                            if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
+                                subtitulo = escuela;
+                            } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
+                                subtitulo = escuela;
+                            } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
+                                subtitulo = claseH;
+                            } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
+                                subtitulo = claseH;
+                            } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
+                                subtitulo = escuela;
+                            } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
+                                subtitulo = nivelString;
+                            } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
+                                subtitulo = claseH;
+                            } else {
+                                subtitulo = "Todos";
+                            }
+
+                        }
+
+                        /////////////////////////////////
+                        ////////NUMERO DE HECHIZOS///////
+                        /////////////////////////////////
+                        sql = "SELECT DISTINCT COUNT(*) FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
+                                + "WHERE ph.personaje IS NOT NULL "
+                                + escuelaSQL
+                                + claseHSQL
+                                + nivelSQL;
+
+                        queryAUX = em.createNativeQuery(sql);
+                        result = queryAUX.getSingleResult();
+
+                        //PAGINAS QUE HAY (15 HECHIZOS POR PAGINA)
+                        numPag = (((Number) result).intValue() / 14) + 1;
+
+                        sql = "SELECT DISTINCT * FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
+                                + "WHERE ph.personaje IS NOT NULL "
+                                + escuelaSQL
+                                + claseHSQL
+                                + nivelSQL
+                                + "ORDER BY h.nombre "
+                                + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                        //Eliminar duplicados utilizando HashSet
+                        hashAuxHechizos = new HashSet<>(listaHechizos);
+                        listaHechizos.clear(); //Limpiar el ArrayList
+                        listaHechizos.addAll(hashAuxHechizos);
+
+                        request.setAttribute("pag", numString);
+                        request.setAttribute("numpag", numPag);
+
+                        request.setAttribute("vEscu", escuela);
+                        request.setAttribute("vNiv", nivelString);
+                        request.setAttribute("vClas", claseH);
+
+                        request.setAttribute("listaHechizos", listaHechizos);
+                        request.setAttribute("subtitulo", subtitulo);
+                        request.setAttribute("id", personaje_id);
+
+                        vista = "/WEB-INF/jsp/personajes/personajeHechizos.jsp";
+                    }
                 }
-
-                /////////////////////////////////
-                ////////NUMERO DE HECHIZOS///////
-                /////////////////////////////////
-                sql = "SELECT DISTINCT COUNT(*) FROM Hechizos h "
-                        + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                        + "LEFT JOIN Clases c on c.id = lb.clase "
-                        + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
-                        + "WHERE ph.personaje IS NOT NULL "
-                        + escuelaSQL
-                        + claseHSQL
-                        + nivelSQL;
-
-                queryAUX = em.createNativeQuery(sql);
-                result = queryAUX.getSingleResult();
-
-                //PAGINAS QUE HAY (15 HECHIZOS POR PAGINA)
-                numPag = (((Number) result).intValue() / 14) + 1;
-
-                sql = "SELECT DISTINCT * FROM Hechizos h "
-                        + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                        + "LEFT JOIN Clases c on c.id = lb.clase "
-                        + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
-                        + "WHERE ph.personaje IS NOT NULL "
-                        + escuelaSQL
-                        + claseHSQL
-                        + nivelSQL
-                        + "ORDER BY h.nombre "
-                        + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
-
-                queryAUX = em.createNativeQuery(sql, Hechizos.class);
-                listaHechizos = queryAUX.getResultList();
-
-                //Eliminar duplicados utilizando HashSet
-                hashAuxHechizos = new HashSet<>(listaHechizos);
-                listaHechizos.clear(); //Limpiar el ArrayList
-                listaHechizos.addAll(hashAuxHechizos);
-
-                request.setAttribute("pag", numString);
-                request.setAttribute("numpag", numPag);
-
-                request.setAttribute("vEscu", escuela);
-                request.setAttribute("vNiv", nivelString);
-                request.setAttribute("vClas", claseH);
-
-                request.setAttribute("listaHechizos", listaHechizos);
-                request.setAttribute("subtitulo", subtitulo);
-                request.setAttribute("id", personaje_id);
-
-                vista = "/WEB-INF/jsp/personajes/personajeHechizos.jsp";
                 break;
+
             case "/personajeHechizosElegir":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
 
-                //Recogemos los datos
-                personaje_id = request.getParameter("id");
-
-                numString = request.getParameter("pag");//numero de pag en la que estoy
-                escuela = request.getParameter("escuela");
-                nivelString = request.getParameter("nivel");
-                claseH = request.getParameter("clase");
-
-                //Comprobamos los datos
-                if (numString == null) {
-
-                    escuelaSQL = " ";
-                    nivelSQL = " ";
-                    claseHSQL = " ";
-                    numString = "1";
-                    num = 0;
-
-                    subtitulo = "Todos";
-
+                if (user == null) {
+                    vista = "/Principal/inicio";
                 } else {
+                    //Recogemos los datos
+                    personaje_id = request.getParameter("id");
 
-                    num = (Integer.valueOf(numString) - 1) * 15;//offset
+                    //Comprovamos si es tuyo
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+                    personaje = queryPersonajes.getResultList().get(0);
 
-                    if (escuela.equals("Escuela")) {
-                        escuelaSQL = " ";
+                    if (personaje == null || !personaje.getUsuario().getId().equals(user.getId())) {
+                        vista = "/Principal/inicio";
                     } else {
-                        escuelaSQL = "AND h.ESCUELA = '" + escuela + "' ";
-                    }
-                    if (nivelString.equals("Nivel")) {
-                        nivelSQL = " ";
-                    } else {
-                        nivelSQL = "AND h.NIVEL = '" + nivelString + "' ";
-                    }
-                    if (claseH.equals("Clase")) {
-                        claseHSQL = " ";
-                    } else {
-                        claseHSQL = "AND c.NOMBRE = '" + claseH + "' ";
-                    }
 
-                    if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
-                        subtitulo = escuela;
-                    } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
-                        subtitulo = escuela;
-                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
-                        subtitulo = claseH;
-                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
-                        subtitulo = claseH;
-                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
-                        subtitulo = escuela;
-                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
-                        subtitulo = nivelString;
-                    } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
-                        subtitulo = claseH;
-                    } else {
-                        subtitulo = "Todos";
-                    }
+                        numString = request.getParameter("pag");//numero de pag en la que estoy
+                        escuela = request.getParameter("escuela");
+                        nivelString = request.getParameter("nivel");
+                        claseH = request.getParameter("clase");
 
+                        //Comprobamos los datos
+                        if (numString == null) {
+
+                            escuelaSQL = " ";
+                            nivelSQL = " ";
+                            claseHSQL = " ";
+                            numString = "1";
+                            num = 0;
+
+                            subtitulo = "Todos";
+
+                        } else {
+
+                            num = (Integer.valueOf(numString) - 1) * 15;//offset
+
+                            if (escuela.equals("Escuela")) {
+                                escuelaSQL = " ";
+                            } else {
+                                escuelaSQL = "AND h.ESCUELA = '" + escuela + "' ";
+                            }
+                            if (nivelString.equals("Nivel")) {
+                                nivelSQL = " ";
+                            } else {
+                                nivelSQL = "AND h.NIVEL = '" + nivelString + "' ";
+                            }
+                            if (claseH.equals("Clase")) {
+                                claseHSQL = " ";
+                            } else {
+                                claseHSQL = "AND c.NOMBRE = '" + claseH + "' ";
+                            }
+
+                            if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
+                                subtitulo = escuela;
+                            } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
+                                subtitulo = escuela;
+                            } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
+                                subtitulo = claseH;
+                            } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
+                                subtitulo = claseH;
+                            } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
+                                subtitulo = escuela;
+                            } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
+                                subtitulo = nivelString;
+                            } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
+                                subtitulo = claseH;
+                            } else {
+                                subtitulo = "Todos";
+                            }
+
+                        }
+
+                        /////////////////////////////////
+                        ////////NUMERO DE HECHIZOS///////
+                        /////////////////////////////////
+                        sql = "SELECT COUNT(DISTINCT h.id) FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
+                                + "WHERE ph.personaje IS NULL "
+                                + escuelaSQL
+                                + claseHSQL
+                                + nivelSQL;
+
+                        queryAUX = em.createNativeQuery(sql);
+                        result = queryAUX.getSingleResult();
+
+                        //PAGINAS QUE HAY (15 HECHIZOS POR PAGINA)
+                        numPag = (((Number) result).intValue() / 14) + 1;
+
+                        sql = "SELECT h.* FROM Hechizos h "
+                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
+                                + "WHERE ph.personaje IS NULL "
+                                + escuelaSQL
+                                + claseHSQL
+                                + nivelSQL
+                                + "ORDER BY h.nombre "
+                                + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        listaHechizos = queryAUX.getResultList();
+
+                        //Eliminar duplicados utilizando HashSet
+                        hashAuxHechizos = new HashSet<>(listaHechizos);
+                        listaHechizos.clear(); //Limpiar el ArrayList
+                        listaHechizos.addAll(hashAuxHechizos);
+
+                        request.setAttribute("pag", numString);
+                        request.setAttribute("numpag", numPag);
+
+                        request.setAttribute("vEscu", escuela);
+                        request.setAttribute("vNiv", nivelString);
+                        request.setAttribute("vClas", claseH);
+
+                        request.setAttribute("listaHechizos", listaHechizos);
+                        request.setAttribute("subtitulo", subtitulo);
+                        request.setAttribute("id", personaje_id);
+
+                        vista = "/WEB-INF/jsp/personajes/personajeHechizosElegir.jsp";
+                    }
                 }
-
-                /////////////////////////////////
-                ////////NUMERO DE HECHIZOS///////
-                /////////////////////////////////
-                sql = "SELECT DISTINCT COUNT(*) FROM Hechizos h "
-                        + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                        + "LEFT JOIN Clases c on c.id = lb.clase "
-                        + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
-                        + "WHERE ph.personaje IS NULL "
-                        + escuelaSQL
-                        + claseHSQL
-                        + nivelSQL;
-
-                queryAUX = em.createNativeQuery(sql);
-                result = queryAUX.getSingleResult();
-
-                //PAGINAS QUE HAY (15 HECHIZOS POR PAGINA)
-                numPag = (((Number) result).intValue() / 14) + 1;
-
-                sql = "SELECT h.* FROM Hechizos h "
-                        + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                        + "LEFT JOIN Clases c on c.id = lb.clase "
-                        + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
-                        + "WHERE ph.personaje IS NULL "
-                        + escuelaSQL
-                        + claseHSQL
-                        + nivelSQL
-                        + "ORDER BY h.nombre "
-                        + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
-
-                queryAUX = em.createNativeQuery(sql, Hechizos.class);
-                listaHechizos = queryAUX.getResultList();
-
-                //Eliminar duplicados utilizando HashSet
-                hashAuxHechizos = new HashSet<>(listaHechizos);
-                listaHechizos.clear(); //Limpiar el ArrayList
-                listaHechizos.addAll(hashAuxHechizos);
-
-                request.setAttribute("pag", numString);
-                request.setAttribute("numpag", numPag);
-
-                request.setAttribute("vEscu", escuela);
-                request.setAttribute("vNiv", nivelString);
-                request.setAttribute("vClas", claseH);
-
-                request.setAttribute("listaHechizos", listaHechizos);
-                request.setAttribute("subtitulo", subtitulo);
-                request.setAttribute("id", personaje_id);
-
-                vista = "/WEB-INF/jsp/personajes/personajeHechizosElegir.jsp";
                 break;
             case "/personajeHechizoAnadir":
                 /////////////////////////
@@ -1940,6 +2117,34 @@ public class ControladorPersonajes extends HttpServlet {
                     vista = "/Personajes/personajeHechizos?id=" + personaje.getId();
                 }
                 break;
+            //////////////////////////////////
+            /////////SUBIR DE NIVEL///////////
+            //////////////////////////////////
+            case "/personajeSubirNivel":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                //Recogemos los datos
+                personaje_id = request.getParameter("personaje");
+                id = request.getParameter("hechizo");
+
+                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes.setParameter("id", personaje_id);
+                queryPersonajes.setParameter("creador", user);
+
+                personaje = queryPersonajes.getResultList().get(0);
+                if (personaje == null) {
+                    vista = "/Principal/Inicio";
+                } else {
+
+                    updatePersonajes(personaje);
+
+                    vista = "";
+                }
+                break;
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(vista);
@@ -1956,8 +2161,11 @@ public class ControladorPersonajes extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response
+    )
+            throws ServletException,
+            IOException {
         processRequest(request, response);
     }
 
@@ -1970,8 +2178,11 @@ public class ControladorPersonajes extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response
+    )
+            throws ServletException,
+            IOException {
         processRequest(request, response);
     }
 

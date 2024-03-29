@@ -19,7 +19,7 @@
                     <div class="tituloBuscadorExplorador">Buscar Equipo 
                     </div>
                     <form class="buscadorExplorar">
-                        <input id="buscador" onkeyup="realizarBusqueda('Equipo')" onsearch="realizarBusqueda('Equipo')" type="search" placeholder="Busqueda por nombre">
+                        <input id="buscador" onkeyup="realizarBusqueda('personajeEquipoElegir')" onsearch="realizarBusqueda('personajeEquipoElegir')" type="search" placeholder="Busqueda por nombre">
                         <select id="Selecttipo">
                             <option value="Tipo" selected>Tipo de objeto</option>
                             <option value="Arma">Armas</option>
@@ -124,6 +124,7 @@
             let valorSeleccionado1 = '<%= request.getAttribute("vTipo")%>'
             let valorSeleccionado2 = '<%= request.getAttribute("vCat")%>'
             let valorSeleccionado3 = '<%= request.getAttribute("vPro")%>'
+            let idPJ = '<%= request.getAttribute("id")%>'
             //Tabla
             let tabla = document.getElementById('Tabla');
             let tablaInicial = tabla.innerHTML;
@@ -131,7 +132,7 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="/TFG/js/busquedasAJAXJS.js"></script>
         <script src="/TFG/js/mostrarBotonesJS.js"></script>
-        <script src="/TFG/js/explorar/equipoJS.js"></script>
+        <script src="/TFG/js/personajes/personajeEquipoElegirJS.js"></script>
         <script src="/TFG/js/principalJS.js"></script>
     </body>
 </html>

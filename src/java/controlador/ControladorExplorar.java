@@ -21,6 +21,7 @@ import entidades.Usaclase;
 import entidades.Usasubclase;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -63,6 +64,8 @@ public class ControladorExplorar extends HttpServlet {
         String accion;
         accion = request.getPathInfo();
         String vista = "";
+
+        Object result;
 
         Query queryAUX;
         TypedQuery<Estados> queryEstados;
@@ -120,12 +123,19 @@ public class ControladorExplorar extends HttpServlet {
         String tipo;
         String categoria;
         String propiedad;
+        String tipoSQL;
+        String categoriaSQL;
+        String propiedadSQL;
 
         String escuela;
         String nivel;
         String claseH;
+        String escuelaSQL;
+        String nivelSQL;
+        String claseHSQL;
 
         String vd;
+        String vdSQL;
 
         String Trucos;
         String ClaseValoEspecifico1;
@@ -137,6 +147,11 @@ public class ControladorExplorar extends HttpServlet {
         int num;
         int pag;
         int numpag;
+        int cont;
+
+        HashSet<Hechizos> hashAuxHechizos;
+        HashSet<Equipo> hashAuxEquipo;
+        HashSet<Monstruos> hashAuxMonstruos;
 
         switch (accion) {
             case "/clases":
@@ -208,7 +223,7 @@ public class ControladorExplorar extends HttpServlet {
                 queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
                 queryClases.setParameter("nombre", nombre);
                 Clase = queryClases.getSingleResult();
-                
+
                 queryTablaClaseNivel = em.createNamedQuery("Tablaclasespornivel.findByClase", Tablaclasespornivel.class);
                 queryTablaClaseNivel.setParameter("clase", Clase.getNombre());
                 listaTablaClaseNivel = queryTablaClaseNivel.getResultList();
@@ -1310,158 +1325,102 @@ public class ControladorExplorar extends HttpServlet {
                 categoria = request.getParameter("categoria");
                 propiedad = request.getParameter("propiedad");
 
-                if (numString != null) {
-                    pag = Integer.valueOf(numString);
-                    num = (pag - 1) * 15;//offset
-                } else {
-                    pag = 1;
-                    num = 0;
-                }
-
+                //Comprobamos los datos
                 if (numString == null) {
+
+                    tipoSQL = " ";
+                    categoriaSQL = " ";
+                    propiedadSQL = " ";
+                    numString = "1";
+                    num = 0;
+
                     titulo = "Todos";
                     subtitulo = "Objetos";
-
-                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
-                    numpag = queryEquipo.getResultList().size();
-                    queryEquipo.setMaxResults(15);
-                    listaEquipo = queryEquipo.getResultList();
-
-                } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
-                    titulo = tipo;
-                    subtitulo = categoria;
-
-                    sql = "SELECT e.* FROM Equipo e "
-                            + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
-                            + "INNER JOIN Propiedades p on p.id = tp.propiedad "
-                            + "WHERE e.TIPO = '" + tipo + "' "
-                            + "AND e.CATEGORIA = '" + categoria + "' "
-                            + "AND p.NOMBRE ='" + propiedad + "' "
-                            + "ORDER BY e.nombre";
-
-                    queryAUX = em.createNativeQuery(sql, Equipo.class);
-                    numpag = queryAUX.getResultList().size();
-
-                    queryAUX = em.createNativeQuery(sql, Equipo.class);
-                    queryAUX.setFirstResult(num);
-                    queryAUX.setMaxResults(15);
-                    listaEquipo = queryAUX.getResultList();
-                } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
-                    titulo = tipo;
-                    subtitulo = categoria;
-
-                    queryEquipo = em.createNamedQuery("Equipo.findByTipoCategoria", Equipo.class);
-                    queryEquipo.setParameter("tipo", tipo);
-                    queryEquipo.setParameter("categoria", categoria);
-                    numpag = queryEquipo.getResultList().size();
-
-                    queryEquipo = em.createNamedQuery("Equipo.findByTipoCategoria", Equipo.class);
-                    queryEquipo.setParameter("tipo", tipo);
-                    queryEquipo.setParameter("categoria", categoria);
-                    queryEquipo.setFirstResult(num);
-                    queryEquipo.setMaxResults(15);
-                    listaEquipo = queryEquipo.getResultList();
-
-                } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
-                    titulo = tipo;
-                    subtitulo = "Objetos";
-
-                    sql = "SELECT e.* FROM Equipo e "
-                            + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
-                            + "INNER JOIN Propiedades p on p.id = tp.propiedad "
-                            + "WHERE e.TIPO = '" + tipo + "' "
-                            + "AND p.NOMBRE ='" + propiedad + "' "
-                            + "ORDER BY e.nombre";
-
-                    queryAUX = em.createNativeQuery(sql, Equipo.class);
-                    numpag = queryAUX.getResultList().size();
-
-                    queryAUX = em.createNativeQuery(sql, Equipo.class);
-                    queryAUX.setFirstResult(num);
-                    queryAUX.setMaxResults(15);
-                    listaEquipo = queryAUX.getResultList();
-
-                } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
-                    titulo = "Todos";
-                    subtitulo = categoria;
-
-                    sql = "SELECT e.* FROM Equipo e "
-                            + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
-                            + "INNER JOIN Propiedades p on p.id = tp.propiedad "
-                            + "WHERE e.CATEGORIA = '" + categoria + "' "
-                            + "AND p.NOMBRE ='" + propiedad + "' "
-                            + "ORDER BY e.nombre";
-
-                    queryAUX = em.createNativeQuery(sql, Equipo.class);
-                    numpag = queryAUX.getResultList().size();
-
-                    queryAUX = em.createNativeQuery(sql, Equipo.class);
-                    queryAUX.setFirstResult(num);
-                    queryAUX.setMaxResults(15);
-                    listaEquipo = queryAUX.getResultList();
-
-                } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
-                    titulo = tipo;
-                    subtitulo = "Objetos";
-
-                    queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
-                    queryEquipo.setParameter("tipo", tipo);
-                    numpag = queryEquipo.getResultList().size();
-
-                    queryEquipo = em.createNamedQuery("Equipo.findByTipo", Equipo.class);
-                    queryEquipo.setParameter("tipo", tipo);
-                    queryEquipo.setFirstResult(num);
-                    queryEquipo.setMaxResults(15);
-                    listaEquipo = queryEquipo.getResultList();
-
-                } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
-                    titulo = "Todos";
-                    subtitulo = categoria;
-
-                    queryEquipo = em.createNamedQuery("Equipo.findByCategoria", Equipo.class);
-                    queryEquipo.setParameter("categoria", categoria);
-                    numpag = queryEquipo.getResultList().size();
-
-                    queryEquipo = em.createNamedQuery("Equipo.findByCategoria", Equipo.class);
-                    queryEquipo.setParameter("categoria", categoria);
-                    queryEquipo.setFirstResult(num);
-                    queryEquipo.setMaxResults(15);
-                    listaEquipo = queryEquipo.getResultList();
-
-                } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
-                    titulo = "Todos";
-                    subtitulo = "Objetos";
-
-                    sql = "SELECT e.* FROM Equipo e "
-                            + "INNER JOIN Tienepropiedades tp on tp.equipo = e.id "
-                            + "INNER JOIN Propiedades p on p.id = tp.propiedad "
-                            + "WHERE p.NOMBRE ='" + propiedad + "' "
-                            + "ORDER BY e.nombre";
-
-                    queryAUX = em.createNativeQuery(sql, Equipo.class);
-                    numpag = queryAUX.getResultList().size();
-
-                    queryAUX = em.createNativeQuery(sql, Equipo.class);
-                    queryAUX.setFirstResult(num);
-                    queryAUX.setMaxResults(15);
-                    listaEquipo = queryAUX.getResultList();
 
                 } else {
-                    titulo = "Todos";
-                    subtitulo = "Objetos";
+                    num = (Integer.valueOf(numString) - 1) * 15;//offset
 
-                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
-                    numpag = queryEquipo.getResultList().size();
+                    if (tipo.equals("Tipo")) {
+                        tipoSQL = " ";
+                    } else {
+                        tipoSQL = "AND e.TIPO = '" + tipo + "' ";
+                    }
+                    if (categoria.equals("Categoria")) {
+                        categoriaSQL = " ";
+                    } else {
+                        categoriaSQL = "AND e.CATEGORIA = '" + categoria + "' ";
+                    }
+                    if (propiedad.equals("Propiedad")) {
+                        propiedadSQL = " ";
+                    } else {
+                        propiedadSQL = "AND p.NOMBRE = '" + propiedad + "' ";
+                    }
 
-                    queryEquipo = em.createNamedQuery("Equipo.findAll", Equipo.class);
-                    queryEquipo.setFirstResult(num);
-                    queryEquipo.setMaxResults(15);
-                    listaEquipo = queryEquipo.getResultList();
+                    if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
+                        titulo = tipo;
+                        subtitulo = categoria;
+                    } else if (!tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO y CAT
+                        titulo = tipo;
+                        subtitulo = categoria;
+                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
+                        titulo = tipo;
+                        subtitulo = "Objetos";
+                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
+                        titulo = "Todos";
+                        subtitulo = categoria;
+                    } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//TIPO
+                        titulo = tipo;
+                        subtitulo = "Objetos";
+                    } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
+                        titulo = "Todos";
+                        subtitulo = categoria;
+                    } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
+                        titulo = "Todos";
+                        subtitulo = "Objetos";
+                    } else {
+                        titulo = "Todos";
+                        subtitulo = "Objetos";
+                    }
+
                 }
 
-                request.setAttribute("pag", pag);
-                request.setAttribute("numpag", (numpag / 15));
+                /////////////////////////////////
+                ////////NUMERO DE EQUIPO/////////
+                /////////////////////////////////
+                sql = "SELECT COUNT(DISTINCT e.id) FROM Equipo e "
+                        + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                        + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                        + "WHERE e.id IS NOT NULL "
+                        + tipoSQL
+                        + categoriaSQL
+                        + propiedadSQL;
 
+                queryAUX = em.createNativeQuery(sql);
+                result = queryAUX.getSingleResult();
+
+                //PAGINAS QUE HAY (15 OBJETOS POR PAGINA)
+                numpag = (((Number) result).intValue() / 14) + 1;
+
+                sql = "SELECT * FROM Equipo e "
+                        + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
+                        + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                        + "WHERE e.id IS NOT NULL "
+                        + tipoSQL
+                        + categoriaSQL
+                        + propiedadSQL
+                        + "ORDER BY e.nombre "
+                        + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
+
+                queryAUX = em.createNativeQuery(sql, Equipo.class);
+                listaEquipo = queryAUX.getResultList();
+
+                //Eliminar duplicados utilizando HashSet
+                hashAuxEquipo = new HashSet<>(listaEquipo);
+                hashAuxEquipo.clear(); //Limpiar el ArrayList
+                listaEquipo.addAll(hashAuxEquipo);
+
+                request.setAttribute("pag", numString);
+                request.setAttribute("numpag", numpag);
                 request.setAttribute("vTipo", tipo);
                 request.setAttribute("vCat", categoria);
                 request.setAttribute("vPro", propiedad);
@@ -1507,153 +1466,95 @@ public class ControladorExplorar extends HttpServlet {
                 nivel = request.getParameter("nivel");
                 claseH = request.getParameter("clase");
 
-                if (numString != null) {
-                    pag = Integer.valueOf(numString);
-                    num = (pag - 1) * 15;//offset
-                } else {
-                    pag = 1;
-                    num = 0;
-                }
-
+                //Comprobamos los datos
                 if (numString == null) {
+
+                    escuelaSQL = " ";
+                    nivelSQL = " ";
+                    claseHSQL = " ";
+                    numString = "1";
+                    num = 0;
+
                     subtitulo = "Todos";
-
-                    queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
-                    numpag = queryHechizos.getResultList().size();
-                    queryHechizos.setMaxResults(15);
-                    listaHechizos = queryHechizos.getResultList();
-
-                } else if (!escuela.equals("Escuela") && !nivel.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
-                    subtitulo = escuela;
-
-                    sql = "SELECT h.* FROM Hechizos h "
-                            + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
-                            + "INNER JOIN Clases c on c.id = lb.clase "
-                            + "WHERE h.ESCUELA = '" + escuela + "' "
-                            + "AND h.NIVEL = '" + nivel + "' "
-                            + "AND c.NOMBRE ='" + claseH + "' "
-                            + "ORDER BY h.nombre";
-
-                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
-                    numpag = queryAUX.getResultList().size();
-
-                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
-                    queryAUX.setFirstResult(num);
-                    queryAUX.setMaxResults(15);
-                    listaHechizos = queryAUX.getResultList();
-
-                } else if (!escuela.equals("Escuela") && !nivel.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
-                    subtitulo = escuela;
-
-                    queryHechizos = em.createNamedQuery("Hechizos.findByEscuNivel", Hechizos.class);
-                    queryHechizos.setParameter("escuela", escuela);
-                    queryHechizos.setParameter("nivel", nivel);
-                    numpag = queryHechizos.getResultList().size();
-
-                    queryHechizos = em.createNamedQuery("Hechizos.findByEscuNivel", Hechizos.class);
-                    queryHechizos.setParameter("escuela", escuela);
-                    queryHechizos.setParameter("nivel", nivel);
-                    queryHechizos.setFirstResult(num);
-                    queryHechizos.setMaxResults(15);
-                    listaHechizos = queryHechizos.getResultList();
-
-                } else if (!escuela.equals("Escuela") && nivel.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
-                    subtitulo = claseH;
-
-                    sql = "SELECT h.* FROM Hechizos h "
-                            + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
-                            + "INNER JOIN Clases c on c.id = lb.clase "
-                            + "WHERE h.ESCUELA = '" + escuela + "' "
-                            + "AND c.NOMBRE ='" + claseH + "' "
-                            + "ORDER BY h.nombre";
-
-                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
-                    numpag = queryAUX.getResultList().size();
-
-                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
-                    queryAUX.setFirstResult(num);
-                    queryAUX.setMaxResults(15);
-                    listaHechizos = queryAUX.getResultList();
-
-                } else if (escuela.equals("Escuela") && !nivel.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
-                    subtitulo = claseH;
-
-                    sql = "SELECT h.* FROM Hechizos h "
-                            + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
-                            + "INNER JOIN Clases c on c.id = lb.clase "
-                            + "WHERE h.NIVEL = '" + nivel + "' "
-                            + "AND c.NOMBRE ='" + claseH + "' "
-                            + "ORDER BY h.nombre";
-
-                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
-                    numpag = queryAUX.getResultList().size();
-
-                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
-                    queryAUX.setFirstResult(num);
-                    queryAUX.setMaxResults(15);
-                    listaHechizos = queryAUX.getResultList();
-
-                } else if (!escuela.equals("Escuela") && nivel.equals("Nivel") && claseH.equals("Clase")) {//ESCU
-                    subtitulo = escuela;
-
-                    queryHechizos = em.createNamedQuery("Hechizos.findByEscuela", Hechizos.class);
-                    queryHechizos.setParameter("escuela", escuela);
-                    numpag = queryHechizos.getResultList().size();
-
-                    queryHechizos = em.createNamedQuery("Hechizos.findByEscuela", Hechizos.class);
-                    queryHechizos.setParameter("escuela", escuela);
-                    queryHechizos.setFirstResult(num);
-                    queryHechizos.setMaxResults(15);
-                    listaHechizos = queryHechizos.getResultList();
-
-                } else if (escuela.equals("Escuela") && !nivel.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
-                    subtitulo = nivel;
-
-                    queryHechizos = em.createNamedQuery("Hechizos.findByNivel", Hechizos.class);
-                    queryHechizos.setParameter("nivel", nivel);
-                    numpag = queryHechizos.getResultList().size();
-
-                    queryHechizos = em.createNamedQuery("Hechizos.findByNivel", Hechizos.class);
-                    queryHechizos.setParameter("nivel", nivel);
-                    queryHechizos.setFirstResult(num);
-                    queryHechizos.setMaxResults(15);
-                    listaHechizos = queryHechizos.getResultList();
-
-                } else if (escuela.equals("Escuela") && nivel.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
-                    subtitulo = claseH;
-
-                    sql = "SELECT h.* FROM Hechizos h "
-                            + "INNER JOIN Listahechizos lb on lb.hechizo = h.id "
-                            + "INNER JOIN Clases c on c.id = lb.clase "
-                            + "WHERE c.NOMBRE ='" + claseH + "' "
-                            + "ORDER BY h.nombre";
-
-                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
-                    numpag = queryAUX.getResultList().size();
-
-                    queryAUX = em.createNativeQuery(sql, Hechizos.class);
-                    queryAUX.setFirstResult(num);
-                    queryAUX.setMaxResults(15);
-                    listaHechizos = queryAUX.getResultList();
 
                 } else {
-                    subtitulo = "Todos";
 
-                    queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
-                    numpag = queryHechizos.getResultList().size();
+                    num = (Integer.valueOf(numString) - 1) * 15;//offset
 
-                    queryHechizos = em.createNamedQuery("Hechizos.findAll", Hechizos.class);
-                    queryHechizos.setFirstResult(num);
-                    queryHechizos.setMaxResults(15);
-                    listaHechizos = queryHechizos.getResultList();
+                    if (escuela.equals("Escuela")) {
+                        escuelaSQL = " ";
+                    } else {
+                        escuelaSQL = "AND h.ESCUELA = '" + escuela + "' ";
+                    }
+                    if (nivel.equals("Nivel")) {
+                        nivelSQL = " ";
+                    } else {
+                        nivelSQL = "AND h.NIVEL = '" + nivel + "' ";
+                    }
+                    if (claseH.equals("Clase")) {
+                        claseHSQL = " ";
+                    } else {
+                        claseHSQL = "AND c.NOMBRE = '" + claseH + "' ";
+                    }
 
-                    System.out.println(num);
-                    System.out.println(numpag);
+                    if (!escuela.equals("Escuela") && !nivel.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
+                        subtitulo = escuela;
+                    } else if (!escuela.equals("Escuela") && !nivel.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
+                        subtitulo = escuela;
+                    } else if (!escuela.equals("Escuela") && nivel.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
+                        subtitulo = claseH;
+                    } else if (escuela.equals("Escuela") && !nivel.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
+                        subtitulo = claseH;
+                    } else if (!escuela.equals("Escuela") && nivel.equals("Nivel") && claseH.equals("Clase")) {//ESCU
+                        subtitulo = escuela;
+                    } else if (escuela.equals("Escuela") && !nivel.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
+                        subtitulo = nivel;
+                    } else if (escuela.equals("Escuela") && nivel.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
+                        subtitulo = claseH;
+                    } else {
+                        subtitulo = "Todos";
+                    }
+
                 }
 
-                request.setAttribute("pag", pag);
-                request.setAttribute("numpag", (numpag / 15));
-                
+                /////////////////////////////////
+                ////////NUMERO DE HECHIZOS///////
+                /////////////////////////////////
+                sql = "SELECT COUNT(DISTINCT h.id) FROM Hechizos h "
+                        + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                        + "LEFT JOIN Clases c on c.id = lb.clase "
+                        + "WHERE h.id IS NOT NULL "
+                        + escuelaSQL
+                        + claseHSQL
+                        + nivelSQL;
+
+                queryAUX = em.createNativeQuery(sql);
+                result = queryAUX.getSingleResult();
+
+                //PAGINAS QUE HAY (15 HECHIZOS POR PAGINA)
+                numpag = (((Number) result).intValue() / 14) + 1;
+
+                sql = "SELECT h.* FROM Hechizos h "
+                        + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                        + "LEFT JOIN Clases c on c.id = lb.clase "
+                        + "WHERE h.id IS NOT NULL "
+                        + escuelaSQL
+                        + claseHSQL
+                        + nivelSQL
+                        + "ORDER BY h.nombre "
+                        + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
+
+                queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                listaHechizos = queryAUX.getResultList();
+
+                //Eliminar duplicados utilizando HashSet
+                hashAuxHechizos = new HashSet<>(listaHechizos);
+                listaHechizos.clear(); //Limpiar el ArrayList
+                listaHechizos.addAll(hashAuxHechizos);
+
+                request.setAttribute("pag", numString);
+                request.setAttribute("numpag", numpag);
+
                 request.setAttribute("vEscu", escuela);
                 request.setAttribute("vNiv", nivel);
                 request.setAttribute("vClas", claseH);
@@ -1685,80 +1586,72 @@ public class ControladorExplorar extends HttpServlet {
                 tipo = request.getParameter("tipo");
                 vd = request.getParameter("vd");
 
-                if (numString != null) {
-                    pag = Integer.valueOf(numString);
-                    num = (pag - 1) * 15;//offset
-                } else {
-                    pag = 1;
-                    num = 0;
-                }
-
+                //Comprobamos los datos
                 if (numString == null) {
+
+                    tipoSQL = " ";
+                    vdSQL = " ";
+                    numString = "1";
+                    num = 0;
+
                     subtitulo = "Todos";
-
-                    queryMonstruos = em.createNamedQuery("Monstruos.findAll", Monstruos.class);
-                    numpag = queryMonstruos.getResultList().size();
-                    queryMonstruos.setMaxResults(15);
-                    listaMonstruos = queryMonstruos.getResultList();
-
-                } else if (!tipo.equals("Tipo") && !vd.equals("Valor de Desafio")) {//TODOS
-                    subtitulo = tipo;
-
-                    queryMonstruos = em.createNamedQuery("Monstruos.findByTipoVD", Monstruos.class);
-                    queryMonstruos.setParameter("vdesafio", vd);
-                    queryMonstruos.setParameter("tipo", tipo);
-                    numpag = queryMonstruos.getResultList().size();
-
-                    queryMonstruos = em.createNamedQuery("Monstruos.findByTipoVD", Monstruos.class);
-                    queryMonstruos.setParameter("vdesafio", vd);
-                    queryMonstruos.setParameter("tipo", tipo);
-                    queryMonstruos.setFirstResult(num);
-                    queryMonstruos.setMaxResults(15);
-                    listaMonstruos = queryMonstruos.getResultList();
-
-                } else if (tipo.equals("Tipo") && !vd.equals("Valor de Desafio")) {//VD
-                    subtitulo = "Todos";
-
-                    queryMonstruos = em.createNamedQuery("Monstruos.findByVdesafio", Monstruos.class);
-                    queryMonstruos.setParameter("vdesafio", vd);
-                    numpag = queryMonstruos.getResultList().size();
-
-                    queryMonstruos = em.createNamedQuery("Monstruos.findByVdesafio", Monstruos.class);
-                    queryMonstruos.setParameter("vdesafio", vd);
-                    queryMonstruos.setFirstResult(num);
-                    queryMonstruos.setMaxResults(15);
-                    listaMonstruos = queryMonstruos.getResultList();
-
-                } else if (!tipo.equals("Tipo") && vd.equals("Valor de Desafio")) {//TIPO
-                    subtitulo = tipo;
-
-                    queryMonstruos = em.createNamedQuery("Monstruos.findByTipo", Monstruos.class);
-                    queryMonstruos.setParameter("tipo", tipo);
-                    numpag = queryMonstruos.getResultList().size();
-
-                    queryMonstruos = em.createNamedQuery("Monstruos.findByTipo", Monstruos.class);
-                    queryMonstruos.setParameter("tipo", tipo);
-                    queryMonstruos.setFirstResult(num);
-                    queryMonstruos.setMaxResults(15);
-                    listaMonstruos = queryMonstruos.getResultList();
 
                 } else {
-                    subtitulo = "Todos";
+                    num = (Integer.valueOf(numString) - 1) * 15;//offset
 
-                    queryMonstruos = em.createNamedQuery("Monstruos.findAll", Monstruos.class);
-                    numpag = queryMonstruos.getResultList().size();
+                    if (vd.equals("Valor de Desafio")) {
+                        vdSQL = " ";
+                    } else {
+                        vdSQL = "AND m.VDESAFIO = '" + vd + "' ";
+                    }
+                    if (tipo.equals("Tipo")) {
+                        tipoSQL = " ";
+                    } else {
+                        tipoSQL = "AND m.TIPO = '" + tipo + "' ";
+                    }
 
-                    queryMonstruos = em.createNamedQuery("Monstruos.findAll", Monstruos.class);
-                    queryMonstruos.setFirstResult(num);
-                    queryMonstruos.setMaxResults(15);
-                    listaMonstruos = queryMonstruos.getResultList();
-
-                    System.out.println(num);
-                    System.out.println(numpag);
+                    if (!tipo.equals("Tipo") && !vd.equals("Valor de Desafio")) {//TODOS
+                        subtitulo = tipo;
+                    } else if (tipo.equals("Tipo") && !vd.equals("Valor de Desafio")) {//VD
+                        subtitulo = "Todos";
+                    } else if (!tipo.equals("Tipo") && vd.equals("Valor de Desafio")) {//TIPO
+                        subtitulo = tipo;
+                    } else {
+                        subtitulo = "Todos";
+                    }
                 }
 
-                request.setAttribute("pag", pag);
-                request.setAttribute("numpag", (numpag / 15));
+                //////////////////////////////////
+                ////////NUMERO DE MONSTRUOS///////
+                //////////////////////////////////
+                sql = "SELECT COUNT(DISTINCT m.id) FROM Monstruos m "
+                        + "WHERE m.id IS NOT NULL "
+                        + vdSQL
+                        + tipoSQL;
+
+                queryAUX = em.createNativeQuery(sql);
+                result = queryAUX.getSingleResult();
+
+                //PAGINAS QUE HAY (15 MONSTRUOS POR PAGINA)
+                numpag = (((Number) result).intValue() / 14) + 1;
+
+                sql = "SELECT m.* FROM Monstruos m "
+                        + "WHERE m.id IS NOT NULL "
+                        + vdSQL
+                        + tipoSQL
+                        + "ORDER BY m.nombre "
+                        + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
+
+                queryAUX = em.createNativeQuery(sql, Monstruos.class);
+                listaMonstruos = queryAUX.getResultList();
+
+                //Eliminar duplicados utilizando HashSet
+                hashAuxMonstruos = new HashSet<>(listaMonstruos);
+                listaMonstruos.clear(); //Limpiar el ArrayList
+                listaMonstruos.addAll(hashAuxMonstruos);
+
+                request.setAttribute("pag", numString);
+                request.setAttribute("numpag", numpag);
 
                 request.setAttribute("vTipo", tipo);
                 request.setAttribute("vVD", vd);
