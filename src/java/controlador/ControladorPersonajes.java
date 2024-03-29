@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -82,6 +83,8 @@ public class ControladorPersonajes extends HttpServlet {
         TypedQuery<Equipo> queryEquipo;
         TypedQuery<Hechizos> queryHechizos;
 
+        Query queryAUX;
+
         List<Personajes> listaPersonajes;
         List<Usuarios> listaUsuariosAmigos;
         List<Usuarios> listaUsuarios;
@@ -95,7 +98,8 @@ public class ControladorPersonajes extends HttpServlet {
         List<Hechizos> listaHechizos;
         List<List<Propiedades>> listalistaPropiedades;
 
-        Query queryAUX;
+        HashSet<Hechizos> hashAuxHechizos;
+        HashSet<Equipo> hashAuxEquipo;
 
         Usuarios user;
         Usuarios useraux;
@@ -110,6 +114,8 @@ public class ControladorPersonajes extends HttpServlet {
         Personajeatributos personajeAtributo;
         Habilidades habilidad;
         Personajehabilidades personajeHabilidad;
+        Equipo equipo;
+        Hechizos hechizo;
 
         String id;
 
@@ -153,6 +159,10 @@ public class ControladorPersonajes extends HttpServlet {
         String personaje_idiomas;
         String personaje_historia;
 
+        String escuela;
+        String claseH;
+        String escuelaSQL;
+        String claseHSQL;
         String tipo;
         String categoria;
         String propiedad;
@@ -1402,7 +1412,7 @@ public class ControladorPersonajes extends HttpServlet {
                 //PAGINAS QUE HAY (15 OBJETOS POR PAGINA)
                 numPag = (((Number) result).intValue() / 14) + 1;
 
-                sql = "SELECT e.* FROM Equipo e "
+                sql = "SELECT DISTINCT * FROM Equipo e "
                         + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
                         + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
                         + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
@@ -1415,6 +1425,11 @@ public class ControladorPersonajes extends HttpServlet {
 
                 queryAUX = em.createNativeQuery(sql, Equipo.class);
                 listaEquipo = queryAUX.getResultList();
+
+                //Eliminar duplicados utilizando HashSet
+                hashAuxEquipo = new HashSet<>(listaEquipo);
+                hashAuxEquipo.clear(); //Limpiar el ArrayList
+                listaEquipo.addAll(hashAuxEquipo);
 
                 request.setAttribute("pag", numString);
                 request.setAttribute("numpag", numPag);
@@ -1522,7 +1537,7 @@ public class ControladorPersonajes extends HttpServlet {
                 //PAGINAS QUE HAY (15 OBJETOS POR PAGINA)
                 numPag = (((Number) result).intValue() / 14) + 1;
 
-                sql = "SELECT e.* FROM Equipo e "
+                sql = "SELECT DISTINCT * FROM Equipo e "
                         + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
                         + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
                         + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
@@ -1535,6 +1550,11 @@ public class ControladorPersonajes extends HttpServlet {
 
                 queryAUX = em.createNativeQuery(sql, Equipo.class);
                 listaEquipo = queryAUX.getResultList();
+
+                //Eliminar duplicados utilizando HashSet
+                hashAuxEquipo = new HashSet<>(listaEquipo);
+                hashAuxEquipo.clear(); //Limpiar el ArrayList
+                listaEquipo.addAll(hashAuxEquipo);
 
                 request.setAttribute("pag", numString);
                 request.setAttribute("numpag", numPag);
@@ -1556,11 +1576,369 @@ public class ControladorPersonajes extends HttpServlet {
 
                 vista = "/WEB-INF/jsp/personajes/personajeEquipoElegir.jsp";
                 break;
+            case "/personajeEquipoAnadir":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                //Recogemos los datos
+                personaje_id = request.getParameter("personaje");
+                id = request.getParameter("objeto");
+
+                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes.setParameter("id", personaje_id);
+                queryPersonajes.setParameter("creador", user);
+
+                personaje = queryPersonajes.getResultList().get(0);
+                if (personaje == null) {
+                    vista = "/Principal/Inicio";
+                } else {
+                    queryEquipo = em.createNamedQuery("Equipo.findById", Equipo.class);
+                    queryEquipo.setParameter("id", id);
+
+                    equipo = queryEquipo.getSingleResult();
+                    listaEquipo = personaje.getEquipoList();
+                    listaEquipo.add(equipo);
+
+                    personaje.setEquipoList(listaEquipo);
+                    updatePersonajes(personaje);
+
+                    vista = "/Personajes/personajeEquipoElegir?id=" + personaje.getId();
+                }
+                break;
+            case "/personajeEquipoEliminar":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                //Recogemos los datos
+                personaje_id = request.getParameter("personaje");
+                id = request.getParameter("objeto");
+
+                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes.setParameter("id", personaje_id);
+                queryPersonajes.setParameter("creador", user);
+
+                personaje = queryPersonajes.getResultList().get(0);
+                if (personaje == null) {
+                    vista = "/Principal/Inicio";
+                } else {
+                    queryEquipo = em.createNamedQuery("Equipo.findById", Equipo.class);
+                    queryEquipo.setParameter("id", id);
+                    equipo = queryEquipo.getSingleResult();
+
+                    listaEquipo = personaje.getEquipoList();
+
+                    for (int i = 0; i < listaEquipo.size(); i++) {
+                        if (listaEquipo.get(i).getId().equals(equipo.getId())) {
+                            listaEquipo.remove(i);
+                            i = listaEquipo.size();
+                        }
+                    }
+
+                    personaje.setEquipoList(listaEquipo);
+
+                    updatePersonajes(personaje);
+
+                    vista = "/Personajes/personajesEquipo?id=" + personaje.getId();
+                }
+                break;
             case "/personajeHechizos":
+
+                //Recogemos los datos
+                personaje_id = request.getParameter("id");
+
+                numString = request.getParameter("pag");//numero de pag en la que estoy
+                escuela = request.getParameter("escuela");
+                nivelString = request.getParameter("nivel");
+                claseH = request.getParameter("clase");
+
+                //Comprobamos los datos
+                if (numString == null) {
+
+                    escuelaSQL = " ";
+                    nivelSQL = " ";
+                    claseHSQL = " ";
+                    numString = "1";
+                    num = 0;
+
+                    subtitulo = "Todos";
+
+                } else {
+
+                    num = (Integer.valueOf(numString) - 1) * 15;//offset
+
+                    if (escuela.equals("Escuela")) {
+                        escuelaSQL = " ";
+                    } else {
+                        escuelaSQL = "AND h.ESCUELA = '" + escuela + "' ";
+                    }
+                    if (nivelString.equals("Nivel")) {
+                        nivelSQL = " ";
+                    } else {
+                        nivelSQL = "AND h.NIVEL = '" + nivelString + "' ";
+                    }
+                    if (claseH.equals("Clase")) {
+                        claseHSQL = " ";
+                    } else {
+                        claseHSQL = "AND c.NOMBRE = '" + claseH + "' ";
+                    }
+
+                    if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
+                        subtitulo = escuela;
+                    } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
+                        subtitulo = escuela;
+                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
+                        subtitulo = claseH;
+                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
+                        subtitulo = claseH;
+                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
+                        subtitulo = escuela;
+                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
+                        subtitulo = nivelString;
+                    } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
+                        subtitulo = claseH;
+                    } else {
+                        subtitulo = "Todos";
+                    }
+
+                }
+
+                /////////////////////////////////
+                ////////NUMERO DE HECHIZOS///////
+                /////////////////////////////////
+                sql = "SELECT DISTINCT COUNT(*) FROM Hechizos h "
+                        + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                        + "LEFT JOIN Clases c on c.id = lb.clase "
+                        + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
+                        + "WHERE ph.personaje IS NOT NULL "
+                        + escuelaSQL
+                        + claseHSQL
+                        + nivelSQL;
+
+                queryAUX = em.createNativeQuery(sql);
+                result = queryAUX.getSingleResult();
+
+                //PAGINAS QUE HAY (15 HECHIZOS POR PAGINA)
+                numPag = (((Number) result).intValue() / 14) + 1;
+
+                sql = "SELECT DISTINCT * FROM Hechizos h "
+                        + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                        + "LEFT JOIN Clases c on c.id = lb.clase "
+                        + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
+                        + "WHERE ph.personaje IS NOT NULL "
+                        + escuelaSQL
+                        + claseHSQL
+                        + nivelSQL
+                        + "ORDER BY h.nombre "
+                        + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
+
+                queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                listaHechizos = queryAUX.getResultList();
+
+                //Eliminar duplicados utilizando HashSet
+                hashAuxHechizos = new HashSet<>(listaHechizos);
+                listaHechizos.clear(); //Limpiar el ArrayList
+                listaHechizos.addAll(hashAuxHechizos);
+
+                request.setAttribute("pag", numString);
+                request.setAttribute("numpag", numPag);
+
+                request.setAttribute("vEscu", escuela);
+                request.setAttribute("vNiv", nivelString);
+                request.setAttribute("vClas", claseH);
+
+                request.setAttribute("listaHechizos", listaHechizos);
+                request.setAttribute("subtitulo", subtitulo);
+                request.setAttribute("id", personaje_id);
+
                 vista = "/WEB-INF/jsp/personajes/personajeHechizos.jsp";
                 break;
             case "/personajeHechizosElegir":
+
+                //Recogemos los datos
+                personaje_id = request.getParameter("id");
+
+                numString = request.getParameter("pag");//numero de pag en la que estoy
+                escuela = request.getParameter("escuela");
+                nivelString = request.getParameter("nivel");
+                claseH = request.getParameter("clase");
+
+                //Comprobamos los datos
+                if (numString == null) {
+
+                    escuelaSQL = " ";
+                    nivelSQL = " ";
+                    claseHSQL = " ";
+                    numString = "1";
+                    num = 0;
+
+                    subtitulo = "Todos";
+
+                } else {
+
+                    num = (Integer.valueOf(numString) - 1) * 15;//offset
+
+                    if (escuela.equals("Escuela")) {
+                        escuelaSQL = " ";
+                    } else {
+                        escuelaSQL = "AND h.ESCUELA = '" + escuela + "' ";
+                    }
+                    if (nivelString.equals("Nivel")) {
+                        nivelSQL = " ";
+                    } else {
+                        nivelSQL = "AND h.NIVEL = '" + nivelString + "' ";
+                    }
+                    if (claseH.equals("Clase")) {
+                        claseHSQL = " ";
+                    } else {
+                        claseHSQL = "AND c.NOMBRE = '" + claseH + "' ";
+                    }
+
+                    if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
+                        subtitulo = escuela;
+                    } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
+                        subtitulo = escuela;
+                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
+                        subtitulo = claseH;
+                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
+                        subtitulo = claseH;
+                    } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
+                        subtitulo = escuela;
+                    } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
+                        subtitulo = nivelString;
+                    } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
+                        subtitulo = claseH;
+                    } else {
+                        subtitulo = "Todos";
+                    }
+
+                }
+
+                /////////////////////////////////
+                ////////NUMERO DE HECHIZOS///////
+                /////////////////////////////////
+                sql = "SELECT DISTINCT COUNT(*) FROM Hechizos h "
+                        + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                        + "LEFT JOIN Clases c on c.id = lb.clase "
+                        + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
+                        + "WHERE ph.personaje IS NULL "
+                        + escuelaSQL
+                        + claseHSQL
+                        + nivelSQL;
+
+                queryAUX = em.createNativeQuery(sql);
+                result = queryAUX.getSingleResult();
+
+                //PAGINAS QUE HAY (15 HECHIZOS POR PAGINA)
+                numPag = (((Number) result).intValue() / 14) + 1;
+
+                sql = "SELECT h.* FROM Hechizos h "
+                        + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
+                        + "LEFT JOIN Clases c on c.id = lb.clase "
+                        + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
+                        + "WHERE ph.personaje IS NULL "
+                        + escuelaSQL
+                        + claseHSQL
+                        + nivelSQL
+                        + "ORDER BY h.nombre "
+                        + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
+
+                queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                listaHechizos = queryAUX.getResultList();
+
+                //Eliminar duplicados utilizando HashSet
+                hashAuxHechizos = new HashSet<>(listaHechizos);
+                listaHechizos.clear(); //Limpiar el ArrayList
+                listaHechizos.addAll(hashAuxHechizos);
+
+                request.setAttribute("pag", numString);
+                request.setAttribute("numpag", numPag);
+
+                request.setAttribute("vEscu", escuela);
+                request.setAttribute("vNiv", nivelString);
+                request.setAttribute("vClas", claseH);
+
+                request.setAttribute("listaHechizos", listaHechizos);
+                request.setAttribute("subtitulo", subtitulo);
+                request.setAttribute("id", personaje_id);
+
                 vista = "/WEB-INF/jsp/personajes/personajeHechizosElegir.jsp";
+                break;
+            case "/personajeHechizoAnadir":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                //Recogemos los datos
+                personaje_id = request.getParameter("personaje");
+                id = request.getParameter("hechizo");
+
+                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes.setParameter("id", personaje_id);
+                queryPersonajes.setParameter("creador", user);
+
+                personaje = queryPersonajes.getResultList().get(0);
+                if (personaje == null) {
+                    vista = "/Principal/Inicio";
+                } else {
+                    queryHechizos = em.createNamedQuery("Hechizos.findById", Hechizos.class);
+                    queryHechizos.setParameter("id", id);
+
+                    hechizo = queryHechizos.getSingleResult();
+                    listaHechizos = personaje.getHechizosList();
+                    listaHechizos.add(hechizo);
+
+                    personaje.setHechizosList(listaHechizos);
+                    updatePersonajes(personaje);
+
+                    vista = "/Personajes/personajeHechizosElegir?id=" + personaje.getId();
+                }
+                break;
+            case "/personajeHechizoEliminar":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                //Recogemos los datos
+                personaje_id = request.getParameter("personaje");
+                id = request.getParameter("hechizo");
+
+                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes.setParameter("id", personaje_id);
+                queryPersonajes.setParameter("creador", user);
+
+                personaje = queryPersonajes.getResultList().get(0);
+                if (personaje == null) {
+                    vista = "/Principal/Inicio";
+                } else {
+                    queryHechizos = em.createNamedQuery("Hechizos.findById", Hechizos.class);
+                    queryHechizos.setParameter("id", id);
+                    hechizo = queryHechizos.getSingleResult();
+
+                    listaHechizos = personaje.getHechizosList();
+
+                    for (int i = 0; i < listaHechizos.size(); i++) {
+                        if (listaHechizos.get(i).getId().equals(hechizo.getId())) {
+                            listaHechizos.remove(i);
+                            i = listaHechizos.size();
+                        }
+                    }
+
+                    personaje.setHechizosList(listaHechizos);
+
+                    updatePersonajes(personaje);
+
+                    vista = "/Personajes/personajeHechizos?id=" + personaje.getId();
+                }
                 break;
         }
 

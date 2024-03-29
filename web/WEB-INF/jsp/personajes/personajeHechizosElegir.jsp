@@ -64,7 +64,7 @@
                             <option value="Mago">Mago</option>
                             <option value="Paladin">Paladin</option>
                         </select>
-                        <button class="botonArriba"  onclick="location.href = '/TFG/Usuarios/mostrarAmigos'">Volver</button> 
+                         <button type="button" onclick="location.href = '/TFG/Personajes/personajeHechizos?id=${requestScope.id}'">Volver</button>
                     </form>
                 </div>
                 <div class="listasExplorador" id="pestañasSeccion">
@@ -83,6 +83,7 @@
                                             <th>Duración</th>
                                             <th>Alcance</th>
                                             <th>Componentes</th>
+                                            <th>&nbsp;</th>
                                         </tr>
                                         <c:forEach var="i" begin="0" end="14">
                                             <c:set var="hechizo" value="${listaHechizos[i]}"/>
@@ -96,7 +97,7 @@
                                                         <td>${hechizo.duracion}</td>
                                                         <td>${hechizo.alcance}</td>
                                                         <td>${hechizo.componentes}</td>
-                                                        <td><button class="botonDentro" onclick="location.href = '/TFG/Usuarios/mostrarAmigos'">Añadir</button></td>
+                                                        <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeHechizoAnadir?hechizo=${hechizo.id}&personaje=${requestScope.id}'">Añadir</button></td>
                                                     </tr>
                                                     <tr class="tablaHechizosTR" onclick="window.location = '/TFG/Explorar/hechizo?idHechizo=${hechizo.id}'">
                                                         <td colspan="8" >${hechizo.descripcion}</td>

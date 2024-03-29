@@ -90,7 +90,7 @@
                                                             </c:forEach>
                                                         <td>${equipo.precio}</td>
                                                         <td>${equipo.peso}</td>
-                                                        <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/mostrarAmigos'">Eliminar</button></td>
+                                                        <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeEquipoEliminar?objeto=${equipo.id}&personaje=${requestScope.id}'">Eliminar</button></td>
                                                     </tr>
                                                 </c:when>
                                                 <c:otherwise>
