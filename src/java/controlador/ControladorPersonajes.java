@@ -156,6 +156,12 @@ public class ControladorPersonajes extends HttpServlet {
         String atributo_sabiduria;
         String atributo_inteligencia;
         String atributo_carisma;
+        String salvacion_constitucion;
+        String salvacion_fuerza;
+        String salvacion_destreza;
+        String salvacion_sabiduria;
+        String salvacion_inteligencia;
+        String salvacion_carisma;
         int valorAtributo;
         String[] atributos;
         String atributo1;
@@ -203,6 +209,8 @@ public class ControladorPersonajes extends HttpServlet {
         int num;
         int numaux;
         int numPag;
+        boolean encontrado;
+        int index;
 
         String sql;
 
@@ -342,9 +350,6 @@ public class ControladorPersonajes extends HttpServlet {
 
                         queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
                         listaAtributos = queryAtributos.getResultList();
-
-                        boolean encontrado;
-                        int index;
 
                         System.out.println(listaAtributos.size());
 
@@ -514,10 +519,166 @@ public class ControladorPersonajes extends HttpServlet {
             case "/modificarPersonajeCaracteristicas":
                 break;
             case "/modificarPersonajeHabilidades":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    personaje_id = request.getParameter("id");
+
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+
+                    try {
+                        personaje = queryPersonajes.getSingleResult();
+                        //Comprobamos que es tuyo
+                        if (personaje.getUsuario().getId().equals(user.getId())) {
+
+                            personaje_habilidades = request.getParameterValues("habilidades");
+                            listaPersonajeHabilidades = personaje.getPersonajehabilidadesList();
+                            for (int i = 0; i < personaje.getPersonajehabilidadesList().size(); i++) {
+                                habilidad = personaje.getPersonajehabilidadesList().get(i).getHabilidades();
+                                index = 0;
+                                encontrado = false;
+                                if (personaje_habilidades != null) {
+                                    while (index < personaje_habilidades.length && encontrado == false) {
+                                        if (personaje_habilidades[index].equals(habilidad.getNombre())) {
+                                            encontrado = true;
+                                            listaPersonajeHabilidades.get(i).setCompetencia("Si");
+                                        } else {
+                                            listaPersonajeHabilidades.get(i).setCompetencia("No");
+                                        }
+                                        index++;
+                                    }
+                                }
+                                if (encontrado == true) {
+                                    listaPersonajeHabilidades.get(i).setCompetencia("Si");
+                                } else {
+                                    listaPersonajeHabilidades.get(i).setCompetencia("No");
+                                }
+                            }
+                            personaje.setPersonajehabilidadesList(listaPersonajeHabilidades);
+                            updatePersonajes(personaje);
+                            vista = "/Personajes/personajePerfilHabilidades?id=" + personaje_id;
+                        } else {
+                            vista = "/Principal/inicio";
+                        }
+                    } catch (Exception es) {
+                        vista = "/Principal/inicio";
+                    }
+                }
                 break;
             case "/modificarPersonajeAtributos":
-                break;
-            case "/modificarPersonajeExtra":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    personaje_id = request.getParameter("id");
+
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+
+                    try {
+                        personaje = queryPersonajes.getSingleResult();
+                        //Comprobamos que es tuyo
+                        if (personaje.getUsuario().getId().equals(user.getId())) {
+                            //////////////////////
+                            //////ATRIBUTOS///////
+                            //////////////////////
+                            atributo_constitucion = request.getParameter("atributo_Constitución");
+                            atributo_fuerza = request.getParameter("atributo_Fuerza");
+                            atributo_destreza = request.getParameter("atributo_Destreza");
+                            atributo_sabiduria = request.getParameter("atributo_Sabiduría");
+                            atributo_inteligencia = request.getParameter("atributo_Inteligencia");
+                            atributo_carisma = request.getParameter("atributo_Carisma");
+
+                            salvacion_constitucion = request.getParameter("salvacion_Constitución");
+                            salvacion_fuerza = request.getParameter("salvacion_Fuerza");
+                            salvacion_destreza = request.getParameter("salvacion_Destreza");
+                            salvacion_sabiduria = request.getParameter("salvacion_Sabiduría");
+                            salvacion_inteligencia = request.getParameter("salvacion_Inteligencia");
+                            salvacion_carisma = request.getParameter("salvacion_Carisma");
+
+                            listaPersonajeAtributos = new ArrayList();
+
+                            for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
+                                listaPersonajeAtributos.add(personaje.getPersonajeatributosList().get(i));
+                            }
+
+                            for (int i = 0; i < listaPersonajeAtributos.size(); i++) {
+                                atributo = listaPersonajeAtributos.get(i).getAtributos();
+                                valorAtributo = 0;
+
+                                switch (atributo.getNombre()) {
+                                    case "Constitución":
+                                        listaPersonajeAtributos.get(i).setValor(Integer.valueOf(atributo_constitucion));
+                                        if (salvacion_constitucion != null) {
+                                            listaPersonajeAtributos.get(i).setSalvacion("Si");
+                                        } else {
+                                            listaPersonajeAtributos.get(i).setSalvacion("No");
+                                        }
+                                        break;
+                                    case "Fuerza":
+                                        listaPersonajeAtributos.get(i).setValor(Integer.valueOf(atributo_fuerza));
+                                        if (salvacion_fuerza != null) {
+                                            listaPersonajeAtributos.get(i).setSalvacion("Si");
+                                        } else {
+                                            listaPersonajeAtributos.get(i).setSalvacion("No");
+                                        }
+                                        break;
+                                    case "Destreza":
+                                        listaPersonajeAtributos.get(i).setValor(Integer.valueOf(atributo_destreza));
+                                        if (salvacion_destreza != null) {
+                                            listaPersonajeAtributos.get(i).setSalvacion("Si");
+                                        } else {
+                                            listaPersonajeAtributos.get(i).setSalvacion("No");
+                                        }
+                                        break;
+                                    case "Sabiduría":
+                                        listaPersonajeAtributos.get(i).setValor(Integer.valueOf(atributo_sabiduria));
+                                        if (salvacion_sabiduria != null) {
+                                            listaPersonajeAtributos.get(i).setSalvacion("Si");
+                                        } else {
+                                            listaPersonajeAtributos.get(i).setSalvacion("No");
+                                        }
+                                        break;
+                                    case "Inteligencia":
+                                        listaPersonajeAtributos.get(i).setValor(Integer.valueOf(atributo_inteligencia));
+                                        if (salvacion_inteligencia != null) {
+                                            listaPersonajeAtributos.get(i).setSalvacion("Si");
+                                        } else {
+                                            listaPersonajeAtributos.get(i).setSalvacion("No");
+                                        }
+                                        break;
+                                    case "Carisma":
+                                        listaPersonajeAtributos.get(i).setValor(Integer.valueOf(atributo_carisma));
+                                        if (salvacion_carisma != null) {
+                                            listaPersonajeAtributos.get(i).setSalvacion("Si");
+                                        } else {
+                                            listaPersonajeAtributos.get(i).setSalvacion("No");
+                                        }
+                                        break;
+                                }
+                            }
+                            personaje.setPersonajeatributosList(listaPersonajeAtributos);
+                            updatePersonajes(personaje);
+                            vista = "/Personajes/personajePerfilAtributos?id=" + personaje_id;
+                        } else {
+                            vista = "/Principal/inicio";
+                        }
+                    } catch (Exception es) {
+                        vista = "/Principal/inicio";
+                    }
+                }
                 break;
             case "/claseArmadura":
                 /////////////////////////
@@ -1576,6 +1737,7 @@ public class ControladorPersonajes extends HttpServlet {
                                 num = 1;
                             }
 
+                            //Recoger las habilidades
                             listaHabValores = new ArrayList();
 
                             for (int i = 0; i < personaje.getPersonajehabilidadesList().size(); i++) {
@@ -1621,7 +1783,7 @@ public class ControladorPersonajes extends HttpServlet {
                                         }
 
                                         if (personajeHabilidad.getCompetencia().equals("Si")) {
-                                            numaux = num + personajeAtributo.getValor();
+                                            numaux = num + numaux;
                                         }
 
                                         listaHabValores.add(numaux);

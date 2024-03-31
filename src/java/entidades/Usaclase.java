@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usaclase.findByClase", query = "SELECT u FROM Usaclase u WHERE u.usaclasePK.clase = :clase"),
     @NamedQuery(name = "Usaclase.findByRasgo", query = "SELECT u FROM Usaclase u WHERE u.usaclasePK.rasgo = :rasgo"),
     @NamedQuery(name = "Usaclase.findByNivel", query = "SELECT u FROM Usaclase u WHERE u.nivel = :nivel"),
-    @NamedQuery(name = "Usaclase.findByClaseNivel", query = "SELECT u FROM Usaclase u u.usaclasePK.clase = :clase AND WHERE u.nivel = :nivel")
+    @NamedQuery(name = "Usaclase.findByClaseNivel", query = "SELECT u FROM Usaclase u WHERE u.usaclasePK.clase = :clase AND u.nivel = :nivel")
 })
 public class Usaclase implements Serializable {
 

@@ -34,7 +34,10 @@
                     </div>
                 </div>
                 <div class="datosDerechaRaza">
-                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfil?id=${requestScope.personaje.id}'">Volver</button></div>
+                    <div>
+                        <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfil?id=${requestScope.personaje.id}'">Volver</button>
+                        <button class="botonDentro" onclick="location.href = '/TFG/Formularios/modificarPersonajeCaracteristicas?id=${requestScope.personaje.id}'">Modificar</button>
+                    </div>
                     <h3>Vinculos</h3>
                     <p>${requestScope.personaje.vinculos}</p>
                     <br>

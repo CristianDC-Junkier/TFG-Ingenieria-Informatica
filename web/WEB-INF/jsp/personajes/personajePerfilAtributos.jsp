@@ -14,7 +14,10 @@
             <h2 class="Titulos">Personaje: ${requestScope.personaje.nombre}</h2>
             <hr color="black">
             <div class="cajaAtributos">
-                <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfil?id=${requestScope.personaje.id}'">Volver</button></div>
+                <div>
+                    <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfil?id=${requestScope.personaje.id}'">Volver</button>
+                    <button class="botonDentro" onclick="location.href = '/TFG/Formularios/modificarPersonajeAtributos?id=${requestScope.personaje.id}'">Modificar</button>
+                </div>
                 <div class="personajeAtributos">
                     <c:forEach var="patributo" items="${listaPAtributos}" varStatus="index">
                         <div class="puntos">
@@ -25,10 +28,10 @@
                                 <div> 
                                     <c:choose>
                                         <c:when test="${patributo.salvacion == 'Si'}">
-                                            Competente
+                                            Competencia de Salvación
                                         </c:when>
                                         <c:otherwise>
-                                            No Competente
+                                            No Competencia de Salvación
                                         </c:otherwise>
                                     </c:choose>
                                 </div>

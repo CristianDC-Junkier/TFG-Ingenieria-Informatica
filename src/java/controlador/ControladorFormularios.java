@@ -2,12 +2,18 @@ package controlador;
 
 import entidades.Atributos;
 import entidades.Clases;
+import entidades.Habilidades;
 import entidades.Mesas;
+import entidades.Personajeatributos;
+import entidades.Personajehabilidades;
 import entidades.Personajes;
 import entidades.Razas;
+import entidades.Tablaclasespornivel;
 import entidades.Trasfondos;
 import entidades.Usuarios;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -50,6 +56,11 @@ public class ControladorFormularios extends HttpServlet {
 
         Usuarios user;
         Mesas mesa;
+        Personajes personaje;
+        Tablaclasespornivel tcnivel;
+        Personajehabilidades personajeHabilidad;
+        Habilidades habilidad;
+        Personajeatributos personajeAtributo;
 
         TypedQuery<Mesas> queryMesas;
         TypedQuery<Clases> queryClases;
@@ -57,9 +68,15 @@ public class ControladorFormularios extends HttpServlet {
         TypedQuery<Atributos> queryAtributos;
         TypedQuery<Trasfondos> queryTrasfondos;
         TypedQuery<Personajes> queryPersonajes;
+        TypedQuery<Tablaclasespornivel> queryTCNivel;
+
+        List<Integer> listaHabValores;
 
         String id;
+        String personaje_id;
         int numMesasCreadas;
+        int num;
+        int numaux;
 
         String accion;
         accion = request.getPathInfo();
@@ -120,8 +137,8 @@ public class ControladorFormularios extends HttpServlet {
 
                     request.setAttribute("mesa", mesa);
                     vista = "/WEB-INF/jsp/formularios/modificarmesa.jsp";
-                    break;
                 }
+                break;
             case "/modificarusuario":
                 /////////////////////////
                 /////////SESION//////////
@@ -154,12 +171,12 @@ public class ControladorFormularios extends HttpServlet {
                 if (user == null) {
                     vista = "/Principal/inicio";
                 } else {
-                    
+
                     //Numero total de personajes
                     queryPersonajes = em.createNamedQuery("Personajes.findByCreador", Personajes.class);
                     queryPersonajes.setParameter("creador", user);
                     request.setAttribute("personajesTotales", queryPersonajes.getResultList().size());
-                    
+
                     queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
                     request.setAttribute("listaClases", queryClases.getResultList());
                     queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
@@ -170,6 +187,164 @@ public class ControladorFormularios extends HttpServlet {
                     request.setAttribute("listaTrasfondos", queryTrasfondos.getResultList());
 
                     vista = "/WEB-INF/jsp/formularios/crearpersonaje.jsp";
+                }
+                break;
+            case "/modificarPersonajeCaracteristicas":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    personaje_id = request.getParameter("id");
+
+                    //Comprobamos si el personaje es tuyo
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+                    try {
+                        personaje = queryPersonajes.getSingleResult();
+                        if (personaje.getUsuario().getId().equals(user.getId())) {
+                            request.setAttribute("personaje", personaje);
+                            vista = "/WEB-INF/jsp/formularios/modificarPersonajeCaracteristicas.jsp";
+                        } else {
+                            vista = "/Principal/inicio";
+                        }
+                    } catch (Exception ex) {
+                        vista = "/Principal/inicio";
+                    }
+                }
+                break;
+            case "/modificarPersonajeHabilidades":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    personaje_id = request.getParameter("id");
+
+                    //Comprobamos si el personaje es tuyo
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+
+                    try {
+                        personaje = queryPersonajes.getSingleResult();
+
+                        if (personaje.getUsuario().getId().equals(user.getId())) {
+
+                            //Necesitamos la tabla clase del nivel para el BC
+                            queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                            queryTCNivel.setParameter("clase", personaje.getClase().getId());
+                            queryTCNivel.setParameter("nivel", personaje.getNivel());
+                            try {
+                                tcnivel = queryTCNivel.getSingleResult();
+                                num = tcnivel.getTablaclases().getBc();
+                            } catch (Exception ex) {
+                                num = 1;
+                            }
+
+                            //Recoger las habilidades
+                            listaHabValores = new ArrayList();
+
+                            for (int i = 0; i < personaje.getPersonajehabilidadesList().size(); i++) {
+
+                                personajeHabilidad = personaje.getPersonajehabilidadesList().get(i);
+                                habilidad = personajeHabilidad.getHabilidades();
+
+                                for (int j = 0; j < personaje.getPersonajeatributosList().size(); j++) {
+
+                                    personajeAtributo = personaje.getPersonajeatributosList().get(j);
+
+                                    if (habilidad.getAtributo().getId().equals(personajeAtributo.getAtributos().getId())) {
+                                        //Hay que calcular los modificadores
+                                        switch (personajeAtributo.getValor()) {
+                                            case 8:
+                                            case 9:
+                                                numaux = -1;
+                                                break;
+                                            case 10:
+                                            case 11:
+                                                numaux = 0;
+                                                break;
+                                            case 12:
+                                            case 13:
+                                                numaux = 1;
+                                                break;
+                                            case 14:
+                                            case 15:
+                                                numaux = 2;
+                                                break;
+                                            case 16:
+                                            case 17:
+                                                numaux = 3;
+                                                break;
+                                            case 18:
+                                            case 19:
+                                                numaux = 4;
+                                                break;
+                                            case 20:
+                                                numaux = 5;
+                                            default:
+                                                numaux = 0;
+                                        }
+
+                                        if (personajeHabilidad.getCompetencia().equals("Si")) {
+                                            numaux = num + numaux;
+                                        }
+
+                                        listaHabValores.add(numaux);
+                                        j = personaje.getPersonajeatributosList().size();
+                                    }
+                                }
+                            }
+                            request.setAttribute("listaValoresHab", listaHabValores);
+                            request.setAttribute("listaPersonajeHabilidades", personaje.getPersonajehabilidadesList());
+                            request.setAttribute("personaje", personaje);
+                            vista = "/WEB-INF/jsp/formularios/modificarPersonajeHabilidades.jsp";
+                        } else {
+                            vista = "/Principal/inicio";
+                        }
+
+                    } catch (Exception ex) {
+                        vista = "/Principal/inicio";
+                    }
+                }
+                break;
+
+            case "/modificarPersonajeAtributos":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    personaje_id = request.getParameter("id");
+
+                    //Comprobamos si el personaje es tuyo
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+                    try {
+                        personaje = queryPersonajes.getSingleResult();
+
+                        if (personaje.getUsuario().getId().equals(user.getId())) {
+                            request.setAttribute("listaPersonajeAtributos", personaje.getPersonajeatributosList());
+                            request.setAttribute("personaje", personaje);
+                            vista = "/WEB-INF/jsp/formularios/modificarPersonajeAtributos.jsp";
+                        } else {
+                            vista = "/Principal/inicio";
+                        }
+                    } catch (Exception ex) {
+                        vista = "/Principal/inicio";
+                    }
                 }
                 break;
         }
@@ -188,8 +363,11 @@ public class ControladorFormularios extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response
+    )
+            throws ServletException,
+            IOException {
         processRequest(request, response);
     }
 
@@ -202,8 +380,11 @@ public class ControladorFormularios extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response
+    )
+            throws ServletException,
+            IOException {
         processRequest(request, response);
     }
 

@@ -124,7 +124,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="usuarioDatos">
                     <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfilRasgos?id=${requestScope.personaje.id}'">Rasgos</button></div>
                     <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfilHabilidades?id=${requestScope.personaje.id}'">Habilidades</button></div>
