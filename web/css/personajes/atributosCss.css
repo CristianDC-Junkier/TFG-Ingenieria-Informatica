@@ -1,0 +1,31 @@
+.puntos {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.puntos-contenedor {
+    display: flex;
+    align-items: center;
+}
+
+.modificadores {
+
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.puntos-contenedor > input[type="number"] {
+
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+}
+

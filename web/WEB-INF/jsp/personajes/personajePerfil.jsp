@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4\Personajes\MiPersonaje</title>
+        <title class="titulosPag">Guidance4\Personajes\Mi_Personaje</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/perfilCss.css"/>
@@ -21,11 +21,11 @@
                             <div class="personaje-fotoG">
                                 <img src="${requestScope.imagenpersonaje}">
                             </div>
-                            <button class="cambiarPersonaje" onclick="mostrarRecuadro2()">Cambiar imagen personaje</button>
-                            <div class="opcionRecuadro" id="recuadro2" style="display: none;">
+                            <button class="cambiarPersonaje" onclick="mostrarRecuadro()">Cambiar imagen personaje</button>
+                            <div class="opcionRecuadro" id="recuadro" style="display: none;">
                                 <div class="contenidoRecuadro">
                                     <div class="tituloRecuadro">Añada la foto
-                                        <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
                                     </div>
                                     <hr>
                                     <form id = "formRegistro" action="/TFG/Imagenes/actualizarFotoPersonaje" 
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="datosPersonaje">
-                            <div>Clase:&nbsp;${requestScope.personaje.clase.nombre}:</div>
+                            <div>Clase:&nbsp;${requestScope.personaje.clase.nombre}</div>
                             <div>Sub-Clase:&nbsp; 
                                 <c:choose>
                                     <c:when test="${empty requestScope.personaje.subclase}">
@@ -63,21 +63,73 @@
                             <div>Trasfondo:&nbsp;${requestScope.personaje.trasfondo.nombre} </div>
                             <br><hr><br>
                             <div>Nivel:&nbsp;${requestScope.personaje.nivel}&nbsp;/&nbsp;20</div>
-                            <div>Clase de Armadura:&nbsp;${requestScope.personaje.clasearmadura} 
-                                falta boton para cambiarlo</div>
+                            <div>Clase de Armadura:&nbsp;${requestScope.personaje.clasearmadura} <button type="button" class="botonfinal" onclick="mostrarRecuadro2()">Cambiar</button></div>
+                            <div class="opcionRecuadro" id="recuadro2" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro"> <label for="classArmor">Clase de Armadura:</label>
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
+                                    </div>
+                                    <form id = formEstadisticas action="/TFG/Personajes/claseArmadura?id=${requestScope.personaje.id}" method="POST">
+                                        <input type="number" id="classArmor" name="claseArmadura" min="8" required>
+                                        <hr>
+                                        <button type="submit" class="botonDentro" >Aceptar</button>
+                                        <button type="button" class="botonDentro" onclick="cerrarRecuadro2()">Volver</button>
+                                    </form>
+                                </div>
+                            </div>
                             <div>Puntos de vida:&nbsp;${requestScope.personaje.pvidaactuales}&nbsp;/&nbsp;${requestScope.personaje.pvida}
-                                falta boton para cambiarlo</div>
-                            <div>Puntos de experiencia:&nbsp;${requestScope.personaje.pexp}
-                                falta boton para cambiarlo</div>
+                                <button type="button" class="botonfinal" onclick="mostrarRecuadro3()">Cambiar vida atual</button>
+                                <button type="button" class="botonfinal" onclick="mostrarRecuadro4()">Cambiar vida total</button>
+                            </div>
+                            <div class="opcionRecuadro" id="recuadro3" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro"> <label for="pointsHP">Puntos de vida Actual:</label>
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro3()">X</span>
+                                    </div>
+                                    <form id = formEstadisticas action="/TFG/Personajes/puntosVidaActual?id=${requestScope.personaje.id}" method="POST">
+                                        <input type="number" id="pointsHP" name="puntosHP" min="0" required>
+                                        <hr>
+                                        <button type="submit" class="botonDentro" >Aceptar</button>
+                                        <button type="button" class="botonDentro" onclick="cerrarRecuadro3()">Volver</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="opcionRecuadro" id="recuadro4" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro"> <label for="pointsHP">Puntos de vida Total:</label>
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro4()">X</span>
+                                    </div>
+                                    <form id = formEstadisticas action="/TFG/Personajes/puntosVidaTotal?id=${requestScope.personaje.id}" method="POST">
+                                        <input type="number" id="pointsHP" name="puntosHP" min="1" required>
+                                        <hr>
+                                        <button type="submit" class="botonDentro" >Aceptar</button>
+                                        <button type="button" class="botonDentro" onclick="cerrarRecuadro4()">Volver</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div>Puntos de experiencia:&nbsp;${requestScope.personaje.pexp} <button type="button" class="botonfinal" onclick="mostrarRecuadro5()">Cambiar</button></div>
+                            <div class="opcionRecuadro" id="recuadro5" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro"> <label for="pointsEX">Puntos de experiencia:</label>
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro5()">X</span>
+                                    </div>
+                                    <form id = formEstadisticas action="/TFG/Personajes/puntosEXP?id=${requestScope.personaje.id}" method="POST">
+                                        <input type="number" id="pointsEX" name="puntosEXP" min="0" required>
+                                        <hr>
+                                        <button type="submit" class="botonDentro" >Aceptar</button>
+                                        <button type="button" class="botonDentro" onclick="cerrarRecuadro5()">Volver</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="usuarioDatos">
-                    <div><span>Rasgos:  </span>${requestScope.personaje.nombre} </div>
-                    <div><span>Habilidades:  </span>${requestScope.personaje.nombre}</div>
-                    <div><span>Atributos:  </span>${requestScope.personaje.nombre}</div>
-                    <div><span>Características:  </span>${requestScope.personaje.nombre}</div>
+                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfilRasgos?id=${requestScope.personaje.id}'">Rasgos</button></div>
+                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfilHabilidades?id=${requestScope.personaje.id}'">Habilidades</button></div>
+                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfilAtributos?id=${requestScope.personaje.id}'">Atributos</button></div>
+                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfilCaracteristicas?id=${requestScope.personaje.id}'">Características</button></div>
                 </div>
                 <div class="botones">
                     <button class="boton" onclick="location.href = '/TFG/'">Subir de Nivel</button>
@@ -87,14 +139,14 @@
                     <button class="botonfinal" onclick="mostrarRecuadro()">Eliminar</button>
                     <button class="botonfinal" onclick="location.href = '/TFG/Personajes/personajesPerfil'">Volver</button>
                 </div>
-                <div class="opcionRecuadro" id="recuadro" style="display: none;">
+                <div class="opcionRecuadro" id="recuadro6" style="display: none;">
                     <div class="contenidoRecuadro">
                         <div class="tituloRecuadro">¿Está seguro de que quieres Borrarlo?
-                            <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
+                            <span class="cierreRecuadro" onclick="cerrarRecuadro6()">X</span>
                         </div>
                         <hr>
                         <button class="botonDentro" onclick= "location.href = '/TFG/Personajes/eliminarPersonaje?id=${requestScope.personaje.id}'">Si</button>
-                        <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
+                        <button class="botonDentro" onclick="cerrarRecuadro6()">No</button>
                     </div>
                 </div>
             </div>

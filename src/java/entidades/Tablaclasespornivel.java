@@ -20,7 +20,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Tablaclasespornivel.findAll", query = "SELECT t FROM Tablaclasespornivel t"),
     @NamedQuery(name = "Tablaclasespornivel.findByClase", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.clase = :clase"),
-    @NamedQuery(name = "Tablaclasespornivel.findByNivel", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.nivel = :nivel")})
+    @NamedQuery(name = "Tablaclasespornivel.findByNivel", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.nivel = :nivel"),
+    @NamedQuery(name = "Tablaclasespornivel.findByClaseNivel", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.clase = :clase AND t.tablaclasespornivelPK.nivel = :nivel")
+})
 public class Tablaclasespornivel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,7 +42,7 @@ public class Tablaclasespornivel implements Serializable {
         this.tablaclasespornivelPK = tablaclasespornivelPK;
     }
 
-    public Tablaclasespornivel(String clase, short nivel) {
+    public Tablaclasespornivel(String clase, Integer nivel) {
         this.tablaclasespornivelPK = new TablaclasespornivelPK(clase, nivel);
     }
 

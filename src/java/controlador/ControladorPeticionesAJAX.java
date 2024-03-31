@@ -2361,7 +2361,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
                     querySubRazas.setParameter("nombre", nombre);
                     Subraza = querySubRazas.getSingleResult();
-
+                    
                     switch (Subraza.getEligeatr()) {
                         case "0":
                             //Encontramos los Atributos que da
@@ -2423,9 +2423,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             }
                             resultado = resultado + "</select>";
                             break;
-                    }
 
-                    System.out.println("PeticionAJAX Sale CrearPersonajesAtributo");
+                    }
+                    System.out.println("PeticionAJAX Sale CrearPersonajesAtributos");
                     break;
                 case "/personajeHechizos":
                     ////////////////////////////////
@@ -2572,6 +2572,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             + "<th>Duración</th>"
                             + "<th>Alcance</th>"
                             + "<th>Componentes</th>"
+                            + "<th>&nbsp;</th>"
                             + "</tr>";
 
                     //Eliminar duplicados utilizando HashSet
@@ -2592,9 +2593,12 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "<td>" + hechizoAux.getDuracion() + "</td>"
                                 + "<td>" + hechizoAux.getAlcance() + "</td>"
                                 + "<td>" + hechizoAux.getComponentes() + "</td>"
+                                + "<td>" + "<button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personajes/personajeHechizoEliminar?hechizo="
+                                + hechizoAux.getId() + "&personaje=" + id + "'\">Eliminar</button>"
+                                + "</td>"
                                 + "</tr>"
                                 + "<tr class=\"tablaHechizosTR\" onclick=\"window.location = \'/TFG/Explorar/hechizo?idHechizo=" + hechizoAux.getId() + "\'\">"
-                                + "<td colspan=\"7\" >" + hechizoAux.getDescripcion() + "</td>"
+                                + "<td colspan=\"8\" >" + hechizoAux.getDescripcion() + "</td>"
                                 + "</tr>";
                     }
                     while (cantidad < 15) {
@@ -2608,9 +2612,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "<td>&nbsp;</td>"
                                 + "<td>&nbsp;</td>"
                                 + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
                                 + "</tr>"
                                 + "<tr>"
-                                + "<td colspan=\"7\" >&nbsp;</td>"
+                                + "<td colspan=\"8\" >&nbsp;</td>"
                                 + "</tr>";
                         cantidad++;
                     }
@@ -2762,6 +2767,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             + "<th>Duración</th>"
                             + "<th>Alcance</th>"
                             + "<th>Componentes</th>"
+                            + "<th>&nbsp;</th>"
                             + "</tr>";
 
                     //Eliminar duplicados utilizando HashSet
@@ -2782,9 +2788,12 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "<td>" + hechizoAux.getDuracion() + "</td>"
                                 + "<td>" + hechizoAux.getAlcance() + "</td>"
                                 + "<td>" + hechizoAux.getComponentes() + "</td>"
+                                + "<td>" + "<button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personajes/personajeHechizoAnadir?hechizo="
+                                + hechizoAux.getId() + "&personaje=" + id + "'\">Añadir</button>"
+                                + "</td>"
                                 + "</tr>"
                                 + "<tr class=\"tablaHechizosTR\" onclick=\"window.location = \'/TFG/Explorar/hechizo?idHechizo=" + hechizoAux.getId() + "\'\">"
-                                + "<td colspan=\"7\" >" + hechizoAux.getDescripcion() + "</td>"
+                                + "<td colspan=\"8\" >" + hechizoAux.getDescripcion() + "</td>"
                                 + "</tr>";
                     }
                     while (cantidad < 15) {
@@ -2798,9 +2807,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "<td>&nbsp;</td>"
                                 + "<td>&nbsp;</td>"
                                 + "<td>&nbsp;</td>"
+                                + "<td>&nbsp;</td>"
                                 + "</tr>"
                                 + "<tr>"
-                                + "<td colspan=\"7\" >&nbsp;</td>"
+                                + "<td colspan=\"8\" >&nbsp;</td>"
                                 + "</tr>";
                         cantidad++;
                     }
@@ -2947,6 +2957,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             + "<th>Propiedades</th>"
                             + "<th>Precio</th>"
                             + "<th>Peso</th>"
+                            + "<th>&nbsp;</th>"
                             + "</tr>";
 
                     //Eliminar duplicados utilizando HashSet
@@ -2975,6 +2986,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "</td>"
                                 + "<td>" + equipoAux.getPrecio() + "</td>"
                                 + "<td>" + equipoAux.getPeso() + "</td>"
+                                + "<td>"
+                                + "<button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personajes/personajeEquipoEliminar?objeto="
+                                + equipoAux.getId() + "&personaje=" + id + "'\">Eliminar</button>"
+                                + "</td>"
                                 + "</tr>";
                     }
 
@@ -2982,6 +2997,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         resultado
                                 = resultado
                                 + "<tr>"
+                                + "<td>&nbsp;</td>"
                                 + "<td>&nbsp;</td>"
                                 + "<td>&nbsp;</td>"
                                 + "<td>&nbsp;</td>"
@@ -3134,6 +3150,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             + "<th>Propiedades</th>"
                             + "<th>Precio</th>"
                             + "<th>Peso</th>"
+                            + "<th>&nbsp;</th>"
                             + "</tr>";
 
                     //Eliminar duplicados utilizando HashSet
@@ -3162,6 +3179,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "</td>"
                                 + "<td>" + equipoAux.getPrecio() + "</td>"
                                 + "<td>" + equipoAux.getPeso() + "</td>"
+                                + "<td>"
+                                + "<button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personajes/personajeEquipoAnadir?objeto="
+                                + equipoAux.getId() + "&personaje=" + id + "'\">Añadir</button>"
+                                + "</td>"
                                 + "</tr>";
                     }
 
@@ -3169,6 +3190,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         resultado
                                 = resultado
                                 + "<tr>"
+                                + "<td>&nbsp;</td>"
                                 + "<td>&nbsp;</td>"
                                 + "<td>&nbsp;</td>"
                                 + "<td>&nbsp;</td>"

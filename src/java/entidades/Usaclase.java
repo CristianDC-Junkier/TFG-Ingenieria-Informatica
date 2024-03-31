@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidades;
 
 import java.io.Serializable;
@@ -28,7 +24,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usaclase.findAll", query = "SELECT u FROM Usaclase u"),
     @NamedQuery(name = "Usaclase.findByClase", query = "SELECT u FROM Usaclase u WHERE u.usaclasePK.clase = :clase"),
     @NamedQuery(name = "Usaclase.findByRasgo", query = "SELECT u FROM Usaclase u WHERE u.usaclasePK.rasgo = :rasgo"),
-    @NamedQuery(name = "Usaclase.findByNivel", query = "SELECT u FROM Usaclase u WHERE u.nivel = :nivel")})
+    @NamedQuery(name = "Usaclase.findByNivel", query = "SELECT u FROM Usaclase u WHERE u.nivel = :nivel"),
+    @NamedQuery(name = "Usaclase.findByClaseNivel", query = "SELECT u FROM Usaclase u u.usaclasePK.clase = :clase AND WHERE u.nivel = :nivel")
+})
 public class Usaclase implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -117,5 +115,5 @@ public class Usaclase implements Serializable {
     public String toString() {
         return "entidades.Usaclase[ usaclasePK=" + usaclasePK + " ]";
     }
-    
+
 }

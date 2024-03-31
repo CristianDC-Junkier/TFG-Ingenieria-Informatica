@@ -21,15 +21,34 @@ function mostrarRecuadro3() {
 function cerrarRecuadro3() {
     document.getElementById('recuadro3').style.display = 'none';
 }
+function mostrarRecuadro4() {
+    document.getElementById('recuadro4').style.display = 'flex';
+}
 
+function cerrarRecuadro4() {
+    document.getElementById('recuadro4').style.display = 'none';
+}
+function mostrarRecuadro5() {
+    document.getElementById('recuadro5').style.display = 'flex';
+}
+
+function cerrarRecuadro5() {
+    document.getElementById('recuadro5').style.display = 'none';
+}
+function mostrarRecuadro6() {
+    document.getElementById('recuadro6').style.display = 'flex';
+}
+
+function cerrarRecuadro6() {
+    document.getElementById('recuadro6').style.display = 'none';
+}
 
 function mostrarRecuadroX(href,id) {
 
     document.getElementById('recuadroX').style.display = 'flex';
 
-    let botonEliminar = document.getElementById('eliminar');
-    botonEliminar.onclick = function () {
-        // Redirigir a la página de eliminación con el ID adecuado
+    let boton = document.getElementById('eliminar');
+    boton.onclick = function () {
         location.href = href + id;
     };
 }

@@ -45,21 +45,18 @@
                             <div>Trasfondo:&nbsp;${requestScope.personaje.trasfondo.nombre} </div>
                             <br><hr><br>
                             <div>Nivel:&nbsp;${requestScope.personaje.nivel}&nbsp;/&nbsp;20</div>
-                            <div>Clase de Armadura:&nbsp;${requestScope.personaje.clasearmadura} 
-                                falta boton para cambiarlo</div>
-                            <div>Puntos de vida:&nbsp;${requestScope.personaje.pvidaactuales}&nbsp;/&nbsp;${requestScope.personaje.pvida}
-                                falta boton para cambiarlo</div>
-                            <div>Puntos de experiencia:&nbsp;${requestScope.personaje.pexp}
-                                falta boton para cambiarlo</div>
+                            <div>Clase de Armadura:&nbsp;${requestScope.personaje.clasearmadura}</div>
+                            <div>Puntos de vida:&nbsp;${requestScope.personaje.pvidaactuales}&nbsp;/&nbsp;${requestScope.personaje.pvida}</div>
+                            <div>Puntos de experiencia:&nbsp;${requestScope.personaje.pexp}</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="usuarioDatos">
-                    <div><span>Rasgos:  </span>${requestScope.personaje.nombre} </div>
-                    <div><span>Habilidades:  </span>${requestScope.personaje.nombre}</div>
-                    <div><span>Atributos:  </span>${requestScope.personaje.nombre}</div>
-                    <div><span>Características:  </span>${requestScope.personaje.nombre}</div>
+                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigoRasgos?id=${requestScope.personaje.id}&amigo=${requestScope.personaje.usuario.id}'">Rasgos</button></div>
+                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigoHabilidades?id=${requestScope.personaje.id}&amigo=${requestScope.personaje.usuario.id}'">Habilidades</button></div>
+                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigoAtributos?id=${requestScope.personaje.id}&amigo=${requestScope.personaje.usuario.id}'">Atributos</button></div>
+                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigoCaracteristicas?id=${requestScope.personaje.id}&amigo=${requestScope.personaje.usuario.id}'">Características</button></div>
                     <div><span>Creador:  </span>${requestScope.personaje.usuario.apodo}</div>
                 </div>
                 <div class="botones">

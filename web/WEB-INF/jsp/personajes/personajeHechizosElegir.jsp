@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4\Explorar\Hechizos</title>
+        <title class="titulosPag">Guidance4\Personajes\Personaje_Hechizos</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/explorar/explorarlistaCss.css"/>

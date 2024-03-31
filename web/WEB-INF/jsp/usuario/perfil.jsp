@@ -17,7 +17,7 @@
             <div class="cajaGeneral">
                 <div class="cajaPersonaje">
                     <c:choose>
-                        <c:when test="${empty requestScope.personajeactual}">
+                        <c:when test="${sessionScope.user.personajeactual == null}">
                             <h2>SIN PERSONAJE ACTUAL</h2>
                             <div class="personaje">
                                 <div class="personaje-fotoboton">
@@ -40,7 +40,7 @@
                                     <button class="cambiarPersonaje" onclick="location.href = '/TFG/Personajes/elegirPJActual'">Cambiar personaje Actual</button>
                                 </div>
                                 <div class="datosPersonaje">
-                                    <div>Clase:&nbsp;${requestScope.personajeactual.clase.nombre}:</div>
+                                    <div>Clase:&nbsp;${requestScope.personajeactual.clase.nombre}</div>
                                     <div>Sub-Clase:&nbsp; 
                                         <c:choose>
                                             <c:when test="${empty requestScope.personajeactual.subclase}">

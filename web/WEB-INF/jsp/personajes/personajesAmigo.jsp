@@ -74,7 +74,7 @@
                             </c:forEach>
                         </select>
                     </div>
-                    <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajes'">Explorar</button>
+                    <button class="botonDentro" onclick="location.href = '/TFG/Usuarios/mostrarAmigo?amigo=${requestScope.amigo.id}'">Volver</button>
                 </div>
             </div>
             <div class="listasPersonaje" id="pestañasSeccion">

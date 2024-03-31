@@ -1,7 +1,6 @@
 package entidades;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -105,7 +104,7 @@ public class Personajes implements Serializable {
     @Column(name = "VINCULOS")
     private String vinculos;
     @Column(name = "PEXP")
-    private Long pexp;
+    private Integer pexp;
     @Lob
     @Column(name = "HISTORIA")
     private String historia;
@@ -264,11 +263,11 @@ public class Personajes implements Serializable {
         this.vinculos = vinculos;
     }
 
-    public Long getPexp() {
+    public Integer getPexp() {
         return pexp;
     }
 
-    public void setPexp(Long pexp) {
+    public void setPexp(Integer pexp) {
         this.pexp = pexp;
     }
 

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entidades;
 
 import java.io.Serializable;
@@ -26,12 +23,12 @@ public class TablaclasespornivelPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "NIVEL", nullable = false)
-    private short nivel;
+    private Integer nivel;
 
     public TablaclasespornivelPK() {
     }
 
-    public TablaclasespornivelPK(String clase, short nivel) {
+    public TablaclasespornivelPK(String clase, Integer nivel) {
         this.clase = clase;
         this.nivel = nivel;
     }
@@ -44,11 +41,11 @@ public class TablaclasespornivelPK implements Serializable {
         this.clase = clase;
     }
 
-    public short getNivel() {
+    public Integer getNivel() {
         return nivel;
     }
 
-    public void setNivel(short nivel) {
+    public void setNivel(Integer nivel) {
         this.nivel = nivel;
     }
 

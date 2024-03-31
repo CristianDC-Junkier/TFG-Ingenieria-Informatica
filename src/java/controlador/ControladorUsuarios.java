@@ -728,6 +728,8 @@ public class ControladorUsuarios extends HttpServlet {
                     if (user.getPersonajeactual() != null) {
                         request.setAttribute("personajeactual", user.getPersonajeactual());
                         request.setAttribute("imagenactual", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + user.getPersonajeactual().getId());
+                    } else {
+                        request.setAttribute("personajeactual", user.getPersonajeactual());
                     }
                     vista = "/WEB-INF/jsp/usuario/perfil.jsp";
                 }
@@ -1324,15 +1326,16 @@ public class ControladorUsuarios extends HttpServlet {
                     queryAmigos.setParameter("amigo1", id);
                     queryAmigos.setParameter("amigo2", user.getId());
 
-                    if (!queryAmigos.getResultList().isEmpty()) {
+                    try {
+                        amigo = queryAmigos.getSingleResult();
                         System.out.println("Somos amigos");
                         request.setAttribute("sonAmigos", 1);
-                    } else {
+                    } catch (Exception ex) {
                         request.setAttribute("sonAmigos", 0);
                     }
 
-                    request.setAttribute("numpersonajes", (user.getPersonajesList() != null) ? user.getPersonajesList().size() : 0);
-                    if (user.getPersonajeactual() != null) {
+                    request.setAttribute("numpersonajes", (useraux.getPersonajesList() != null) ? useraux.getPersonajesList().size() : 0);
+                    if (useraux.getPersonajeactual() != null) {
                         request.setAttribute("personajeactual", useraux.getPersonajeactual());
                         request.setAttribute("imagenactual", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + useraux.getPersonajeactual().getId());
                     }
@@ -1512,6 +1515,9 @@ public class ControladorUsuarios extends HttpServlet {
                 }
                 break;
 
+            /////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////PERSONAJE ACTUAL/////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////
             case "/personajeActual":
                 /////////////////////////
                 /////////SESION//////////
@@ -1529,14 +1535,16 @@ public class ControladorUsuarios extends HttpServlet {
                     queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
                     queryPersonajes.setParameter("id", id);
                     queryPersonajes.setParameter("creador", user);
-                    personaje = queryPersonajes.getResultList().get(0);
 
-                    if (personaje == null) {
-                        vista = "/Principal/inicio";
-                    } else {
+                    try {
+                        personaje = queryPersonajes.getSingleResult();
                         user.setPersonajeactual(personaje);
                         update(user);
+
                         vista = "/Usuarios/perfil";
+
+                    } catch (Exception ex) {
+                        vista = "/Principal/inicio";
                     }
                 }
                 break;

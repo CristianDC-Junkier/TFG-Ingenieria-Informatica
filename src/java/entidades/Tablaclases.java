@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entidades;
 
 import java.io.Serializable;
@@ -47,19 +44,19 @@ public class Tablaclases implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "RASGOS", nullable = false)
-    private short rasgos;
+    private Integer rasgos;
     @Basic(optional = false)
     @NotNull
     @Column(name = "BC", nullable = false)
-    private short bc;
+    private Integer bc;
     @Basic(optional = false)
     @NotNull
     @Column(name = "TRUCOS", nullable = false)
-    private short trucos;
+    private Integer trucos;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HECHIZOS", nullable = false)
-    private short hechizos;
+    private Integer hechizos;
     @ManyToMany(mappedBy = "tablaclasesList")
     private List<Espacioshechizos> espacioshechizosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tablaclases")
@@ -72,7 +69,7 @@ public class Tablaclases implements Serializable {
         this.id = id;
     }
 
-    public Tablaclases(String id, short rasgos, short bc, short trucos, short hechizos) {
+    public Tablaclases(String id, Integer rasgos, Integer bc, Integer trucos, Integer hechizos) {
         this.id = id;
         this.rasgos = rasgos;
         this.bc = bc;
@@ -88,35 +85,35 @@ public class Tablaclases implements Serializable {
         this.id = id;
     }
 
-    public short getRasgos() {
+    public Integer getRasgos() {
         return rasgos;
     }
 
-    public void setRasgos(short rasgos) {
+    public void setRasgos(Integer rasgos) {
         this.rasgos = rasgos;
     }
 
-    public short getBc() {
+    public Integer getBc() {
         return bc;
     }
 
-    public void setBc(short bc) {
+    public void setBc(Integer bc) {
         this.bc = bc;
     }
 
-    public short getTrucos() {
+    public Integer getTrucos() {
         return trucos;
     }
 
-    public void setTrucos(short trucos) {
+    public void setTrucos(Integer trucos) {
         this.trucos = trucos;
     }
 
-    public short getHechizos() {
+    public Integer getHechizos() {
         return hechizos;
     }
 
-    public void setHechizos(short hechizos) {
+    public void setHechizos(Integer hechizos) {
         this.hechizos = hechizos;
     }
 

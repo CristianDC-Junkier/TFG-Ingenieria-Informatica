@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entidades;
 
 import java.io.Serializable;
@@ -28,7 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usasubclase.findAll", query = "SELECT u FROM Usasubclase u"),
     @NamedQuery(name = "Usasubclase.findBySubclase", query = "SELECT u FROM Usasubclase u WHERE u.usasubclasePK.subclase = :subclase"),
     @NamedQuery(name = "Usasubclase.findByRasgo", query = "SELECT u FROM Usasubclase u WHERE u.usasubclasePK.rasgo = :rasgo"),
-    @NamedQuery(name = "Usasubclase.findByNivel", query = "SELECT u FROM Usasubclase u WHERE u.nivel = :nivel")})
+    @NamedQuery(name = "Usasubclase.findByNivel", query = "SELECT u FROM Usasubclase u WHERE u.nivel = :nivel"),
+    @NamedQuery(name = "Usasubclase.findBySubclaseNivel", query = "SELECT u FROM Usasubclase u WHERE u.usasubclasePK.subclase = :subclase AND u.nivel = :nivel")
+})
 public class Usasubclase implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -74,7 +74,7 @@
                             </c:forEach>
                         </select>
                     </div>
-                    <button class="botonDentro" onclick="location.href = '/TFG/Usuarios/Perfil'">Volver</button>
+                    <button class="botonDentro" onclick="location.href = '/TFG/Usuarios/perfil'">Volver</button>
                 </div>
             </div>
             <div class="listasPersonaje" id="pestañasSeccion">
