@@ -84,7 +84,7 @@ public class Clases implements Serializable {
     @Basic(optional = false)
     @NotNull()
     @Column(name = "NIVELSUBCLASE", nullable = false)
-    private short nivelsubclase;
+    private Integer nivelsubclase;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clase")
     private List<Personajes> personajesList;
     private static final long serialVersionUID = 1L;
@@ -120,7 +120,7 @@ public class Clases implements Serializable {
         this.id = id;
     }
 
-    public Clases(String id, String nombre, String descripcion, String elegirhab, short nivelsubclase) {
+    public Clases(String id, String nombre, String descripcion, String elegirhab, Integer nivelsubclase) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -303,11 +303,11 @@ public class Clases implements Serializable {
         this.elegirhab = elegirhab;
     }
 
-    public short getNivelsubclase() {
+    public Integer getNivelsubclase() {
         return nivelsubclase;
     }
 
-    public void setNivelsubclase(short nivelsubclase) {
+    public void setNivelsubclase(Integer nivelsubclase) {
         this.nivelsubclase = nivelsubclase;
     }
     

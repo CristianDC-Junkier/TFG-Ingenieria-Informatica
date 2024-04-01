@@ -2,6 +2,7 @@ package controlador;
 
 import entidades.Atributos;
 import entidades.Clases;
+import entidades.Dotes;
 import entidades.Habilidades;
 import entidades.Mesas;
 import entidades.Personajeatributos;
@@ -10,6 +11,8 @@ import entidades.Personajes;
 import entidades.Razas;
 import entidades.Tablaclasespornivel;
 import entidades.Trasfondos;
+import entidades.Usaclase;
+import entidades.Usasubclase;
 import entidades.Usuarios;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,16 +64,26 @@ public class ControladorFormularios extends HttpServlet {
         Personajehabilidades personajeHabilidad;
         Habilidades habilidad;
         Personajeatributos personajeAtributo;
+        Usaclase usaclase;
+        Usasubclase usasubclase;
+        Dotes dote;
+        Atributos atributo;
+        Personajeatributos patributo;
 
         TypedQuery<Mesas> queryMesas;
+        TypedQuery<Dotes> queryDotes;
         TypedQuery<Clases> queryClases;
         TypedQuery<Razas> queryRazas;
         TypedQuery<Atributos> queryAtributos;
         TypedQuery<Trasfondos> queryTrasfondos;
         TypedQuery<Personajes> queryPersonajes;
         TypedQuery<Tablaclasespornivel> queryTCNivel;
+        TypedQuery<Usaclase> queryUsaClases;
+        TypedQuery<Usasubclase> queryUsaSubClases;
 
         List<Integer> listaHabValores;
+        List<Dotes> listaDotes;
+        List<Atributos> listaAtributos;
 
         String id;
         String personaje_id;
@@ -316,7 +329,6 @@ public class ControladorFormularios extends HttpServlet {
                     }
                 }
                 break;
-
             case "/modificarPersonajeAtributos":
                 /////////////////////////
                 /////////SESION//////////
@@ -339,6 +351,123 @@ public class ControladorFormularios extends HttpServlet {
                             request.setAttribute("listaPersonajeAtributos", personaje.getPersonajeatributosList());
                             request.setAttribute("personaje", personaje);
                             vista = "/WEB-INF/jsp/formularios/modificarPersonajeAtributos.jsp";
+                        } else {
+                            vista = "/Principal/inicio";
+                        }
+                    } catch (Exception ex) {
+                        vista = "/Principal/inicio";
+                    }
+                }
+                break;
+            case "/personajeSubirNivel":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    personaje_id = request.getParameter("id");
+
+                    //Comprobamos si el personaje es tuyo
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+                    try {
+                        personaje = queryPersonajes.getSingleResult();
+
+                        if (personaje.getUsuario().getId().equals(user.getId())) {
+
+                            //Si quiere un dote
+                            queryDotes = em.createNamedQuery("Dotes.findAll", Dotes.class);
+                            listaDotes = queryDotes.getResultList();
+
+                            //eliminamos los que ya tenga
+                            for (int i = 0; i < personaje.getDotesList().size(); i++) {
+                                dote = personaje.getDotesList().get(i);
+                                for (int j = 0; j < listaDotes.size(); j++) {
+                                    if (listaDotes.get(j).getId().equals(dote.getId())) {
+                                        listaDotes.remove(j);
+                                        j = listaDotes.size();
+                                    }
+                                }
+                            }
+                            request.setAttribute("listaDotes", listaDotes);
+
+                            //Si quiere subir atributos 
+                            queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                            listaAtributos = queryAtributos.getResultList();
+
+                            //eliminamos los que ya tenga con valor 20
+                            for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
+                                patributo = personaje.getPersonajeatributosList().get(i);
+                                if (patributo.getValor() == 20) {
+                                    for (int j = 0; j < listaAtributos.size(); j++) {
+                                        if (listaAtributos.get(j).getId().equals(patributo.getAtributos().getId())) {
+                                            listaDotes.remove(j);
+                                            j = listaDotes.size();
+                                        }
+                                    }
+                                }
+                            }
+                            request.setAttribute("listaAtributos1", listaAtributos);
+
+                            listaAtributos = queryAtributos.getResultList();
+
+                            //eliminamos los que ya tenga con valor 19 (no puede sumarle 2)
+                            for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
+                                patributo = personaje.getPersonajeatributosList().get(i);
+                                if (patributo.getValor() == 19) {
+                                    for (int j = 0; j < listaAtributos.size(); j++) {
+                                        if (listaAtributos.get(j).getId().equals(patributo.getAtributos().getId())) {
+                                            listaDotes.remove(j);
+                                            j = listaDotes.size();
+                                        }
+                                    }
+                                }
+                            }
+                            request.setAttribute("listaAtributos2", listaAtributos);
+
+                            try {
+
+                                ////RASGOS////
+                                //Espacios de conjuros y BC 
+                                queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                                queryTCNivel.setParameter("clase", personaje.getClase().getId());
+                                queryTCNivel.setParameter("nivel", personaje.getNivel() + 1);
+                                //Rasgos Clase
+                                queryUsaClases = em.createNamedQuery("Usaclase.findByClaseNivel", Usaclase.class);
+                                queryUsaClases.setParameter("clase", personaje.getClase().getId());
+                                queryUsaClases.setParameter("nivel", personaje.getNivel() + 1);
+                                //Rasgos SubClase
+                                if (personaje.getSubclase() != null) {
+                                    queryUsaSubClases = em.createNamedQuery("Usasubclase.findBySubclaseNivel", Usasubclase.class);
+                                    queryUsaSubClases.setParameter("subclase", personaje.getClase().getId());
+                                    queryUsaSubClases.setParameter("nivel", (personaje.getNivel() + 1));
+                                    usasubclase = queryUsaSubClases.getSingleResult();
+                                    request.setAttribute("pjRasgosSubClase", usasubclase.getRasgos());
+                                }
+
+                                tcnivel = queryTCNivel.getSingleResult();
+                                usaclase = queryUsaClases.getSingleResult();
+
+                                request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
+                                request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
+                                request.setAttribute("pjRasgosClase", usaclase.getRasgos());
+
+                            } catch (Exception ex) {
+                                System.out.println("Aun no implementado");
+                            }
+
+                            request.setAttribute("dadoClase", personaje.getClase().getDpg());
+                            request.setAttribute("nombreClase", personaje.getClase().getNombre());
+                            request.setAttribute("nivelSubclase", personaje.getClase().getNivelsubclase());
+                            request.setAttribute("listaSubclases", personaje.getClase().getSubclasesList());
+                            request.setAttribute("nivelSiguiente", (personaje.getNivel() + 1));
+                            request.setAttribute("personaje", personaje);
+
+                            vista = "/WEB-INF/jsp/formularios/personajeSubirNivel.jsp";
                         } else {
                             vista = "/Principal/inicio";
                         }
