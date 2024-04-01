@@ -145,6 +145,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             String raza;
             String clase;
             String numString;
+            String personajeNombre;
             int nivel;
 
             int num = 0; //offset
@@ -1618,6 +1619,43 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     System.out.println("PeticionAJAX Sale CrearPersonaje");
 
                     break;
+                case "/ModificarPersonaje":
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    //nombre original
+                    personajeNombre = request.getParameter("nombrePersonaje");
+
+                    System.out.println(nombre + " " + personajeNombre);
+
+                    if (personajeNombre.equals(nombre)) {
+                        resultado = "No encontrado";
+                    } else {
+                        sql = "SELECT p.* FROM PERSONAJES p "
+                                + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                + "AND p.NOMBRE LIKE '" + nombre + "'";
+                        queryAUX = em.createNativeQuery(sql, Personajes.class);
+                        listaPersonajes = queryAUX.getResultList();
+
+                        if (listaPersonajes.isEmpty()) {
+                            resultado = "No encontrado";
+                        } else {
+                            resultado = "Encontrado";
+                        }
+                    }
+
+                    System.out.println("PeticionAJAX Sale ModificarPersonaje");
+
+                    break;
                 case "/Personajes":
                     /////////////////////////
                     /////////SESION//////////
@@ -1663,8 +1701,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         nivelString = "AND p.NIVEL = '" + nivelString + "' ";
                     }
 
-                    System.out.println(raza);
-
+                    //System.out.println(raza);
                     switch (ordenar) {
                         case "ordenar1":
                             sql = "SELECT p.* FROM PERSONAJES p "
@@ -2361,7 +2398,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
                     querySubRazas.setParameter("nombre", nombre);
                     Subraza = querySubRazas.getSingleResult();
-                    
+
                     switch (Subraza.getEligeatr()) {
                         case "0":
                             //Encontramos los Atributos que da

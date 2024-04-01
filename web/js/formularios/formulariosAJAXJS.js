@@ -48,16 +48,20 @@ function realizarBusqueda(inputID, spanID) {
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/CrearMesa";
                 break;
             case "tittleMesaMod":
-                var tituloMesaJS = '<%= request.getAttribute("mesa.titulo") %>';
+                let tituloMesaJS = '<%= request.getAttribute("mesa.titulo") %>';
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/ModificarMesa?mesaTitulo=" + tituloMesaJS;
                 break;
             case "nombrePersonaje":
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/CrearPersonaje";
                 break;
+            case "nombrePersonajeMod":
+                let nombrePersonajeJS = '<%= request.getAttribute("personaje.nombre") %>';
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/ModificarPersonaje?nombrePersonaje=" + nombrePersonajeJS;
+                break;
         }
-        
-        console.log("llega " + inputID);
-        
+
+        //console.log("llega " + inputID);
+
         // Realizar la solicitud AJAX
         $.ajax({
             type: "GET",
@@ -72,7 +76,7 @@ function realizarBusqueda(inputID, spanID) {
                 } else {
                     if (inputID === "tittleMesaMod" || inputID === "tittleMesa") {
                         input.title = "La mesa esta repetido o no es valido";
-                    } else if (inputID === "namePersonaje") {
+                    } else if (inputID === "nombrePersonaje" || inputID === "nombrePersonajeMod") {
                         input.title = "El personaje esta repetido o no es valido";
                     } else {
                         input.title = "El usuario esta repetido o no es valido";

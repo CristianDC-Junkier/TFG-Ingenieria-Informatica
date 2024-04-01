@@ -517,6 +517,106 @@ public class ControladorPersonajes extends HttpServlet {
             /////////MODIFICAR/BORRAR/COPIAR PERSONAJES/////////
             ////////////////////////////////////////////////////
             case "/modificarPersonajeCaracteristicas":
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    personaje_id = request.getParameter("id");
+
+                    personaje_nombre = request.getParameter("personaje_nombre");
+                    personaje_alineamiento = request.getParameter("alineamiento");
+                    personaje_edad = request.getParameter("personaje_edad");
+                    personaje_apariencia = request.getParameter("personaje_apariencia");
+                    personaje_rasgos = request.getParameter("personaje_rasgos");
+                    personaje_defectos = request.getParameter("personaje_defectos");
+                    personaje_vinculos = request.getParameter("personaje_vinculos");
+                    personaje_idiomas = request.getParameter("personaje_idiomas");
+                    personaje_historia = request.getParameter("personaje_historia");
+
+                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+
+                    try {
+                        personaje = queryPersonajes.getSingleResult();
+                        //Comprobamos que es tuyo
+
+                        if (personaje.getUsuario().getId().equals(user.getId())) {
+
+                            //////////////////
+                            //////NOMBRE//////
+                            ////////////////// 
+                            if (personaje_nombre.toUpperCase().contains("UPDATE") || personaje_nombre.toUpperCase().contains("CREATE")
+                                    || personaje_nombre.toUpperCase().contains("DELETE") || personaje_nombre.toUpperCase().contains("SELECT")
+                                    || personaje_nombre.toUpperCase().contains("DROP")) {
+                                throw new Exception("El Nombre no es válido");
+                            }
+
+                            queryPersonajes = em.createNamedQuery("Personajes.findByNombreCreador", Personajes.class);
+                            queryPersonajes.setParameter("nombre", personaje_nombre);
+                            queryPersonajes.setParameter("creador", user);
+                            listaPersonajes = queryPersonajes.getResultList();
+
+                            if (!listaPersonajes.isEmpty() && !personaje.getNombre().equals(personaje_nombre)) {
+                                throw new Exception("Solo puedes tener un personaje con ese nombre");
+                            }
+
+                            if (personaje_edad != null && !personaje_edad.equals("")) {
+                                personaje.setEdad(Integer.valueOf(personaje_edad));
+                            }
+                            if (personaje_apariencia != null) {
+                                personaje.setApariencia(personaje_apariencia);
+                            } else {
+                                personaje.setApariencia("");
+                            }
+                            if (personaje_rasgos != null) {
+                                personaje.setRaspersonalidad(personaje_rasgos);
+                            } else {
+                                personaje.setRaspersonalidad("");
+                            }
+                            if (personaje_defectos != null) {
+                                personaje.setDefectos(personaje_defectos);
+                            } else {
+                                personaje.setDefectos("");
+                            }
+                            if (personaje_vinculos != null) {
+                                personaje.setVinculos(personaje_vinculos);
+                            } else {
+                                personaje.setVinculos("");
+                            }
+                            if (personaje_idiomas != null) {
+                                personaje.setIdiomas(personaje_idiomas);
+                            } else {
+                                personaje.setIdiomas("");
+                            }
+                            if (personaje_historia != null) {
+                                personaje.setHistoria(personaje_historia);
+                            } else {
+                                personaje.setHistoria("");
+                            }
+                            
+                            personaje.setAlineamiento(personaje_alineamiento);
+                            
+                            updatePersonajes(personaje);
+                            
+                            request.setAttribute("id", personaje_id);
+                            
+                            vista = "/Personajes/personajePerfilCaracteristicas";
+
+                        } else {
+                            vista = "/Principal/inicio";
+                        }
+                    } catch (Exception ex) {
+                        msj = "<p style=\"margin-left: 10px\"> Error: " + ex.getMessage() + "</p>";
+                        request.setAttribute("msj", msj);
+                        vista = "/Formularios/modificarPersonajeCaracteristicas?id=" + personaje_id;
+                    }
+                }
                 break;
             case "/modificarPersonajeHabilidades":
                 /////////////////////////

@@ -23,7 +23,7 @@
                             <label for="tittleMesaMod" id="tituloMesa">Título:</label>
                             <input type="text" id="tittleMesaMod" name="mesa_titulo" value="${requestScope.mesa.titulo}" 
                                    onkeyup="realizarBusqueda('tittleMesaMod', 'tittleMesaModInput')"required/>
-                            <span id="tittleMesaModInput">✖</span>
+                            <span id="tittleMesaModInput">✓</span>
                         </div>
                         <div>
                             <label for="passwordMesaMod" id="contraMesa">Contraseña:</label>
