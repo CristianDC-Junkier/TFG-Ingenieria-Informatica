@@ -132,7 +132,7 @@
                 </div>
                 <div class="botones">
                     <c:if test="${requestScope.personaje.nivel > 1}">
-                        <button class="boton" onclick="location.href = '/TFG/Personajes/personajeBajarNivel?id=${requestScope.personaje.id}'">Bajar al Nivel 1</button>
+                        <button class="boton" onclick="location.href = '/TFG/Personajes/personajeBajarNivel?personaje=${requestScope.personaje.id}'">Bajar al Nivel 1</button>
                     </c:if>
                     <c:if test="${requestScope.personaje.nivel < 20}">
                         <button class="boton" onclick="location.href = '/TFG/Formularios/personajeSubirNivel?id=${requestScope.personaje.id}'">Subir de Nivel</button>

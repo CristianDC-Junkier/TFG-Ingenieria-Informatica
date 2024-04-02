@@ -7,6 +7,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -54,6 +56,16 @@ public class Dotes implements Serializable {
     @Size(min = 1, max = 1)
     @Column(name = "ELEGIRATR", nullable = false, length = 1)
     private String elegiratr;
+    @JoinTable(name = "AUMENTADOTE", joinColumns = {
+        @JoinColumn(name = "DOTE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false)})
+    @ManyToMany
+    private List<Atributos> atributosList;
+    @JoinTable(name = "COMPETEDOTE", joinColumns = {
+        @JoinColumn(name = "DOTE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
+    @ManyToMany
+    private List<Habilidades> habilidadesList;
     @ManyToMany(mappedBy = "dotesList")
     private List<Personajes> personajesList;
 
@@ -113,6 +125,13 @@ public class Dotes implements Serializable {
     public String toString() {
         return "entidades.Dotes[ id=" + id + " ]";
     }
+    @XmlTransient
+    public List<Personajes> getPersonajesList() {
+        return personajesList;
+    }
+    public void setPersonajesList(List<Personajes> personajesList) {
+        this.personajesList = personajesList;
+    }
 
     public String getNombre() {
         return nombre;
@@ -147,12 +166,21 @@ public class Dotes implements Serializable {
     }
 
     @XmlTransient
-    public List<Personajes> getPersonajesList() {
-        return personajesList;
+    public List<Atributos> getAtributosList() {
+        return atributosList;
     }
 
-    public void setPersonajesList(List<Personajes> personajesList) {
-        this.personajesList = personajesList;
+    public void setAtributosList(List<Atributos> atributosList) {
+        this.atributosList = atributosList;
+    }
+
+    @XmlTransient
+    public List<Habilidades> getHabilidadesList() {
+        return habilidadesList;
+    }
+
+    public void setHabilidadesList(List<Habilidades> habilidadesList) {
+        this.habilidadesList = habilidadesList;
     }
     
 }

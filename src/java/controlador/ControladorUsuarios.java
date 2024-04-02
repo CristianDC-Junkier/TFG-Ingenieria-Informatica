@@ -1548,7 +1548,6 @@ public class ControladorUsuarios extends HttpServlet {
                     }
                 }
                 break;
-
         }
         RequestDispatcher rd = request.getRequestDispatcher(vista);
         rd.forward(request, response);

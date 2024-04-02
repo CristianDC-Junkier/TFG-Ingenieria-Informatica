@@ -459,7 +459,7 @@ public class ControladorFormularios extends HttpServlet {
                             } catch (Exception ex) {
                                 System.out.println("Aun no implementado");
                             }
-
+                            System.out.println(" llego");
                             request.setAttribute("dadoClase", personaje.getClase().getDpg());
                             request.setAttribute("dadoClaseInteger", Integer.parseInt(personaje.getClase().getDpg().substring(1)));
                             request.setAttribute("nombreClase", personaje.getClase().getNombre());
@@ -470,10 +470,10 @@ public class ControladorFormularios extends HttpServlet {
 
                             vista = "/WEB-INF/jsp/formularios/personajeSubirNivel.jsp";
                         } else {
-                            vista = "/Principal/inicio";
+                            vista = "/Personajes/personajePerfil?=" + personaje_id;
                         }
                     } catch (Exception ex) {
-                        vista = "/Principal/inicio";
+                        vista = "/Personajes/personajePerfil?=" + personaje_id;
                     }
                 }
                 break;

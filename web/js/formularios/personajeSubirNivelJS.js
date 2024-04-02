@@ -17,6 +17,7 @@ let Volver = document.getElementById("botonVolverFormulario");
 let Enviar = document.getElementById("botonEnviar");
 
 let valoresEleccion = document.getElementById("valoresEleccion");
+let eleccionDoteAtr = document.getElementById("eleccionDoteAtr");
 
 //Valores
 let idPersonajeJS = '<%= request.getAttribute("personaje.id") %>';
@@ -26,8 +27,6 @@ let nivelPersonajeJS = '<%= request.getAttribute("nivelSiguiente") %>';
 function AvanzarFormulario(Pag) {
     switch (Pag) {
         case 2.1:
-            //Borro Mensaje de Error si había
-            MensajeErrorB2.innerHTML = "";
             //Mostrar Bloques
             Bloque_1.style.display = "none";
             Bloque_21.style.display = "block";
@@ -44,8 +43,12 @@ function AvanzarFormulario(Pag) {
             Volver.onclick = function () {
                 RetrocederFormulario(1);
             };
+            //Eleccion 
+            eleccionDoteAtr.value = "Dote";
             break;
         case 2.2:
+            //Borro Mensaje de Error si había
+            MensajeErrorB2.innerHTML = "";
             //Mostrar Bloques
             Bloque_1.style.display = "none";
             Bloque_22.style.display = "block";
@@ -62,6 +65,8 @@ function AvanzarFormulario(Pag) {
             Volver.onclick = function () {
                 RetrocederFormulario(1);
             };
+            //Eleccion 
+            eleccionDoteAtr.value = "Atributos";
             break;
         case 3:
             //Mostrar Bloques
@@ -87,7 +92,10 @@ function RetrocederFormulario(Pag) {
             Avanzar.type = "hidden";
             Enviar.type = "hidden";
             valoresEleccion.style.display = "block";
-            Volver.onclick = "location.pathname = 'TFG/Personajes/personajePerfil'";
+            Volver.onclick = function ()
+            {
+                location.pathname = '/TFG/Personajes/personajePerfil'
+            };
             break;
     }
 }
@@ -95,10 +103,10 @@ function RetrocederFormulario(Pag) {
 function validarFormulario() {
     let atributo1 = document.getElementById("atributoPersonaje1");
     let atributo2 = document.getElementById("atributoPersonaje2");
-    
+
     console.log(atributo1.value);
     console.log(atributo2.value);
-    
+
     if (atributo1.value === atributo2.value) {
         MensajeErrorB2.innerHTML = "";
         MensajeErrorB2.innerHTML = " <br> Debes elegir diferentes atributos";

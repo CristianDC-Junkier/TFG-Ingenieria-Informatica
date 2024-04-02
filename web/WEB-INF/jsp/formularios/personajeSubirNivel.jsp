@@ -14,7 +14,7 @@
         <main class="contenedorFormulario">
             <div class="bloqueRegistroPersonaje">
                 <h2 class="TitulosFormulario">Crear Personaje</h2>
-                <form id = formRegistro action="/TFG/Personajes/crearpersonaje" method="POST">
+                <form id = formRegistro action="/TFG/Personajes/personajeSubirNivel?personaje=${requestScope.personaje.id}" method="POST">
                     <div id="Bloque1">
                         <div id="tablaClase">
                             Tienes un BC de: ${requestScope.pjTablaClase.bc}<br>
@@ -78,9 +78,10 @@
                         </div>
                     </div>
                     <div id="Bloque3" style="display: none;">
+                        <input id="eleccionDoteAtr" type="hidden" name="eleccionDoteAtr">
                         <div id="eleccionVida">
                             <label for="dadoVida" id="personajeVida">Aumento de  Vida (${requestScope.dadoClase}): </label>
-                            <input type="text" id="dadoVida" name="personaje_vida" required/>
+                            <input type="number" id="dadoVida" name="personaje_vida" max="${requestScope.dadoClaseInteger}" min="1" required/>
                             <button id="IDadoButton" type="button" onclick="tirarDado(${requestScope.dadoClaseInteger})"><img id="IDado" src="/TFG/img/iconos/d20White.png" alt="alt"/></button>
                         </div>
                         <c:if test="${requestScope.nivelSiguiente == requestScope.nivelSubclase}">
@@ -102,7 +103,7 @@
                             <input id="botoAtributorFormulario" type="button" onclick="AvanzarFormulario(2.2)" value="Elegir Atributos">
                         </div>
                         <input id="botonAvanzarFormulario" type="hidden" onclick="AvanzarFormulario(3)" value="Siguiente">
-                        <input  id="botonEnviar" type="hidden" value="Crear Personaje">
+                        <input  id="botonEnviar" type="hidden" value="Subir de nivel">
                     </div>
                 </form>
             </div>

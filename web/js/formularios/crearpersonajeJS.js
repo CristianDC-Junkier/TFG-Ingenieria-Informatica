@@ -48,11 +48,10 @@ function AvanzarFormulario(Pag) {
             if (Clase.value === "-" || Raza.value === "-" || Nombre.value === "" || Trasfondo.value === "") {
                 MensajeError.innerHTML = "";
                 MensajeError.innerHTML = "<br> Debes introducir nombre y elegir raza , clase y trasfondo";
-            }else if(NombreError.innerHTML === "✖"){
+            } else if (NombreError.innerHTML === "✖") {
                 MensajeError.innerHTML = "";
                 MensajeError.innerHTML = "<br> El nombre introducido ya está en uso";
-            }
-                else {
+            } else {
                 //Borro Mensaje de Error si había
                 MensajeError.innerHTML = "";
                 //Mostrar Bloques
@@ -150,7 +149,9 @@ function RetrocederFormulario(Pag) {
             Avanzar.onclick = function () {
                 AvanzarFormulario(2);
             };
-            Volver.onclick = "location.pathname = 'TFG/Principal/inicio'";
+            Volver.onclick = function () {
+                location.pathname = '/TFG/Principal/inicio';
+            };
             break;
         case 2:
             //Mostrar Bloques

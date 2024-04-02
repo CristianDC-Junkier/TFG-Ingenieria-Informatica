@@ -1,6 +1,7 @@
 package controlador;
 
 import entidades.Mesas;
+import entidades.Personajes;
 import entidades.Pertenecemesa;
 import entidades.Usuarios;
 import java.io.IOException;
@@ -56,16 +57,18 @@ public class ControladorMesas extends HttpServlet {
         String msj;
         Object result;
 
-        Usuarios user = null;
-        Usuarios useraux = null;
-        Mesas mesa = null;
-        Pertenecemesa pmesa = null;
-        Pertenecemesa pmesaaux = null;
+        Usuarios user;
+        Usuarios useraux;
+        Mesas mesa;
+        Pertenecemesa pmesa;
+        Pertenecemesa pmesaaux;
+        Personajes personaje;
         int cantidad;
 
         TypedQuery<Mesas> queryMesas;
         TypedQuery<Pertenecemesa> queryPertenecemesas;
         TypedQuery<Usuarios> queryUsuarios;
+        TypedQuery<Personajes> queryPersonajes;
 
         Query queryAUX;
 
@@ -74,6 +77,8 @@ public class ControladorMesas extends HttpServlet {
         ArrayList<Usuarios> listaUsuarios;
         List<Pertenecemesa> listaPerteneceMesa;
         List<Mesas> listaMesas;
+
+        String personaje_id;
 
         String id;
         String apodo;
@@ -109,6 +114,7 @@ public class ControladorMesas extends HttpServlet {
                 } else {
 
                     conseguido = false;
+                    mesa = null;
                     msj = "";
 
                     session = request.getSession();
@@ -693,7 +699,6 @@ public class ControladorMesas extends HttpServlet {
                     listaMesas = queryAUX.getResultList();
 
                     //System.out.println("Esto: " + listaMesas.size());
-
                     listaCantidad = new ArrayList();
                     fotosMesas = new ArrayList();
 
@@ -1135,6 +1140,7 @@ public class ControladorMesas extends HttpServlet {
                         request.setAttribute("urlImagen", urlImagen);
                         request.setAttribute("mesa", mesa);
                         request.setAttribute("rol", pmesa.getRol());
+                        request.setAttribute("personajeActual", pmesa.getPersonajemesa());
                         request.setAttribute("listaRoles", listaPerteneceMesa);
                         request.setAttribute("listaUsuarios", listaUsuarios);
 
@@ -1169,6 +1175,51 @@ public class ControladorMesas extends HttpServlet {
                     } else {
 
                         vista = "/WEB-INF/jsp/mesas/mesaChat.jsp";
+                    }
+                }
+                break;
+            /////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////PERSONAJE ACTUAL/////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////
+            case "/personajeActual":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                //Recogemos los datos
+                personaje_id = request.getParameter("personaje");
+                id = request.getParameter("id");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    //Comprobamos que sea suyo
+                    queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                    queryPersonajes.setParameter("id", personaje_id);
+                    queryPersonajes.setParameter("creador", user);
+
+                    
+                        personaje = queryPersonajes.getSingleResult();
+
+                        ///////////////////////////////
+                        //////PERTENECES A LA MESA/////
+                        ///////////////////////////////
+                        id = request.getParameter("id");
+
+                        queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
+                        queryPertenecemesas.setParameter("usuario", user.getId());
+                        queryPertenecemesas.setParameter("mesa", id);
+                        pmesa = queryPertenecemesas.getSingleResult();
+                        try {
+                        pmesa.setPersonajemesa(personaje);
+                        updatePMesas(pmesa);
+
+                        vista = "/Mesas/mostrarMesa?id=" + id;
+
+                    } catch (Exception ex) {
+                        vista = "/Mesas/mostrarMesa?id=" + id;
                     }
                 }
                 break;

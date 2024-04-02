@@ -47,6 +47,8 @@ public class Atributos implements Serializable {
     @Lob
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
+    @ManyToMany(mappedBy = "atributosList")
+    private List<Dotes> dotesList;
     @OneToMany(mappedBy = "atributo")
     private List<Habilidades> habilidadesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "atributos")
@@ -118,21 +120,6 @@ public class Atributos implements Serializable {
         return "entidades.Atributos[ id=" + id + " ]";
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
     @XmlTransient
     public List<Habilidades> getHabilidadesList() {
@@ -150,6 +137,31 @@ public class Atributos implements Serializable {
 
     public void setPersonajeatributosList(List<Personajeatributos> personajeatributosList) {
         this.personajeatributosList = personajeatributosList;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Dotes> getDotesList() {
+        return dotesList;
+    }
+
+    public void setDotesList(List<Dotes> dotesList) {
+        this.dotesList = dotesList;
     }
     
 }

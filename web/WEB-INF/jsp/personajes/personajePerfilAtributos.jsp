@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -19,12 +20,15 @@
                     <button class="botonDentro" onclick="location.href = '/TFG/Formularios/modificarPersonajeAtributos?id=${requestScope.personaje.id}'">Modificar</button>
                 </div>
                 <div class="personajeAtributos">
-                    <c:forEach var="patributo" items="${listaPAtributos}" varStatus="index">
+                    <c:forEach var="patributo" items="${listaPAtributos}" varStatus="status">
                         <div class="puntos">
                             <div class="puntos-contenedor">
                                 <label for="Atributo_${patributo.atributos.nombre}" id="atrPersonaje_${patributo.atributos.nombre}">${patributo.atributos.nombre}:</label>
                                 <input type="number" name="atributo_${patributo.atributos.nombre}" id="Atributo_${patributo.atributos.nombre}" value="${patributo.valor}" readonly>
                                 <div class="modificadores"></div>
+                                <div>
+                                    &nbsp;&nbsp;Salvacion: ${requestScope.listaPAtributosSalvacion[status.index]}&nbsp;
+                                </div>
                                 <div> 
                                     <c:choose>
                                         <c:when test="${patributo.salvacion == 'Si'}">

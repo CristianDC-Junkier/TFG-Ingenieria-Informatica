@@ -114,6 +114,7 @@ public class ControladorPersonajes extends HttpServlet {
         List<Requisitosdote> listaRDotes;
         List<Mejorasdote> listaMDotes;
         List<Integer> listaHabValores;
+        List<String> listaValoresSalvacion;
 
         HashSet<Hechizos> hashAuxHechizos;
         HashSet<Equipo> hashAuxEquipo;
@@ -1754,6 +1755,147 @@ public class ControladorPersonajes extends HttpServlet {
                     }
                 }
                 break;
+            case "/elegirPJActualMesa":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+                    //Recogemos los suyos
+                    queryPersonajes = em.createNamedQuery("Personajes.findByCreador", Personajes.class);
+                    queryPersonajes.setParameter("creador", user);
+                    listaPersonajes = queryPersonajes.getResultList();
+
+                    //Mesa
+                    id = request.getParameter("id");
+
+                    if (listaPersonajes == null || listaPersonajes.isEmpty()) {
+                        vista = "/Usuarios/perfil";
+                    } else {
+                        //Recogemos los datos
+                        numString = request.getParameter("pag");//numero de pag en la que estoy
+                        ordenar = request.getParameter("orden");//como ordenar
+                        razaString = request.getParameter("raza");//como ordenar
+                        claseString = request.getParameter("clase");//como ordenar
+                        nivelString = request.getParameter("nivel");//como ordenar
+
+                        //Comprobamos los datos
+                        if (ordenar == null) {
+
+                            ordenar = "ordenar1";
+                            razaSQL = " ";
+                            claseSQL = " ";
+                            nivelSQL = " ";
+                            numString = "1";
+                            num = 0;
+
+                        } else {
+                            num = (Integer.valueOf(numString) - 1) * 6;//offset
+
+                            if (razaString.equals("Raza")) {
+                                razaSQL = " ";
+                            } else {
+                                razaSQL = "AND p.RAZA = '" + razaString + "' ";
+                            }
+                            if (claseString.equals("Clase")) {
+                                claseSQL = " ";
+                            } else {
+                                claseSQL = "AND p.CLASE = '" + claseString + "' ";
+                            }
+                            if (nivelString.equals("0")) {
+                                nivelSQL = " ";
+                            } else {
+                                nivelSQL = "AND p.NIVEL = '" + nivelString + "' ";
+                            }
+                        }
+
+                        System.out.println("Llega pag: " + numString);
+                        System.out.println("Llega orden: " + ordenar);
+                        System.out.println("Llega raza: " + razaString);
+                        System.out.println("Llega clase: " + claseString);
+                        System.out.println("Llega nivel: " + nivelString);
+
+                        /////////////////////////////////////
+                        ////////NUMERO DE PERSONAJES/////////
+                        /////////////////////////////////////
+                        sql = "SELECT COUNT(*) FROM PERSONAJES p "
+                                + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                + nivelSQL
+                                + claseSQL
+                                + razaSQL;
+
+                        queryAUX = em.createNativeQuery(sql);
+                        result = queryAUX.getSingleResult();
+
+                        //PAGINAS QUE HAY (6 PERSONAJES POR PAGINA)
+                        numPag = (((Number) result).intValue() / 7) + 1;
+
+                        switch (ordenar) {
+                            case "ordenar1":
+                                sql = "SELECT p.* FROM PERSONAJES p "
+                                        + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                        + nivelSQL
+                                        + claseSQL
+                                        + razaSQL
+                                        + "ORDER BY p.NOMBRE ASC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                                break;
+                            case "ordenar2":
+                                sql = "SELECT p.* FROM PERSONAJES p "
+                                        + "WHERE p.USUARIO = '" + user.getId() + "' "
+                                        + nivelSQL
+                                        + claseSQL
+                                        + razaSQL
+                                        + "ORDER BY p.NOMBRE DESC "
+                                        + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
+                                break;
+                        }
+
+                        queryAUX = em.createNativeQuery(sql, Personajes.class);
+                        listaPersonajes = queryAUX.getResultList();
+
+                        request.setAttribute("listaPersonajes", listaPersonajes);
+
+                        System.out.println("Sale pag:" + numString);
+                        System.out.println("Sale orden:" + ordenar);
+                        System.out.println("Sale raza:" + razaString);
+                        System.out.println("Sale clase:" + claseString);
+                        System.out.println("Sale nivel:" + nivelString);
+                        System.out.println("Sale npag:" + numPag);
+
+                        queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                        request.setAttribute("listaClases", queryClases.getResultList());
+                        queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                        request.setAttribute("listaRazas", queryRazas.getResultList());
+
+                        fotosPersonajes = new ArrayList();
+
+                        for (int i = 0; i < listaPersonajes.size(); i++) {
+
+                            if (listaPersonajes.get(i).getImagenpersonaje() == null) {
+                                fotosPersonajes.add("-");
+                            } else {
+                                fotosPersonajes.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaPersonajes.get(i).getId());
+                            }
+                        }
+
+                        request.setAttribute("orden", ordenar);
+                        request.setAttribute("filtroRaza", razaString);
+                        request.setAttribute("filtroClase", claseString);
+                        request.setAttribute("filtroNivel", nivelString);
+                        request.setAttribute("urlImagenes", fotosPersonajes);
+                        request.setAttribute("pag", numString);//numero de la pag
+                        request.setAttribute("numPag", numPag);//numero total de pag
+                        request.setAttribute("mesa", id);//Mesa
+
+                        vista = "/WEB-INF/jsp/personajes/personajesPerfilElegirMesa.jsp";
+                    }
+                }
+                break;
             /////////////////////////////////////////
             /////////VALORES POST CREACION///////////
             /////////////////////////////////////////
@@ -1789,13 +1931,52 @@ public class ControladorPersonajes extends HttpServlet {
                                 num = 1;
                             }
 
+                            //Lista Atributos
+                            request.setAttribute("listaPAtributos", personaje.getPersonajeatributosList());
+
+                            listaValoresSalvacion = new ArrayList();
+
                             for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
                                 pjAtr = personaje.getPersonajeatributosList().get(i);
+
+                                switch (pjAtr.getValor()) {
+                                    case 8:
+                                    case 9:
+                                        numaux = -1;
+                                        break;
+                                    case 10:
+                                    case 11:
+                                        numaux = 0;
+                                        break;
+                                    case 12:
+                                    case 13:
+                                        numaux = 1;
+                                        break;
+                                    case 14:
+                                    case 15:
+                                        numaux = 2;
+                                        break;
+                                    case 16:
+                                    case 17:
+                                        numaux = 3;
+                                        break;
+                                    case 18:
+                                    case 19:
+                                        numaux = 4;
+                                        break;
+                                    case 20:
+                                        numaux = 5;
+                                        break;
+                                    default:
+                                        numaux = 0;
+                                }
                                 if (pjAtr.getSalvacion().equals("Si")) {
-                                    pjAtr.setValor(pjAtr.getValor() + num);
+                                    listaValoresSalvacion.add(String.valueOf(numaux + num));
+                                } else {
+                                    listaValoresSalvacion.add(String.valueOf(numaux));
                                 }
                             }
-                            request.setAttribute("listaPAtributos", personaje.getPersonajeatributosList());
+                            request.setAttribute("listaPAtributosSalvacion", listaValoresSalvacion);
                             request.setAttribute("personaje", personaje);
                             vista = "/WEB-INF/jsp/personajes/personajePerfilAtributos.jsp";
                         }
@@ -1880,6 +2061,7 @@ public class ControladorPersonajes extends HttpServlet {
                                                 break;
                                             case 20:
                                                 numaux = 5;
+                                                break;
                                             default:
                                                 numaux = 0;
                                         }
@@ -2045,15 +2227,52 @@ public class ControladorPersonajes extends HttpServlet {
                                 } catch (Exception ex) {
                                     num = 1;
                                 }
+                                //Lista Atributos
+                                request.setAttribute("listaPAtributos", personaje.getPersonajeatributosList());
+
+                                listaValoresSalvacion = new ArrayList();
 
                                 for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
                                     pjAtr = personaje.getPersonajeatributosList().get(i);
+
+                                    switch (pjAtr.getValor()) {
+                                        case 8:
+                                        case 9:
+                                            numaux = -1;
+                                            break;
+                                        case 10:
+                                        case 11:
+                                            numaux = 0;
+                                            break;
+                                        case 12:
+                                        case 13:
+                                            numaux = 1;
+                                            break;
+                                        case 14:
+                                        case 15:
+                                            numaux = 2;
+                                            break;
+                                        case 16:
+                                        case 17:
+                                            numaux = 3;
+                                            break;
+                                        case 18:
+                                        case 19:
+                                            numaux = 4;
+                                            break;
+                                        case 20:
+                                            numaux = 5;
+                                            break;
+                                        default:
+                                            numaux = 0;
+                                    }
                                     if (pjAtr.getSalvacion().equals("Si")) {
-                                        pjAtr.setValor(pjAtr.getValor() + num);
+                                        listaValoresSalvacion.add(String.valueOf(numaux + num));
+                                    } else {
+                                        listaValoresSalvacion.add(String.valueOf(numaux));
                                     }
                                 }
-                                System.out.println(personaje.getPersonajeatributosList().size());
-                                request.setAttribute("listaPAtributos", personaje.getPersonajeatributosList());
+                                request.setAttribute("listaPAtributosSalvacion", listaValoresSalvacion);
                                 request.setAttribute("personaje", personaje);
                                 vista = "/WEB-INF/jsp/personajes/personajeAmigoAtributos.jsp";
                             }
@@ -2147,6 +2366,7 @@ public class ControladorPersonajes extends HttpServlet {
                                                     break;
                                                 case 20:
                                                     numaux = 5;
+                                                    break;
                                                 default:
                                                     numaux = 0;
                                             }
@@ -3080,8 +3300,8 @@ public class ControladorPersonajes extends HttpServlet {
                 user = (Usuarios) session.getAttribute("user");
 
                 //Recogemos los datos
-                personaje_id = request.getParameter("personaje");
                 id = request.getParameter("hechizo");
+                personaje_id = request.getParameter("personaje");
 
                 queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
                 queryPersonajes.setParameter("id", personaje_id);
@@ -3123,6 +3343,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                 //Recogemos los datos
                 personaje_id = request.getParameter("personaje");
+                nombre = request.getParameter("eleccionDoteAtr");
 
                 queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
                 queryPersonajes.setParameter("id", personaje_id);
@@ -3135,22 +3356,44 @@ public class ControladorPersonajes extends HttpServlet {
                     atributo2 = request.getParameter("atributo2");
                     String dote_id = request.getParameter("dote");
                     String subclase_id = request.getParameter("subclase");
-                    String vidaString = request.getParameter("dadoVida");
+                    String vidaString = request.getParameter("personaje_vida");
                     int vida = Integer.valueOf(vidaString);
 
                     //Añadimos el dote
-                    if (dote_id != null) {
+                    if (nombre.equals("Dote")) {
                         queryDotes = em.createNamedQuery("Dotes.findById", Dotes.class);
                         queryDotes.setParameter("id", dote_id);
                         dote = queryDotes.getSingleResult();
+                        //Añadimos sus atributos
+                        for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
+                            personajeAtributo = personaje.getPersonajeatributosList().get(i);
+                            for (int j = 0; j < dote.getAtributosList().size(); j++) {
+                                atributo = dote.getAtributosList().get(j);
+                                if (atributo.getId().equals(personajeAtributo.getAtributos().getId())) {
+                                    personaje.getPersonajeatributosList().get(i).setValor((personajeAtributo.getValor() + 1));
+                                }
+                            }
+                        }
+                        //Añadimos sus habilidades
+                        for (int i = 0; i < personaje.getPersonajehabilidadesList().size(); i++) {
+                            personajeHabilidad = personaje.getPersonajehabilidadesList().get(i);
+                            for (int j = 0; j < dote.getHabilidadesList().size(); j++) {
+                                habilidad = dote.getHabilidadesList().get(j);
+                                if (habilidad.getId().equals(personajeHabilidad.getHabilidades().getId())) {
+                                    personaje.getPersonajehabilidadesList().get(i).setCompetencia("Si");
+                                }
+                            }
+
+                        }
+                        personaje.getDotesList().add(dote);
                     } else {//Añadimos los valores a los atributos
                         for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
                             personajeAtributo = personaje.getPersonajeatributosList().get(i);
                             if (atributo1.equals(personajeAtributo.getAtributos().getNombre())) {
-                                personajeAtributo.setValor((personajeAtributo.getValor() + 1));
+                                personaje.getPersonajeatributosList().get(i).setValor((personajeAtributo.getValor() + 1));
                             }
                             if (atributo2.equals(personajeAtributo.getAtributos().getNombre())) {
-                                personajeAtributo.setValor((personajeAtributo.getValor() + 2));
+                                personaje.getPersonajeatributosList().get(i).setValor((personajeAtributo.getValor() + 2));
                             }
                         }
                     }
@@ -3170,9 +3413,9 @@ public class ControladorPersonajes extends HttpServlet {
 
                     updatePersonajes(personaje);
 
-                    vista = "/Personajes/personajePerfil?=" + personaje_id;
+                    vista = "/Personajes/personajePerfil?id=" + personaje_id;
                 } catch (Exception ex) {
-                    vista = "/Formularios/personajeSubirNivel?=" + personaje_id;
+                    vista = "/Formularios/personajeSubirNivel?id=" + personaje_id;
                 }
                 break;
             case "/personajeBajarNivel":
@@ -3196,8 +3439,8 @@ public class ControladorPersonajes extends HttpServlet {
                     personaje.setDotesList(null);
                     //Reiniciamos los atributos a 8
                     for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
-                        personajeAtributo = personaje.getPersonajeatributosList().get(i);
-                        personajeAtributo.setValor(8);
+                        personaje.getPersonajeatributosList().get(i).setValor(8);
+
                     }
                     //Borramos subclase si procede
                     if (personaje.getClase().getNivelsubclase() != 1) {
@@ -3207,12 +3450,13 @@ public class ControladorPersonajes extends HttpServlet {
                     //Bajamos la vida
                     personaje.setPvida((Integer.parseInt(personaje.getClase().getDpg().substring(1))));
                     personaje.setPvidaactuales((Integer.parseInt(personaje.getClase().getDpg().substring(1))));
+                    personaje.setNivel(1);
 
                     updatePersonajes(personaje);
 
-                    vista = "/Personajes/personajePerfil?=" + personaje_id;
+                    vista = "/Personajes/personajePerfil?id=" + personaje_id;
                 } catch (Exception ex) {
-                    vista = "/Personajes/personajePerfil?=" + personaje_id;;
+                    vista = "/Personajes/personajePerfil?id=" + personaje_id;;
                 }
                 break;
         }

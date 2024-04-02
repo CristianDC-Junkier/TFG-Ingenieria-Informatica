@@ -49,13 +49,31 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class Personajes implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue
+    @Column(name = "ID")
+    private String id;
+    @Lob
+    @Column(name = "APARIENCIA")
+    private String apariencia;
+    @Lob
+    @Column(name = "RASPERSONALIDAD")
+    private String raspersonalidad;
+    @Lob
+    @Column(name = "DEFECTOS")
+    private String defectos;
+    @Lob
+    @Column(name = "VINCULOS")
+    private String vinculos;
+    @Lob
+    @Column(name = "HISTORIA")
+    private String historia;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 120)
     @Column(name = "NOMBRE", nullable = false, length = 120)
     private String nombre;
-    @Column(name = "EDAD")
-    private Integer edad;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
@@ -64,6 +82,8 @@ public class Personajes implements Serializable {
     @Size(max = 255)
     @Column(name = "IDIOMAS", length = 255)
     private String idiomas;
+    @Column(name = "PEXP")
+    private Integer pexp;
     @Lob
     @Column(name = "IMAGENPERSONAJE")
     private byte[] imagenpersonaje;
@@ -83,31 +103,13 @@ public class Personajes implements Serializable {
     @NotNull
     @Column(name = "CLASEARMADURA", nullable = false)
     private Integer clasearmadura;
+    @OneToMany(mappedBy = "personajemesa")
+    private List<Pertenecemesa> pertenecemesaList;
+    @Column(name = "EDAD")
+    private Integer edad;
+
     @OneToMany(mappedBy = "personajeactual")
     private List<Usuarios> usuariosList;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private String id;
-    @Lob
-    @Column(name = "APARIENCIA")
-    private String apariencia;
-    @Lob
-    @Column(name = "RASPERSONALIDAD")
-    private String raspersonalidad;
-    @Lob
-    @Column(name = "DEFECTOS")
-    private String defectos;
-    @Lob
-    @Column(name = "VINCULOS")
-    private String vinculos;
-    @Column(name = "PEXP")
-    private Integer pexp;
-    @Lob
-    @Column(name = "HISTORIA")
-    private String historia;
     @JoinTable(name = "PERSONAJEHECHIZOS", joinColumns = {
         @JoinColumn(name = "PERSONAJE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "HECHIZO", referencedColumnName = "ID", nullable = false)})
@@ -206,7 +208,7 @@ public class Personajes implements Serializable {
                 } else {
                     this.nombre = this.nombre + "_1";
                 }
-                i=-1;
+                i = -1;
             }
         }
 
@@ -261,14 +263,6 @@ public class Personajes implements Serializable {
 
     public void setVinculos(String vinculos) {
         this.vinculos = vinculos;
-    }
-
-    public Integer getPexp() {
-        return pexp;
-    }
-
-    public void setPexp(Integer pexp) {
-        this.pexp = pexp;
     }
 
     public String getHistoria() {
@@ -397,20 +391,29 @@ public class Personajes implements Serializable {
         return "controlador.Personajes[ id=" + id + " ]";
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public Integer getEdad() {
         return edad;
     }
 
     public void setEdad(Integer edad) {
         this.edad = edad;
+    }
+
+    @XmlTransient
+    public List<Usuarios> getUsuariosList() {
+        return usuariosList;
+    }
+
+    public void setUsuariosList(List<Usuarios> usuariosList) {
+        this.usuariosList = usuariosList;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getAlineamiento() {
@@ -427,6 +430,14 @@ public class Personajes implements Serializable {
 
     public void setIdiomas(String idiomas) {
         this.idiomas = idiomas;
+    }
+
+    public Integer getPexp() {
+        return pexp;
+    }
+
+    public void setPexp(Integer pexp) {
+        this.pexp = pexp;
     }
 
     public byte[] getImagenpersonaje() {
@@ -470,12 +481,12 @@ public class Personajes implements Serializable {
     }
 
     @XmlTransient
-    public List<Usuarios> getUsuariosList() {
-        return usuariosList;
+    public List<Pertenecemesa> getPertenecemesaList() {
+        return pertenecemesaList;
     }
 
-    public void setUsuariosList(List<Usuarios> usuariosList) {
-        this.usuariosList = usuariosList;
+    public void setPertenecemesaList(List<Pertenecemesa> pertenecemesaList) {
+        this.pertenecemesaList = pertenecemesaList;
     }
 
 }
