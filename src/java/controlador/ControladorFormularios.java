@@ -461,6 +461,7 @@ public class ControladorFormularios extends HttpServlet {
                             }
 
                             request.setAttribute("dadoClase", personaje.getClase().getDpg());
+                            request.setAttribute("dadoClaseInteger", Integer.parseInt(personaje.getClase().getDpg().substring(1)));
                             request.setAttribute("nombreClase", personaje.getClase().getNombre());
                             request.setAttribute("nivelSubclase", personaje.getClase().getNivelsubclase());
                             request.setAttribute("listaSubclases", personaje.getClase().getSubclasesList());

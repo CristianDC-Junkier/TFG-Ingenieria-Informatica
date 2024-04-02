@@ -47,11 +47,41 @@
                             </div>
                         </c:if>
                     </div>
-                    <div id="Bloque2" style="display: none;">
+                    <div id="Bloque2-1" style="display: none;">
+                        <div id="eleccionDote">
+                            <label for="dotePersonaje" id="dotesPersonaje">Dote:</label>
+                            <select required name="dote" id="dotePersonaje" >
+                                <c:forEach var="dote" items="${listaDotes}">
+                                    <option value="${dote.id}">${dote.nombre}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="Bloque2-2" style="display: none;">
+                        <div id="eleccionAtr">
+                            <label for="atributoPersonaje" id="dotesPersonaje">Atributo +1:</label>
+                            <select required name="atributo1" id="atributoPersonaje1" >
+                                <c:forEach var="atributo" items="${listaAtributos1}">
+                                    <option value="${atributo.nombre}">${atributo.nombre}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div id="eleccionAtr">
+                            <label for="atributoPersonaje" id="dotesPersonaje">Atributo +2:</label>
+                            <select required name="atributo2" id="atributoPersonaje2" >
+                                <c:forEach var="atributo" items="${listaAtributos2}">
+                                    <option value="${atributo.nombre}">${atributo.nombre}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div id="mensajeErrorB2">
+                        </div>
+                    </div>
+                    <div id="Bloque3" style="display: none;">
                         <div id="eleccionVida">
                             <label for="dadoVida" id="personajeVida">Aumento de  Vida (${requestScope.dadoClase}): </label>
                             <input type="text" id="dadoVida" name="personaje_vida" required/>
-                            <button id="IDadoButton" type="button" onclick=""><img id="IDado" src="/TFG/img/iconos/d20White.png" alt="alt"/></button>
+                            <button id="IDadoButton" type="button" onclick="tirarDado(${requestScope.dadoClaseInteger})"><img id="IDado" src="/TFG/img/iconos/d20White.png" alt="alt"/></button>
                         </div>
                         <c:if test="${requestScope.nivelSiguiente == requestScope.nivelSubclase}">
                             <div id="eleccionSubClase">
@@ -64,46 +94,14 @@
                             </div>
                         </c:if>
                     </div>
-                    <div id="Bloque3-1" style="display: none;">
-                        <div id="eleccionDote">
-                            <label for="dotePersonaje" id="dotesPersonaje">Dote:</label>
-                            <select required name="dote" id="dotePersonaje" >
-                                <c:forEach var="dote" items="${listaDotes}">
-                                    <option value="${dote.id}">${dote.nombre}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="Bloque3-2" style="display: none;">
-                        <div id="eleccionAtr">
-                            <label for="atributoPersonaje" id="dotesPersonaje">Atributo +1:</label>
-                            <select required name="atributo1" id="atributoPersonaje" >
-                                <c:forEach var="atributo" items="${listaAtributos1}">
-                                    <option value="${atributo.id}">${atributo.nombre}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div id="eleccionAtr">
-                            <label for="atributoPersonaje" id="dotesPersonaje">Atributo +2:</label>
-                            <select required name="atributo2" id="atributoPersonaje" >
-                                <c:forEach var="atributo" items="${listaAtributos2}">
-                                    <option value="${atributo.id}">${atributo.nombre}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div id="mensajeErrorB3">
-                        </div>
-                    </div>
                     <div class="contenedorBotonFormulario">
-                        <input id="botonVolverFormulario" type="button" onclick="location.pathname = 'TFG/Principal/inicio'" value="Volver">
-                        <c:choose>
-                            <c:when test="${requestScope.nivelSiguiente == requestScope.nivelSubclase}">
-                                <input id="botonAvanzarFormulario" type="button" onclick="AvanzarFormulario(2)" value="Siguiente">
-                            </c:when>
-                            <c:otherwise>
-                                <input id="botonAvanzarFormulario" type="button" onclick="AvanzarFormulario(3)" value="Siguiente">
-                            </c:otherwise>
-                        </c:choose>
+                        <input id="botonVolverFormulario" type="button"
+                               onclick="location.pathname = '/TFG/Personajes/personajePerfil'" value="Volver">
+                        <div id="valoresEleccion">
+                            <input id="botonDoteFormulario" type="button" onclick="AvanzarFormulario(2.1)" value="Elegir Dote">
+                            <input id="botoAtributorFormulario" type="button" onclick="AvanzarFormulario(2.2)" value="Elegir Atributos">
+                        </div>
+                        <input id="botonAvanzarFormulario" type="hidden" onclick="AvanzarFormulario(3)" value="Siguiente">
                         <input  id="botonEnviar" type="hidden" value="Crear Personaje">
                     </div>
                 </form>
@@ -111,7 +109,6 @@
         </main>
         <jsp:include page="/WEB-INF/jsp/footerNoChat.jsp" />
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script src="/TFG/js/formularios/formulariosAJAXJS.js"></script>
-        <script src="/TFG/js/formularios/crearpersonajeJS.js"></script>
+        <script src="/TFG/js/formularios/personajeSubirNivelJS.js"></script>
     </body>
 </html>

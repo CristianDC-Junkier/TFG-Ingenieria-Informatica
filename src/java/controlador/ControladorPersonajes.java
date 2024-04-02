@@ -95,6 +95,7 @@ public class ControladorPersonajes extends HttpServlet {
         TypedQuery<Tablaclasespornivel> queryTCNivel;
         TypedQuery<Usaclase> queryUsaClases;
         TypedQuery<Usasubclase> queryUsaSubClases;
+        TypedQuery<Dotes> queryDotes;
 
         Query queryAUX;
 
@@ -137,6 +138,7 @@ public class ControladorPersonajes extends HttpServlet {
         Amigos amigos;
         Usaclase usaclase;
         Usasubclase usasubclase;
+        Dotes dote;
 
         String id;
         String personaje_id;
@@ -599,13 +601,13 @@ public class ControladorPersonajes extends HttpServlet {
                             } else {
                                 personaje.setHistoria("");
                             }
-                            
+
                             personaje.setAlineamiento(personaje_alineamiento);
-                            
+
                             updatePersonajes(personaje);
-                            
+
                             request.setAttribute("id", personaje_id);
-                            
+
                             vista = "/Personajes/personajePerfilCaracteristicas";
 
                         } else {
@@ -3109,9 +3111,9 @@ public class ControladorPersonajes extends HttpServlet {
                     vista = "/Principal/inicio";
                 }
                 break;
-            //////////////////////////////////
-            /////////SUBIR DE NIVEL///////////
-            //////////////////////////////////
+            //////////////////////////////////////////////
+            /////////SUBIR DE NIVEL/BAJAR NIVEL///////////
+            //////////////////////////////////////////////
             case "/personajeSubirNivel":
                 /////////////////////////
                 /////////SESION//////////
@@ -3121,7 +3123,6 @@ public class ControladorPersonajes extends HttpServlet {
 
                 //Recogemos los datos
                 personaje_id = request.getParameter("personaje");
-                id = request.getParameter("hechizo");
 
                 queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
                 queryPersonajes.setParameter("id", personaje_id);
@@ -3130,11 +3131,88 @@ public class ControladorPersonajes extends HttpServlet {
                 try {
                     personaje = queryPersonajes.getSingleResult();
 
+                    atributo1 = request.getParameter("atributo1");
+                    atributo2 = request.getParameter("atributo2");
+                    String dote_id = request.getParameter("dote");
+                    String subclase_id = request.getParameter("subclase");
+                    String vidaString = request.getParameter("dadoVida");
+                    int vida = Integer.valueOf(vidaString);
+
+                    //Añadimos el dote
+                    if (dote_id != null) {
+                        queryDotes = em.createNamedQuery("Dotes.findById", Dotes.class);
+                        queryDotes.setParameter("id", dote_id);
+                        dote = queryDotes.getSingleResult();
+                    } else {//Añadimos los valores a los atributos
+                        for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
+                            personajeAtributo = personaje.getPersonajeatributosList().get(i);
+                            if (atributo1.equals(personajeAtributo.getAtributos().getNombre())) {
+                                personajeAtributo.setValor((personajeAtributo.getValor() + 1));
+                            }
+                            if (atributo2.equals(personajeAtributo.getAtributos().getNombre())) {
+                                personajeAtributo.setValor((personajeAtributo.getValor() + 2));
+                            }
+                        }
+                    }
+                    //Añadimos la subclase si es necesario
+                    if (subclase_id != null) {
+                        querySubclases = em.createNamedQuery("Subclases.findById", Subclases.class);
+                        querySubclases.setParameter("id", dote_id);
+                        personaje.setSubclase(querySubclases.getSingleResult());
+                    }
+
+                    //Subimos la vida
+                    personaje.setPvida((personaje.getPvida() + vida));
+                    personaje.setPvidaactuales((personaje.getPvidaactuales() + vida));
+
+                    //Subimos el nivel
+                    personaje.setNivel((personaje.getNivel() + 1));
+
                     updatePersonajes(personaje);
 
-                    vista = "";
+                    vista = "/Personajes/personajePerfil?=" + personaje_id;
                 } catch (Exception ex) {
-                    vista = "/Principal/inicio";
+                    vista = "/Formularios/personajeSubirNivel?=" + personaje_id;
+                }
+                break;
+            case "/personajeBajarNivel":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                //Recogemos los datos
+                personaje_id = request.getParameter("personaje");
+
+                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes.setParameter("id", personaje_id);
+                queryPersonajes.setParameter("creador", user);
+
+                try {
+                    personaje = queryPersonajes.getSingleResult();
+
+                    //Borramos dotes
+                    personaje.setDotesList(null);
+                    //Reiniciamos los atributos a 8
+                    for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
+                        personajeAtributo = personaje.getPersonajeatributosList().get(i);
+                        personajeAtributo.setValor(8);
+                    }
+                    //Borramos subclase si procede
+                    if (personaje.getClase().getNivelsubclase() != 1) {
+                        personaje.setSubclase(null);
+                    }
+
+                    //Bajamos la vida
+                    personaje.setPvida((Integer.parseInt(personaje.getClase().getDpg().substring(1))));
+                    personaje.setPvidaactuales((Integer.parseInt(personaje.getClase().getDpg().substring(1))));
+
+                    updatePersonajes(personaje);
+
+                    vista = "/Personajes/personajePerfil?=" + personaje_id;
+                } catch (Exception ex) {
+                    vista = "/Personajes/personajePerfil?=" + personaje_id;;
                 }
                 break;
         }

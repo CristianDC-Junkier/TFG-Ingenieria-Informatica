@@ -131,7 +131,12 @@
                     <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfilCaracteristicas?id=${requestScope.personaje.id}'">Características</button></div>
                 </div>
                 <div class="botones">
-                    <button class="boton" onclick="location.href = '/TFG/'">Subir de Nivel</button>
+                    <c:if test="${requestScope.personaje.nivel > 1}">
+                        <button class="boton" onclick="location.href = '/TFG/Personajes/personajeBajarNivel?id=${requestScope.personaje.id}'">Bajar al Nivel 1</button>
+                    </c:if>
+                    <c:if test="${requestScope.personaje.nivel < 20}">
+                        <button class="boton" onclick="location.href = '/TFG/Formularios/personajeSubirNivel?id=${requestScope.personaje.id}'">Subir de Nivel</button>
+                    </c:if>
                     <button class="boton" onclick="location.href = '/TFG/Personajes/personajeHechizos?id=${requestScope.personaje.id}'">Hechizos</button>
                     <button class="boton" onclick="location.href = '/TFG/Personajes/personajeEquipo?id=${requestScope.personaje.id}'">Equipo</button>
                     <button class="boton" onclick="location.href = '/TFG/Personajes/personajeDotes?id=${requestScope.personaje.id}'">Dotes</button>
