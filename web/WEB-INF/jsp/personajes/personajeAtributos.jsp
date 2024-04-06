@@ -15,7 +15,7 @@
             <h2 class="Titulos">Personaje: ${requestScope.personaje.nombre}</h2>
             <hr color="black">
             <div class="cajaAtributos">
-                <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigo?id=${requestScope.personaje.id}&amigo=${requestScope.personaje.usuario.id}'">Volver</button></div>
+                <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personaje?id=${requestScope.personaje.id}'">Volver</button></div>
                 <div class="personajeAtributos">
                     <c:forEach var="patributo" items="${listaPAtributos}" varStatus="status">
                         <div class="puntos">
@@ -44,6 +44,6 @@
         </main>
         <jsp:include page="/WEB-INF/jsp/footer.jsp" />
         <script src="/TFG/js/principalJS.js"></script>
-        <script src="/TFG/js/personajes/personajePerfilAtributosJS.js"></script>
+        <script src="/TFG/js/personajes/personajeAtributosJS.js"></script>
     </body>
 </html>

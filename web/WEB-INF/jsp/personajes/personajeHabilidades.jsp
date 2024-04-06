@@ -15,7 +15,7 @@
             <h2 class="Titulos">Personaje: ${requestScope.personaje.nombre}</h2>
             <hr color="black">
             <div class="cajaHabilidades">
-                <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigo?id=${requestScope.personaje.id}&amigo=${requestScope.personaje.usuario.id}'">Volver</button></div>
+                <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personaje?id=${requestScope.personaje.id}'">Volver</button></div>
                 <div class="personajeHabilidades">
                     <ul>
                         <c:forEach var="pHabilidad" items="${listaPHabilidad}" varStatus="status">

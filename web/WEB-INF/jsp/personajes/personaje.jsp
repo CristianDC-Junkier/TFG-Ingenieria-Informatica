@@ -7,12 +7,12 @@
         <title class="titulosPag">Guidance4\Personajes\Personaje</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/perfilCss.css"/>
-        <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/comunUsuariosCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/personajeCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css"/>
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
-        <main class="mainPerfil">
+        <main class="mainPerfilPersonaje">
             <div class="cajaGeneral">
                 <div class="cajaPersonaje">
                     <h2>PERSONAJE: ${requestScope.personaje.nombre}</h2>
@@ -47,26 +47,23 @@
                             <div>Trasfondo:&nbsp;${requestScope.personaje.trasfondo.nombre} </div>
                             <br><hr><br>
                             <div>Nivel:&nbsp;${requestScope.personaje.nivel}&nbsp;/&nbsp;20</div>
-                            <div>Clase de Armadura:&nbsp;${requestScope.personaje.clasearmadura} 
-                                falta boton para cambiarlo</div>
-                            <div>Puntos de vida:&nbsp;${requestScope.personaje.pvidaactuales}&nbsp;/&nbsp;${requestScope.personaje.pvida}
-                                falta boton para cambiarlo</div>
-                            <div>Puntos de experiencia:&nbsp;${requestScope.personaje.pexp}
-                                falta boton para cambiarlo</div>
+                            <div>Clase de Armadura:&nbsp;${requestScope.personaje.clasearmadura}</div>
+                            <div>Puntos de vida:&nbsp;${requestScope.personaje.pvidaactuales}&nbsp;/&nbsp;${requestScope.personaje.pvida}</div>
+                            <div>Puntos de experiencia:&nbsp;${requestScope.personaje.pexp}</div>
                         </div>
                     </div>
-
-                    <div class="usuarioDatos">
-                        <div><span>Rasgos:  </span>${requestScope.personaje.nombre} </div>
-                        <div><span>Habilidades:  </span>${requestScope.personaje.nombre}</div>
-                        <div><span>Atributos:  </span>${requestScope.personaje.nombre}</div>
-                        <div><span>Características:  </span>${requestScope.personaje.nombre}</div>
+                    <div class="personajeBotonesDatos">
+                        <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeRasgos?id=${requestScope.personaje.id}'">Rasgos</button></div>
+                        <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeHabilidades?id=${requestScope.personaje.id}'">Habilidades</button></div>
+                        <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAtributos?id=${requestScope.personaje.id}'">Atributos</button></div>
+                        <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeCaracteristicas?id=${requestScope.personaje.id}'">Características</button></div>
                         <div><span>Creador:  </span>${requestScope.personaje.usuario.apodo}</div>
                     </div>
                     <div class="botones">
                         <button class="botonfinal" onclick="location.href = '/TFG/Personajes/personajes'">Volver</button>
                     </div>
                 </div>
+            </div>
         </main>
         <jsp:include page="/WEB-INF/jsp/footer.jsp" />
         <script src="/TFG/js/principalJS.js"></script>

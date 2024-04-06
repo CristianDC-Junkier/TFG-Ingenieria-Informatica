@@ -1082,11 +1082,9 @@ public class ControladorPersonajes extends HttpServlet {
                 listaPersonajes = queryAUX.getResultList();
 
                 fotosPersonajes = new ArrayList();
-                listaUsuarios = new ArrayList();
 
                 for (int i = 0; i < listaPersonajes.size(); i++) {
 
-                    listaUsuarios.add(listaPersonajes.get(i).getUsuario());
 
                     if (listaPersonajes.get(i).getImagenpersonaje() == null) {
                         fotosPersonajes.add("-");
@@ -1096,7 +1094,6 @@ public class ControladorPersonajes extends HttpServlet {
                 }
 
                 request.setAttribute("listaPersonajes", listaPersonajes);
-                request.setAttribute("listaCreador", listaUsuarios);
 
                 System.out.println("Sale pag:" + numString);
                 System.out.println("Sale orden:" + ordenar);
@@ -1222,11 +1219,9 @@ public class ControladorPersonajes extends HttpServlet {
                     listaPersonajes = queryAUX.getResultList();
 
                     fotosPersonajes = new ArrayList();
-                    listaUsuarios = new ArrayList();
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
 
-                        listaUsuarios.add(listaPersonajes.get(i).getUsuario());
 
                         if (listaPersonajes.get(i).getImagenpersonaje() == null) {
                             fotosPersonajes.add("-");
@@ -1236,7 +1231,6 @@ public class ControladorPersonajes extends HttpServlet {
                     }
 
                     request.setAttribute("listaPersonajes", listaPersonajes);
-                    request.setAttribute("listaCreador", listaUsuarios);
 
                     System.out.println("Sale pag:" + numString);
                     System.out.println("Sale orden:" + ordenar);
@@ -1568,51 +1562,6 @@ public class ControladorPersonajes extends HttpServlet {
                     vista = "/Principal/inicio";
                 }
 
-                break;
-            case "/personajeAmigo":
-                /////////////////////////
-                /////////SESION//////////
-                /////////////////////////
-                session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
-
-                //Recogemos los datos
-                personaje_id = request.getParameter("id");
-                id = request.getParameter("amigo");
-
-                queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
-                queryUsuarios.setParameter("id", id);
-                useraux = queryUsuarios.getResultList().get(0);
-
-                if (useraux == null) {
-                    vista = "/Principal/inicio";
-                } else {
-                    //Comprobamos que sean amigos
-                    queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
-                    queryAmigos.setParameter("amigo1", id);
-                    queryAmigos.setParameter("amigo2", user.getId());
-
-                    try {
-                        amigos = queryAmigos.getSingleResult();
-
-                        //Comprobamos que sea suyo
-                        queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
-                        queryPersonajes.setParameter("id", personaje_id);
-                        queryPersonajes.setParameter("creador", useraux);
-                        personaje = queryPersonajes.getResultList().get(0);
-
-                        if (personaje == null) {
-                            vista = "/Principal/inicio";
-                        } else {
-                            request.setAttribute("personaje", personaje);
-                            request.setAttribute("imagenpersonaje", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + personaje.getId());
-                            vista = "/WEB-INF/jsp/personajes/personajeAmigo.jsp";
-                        }
-
-                    } catch (Exception ex) {
-                        vista = "/Principal/inicio";
-                    }
-                }
                 break;
 
             ////////////////////////////////////
@@ -2187,342 +2136,241 @@ public class ControladorPersonajes extends HttpServlet {
                     }
                 }
                 break;
-            case "/personajeAmigoAtributos":
-                /////////////////////////
-                /////////SESION//////////
-                /////////////////////////
-                session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+            case "/personajeAtributos":
+                //Recogemos los datos
+                personaje_id = request.getParameter("id");
 
-                if (user == null) {
-                    vista = "/Principal/inicio";
-                } else {
-                    //Recogemos los datos
-                    personaje_id = request.getParameter("id");
-                    id = request.getParameter("amigo");
+                //Comprobamos si existe
+                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes.setParameter("id", personaje_id);
+                try {
+                    personaje = queryPersonajes.getSingleResult();
 
-                    //Comprobamos que sean amigos
-                    queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
-                    queryAmigos.setParameter("amigo1", id);
-                    queryAmigos.setParameter("amigo2", user.getId());
-
+                    //Necesitamos la tabla clase del nivel para el BC
+                    queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                    queryTCNivel.setParameter("clase", personaje.getClase().getId());
+                    queryTCNivel.setParameter("nivel", personaje.getNivel());
                     try {
-                        amigos = queryAmigos.getSingleResult();
-
-                        //Comprobamos si es suyo
-                        queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
-                        queryPersonajes.setParameter("id", personaje_id);
-                        try {
-                            personaje = queryPersonajes.getSingleResult();
-                            if (!personaje.getUsuario().getId().equals(id)) {
-                                vista = "/Principal/inicio";
-                            } else {
-                                //Necesitamos la tabla clase del nivel para el BC
-                                queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
-                                queryTCNivel.setParameter("clase", personaje.getClase().getId());
-                                queryTCNivel.setParameter("nivel", personaje.getNivel());
-                                try {
-                                    tcnivel = queryTCNivel.getSingleResult();
-                                    num = tcnivel.getTablaclases().getBc();
-                                } catch (Exception ex) {
-                                    num = 1;
-                                }
-                                //Lista Atributos
-                                request.setAttribute("listaPAtributos", personaje.getPersonajeatributosList());
-
-                                listaValoresSalvacion = new ArrayList();
-
-                                for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
-                                    pjAtr = personaje.getPersonajeatributosList().get(i);
-
-                                    switch (pjAtr.getValor()) {
-                                        case 8:
-                                        case 9:
-                                            numaux = -1;
-                                            break;
-                                        case 10:
-                                        case 11:
-                                            numaux = 0;
-                                            break;
-                                        case 12:
-                                        case 13:
-                                            numaux = 1;
-                                            break;
-                                        case 14:
-                                        case 15:
-                                            numaux = 2;
-                                            break;
-                                        case 16:
-                                        case 17:
-                                            numaux = 3;
-                                            break;
-                                        case 18:
-                                        case 19:
-                                            numaux = 4;
-                                            break;
-                                        case 20:
-                                            numaux = 5;
-                                            break;
-                                        default:
-                                            numaux = 0;
-                                    }
-                                    if (pjAtr.getSalvacion().equals("Si")) {
-                                        listaValoresSalvacion.add(String.valueOf(numaux + num));
-                                    } else {
-                                        listaValoresSalvacion.add(String.valueOf(numaux));
-                                    }
-                                }
-                                request.setAttribute("listaPAtributosSalvacion", listaValoresSalvacion);
-                                request.setAttribute("personaje", personaje);
-                                vista = "/WEB-INF/jsp/personajes/personajeAmigoAtributos.jsp";
-                            }
-                        } catch (Exception ex) {
-                            vista = "/Principal/inicio";
-                        }
+                        tcnivel = queryTCNivel.getSingleResult();
+                        num = tcnivel.getTablaclases().getBc();
                     } catch (Exception ex) {
-                        vista = "/Principal/inicio";
+                        num = 1;
                     }
+                    //Lista Atributos
+                    request.setAttribute("listaPAtributos", personaje.getPersonajeatributosList());
+
+                    listaValoresSalvacion = new ArrayList();
+
+                    for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
+                        pjAtr = personaje.getPersonajeatributosList().get(i);
+
+                        switch (pjAtr.getValor()) {
+                            case 8:
+                            case 9:
+                                numaux = -1;
+                                break;
+                            case 10:
+                            case 11:
+                                numaux = 0;
+                                break;
+                            case 12:
+                            case 13:
+                                numaux = 1;
+                                break;
+                            case 14:
+                            case 15:
+                                numaux = 2;
+                                break;
+                            case 16:
+                            case 17:
+                                numaux = 3;
+                                break;
+                            case 18:
+                            case 19:
+                                numaux = 4;
+                                break;
+                            case 20:
+                                numaux = 5;
+                                break;
+                            default:
+                                numaux = 0;
+                        }
+                        if (pjAtr.getSalvacion().equals("Si")) {
+                            listaValoresSalvacion.add(String.valueOf(numaux + num));
+                        } else {
+                            listaValoresSalvacion.add(String.valueOf(numaux));
+                        }
+                    }
+                    request.setAttribute("listaPAtributosSalvacion", listaValoresSalvacion);
+                    request.setAttribute("personaje", personaje);
+                    vista = "/WEB-INF/jsp/personajes/personajeAtributos.jsp";
+
+                } catch (Exception ex) {
+                    vista = "/Principal/inicio";
                 }
                 break;
-            case "/personajeAmigoHabilidades":
-                /////////////////////////
-                /////////SESION//////////
-                /////////////////////////
-                session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+            case "/personajeHabilidades":
+                //Recogemos los datos
+                personaje_id = request.getParameter("id");
 
-                if (user == null) {
-                    vista = "/Principal/inicio";
-                } else {
-                    //Recogemos los datos
-                    personaje_id = request.getParameter("id");
-                    id = request.getParameter("amigo");
+                //Comprobamos si existe
+                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes.setParameter("id", personaje_id);
+                try {
+                    personaje = queryPersonajes.getSingleResult();
 
-                    //Comprobamos que sean amigos
-                    queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
-                    queryAmigos.setParameter("amigo1", id);
-                    queryAmigos.setParameter("amigo2", user.getId());
-
+                    //Necesitamos la tabla clase del nivel para el BC
+                    queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                    queryTCNivel.setParameter("clase", personaje.getClase().getId());
+                    queryTCNivel.setParameter("nivel", personaje.getNivel());
                     try {
-                        amigos = queryAmigos.getSingleResult();
-
-                        //Comprobamos si es suyo
-                        queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
-                        queryPersonajes.setParameter("id", personaje_id);
-                        try {
-                            personaje = queryPersonajes.getSingleResult();
-                            if (!personaje.getUsuario().getId().equals(id)) {
-                                vista = "/Principal/inicio";
-                            } else {
-
-                                //Necesitamos la tabla clase del nivel para el BC
-                                queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
-                                queryTCNivel.setParameter("clase", personaje.getClase().getId());
-                                queryTCNivel.setParameter("nivel", personaje.getNivel());
-                                try {
-                                    tcnivel = queryTCNivel.getSingleResult();
-                                    num = tcnivel.getTablaclases().getBc();
-                                } catch (Exception ex) {
-                                    num = 1;
-                                }
-
-                                listaHabValores = new ArrayList();
-
-                                for (int i = 0; i < personaje.getPersonajehabilidadesList().size(); i++) {
-
-                                    personajeHabilidad = personaje.getPersonajehabilidadesList().get(i);
-                                    habilidad = personajeHabilidad.getHabilidades();
-
-                                    for (int j = 0; j < personaje.getPersonajeatributosList().size(); j++) {
-
-                                        personajeAtributo = personaje.getPersonajeatributosList().get(j);
-
-                                        if (habilidad.getAtributo().getId().equals(personajeAtributo.getAtributos().getId())) {
-                                            //Hay que calcular los modificadores
-                                            switch (personajeAtributo.getValor()) {
-                                                case 8:
-                                                case 9:
-                                                    numaux = -1;
-                                                    break;
-                                                case 10:
-                                                case 11:
-                                                    numaux = 0;
-                                                    break;
-                                                case 12:
-                                                case 13:
-                                                    numaux = 1;
-                                                    break;
-                                                case 14:
-                                                case 15:
-                                                    numaux = 2;
-                                                    break;
-                                                case 16:
-                                                case 17:
-                                                    numaux = 3;
-                                                    break;
-                                                case 18:
-                                                case 19:
-                                                    numaux = 4;
-                                                    break;
-                                                case 20:
-                                                    numaux = 5;
-                                                    break;
-                                                default:
-                                                    numaux = 0;
-                                            }
-
-                                            if (personajeHabilidad.getCompetencia().equals("Si")) {
-                                                numaux = num + personajeAtributo.getValor();
-                                            }
-
-                                            listaHabValores.add(numaux);
-                                            j = personaje.getPersonajeatributosList().size();
-                                        }
-                                    }
-                                }
-
-                                request.setAttribute("personaje", personaje);
-                                request.setAttribute("listaPHabilidad", personaje.getPersonajehabilidadesList());
-                                request.setAttribute("listaValoresHab", listaHabValores);
-                                vista = "/WEB-INF/jsp/personajes/personajeAmigoHabilidades.jsp";
-                            }
-                        } catch (Exception ex) {
-                            vista = "/Principal/inicio";
-                        }
+                        tcnivel = queryTCNivel.getSingleResult();
+                        num = tcnivel.getTablaclases().getBc();
                     } catch (Exception ex) {
-                        vista = "/Principal/inicio";
+                        num = 1;
                     }
+
+                    listaHabValores = new ArrayList();
+
+                    for (int i = 0; i < personaje.getPersonajehabilidadesList().size(); i++) {
+
+                        personajeHabilidad = personaje.getPersonajehabilidadesList().get(i);
+                        habilidad = personajeHabilidad.getHabilidades();
+
+                        for (int j = 0; j < personaje.getPersonajeatributosList().size(); j++) {
+
+                            personajeAtributo = personaje.getPersonajeatributosList().get(j);
+
+                            if (habilidad.getAtributo().getId().equals(personajeAtributo.getAtributos().getId())) {
+                                //Hay que calcular los modificadores
+                                switch (personajeAtributo.getValor()) {
+                                    case 8:
+                                    case 9:
+                                        numaux = -1;
+                                        break;
+                                    case 10:
+                                    case 11:
+                                        numaux = 0;
+                                        break;
+                                    case 12:
+                                    case 13:
+                                        numaux = 1;
+                                        break;
+                                    case 14:
+                                    case 15:
+                                        numaux = 2;
+                                        break;
+                                    case 16:
+                                    case 17:
+                                        numaux = 3;
+                                        break;
+                                    case 18:
+                                    case 19:
+                                        numaux = 4;
+                                        break;
+                                    case 20:
+                                        numaux = 5;
+                                        break;
+                                    default:
+                                        numaux = 0;
+                                }
+
+                                if (personajeHabilidad.getCompetencia().equals("Si")) {
+                                    numaux = num + personajeAtributo.getValor();
+                                }
+
+                                listaHabValores.add(numaux);
+                                j = personaje.getPersonajeatributosList().size();
+                            }
+                        }
+                    }
+
+                    request.setAttribute("personaje", personaje);
+                    request.setAttribute("listaPHabilidad", personaje.getPersonajehabilidadesList());
+                    request.setAttribute("listaValoresHab", listaHabValores);
+                    vista = "/WEB-INF/jsp/personajes/personajeHabilidades.jsp";
+
+                } catch (Exception ex) {
+                    vista = "/Principal/inicio";
                 }
                 break;
 
-            case "/personajeAmigoCaracteristicas":
-                /////////////////////////
-                /////////SESION//////////
-                /////////////////////////
-                session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+            case "/personajeCaracteristicas":
+                //Recogemos los datos
+                personaje_id = request.getParameter("id");
 
-                if (user == null) {
-                    vista = "/Principal/inicio";
-                } else {
-                    //Recogemos los datos
-                    personaje_id = request.getParameter("id");
-                    id = request.getParameter("amigo");
+                //Comprobamos si existe
+                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes.setParameter("id", personaje_id);
+                try {
+                    personaje = queryPersonajes.getSingleResult();
 
-                    //Comprobamos que sean amigos
-                    queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
-                    queryAmigos.setParameter("amigo1", id);
-                    queryAmigos.setParameter("amigo2", user.getId());
-
-                    System.out.println(id);
-                    System.out.println(user.getId());
-
+                    //Necesitamos la tabla clase del nivel para el BC
+                    queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                    queryTCNivel.setParameter("clase", personaje.getClase().getId());
+                    queryTCNivel.setParameter("nivel", personaje.getNivel());
                     try {
-                        amigos = queryAmigos.getSingleResult();
-
-                        //Comprobamos si es suyo
-                        queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
-                        queryPersonajes.setParameter("id", personaje_id);
-                        try {
-                            personaje = queryPersonajes.getSingleResult();
-                            if (!personaje.getUsuario().getId().equals(id)) {
-                                vista = "/Principal/inicio";
-                            } else {
-
-                                //Necesitamos la tabla clase del nivel para el BC
-                                queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
-                                queryTCNivel.setParameter("clase", personaje.getClase().getId());
-                                queryTCNivel.setParameter("nivel", personaje.getNivel());
-                                try {
-                                    tcnivel = queryTCNivel.getSingleResult();
-                                    num = tcnivel.getTablaclases().getBc();
-                                } catch (Exception ex) {
-                                    num = 1;
-                                }
-                                request.setAttribute("personajeBC", num);
-                                request.setAttribute("personajeImagen", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + personaje.getId());
-                                request.setAttribute("personaje", personaje);
-                                vista = "/WEB-INF/jsp/personajes/personajeAmigoCaracteristicas.jsp";
-                            }
-                        } catch (Exception ex) {
-                            vista = "/Principal/inicio";
-                        }
+                        tcnivel = queryTCNivel.getSingleResult();
+                        num = tcnivel.getTablaclases().getBc();
                     } catch (Exception ex) {
-                        vista = "/Principal/inicio";
+                        num = 1;
                     }
+                    request.setAttribute("personajeBC", num);
+                    request.setAttribute("personajeImagen", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + personaje.getId());
+                    request.setAttribute("personaje", personaje);
+                    vista = "/WEB-INF/jsp/personajes/personajeCaracteristicas.jsp";
+
+                } catch (Exception ex) {
+                    vista = "/Principal/inicio";
                 }
                 break;
-            case "/personajeAmigoRasgos":
-                /////////////////////////
-                /////////SESION//////////
-                /////////////////////////
-                session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+            case "/personajeRasgos":
+                //Recogemos los datos
+                personaje_id = request.getParameter("id");
+                id = request.getParameter("amigo");
 
-                if (user == null) {
-                    vista = "/Principal/inicio";
-                } else {
-                    //Recogemos los datos
-                    personaje_id = request.getParameter("id");
-                    id = request.getParameter("amigo");
+                //Comprobamos si existe
+                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes.setParameter("id", personaje_id);
+                try {
+                    personaje = queryPersonajes.getSingleResult();
+                    if (!personaje.getUsuario().getId().equals(id)) {
+                        vista = "/Principal/inicio";
+                    } else {
 
-                    //Comprobamos que sean amigos
-                    queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
-                    queryAmigos.setParameter("amigo1", id);
-                    queryAmigos.setParameter("amigo2", user.getId());
+                        //Espacios de conjuros y BC 
+                        queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                        queryTCNivel.setParameter("clase", personaje.getClase().getId());
+                        queryTCNivel.setParameter("nivel", personaje.getNivel());
+                        //Rasgos Clase
+                        queryUsaClases = em.createNamedQuery("Usaclase.findByClaseNivel", Usaclase.class);
+                        queryUsaClases.setParameter("clase", personaje.getClase().getId());
+                        queryUsaClases.setParameter("nivel", personaje.getNivel());
+                        //Rasgos SubClase
+                        queryUsaSubClases = em.createNamedQuery("Usasubclase.findBySubclaseNivel", Usasubclase.class);
+                        queryUsaSubClases.setParameter("subclase", personaje.getClase().getId());
+                        queryUsaSubClases.setParameter("nivel", personaje.getNivel());
 
-                    System.out.println(id);
-                    System.out.println(user.getId());
-
-                    try {
-                        amigos = queryAmigos.getSingleResult();
-
-                        //Comprobamos si es suyo
-                        queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
-                        queryPersonajes.setParameter("id", personaje_id);
                         try {
-                            personaje = queryPersonajes.getSingleResult();
-                            if (!personaje.getUsuario().getId().equals(id)) {
-                                vista = "/Principal/inicio";
-                            } else {
+                            tcnivel = queryTCNivel.getSingleResult();
+                            usaclase = queryUsaClases.getSingleResult();
+                            usasubclase = queryUsaSubClases.getSingleResult();
 
-                                //Espacios de conjuros y BC 
-                                queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
-                                queryTCNivel.setParameter("clase", personaje.getClase().getId());
-                                queryTCNivel.setParameter("nivel", personaje.getNivel());
-                                //Rasgos Clase
-                                queryUsaClases = em.createNamedQuery("Usaclase.findByClaseNivel", Usaclase.class);
-                                queryUsaClases.setParameter("clase", personaje.getClase().getId());
-                                queryUsaClases.setParameter("nivel", personaje.getNivel());
-                                //Rasgos SubClase
-                                queryUsaSubClases = em.createNamedQuery("Usasubclase.findBySubclaseNivel", Usasubclase.class);
-                                queryUsaSubClases.setParameter("subclase", personaje.getClase().getId());
-                                queryUsaSubClases.setParameter("nivel", personaje.getNivel());
-
-                                try {
-                                    tcnivel = queryTCNivel.getSingleResult();
-                                    usaclase = queryUsaClases.getSingleResult();
-                                    usasubclase = queryUsaSubClases.getSingleResult();
-
-                                    request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
-                                    request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
-                                    request.setAttribute("pjRasgosClase", usaclase.getRasgos());
-                                    request.setAttribute("pjRasgosSubClase", usasubclase.getRasgos());
-                                    request.setAttribute("pjRasgosRaza", personaje.getRaza().getRasgosList());
-                                    request.setAttribute("pjRasgosSubraza", personaje.getSubraza().getRasgosList());
-                                    request.setAttribute("pjRasgosTrasfondos", personaje.getTrasfondo().getRasgosList());
-                                    request.setAttribute("personaje", personaje);
-                                    vista = "/WEB-INF/jsp/personajes/personajeAmigoCaracteristicas.jsp";
-                                } catch (Exception ex) {
-                                    vista = "/Principal/inicio";
-                                }
-                            }
+                            request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
+                            request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
+                            request.setAttribute("pjRasgosClase", usaclase.getRasgos());
+                            request.setAttribute("pjRasgosSubClase", usasubclase.getRasgos());
+                            request.setAttribute("pjRasgosRaza", personaje.getRaza().getRasgosList());
+                            request.setAttribute("pjRasgosSubraza", personaje.getSubraza().getRasgosList());
+                            request.setAttribute("pjRasgosTrasfondos", personaje.getTrasfondo().getRasgosList());
+                            request.setAttribute("personaje", personaje);
+                            vista = "/WEB-INF/jsp/personajes/personajeRasgos.jsp";
                         } catch (Exception ex) {
                             vista = "/Principal/inicio";
                         }
-                    } catch (Exception ex) {
-                        vista = "/Principal/inicio";
                     }
+                } catch (Exception ex) {
+                    vista = "/Principal/inicio";
                 }
                 break;
             case "/personajeDotes":
@@ -3462,10 +3310,11 @@ public class ControladorPersonajes extends HttpServlet {
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(vista);
+
         rd.forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -1,0 +1,164 @@
+
+.mainPerfilPersonaje{
+
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman';
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-height: 85vh;
+}
+
+.cajaGeneral{
+
+    border-radius: 5px;
+    margin: 30px;
+    padding: 20px;
+    width: calc(100% - 60px);
+}
+
+.cajaPersonaje{
+
+    border-radius: 5px;
+    margin: 10px;
+    padding: 20px;
+    width: calc(100% - 60px);
+}
+
+.cajaPersonaje > h2{
+
+    font-size: 3.5vmin;
+    font-weight: 300;
+    letter-spacing: 1.5px;
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.personaje {
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.personaje-fotoboton {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.personaje-fotoG {
+
+    width: 30vmin;
+    height: 30vmin;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.personaje-fotoG img {
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cambiarPersonaje {
+
+
+    padding: 5px 10px;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 0px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 2vmin;
+}
+
+.datosPersonaje {
+
+    padding: 20px;
+    border-radius: 10px;
+    flex-grow: 1;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 2vmin;
+}
+.personajeBotonesDatos {
+
+    padding: 20px;
+    border-radius: 10px;
+    width: calc(100% - 55px);
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 2.5vmin;
+    display: flex;
+    flex-wrap: wrap;
+}
+.personajeBotonesDatos > div{
+
+    font-size: 2.5vmin;
+    width: 23%;
+    padding: 10px;
+}
+.personajeBotonesDatos > div > span{
+
+    font-style: italic;
+}
+
+.botones {
+
+    display: flex;
+}
+.boton {
+
+    padding: 5px 10px;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 2vmin;
+}
+
+.botonfinal {
+
+    padding: 5px 10px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 5px;
+    font-size: 2vmin;
+}
+
+button:hover{
+
+    transform: translateY(-0.1em);
+}
+
+button:active{
+
+    transform: translateY(0.1em);
+}
+
+@media screen and (max-width: 500px){
+
+    .cajaGeneral{
+
+        border-radius: 5px;
+        margin: 5px;
+        padding: 5px;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        width: calc(100% - 10px);
+    }
+}

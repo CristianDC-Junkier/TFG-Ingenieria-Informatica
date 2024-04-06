@@ -171,7 +171,7 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a class="barraVerticalContenido" href="/TFG/jsp/articulos.jsp">Personajes</a>
+                            <a class="barraVerticalContenido" href="/TFG/Personajes/personajes">Personajes</a>
                         </li>
                     </c:otherwise>
                 </c:choose>

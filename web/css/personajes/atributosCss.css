@@ -1,3 +1,14 @@
+
+.personajeAtributos {
+    background-color: black; /* Fondo negro */
+    border: 2px solid brown; /* Bordes negros */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Sombra */
+    width: 50%; /* Ancho del contenedor */
+    margin: 0 auto; /* Centrar horizontalmente */
+    padding: 20px; /* Espaciado interno */
+    box-sizing: border-box; /* Incluir bordes en el tamaño */
+}
+
 .puntos {
     display: flex;
     align-items: center;

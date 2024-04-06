@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="datosDerechaRaza">
-                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigo?id=${requestScope.personaje.id}&amigo=${requestScope.personaje.usuario.id}'">Volver</button></div>
+                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personaje?id=${requestScope.personaje.id}'">Volver</button></div>
                     <h3>Vinculos</h3>
                     <p>${requestScope.personaje.vinculos}</p>
                     <br>

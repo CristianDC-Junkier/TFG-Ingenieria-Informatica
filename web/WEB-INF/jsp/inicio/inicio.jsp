@@ -20,7 +20,7 @@
                                 <p>Tienes ${sessionScope.peticiones} peticion/es de amistad</p>
                             </c:if>
                             <p>¿Quieres crear algún personaje nuevo?</p>
-                            <button class="botonInicioSesion" onclick="location.href = '/TFG/Formularios/crearmesa'">Personajes</button>
+                            <button class="botonInicioSesion" onclick="location.href = '/TFG/Formularios/crearpersonaje'">Personajes</button>
                             <p>¿Quieres crear alguna mesa nueva?</p>
                             <button class="botonRegistro" onclick="location.href = '/TFG/Formularios/crearmesa'">Mesas</button>
                         </c:when>

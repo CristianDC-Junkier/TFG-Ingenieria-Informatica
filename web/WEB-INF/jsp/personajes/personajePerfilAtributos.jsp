@@ -47,6 +47,6 @@
         </main>
         <jsp:include page="/WEB-INF/jsp/footer.jsp" />
         <script src="/TFG/js/principalJS.js"></script>
-        <script src="/TFG/js/personajes/personajePerfilAtributosJS.js"></script>
+        <script src="/TFG/js/personajes/personajeAtributosJS.js"></script>
     </body>
 </html>

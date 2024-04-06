@@ -2,7 +2,7 @@
 /********Inicio********/
 
 .BloqueInicio{
-
+    margin-bottom: 20px;
     display: flex;
     flex-direction : row;
 }
@@ -87,7 +87,6 @@
 }
 
 .TextoInicio {
-
     text-align: center;
     width: 100%;
     height: 55%;

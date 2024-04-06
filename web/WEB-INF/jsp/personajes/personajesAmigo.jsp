@@ -6,7 +6,7 @@
     <title class="titulosPag">Guidance4\Personajes\PersoanjesAmigo</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/personajesCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/personajesListasCss.css"/>
     <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css"/>
 </head>
 <body>
@@ -111,7 +111,7 @@
                                             <td>${personaje.raza.nombre}</td>
                                             <td>${personaje.nivel}</td>
                                             <td>${requestScope.amigo.apodo}</td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigo?id=${personaje.id}&amigo=${requestScope.amigo.id}'">Detalles</button></td>
+                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigo?id=${personaje.id}'">Detalles</button></td>
                                         </tr>
                                     </c:forEach>
                                 </table>

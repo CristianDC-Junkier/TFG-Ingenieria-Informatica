@@ -6,7 +6,7 @@
     <title class="titulosPag">Guidance4\Personajes</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/personajesCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/personajesListasCss.css"/>
     <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css"/>
 </head>
 <body>
@@ -116,7 +116,7 @@
                                             <td>${personaje.clase.nombre}</td>
                                             <td>${personaje.raza.nombre}</td>
                                             <td>${personaje.nivel}</td>
-                                            <td>${listaCreador[status.index].apodo}</td>
+                                            <td>${personaje.usuario.apodo}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personaje?id=${personaje.id}'">Detalles</button></td>
                                         </tr>
                                     </c:forEach>

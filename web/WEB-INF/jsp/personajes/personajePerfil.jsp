@@ -7,12 +7,12 @@
         <title class="titulosPag">Guidance4\Personajes\Mi_Personaje</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="/TFG/css/usuario/perfilCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/personajeCss.css"/>
         <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css"/>
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
-        <main class="mainPerfil">
+        <main class="mainPerfilPersonaje">
             <div class="cajaGeneral">
                 <div class="cajaPersonaje">
                     <h2>PERSONAJE: ${requestScope.personaje.nombre}</h2>
@@ -63,7 +63,7 @@
                             <div>Trasfondo:&nbsp;${requestScope.personaje.trasfondo.nombre} </div>
                             <br><hr><br>
                             <div>Nivel:&nbsp;${requestScope.personaje.nivel}&nbsp;/&nbsp;20</div>
-                            <div>Clase de Armadura:&nbsp;${requestScope.personaje.clasearmadura} <button type="button" class="botonfinal" onclick="mostrarRecuadro2()">Cambiar</button></div>
+                            <div>Clase de Armadura:&nbsp;${requestScope.personaje.clasearmadura}&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="botonfinal" onclick="mostrarRecuadro2()">Cambiar CA</button></div>
                             <div class="opcionRecuadro" id="recuadro2" style="display: none;">
                                 <div class="contenidoRecuadro">
                                     <div class="tituloRecuadro"> <label for="classArmor">Clase de Armadura:</label>
@@ -77,9 +77,9 @@
                                     </form>
                                 </div>
                             </div>
-                            <div>Puntos de vida:&nbsp;${requestScope.personaje.pvidaactuales}&nbsp;/&nbsp;${requestScope.personaje.pvida}
-                                <button type="button" class="botonfinal" onclick="mostrarRecuadro3()">Cambiar vida atual</button>
-                                <button type="button" class="botonfinal" onclick="mostrarRecuadro4()">Cambiar vida total</button>
+                            <div>Puntos de vida:&nbsp;${requestScope.personaje.pvidaactuales}&nbsp;/&nbsp;${requestScope.personaje.pvida} 
+                                &nbsp;&nbsp;&nbsp;<button type="button" class="botonfinal" onclick="mostrarRecuadro3()">Cambiar vida atual</button>
+                                &nbsp;<button type="button" class="botonfinal" onclick="mostrarRecuadro4()">Cambiar vida total</button>
                             </div>
                             <div class="opcionRecuadro" id="recuadro3" style="display: none;">
                                 <div class="contenidoRecuadro">
@@ -107,7 +107,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div>Puntos de experiencia:&nbsp;${requestScope.personaje.pexp} <button type="button" class="botonfinal" onclick="mostrarRecuadro5()">Cambiar</button></div>
+                            <div>Puntos de experiencia:&nbsp;${requestScope.personaje.pexp} &nbsp;<button type="button" class="botonfinal" onclick="mostrarRecuadro5()">Cambiar PEXP</button></div>
                             <div class="opcionRecuadro" id="recuadro5" style="display: none;">
                                 <div class="contenidoRecuadro">
                                     <div class="tituloRecuadro"> <label for="pointsEX">Puntos de experiencia:</label>
@@ -124,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="usuarioDatos">
+                <div class="personajeBotonesDatos">
                     <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfilRasgos?id=${requestScope.personaje.id}'">Rasgos</button></div>
                     <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfilHabilidades?id=${requestScope.personaje.id}'">Habilidades</button></div>
                     <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajePerfilAtributos?id=${requestScope.personaje.id}'">Atributos</button></div>

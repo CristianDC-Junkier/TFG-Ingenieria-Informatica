@@ -102,7 +102,7 @@
     border-radius: 5px;
 }
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 515px){
 
     #tittleMesa{
         margin-left: 125px;
@@ -209,19 +209,19 @@
         border-bottom: black 2px solid;
     }
     #tittleMesa{
-        margin-left: 38px;
+        margin-left: 41px;
     }
     #passwordMesa{
         margin-left: 25px;
     }
     #numUsuarios{
-        margin-left: 42px;
+        margin-left: 30px;
     }
     #comunityMesa{
         margin-left: 37px;
     }
     #desMesa{
-        margin-left: 40px;
+        margin-left: 80px;
         height: 60px;
         width: 100px;
     }
