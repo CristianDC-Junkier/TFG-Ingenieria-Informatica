@@ -132,12 +132,13 @@ public class ControladorPersonajes extends HttpServlet {
         Trasfondos transfondo;
         Atributos atributo;
         Personajeatributos personajeAtributo;
+        Personajeatributosoriginal personajeAtributoOriginal;
+        Personajeatributos pjAtr;
         Habilidades habilidad;
         Personajehabilidades personajeHabilidad;
         Equipo equipo;
         Hechizos hechizo;
         Tablaclasespornivel tcnivel;
-        Personajeatributos pjAtr;
         Amigos amigos;
         Usaclase usaclase;
         Usasubclase usasubclase;
@@ -352,11 +353,10 @@ public class ControladorPersonajes extends HttpServlet {
                         //////ATRIBUTOS///////
                         //////////////////////
                         listaPersonajeAtributos = new ArrayList();
+                        listaPersonajeAtributosOriginal = new ArrayList();
 
                         queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
                         listaAtributos = queryAtributos.getResultList();
-
-                        System.out.println(listaAtributos.size());
 
                         for (int i = 0; i < listaAtributos.size(); i++) {
                             atributo = listaAtributos.get(i);
@@ -415,8 +415,11 @@ public class ControladorPersonajes extends HttpServlet {
 
                             personajeAtributo = new Personajeatributos(personaje.getId(), atributo.getId(),
                                     valorAtributo, "No");
+                            personajeAtributoOriginal = new Personajeatributosoriginal(personaje.getId(), atributo.getId(),
+                                    valorAtributo, "No");
 
                             listaPersonajeAtributos.add(personajeAtributo);
+                            listaPersonajeAtributosOriginal.add(personajeAtributoOriginal);
                         }
 
                         //Para cambiar a los que tu clase les pone salvación 
@@ -432,6 +435,17 @@ public class ControladorPersonajes extends HttpServlet {
                                 if (atributo.getNombre().equals(listaPersonajeAtributos.get(index).getAtributos().getNombre())) {
                                     encontrado = true;
                                     listaPersonajeAtributos.get(index).setSalvacion("Si");
+                                }
+                                index++;
+                            }
+                            
+                            index = 0;
+                            encontrado = false;
+                            
+                            while (encontrado == false && index < listaPersonajeAtributos.size()) {
+                                if (atributo.getNombre().equals(listaPersonajeAtributosOriginal.get(index).getAtributos().getNombre())) {
+                                    encontrado = true;
+                                    listaPersonajeAtributosOriginal.get(index).setSalvacion("Si");
                                 }
                                 index++;
                             }
@@ -970,13 +984,13 @@ public class ControladorPersonajes extends HttpServlet {
                                         personajeAtributo.getValor(), personajeAtributo.getSalvacion()));
 
                             }
-                            /*
-                            for (int i = 0; i < personaje.getPersonajeatributosoriginalList().size();i++) {
-                                personajeAtributo = personaje.getPersonajeatributosoriginalList().get(i);
-                                listaPersonajeAtributosOriginal.add(new Personajeatributos(personajeaux.getId(), personajeAtributo.getAtributos().getId(),
-                                        personajeAtributo.getValor(), personajeAtributo.getSalvacion()));
 
-                            }*/
+                            for (int i = 0; i < personaje.getPersonajeatributosoriginalList().size(); i++) {
+                                personajeAtributoOriginal = personaje.getPersonajeatributosoriginalList().get(i);
+                                listaPersonajeAtributosOriginal.add(new Personajeatributosoriginal(personajeaux.getId(), personajeAtributoOriginal.getAtributos().getId(),
+                                        personajeAtributoOriginal.getValor(), personajeAtributoOriginal.getSalvacion()));
+
+                            }
                             for (int i = 0; i < personaje.getPersonajehabilidadesList().size(); i++) {
                                 personajeHabilidad = personaje.getPersonajehabilidadesList().get(i);
                                 listaPersonajeHabilidades.add(new Personajehabilidades(personajeaux.getId(), personajeHabilidad.getHabilidades().getId(),
@@ -3293,10 +3307,10 @@ public class ControladorPersonajes extends HttpServlet {
 
                     //Borramos dotes
                     personaje.setDotesList(null);
-                    //Reiniciamos los atributos a 8
+                    //Reiniciamos los atributos al original
                     for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
-                        personaje.getPersonajeatributosList().get(i).setValor(8);
-
+                        personaje.getPersonajeatributosList().get(i).setValor(personaje.getPersonajeatributosoriginalList().get(i).getValor());
+                        personaje.getPersonajeatributosList().get(i).setSalvacion(personaje.getPersonajeatributosoriginalList().get(i).getSalvacion());
                     }
                     //Borramos subclase si procede
                     if (personaje.getClase().getNivelsubclase() != 1) {

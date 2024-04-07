@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidades;
 
 import java.io.Serializable;
@@ -39,7 +35,7 @@ public class Personajeatributosoriginal implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "VALOR", nullable = false)
-    private short valor;
+    private Integer valor;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
@@ -59,8 +55,14 @@ public class Personajeatributosoriginal implements Serializable {
         this.personajeatributosoriginalPK = personajeatributosoriginalPK;
     }
 
-    public Personajeatributosoriginal(PersonajeatributosoriginalPK personajeatributosoriginalPK, short valor, String salvacion) {
+    public Personajeatributosoriginal(PersonajeatributosoriginalPK personajeatributosoriginalPK, Integer valor, String salvacion) {
         this.personajeatributosoriginalPK = personajeatributosoriginalPK;
+        this.valor = valor;
+        this.salvacion = salvacion;
+    }
+
+    public Personajeatributosoriginal(String personaje, String atributo, Integer valor, String salvacion) {
+        this.personajeatributosoriginalPK = new PersonajeatributosoriginalPK(personaje, atributo);
         this.valor = valor;
         this.salvacion = salvacion;
     }
@@ -77,11 +79,11 @@ public class Personajeatributosoriginal implements Serializable {
         this.personajeatributosoriginalPK = personajeatributosoriginalPK;
     }
 
-    public short getValor() {
+    public Integer getValor() {
         return valor;
     }
 
-    public void setValor(short valor) {
+    public void setValor(Integer valor) {
         this.valor = valor;
     }
 
@@ -133,5 +135,5 @@ public class Personajeatributosoriginal implements Serializable {
     public String toString() {
         return "entidades.Personajeatributosoriginal[ personajeatributosoriginalPK=" + personajeatributosoriginalPK + " ]";
     }
-    
+
 }
