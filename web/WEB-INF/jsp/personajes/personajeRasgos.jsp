@@ -3,10 +3,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4\Explorar\Razas\Raza</title>
+        <title class="titulosPag">Guidance4\Personajes\Rasgos</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="/TFG/css/explorar/razaCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/rasgosCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css"/>
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />

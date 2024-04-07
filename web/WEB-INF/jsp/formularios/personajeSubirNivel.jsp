@@ -82,7 +82,7 @@
                         <div id="eleccionVida">
                             <label for="dadoVida" id="personajeVida">Aumento de  Vida (${requestScope.dadoClase}): </label>
                             <input type="number" id="dadoVida" name="personaje_vida" max="${requestScope.dadoClaseInteger}" min="1" required/>
-                            <button id="IDadoButton" type="button" onclick="tirarDado(${requestScope.dadoClaseInteger})"><img id="IDado" src="/TFG/img/iconos/d20White.png" alt="alt"/></button>
+                            <button id="IDadoButton" type="button" onclick="tirarDado(${requestScope.dadoClaseInteger})"><img src="/TFG/img/iconos/d20White.png" alt="alt"/></button>
                         </div>
                         <c:if test="${requestScope.nivelSiguiente == requestScope.nivelSubclase}">
                             <div id="eleccionSubClase">

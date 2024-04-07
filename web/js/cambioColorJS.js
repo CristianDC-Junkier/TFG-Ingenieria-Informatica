@@ -21,58 +21,61 @@ const estiloPredeterminado = '/TFG/css/colorClaroCss.css';
 const estiloPredeterminado2 = '/TFG/css/colorOscuroCss.css';
 
 
-//Si quiere cookies
-if (getCookie("cookies")) {
-
-    if (getCookie("colorPreferido") !== null) {
-        if (getCookie("colorPreferido") === 'false') {
+//Antes de que cargue la pag
+document.addEventListener("DOMContentLoaded", function () {
+    //Si tiene cookies
+    if (getCookie("cookies")) {
+        if (getCookie("colorPreferido") !== null) {
+            if (getCookie("colorPreferido") === 'false') {
+                stylesheetLink.href = estiloPredeterminado;
+                checkbox.checked = false;
+            } else {
+                stylesheetLink.href = estiloPredeterminado2;
+                checkbox.checked = true;
+                if (logoImg !== null) {
+                    logoImg.src = '/TFG/img/dnd-banner.jpg';
+                }
+                if (G4Img !== null) {
+                    G4Img.src = '/TFG/img/Guide4.bmp';
+                }
+                if (ICasa !== null) {
+                    ICasa.src = '/TFG/img/iconos/Casa.png';
+                }
+                if (ILupa !== null) {
+                    ILupa.src = '/TFG/img/iconos/Lupa.png';
+                }
+                if (IMesa !== null) {
+                    IMesa.src = '/TFG/img/iconos/Mesa.png';
+                }
+                if (IPerfil !== null) {
+                    IPerfil.src = '/TFG/img/iconos/Perfil.png';
+                }
+                if (IReglas !== null) {
+                    IReglas.src = '/TFG/img/iconos/Reglas.png';
+                }
+                if (IAmigos !== null) {
+                    IAmigos.src = '/TFG/img/iconos/Amigos.png';
+                }
+                if (IPersonaje !== null) {
+                    IPersonaje.src = '/TFG/img/iconos/Personajes.png';
+                }
+                if (IChat !== null) {
+                    IChat.src = '/TFG/img/iconos/Chat.png';
+                }
+                if (IDado !== null) {
+                    IDado.src = '/TFG/img/iconos/d20.png';
+                }
+            }
+        } else {
             stylesheetLink.href = estiloPredeterminado;
             checkbox.checked = false;
-        } else {
-            stylesheetLink.href = estiloPredeterminado2;
-            checkbox.checked = true;
-            if (logoImg !== null) {
-                logoImg.src = '/TFG/img/dnd-banner.jpg';
-            }
-            if (G4Img !== null) {
-                G4Img.src = '/TFG/img/Guide4.bmp';
-            }
-            if (ICasa !== null) {
-                ICasa.src = '/TFG/img/iconos/Casa.png';
-            }
-            if (ILupa !== null) {
-                ILupa.src = '/TFG/img/iconos/Lupa.png';
-            }
-            if (IMesa !== null) {
-                IMesa.src = '/TFG/img/iconos/Mesa.png';
-            }
-            if (IPerfil !== null) {
-                IPerfil.src = '/TFG/img/iconos/Perfil.png';
-            }
-            if (IReglas !== null) {
-                IReglas.src = '/TFG/img/iconos/Reglas.png';
-            }
-            if (IAmigos !== null) {
-                IAmigos.src = '/TFG/img/iconos/Amigos.png';
-            }
-            if (IPersonaje !== null) {
-                IPersonaje.src = '/TFG/img/iconos/Personajes.png';
-            }
-            if (IChat !== null) {
-                IChat.src = '/TFG/img/iconos/Chat.png';
-            }
-            if (IDado !== null) {
-                IDado.src = '/TFG/img/iconos/d20.png';
-            }
         }
     } else {
         stylesheetLink.href = estiloPredeterminado;
         checkbox.checked = false;
     }
-} else {
-    stylesheetLink.href = estiloPredeterminado;
-    checkbox.checked = false;
-}
+});
+
 
 checkbox.addEventListener('change', function () {
     if (stylesheetLink) {
@@ -137,19 +140,19 @@ checkbox.addEventListener('change', function () {
 });
 
 function setCookie(nombre, valor, expiracionEnDias) {
-    var fechaExpiracion = new Date();
+    let fechaExpiracion = new Date();
     fechaExpiracion.setDate(fechaExpiracion.getDate() + expiracionEnDias);
 
-    var cookie = nombre + "=" + encodeURIComponent(valor) + "; expires=" + fechaExpiracion.toUTCString() + "; path=/";
+    let cookie = nombre + "=" + encodeURIComponent(valor) + "; expires=" + fechaExpiracion.toUTCString() + "; path=/";
 
     document.cookie = cookie;
 }
 
 function getCookie(nombre) {
-    var nombreEQ = nombre + "=";
-    var cookies = document.cookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i];
+    let nombreEQ = nombre + "=";
+    let cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i];
         while (cookie.charAt(0) === ' ')
             cookie = cookie.substring(1, cookie.length);
         if (cookie.indexOf(nombreEQ) === 0)

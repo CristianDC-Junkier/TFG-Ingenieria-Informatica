@@ -19,11 +19,11 @@
                         <div id="habilidades">
                             <c:forEach var="pHabilidad" items="${listaPersonajeHabilidades}" varStatus="status">
                                 <li>
-                                    ${pHabilidad.habilidades.nombre}: ${requestScope.listaValoresHab[status.index]} - 
-                                    <label for="competencia_${pHabilidad.habilidades.nombre}">Competencia: </label>
-                                    <input type="checkbox" id="competencia_habilidad" name="habilidades" value="${pHabilidad.habilidades.nombre}" 
-                                           <c:if test="${pHabilidad.competencia == 'Si'}">checked</c:if>>
-                                </li>
+                                    <p class="tituloHabilidad">${pHabilidad.habilidades.nombre}: ${requestScope.listaValoresHab[status.index]} - </p>
+                                    <p class="valoresHabilidad"><label for="competencia_${pHabilidad.habilidades.nombre}">Competencia: </label>
+                                        <input type="checkbox" id="competencia_habilidad" name="habilidades" value="${pHabilidad.habilidades.nombre}" 
+                                               <c:if test="${pHabilidad.competencia == 'Si'}">checked</c:if>></p>
+                                    </li>
                             </c:forEach>
                         </div>
                     </div>

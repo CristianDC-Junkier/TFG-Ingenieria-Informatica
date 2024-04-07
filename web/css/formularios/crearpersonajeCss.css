@@ -133,6 +133,17 @@
     margin-left: 10px;
 }
 
+.tituloHabilidad{
+    width: 175px;
+    display: inline-block;
+}
+.valoresHabilidad{
+    width: 120px;
+    display: inline-block;
+}
+#eleccionDote{
+    min-height: 100px;
+}
 
 /*************************/
 /***********Id's**********/

@@ -4,29 +4,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4\Personajes\Amigo\Habilidades</title>
+        <title class="titulosPag">Guidance4\Personajes\Habilidades</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="/TFG/css/explorar/razaCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/habilidadesCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css"/>
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main>
             <h2 class="Titulos">Personaje: ${requestScope.personaje.nombre}</h2>
             <hr color="black">
-            <div class="cajaHabilidades">
-                <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personaje?id=${requestScope.personaje.id}'">Volver</button></div>
-                <div class="personajeHabilidades">
+            <div><button class="botonAtrasPJ" onclick="location.href = '/TFG/Personajes/personaje?id=${requestScope.personaje.id}'">Volver</button></div>
+            <div class="personajeHabilidades">                
+                <div class="cajaHabilidades">
                     <ul>
                         <c:forEach var="pHabilidad" items="${listaPHabilidad}" varStatus="status">
                             <li>
-                                ${pHabilidad.habilidades.nombre}: ${requestScope.listaValoresHab[status.index]} - 
+                                <p class="tituloHabilidad">${pHabilidad.habilidades.nombre}:</p>
+
                                 <c:choose>
                                     <c:when test="${pHabilidad.competencia == 'Si'}">
-                                        Competente
+                                        <p class="valoresHabilidad">${requestScope.listaValoresHab[status.index]} - Competente </p>
                                     </c:when>
                                     <c:otherwise>
-                                        No Competente
+                                        <p class="valoresHabilidad">${requestScope.listaValoresHab[status.index]} No Competente </p>
                                     </c:otherwise>
                                 </c:choose>
                             </li>

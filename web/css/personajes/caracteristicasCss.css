@@ -1,22 +1,24 @@
 
-.arribaDatosRaza {
+.arribaDatosCaracteristicas {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding: 20px;
 }
-.datosIzquierdaRaza {
+.datosIzquierdaCaracteristicas  {
     display: flex;
     flex-direction: column;
     margin-right: 10px;
 }
-.datosIzquierdaArribaRaza {
+.datosIzquierdaArribaCaracteristicas  {
     display: flex;
+    margin-top: 10px;
+    min-width: 325px;
 }
-.caracteristicasRaza {
+.caracteristicasCaracteristicas {
     padding: 20px;
 }
-.datosIzquierdaArribaRaza img {
+.datosIzquierdaArribaCaracteristicas  img {
     max-width: 100%;
     height: auto;
     margin-right: 10px;
@@ -26,24 +28,26 @@
     margin-top: 25px;
     padding: 20px;
 }
-.datosIzquierdaAbajoRaza {
+.datosIzquierdaAbajoCaracteristicas  {
     margin-top: 10px;
     margin-bottom: 30px;
 }
-.botonArribaSubRazas{
-    position: fixed;
-    right: 20px;
-    width: auto;
+.datosDerechaCaracteristicas  {
+    max-width: 700px;
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
 }
-@media screen and (max-width: 768px) {
-    .datosIzquierdaRaza img{
+@media screen and (max-width: 1300px) {
+    .datosIzquierdaCaracteristicas  img{
         width: 150px;
         height: 150px;
     }
-    .arribaDatosRaza {
+    .arribaDatosCaracteristicas  {
         flex-direction: column;
     }
-    .datosDerechaRaza {
+    .datosDerechaCaracteristicas  {
         flex: none;
         margin-left: 0;
         margin-top: 20px;

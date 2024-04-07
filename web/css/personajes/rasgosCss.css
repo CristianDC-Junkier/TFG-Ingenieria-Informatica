@@ -36,16 +36,12 @@
     width: auto;
 }
 @media screen and (max-width: 768px) {
-    .datosIzquierdaRaza img{
-        width: 150px;
-        height: 150px;
-    }
     .arribaDatosRaza {
         flex-direction: column;
     }
     .datosDerechaRaza {
-        flex: none;
-        margin-left: 0;
+        flex: none; 
+        margin-left: 0; 
         margin-top: 20px;
         margin-bottom: 20px;
     }

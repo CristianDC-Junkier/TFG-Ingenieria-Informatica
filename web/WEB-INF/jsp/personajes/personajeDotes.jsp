@@ -7,12 +7,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/explorar/dotesCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css"/>
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main> 
             <div class="ResumenDotes">
-                <h2 class="Titulos">Dotes<button class="botonfinal" onclick="location.href = '/TFG/Personajes/personajePerfil?id=${requestScope.id}'">Volver</button></h2>
+                <h2 class="Titulos">Dotes<button class="botonAtrasPJ" onclick="location.href = '/TFG/Personajes/personajePerfil?id=${requestScope.id}'">Volver</button></h2>
                 <hr color="black">
                 <div class="ListaDotes">
                     <c:out value="${listaDotes}" escapeXml="false" />

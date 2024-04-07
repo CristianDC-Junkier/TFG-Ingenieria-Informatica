@@ -1,25 +1,31 @@
 
 .personajeAtributos {
-    background-color: black; /* Fondo negro */
-    border: 2px solid brown; /* Bordes negros */
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Sombra */
-    width: 50%; /* Ancho del contenedor */
-    margin: 0 auto; /* Centrar horizontalmente */
-    padding: 20px; /* Espaciado interno */
-    box-sizing: border-box; /* Incluir bordes en el tamaño */
+    background-color: black;
+    border: 5px inset brown;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+
+    width: 80%;
+    margin: 100px auto 100px auto;
+    padding: 10px;
+
+    box-sizing: border-box;
+    color: white;
 }
 
 .puntos {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    font-size: 3vmin;
 }
 
 .puntos-contenedor {
     display: flex;
     align-items: center;
 }
-
+.puntos-contenedor label{
+    width: 16vmin;
+}
 .modificadores {
 
     width: 30px;
@@ -37,6 +43,7 @@
 
     width: 50px;
     text-align: center;
-    font-size: 16px;
+    font-size: 2.5vmin;
 }
+
 

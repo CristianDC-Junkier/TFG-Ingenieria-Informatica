@@ -2168,6 +2168,39 @@ input[type="button"]:active {
     color:yellowgreen;
     font-style: italic;
 }
+/***************************************************************************************************/
+/*******************************************PERSONAJE: VALORES**************************************/
+/***************************************************************************************************/
+.botonAtrasPJ {
+
+    background-color: brown;
+    color: yellow;
+    border: 2px outset black;
+}
+/********************************/
+/*********Caracteristicas********/
+/********************************/
+.arribaDatosCaracteristicas{
+    color: white;
+}
+.caracteristicasCaracteristicas h3{
+    color: yellow;
+}
+.datosIzquierdaArribaCaracteristicas{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosIzquierdaAbajoCaracteristicas{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosDerechaCaracteristicas{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosDerechaCaracteristicas h3{
+    color: yellow;
+}
 /*******************************************************************************************************/
 /**********************************************REPETIDO*************************************************/
 /*******************************************************************************************************/

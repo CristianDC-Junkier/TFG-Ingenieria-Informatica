@@ -6,8 +6,8 @@
     <title class="titulosPag">Guidance4\Personajes</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/personajesListasCss.css"/>
-    <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/personajesListasCss.css" charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css" charset="UTF-8"/>
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />

@@ -205,8 +205,8 @@ public class ControladorExplorar extends HttpServlet {
                     }
                     resultado
                             = resultado
-                            + ">" + "<a href=\"/TFG/Explorar/clase?clase=" + listaClases.get(i).getNombre() + "\">" + listaClases.get(i).getNombre() + " </a></h5> "
-                            + "<li>" + "<a href=\"/TFG/Explorar/clase?clase=" + listaClases.get(i).getNombre() + "\"> "
+                            + ">" + "<a href=\"/TFG/Explorar/clase?clase=" + listaClases.get(i).getId() + "\">" + listaClases.get(i).getNombre() + " </a></h5> "
+                            + "<li>" + "<a href=\"/TFG/Explorar/clase?clase=" + listaClases.get(i).getId() + "\"> "
                             + "<img src=\"/TFG/img/clases/" + listaClases.get(i).getNombre().replaceAll("\\s", "") + ".jfif\"/> </a> "
                             + "<p>" + listaClases.get(i).getDescripcion()
                             + "</p> </li> </div> </ul>";
@@ -220,12 +220,12 @@ public class ControladorExplorar extends HttpServlet {
 
                 nombre = request.getParameter("clase");
 
-                queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
-                queryClases.setParameter("nombre", nombre);
+                queryClases = em.createNamedQuery("Clases.findById", Clases.class);
+                queryClases.setParameter("id", nombre);
                 Clase = queryClases.getSingleResult();
 
                 queryTablaClaseNivel = em.createNamedQuery("Tablaclasespornivel.findByClase", Tablaclasespornivel.class);
-                queryTablaClaseNivel.setParameter("clase", Clase.getNombre());
+                queryTablaClaseNivel.setParameter("clase", Clase.getId());
                 listaTablaClaseNivel = queryTablaClaseNivel.getResultList();
 
                 listaTablaClases = new ArrayList();

@@ -127,19 +127,6 @@
     font-size: 2vmin;
 }
 
-.botonfinal {
-
-    padding: 5px 10px;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: auto;
-    margin-right: 5px;
-    font-size: 2vmin;
-}
-
 button:hover{
 
     transform: translateY(-0.1em);

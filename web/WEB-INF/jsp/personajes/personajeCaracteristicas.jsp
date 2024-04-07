@@ -3,21 +3,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title class="titulosPag">Guidance4\Personajes\Amigo\Características</title>
+        <title class="titulosPag">Guidance4\Personajes\Características</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="/TFG/css/explorar/razaCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/caracteristicasCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/personajes/comunPersonajesCss.css"/>
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main>
             <h2 class="Titulos">Personaje: ${requestScope.personaje.nombre}</h2>
             <hr color="black">
-            <div class="arribaDatosRaza">
-                <div class="datosIzquierdaRaza">
-                    <div class="datosIzquierdaArribaRaza">
+            <div><button class="botonAtrasPJ" onclick="location.href = '/TFG/Personajes/personaje?id=${requestScope.personaje.id}'">Volver</button></div>
+            <div class="arribaDatosCaracteristicas">
+                <div class="datosIzquierdaCaracteristicas">
+                    <div class="datosIzquierdaArribaCaracteristicas">
                         <img src="${requestScope.personajeImagen}"/>
-                        <div class="caracteristicasRaza">
+                        <div class="caracteristicasCaracteristicas">
                             <h3>Características</h3>
                             <ul>
                                 <li>Nombre: ${requestScope.personaje.nombre}</li>
@@ -28,13 +30,12 @@
                             </ul>
                         </div>
                     </div>
-                    <div class = "datosIzquierdaAbajoRaza">
+                    <div class = "datosIzquierdaAbajoCaracteristicas">
                         <p>Apariencia:${requestScope.personaje.apariencia}</p>
                         <p>Historia:${requestScope.personaje.historia}</p>
                     </div>
                 </div>
-                <div class="datosDerechaRaza">
-                    <div><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personaje?id=${requestScope.personaje.id}'">Volver</button></div>
+                <div class="datosDerechaCaracteristicas">
                     <h3>Vinculos</h3>
                     <p>${requestScope.personaje.vinculos}</p>
                     <br>

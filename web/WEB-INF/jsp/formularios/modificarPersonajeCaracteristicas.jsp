@@ -65,11 +65,11 @@
                             <textarea id="historiaPersonaje" name="personaje_historia" />${requestScope.personaje.historia}</textarea>
                         </div>
                     </div>
-                    <div id="mensajeError">
-                        <c:if test="${requestScope.msj!=null}">
+                    <c:if test="${requestScope.msj!=null}">
+                        <div id="mensajeError">
                             ${requestScope.msj}
-                        </c:if>
-                    </div>
+                        </div>
+                    </c:if>
                     <div class="contenedorBotonFormulario">
                         <input id="botonVolverFormulario" type="button" onclick="location.pathname = '/TFG/Personajes/personajePerfilCaracteristicas'" value="Volver">
                         <input type="submit" id="botonEnviar" value="Modificar Caracteristicas">

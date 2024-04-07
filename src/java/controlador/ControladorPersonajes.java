@@ -9,6 +9,7 @@ import entidades.Habilidades;
 import entidades.Hechizos;
 import entidades.Mejorasdote;
 import entidades.Personajeatributos;
+import entidades.Personajeatributosoriginal;
 import entidades.Personajehabilidades;
 import entidades.Personajes;
 import entidades.Propiedades;
@@ -115,6 +116,7 @@ public class ControladorPersonajes extends HttpServlet {
         List<Mejorasdote> listaMDotes;
         List<Integer> listaHabValores;
         List<String> listaValoresSalvacion;
+        List<Personajeatributosoriginal> listaPersonajeAtributosOriginal;
 
         HashSet<Hechizos> hashAuxHechizos;
         HashSet<Equipo> hashAuxEquipo;
@@ -959,6 +961,7 @@ public class ControladorPersonajes extends HttpServlet {
                             persist(personajeaux);
 
                             listaPersonajeAtributos = new ArrayList();
+                            listaPersonajeAtributosOriginal = new ArrayList();
                             listaPersonajeHabilidades = new ArrayList();
 
                             for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
@@ -967,6 +970,13 @@ public class ControladorPersonajes extends HttpServlet {
                                         personajeAtributo.getValor(), personajeAtributo.getSalvacion()));
 
                             }
+                            /*
+                            for (int i = 0; i < personaje.getPersonajeatributosoriginalList().size();i++) {
+                                personajeAtributo = personaje.getPersonajeatributosoriginalList().get(i);
+                                listaPersonajeAtributosOriginal.add(new Personajeatributos(personajeaux.getId(), personajeAtributo.getAtributos().getId(),
+                                        personajeAtributo.getValor(), personajeAtributo.getSalvacion()));
+
+                            }*/
                             for (int i = 0; i < personaje.getPersonajehabilidadesList().size(); i++) {
                                 personajeHabilidad = personaje.getPersonajehabilidadesList().get(i);
                                 listaPersonajeHabilidades.add(new Personajehabilidades(personajeaux.getId(), personajeHabilidad.getHabilidades().getId(),
@@ -1084,7 +1094,6 @@ public class ControladorPersonajes extends HttpServlet {
                 fotosPersonajes = new ArrayList();
 
                 for (int i = 0; i < listaPersonajes.size(); i++) {
-
 
                     if (listaPersonajes.get(i).getImagenpersonaje() == null) {
                         fotosPersonajes.add("-");
@@ -1221,7 +1230,6 @@ public class ControladorPersonajes extends HttpServlet {
                     fotosPersonajes = new ArrayList();
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
-
 
                         if (listaPersonajes.get(i).getImagenpersonaje() == null) {
                             fotosPersonajes.add("-");
