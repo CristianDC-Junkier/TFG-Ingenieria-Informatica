@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="contenedorEnviarMensajeAmigo">
-            <form action="/TFG/Chats/mensajeamigo" method="POST">
+            <form>
                 <input type="text" maxlength="255" id="mensajeInput" name="mensaje" placeholder="Enviar mensaje...">
                 <button id="botonEnviar" type="button" onclick="enviarMensaje()">Enviar</button>
                 <select id="SDados">

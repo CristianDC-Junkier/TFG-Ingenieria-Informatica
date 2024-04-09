@@ -61,6 +61,21 @@ public class Mensajesmesas implements Serializable {
         this.id = id;
     }
 
+    public Mensajesmesas(String id, String mensaje, Date fecha, Mesas mesa, Usuarios escritor) {
+        this.id = id;
+        this.mensaje = mensaje;
+        this.fecha = fecha;
+        this.mesa = mesa;
+        this.escritor = escritor;
+    }
+
+    public Mensajesmesas(String mensaje, Date fecha, Mesas mesa, Usuarios escritor) {
+        this.mensaje = mensaje;
+        this.fecha = fecha;
+        this.mesa = mesa;
+        this.escritor = escritor;
+    }
+
     public Mensajesmesas(String id, String mensaje, Date fecha) {
         this.id = id;
         this.mensaje = mensaje;

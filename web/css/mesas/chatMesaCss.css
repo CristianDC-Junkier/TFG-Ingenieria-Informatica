@@ -1,0 +1,136 @@
+.mainMesa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.cajaGeneralMesa {
+
+    width: 95%;
+    padding: 20px 10px 10px 10px;
+    margin-bottom: 30px;
+    background-color: #ddd;
+    display: flex;
+    justify-content: space-around;
+
+
+}
+
+/******IZQUIERDA*******/
+
+
+
+.contedorNpc {
+    display: flex;
+    align-items: center;
+}
+
+.imagenNpc {/*Funciona*/
+    min-height: 200px;
+    min-width: 300px;
+    max-width: 300px;
+
+    background-color: gray;
+
+    height: 200px;
+    overflow: hidden;
+    margin-right: 10px;
+    border: 2px solid black; /* Agregar borde de 2px de grosor y color negro */
+}
+.imagenNpc img{/*Funciona*/
+    width: 100%; /* La imagen ocupará todo el espacio disponible del contenedor */
+    height: auto;
+}
+
+.descripcionNpc {
+    background-color: gray;
+
+    font-size: 12px;
+    min-height: 200px;
+    min-width: 600px;
+    border: 2px solid black; /* Agregar borde de 2px de grosor y color negro */
+}
+
+.contenedorChat {/*Funciona*/
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedorMensajesChat {/*Funciona*/
+    background-color: gray;
+    min-height: 440px; /* Altura mínima del contenedor */
+    max-height: 440px; /* Altura mínima del contenedor */
+    max-width: 900px;
+    padding: 10px; /* Agregar un relleno interno para separar el contenido del borde */
+    border: 1px solid black; /* Borde del contenedor */
+    margin-bottom: 10px; /* Margen inferior para separar el contenedor del siguiente elemento */
+    overflow-y: auto; /* Para agregar desplazamiento vertical si el contenido es demasiado largo */
+}
+
+
+.contenedorBotonesChat {
+    background-color: gray;
+    padding: 10px;
+}
+
+#mensajeChatMesa {
+    margin-right: 10px;
+    width: 75%;
+    background: #333;
+    margin-left: 10px;
+    color: white;
+}
+
+/******DERECHA******/
+.derechaChatMesaChatMesa {
+}
+
+.contenedorAudioChatMesa {
+    color: black;
+    background-color: gray;
+    margin-bottom: 20px;
+    border: 2px solid black; /* Agregar borde de 2px de grosor y color negro */
+    padding: 10px;
+}
+.contenedorAudioChatMesa p{
+    margin-left: 20px;
+}
+.botonesAudio {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.listaChatMesa {
+    margin-top: 25%;
+    margin-bottom: 70%;
+    overflow-y: auto; /* Para agregar desplazamiento vertical si el contenido es demasiado largo */
+    background-color: gray;
+    color: black;
+}
+
+.listaChatMesa table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.listaChatMesa table, .listaChatMesa td, .listaChatMesa th {
+    border: 1px solid black;
+}
+
+.listaChatMesa th {
+    background-color: #f2f2f2;
+    padding: 8px;
+}
+
+.listaChatMesa td {
+    padding: 8px;
+}
+.contenedorBotonesMesaChat{
+    padding: 10px;
+    background-color: gray;
+}
+

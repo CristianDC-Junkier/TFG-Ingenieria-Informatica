@@ -102,12 +102,16 @@
                     <div><span>Creador:  </span>${requestScope.mesa.creador}</div>
                     <div><span>Comunidad:  </span>${requestScope.mesa.comunidad}</div>
                     <div><span>Usuarios:  </span>${requestScope.listaRoles.size()}/${requestScope.mesa.tamano}</div>
-                    <div><span>Personaje Actual:  </span>${requestScope.personajeActual.nombre}</div>
+                    <c:if test="${requestScope.dm != user.apodo}">
+                        <div><span>Personaje Actual:  </span>${requestScope.personajeActual.nombre}</div>
+                    </c:if>
                 </div>
                 <div class="botones">
                     <button class="boton" onclick="location.href = '/TFG/Mesas/mostrarMesasUsuario'">Atras</button>
                     <button class="boton" onclick="location.href = '/TFG/Mesas/mostrarMesaChat?id=${requestScope.mesa.id}'">Chat</button>
-                    <button class="boton" onclick="location.href = '/TFG/Personajes/elegirPJActualMesa?id=${requestScope.mesa.id}'">Elegir Personaje</button>
+                    <c:if test="${requestScope.dm != user.apodo}">
+                        <button class="boton" onclick="location.href = '/TFG/Personajes/elegirPJActualMesa?id=${requestScope.mesa.id}'">Elegir Personaje</button>
+                    </c:if>
                     <c:choose> 
                         <c:when test="${requestScope.mesa.creador == user.apodo}">
                             <button class="botonfinal" onclick="location.href = '/TFG/Formularios/modificarmesa?id=${requestScope.mesa.id}'">Modificar Mesa</button>

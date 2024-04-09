@@ -7,7 +7,7 @@ function remostrarChat() {
 
     let tabla = document.getElementById('TablaChat');
 
-    urlAJAX = "/TFG/ControladorPeticionesAJAX/ChatAmigos";
+    urlAJAX = "/TFG/Chats/ChatAmigos";
 
     // Realizar la solicitud AJAX
     $.ajax({
@@ -45,7 +45,7 @@ function cargaChat() {
 
     let msjChat = document.getElementById('MensajesChat');
 
-    let urlAJAX = "/TFG/ControladorPeticionesAJAX/ChatCarga";
+    let urlAJAX = "/TFG/Chats/ChatCarga";
 
     // Realizar la solicitud AJAX
     $.ajax({
@@ -71,7 +71,7 @@ function recargaChat() {
 
     let msjChat = document.getElementById('MensajesChat');
 
-    let urlAJAX = "/TFG/ControladorPeticionesAJAX/ChatRecarga";
+    let urlAJAX = "/TFG/Chats/ChatRecarga";
 
     // Realizar la solicitud AJAX
     $.ajax({

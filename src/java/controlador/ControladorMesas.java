@@ -72,11 +72,12 @@ public class ControladorMesas extends HttpServlet {
 
         Query queryAUX;
 
-        ArrayList<String> fotosMesas;
-        ArrayList<Integer> listaCantidad;
-        ArrayList<Usuarios> listaUsuarios;
+        List<String> fotosMesas;
+        List<Integer> listaCantidad;
+        List<Usuarios> listaUsuarios;
         List<Pertenecemesa> listaPerteneceMesa;
         List<Mesas> listaMesas;
+        List<Personajes> listaPersonajes;
 
         String personaje_id;
 
@@ -1168,13 +1169,39 @@ public class ControladorMesas extends HttpServlet {
                     queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                     queryPertenecemesas.setParameter("usuario", user.getId());
                     queryPertenecemesas.setParameter("mesa", id);
-                    pmesa = queryPertenecemesas.getSingleResult();
 
-                    if (pmesa == null) {
-                        vista = "/Principal/inicio";
-                    } else {
+                    try {
+                        pmesa = queryPertenecemesas.getSingleResult();
 
+                        //////////////////////////
+                        //////////USUARIOS////////
+                        //////////////////////////
+                        queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByMesa", Pertenecemesa.class);
+                        queryPertenecemesas.setParameter("mesa", id);
+                        listaPerteneceMesa = queryPertenecemesas.getResultList();
+
+                        listaUsuarios = new ArrayList();
+                        listaPersonajes = new ArrayList();
+
+                        for (int i = 0; i < listaPerteneceMesa.size(); i++) {
+                            listaUsuarios.add(listaPerteneceMesa.get(i).getUsuarios());
+                            listaPersonajes.add(listaPerteneceMesa.get(i).getPersonajemesa());
+                        }
+                        
+                        //Audio
+                        //NPC
+                        //rol = Dungeon Master
+                        
+                        request.setAttribute("listaUsuariosRol", listaPerteneceMesa);
+                        request.setAttribute("listaPersonajes", listaPersonajes);
+                        request.setAttribute("listaUsuarios", listaUsuarios);
+                        request.setAttribute("mesa", pmesa.getMesas());
+                        request.setAttribute("rol", pmesa.getRol());
                         vista = "/WEB-INF/jsp/mesas/mesaChat.jsp";
+                        
+                    } catch (Exception ex) {
+                        vista = "/Principal/inicio";
+
                     }
                 }
                 break;
@@ -1190,7 +1217,6 @@ public class ControladorMesas extends HttpServlet {
 
                 //Recogemos los datos
                 personaje_id = request.getParameter("personaje");
-                id = request.getParameter("id");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1200,19 +1226,18 @@ public class ControladorMesas extends HttpServlet {
                     queryPersonajes.setParameter("id", personaje_id);
                     queryPersonajes.setParameter("creador", user);
 
-                    
-                        personaje = queryPersonajes.getSingleResult();
+                    personaje = queryPersonajes.getSingleResult();
 
-                        ///////////////////////////////
-                        //////PERTENECES A LA MESA/////
-                        ///////////////////////////////
-                        id = request.getParameter("id");
+                    ///////////////////////////////
+                    //////PERTENECES A LA MESA/////
+                    ///////////////////////////////
+                    id = request.getParameter("id");
 
-                        queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
-                        queryPertenecemesas.setParameter("usuario", user.getId());
-                        queryPertenecemesas.setParameter("mesa", id);
-                        pmesa = queryPertenecemesas.getSingleResult();
-                        try {
+                    queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
+                    queryPertenecemesas.setParameter("usuario", user.getId());
+                    queryPertenecemesas.setParameter("mesa", id);
+                    pmesa = queryPertenecemesas.getSingleResult();
+                    try {
                         pmesa.setPersonajemesa(personaje);
                         updatePMesas(pmesa);
 
