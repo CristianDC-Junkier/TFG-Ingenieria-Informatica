@@ -29,5 +29,5 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="/TFG/js/mostrarChatJS.js"></script>
+    <script src="/TFG/js/chats/mostrarChatJS.js"></script>
 </html>

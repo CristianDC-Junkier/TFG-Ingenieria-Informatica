@@ -20,10 +20,9 @@ let mensajeInput = document.getElementById("mensajeChatMesa");
 function cargaChat() {
 
     let msjChat = document.getElementById('MensajesChat');
-    
-    console.log("LLego");
+
     let urlAJAX = "/TFG/Chats/ChatCargaMesa";
-    
+    console.log(chatM);
     // Realizar la solicitud AJAX
     $.ajax({
         type: "GET",
@@ -32,6 +31,7 @@ function cargaChat() {
         dataType: "text",
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         success: function (data) {
+            console.log(data);
             let htmlResultados = data;
             // Limpiar el contenido actual de la tabla
             msjChat.innerHTML = '';
@@ -39,6 +39,8 @@ function cargaChat() {
             msjChat.innerHTML = htmlResultados;
         },
         error: function (error) {
+            console.log("no");
+
             console.error("Error en la solicitud AJAX:", error);
         }
     });
@@ -122,4 +124,5 @@ function bucle() {
 }
 
 cargaChat();
+
 //timeoutRecarga = setTimeout(bucle, 5000);

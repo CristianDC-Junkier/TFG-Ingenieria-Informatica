@@ -106,7 +106,7 @@ public class ControladorChats extends HttpServlet {
 
             int cont;
 
-            System.out.println("PeticionAJAX AA entra: " + accion);
+            System.out.println("PeticionAJAX Chat entra: " + accion);
 
             switch (accion) {
                 //////////////////////////////////////////////////////////////////////////
@@ -249,136 +249,141 @@ public class ControladorChats extends HttpServlet {
 
                     queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
                     queryUsuarios.setParameter("apodo", nombre);
-                    useraux = queryUsuarios.getSingleResult();
-                    id = useraux.getId();
+                    try {
+                        useraux = queryUsuarios.getSingleResult();
+                        id = useraux.getId();
 
-                    //Para saber si en el día ya hubo un mensaje o no
-                    fechaLimite = LocalDateTime.now();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    String fechaFormateada = fechaLimite.format(formatter);
+                        //Para saber si en el día ya hubo un mensaje o no
+                        fechaLimite = LocalDateTime.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        String fechaFormateada = fechaLimite.format(formatter);
 
-                    sql = "SELECT DISTINCT m.* FROM Mensajesamigos m"
-                            + " WHERE ((m.escritor = '" + user.getId() + "' AND m.receptor = '" + id + "') "
-                            + " OR (m.escritor = '" + id + "' AND m.receptor = '" + user.getId() + "'))"
-                            + " AND m.fecha >= TO_DATE('" + fechaFormateada + "00:00:00', 'YYYY-MM-DD HH24:MI:SS')"; // Fecha de inicio del día
+                        sql = "SELECT DISTINCT m.* FROM Mensajesamigos m"
+                                + " WHERE ((m.escritor = '" + user.getId() + "' AND m.receptor = '" + id + "') "
+                                + " OR (m.escritor = '" + id + "' AND m.receptor = '" + user.getId() + "'))"
+                                + " AND m.fecha >= TO_DATE('" + fechaFormateada + "00:00:00', 'YYYY-MM-DD HH24:MI:SS')"; // Fecha de inicio del día
 
-                    queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
-                    resultado = "";
+                        queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
+                        resultado = "";
 
-                    //si no hubo escribimos el dia (es decir el nuestro es el 1)
-                    if (queryAUX.getResultList().size() == 1) {
-                        resultado
-                                = resultado
-                                + "<br><p style =\"color: yellow;\">"
-                                + fechaLimite.getDayOfMonth()
-                                + "-" + fechaLimite.getMonthValue()
-                                + "-" + fechaLimite.getYear()
-                                + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
-                    }
-
-                    //mensajes enviados
-                    formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                    fechaFormateada = fechaLimite.format(formatter);
-
-                    sql = "SELECT m.* FROM Mensajesamigos m"
-                            + " WHERE m.escritor = '" + user.getId() + "'"
-                            + " and m.receptor = '" + id + "'"
-                            + " and m.fecha >= TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
-                            + " ORDER BY m.fecha";
-
-                    queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
-                    listaMensajesEnviados = queryAUX.getResultList();
-
-                    //mensajes recibidos
-                    fechaLimite = fechaLimite.minusSeconds(5);
-                    fechaFormateada = fechaLimite.format(formatter);
-
-                    sql = "SELECT m.* FROM Mensajesamigos m"
-                            + " WHERE m.escritor = '" + id + "'"
-                            + " and m.receptor = '" + user.getId() + "'"
-                            + " and m.fecha > TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
-                            + " ORDER BY m.fecha";
-
-                    queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
-                    ListaMensajesRecibidos = queryAUX.getResultList();
-
-                    ListaMensajesOrdenados = new ArrayList();
-
-                    if (!listaMensajesEnviados.isEmpty() && !ListaMensajesRecibidos.isEmpty()) {
-
-                        while (terminadaMensajesAmigos == false) {
-
-                            MEAux = listaMensajesEnviados.get(listaMensajesEnviados.size() - 1);
-                            listaMensajesEnviados.clear();
-
-                            MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
-                            vfecha = MEAux.getFecha().compareTo(MRAux.getFecha());// Menor a 0 es antes Mayor a 0 es después
-
-                            if (vfecha == 0) {//misma fecha = antes recibido
-                                contadorRecibidos++;
-                                ListaMensajesOrdenados.add(MRAux);
-
-                            } else if (vfecha < 0) {//antes el enviado
-                                ListaMensajesOrdenados.add(MEAux);
-
-                            } else if (vfecha > 0) {//antes el recibido
-                                contadorRecibidos++;
-                                ListaMensajesOrdenados.add(MRAux);
-                            }
-
-                            terminadaMensajesAmigos = true;
+                        //si no hubo escribimos el dia (es decir el nuestro es el 1)
+                        if (queryAUX.getResultList().size() == 1) {
+                            resultado
+                                    = resultado
+                                    + "<br><p style =\"color: yellow;\">"
+                                    + fechaLimite.getDayOfMonth()
+                                    + "-" + fechaLimite.getMonthValue()
+                                    + "-" + fechaLimite.getYear()
+                                    + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
                         }
-                    }
-                    //Por si quedan en alguna de las dos listas
-                    if (!listaMensajesEnviados.isEmpty()) {
-                        MEAux = listaMensajesEnviados.get(listaMensajesEnviados.size() - 1);
-                        ListaMensajesOrdenados.add(MEAux);
-                    }
-                    while (contadorRecibidos != ListaMensajesRecibidos.size()) {
-                        MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
-                        ListaMensajesOrdenados.add(MRAux);
-                        contadorRecibidos++;
 
-                    }
+                        //mensajes enviados
+                        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                        fechaFormateada = fechaLimite.format(formatter);
 
-                    for (int i = 0; i < ListaMensajesOrdenados.size(); i++) {
-                        msjA = ListaMensajesOrdenados.get(i);
-                        if (i > 0) {
-                            if (msjA.getFecha().getDay() != ListaMensajesOrdenados.get(i - 1).getFecha().getDay()) {
+                        sql = "SELECT m.* FROM Mensajesamigos m"
+                                + " WHERE m.escritor = '" + user.getId() + "'"
+                                + " and m.receptor = '" + id + "'"
+                                + " and m.fecha >= TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
+                                + " ORDER BY m.fecha";
+
+                        queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
+                        listaMensajesEnviados = queryAUX.getResultList();
+
+                        //mensajes recibidos
+                        fechaLimite = fechaLimite.minusSeconds(5);
+                        fechaFormateada = fechaLimite.format(formatter);
+
+                        sql = "SELECT m.* FROM Mensajesamigos m"
+                                + " WHERE m.escritor = '" + id + "'"
+                                + " and m.receptor = '" + user.getId() + "'"
+                                + " and m.fecha > TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
+                                + " ORDER BY m.fecha";
+
+                        queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
+                        ListaMensajesRecibidos = queryAUX.getResultList();
+
+                        ListaMensajesOrdenados = new ArrayList();
+
+                        if (!listaMensajesEnviados.isEmpty() && !ListaMensajesRecibidos.isEmpty()) {
+
+                            while (terminadaMensajesAmigos == false) {
+
+                                MEAux = listaMensajesEnviados.get(listaMensajesEnviados.size() - 1);
+                                listaMensajesEnviados.clear();
+
+                                MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
+                                vfecha = MEAux.getFecha().compareTo(MRAux.getFecha());// Menor a 0 es antes Mayor a 0 es después
+
+                                if (vfecha == 0) {//misma fecha = antes recibido
+                                    contadorRecibidos++;
+                                    ListaMensajesOrdenados.add(MRAux);
+
+                                } else if (vfecha < 0) {//antes el enviado
+                                    ListaMensajesOrdenados.add(MEAux);
+
+                                } else if (vfecha > 0) {//antes el recibido
+                                    contadorRecibidos++;
+                                    ListaMensajesOrdenados.add(MRAux);
+                                }
+
+                                terminadaMensajesAmigos = true;
+                            }
+                        }
+                        //Por si quedan en alguna de las dos listas
+                        if (!listaMensajesEnviados.isEmpty()) {
+                            MEAux = listaMensajesEnviados.get(listaMensajesEnviados.size() - 1);
+                            ListaMensajesOrdenados.add(MEAux);
+                        }
+                        while (contadorRecibidos != ListaMensajesRecibidos.size()) {
+                            MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
+                            ListaMensajesOrdenados.add(MRAux);
+                            contadorRecibidos++;
+
+                        }
+
+                        for (int i = 0; i < ListaMensajesOrdenados.size(); i++) {
+                            msjA = ListaMensajesOrdenados.get(i);
+                            if (i > 0) {
+                                if (msjA.getFecha().getDay() != ListaMensajesOrdenados.get(i - 1).getFecha().getDay()) {
+                                    resultado
+                                            = resultado
+                                            + "<br><p style =\"color: yellow;\">"
+                                            + msjA.getFecha().getDate()
+                                            + "-" + (msjA.getFecha().getMonth() + 1)
+                                            + "-" + (msjA.getFecha().getYear() + 1900)
+                                            + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
+                                }
+                            }
+                            if (user.getId().equals(msjA.getEscritor().getId())) {
                                 resultado
                                         = resultado
-                                        + "<br><p style =\"color: yellow;\">"
-                                        + msjA.getFecha().getDate()
-                                        + "-" + (msjA.getFecha().getMonth() + 1)
-                                        + "-" + (msjA.getFecha().getYear() + 1900)
-                                        + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
+                                        + "<p style=\"color: darkgray;\">"
+                                        + "Tu - "
+                                        + msjA.getHora();
+                            } else {
+                                resultado
+                                        = resultado
+                                        + "<p>"
+                                        + useraux.getApodo() + " - "
+                                        + msjA.getHora();
                             }
-                        }
-                        if (user.getId().equals(msjA.getEscritor().getId())) {
                             resultado
                                     = resultado
-                                    + "<p style=\"color: darkgray;\">"
-                                    + "Tu - "
-                                    + msjA.getHora();
-                        } else {
-                            resultado
-                                    = resultado
-                                    + "<p>"
-                                    + useraux.getApodo() + " - "
-                                    + msjA.getHora();
+                                    + " - " + msjA.getMensaje()
+                                    + "</p>";
                         }
-                        resultado
-                                = resultado
-                                + " - " + msjA.getMensaje()
-                                + "</p>";
-                    }
 
-                    //Si no hay ningun mensaje, borramos resultado
-                    if (ListaMensajesOrdenados.isEmpty()) {
+                        //Si no hay ningun mensaje, borramos resultado
+                        if (ListaMensajesOrdenados.isEmpty()) {
+                            resultado = "";
+                        }
+
+                        System.out.println("PeticionAJAX Sale");
+                    } catch (Exception ex) {
                         resultado = "";
+                        System.out.println("PeticionAJAX Sale");
                     }
-
-                    System.out.println("PeticionAJAX Sale");
 
                     break;
 
@@ -453,7 +458,6 @@ public class ControladorChats extends HttpServlet {
                     }
                     resultado = resultado + "</table>";
 
-                    System.out.println(resultado);
                     System.out.println("PeticionAJAX Sale");
 
                     break;
@@ -562,15 +566,13 @@ public class ControladorChats extends HttpServlet {
                     ////////////////////////////////
                     id = request.getParameter("busqueda");
 
-                    queryMesas = em.createNamedQuery("Mesas.findByid", Mesas.class);
+                    queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
                     queryMesas.setParameter("id", id);
                     try {
                         mesa = queryMesas.getSingleResult();
-
                         queryMensajesMesas = em.createNamedQuery("Mensajesmesas.findByMesa", Mensajesmesas.class);
                         queryMensajesMesas.setParameter("mesa", mesa);
                         ListaMensajesMesaOrdenados = queryMensajesMesas.getResultList();
-
                         for (int i = 0; i < ListaMensajesMesaOrdenados.size(); i++) {
                             msjM = ListaMensajesMesaOrdenados.get(i);
                             if (i > 0) {
@@ -592,28 +594,38 @@ public class ControladorChats extends HttpServlet {
                                         + "-" + (msjM.getFecha().getYear() + 1900)
                                         + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
                             }
-
                             queryPerteneceMesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                             queryPerteneceMesas.setParameter("usuario", msjM.getEscritor().getId());
                             queryPerteneceMesas.setParameter("mesa", id);
                             pmesa = queryPerteneceMesas.getSingleResult();
-
                             if (pmesa.getRol().equals("Dungeon Master")) {
 
                                 resultado
                                         = resultado
-                                        + "<p style=\"color: darkgray;\">"
+                                        + "<p style=\"color: purple;\">"
                                         + "Dungeon Master - "
-                                        + msjM.getHora();
-                            } else {
-                                resultado
-                                        = resultado
-                                        + pmesa.getPersonajemesa().getNombre()
-                                        + " - " + msjM.getMensaje()
+                                        + msjM.getHora()
                                         + "</p>";
+                            } else {
+                                if (pmesa.getPersonajemesa() == null) {
+                                    resultado
+                                            = resultado
+                                            + "<p>"
+                                            + pmesa.getUsuarios().getApodo()
+                                            + " - " + msjM.getMensaje()
+                                            + "</p>";
+                                } else {
+                                    resultado
+                                            = resultado
+                                            + "<p>"
+                                            + pmesa.getPersonajemesa().getNombre()
+                                            + " - " + msjM.getMensaje()
+                                            + "</p>";
+                                }
                             }
                         }
                     } catch (Exception ex) {
+
                         resultado = "";
                     }
 
@@ -638,16 +650,15 @@ public class ControladorChats extends HttpServlet {
                             queryMesas.setParameter("id", id);
                             mesa = queryMesas.getSingleResult();
 
-
                             queryPerteneceMesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                             queryPerteneceMesas.setParameter("usuario", user.getId());
                             queryPerteneceMesas.setParameter("mesa", mesa.getId());
-                            
+
                             //Si no perteneces a la mesa saltará un error.
                             pmesa = queryPerteneceMesas.getSingleResult();
 
                             resultado = request.getParameter("mensaje");
-                            
+
                             if (resultado.toUpperCase().contains("UPDATE") || resultado.toUpperCase().contains("CREATE")
                                     || resultado.toUpperCase().contains("DELETE") || resultado.toUpperCase().contains("SELECT")
                                     || resultado.toUpperCase().contains("DROP")) {
@@ -659,10 +670,10 @@ public class ControladorChats extends HttpServlet {
                             msjM = new Mensajesmesas(resultado, fecha, mesa, user);
 
                             persist(msjM);
-                            
+
                             resultado = "Conseguido";
                         } catch (Exception ex) {
-                            
+
                             resultado = "No Conseguido";
                         }
                     }
