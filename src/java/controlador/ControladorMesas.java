@@ -1,6 +1,7 @@
 package controlador;
 
 import entidades.Mesas;
+import entidades.Musica;
 import entidades.Personajes;
 import entidades.Pertenecemesa;
 import entidades.Usuarios;
@@ -88,7 +89,7 @@ public class ControladorMesas extends HttpServlet {
         String tamanoString;
         String contrasena;
         String contrasenahash;
-        short tamano;
+        Integer tamano;
         String titulo;
         String descripcion;
         String urlImagen;
@@ -134,7 +135,7 @@ public class ControladorMesas extends HttpServlet {
                             //////////////////
                             //////TAMANO//////
                             //////////////////
-                            tamano = Short.parseShort(tamanoString);
+                            tamano = Integer.parseInt(tamanoString);
                             if (tamano < 2 || tamano > 5) {
                                 throw new Exception("El Tamaño debe estar entre 2 y 5 ");
                             }
@@ -293,7 +294,7 @@ public class ControladorMesas extends HttpServlet {
                             //////////////////
                             //////TAMANO//////
                             //////////////////
-                            tamano = Short.parseShort(tamanoString);
+                            tamano = Integer.parseInt(tamanoString);
                             if (tamano < 2 || tamano > 5) {
                                 throw new Exception("El Tamaño debe estar entre 2 y 5 ");
                             }
@@ -1149,6 +1150,9 @@ public class ControladorMesas extends HttpServlet {
                     }
                 }
                 break;
+            ///////////////////////////////////////////////////////////////////////////
+            //////////////////////////CHAT Y SUS CAMBIOS///////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////
             case "/mostrarMesaChat":
 
                 /////////////////////////
@@ -1187,21 +1191,19 @@ public class ControladorMesas extends HttpServlet {
                             listaUsuarios.add(listaPerteneceMesa.get(i).getUsuarios());
                             listaPersonajes.add(listaPerteneceMesa.get(i).getPersonajemesa());
                         }
-                        
+
                         //Audio
                         //NPC
                         //rol = Dungeon Master
-                        
                         request.setAttribute("listaUsuariosRol", listaPerteneceMesa);
                         request.setAttribute("listaPersonajes", listaPersonajes);
                         request.setAttribute("listaUsuarios", listaUsuarios);
                         request.setAttribute("mesa", pmesa.getMesas());
                         request.setAttribute("rol", pmesa.getRol());
                         vista = "/WEB-INF/jsp/mesas/mesaChat.jsp";
-                        
+
                     } catch (Exception ex) {
                         vista = "/Principal/inicio";
-
                     }
                 }
                 break;

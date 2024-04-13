@@ -9,9 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -53,7 +55,7 @@ public class Mesas implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "TAMANO", nullable = false)
-    private short tamano;
+    private Integer tamano;
     @Basic(optional = false)
     @NotNull()
     @Size(min = 1, max = 100)
@@ -65,6 +67,10 @@ public class Mesas implements Serializable {
     @Lob()
     @Column(name = "IMAGENMESA")
     private byte[] imagenmesa;
+    @ManyToMany(mappedBy = "mesasList")
+    private List<Musica> musicaList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "mesas")
+    private Descriptormesa descriptormesa;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mesas")
     private List<Pertenecemesa> pertenecemesaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mesa")
@@ -82,7 +88,7 @@ public class Mesas implements Serializable {
         this.id = id;
     }
 
-    public Mesas(String id, String creador, String comunidad, short tamano, String titulo) {
+    public Mesas(String id, String creador, String comunidad, Integer tamano, String titulo) {
         this.id = id;
         this.creador = creador;
         this.comunidad = comunidad;
@@ -90,14 +96,14 @@ public class Mesas implements Serializable {
         this.titulo = titulo;
     }
 
-    public Mesas(String creador, String comunidad, short tamano, String titulo) {
+    public Mesas(String creador, String comunidad, Integer tamano, String titulo) {
         this.creador = creador;
         this.comunidad = comunidad;
         this.tamano = tamano;
         this.titulo = titulo;
     }
 
-    public Mesas(String creador, String comunidad, short tamano, String titulo, String descripcion, String contrasena) {
+    public Mesas(String creador, String comunidad, Integer tamano, String titulo, String descripcion, String contrasena) {
         this.creador = creador;
         this.comunidad = comunidad;
         this.tamano = tamano;
@@ -135,6 +141,20 @@ public class Mesas implements Serializable {
     public String toString() {
         return "entidades.Mesas[ id=" + id + " ]";
     }
+    @XmlTransient
+    public List<Pertenecemesa> getPertenecemesaList() {
+        return pertenecemesaList;
+    }
+    public void setPertenecemesaList(List<Pertenecemesa> pertenecemesaList) {
+        this.pertenecemesaList = pertenecemesaList;
+    }
+    @XmlTransient
+    public List<Mensajesmesas> getMensajesmesasList() {
+        return mensajesmesasList;
+    }
+    public void setMensajesmesasList(List<Mensajesmesas> mensajesmesasList) {
+        this.mensajesmesasList = mensajesmesasList;
+    }
 
     public String getCreador() {
         return creador;
@@ -160,11 +180,11 @@ public class Mesas implements Serializable {
         this.contrasena = contrasena;
     }
 
-    public short getTamano() {
+    public Integer getTamano() {
         return tamano;
     }
 
-    public void setTamano(short tamano) {
+    public void setTamano(Integer tamano) {
         this.tamano = tamano;
     }
 
@@ -193,21 +213,20 @@ public class Mesas implements Serializable {
     }
 
     @XmlTransient
-    public List<Pertenecemesa> getPertenecemesaList() {
-        return pertenecemesaList;
+    public List<Musica> getMusicaList() {
+        return musicaList;
     }
 
-    public void setPertenecemesaList(List<Pertenecemesa> pertenecemesaList) {
-        this.pertenecemesaList = pertenecemesaList;
+    public void setMusicaList(List<Musica> musicaList) {
+        this.musicaList = musicaList;
     }
 
-    @XmlTransient
-    public List<Mensajesmesas> getMensajesmesasList() {
-        return mensajesmesasList;
+    public Descriptormesa getDescriptormesa() {
+        return descriptormesa;
     }
 
-    public void setMensajesmesasList(List<Mensajesmesas> mensajesmesasList) {
-        this.mensajesmesasList = mensajesmesasList;
+    public void setDescriptormesa(Descriptormesa descriptormesa) {
+        this.descriptormesa = descriptormesa;
     }
 
 }

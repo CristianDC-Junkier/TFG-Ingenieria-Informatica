@@ -1,7 +1,9 @@
 package controlador;
 
+import entidades.Descriptormesa;
 import entidades.Mesas;
 import entidades.Personajes;
+import entidades.Pertenecemesa;
 import entidades.Usuarios;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -57,13 +59,16 @@ public class ControladorImagenes extends HttpServlet {
         Usuarios user;
         Mesas mesa;
         Personajes personaje;
+        Pertenecemesa pmesa;
 
         TypedQuery<Mesas> queryMesas;
+        TypedQuery<Pertenecemesa> queryPertenecemesa;
         TypedQuery<Personajes> queryPersonajes;
 
         Part filePart;
 
         String id;
+        String descripcion;
         InputStream fileContent;
         byte[] imageData;
 
@@ -126,6 +131,85 @@ public class ControladorImagenes extends HttpServlet {
                 mesa = queryMesas.getSingleResult();
 
                 imageData = mesa.getImagenmesa();
+
+                // Configurar la respuesta para que sea una imagen
+                response.setContentType("image/jpeg");
+
+                // Escribir los bytes de la imagen en la respuesta
+                try ( ServletOutputStream outputStream = response.getOutputStream()) {
+                    outputStream.write(imageData);
+                    cambiarVista = false;
+                }
+                break;
+            case "/actualizarFotoDescripcionDescriptor":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                descripcion = request.getParameter("descripcion");
+
+                /////////////////////////////
+                /////////ERES EL DM//////////
+                /////////////////////////////
+                id = request.getParameter("id");
+
+                try {
+                    queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                    queryMesas.setParameter("id", id);
+                    mesa = queryMesas.getSingleResult();
+
+                    queryPertenecemesa = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
+                    queryPertenecemesa.setParameter("usuario", user.getId());
+                    queryPertenecemesa.setParameter("mesa", id);
+                    pmesa = queryPertenecemesa.getSingleResult();
+
+                    if (!pmesa.getRol().equals("Dungeon Master")) {
+                        vista = "/TFG/Principal/inicio";
+                    } else {
+
+                        filePart = request.getPart("imagen");
+                        fileContent = filePart.getInputStream();
+
+                        //Leer el contenido y almacenarlo en un array de bytes
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+
+                        while ((bytesRead = fileContent.read(buffer)) != -1) {
+                            byteArrayOutputStream.write(buffer, 0, bytesRead);
+                        }
+
+                        //Convertir el contenido a un array de bytes
+                        imageData = byteArrayOutputStream.toByteArray();
+
+                        mesa.getDescriptormesa().setImagendescriptor(imageData);
+                        mesa.getDescriptormesa().setDescripcion(descripcion);
+
+                        updateMesas(mesa);
+
+                        request.setAttribute("id", id);
+
+                        vista = "/Mesas/mostrarMesaChat";
+                    }
+                } catch (Exception ex) {
+                    vista = "/TFG/Principal/inicio";
+
+                }
+                break;
+            case "/mostrarImagenDescriptor":
+
+                id = request.getParameter("id");
+
+                ///////////////////////
+                ///////PERSONAJE///////
+                ///////////////////////
+                queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                queryMesas.setParameter("id", id);
+                mesa = queryMesas.getSingleResult();
+
+                imageData = mesa.getDescriptormesa().getImagendescriptor();
 
                 // Configurar la respuesta para que sea una imagen
                 response.setContentType("image/jpeg");
@@ -253,6 +337,16 @@ public class ControladorImagenes extends HttpServlet {
         try {
             utx.begin();
             em.merge((Mesas) object);
+            utx.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void updateDescriptorMesa(Object object) {
+        try {
+            utx.begin();
+            em.merge((Descriptormesa) object);
             utx.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);

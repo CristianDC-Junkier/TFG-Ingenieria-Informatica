@@ -21,12 +21,12 @@
 
 
 
-.contedorNpc {
+.contedorDescriptor {
     display: flex;
     align-items: center;
 }
 
-.imagenNpc {/*Funciona*/
+.imagenDescriptor {/*Funciona*/
     min-height: 200px;
     min-width: 300px;
     max-width: 300px;
@@ -38,12 +38,12 @@
     margin-right: 10px;
     border: 2px solid black; /* Agregar borde de 2px de grosor y color negro */
 }
-.imagenNpc img{/*Funciona*/
+.imagenDescriptor img{/*Funciona*/
     width: 100%; /* La imagen ocupará todo el espacio disponible del contenedor */
     height: auto;
 }
 
-.descripcionNpc {
+.descripcionDescriptor{
     background-color: gray;
 
     font-size: 12px;

@@ -4,6 +4,8 @@ import entidades.Amigos;
 import entidades.Mensajesamigos;
 import entidades.Mensajesmesas;
 import entidades.Mesas;
+import entidades.Musica;
+import entidades.Personajes;
 import entidades.Pertenecemesa;
 import entidades.Usuarios;
 import java.io.IOException;
@@ -70,28 +72,35 @@ public class ControladorChats extends HttpServlet {
             Mensajesmesas msjM = null;
             Pertenecemesa pmesa;
             Mesas mesa;
+            Musica musica;
+            Personajes personaje;
 
             TypedQuery<Usuarios> queryUsuarios;
             TypedQuery<Amigos> queryAmigos;
             TypedQuery<Mensajesamigos> queryMensajesAmigos;
             TypedQuery<Mensajesmesas> queryMensajesMesas;
-            TypedQuery<Pertenecemesa> queryPerteneceMesas;
+            TypedQuery<Pertenecemesa> queryPertenecemesas;
             TypedQuery<Mesas> queryMesas;
+            TypedQuery<Musica> queryMusica;
+            TypedQuery<Personajes> queryPersonajes;
 
             Query queryAUX;
 
             List<Usuarios> listaUsuarios;
             List<Mensajesamigos> listaMensajesEnviados;
-            List<Mensajesamigos> ListaMensajesRecibidos;
-            List<Mensajesamigos> ListaMensajesOrdenados;
-            List<Mensajesmesas> listaMensajesMesasEnviados;
-            List<Mensajesmesas> ListaMensajesMesaRecibidos;
-            List<Mensajesmesas> ListaMensajesMesaOrdenados;
+            List<Mensajesamigos> listaMensajesRecibidos;
+            List<Mensajesamigos> listaMensajesOrdenados;
+            List<Mensajesmesas> listaMensajesMesaEnviados;
+            List<Mensajesmesas> listaMensajesMesaRecibidos;
+            List<Mensajesmesas> listaMensajesMesaOrdenados;
+            List<Musica> listaMusica;
+            List<Pertenecemesa> listaPertenecemesa;
+            List<Personajes> listaPersonajes;
 
             int contadorEnviados = 0;
             int contadorRecibidos = 0;
             int vfecha;
-            boolean terminadaMensajesAmigos = false;
+            boolean NoQuedanMensajes;
             LocalDateTime fechaLimite;
             Date fecha;
 
@@ -99,6 +108,8 @@ public class ControladorChats extends HttpServlet {
             String id;
             String apodo;
             String dado;
+
+            String puntosHP;
 
             String sql = "";
 
@@ -141,56 +152,57 @@ public class ControladorChats extends HttpServlet {
                             queryMensajesAmigos = em.createNamedQuery("Mensajesamigos.findByReceptorEscritor", Mensajesamigos.class);
                             queryMensajesAmigos.setParameter("escritor", useraux);
                             queryMensajesAmigos.setParameter("receptor", user);
-                            ListaMensajesRecibidos = queryMensajesAmigos.getResultList();
+                            listaMensajesRecibidos = queryMensajesAmigos.getResultList();
 
-                            ListaMensajesOrdenados = new ArrayList();
+                            listaMensajesOrdenados = new ArrayList();
+                            NoQuedanMensajes = false;
 
-                            if (!listaMensajesEnviados.isEmpty() && !ListaMensajesRecibidos.isEmpty()) {
+                            if (!listaMensajesEnviados.isEmpty() && !listaMensajesRecibidos.isEmpty()) {
 
-                                while (terminadaMensajesAmigos == false) {
+                                while (NoQuedanMensajes == false) {
 
                                     MEAux = listaMensajesEnviados.get(contadorEnviados);
-                                    MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
+                                    MRAux = listaMensajesRecibidos.get(contadorRecibidos);
                                     vfecha = MEAux.getFecha().compareTo(MRAux.getFecha());// Menor a 0 es antes Mayor a 0 es después
 
                                     if (vfecha == 0) {//misma fecha = antes recibido
                                         contadorRecibidos++;
-                                        ListaMensajesOrdenados.add(MRAux);
+                                        listaMensajesOrdenados.add(MRAux);
 
                                     } else if (vfecha < 0) {//antes el enviado
                                         contadorEnviados++;
-                                        ListaMensajesOrdenados.add(MEAux);
+                                        listaMensajesOrdenados.add(MEAux);
 
                                     } else if (vfecha > 0) {//antes el recibido
                                         contadorRecibidos++;
-                                        ListaMensajesOrdenados.add(MRAux);
+                                        listaMensajesOrdenados.add(MRAux);
                                     }
 
                                     if (contadorEnviados == listaMensajesEnviados.size()) {
-                                        terminadaMensajesAmigos = true;
-                                    } else if (contadorRecibidos == ListaMensajesRecibidos.size()) {
-                                        terminadaMensajesAmigos = true;
+                                        NoQuedanMensajes = true;
+                                    } else if (contadorRecibidos == listaMensajesRecibidos.size()) {
+                                        NoQuedanMensajes = true;
                                     }
                                 }
                             }
                             //Por si quedan en alguna de las dos listas
                             while (contadorEnviados != listaMensajesEnviados.size()) {
                                 MEAux = listaMensajesEnviados.get(contadorEnviados);
-                                ListaMensajesOrdenados.add(MEAux);
+                                listaMensajesOrdenados.add(MEAux);
                                 contadorEnviados++;
 
                             }
-                            while (contadorRecibidos != ListaMensajesRecibidos.size()) {
-                                MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
-                                ListaMensajesOrdenados.add(MRAux);
+                            while (contadorRecibidos != listaMensajesRecibidos.size()) {
+                                MRAux = listaMensajesRecibidos.get(contadorRecibidos);
+                                listaMensajesOrdenados.add(MRAux);
                                 contadorRecibidos++;
 
                             }
 
-                            for (int i = 0; i < ListaMensajesOrdenados.size(); i++) {
-                                msjA = ListaMensajesOrdenados.get(i);
+                            for (int i = 0; i < listaMensajesOrdenados.size(); i++) {
+                                msjA = listaMensajesOrdenados.get(i);
                                 if (i > 0) {
-                                    if (msjA.getFecha().getDay() != ListaMensajesOrdenados.get(i - 1).getFecha().getDay()) {
+                                    if (msjA.getFecha().getDay() != listaMensajesOrdenados.get(i - 1).getFecha().getDay()) {
                                         resultado
                                                 = resultado
                                                 + "<br><p style =\"color: yellow;\">"
@@ -301,51 +313,52 @@ public class ControladorChats extends HttpServlet {
                                 + " ORDER BY m.fecha";
 
                         queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
-                        ListaMensajesRecibidos = queryAUX.getResultList();
+                        listaMensajesRecibidos = queryAUX.getResultList();
 
-                        ListaMensajesOrdenados = new ArrayList();
+                        listaMensajesOrdenados = new ArrayList();
+                        NoQuedanMensajes = false;
 
-                        if (!listaMensajesEnviados.isEmpty() && !ListaMensajesRecibidos.isEmpty()) {
+                        if (!listaMensajesEnviados.isEmpty() && !listaMensajesRecibidos.isEmpty()) {
 
-                            while (terminadaMensajesAmigos == false) {
+                            while (NoQuedanMensajes == false) {
 
                                 MEAux = listaMensajesEnviados.get(listaMensajesEnviados.size() - 1);
                                 listaMensajesEnviados.clear();
 
-                                MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
+                                MRAux = listaMensajesRecibidos.get(contadorRecibidos);
                                 vfecha = MEAux.getFecha().compareTo(MRAux.getFecha());// Menor a 0 es antes Mayor a 0 es después
 
                                 if (vfecha == 0) {//misma fecha = antes recibido
                                     contadorRecibidos++;
-                                    ListaMensajesOrdenados.add(MRAux);
+                                    listaMensajesOrdenados.add(MRAux);
 
                                 } else if (vfecha < 0) {//antes el enviado
-                                    ListaMensajesOrdenados.add(MEAux);
+                                    listaMensajesOrdenados.add(MEAux);
 
                                 } else if (vfecha > 0) {//antes el recibido
                                     contadorRecibidos++;
-                                    ListaMensajesOrdenados.add(MRAux);
+                                    listaMensajesOrdenados.add(MRAux);
                                 }
 
-                                terminadaMensajesAmigos = true;
+                                NoQuedanMensajes = true;
                             }
                         }
                         //Por si quedan en alguna de las dos listas
                         if (!listaMensajesEnviados.isEmpty()) {
                             MEAux = listaMensajesEnviados.get(listaMensajesEnviados.size() - 1);
-                            ListaMensajesOrdenados.add(MEAux);
+                            listaMensajesOrdenados.add(MEAux);
                         }
-                        while (contadorRecibidos != ListaMensajesRecibidos.size()) {
-                            MRAux = ListaMensajesRecibidos.get(contadorRecibidos);
-                            ListaMensajesOrdenados.add(MRAux);
+                        while (contadorRecibidos != listaMensajesRecibidos.size()) {
+                            MRAux = listaMensajesRecibidos.get(contadorRecibidos);
+                            listaMensajesOrdenados.add(MRAux);
                             contadorRecibidos++;
 
                         }
 
-                        for (int i = 0; i < ListaMensajesOrdenados.size(); i++) {
-                            msjA = ListaMensajesOrdenados.get(i);
+                        for (int i = 0; i < listaMensajesOrdenados.size(); i++) {
+                            msjA = listaMensajesOrdenados.get(i);
                             if (i > 0) {
-                                if (msjA.getFecha().getDay() != ListaMensajesOrdenados.get(i - 1).getFecha().getDay()) {
+                                if (msjA.getFecha().getDay() != listaMensajesOrdenados.get(i - 1).getFecha().getDay()) {
                                     resultado
                                             = resultado
                                             + "<br><p style =\"color: yellow;\">"
@@ -375,7 +388,7 @@ public class ControladorChats extends HttpServlet {
                         }
 
                         //Si no hay ningun mensaje, borramos resultado
-                        if (ListaMensajesOrdenados.isEmpty()) {
+                        if (listaMensajesOrdenados.isEmpty()) {
                             resultado = "";
                         }
 
@@ -386,7 +399,6 @@ public class ControladorChats extends HttpServlet {
                     }
 
                     break;
-
                 case "/ChatAmigos":
 
                     /////////////////////////
@@ -569,14 +581,16 @@ public class ControladorChats extends HttpServlet {
                     queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
                     queryMesas.setParameter("id", id);
                     try {
+                        //HAY QUE ORDENARLOS POR FECHA SI O SI
                         mesa = queryMesas.getSingleResult();
                         queryMensajesMesas = em.createNamedQuery("Mensajesmesas.findByMesa", Mensajesmesas.class);
                         queryMensajesMesas.setParameter("mesa", mesa);
-                        ListaMensajesMesaOrdenados = queryMensajesMesas.getResultList();
-                        for (int i = 0; i < ListaMensajesMesaOrdenados.size(); i++) {
-                            msjM = ListaMensajesMesaOrdenados.get(i);
+                        listaMensajesMesaOrdenados = queryMensajesMesas.getResultList();
+                        
+                        for (int i = 0; i < listaMensajesMesaOrdenados.size(); i++) {
+                            msjM = listaMensajesMesaOrdenados.get(i);
                             if (i > 0) {
-                                if (msjM.getFecha().getDay() != ListaMensajesMesaOrdenados.get(i - 1).getFecha().getDay()) {
+                                if (msjM.getFecha().getDay() != listaMensajesMesaOrdenados.get(i - 1).getFecha().getDay()) {
                                     resultado
                                             = resultado
                                             + "<br><p style =\"color: yellow;\">"
@@ -594,35 +608,40 @@ public class ControladorChats extends HttpServlet {
                                         + "-" + (msjM.getFecha().getYear() + 1900)
                                         + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
                             }
-                            queryPerteneceMesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
-                            queryPerteneceMesas.setParameter("usuario", msjM.getEscritor().getId());
-                            queryPerteneceMesas.setParameter("mesa", id);
-                            pmesa = queryPerteneceMesas.getSingleResult();
+                            
+                            queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
+                            queryPertenecemesas.setParameter("usuario", msjM.getEscritor().getId());
+                            queryPertenecemesas.setParameter("mesa", id);
+                            pmesa = queryPertenecemesas.getSingleResult();
+                            
                             if (pmesa.getRol().equals("Dungeon Master")) {
 
                                 resultado
                                         = resultado
                                         + "<p style=\"color: purple;\">"
                                         + "Dungeon Master - "
-                                        + msjM.getHora()
-                                        + "</p>";
+                                        + msjM.getHora();
                             } else {
                                 if (pmesa.getPersonajemesa() == null) {
                                     resultado
                                             = resultado
                                             + "<p>"
                                             + pmesa.getUsuarios().getApodo()
-                                            + " - " + msjM.getMensaje()
-                                            + "</p>";
+                                            + " - "
+                                            + msjM.getHora();
+                                            
                                 } else {
                                     resultado
                                             = resultado
                                             + "<p>"
                                             + pmesa.getPersonajemesa().getNombre()
-                                            + " - " + msjM.getMensaje()
-                                            + "</p>";
+                                            + " - "
+                                            + msjM.getHora();
                                 }
                             }
+                            resultado = resultado
+                                    + " - " + msjM.getMensaje()
+                                    + "</p>";
                         }
                     } catch (Exception ex) {
 
@@ -650,12 +669,12 @@ public class ControladorChats extends HttpServlet {
                             queryMesas.setParameter("id", id);
                             mesa = queryMesas.getSingleResult();
 
-                            queryPerteneceMesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
-                            queryPerteneceMesas.setParameter("usuario", user.getId());
-                            queryPerteneceMesas.setParameter("mesa", mesa.getId());
+                            queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
+                            queryPertenecemesas.setParameter("usuario", user.getId());
+                            queryPertenecemesas.setParameter("mesa", mesa.getId());
 
                             //Si no perteneces a la mesa saltará un error.
-                            pmesa = queryPerteneceMesas.getSingleResult();
+                            pmesa = queryPertenecemesas.getSingleResult();
 
                             resultado = request.getParameter("mensaje");
 
@@ -700,12 +719,12 @@ public class ControladorChats extends HttpServlet {
                             queryMesas.setParameter("id", id);
                             mesa = queryMesas.getSingleResult();
 
-                            queryPerteneceMesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
-                            queryPerteneceMesas.setParameter("usuario", user.getId());
-                            queryPerteneceMesas.setParameter("mesa", mesa.getId());
+                            queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
+                            queryPertenecemesas.setParameter("usuario", user.getId());
+                            queryPertenecemesas.setParameter("mesa", mesa.getId());
 
                             //Si no perteneces a la mesa saltará un error.
-                            pmesa = queryPerteneceMesas.getSingleResult();
+                            pmesa = queryPertenecemesas.getSingleResult();
 
                             long tiempoActual = System.currentTimeMillis();
                             Random random = new Random(tiempoActual);
@@ -723,6 +742,359 @@ public class ControladorChats extends HttpServlet {
                         }
                     }
                     break;
+                case "/ChatRecargaMesa":
+
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    id = request.getParameter("mesa");
+
+                    //Para saber si en el día ya hubo un mensaje o no
+                    fechaLimite = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    String fechaFormateada = fechaLimite.format(formatter);
+
+                    try {
+                        sql = "SELECT DISTINCT m.* FROM Mensajesmesas m"
+                                + " WHERE m.mesa = '" + id + "' "
+                                + " AND m.fecha >= TO_DATE('" + fechaFormateada + "00:00:00', 'YYYY-MM-DD HH24:MI:SS')"; // Fecha de inicio del día
+
+                        queryAUX = em.createNativeQuery(sql, Mensajesmesas.class);
+                        resultado = "";
+
+                        //si no hubo escribimos el dia (es decir el nuestro es el 1)
+                        if (queryAUX.getResultList().size() == 1) {
+                            resultado
+                                    = resultado
+                                    + "<br><p style =\"color: yellow;\">"
+                                    + fechaLimite.getDayOfMonth()
+                                    + "-" + fechaLimite.getMonthValue()
+                                    + "-" + fechaLimite.getYear()
+                                    + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
+                        }
+
+                        //mensajes enviados
+                        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                        fechaFormateada = fechaLimite.format(formatter);
+
+                        sql = "SELECT m.* FROM Mensajesmesas m"
+                                + " WHERE m.escritor = '" + user.getId() + "' "
+                                + " and m.mesa = '" + id + "' "
+                                + " and m.fecha >= TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
+                                + " ORDER BY m.fecha";
+
+                        queryAUX = em.createNativeQuery(sql, Mensajesmesas.class);
+                        listaMensajesMesaEnviados = queryAUX.getResultList();
+
+                        //mensajes recibidos
+                        fechaLimite = fechaLimite.minusSeconds(5);
+                        fechaFormateada = fechaLimite.format(formatter);
+
+                        sql = "SELECT m.* FROM Mensajesmesas m"
+                                + " WHERE m.escritor != '" + user.getId() + "' "
+                                + " and m.mesa = '" + id + "' "
+                                + " and m.fecha > TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
+                                + " ORDER BY m.fecha";
+
+                        queryAUX = em.createNativeQuery(sql, Mensajesmesas.class);
+                        listaMensajesMesaRecibidos = queryAUX.getResultList();
+
+                        listaMensajesMesaOrdenados = new ArrayList();
+                        NoQuedanMensajes = false;
+
+                        if (!listaMensajesMesaEnviados.isEmpty() && !listaMensajesMesaRecibidos.isEmpty()) {
+
+                            while (NoQuedanMensajes == false) {
+
+                                MMEAux = listaMensajesMesaEnviados.get(listaMensajesMesaEnviados.size() - 1);
+                                listaMensajesMesaEnviados.clear();
+
+                                MMRAux = listaMensajesMesaRecibidos.get(contadorRecibidos);
+                                vfecha = MMEAux.getFecha().compareTo(MMRAux.getFecha());// Menor a 0 es antes Mayor a 0 es después
+
+                                if (vfecha == 0) {//misma fecha = antes recibido
+                                    contadorRecibidos++;
+                                    listaMensajesMesaOrdenados.add(MMRAux);
+
+                                } else if (vfecha < 0) {//antes el enviado
+                                    listaMensajesMesaOrdenados.add(MMEAux);
+
+                                } else if (vfecha > 0) {//antes el recibido
+                                    contadorRecibidos++;
+                                    listaMensajesMesaOrdenados.add(MMRAux);
+                                }
+
+                                NoQuedanMensajes = true;
+                            }
+                        }
+                        //Por si quedan en alguna de las dos listas
+                        if (!listaMensajesMesaEnviados.isEmpty()) {
+                            MMEAux = listaMensajesMesaEnviados.get(listaMensajesMesaEnviados.size() - 1);
+                            listaMensajesMesaOrdenados.add(MMEAux);
+                        }
+                        while (contadorRecibidos != listaMensajesMesaRecibidos.size()) {
+                            MMRAux = listaMensajesMesaRecibidos.get(contadorRecibidos);
+                            listaMensajesMesaOrdenados.add(MMRAux);
+                            contadorRecibidos++;
+
+                        }
+
+                        for (int i = 0; i < listaMensajesMesaOrdenados.size(); i++) {
+                            msjM = listaMensajesMesaOrdenados.get(i);
+                            if (i > 0) {
+                                if (msjM.getFecha().getDay() != listaMensajesMesaOrdenados.get(i - 1).getFecha().getDay()) {
+                                    resultado
+                                            = resultado
+                                            + "<br><p style =\"color: yellow;\">"
+                                            + msjM.getFecha().getDate()
+                                            + "-" + (msjM.getFecha().getMonth() + 1)
+                                            + "-" + (msjM.getFecha().getYear() + 1900)
+                                            + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
+                                }
+                            } else {
+                                resultado
+                                        = resultado
+                                        + "<p style =\"color: yellow;\">"
+                                        + msjM.getFecha().getDate()
+                                        + "-" + (msjM.getFecha().getMonth() + 1)
+                                        + "-" + (msjM.getFecha().getYear() + 1900)
+                                        + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
+                            }
+                            queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
+                            queryPertenecemesas.setParameter("usuario", msjM.getEscritor().getId());
+                            queryPertenecemesas.setParameter("mesa", id);
+                            pmesa = queryPertenecemesas.getSingleResult();
+                            if (pmesa.getRol().equals("Dungeon Master")) {
+
+                                resultado
+                                        = resultado
+                                        + "<p style=\"color: purple;\">"
+                                        + "Dungeon Master - "
+                                        + msjM.getHora()
+                                        + "</p>";
+                            } else {
+                                if (pmesa.getPersonajemesa() == null) {
+                                    resultado
+                                            = resultado
+                                            + "<p>"
+                                            + pmesa.getUsuarios().getApodo()
+                                            + " - " + msjM.getMensaje()
+                                            + "</p>";
+                                } else {
+                                    resultado
+                                            = resultado
+                                            + "<p>"
+                                            + pmesa.getPersonajemesa().getNombre()
+                                            + " - " + msjM.getMensaje()
+                                            + "</p>";
+                                }
+                            }
+                        }
+                        //Si no hay ningun mensaje, borramos resultado
+                        if (listaMensajesMesaOrdenados.isEmpty()) {
+                            resultado = "";
+                        }
+                    } catch (Exception ex) {
+
+                        resultado = "";
+                    }
+
+                    System.out.println("PeticionAJAX Sale");
+
+                    break;
+                case "/ChatMesaPuntosVidaActual":
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    if (user == null) {
+                        resultado = "";
+                    } else {
+                        ///////////////////////////////
+                        //////PERTENECES A LA MESA/////
+                        ///////////////////////////////
+                        id = request.getParameter("id");
+
+                        queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
+                        queryPertenecemesas.setParameter("usuario", user.getId());
+                        queryPertenecemesas.setParameter("mesa", id);
+
+                        try {
+                            pmesa = queryPertenecemesas.getSingleResult();
+
+                            resultado = "<table border=\"1\">"
+                                    + "<tr>"
+                                    + "<th>Jugador</th>"
+                                    + "<th>Personaje</th>"
+                                    + "<th>Clase</th>"
+                                    + "<th>Nivel</th>"
+                                    + "<th>Detalles</th>"
+                                    + "</tr>";
+
+                            //////////////////////////
+                            //////////USUARIOS////////
+                            //////////////////////////
+                            queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByMesa", Pertenecemesa.class);
+                            queryPertenecemesas.setParameter("mesa", id);
+                            listaPertenecemesa = queryPertenecemesas.getResultList();
+
+                            for (int i = 0; i < listaPertenecemesa.size(); i++) {
+
+                                resultado = resultado
+                                        + "<td>" + pmesa.getUsuarios().getApodo() + "</td>";
+
+                                pmesa = listaPertenecemesa.get(i);
+                                if (pmesa.getRol().equals("Dungeon Master")) {
+                                    resultado = resultado
+                                            + "<td>Dungeon Master</td>"
+                                            + "<td>-</td>"
+                                            + "<td>-</td>"
+                                            + "<td>-</td>";
+                                } else if (pmesa.getPersonajemesa() != null) {
+                                    resultado = resultado
+                                            + "<tr>"
+                                            + "<td>" + pmesa.getPersonajemesa().getNombre() + "</td>\n"
+                                            + "<td>" + pmesa.getPersonajemesa().getClase().getNombre() + "</td>\n"
+                                            + "<td>" + pmesa.getPersonajemesa().getNivel() + "</td>\n"
+                                            + "<td><button  class=\"botonfinal\" onclick=\"location.href = '/TFG/Personajes/personaje?id=" + pmesa.getPersonajemesa().getId() + "'\">Detalles</button></td>";
+                                } else {
+                                    resultado = resultado
+                                            + "<td>-</td>\n"
+                                            + "<td>-</td>\n"
+                                            + "<td>-</td>\n"
+                                            + "<td>-</td>\n"
+                                            + "</tr>\n";
+                                }
+                            }
+                            resultado = resultado
+                                    + "</table>";
+
+                        } catch (Exception ex) {
+                            resultado = "";
+                        }
+                    }
+                    break;
+                case "/ChatMesaPuntosVidaActualCambio":
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuarios) session.getAttribute("user");
+
+                    if (user == null) {
+                    } else {
+                        id = request.getParameter("id");
+
+                        queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                        queryPersonajes.setParameter("id", id);
+                        personaje = queryPersonajes.getSingleResult();
+
+                        //Comprobamos que es tuyo
+                        if (!personaje.getUsuario().getId().equalsIgnoreCase(user.getId())) {
+                        } else {
+                            puntosHP = request.getParameter("puntosHP");
+                            personaje.setPvidaactuales(Integer.parseInt(puntosHP));
+                            updatePersonajes(personaje);
+                        }
+                    }
+                    break;
+                case "/ChatDescripcionMesa":
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    id = request.getParameter("mesa");
+
+                    try {
+                        queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                        queryMesas.setParameter("id", id);
+                        mesa = queryMesas.getSingleResult();
+
+                        resultado
+                                = "<div class=\"imagenNpc\">"
+                                + "<img src=\"/TFG/Imagenes/mostrarImagenDescriptor?id=" + mesa.getDescriptormesa().getMesa() + "\">"
+                                + "</div>"
+                                + "<div class=\"descripcionNpc\">"
+                                + mesa.getDescriptormesa().getDescripcion()
+                                + "</div>";
+
+                    } catch (Exception ex) {
+
+                        resultado = "";
+                    }
+
+                    System.out.println("PeticionAJAX Sale");
+
+                    break;
+                case "/ChatMesaMusica":
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    id = request.getParameter("mesa");
+
+                    try {
+                        queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                        queryMesas.setParameter("id", id);
+                        mesa = queryMesas.getSingleResult();
+
+                        resultado
+                                = "<p>Ahora mismo está sonando:</p>"
+                                + "<audio id=\"reproductorCancion\">"
+                                + "<source src=\"" + mesa.getMusicaList().get(0).getNombre() + ".mp3\" type=\"audio/mpeg\">"
+                                + "Tu navegador no soporta la reproducción de audio."
+                                + "</audio>\n"
+                                + "<p>" + mesa.getMusicaList().get(0).getNombre() + "</p>";
+
+                    } catch (Exception ex) {
+
+                        resultado = "";
+                    }
+
+                    System.out.println("PeticionAJAX Sale");
+
+                    break;
+                case "/ChatMesaMusicaCambio":
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    id = request.getParameter("mesa");
+
+                    nombre = request.getParameter("musica");
+
+                    try {
+                        queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                        queryMesas.setParameter("id", id);
+                        mesa = queryMesas.getSingleResult();
+
+                        queryMusica = em.createNamedQuery("Musica.findByNombre", Musica.class);
+                        queryMusica.setParameter("id", id);
+                        musica = queryMusica.getSingleResult();
+
+                        listaMusica = new ArrayList();
+                        listaMusica.add(musica);
+
+                        mesa.setMusicaList(listaMusica);
+
+                        updateMesas(mesa);
+
+                    } catch (Exception ex) {
+
+                        resultado = "";
+                    }
+
+                    System.out.println("PeticionAJAX Sale");
+
+                    break;
 
             }
             response.setContentType("application/json");
@@ -732,7 +1104,7 @@ public class ControladorChats extends HttpServlet {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -775,6 +1147,26 @@ public class ControladorChats extends HttpServlet {
         try {
             utx.begin();
             em.persist(object);
+            utx.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void updateMesas(Object object) {
+        try {
+            utx.begin();
+            em.merge((Mesas) object);
+            utx.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void updatePersonajes(Object object) {
+        try {
+            utx.begin();
+            em.merge((Personajes) object);
             utx.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);

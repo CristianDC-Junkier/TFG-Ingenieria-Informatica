@@ -14,8 +14,8 @@
         <main class="mainMesa">
             <div class="cajaGeneralMesa">
                 <div class="izquierdaChatMesa">
-                    <div class="contedorNpc">
-                        <div class="imagenNpc">
+                    <div class="contedorDescriptor">
+                        <div class="imagenDescriptor">
                             <c:choose>
                                 <c:when test="${requestScope.npc.imagennpc == null}">
                                     <img src="/TFG/img/iconos/IMGNEGRO.png">
@@ -25,14 +25,14 @@
                                 </c:otherwise>
                             </c:choose>
                         </div>
-                        <div class="descripcionNpc">
+                        <div class="descripcionDescriptor">
                         </div>
                     </div>
                     <div class="contenedorChat">
                         <div class="contenedorMensajesChat" id="MensajesChat">
                         </div>
                         <div class="contenedorBotonesChat">
-                            <form action="/TFG/Chats/mensajeamigo" method="POST">
+                            <form>
                                 <input type="text" maxlength="255" id="mensajeChatMesa" name="mensaje" placeholder="Enviar mensaje...">
                                 <button id="botonEnviar" type="button" onclick="enviarMensaje()">Enviar</button>
                                 <select id="SDados">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="derechaChatMesa">
                     <div class="contenedorAudioChatMesa">
-                        <div>
+                        <div id="contenedorCancion"> 
                             <p>Ahora mismo está sonando:</p>
                             <audio id="reproductorCancion">
                                 <source src="audio.mp3" type="audio/mpeg">
@@ -100,14 +100,14 @@
                                         <c:when test="${personaje != null}">
                                             <c:choose>
                                                 <c:when test="${requestScope.listaUsuariosRol[status.index].rol != 'Dungeon Master'}">º
-                                                    <td>${requestScope.listaUsuarios[status.index].nombre}</td>
+                                                    <td>${requestScope.listaUsuarios[status.index].apodo}</td>
                                                     <td>${personaje.nombre}</td>
                                                     <td>${personaje.clase.nombre}</td>
                                                     <td>${personaje.nivel}</td>
                                                     <td><button  class="botonfinal" onclick="location.href = '/TFG/Personajes/personaje?id=${personaje.id}'">Detalles</button></td>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <td>${requestScope.listaUsuarios[status.index].nombre}</td>
+                                                    <td>${requestScope.listaUsuarios[status.index].apodo}</td>
                                                     <td>Dungeon Master</td>
                                                     <td>-</td>
                                                     <td>-</td>
@@ -116,7 +116,7 @@
                                             </c:choose>
                                         </c:when>
                                         <c:otherwise>
-                                            <td>${requestScope.listaUsuarios[status.index].nombre}</td>
+                                            <td>${requestScope.listaUsuarios[status.index].apodo}</td>
                                             <td>-</td>
                                             <td>-</td>
                                             <td>-</td>
@@ -130,33 +130,33 @@
                     <div class="contenedorBotonesMesaChat">
                         <c:choose>
                             <c:when test="${requestScope.rol == 'Dungeon Master'}">
-                                <button type="button" onclick="mostrarRecuadro2()">Cambiar NPC</button>
+                                <button type="button" onclick="mostrarRecuadro2()">Cambiar Descriptor</button>
                                 <div class="opcionRecuadro" id="recuadro2" style="display: none;">
                                     <div class="contenidoRecuadro">
                                         <div class="tituloRecuadro">Añada la foto
                                             <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
                                         </div>
                                         <hr>
-                                        <form id = "formRegistro" action="/TFG/Imagenes/actualizarFotoPersonaje" 
+                                        <form id = "formRegistro" action="/TFG/Imagenes/actualizarFotoDescriptor" 
                                               method="POST" enctype="multipart/form-data">
                                             <input type="hidden" name="id" value="${requestScope.mesa.id}">
                                             <input class="botonDentro" type="file" name="imagen" id="imagen" accept="image/*">
                                             <textarea id="id" name="descripcion" rows="5" cols="10"></textarea>
                                             <br>
-                                            <button class="botonDentro" type="submit">Actualizar NPC</button>
+                                            <button class="botonDentro" type="submit">Actualizar</button>
                                             <button class="botonDentro" type="button" onclick="cerrarRecuadro2()">Volver</button>
                                         </form>
                                     </div>
                                 </div>
                             </c:when>
                             <c:otherwise>
-                                <button type="button" onclick="mostrarRecuadro2()">Cambiar Vida</button>
+                                <button type="button" onclick="mostrarRecuadro3()">Cambiar Vida</button>
                                 <div class="opcionRecuadro" id="recuadro3" style="display: none;">
                                     <div class="contenidoRecuadro">
                                         <div class="tituloRecuadro"> <label for="pointsHP">Puntos de vida Actual:</label>
                                             <span class="cierreRecuadro" onclick="cerrarRecuadro3()">X</span>
                                         </div>
-                                        <form id = formEstadisticas action="/TFG/Personajes/puntosVidaActual?id=${requestScope.personajeactual.id}" method="POST">
+                                        <form id = formEstadisticas action="/TFG/Chats/ChatMesaPuntosVidaActualCambio?id=${requestScope.personajeactual.id}" method="POST">
                                             <input type="number" id="pointsHP" name="puntosHP" min="0" required>
                                             <hr>
                                             <button type="submit" class="botonDentro" >Aceptar</button>

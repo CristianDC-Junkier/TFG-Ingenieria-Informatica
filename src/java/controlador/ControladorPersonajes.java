@@ -438,10 +438,10 @@ public class ControladorPersonajes extends HttpServlet {
                                 }
                                 index++;
                             }
-                            
+
                             index = 0;
                             encontrado = false;
-                            
+
                             while (encontrado == false && index < listaPersonajeAtributos.size()) {
                                 if (atributo.getNombre().equals(listaPersonajeAtributosOriginal.get(index).getAtributos().getNombre())) {
                                     encontrado = true;
@@ -1585,10 +1585,9 @@ public class ControladorPersonajes extends HttpServlet {
                 }
 
                 break;
-
-            ////////////////////////////////////
-            /////////ELEGIR PJ ACTUAL///////////
-            ////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////
+            //////////////////////////ELEGIR PJ ACTUAL//////////////////////////////
+            ////////////////////////////////////////////////////////////////////////
             case "/elegirPJActual":
                 /////////////////////////
                 /////////SESION//////////
@@ -1726,6 +1725,7 @@ public class ControladorPersonajes extends HttpServlet {
                     }
                 }
                 break;
+
             case "/elegirPJActualMesa":
                 /////////////////////////
                 /////////SESION//////////
