@@ -14,10 +14,10 @@
         <main class="mainMesa">
             <div class="cajaGeneralMesa">
                 <div class="izquierdaChatMesa">
-                    <div class="contedorDescriptor">
+                    <div class="contedorDescriptor" id="infoDescriptor"> 
                         <div class="imagenDescriptor">
                             <c:choose>
-                                <c:when test="${requestScope.npc.imagennpc == null}">
+                                <c:when test="${requestScope.descriptor.imagendescriptor == null}">
                                     <img src="/TFG/img/iconos/IMGNEGRO.png">
                                 </c:when>
                                 <c:otherwise>
@@ -26,6 +26,9 @@
                             </c:choose>
                         </div>
                         <div class="descripcionDescriptor">
+                            <c:if test="${requestScope.descriptor.descripcion != null}">
+                                <p>${requestScope.descriptor.descripcion}</p>
+                            </c:if>
                         </div>
                     </div>
                     <div class="contenedorChat">
@@ -52,17 +55,26 @@
                 <div class="derechaChatMesa">
                     <div class="contenedorAudioChatMesa">
                         <div id="contenedorCancion"> 
-                            <p>Ahora mismo está sonando:</p>
-                            <audio id="reproductorCancion">
-                                <source src="audio.mp3" type="audio/mpeg">
-                                Tu navegador no soporta la reproducción de audio.
-                            </audio>
-                            <p>Nombre de la cancion</p>
+                            <c:choose>
+                                <c:when test="${requestScope.musica.nombre == 'Ninguna'}">
+                                    <p>Ahora mismo no hay musica puesta</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p>Ahora mismo está sonando:</p>
+                                    <audio id="reproductorCancion">
+                                        <source src="${requestScope.musica.nombre}.mp3" type="audio/mpeg">
+                                        Tu navegador no soporta la reproducción de audio.
+                                    </audio>
+                                    <p>${requestScope.musica.nombre}</p>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
-                        <c:if test="${requestScope.rol == 'Dungeon Master'}">
-                            <div class="botonesAudio">
+                        <div class="botonesAudio">
+                            <c:if test="${requestScope.musica.nombre != 'Ninguna'}">
                                 <button type="button" onclick="ajustarVolumen(-0.1)">Disminuir volumen</button>
                                 <button type="button" onclick="ajustarVolumen(+0.1)">Aumentar volumen</button>
+                            </c:if>
+                            <c:if test="${requestScope.rol == 'Dungeon Master'}">
                                 <button type="button" onclick="mostrarRecuadro1()">Cambiar</button>
                                 <div class="opcionRecuadro" id="recuadro1" style="display: none;">
                                     <div class="contenidoRecuadro">
@@ -70,22 +82,29 @@
                                             <span class="cierreRecuadro" onclick="cerrarRecuadro1()">X</span>
                                         </div>
                                         <hr>
-                                        <form action="/submit-form" method="POST">
+                                        <form id="formMusica" action="/TFG/Chats/ChatMesaMusicaCambio" method="POST">
                                             <label for="opciones">Selecciona una opción:</label>
-                                            <select id="opciones" name="opciones">
-                                                <option value="Ninguna">Ninguna</option>
-                                                <option value="opcion2">Opción 2</option>
-                                                <option value="opcion3">Opción 3</option>
+                                            <select id="opcionMusica" name="opciones">
+                                                <option value="Ninguna"
+                                                        <c:if test="${requestScope.musica.nombre == 'Ninguna'}">selected</c:if>>
+                                                            Ninguna
+                                                </option>
+                                                <c:forEach var="musicaL" items="${listaMusica}">
+                                                    <option value="${musicaL.id}" 
+                                                            <c:if test="${requestScope.musica.nombre == musicaL.nombre}">selected</c:if>>
+                                                        ${musicaL.nombre}
+                                                    </option>
+                                                </c:forEach>
                                             </select>
                                             <button type="submit">Enviar</button>
                                             <button class="botonDentro" type="button" onclick="cerrarRecuadro1()">Volver</button>
                                         </form>
                                     </div>
                                 </div>
-                            </div>
-                        </c:if>
+                            </c:if>
+                        </div>
                     </div>
-                    <div class="listaChatMesa">
+                    <div class="listaChatMesa" id="tablaJugadores">
                         <table border="1">
                             <tr>
                                 <th>Jugador</th>
@@ -133,11 +152,11 @@
                                 <button type="button" onclick="mostrarRecuadro2()">Cambiar Descriptor</button>
                                 <div class="opcionRecuadro" id="recuadro2" style="display: none;">
                                     <div class="contenidoRecuadro">
-                                        <div class="tituloRecuadro">Añada la foto
+                                        <div class="tituloRecuadro">Añadir informacion
                                             <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
                                         </div>
                                         <hr>
-                                        <form id = "formRegistro" action="/TFG/Imagenes/actualizarFotoDescriptor" 
+                                        <form id = "formDescriptor" action="/TFG/Imagenes/actualizarFotoDescriptor" 
                                               method="POST" enctype="multipart/form-data">
                                             <input type="hidden" name="id" value="${requestScope.mesa.id}">
                                             <input class="botonDentro" type="file" name="imagen" id="imagen" accept="image/*">
@@ -156,7 +175,8 @@
                                         <div class="tituloRecuadro"> <label for="pointsHP">Puntos de vida Actual:</label>
                                             <span class="cierreRecuadro" onclick="cerrarRecuadro3()">X</span>
                                         </div>
-                                        <form id = formEstadisticas action="/TFG/Chats/ChatMesaPuntosVidaActualCambio?id=${requestScope.personajeactual.id}" method="POST">
+                                        <form id = "formVida" action="/TFG/Chats/ChatMesaPuntosVidaActualCambio" method="POST">
+                                            <input type="hidden" name="id" value="${requestScope.personajeactual.id}">
                                             <input type="number" id="pointsHP" name="puntosHP" min="0" required>
                                             <hr>
                                             <button type="submit" class="botonDentro" >Aceptar</button>
@@ -176,7 +196,7 @@
             let chatM = '${requestScope.mesa.id}';
         </script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script src="/TFG/js/chats/mesaChatJS.js"></script>
+        <script src="/TFG/js/chats/mesasChatJS.js"></script>
         <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
         <script src="/TFG/js/principalJS.js"></script>
     </body>

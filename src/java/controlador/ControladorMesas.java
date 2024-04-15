@@ -70,6 +70,7 @@ public class ControladorMesas extends HttpServlet {
         TypedQuery<Pertenecemesa> queryPertenecemesas;
         TypedQuery<Usuarios> queryUsuarios;
         TypedQuery<Personajes> queryPersonajes;
+        TypedQuery<Musica> queryMusica;
 
         Query queryAUX;
 
@@ -79,6 +80,7 @@ public class ControladorMesas extends HttpServlet {
         List<Pertenecemesa> listaPerteneceMesa;
         List<Mesas> listaMesas;
         List<Personajes> listaPersonajes;
+        List<Musica> listaMusica;
 
         String personaje_id;
 
@@ -1192,9 +1194,13 @@ public class ControladorMesas extends HttpServlet {
                             listaPersonajes.add(listaPerteneceMesa.get(i).getPersonajemesa());
                         }
 
-                        //Audio
-                        //NPC
-                        //rol = Dungeon Master
+                        queryMusica = em.createNamedQuery("Musica.findAll", Musica.class);
+                        listaMusica = queryMusica.getResultList();
+
+
+                        request.setAttribute("descriptor", pmesa.getMesas().getDescriptormesa());
+                        request.setAttribute("musica", pmesa.getMesas().getMusicaList().get(0));
+                        request.setAttribute("listaMusica", listaMusica);
                         request.setAttribute("listaUsuariosRol", listaPerteneceMesa);
                         request.setAttribute("listaPersonajes", listaPersonajes);
                         request.setAttribute("listaUsuarios", listaUsuarios);

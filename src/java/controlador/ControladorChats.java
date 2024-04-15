@@ -576,17 +576,21 @@ public class ControladorChats extends HttpServlet {
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
-                    id = request.getParameter("busqueda");
+                    id = request.getParameter("mesa");
 
                     queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
                     queryMesas.setParameter("id", id);
                     try {
                         //HAY QUE ORDENARLOS POR FECHA SI O SI
                         mesa = queryMesas.getSingleResult();
-                        queryMensajesMesas = em.createNamedQuery("Mensajesmesas.findByMesa", Mensajesmesas.class);
-                        queryMensajesMesas.setParameter("mesa", mesa);
-                        listaMensajesMesaOrdenados = queryMensajesMesas.getResultList();
-                        
+
+                        sql = "SELECT m.* FROM Mensajesmesas m"
+                                + " WHERE m.mesa = '" + id + "' "
+                                + " ORDER BY m.fecha";
+
+                        queryAUX = em.createNativeQuery(sql, Mensajesmesas.class);
+                        listaMensajesMesaOrdenados = queryAUX.getResultList();
+
                         for (int i = 0; i < listaMensajesMesaOrdenados.size(); i++) {
                             msjM = listaMensajesMesaOrdenados.get(i);
                             if (i > 0) {
@@ -608,12 +612,12 @@ public class ControladorChats extends HttpServlet {
                                         + "-" + (msjM.getFecha().getYear() + 1900)
                                         + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
                             }
-                            
+
                             queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                             queryPertenecemesas.setParameter("usuario", msjM.getEscritor().getId());
                             queryPertenecemesas.setParameter("mesa", id);
                             pmesa = queryPertenecemesas.getSingleResult();
-                            
+
                             if (pmesa.getRol().equals("Dungeon Master")) {
 
                                 resultado
@@ -629,7 +633,7 @@ public class ControladorChats extends HttpServlet {
                                             + pmesa.getUsuarios().getApodo()
                                             + " - "
                                             + msjM.getHora();
-                                            
+
                                 } else {
                                     resultado
                                             = resultado
@@ -762,7 +766,7 @@ public class ControladorChats extends HttpServlet {
 
                     try {
                         sql = "SELECT DISTINCT m.* FROM Mensajesmesas m"
-                                + " WHERE m.mesa = '" + id + "' "
+                                + " WHERE m.mesa = " + id
                                 + " AND m.fecha >= TO_DATE('" + fechaFormateada + "00:00:00', 'YYYY-MM-DD HH24:MI:SS')"; // Fecha de inicio del día
 
                         queryAUX = em.createNativeQuery(sql, Mensajesmesas.class);
@@ -785,7 +789,7 @@ public class ControladorChats extends HttpServlet {
 
                         sql = "SELECT m.* FROM Mensajesmesas m"
                                 + " WHERE m.escritor = '" + user.getId() + "' "
-                                + " and m.mesa = '" + id + "' "
+                                + " and m.mesa = " + id
                                 + " and m.fecha >= TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
                                 + " ORDER BY m.fecha";
 
@@ -798,7 +802,7 @@ public class ControladorChats extends HttpServlet {
 
                         sql = "SELECT m.* FROM Mensajesmesas m"
                                 + " WHERE m.escritor != '" + user.getId() + "' "
-                                + " and m.mesa = '" + id + "' "
+                                + " and m.mesa = " + id
                                 + " and m.fecha > TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
                                 + " ORDER BY m.fecha";
 
@@ -857,14 +861,6 @@ public class ControladorChats extends HttpServlet {
                                             + "-" + (msjM.getFecha().getYear() + 1900)
                                             + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
                                 }
-                            } else {
-                                resultado
-                                        = resultado
-                                        + "<p style =\"color: yellow;\">"
-                                        + msjM.getFecha().getDate()
-                                        + "-" + (msjM.getFecha().getMonth() + 1)
-                                        + "-" + (msjM.getFecha().getYear() + 1900)
-                                        + "</p><hr style=\"border: none; height: 2px; background-color: yellow;\">";
                             }
                             queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                             queryPertenecemesas.setParameter("usuario", msjM.getEscritor().getId());
@@ -876,25 +872,28 @@ public class ControladorChats extends HttpServlet {
                                         = resultado
                                         + "<p style=\"color: purple;\">"
                                         + "Dungeon Master - "
-                                        + msjM.getHora()
-                                        + "</p>";
+                                        + msjM.getHora();
                             } else {
                                 if (pmesa.getPersonajemesa() == null) {
                                     resultado
                                             = resultado
                                             + "<p>"
                                             + pmesa.getUsuarios().getApodo()
-                                            + " - " + msjM.getMensaje()
-                                            + "</p>";
+                                            + " - "
+                                            + msjM.getHora();
+
                                 } else {
                                     resultado
                                             = resultado
                                             + "<p>"
                                             + pmesa.getPersonajemesa().getNombre()
-                                            + " - " + msjM.getMensaje()
-                                            + "</p>";
+                                            + " - "
+                                            + msjM.getHora();
                                 }
                             }
+                            resultado = resultado
+                                    + " - " + msjM.getMensaje()
+                                    + "</p>";
                         }
                         //Si no hay ningun mensaje, borramos resultado
                         if (listaMensajesMesaOrdenados.isEmpty()) {
@@ -1046,14 +1045,18 @@ public class ControladorChats extends HttpServlet {
                         queryMesas.setParameter("id", id);
                         mesa = queryMesas.getSingleResult();
 
-                        resultado
-                                = "<p>Ahora mismo está sonando:</p>"
-                                + "<audio id=\"reproductorCancion\">"
-                                + "<source src=\"" + mesa.getMusicaList().get(0).getNombre() + ".mp3\" type=\"audio/mpeg\">"
-                                + "Tu navegador no soporta la reproducción de audio."
-                                + "</audio>\n"
-                                + "<p>" + mesa.getMusicaList().get(0).getNombre() + "</p>";
-
+                        if (mesa.getMusicaList().get(0).getNombre().equals("Ninguna")) {
+                            resultado
+                                    = "<p>Ahora mismo no hay musica puesta</p>";
+                        } else {
+                            resultado
+                                    = "<p>Ahora mismo está sonando:</p>"
+                                    + "<audio id=\"reproductorCancion\">"
+                                    + "<source src=\"" + mesa.getMusicaList().get(0).getNombre() + ".mp3\" type=\"audio/mpeg\">"
+                                    + "Tu navegador no soporta la reproducción de audio."
+                                    + "</audio>\n"
+                                    + "<p>" + mesa.getMusicaList().get(0).getNombre() + "</p>";
+                        }
                     } catch (Exception ex) {
 
                         resultado = "";
@@ -1076,8 +1079,8 @@ public class ControladorChats extends HttpServlet {
                         queryMesas.setParameter("id", id);
                         mesa = queryMesas.getSingleResult();
 
-                        queryMusica = em.createNamedQuery("Musica.findByNombre", Musica.class);
-                        queryMusica.setParameter("id", id);
+                        queryMusica = em.createNamedQuery("Musica.findById", Musica.class);
+                        queryMusica.setParameter("id", nombre);
                         musica = queryMusica.getSingleResult();
 
                         listaMusica = new ArrayList();
