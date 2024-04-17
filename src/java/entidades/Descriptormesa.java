@@ -1,4 +1,3 @@
-
 package entidades;
 
 import java.io.Serializable;
@@ -51,6 +50,13 @@ public class Descriptormesa implements Serializable {
 
     public Descriptormesa(String mesa) {
         this.mesa = mesa;
+    }
+
+    public Descriptormesa(String mesa, byte[] imagendescriptor, String descripcion) {
+        this.mesa = mesa;
+        this.imagendescriptor = imagendescriptor;
+        this.descripcion = descripcion;
+
     }
 
     public byte[] getImagendescriptor() {
@@ -109,5 +115,5 @@ public class Descriptormesa implements Serializable {
     public String toString() {
         return "entidades.Descriptormesa[ mesa=" + mesa + " ]";
     }
-    
+
 }

@@ -12,6 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -33,6 +34,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Musica.findByNombre", query = "SELECT m FROM Musica m WHERE m.nombre = :nombre")})
 public class Musica implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 150)
+    @Column(name = "NOMBRE", nullable = false, length = 150)
+    private String nombre;
+    @OneToMany(mappedBy = "musica")
+    private List<Musicamesa> musicamesaList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -40,11 +49,6 @@ public class Musica implements Serializable {
     @Size(min = 1, max = 36)
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
-    @Column(name = "NOMBRE", nullable = false, length = 150)
-    private String nombre;
     @JoinTable(name = "MUSICAMESA", joinColumns = {
         @JoinColumn(name = "MUSICA", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "MESA", referencedColumnName = "ID", nullable = false)})
@@ -71,13 +75,6 @@ public class Musica implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     @XmlTransient
     public List<Mesas> getMesasList() {
@@ -111,6 +108,23 @@ public class Musica implements Serializable {
     @Override
     public String toString() {
         return "entidades.Musica[ id=" + id + " ]";
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @XmlTransient
+    public List<Musicamesa> getMusicamesaList() {
+        return musicamesaList;
+    }
+
+    public void setMusicamesaList(List<Musicamesa> musicamesaList) {
+        this.musicamesaList = musicamesaList;
     }
     
 }

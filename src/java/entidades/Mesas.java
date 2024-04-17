@@ -67,8 +67,8 @@ public class Mesas implements Serializable {
     @Lob()
     @Column(name = "IMAGENMESA")
     private byte[] imagenmesa;
-    @ManyToMany(mappedBy = "mesasList")
-    private List<Musica> musicaList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "mesas")
+    private Musicamesa musicamesa;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "mesas")
     private Descriptormesa descriptormesa;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mesas")
@@ -80,7 +80,7 @@ public class Mesas implements Serializable {
     @GeneratedValue
     @Column(name = "ID")
     private String id;
-    
+
     public Mesas() {
     }
 
@@ -119,12 +119,14 @@ public class Mesas implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -137,23 +139,44 @@ public class Mesas implements Serializable {
         }
         return true;
     }
+
     @Override
     public String toString() {
         return "entidades.Mesas[ id=" + id + " ]";
     }
+
     @XmlTransient
     public List<Pertenecemesa> getPertenecemesaList() {
         return pertenecemesaList;
     }
+
     public void setPertenecemesaList(List<Pertenecemesa> pertenecemesaList) {
         this.pertenecemesaList = pertenecemesaList;
     }
+
     @XmlTransient
     public List<Mensajesmesas> getMensajesmesasList() {
         return mensajesmesasList;
     }
+
     public void setMensajesmesasList(List<Mensajesmesas> mensajesmesasList) {
         this.mensajesmesasList = mensajesmesasList;
+    }
+
+    public Integer getTamano() {
+        return tamano;
+    }
+
+    public void setTamano(Integer tamano) {
+        this.tamano = tamano;
+    }
+
+    public Descriptormesa getDescriptormesa() {
+        return descriptormesa;
+    }
+
+    public void setDescriptormesa(Descriptormesa descriptormesa) {
+        this.descriptormesa = descriptormesa;
     }
 
     public String getCreador() {
@@ -180,14 +203,6 @@ public class Mesas implements Serializable {
         this.contrasena = contrasena;
     }
 
-    public Integer getTamano() {
-        return tamano;
-    }
-
-    public void setTamano(Integer tamano) {
-        this.tamano = tamano;
-    }
-
     public String getTitulo() {
         return titulo;
     }
@@ -204,29 +219,20 @@ public class Mesas implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public byte[] getImagenmesa() {
+    public byte[]  getImagenmesa() {
         return imagenmesa;
     }
 
-    public void setImagenmesa(byte[] imagenmesa) {
+    public void setImagenmesa(byte[]  imagenmesa) {
         this.imagenmesa = imagenmesa;
     }
 
-    @XmlTransient
-    public List<Musica> getMusicaList() {
-        return musicaList;
+    public Musicamesa getMusicamesa() {
+        return musicamesa;
     }
 
-    public void setMusicaList(List<Musica> musicaList) {
-        this.musicaList = musicaList;
-    }
-
-    public Descriptormesa getDescriptormesa() {
-        return descriptormesa;
-    }
-
-    public void setDescriptormesa(Descriptormesa descriptormesa) {
-        this.descriptormesa = descriptormesa;
+    public void setMusicamesa(Musicamesa musicamesa) {
+        this.musicamesa = musicamesa;
     }
 
 }

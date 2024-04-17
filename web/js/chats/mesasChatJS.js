@@ -1,13 +1,22 @@
 
+let musicaActual = document.getElementById("opcionMusica").value;
+let reproductor = document.getElementById("reproductorCancion");
+let cambio;
+if (reproductor !== null && reproductor !== undefined) {
+    reproductor.play();
+}
+
 function ajustarVolumen(volumen) {
     let audio = document.getElementById('reproductorCancion');
-    if ((!(audio.volume === 1.0 && volumen === +0.1) && !(audio.volume === 0.0 && volumen === -0.1))) {
-        audio.volume = audio.volume + volumen;
-        if (audio.volume < 1) {
-            audio.volume = 0;
-        }
-    }
+
+    // Verificar si el volumen está dentro del rango permitido (entre 0 y 1)
+    let nuevoVolumen = audio.volume + volumen;
+    nuevoVolumen = Math.max(0, Math.min(1, nuevoVolumen));
+
+    // Asignar el nuevo volumen al elemento de audio
+    audio.volume = nuevoVolumen;
 }
+
 
 
 
@@ -116,12 +125,13 @@ function enviarTirada() {
 ///////////////Descriptor////////////
 /////////////////////////////////////
 
-document.getElementById("formDescriptor").addEventListener("submit", function (event) {
-    event.preventDefault(); 
-    clearTimeout(timeoutDescriptor);
-    recargaDescriptor();
-});
-
+if (rol === "Dungeon Master") {
+    document.getElementById("formDescriptor").addEventListener("submit", function (event) {
+        clearTimeout(timeoutDescriptor);
+        recargaDescriptor();
+        cerrarRecuadro2();
+    });
+}
 
 function recargaDescriptor() {
 
@@ -149,17 +159,20 @@ function recargaDescriptor() {
 /////////////Vida Actual/////////////
 /////////////////////////////////////
 
-document.getElementById("formVida").addEventListener("submit", function (event) {
-    event.preventDefault();
-    clearTimeout(timeoutVida);
-    recargaVida();
-});
+if (rol !== "Dungeon Master") {
+
+    document.getElementById("formVida").addEventListener("submit", function (event) {
+        clearTimeout(timeoutVida);
+        recargaVida();
+        cerrarRecuadro3();
+    });
+}
 
 function recargaVida() {
 
     let jugadoresChat = document.getElementById('tablaJugadores');
 
-    let urlAJAX = "/TFG/Chats/ChatDescripcionMesa";
+    let urlAJAX = "/TFG/Chats/ChatMesaPuntosVidaActual";
     // Realizar la solicitud AJAX
     $.ajax({
         type: "GET",
@@ -181,12 +194,16 @@ function recargaVida() {
 ////////////////Musica///////////////
 /////////////////////////////////////
 
-function recargaMusica() {
+document.getElementById("formMusica").addEventListener("submit", function (event) {
+    event.preventDefault();
+    cambioMusica();
+});
 
-    let musicaChat = document.getElementById('contenedorCancion');
+function cambioMusica() {
+
     let musica = document.getElementById('opcionMusica').value;
 
-    let urlAJAX = "/TFG/Chats/ChatMesaMusica";
+    let urlAJAX = "/TFG/Chats/ChatMesaMusicaCambio";
     // Realizar la solicitud AJAX
     $.ajax({
         type: "GET",
@@ -195,8 +212,63 @@ function recargaMusica() {
         dataType: "text",
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         success: function (data) {
-            musicaChat.innerHTML = data;
-            timeoutMusica = setTimeout(bucleMusica, 5000);
+            clearTimeout(timeoutMusica);
+            recargaMusica();
+        },
+        error: function (error) {
+            console.error("Error en la solicitud AJAX:", error);
+        }
+    });
+
+    cerrarRecuadro();
+}
+
+function recargaMusica() {
+
+    let urlAJAX = "/TFG/Chats/ChatMesaMusica";
+    // Realizar la solicitud AJAX
+    $.ajax({
+        type: "GET",
+        url: urlAJAX,
+        data: {mesa: chatM},
+        dataType: "text",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        success: function (data) {
+
+            cambio = data;
+            comprobarMusica();
+            timeoutMusica = setTimeout(bucleMusica, 5000);// Obtener el elemento de audio
+
+        },
+        error: function (error) {
+            console.error("Error en la solicitud AJAX:", error);
+        }
+    });
+}
+
+function comprobarMusica() {
+    let musicaChat = document.getElementById('contenedorCancion');
+
+    let urlAJAX = "/TFG/Chats/ChatMesaMusicaActual";
+    // Realizar la solicitud AJAX
+    $.ajax({
+        type: "GET",
+        url: urlAJAX,
+        data: {mesa: chatM},
+        dataType: "text",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        success: function (data) {
+            
+            let musicAux = data;
+            if (musicAux === musicaActual) {
+
+            } else {
+                musicaActual = musicAux;
+                musicaChat.innerHTML = cambio;
+                reproductor = document.getElementById("reproductorCancion");
+                reproductor.play();
+            }
+
         },
         error: function (error) {
             console.error("Error en la solicitud AJAX:", error);
@@ -247,5 +319,6 @@ function bucleMusica() {
 cargaChat();
 
 timeoutChat = setTimeout(bucleChat, 5000);
-timeoutDescriptor = setTimeout(bucleDescriptor,5000);
+timeoutDescriptor = setTimeout(bucleDescriptor, 5000);
 timeoutVida = setTimeout(bucleVida, 5000);
+timeoutMusica = setTimeout(bucleMusica, 5000);

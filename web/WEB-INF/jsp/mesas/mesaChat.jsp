@@ -21,7 +21,7 @@
                                     <img src="/TFG/img/iconos/IMGNEGRO.png">
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="${requestScope.urlImagenes[status.index]}">
+                                    <img src="/TFG/Imagenes/mostrarImagenDescriptor?id=${requestScope.descriptor.mesa}">
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -58,11 +58,14 @@
                             <c:choose>
                                 <c:when test="${requestScope.musica.nombre == 'Ninguna'}">
                                     <p>Ahora mismo no hay musica puesta</p>
+                                    <audio id="reproductorCancion">
+                                        <source id="cancion" src="/TFG/musica/${requestScope.musica.nombre}.mp3" type="audio/mpeg">
+                                    </audio>
                                 </c:when>
                                 <c:otherwise>
                                     <p>Ahora mismo está sonando:</p>
-                                    <audio id="reproductorCancion">
-                                        <source src="${requestScope.musica.nombre}.mp3" type="audio/mpeg">
+                                    <audio id="reproductorCancion" name="${requestScope.musica.nombre}" >
+                                        <source id="cancion" src="/TFG/musica/${requestScope.musica.nombre}.mp3" type="audio/mpeg">
                                         Tu navegador no soporta la reproducción de audio.
                                     </audio>
                                     <p>${requestScope.musica.nombre}</p>
@@ -71,24 +74,20 @@
                         </div>
                         <div class="botonesAudio">
                             <c:if test="${requestScope.musica.nombre != 'Ninguna'}">
-                                <button type="button" onclick="ajustarVolumen(-0.1)">Disminuir volumen</button>
-                                <button type="button" onclick="ajustarVolumen(+0.1)">Aumentar volumen</button>
+                                <button type="button" class="boton" onclick="ajustarVolumen(-0.1)">Disminuir volumen</button>
+                                <button type="button" class="boton" onclick="ajustarVolumen(+0.1)">Aumentar volumen</button>
                             </c:if>
-                            <c:if test="${requestScope.rol == 'Dungeon Master'}">
-                                <button type="button" onclick="mostrarRecuadro1()">Cambiar</button>
-                                <div class="opcionRecuadro" id="recuadro1" style="display: none;">
-                                    <div class="contenidoRecuadro">
-                                        <div class="tituloRecuadro">Eliga la Musica
-                                            <span class="cierreRecuadro" onclick="cerrarRecuadro1()">X</span>
-                                        </div>
-                                        <hr>
-                                        <form id="formMusica" action="/TFG/Chats/ChatMesaMusicaCambio" method="POST">
-                                            <label for="opciones">Selecciona una opción:</label>
-                                            <select id="opcionMusica" name="opciones">
-                                                <option value="Ninguna"
-                                                        <c:if test="${requestScope.musica.nombre == 'Ninguna'}">selected</c:if>>
-                                                            Ninguna
-                                                </option>
+                            <button type="button" class="botonfinal" onclick="mostrarRecuadro()
+                                    <c:if test="${requestScope.rol != 'Dungeon Master'}">  style ="display: none;"</c:if>">Cambiar</button>
+                                    <div class="opcionRecuadro" id="recuadro" style="display: none;">
+                                        <div class="contenidoRecuadro">
+                                            <div class="tituloRecuadro">Eliga la Musica
+                                                <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
+                                            </div>
+                                            <hr>
+                                            <form id="formMusica" method="POST">
+                                                <label for="opciones">Selecciona una musica:</label>
+                                                <select id="opcionMusica" name="opciones">
                                                 <c:forEach var="musicaL" items="${listaMusica}">
                                                     <option value="${musicaL.id}" 
                                                             <c:if test="${requestScope.musica.nombre == musicaL.nombre}">selected</c:if>>
@@ -96,12 +95,12 @@
                                                     </option>
                                                 </c:forEach>
                                             </select>
-                                            <button type="submit">Enviar</button>
-                                            <button class="botonDentro" type="button" onclick="cerrarRecuadro1()">Volver</button>
+                                            <input class="botonDentro" type="submit" value="Elegir">
+                                            <button class="botonDentro" type="button" onclick="cerrarRecuadro()">Volver</button>
                                         </form>
                                     </div>
-                                </div>
-                            </c:if>
+                            </div>
+
                         </div>
                     </div>
                     <div class="listaChatMesa" id="tablaJugadores">
@@ -118,7 +117,7 @@
                                     <c:choose>
                                         <c:when test="${personaje != null}">
                                             <c:choose>
-                                                <c:when test="${requestScope.listaUsuariosRol[status.index].rol != 'Dungeon Master'}">º
+                                                <c:when test="${requestScope.listaUsuariosRol[status.index].rol != 'Dungeon Master'}">
                                                     <td>${requestScope.listaUsuarios[status.index].apodo}</td>
                                                     <td>${personaje.nombre}</td>
                                                     <td>${personaje.clase.nombre}</td>
@@ -149,27 +148,27 @@
                     <div class="contenedorBotonesMesaChat">
                         <c:choose>
                             <c:when test="${requestScope.rol == 'Dungeon Master'}">
-                                <button type="button" onclick="mostrarRecuadro2()">Cambiar Descriptor</button>
+                                <button type="button" class="boton" onclick="mostrarRecuadro2()">Cambiar Descriptor</button>
                                 <div class="opcionRecuadro" id="recuadro2" style="display: none;">
                                     <div class="contenidoRecuadro">
                                         <div class="tituloRecuadro">Añadir informacion
                                             <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
                                         </div>
                                         <hr>
-                                        <form id = "formDescriptor" action="/TFG/Imagenes/actualizarFotoDescriptor" 
+                                        <form id = "formDescriptor" action="/TFG/Imagenes/actualizarFotoyDescripcionDescriptor" 
                                               method="POST" enctype="multipart/form-data">
                                             <input type="hidden" name="id" value="${requestScope.mesa.id}">
                                             <input class="botonDentro" type="file" name="imagen" id="imagen" accept="image/*">
-                                            <textarea id="id" name="descripcion" rows="5" cols="10"></textarea>
+                                            <textarea id="descripcion" name="descripcion" rows="5" cols="10"></textarea>
                                             <br>
-                                            <button class="botonDentro" type="submit">Actualizar</button>
+                                            <input class="botonDentro" type="submit" value="Actualizar">
                                             <button class="botonDentro" type="button" onclick="cerrarRecuadro2()">Volver</button>
                                         </form>
                                     </div>
                                 </div>
                             </c:when>
                             <c:otherwise>
-                                <button type="button" onclick="mostrarRecuadro3()">Cambiar Vida</button>
+                                <button type="button" class="boton" onclick="mostrarRecuadro3()">Cambiar Vida</button>
                                 <div class="opcionRecuadro" id="recuadro3" style="display: none;">
                                     <div class="contenidoRecuadro">
                                         <div class="tituloRecuadro"> <label for="pointsHP">Puntos de vida Actual:</label>
@@ -179,7 +178,7 @@
                                             <input type="hidden" name="id" value="${requestScope.personajeactual.id}">
                                             <input type="number" id="pointsHP" name="puntosHP" min="0" required>
                                             <hr>
-                                            <button type="submit" class="botonDentro" >Aceptar</button>
+                                            <input class="botonDentro" type="submit" value="Actualizar">
                                             <button type="button" class="botonDentro" onclick="cerrarRecuadro3()">Volver</button>
                                         </form>
                                     </div>
@@ -194,6 +193,7 @@
         <jsp:include page="/WEB-INF/jsp/footerNoChat.jsp" />
         <script>
             let chatM = '${requestScope.mesa.id}';
+            let rol = '${requestScope.rol}';
         </script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="/TFG/js/chats/mesasChatJS.js"></script>

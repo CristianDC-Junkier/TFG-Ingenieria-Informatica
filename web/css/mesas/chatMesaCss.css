@@ -13,13 +13,9 @@
     background-color: #ddd;
     display: flex;
     justify-content: space-around;
-
-
 }
 
 /******IZQUIERDA*******/
-
-
 
 .contedorDescriptor {
     display: flex;
@@ -84,6 +80,21 @@
 }
 
 /******DERECHA******/
+
+#descripcion {
+    display: block;
+    margin-top: 10px;
+    resize: none;
+    width: 73vmin;
+    height: 10em;
+}
+#imagen{
+    margin: 1px;
+    font-size: 10px;
+    width: 73vmin;
+}
+
+
 .derechaChatMesaChatMesa {
 }
 

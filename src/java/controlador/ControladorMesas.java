@@ -2,6 +2,7 @@ package controlador;
 
 import entidades.Mesas;
 import entidades.Musica;
+import entidades.Musicamesa;
 import entidades.Personajes;
 import entidades.Pertenecemesa;
 import entidades.Usuarios;
@@ -206,6 +207,9 @@ public class ControladorMesas extends HttpServlet {
                             //////////CREAMOS/////////
                             //////////////////////////
                             mesa = new Mesas(creador, comunidad, tamano, titulo, descripcion, contrasenahash);
+
+                            mesa.setMusicamesa(new Musicamesa(mesa.getId(),new Musica("561F81109A494CECB61DC8FDB9ECAF02", "Ninguna")));
+
                             persist(mesa);
                             System.out.println("Registrada la mesa: " + titulo);
                             conseguido = true;
@@ -1197,9 +1201,8 @@ public class ControladorMesas extends HttpServlet {
                         queryMusica = em.createNamedQuery("Musica.findAll", Musica.class);
                         listaMusica = queryMusica.getResultList();
 
-
                         request.setAttribute("descriptor", pmesa.getMesas().getDescriptormesa());
-                        request.setAttribute("musica", pmesa.getMesas().getMusicaList().get(0));
+                        request.setAttribute("musica", pmesa.getMesas().getMusicamesa().getMusica());
                         request.setAttribute("listaMusica", listaMusica);
                         request.setAttribute("listaUsuariosRol", listaPerteneceMesa);
                         request.setAttribute("listaPersonajes", listaPersonajes);

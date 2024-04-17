@@ -141,7 +141,7 @@ public class ControladorImagenes extends HttpServlet {
                     cambiarVista = false;
                 }
                 break;
-            case "/actualizarFotoDescripcionDescriptor":
+            case "/actualizarFotoyDescripcionDescriptor":
                 /////////////////////////
                 /////////SESION//////////
                 /////////////////////////
@@ -149,10 +149,6 @@ public class ControladorImagenes extends HttpServlet {
                 user = (Usuarios) session.getAttribute("user");
 
                 descripcion = request.getParameter("descripcion");
-
-                /////////////////////////////
-                /////////ERES EL DM//////////
-                /////////////////////////////
                 id = request.getParameter("id");
 
                 try {
@@ -165,6 +161,9 @@ public class ControladorImagenes extends HttpServlet {
                     queryPertenecemesa.setParameter("mesa", id);
                     pmesa = queryPertenecemesa.getSingleResult();
 
+                    /////////////////////////////
+                    /////////ERES EL DM//////////
+                    /////////////////////////////
                     if (!pmesa.getRol().equals("Dungeon Master")) {
                         vista = "/TFG/Principal/inicio";
                     } else {
@@ -176,7 +175,6 @@ public class ControladorImagenes extends HttpServlet {
                         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                         byte[] buffer = new byte[4096];
                         int bytesRead;
-
                         while ((bytesRead = fileContent.read(buffer)) != -1) {
                             byteArrayOutputStream.write(buffer, 0, bytesRead);
                         }
@@ -184,13 +182,12 @@ public class ControladorImagenes extends HttpServlet {
                         //Convertir el contenido a un array de bytes
                         imageData = byteArrayOutputStream.toByteArray();
 
-                        mesa.getDescriptormesa().setImagendescriptor(imageData);
-                        mesa.getDescriptormesa().setDescripcion(descripcion);
+                        mesa.setDescriptormesa(new Descriptormesa(mesa.getId(), imageData, descripcion));
 
                         updateMesas(mesa);
 
                         request.setAttribute("id", id);
-
+                        
                         vista = "/Mesas/mostrarMesaChat";
                     }
                 } catch (Exception ex) {

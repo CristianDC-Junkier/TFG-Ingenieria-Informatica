@@ -5,6 +5,7 @@ import entidades.Mensajesamigos;
 import entidades.Mensajesmesas;
 import entidades.Mesas;
 import entidades.Musica;
+import entidades.Musicamesa;
 import entidades.Personajes;
 import entidades.Pertenecemesa;
 import entidades.Usuarios;
@@ -920,13 +921,14 @@ public class ControladorChats extends HttpServlet {
                         ///////////////////////////////
                         //////PERTENECES A LA MESA/////
                         ///////////////////////////////
-                        id = request.getParameter("id");
+                        id = request.getParameter("mesa");
 
                         queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByUsuarioMesa", Pertenecemesa.class);
                         queryPertenecemesas.setParameter("usuario", user.getId());
                         queryPertenecemesas.setParameter("mesa", id);
 
                         try {
+
                             pmesa = queryPertenecemesas.getSingleResult();
 
                             resultado = "<table border=\"1\">"
@@ -947,7 +949,10 @@ public class ControladorChats extends HttpServlet {
 
                             for (int i = 0; i < listaPertenecemesa.size(); i++) {
 
+                                pmesa = listaPertenecemesa.get(i);
+
                                 resultado = resultado
+                                        + "<tr>"
                                         + "<td>" + pmesa.getUsuarios().getApodo() + "</td>";
 
                                 pmesa = listaPertenecemesa.get(i);
@@ -956,14 +961,15 @@ public class ControladorChats extends HttpServlet {
                                             + "<td>Dungeon Master</td>"
                                             + "<td>-</td>"
                                             + "<td>-</td>"
-                                            + "<td>-</td>";
+                                            + "<td>-</td>"
+                                            + "</tr>\n";
                                 } else if (pmesa.getPersonajemesa() != null) {
                                     resultado = resultado
-                                            + "<tr>"
                                             + "<td>" + pmesa.getPersonajemesa().getNombre() + "</td>\n"
                                             + "<td>" + pmesa.getPersonajemesa().getClase().getNombre() + "</td>\n"
                                             + "<td>" + pmesa.getPersonajemesa().getNivel() + "</td>\n"
-                                            + "<td><button  class=\"botonfinal\" onclick=\"location.href = '/TFG/Personajes/personaje?id=" + pmesa.getPersonajemesa().getId() + "'\">Detalles</button></td>";
+                                            + "<td><button  class=\"botonfinal\" onclick=\"location.href = '/TFG/Personajes/personaje?id=" + pmesa.getPersonajemesa().getId() + "'\">Detalles</button></td>"
+                                            + "</tr>\n";
                                 } else {
                                     resultado = resultado
                                             + "<td>-</td>\n"
@@ -979,6 +985,7 @@ public class ControladorChats extends HttpServlet {
                         } catch (Exception ex) {
                             resultado = "";
                         }
+
                     }
                     break;
                 case "/ChatMesaPuntosVidaActualCambio":
@@ -1017,13 +1024,23 @@ public class ControladorChats extends HttpServlet {
                         queryMesas.setParameter("id", id);
                         mesa = queryMesas.getSingleResult();
 
-                        resultado
-                                = "<div class=\"imagenNpc\">"
-                                + "<img src=\"/TFG/Imagenes/mostrarImagenDescriptor?id=" + mesa.getDescriptormesa().getMesa() + "\">"
-                                + "</div>"
-                                + "<div class=\"descripcionNpc\">"
-                                + mesa.getDescriptormesa().getDescripcion()
-                                + "</div>";
+                        if (mesa.getDescriptormesa() == null) {
+                            resultado
+                                    = "<div class=\"imagenDescriptor\">\n"
+                                    + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">\n"
+                                    + "</div>\n"
+                                    + "<div class=\"descripcionDescriptor\">\n"
+                                    + "<p></p>\n"
+                                    + "</div>";
+                        } else {
+                            resultado
+                                    = "<div class=\"imagenDescriptor\">"
+                                    + "<img src=\"/TFG/Imagenes/mostrarImagenDescriptor?id=" + mesa.getDescriptormesa().getMesa() + "\">"
+                                    + "</div>"
+                                    + "<div class=\"descripcionDescriptor\">"
+                                    + mesa.getDescriptormesa().getDescripcion()
+                                    + "</div>";
+                        }
 
                     } catch (Exception ex) {
 
@@ -1045,18 +1062,23 @@ public class ControladorChats extends HttpServlet {
                         queryMesas.setParameter("id", id);
                         mesa = queryMesas.getSingleResult();
 
-                        if (mesa.getMusicaList().get(0).getNombre().equals("Ninguna")) {
+                        if (mesa.getMusicamesa().getMusica().getNombre().equals("Ninguna")) {
                             resultado
-                                    = "<p>Ahora mismo no hay musica puesta</p>";
+                                    = "<p>Ahora mismo no hay musica puesta</p>"
+                                    + "<audio id=\"reproductorCancion\" name=\"" + mesa.getMusicamesa().getMusica().getNombre() + "\">"
+                                    + "<source id=\"cancion\"  src=\"/TFG/musica/" + mesa.getMusicamesa().getMusica().getNombre() + ".mp3\" type=\"audio/mpeg\">"
+                                    + "Tu navegador no soporta la reproducción de audio."
+                                    + "</audio>\n";
                         } else {
                             resultado
                                     = "<p>Ahora mismo está sonando:</p>"
-                                    + "<audio id=\"reproductorCancion\">"
-                                    + "<source src=\"" + mesa.getMusicaList().get(0).getNombre() + ".mp3\" type=\"audio/mpeg\">"
+                                    + "<audio id=\"reproductorCancion\" name=\"" + mesa.getMusicamesa().getMusica().getNombre() + "\">"
+                                    + "<source id=\"cancion\"  src=\"/TFG/musica/" + mesa.getMusicamesa().getMusica().getNombre() + ".mp3\" type=\"audio/mpeg\">"
                                     + "Tu navegador no soporta la reproducción de audio."
                                     + "</audio>\n"
-                                    + "<p>" + mesa.getMusicaList().get(0).getNombre() + "</p>";
+                                    + "<p>" + mesa.getMusicamesa().getMusica().getNombre() + "</p>";
                         }
+
                     } catch (Exception ex) {
 
                         resultado = "";
@@ -1082,13 +1104,32 @@ public class ControladorChats extends HttpServlet {
                         queryMusica = em.createNamedQuery("Musica.findById", Musica.class);
                         queryMusica.setParameter("id", nombre);
                         musica = queryMusica.getSingleResult();
-
-                        listaMusica = new ArrayList();
-                        listaMusica.add(musica);
-
-                        mesa.setMusicaList(listaMusica);
+                        
+                        mesa.setMusicamesa(new Musicamesa(mesa.getId(),musica));
 
                         updateMesas(mesa);
+
+                    } catch (Exception ex) {
+
+                        resultado = "";
+                    }
+
+                    System.out.println("PeticionAJAX Sale");
+
+                    break;
+                    case "/ChatMesaMusicaActual":
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    id = request.getParameter("mesa");
+
+                    try {
+                        queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                        queryMesas.setParameter("id", id);
+                        mesa = queryMesas.getSingleResult();
+                        
+                        resultado = mesa.getMusicamesa().getMusica().getId();
 
                     } catch (Exception ex) {
 
@@ -1165,7 +1206,7 @@ public class ControladorChats extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-
+    
     private void updatePersonajes(Object object) {
         try {
             utx.begin();
