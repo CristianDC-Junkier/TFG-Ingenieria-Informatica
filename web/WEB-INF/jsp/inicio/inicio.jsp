@@ -39,8 +39,12 @@
                         <img class="FotoInicio2" src="/TFG/img/luzpng.png" alt="alt"/>
                     </div>
                     <div class="TextoInicio">
-                        <p><button class="botonIntroducción" onclick="location.href = '/TFG/Principal/introduccion'"> Infórmate aquí</button>¿Qué es Dungeons & Dragons y como se juega?</p>
-                        <hr style="margin-left: -10px;">
+                        <p>¿Qué es Dungeons & Dragons y como se juega?</p>
+                        <button class="botonIntroducción" onclick="location.href = '/TFG/Principal/introduccion'"> Infórmate aquí</button>
+                        <c:if test="${sessionScope.user != null}">
+                            <button class="botonIntroducción" onclick="location.href = '/TFG/Foro/inicio'"> Visita nuestro foro</button>
+                        </c:if>
+                        <hr style="margin-left: -10px; margin-top: 10px;">
                         <p>¿Necesitas algo más?, No dudes en descargar el manual para todo</p>
                         <a href="/TFG/manual/ManualCasiTodo.pdf" download="Manual Casi Todo.pdf">Descargar archivo</a>
                     </div>
