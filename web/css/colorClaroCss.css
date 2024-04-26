@@ -2325,3 +2325,35 @@ input[type="button"]:active {
 #mensajeInput::placeholder {
     color: black;
 }
+
+/***************************************************************************************************/
+/*************************************************FORO**********************************************/
+/***************************************************************************************************/
+
+/**********************************************/
+/****************TEMAS Y SECCIONES*************/
+/**********************************************/
+
+.ListateraTipo > h3{
+    color:yellow;
+    background: #00aaaa;
+    border: solid 2px black;
+}
+.Resumentera{
+    border: 3px solid #00cccc;
+    background: #00aaaa;
+}
+
+.Resumentera img {
+    border-bottom: 3px solid #00cccc;
+}
+
+.Contenidotera {
+    background-color: #00aaaa;
+}
+.Contenidotera {
+    color: black;
+}
+
+
+

@@ -1618,7 +1618,6 @@ public class ControladorUsuarios extends HttpServlet {
             utx.begin();
             em.merge((Usuarios) object);
             utx.commit();
-            System.out.println("En principio actualizado");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

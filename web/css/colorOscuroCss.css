@@ -2326,3 +2326,31 @@ input[type="button"]:active {
 #mensajeInput::placeholder {
     color: black;
 }
+
+/***************************************************************************************************/
+/*************************************************FORO**********************************************/
+/***************************************************************************************************/
+
+/**********************************************/
+/****************TEMAS Y SECCIONES*************/
+/**********************************************/
+
+.ListateraTipo > h3{
+    color:yellowgreen;
+    background: brown;
+}
+.Resumentera{
+    border: 3px solid brown;
+    background: black;
+}
+
+.Resumentera img {
+    border-bottom: 3px solid brown;
+}
+
+.Contenidotera {
+    background-color: black;
+}
+.Contenidotera {
+    color: white;
+}

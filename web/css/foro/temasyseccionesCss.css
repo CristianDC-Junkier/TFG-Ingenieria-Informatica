@@ -1,0 +1,53 @@
+
+
+
+/********Lista temas y secciones******/
+
+.ListateraTipo{
+
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding-top: 20px;
+    max-width: 1200px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width: 600px){
+    .ListateraTipo{
+
+        margin-left: 110px;
+    }
+}
+    
+.Resumentera{
+
+    flex: 0 0 275px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.Resumentera img {
+
+    width: 100%;
+    height: auto;
+    margin-bottom: -6px;
+}
+
+.Contenidotera {
+
+    padding: 10px;
+}
+
+.Titulotera {
+
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.Contenidotera {
+    
+    font-size: 16px;
+}
+

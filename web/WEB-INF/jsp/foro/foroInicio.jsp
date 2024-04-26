@@ -7,16 +7,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/TFG/css/foro/foroInicioCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/foro/comunForoCss.css"/>
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
-        <h2 class="Titulos">Foro</h2>
+        <h2 class="Titulos" style="margin-right:10px">Foro<button class="botonArriba" onclick="location.href = '/TFG/Principal/inicio'">Volver</button></h2>
         <hr color="black">
         <div class="contenedorBusquedaForo">
             <div class="buscadorForo">
-                <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajesAmigos'">Mis Hilos</button>
-                <button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajesPerfil'">Hilos Comentados</button>
+                <button class="botonArriba" onclick="location.href = '/TFG//'">Mis Hilos</button>
+                <button class="botonArriba" onclick="location.href = '/TFG//'">Hilos Comentados</button>
             </div>
         </div>
         <div class="contenedorForo">

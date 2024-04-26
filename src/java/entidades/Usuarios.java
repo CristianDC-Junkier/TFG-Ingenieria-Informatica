@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -63,6 +65,7 @@ public class Usuarios implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHANAC", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechanac;
     @Basic(optional = false)
     @NotNull
@@ -78,6 +81,10 @@ public class Usuarios implements Serializable {
     @NotNull
     @Column(name = "ADMIN", nullable = false)
     private short admin;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creador")
+    private List<Hilo> hiloList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "escritor")
+    private List<Mensajehilo> mensajehiloList;
     @JoinColumn(name = "PERSONAJEACTUAL", referencedColumnName = "ID")
     @ManyToOne
     private Personajes personajeactual;
@@ -286,6 +293,12 @@ if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals
     public void setPersonajesList(List<Personajes> personajesList) {
         this.personajesList = personajesList;
     }
+    public Personajes getPersonajeactual() {
+        return personajeactual;
+    }
+    public void setPersonajeactual(Personajes personajeactual) {
+        this.personajeactual = personajeactual;
+    }
 
     public String getApodo() {
         return apodo;
@@ -351,11 +364,21 @@ if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals
         this.admin = admin;
     }
 
-    public Personajes getPersonajeactual() {
-        return personajeactual;
+    @XmlTransient
+    public List<Hilo> getHiloList() {
+        return hiloList;
     }
 
-    public void setPersonajeactual(Personajes personajeactual) {
-        this.personajeactual = personajeactual;
+    public void setHiloList(List<Hilo> hiloList) {
+        this.hiloList = hiloList;
+    }
+
+    @XmlTransient
+    public List<Mensajehilo> getMensajehiloList() {
+        return mensajehiloList;
+    }
+
+    public void setMensajehiloList(List<Mensajehilo> mensajehiloList) {
+        this.mensajehiloList = mensajehiloList;
     }
 }

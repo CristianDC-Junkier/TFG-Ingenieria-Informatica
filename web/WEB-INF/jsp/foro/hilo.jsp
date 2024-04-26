@@ -13,71 +13,35 @@
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
         <h2 class="Titulos">Hilo</h2>
+        <button class="botonDentro" onclick="">Volver</button>
         <hr color="black">
         <div class="contenedoresMesa"> 
             <div class="listasMesa" id="pestañasSeccion">
                 <div class="pestañasNavegacion">
                     <div class="pestaña" id="pestaña1">
                         <div class="listaMesa">
-                            <h3>Mesas</h3>
-                            <c:choose>
-                                <c:when test="${requestScope.orden == 'ordenar1'}">
-                                    <h4>Ordenado por nombre (A-Z)</h4>
-                                </c:when>
-                                <c:otherwise>
-                                    <h4>Ordenado por nombre (Z-A)</h4>
-                                </c:otherwise>
-                            </c:choose>
+                            <h3>${requestScope.hilo.tema.nombre}</h3>
+                            <h4>${requestScope.hilo.seccion.titulo}</h4>
                             <div class="diseñoTabla" id ="Tabla">
                                 <table>
-                                    <c:forEach var="mesa" items="${listaMesas}" varStatus="status">
+                                    <c:forEach var="mensaje" items="${listaMensajes}" varStatus="status">
                                         <tr>
-                                            <td><div class="mesa-foto">
-                                                    <c:choose>
-                                                        <c:when test="${mesa.imagenmesa == null}">
-                                                            <img src="/TFG/img/iconos/IMGNEGRO.png">
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <img src="${urlImagenes[status.index]}">
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </div></td>
-                                            <td>${mesa.titulo}</td>
-                                            <td>${mesa.comunidad}</td>
-                                            <td>${listacantidad[status.index]}/${mesa.tamano}</td>
-                                            <td>${mesa.creador}</td>
-                                            <c:choose>
-                                                <c:when test="${requestScope.lleno == 'true'}">
-                                                    <c:choose> 
-                                                        <c:when test="${mesa.contrasena != null}">
-                                                            <td>Con contraseña</td>
-                                                            <td>Esta llena</td>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <td>Sin contraseña</td>
-                                                            <td>Esta llena</td>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:choose> 
-                                                        <c:when test="${mesa.contrasena != null}">
-                                                            <td>Con contraseña</td>
-                                                            <td><button class="botonDentro" onclick="mostrarRecuadro()">Entrar</button></td>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <td>Sin contraseña</td>
-                                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/anadiraMesa?id=${mesa.id}&contrasena_anadirmesa='">Entrar</button></td>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:otherwise>
-                                            </c:choose>
-
+                                            <td>
+                                                <div class="mesa-foto">
+                                                    <img src="${urlImagenes[status.index]}">
+                                                </div>
+                                            </td>
+                                            <td>${mensaje.escritor.apodo}</td>
+                                            <td>${mensaje.fecha}</td>
+                                            <td>${mensaje.mensaje}</td>
+                                            <c:if test="${hilo.creador.id == requestSession.user.id || requestSession.user.admin == 1}">
+                                                <td><button class="botonDentro" onclick="">Eliminar</button></td>
+                                            </c:if>
                                         </tr>
                                         <div class="opcionRecuadro" id="recuadro" style="display: none;">
                                             <div class="contenidoRecuadro">
-                                                <form id = form  action="/TFG/Mesas/anadiraMesa?id=${mesa.id}" method="POST">
-                                                    <label class="tituloRecuadro" for="anadirMesa" id="titulodelRecuadro">Contraseña:</label>
+                                                <form id = form  action="" method="POST">
+                                                    <label class="tituloRecuadro" for="anadirMesa" id="titulodelRecuadro">¿Está seguro?</label>
                                                     <input class="recuadroDentro" type="password" id="anadirMesa" name="contrasena_anadirmesa" required>
                                                     <input class="botonDentro" type="submit" value="Aceptar">
                                                     <input class="botonDentro" type="button" onclick="cerrarRecuadro()" value="Volver">
@@ -99,11 +63,6 @@
     </main>
     <jsp:include page="/WEB-INF/jsp/footer.jsp" />
     <script>
-        //Recoger Datos
-        let orden = '<%= request.getAttribute("orden")%>';
-        let lleno = '<%= request.getAttribute("lleno")%>';
-        // Convertir el valor de mesa a un booleano
-        let llenoBool = '<%= request.getAttribute("lleno")%>' === 'true';
         //Datos de las páginas
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
