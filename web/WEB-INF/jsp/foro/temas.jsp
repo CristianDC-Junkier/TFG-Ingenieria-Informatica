@@ -14,41 +14,43 @@
     <main>
         <h2 class="Titulos" style="margin-right:10px">Temas <button class="botonArriba" onclick="location.href = '/TFG/Foro/inicio'">Volver</button></h2>
         <hr color="black">
-        <div class="buscadorForo">
-            <button class="botonArriba" onclick="mostrarRecuadro2()">Añadir</button>
-            <div class="opcionRecuadro" id="recuadro2" style="display: none;">
-                <div class="contenidoRecuadro">
-                    <div class="tituloRecuadro">Crea el Tema 
-                        <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
+        <c:if test="${sessionScope.user.admin == 1}">
+            <div class="buscadorForo">
+                <button class="botonArriba" onclick="mostrarRecuadro2()">Añadir</button>
+                <div class="opcionRecuadro" id="recuadro2" style="display: none;">
+                    <div class="contenidoRecuadro">
+                        <div class="tituloRecuadro">Crea el Tema 
+                            <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
+                        </div>
+                        <form id = "formRegistro" action="/TFG/Foro/añadirTema" method="POST">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                            <br>
+                            <input class="botonDentro" type="submit" value="Crear">
+                            <button class="botonDentro" onclick="cerrarRecuadro2()">Salir</button>
+                        </form>
                     </div>
-                    <form id = "formRegistro" action="/TFG/Foro/añadirTema" method="POST">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" required>
-                        <br>
-                        <input class="botonDentro" type="submit" value="Crear">
-                        <button class="botonDentro" onclick="cerrarRecuadro2()">Salir</button>
-                    </form>
+                </div>
+                <button  class="botonArriba" onclick="mostrarRecuadro()">Eliminar</button>
+                <div class="opcionRecuadro" id="recuadro" style="display: none;">
+                    <div class="contenidoRecuadro">
+                        <div class="tituloRecuadro">¿Está seguro de que quieres Borrarlo?
+                            <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
+                        </div>
+                        <form id = "formRegistro" action="/TFG/Foro/eliminarTema" method="POST">
+                            <select id="selectSeccion" name="tema">
+                                <c:forEach var="tema" items="${listaTemas}" varStatus="status">
+                                    <option value="${tema.id}">${tema.nombre}</option>
+                                </c:forEach>
+                            </select>
+                            <br>
+                            <input class="botonDentro" type="submit" value="Si">
+                            <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <button  class="botonArriba" onclick="mostrarRecuadro()">Eliminar</button>
-            <div class="opcionRecuadro" id="recuadro" style="display: none;">
-                <div class="contenidoRecuadro">
-                    <div class="tituloRecuadro">¿Está seguro de que quieres Borrarlo?
-                        <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
-                    </div>
-                    <form id = "formRegistro" action="/TFG/Foro/eliminarTema" method="POST">
-                        <select id="selectSeccion" name="tema">
-                            <c:forEach var="tema" items="${listaTemas}" varStatus="status">
-                                <option value="${tema.id}">${tema.nombre}</option>
-                            </c:forEach>
-                        </select>
-                        <br>
-                        <input class="botonDentro" type="submit" value="Si">
-                        <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        </c:if>
         <div class="Listatera"id="Listatera">
             <div class="ListateraTipo">
                 <c:forEach var="tema" items="${listaTemas}" varStatus="status">

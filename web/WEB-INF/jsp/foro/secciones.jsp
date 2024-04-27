@@ -14,43 +14,45 @@
     <main>
         <h2 class="Titulos" style="margin-right:10px">Secciones<button class="botonArriba" onclick="location.href = '/TFG/Foro/inicio'">Volver</button></h2>
         <hr color="black">
-        <div class="buscadorForo">
-            <button class="botonArriba" onclick="mostrarRecuadro2()">Añadir</button>
-            <div class="opcionRecuadro" id="recuadro2" style="display: none;">
-                <div class="contenidoRecuadro">
-                    <div class="tituloRecuadro">Crea la Seccion 
-                        <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
+        <c:if test="${sessionScope.user.admin == 1}">
+            <div class="buscadorForo">
+                <button class="botonArriba" onclick="mostrarRecuadro2()">Añadir</button>
+                <div class="opcionRecuadro" id="recuadro2" style="display: none;">
+                    <div class="contenidoRecuadro">
+                        <div class="tituloRecuadro">Crea la Seccion 
+                            <span class="cierreRecuadro" onclick="cerrarRecuadro2()">X</span>
+                        </div>
+                        <form id = "formRegistro" action="/TFG/Foro/añadirSeccion" method="POST">
+                            <label for="titulo">Titulo:</label>
+                            <input type="text" id="nombre" name="titulo" required>
+                            <label for="hilos">Hilos permitidos:</label>
+                            <input type="number" id="nombre" name="hilos" min="1" max="10000" required>
+                            <br>
+                            <input class="botonDentro" type="submit" value="Crear">
+                            <button class="botonDentro" onclick="cerrarRecuadro2()">Salir</button>
+                        </form>
                     </div>
-                    <form id = "formRegistro" action="/TFG/Foro/añadirSeccion" method="POST">
-                        <label for="titulo">Titulo:</label>
-                        <input type="text" id="nombre" name="titulo" required>
-                        <label for="hilos">Hilos permitidos:</label>
-                        <input type="number" id="nombre" name="hilos" min="1" max="10000" required>
-                        <br>
-                        <input class="botonDentro" type="submit" value="Crear">
-                        <button class="botonDentro" onclick="cerrarRecuadro2()">Salir</button>
-                    </form>
+                </div>
+                <button class="botonArriba" onclick="mostrarRecuadro()">Eliminar</button>
+                <div class="opcionRecuadro" id="recuadro" style="display: none;">
+                    <div class="contenidoRecuadro">
+                        <div class="tituloRecuadro">¿Está seguro de que quieres Borrarlo?
+                            <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
+                        </div>
+                        <form id = "formRegistro" action="/TFG/Foro/eliminarSeccion" method="POST">
+                            <select id="selectSeccion" name="seccion">
+                                <c:forEach var="seccion" items="${listaSecciones}" varStatus="status">
+                                    <option value="${seccion.id}">${seccion.titulo}</option>
+                                </c:forEach>
+                            </select>
+                            <br>
+                            <input class="botonDentro" type="submit" value="Si">
+                            <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <button class="botonArriba" onclick="mostrarRecuadro()">Eliminar</button>
-            <div class="opcionRecuadro" id="recuadro" style="display: none;">
-                <div class="contenidoRecuadro">
-                    <div class="tituloRecuadro">¿Está seguro de que quieres Borrarlo?
-                        <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
-                    </div>
-                    <form id = "formRegistro" action="/TFG/Foro/eliminarSeccion" method="POST">
-                        <select id="selectSeccion" name="seccion">
-                            <c:forEach var="seccion" items="${listaSecciones}" varStatus="status">
-                                <option value="${seccion.id}">${seccion.titulo}</option>
-                            </c:forEach>
-                        </select>
-                        <br>
-                        <input class="botonDentro" type="submit" value="Si">
-                        <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        </c:if>
         <div class="Listatera"id="Listatera">
             <div class="ListateraTipo">
                 <c:forEach var="seccion" items="${listaSecciones}" varStatus="status">
@@ -62,22 +64,24 @@
                                 <div class="Descripciontera">${requestScope.seccionNumero[status.index]} / ${seccion.numerohilosmax}</div>
                             </div>
                         </div>
-                        <button class="botonArriba" onclick="mostrarRecuadro3()">Modificar Hilos totales</button>
-                        <div class="opcionRecuadro" id="recuadro3" style="display: none;">
-                            <div class="contenidoRecuadro">
-                                <div class="tituloRecuadro">Modifica la Seccion 
-                                    <span class="cierreRecuadro" onclick="cerrarRecuadro3()">X</span>
+                        <c:if test="${sessionScope.user.admin == 1}">
+                            <button class="botonArriba" onclick="mostrarRecuadro3()">Modificar Hilos totales</button>
+                            <div class="opcionRecuadro" id="recuadro3" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro">Modifica la Seccion 
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro3()">X</span>
+                                    </div>
+                                    <form id = "formRegistro" action="/TFG/Foro/modificarSeccion" method="POST">
+                                        <input type="hidden" name="seccion" value="${seccion.id}">
+                                        <label for="hilos">Hilos permitidos:</label>
+                                        <input type="number" id="nombre" name="hilos" min="${seccion.numerohilosmax}" max="10000" required>
+                                        <br>
+                                        <input class="botonDentro" type="submit" value="Modificar">
+                                        <button class="botonDentro" onclick="cerrarRecuadro3()">Salir</button>
+                                    </form>
                                 </div>
-                                <form id = "formRegistro" action="/TFG/Foro/modificarSeccion" method="POST">
-                                    <input type="hidden" name="seccion" value="${seccion.id}">
-                                    <label for="hilos">Hilos permitidos:</label>
-                                    <input type="number" id="nombre" name="hilos" min="${seccion.numerohilosmax}" max="10000" required>
-                                    <br>
-                                    <input class="botonDentro" type="submit" value="Modificar">
-                                    <button class="botonDentro" onclick="cerrarRecuadro3()">Salir</button>
-                                </form>
                             </div>
-                        </div>
+                        </c:if>
                     </div>
                 </c:forEach>
             </div>

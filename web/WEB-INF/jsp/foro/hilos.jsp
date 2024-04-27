@@ -12,8 +12,7 @@
 <body>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
-        <h2 class="Titulos">Hilos </h2>
-        <button class="botonArriba" onclick="location.href = '/TFG/Foro/inicio'">Volver</button>
+        <h2 class="Titulos" style="margin-right:10px">Hilos<button class="botonArriba" onclick="location.href = '/TFG/Foro/inicio'">Volver</button></h2>
         <hr color="black">
         <div class="contenedoresMesa"> 
             <div class="contenedorMesa">
@@ -22,13 +21,13 @@
                     <div>Busca por titulo: <input id="buscador" onkeyup="realizarBusqueda('Hilos')" type="search" placeholder="Introduce el nombre"/> </div>
                     <div>
                         Tema:
-                        <select id="elegirTemas">
+                        <select id="elegirTema">
                             <c:choose>
                                 <c:when test="${requestScope.tema == 'Cualquiera'}">
-                                    <option value="tema" selected>Cualquiera</option>
+                                    <option value="Cualquiera" selected>Cualquiera</option>
                                 </c:when>
                                 <c:otherwise>
-                                    <option value="tema">Cualquiera</option>
+                                    <option value="Cualquiera">Cualquiera</option>
                                 </c:otherwise>
                             </c:choose>
                             <c:forEach var="tema" items="${listaTemas}" varStatus="status">
@@ -46,10 +45,10 @@
                         <select id="elegirSeccion" name="seccion">
                             <c:choose>
                                 <c:when test="${requestScope.seccion == 'Cualquiera'}">
-                                    <option value="seccion" selected>Cualquiera</option>
+                                    <option value="Cualquiera" selected>Cualquiera</option>
                                 </c:when>
                                 <c:otherwise>
-                                    <option value="seccion" selected>Cualquiera</option>
+                                    <option value="Cualquiera" selected>Cualquiera</option>
                                 </c:otherwise>
                             </c:choose>
                             <c:forEach var="seccion" items="${listaSeccion}" varStatus="status">
@@ -66,7 +65,9 @@
                     </div>
                     <button id="botonMio" class="${requestScope.mio == "true" ? 'estalleno' : 'noestalleno'}">Mio</button>
                     <button id="botonComentado" class="${requestScope.comentado == "true" ? 'estalleno' : 'noestalleno'}">Has comentado</button>
-                    <button id="botonArriba" onclick="location.href = '/TFG/Formularios/crearHilo'" >Crear Hilo</button>
+                    <c:if test="${requestScope.numHilos < 3 }">
+                        <button id="botonArriba" onclick="location.href = '/TFG/Formularios/crearHilo'" >Crear Hilo</button>
+                    </c:if>
                 </div>
             </div>
             <div class="listasMesa" id="pestañasSeccion">
@@ -85,25 +86,27 @@
                                                 </div>
                                             </td>
                                             <td>${hilo.titulo}</td>
-                                            <td>${hilo.fecha}</td>
+                                            <td>${fechasHilos[status.index]}</td>
                                             <td>${hilo.creador.apodo}</td>
                                             <td>${hilo.tema.nombre}</td>
                                             <td>${hilo.seccion.titulo}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Foro/hilo?hilo=${hilo.id}'">Entrar</button></td>
-                                            <c:if test="${hilo.creador.id == requestSession.user.id || requestSession.user.admin == 1}">
-                                                <td><button class="botonDentro" onclick="">Eliminar</button></td>
+                                            <c:if test="${hilo.creador.id == sessionScope.user.id || sessionScope.user.admin == 1}">
+                                                <td><button class="botonDentro" onclick="mostrarRecuadro()">Eliminar</button></td>
                                             </c:if>
                                         </tr>
-                                        <div class="opcionRecuadro" id="recuadro" style="display: none;">
-                                            <div class="contenidoRecuadro">
-                                                <form id = form  action="/TFG/Foro/borrarHilo" method="POST">
-                                                    <input type="hidden" name="seccion" value="${seccion.id}">
-                                                    <label class="tituloRecuadro" id="titulodelRecuadro">¿Está seguro?</label>
-                                                    <input class="botonDentro" type="submit" value="Aceptar">
-                                                    <input class="botonDentro" type="button" onclick="cerrarRecuadro()" value="Volver">
-                                                </form>
+                                        <c:if test="${hilo.creador.id == sessionScope.user.id || sessionScope.user.admin == 1}">
+                                            <div class="opcionRecuadro" id="recuadro" style="display: none;">
+                                                <div class="contenidoRecuadro">
+                                                    <form id = form  action="/TFG/Foro/borrarHilo" method="POST">
+                                                        <input type="hidden" name="hilo" value="${hilo.id}">
+                                                        <label class="tituloRecuadro" id="titulodelRecuadro">¿Está seguro?</label>
+                                                        <input class="botonDentro" type="submit" value="Aceptar">
+                                                        <input class="botonDentro" type="button" onclick="cerrarRecuadro()" value="Volver">
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </c:if>
                                     </c:forEach>
                                 </table>
                             </div>

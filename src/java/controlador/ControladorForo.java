@@ -8,8 +8,10 @@ import entidades.Usuarios;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -69,6 +71,7 @@ public class ControladorForo extends HttpServlet {
 
         List<Hilo> listaHilos;
         List<String> listaFotosHilo;
+        List<String> fechasHilo;
         List<Seccion> listaSecciones;
         List<Integer> listaHilosporSeccion;
         List<Tema> listaTemas;
@@ -96,8 +99,14 @@ public class ControladorForo extends HttpServlet {
         Integer num;
         Integer numPag;
 
+        String hilo_mensaje;
+        String hilo_titulo;
+        Date hilo_fecha;
+
         String tema_id;
         String seccion_id;
+
+        String msj;
 
         switch (accion) {
             case "/inicio":
@@ -185,6 +194,10 @@ public class ControladorForo extends HttpServlet {
                     //Comprobamos los datos
                     if (numString == null) {
 
+                        hilo_tema = "Cualquiera";
+                        hilo_seccion = "Cualquiera";
+                        hilo_comentado = "false";
+                        hilo_mio = "false";
                         hilo_seccionSQL = " ";
                         hilo_temaSQL = " ";
                         hilo_mioSQL = " ";
@@ -221,7 +234,7 @@ public class ControladorForo extends HttpServlet {
                     ///////////NUMERO DE HILOS///////////
                     /////////////////////////////////////
                     sql = "SELECT COUNT(DISTINCT h.id) FROM HILO h "
-                            + "INNER JOIN MENSAJEHILO m ON h.id = m.hilo "
+                            + "LEFT JOIN MENSAJEHILO m ON h.id = m.hilo "
                             + "WHERE h.id <> 'null' "
                             + hilo_seccionSQL
                             + hilo_temaSQL
@@ -235,24 +248,31 @@ public class ControladorForo extends HttpServlet {
                     numPag = (((Number) result).intValue() / 7) + 1;
 
                     sql = "SELECT h.* FROM HILO h "
-                            + "INNER JOIN MENSAJEHILO m ON h.id = m.hilo "
+                            + "LEFT JOIN MENSAJEHILO m ON h.id = m.hilo "
                             + "WHERE h.id <> 'null' "
                             + hilo_seccionSQL
                             + hilo_temaSQL
                             + hilo_mioSQL
-                            + hilo_comentadoSQL;
+                            + hilo_comentadoSQL
+                            + "ORDER BY h.FECHA ASC "
+                            + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
 
                     queryAUX = em.createNativeQuery(sql, Hilo.class);
                     listaHilos = queryAUX.getResultList();
 
                     listaFotosHilo = new ArrayList();
+                    fechasHilo = new ArrayList();
 
                     for (int i = 0; i < listaHilos.size(); i++) {
 
-                        if (listaHilos.get(i).getCreador().getPersonajeactual().getImagenpersonaje() == null) {
+                        hilo = listaHilos.get(i);
+
+                        fechasHilo.add(hilo.getFecha().getDate() + "-" + (hilo.getFecha().getMonth() + 1) + "-" + (hilo.getFecha().getYear() + 1900));
+
+                        if (hilo.getCreador().getPersonajeactual().getImagenpersonaje() == null) {
                             listaFotosHilo.add("-");
                         } else {
-                            listaFotosHilo.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + listaHilos.get(i).getCreador().getPersonajeactual().getId());
+                            listaFotosHilo.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + hilo.getCreador().getPersonajeactual().getId());
                         }
                     }
 
@@ -268,6 +288,8 @@ public class ControladorForo extends HttpServlet {
                     System.out.println("Sale comentado:" + hilo_comentado);
                     System.out.println("Sale npag:" + numPag);
 
+                    request.setAttribute("fechasHilos", fechasHilo);
+                    request.setAttribute("numHilos", user.getHiloList().size());//Cantidad de hilos
                     request.setAttribute("listaHilos", listaHilos);
                     request.setAttribute("comentado", hilo_comentado);
                     request.setAttribute("tema", hilo_tema);
@@ -298,19 +320,45 @@ public class ControladorForo extends HttpServlet {
                     try {
 
                         hilo = queryHilo.getSingleResult();
+                        listaMensajesHilo = hilo.getMensajehiloList();
+
+                        listaFotosHilo = new ArrayList();
+                        fechasHilo = new ArrayList();
+
+                        for (int i = 0; i < listaMensajesHilo.size(); i++) {
+
+                            msjHilo = listaMensajesHilo.get(i);
+
+                            fechasHilo.add(msjHilo.getFecha().getDate() + "-" + (msjHilo.getFecha().getMonth() + 1) + "-" + (msjHilo.getFecha().getYear() + 1900));
+
+                            if (msjHilo.getEscritor().getPersonajeactual().getImagenpersonaje() == null) {
+                                listaFotosHilo.add("-");
+                            } else {
+                                listaFotosHilo.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + msjHilo.getEscritor().getPersonajeactual().getId());
+                            }
+                        }
+
+                        if (hilo.getCreador().getPersonajeactual() != null) {
+                            request.setAttribute("fotoInicial", "/TFG/Imagenes/mostrarImagenPersonaje?id=" + hilo.getCreador().getPersonajeactual().getId());
+                        } else {
+                            request.setAttribute("fotoInicial", "-");
+                        }
 
                         request.setAttribute("hilo", hilo);
-                        //ESTARÄ MAL SEGURO POR AHORA LO DEJAMOS ASÍ
+                        request.setAttribute("fechaInicial", hilo.getFecha().getDate() + "-" + (hilo.getFecha().getMonth() + 1) + "-" + (hilo.getFecha().getYear() + 1900));
+                        request.setAttribute("fechasHilo", fechasHilo);
                         request.setAttribute("mensajesHilo", hilo.getMensajehiloList());
+                        request.setAttribute("urlFotos", listaFotosHilo);
 
                         vista = "/WEB-INF/jsp/foro/hilo.jsp";
                     } catch (Exception ex) {
                         System.out.println("No exite el hilo de id: " + hilo_id);
-                        vista = "/Principal/inicio";
+                        vista = "/Foro/hilos";
                     }
                 }
                 break;
             case "/crearHilo":
+
                 /////////////////////////
                 /////////SESION//////////
                 /////////////////////////
@@ -320,7 +368,76 @@ public class ControladorForo extends HttpServlet {
                 if (user == null) {
                     vista = "/Principal/inicio";
                 } else {
-                    vista = "/WEB-INF/jsp/foro/hilo.jsp";
+                    if (user.getHiloList().size() < 3) {
+                        hilo_titulo = request.getParameter("titulo");
+                        hilo_seccion = request.getParameter("seccion");
+                        hilo_tema = request.getParameter("tema");
+                        hilo_mensaje = request.getParameter("mensaje");
+
+                        if (hilo_titulo != null && hilo_seccion != null && hilo_tema != null && hilo_mensaje != null) {
+                            try {
+                                if (hilo_titulo.toUpperCase().contains("UPDATE") || hilo_titulo.toUpperCase().contains("CREATE")
+                                        || hilo_titulo.toUpperCase().contains("DELETE") || hilo_titulo.toUpperCase().contains("SELECT")
+                                        || hilo_titulo.toUpperCase().contains("DROP")) {
+                                    throw new Exception("El Titulo no es válido");
+                                } else {
+                                    if (hilo_mensaje.toUpperCase().contains("UPDATE") || hilo_mensaje.toUpperCase().contains("CREATE")
+                                            || hilo_mensaje.toUpperCase().contains("DELETE") || hilo_mensaje.toUpperCase().contains("SELECT")
+                                            || hilo_mensaje.toUpperCase().contains("DROP")) {
+                                        throw new Exception("El Mensaje no es válido");
+                                    } else {
+                                        try {
+                                            queryHilo = em.createNamedQuery("Hilo.findByTitulo", Hilo.class);
+                                            queryHilo.setParameter("titulo", hilo_titulo);
+                                            queryHilo.getSingleResult();//Si salta exception es que no existe
+
+                                            throw new Exception("El Titulo está repetido");
+                                        } catch (NoResultException ex) {
+
+                                            queryTema = em.createNamedQuery("Tema.findById", Tema.class);
+                                            queryTema.setParameter("id", hilo_tema);
+                                            tema = queryTema.getSingleResult();
+
+                                            querySeccion = em.createNamedQuery("Seccion.findById", Seccion.class);
+                                            querySeccion.setParameter("id", hilo_seccion);
+                                            seccion = querySeccion.getSingleResult();
+
+                                            hilo_fecha = new Date();
+
+                                            hilo = new Hilo(hilo_titulo, hilo_mensaje, hilo_fecha, user, tema, seccion);
+
+                                            persist(hilo);
+
+                                            vista = "/Foro/hilos";
+                                        }
+                                    }
+                                }
+                            } catch (Exception ex) {
+                                msj = "<p style=\"margin-left: 10px\"> Error: " + ex.getMessage() + " </p>";
+                                System.out.println("Error: Imposible registrar en este momento: " + hilo_titulo);
+                                System.out.println("NumberFormatException: " + ex.getMessage());
+
+                                request.setAttribute("msj", msj);
+
+                                vista = "/Formularios/crearHilo";
+                            }
+                        } else {
+                            msj = "<p style=\"margin-left: 10px\"> Error: Introduzca los campos de forma correcta </p>";
+                            System.out.println("Error: Introduzca los campos de forma correcta ");
+
+                            request.setAttribute("msj", msj);
+
+                            vista = "/Formularios/crearHilo";
+                        }
+                    } else {
+                        msj = "<p style=\"margin-left: 10px\"> Error: Borre un hilo para crear otro </p>";
+                        System.out.println("Error: tienes el maximo de hilos ");
+
+                        request.setAttribute("msj", msj);
+
+                        vista = "/Formularios/crearHilo";
+                    }
+
                 }
                 break;
             case "/borrarHilo":
@@ -366,7 +483,26 @@ public class ControladorForo extends HttpServlet {
                 if (user == null) {
                     vista = "/Principal/inicio";
                 } else {
-                    vista = "/WEB-INF/jsp/foro/hilo.jsp";
+
+                    hilo_id = request.getParameter("hilo");
+                    hilo_mensaje = request.getParameter("mensaje");
+
+                    queryHilo = em.createNamedQuery("Hilo.findById", Hilo.class);
+                    queryHilo.setParameter("id", hilo_id);
+
+                    try {
+                        hilo = queryHilo.getSingleResult();
+
+                        hilo_fecha = new Date();
+
+                        msjHilo = new Mensajehilo(hilo_mensaje, hilo_fecha, user, hilo);
+
+                        persist(msjHilo);
+
+                    } catch (Exception ex) {
+                        System.out.println("Hilo no encontrado para escribir un mensaje");
+                        vista = "/Foro/hilos";
+                    }
                 }
                 break;
             case "/eliminarMensajeHilo":
@@ -376,11 +512,10 @@ public class ControladorForo extends HttpServlet {
                 session = request.getSession();
                 user = (Usuarios) session.getAttribute("user");
 
-                msjHilo_id = request.getParameter("msjHilo");
-
                 if (user == null) {
                     vista = "/Foro/hilo";
                 } else {
+                    msjHilo_id = request.getParameter("msjHilo");
 
                     queryMensajeHilo = em.createNamedQuery("Mensajehilo.findById", Mensajehilo.class);
                     queryMensajeHilo.setParameter("id", msjHilo_id);
@@ -391,14 +526,14 @@ public class ControladorForo extends HttpServlet {
 
                             delete(msjHilo);
 
-                            vista = "/Foro/hilos";
+                            vista = "/Foro/hilo";
                         } else {
                             vista = "/Foro/hilo";
                         }
 
                     } catch (Exception ex) {
                         System.out.println("Mensaje Hilo no encontrado para borrar");
-                        vista = "/Foro/hilo";
+                        vista = "/Foro/hilos";
                     }
                 }
                 break;
@@ -554,10 +689,11 @@ public class ControladorForo extends HttpServlet {
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(vista);
+
         rd.forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

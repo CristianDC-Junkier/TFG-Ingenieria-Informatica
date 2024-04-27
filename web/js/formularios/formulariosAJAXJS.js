@@ -58,9 +58,11 @@ function realizarBusqueda(inputID, spanID) {
                 let nombrePersonajeJS = '<%= request.getAttribute("personaje.nombre") %>';
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/ModificarPersonaje?nombrePersonaje=" + nombrePersonajeJS;
                 break;
+            case "tittleHilo":
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/crearHilo";
+                break;
         }
 
-        //console.log("llega " + inputID);
 
         // Realizar la solicitud AJAX
         $.ajax({

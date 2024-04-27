@@ -4,6 +4,7 @@ import entidades.Atributos;
 import entidades.Clases;
 import entidades.Equipo;
 import entidades.Hechizos;
+import entidades.Hilo;
 import entidades.Mensajesamigos;
 import entidades.Mesas;
 import entidades.Monstruos;
@@ -113,6 +114,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             List<Integer> listaCantidad;
             List<String> fotosMesas;
             List<String> fotosPersonajes;
+            List<Hilo> listaHilos;
 
             int contadorEnviados = 0;
             int contadorRecibidos = 0;
@@ -3651,7 +3653,35 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     System.out.println("PeticionAJAX Sale Razas");
                     break;
+                    
+                    ///////////////////////////////////////////////////////////////////////////
+                    ////////////////////////////////////FORO///////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////////////
+                    
+                    /////////////////
+                    ////CREAR HILO///
+                    /////////////////
+                case "/crearHilo": 
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+                    
+                    System.out.println(nombre);
+                    
+                    sql = "SELECT h.* FROM HILO h "
+                            + "WHERE h.TITULO = '" + nombre + "'";
+                    queryAUX = em.createNativeQuery(sql, Hilo.class);
+                    listaHilos = queryAUX.getResultList();
 
+                    if (listaHilos.isEmpty()) {
+                        resultado = "No encontrado";
+                    } else {
+                        resultado = "Encontrado";
+                    }
+
+                    System.out.println("PeticionAJAX Sale CrearHilo");
+                    break;
             }
 
             response.setContentType("application/json");

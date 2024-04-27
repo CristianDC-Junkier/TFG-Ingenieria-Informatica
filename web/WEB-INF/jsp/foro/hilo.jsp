@@ -12,8 +12,7 @@
 <body>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
-        <h2 class="Titulos">Hilo</h2>
-        <button class="botonDentro" onclick="">Volver</button>
+        <h2 class="Titulos" style="margin-right:10px">Hilo<button class="botonArriba" onclick="location.href = '/TFG/Foro/hilos'">Volver</button></h2>
         <hr color="black">
         <div class="contenedoresMesa"> 
             <div class="listasMesa" id="pestañasSeccion">
@@ -24,6 +23,32 @@
                             <h4>${requestScope.hilo.seccion.titulo}</h4>
                             <div class="diseñoTabla" id ="Tabla">
                                 <table>
+                                    <tr>
+                                        <td>
+                                            <div class="mesa-foto">
+                                                <img src="${fotoInicial}">
+                                            </div>
+                                        </td>
+                                        <td>${hilo.creador.apodo}</td>
+                                        <td >${fechaInicial}</td>
+                                        <c:if test="${hilo.creador.id == sessionScope.user.id || sessionScope.user.admin == 1}">
+                                            <td><button class="botonDentro" onclick="mostrarRecuadro()">Eliminar Hilo</button></td>
+                                        </c:if>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">${hilo.mensajeinicial}</td>
+                                    </tr>
+                                    </tr>
+                                    <div class="opcionRecuadro" id="recuadro" style="display: none;">
+                                        <div class="contenidoRecuadro">
+                                            <form id = form  action="" method="POST">
+                                                <label class="tituloRecuadro" for="anadirMesa" id="titulodelRecuadro">¿Está seguro?</label>
+                                                <input class="recuadroDentro" type="password" id="anadirMesa" name="contrasena_anadirmesa" required>
+                                                <input class="botonDentro" type="submit" value="Aceptar">
+                                                <input class="botonDentro" type="button" onclick="cerrarRecuadro()" value="Volver">
+                                            </form>
+                                        </div>
+                                    </div>
                                     <c:forEach var="mensaje" items="${listaMensajes}" varStatus="status">
                                         <tr>
                                             <td>
@@ -33,18 +58,20 @@
                                             </td>
                                             <td>${mensaje.escritor.apodo}</td>
                                             <td>${mensaje.fecha}</td>
-                                            <td>${mensaje.mensaje}</td>
-                                            <c:if test="${hilo.creador.id == requestSession.user.id || requestSession.user.admin == 1}">
-                                                <td><button class="botonDentro" onclick="">Eliminar</button></td>
+                                            <c:if test="${hilo.creador.id == sessionScope.user.id || sessionScope.user.admin == 1}">
+                                                <td><button class="botonDentro" onclick="mostrarRecuadro2()">Eliminar</button></td>
                                             </c:if>
                                         </tr>
-                                        <div class="opcionRecuadro" id="recuadro" style="display: none;">
+                                        <tr>
+                                            <td colspan="4">${mensaje.mensaje}</td>
+                                        </tr>
+                                        <div class="opcionRecuadro" id="recuadro2" style="display: none;">
                                             <div class="contenidoRecuadro">
                                                 <form id = form  action="" method="POST">
                                                     <label class="tituloRecuadro" for="anadirMesa" id="titulodelRecuadro">¿Está seguro?</label>
-                                                    <input class="recuadroDentro" type="password" id="anadirMesa" name="contrasena_anadirmesa" required>
+                                                    <input type="hidden" name="mensaje" value="${hilo.id}">
                                                     <input class="botonDentro" type="submit" value="Aceptar">
-                                                    <input class="botonDentro" type="button" onclick="cerrarRecuadro()" value="Volver">
+                                                    <input class="botonDentro" type="button" onclick="cerrarRecuadro2()" value="Volver">
                                                 </form>
                                             </div>
                                         </div>
@@ -53,6 +80,26 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="contenedorChat">
+                <div class="contenedorMensajesChat" id="MensajesChat">
+                </div>
+                <div class="contenedorBotonesChat">
+                    <form id = form  action="" method="POST">
+                        <input type="text" maxlength="255" id="mensajeChatMesa" name="mensaje" placeholder="Comentar...">
+                        <button id="botonEnviar" type="submit">Enviar</button>
+                        <select id="SDados">
+                            <option value="4">Dado-4</option>
+                            <option value="6">Dado-6</option>
+                            <option value="8">Dado-8</option>
+                            <option value="10">Dado-10</option>
+                            <option value="12">Dado-12</option>
+                            <option value="20">Dado-20</option>
+                            <option value="100">Dado-100</option>
+                        </select>
+                        <button id="IDadoButton" type="button" onclick="enviarTirada()"><img id="IDado" src="/TFG/img/iconos/d20White.png" alt="alt"/></button>
+                    </form>
                 </div>
             </div>
             <div class="contenedorBotonesMesa">

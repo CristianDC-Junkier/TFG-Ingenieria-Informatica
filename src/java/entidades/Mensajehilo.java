@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -34,10 +35,8 @@ public class Mensajehilo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
+    @GeneratedValue
+    @Column(name = "ID")
     private String id;
     @Basic(optional = false)
     @NotNull
@@ -67,6 +66,13 @@ public class Mensajehilo implements Serializable {
         this.id = id;
         this.mensaje = mensaje;
         this.fecha = fecha;
+    }
+    
+     public Mensajehilo(String mensaje, Date fecha, Usuarios escritor, Hilo hilo) {
+        this.mensaje = mensaje;
+        this.fecha = fecha;
+        this.escritor = escritor;
+        this.hilo = hilo;
     }
 
     public String getId() {

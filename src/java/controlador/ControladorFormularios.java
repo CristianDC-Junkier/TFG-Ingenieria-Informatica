@@ -9,7 +9,9 @@ import entidades.Personajeatributos;
 import entidades.Personajehabilidades;
 import entidades.Personajes;
 import entidades.Razas;
+import entidades.Seccion;
 import entidades.Tablaclasespornivel;
+import entidades.Tema;
 import entidades.Trasfondos;
 import entidades.Usaclase;
 import entidades.Usasubclase;
@@ -80,10 +82,13 @@ public class ControladorFormularios extends HttpServlet {
         TypedQuery<Tablaclasespornivel> queryTCNivel;
         TypedQuery<Usaclase> queryUsaClases;
         TypedQuery<Usasubclase> queryUsaSubClases;
+        TypedQuery<Seccion> querySeccion;
+        TypedQuery<Tema> queryTema;
 
         List<Integer> listaHabValores;
         List<Dotes> listaDotes;
         List<Atributos> listaAtributos;
+        List<Seccion> listaSecciones;
 
         String id;
         String personaje_id;
@@ -475,6 +480,44 @@ public class ControladorFormularios extends HttpServlet {
                     } catch (Exception ex) {
                         vista = "/Personajes/personajePerfil?=" + personaje_id;
                     }
+                }
+                break;
+            case "/crearHilo":
+
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+
+                    /////////////////////
+                    /////////TEMA////////
+                    /////////////////////
+                    queryTema = em.createNamedQuery("Tema.findAll", Tema.class);
+                    request.setAttribute("listaTemas", queryTema.getResultList());
+
+                    /////////////////////
+                    ///////SECCION///////
+                    /////////////////////
+                    querySeccion = em.createNamedQuery("Seccion.findAll", Seccion.class);
+                    listaSecciones = querySeccion.getResultList();
+
+                    if (user.getAdmin() != 1) {
+                        for (int i = 0; i < listaSecciones.size(); i++) {
+                            if (listaSecciones.get(i).getTitulo().equals("Administración")) {
+                                listaSecciones.remove(i);
+                                i = listaSecciones.size();
+                            }
+                        }
+                    }
+
+                    request.setAttribute("listaSecciones", listaSecciones);
+                    request.setAttribute("numHilos", user.getHiloList().size());
+                    vista = "/WEB-INF/jsp/formularios/crearHilo.jsp";
                 }
                 break;
         }

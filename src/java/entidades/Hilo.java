@@ -1,4 +1,3 @@
-
 package entidades;
 
 import java.io.Serializable;
@@ -8,6 +7,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,10 +41,8 @@ public class Hilo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
+    @GeneratedValue
+    @Column(name = "ID")
     private String id;
     @Basic(optional = false)
     @NotNull
@@ -61,11 +59,6 @@ public class Hilo implements Serializable {
     @Column(name = "FECHA", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hilo")
-    private List<Hilo> hiloList;
-    @JoinColumn(name = "HILO", referencedColumnName = "ID", nullable = false)
-    @ManyToOne(optional = false)
-    private Hilo hilo;
     @JoinColumn(name = "SECCION", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
     private Seccion seccion;
@@ -90,6 +83,15 @@ public class Hilo implements Serializable {
         this.titulo = titulo;
         this.mensajeinicial = mensajeinicial;
         this.fecha = fecha;
+    }
+
+    public Hilo(String titulo, String mensajeinicial, Date fecha, Usuarios creador, Tema tema, Seccion seccion) {
+        this.titulo = titulo;
+        this.mensajeinicial = mensajeinicial;
+        this.fecha = fecha;
+        this.tema = tema;
+        this.seccion = seccion;
+        this.creador = creador;
     }
 
     public String getId() {
@@ -122,23 +124,6 @@ public class Hilo implements Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    @XmlTransient
-    public List<Hilo> getHiloList() {
-        return hiloList;
-    }
-
-    public void setHiloList(List<Hilo> hiloList) {
-        this.hiloList = hiloList;
-    }
-
-    public Hilo getHilo() {
-        return hilo;
-    }
-
-    public void setHilo(Hilo hilo) {
-        this.hilo = hilo;
     }
 
     public Seccion getSeccion() {
@@ -198,5 +183,5 @@ public class Hilo implements Serializable {
     public String toString() {
         return "entidades.Hilo[ id=" + id + " ]";
     }
-    
+
 }
