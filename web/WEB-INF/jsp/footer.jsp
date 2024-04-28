@@ -14,7 +14,7 @@
             <span></span>
         </div>
         <c:if test="${sessionScope.user != null}">
-            <div><a href="/TFG/Foro/inicio">FORO</a></div>
+            <div><a href="/TFG/Foro/inicio" id="enlaceForo">FORO</a></div>
             <div class="chat-seleccion">
                 <button onclick="mostrarChat()"><img src="/TFG/img/iconos/ChatWhite.png" alt="alt" id="IChat"/></button>
             </div>

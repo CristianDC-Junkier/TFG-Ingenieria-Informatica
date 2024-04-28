@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.util.Random;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -107,6 +108,7 @@ public class ControladorForo extends HttpServlet {
         String seccion_id;
 
         String msj;
+        String dado;
 
         switch (accion) {
             case "/inicio":
@@ -193,7 +195,6 @@ public class ControladorForo extends HttpServlet {
 
                     //Comprobamos los datos
                     if (numString == null) {
-
                         hilo_tema = "Cualquiera";
                         hilo_seccion = "Cualquiera";
                         hilo_comentado = "false";
@@ -247,7 +248,7 @@ public class ControladorForo extends HttpServlet {
                     //PAGINAS QUE HAY (6 Hilos POR PAGINA)
                     numPag = (((Number) result).intValue() / 7) + 1;
 
-                    sql = "SELECT h.* FROM HILO h "
+                    sql = "SELECT DISTINCT h.* FROM HILO h "
                             + "LEFT JOIN MENSAJEHILO m ON h.id = m.hilo "
                             + "WHERE h.id <> 'null' "
                             + hilo_seccionSQL
@@ -320,7 +321,34 @@ public class ControladorForo extends HttpServlet {
                     try {
 
                         hilo = queryHilo.getSingleResult();
-                        listaMensajesHilo = hilo.getMensajehiloList();
+
+                        numString = request.getParameter("pag");//numero de pag en la que estoy
+                        if (numString == null) {
+                            numString = "1";
+                            num = 0;
+                        } else {
+                            num = (Integer.valueOf(numString) - 1) * 4;//offset
+                        }
+
+                        ////////////////////////////////////////
+                        ///////////NUMERO DE MENSAJES///////////
+                        ////////////////////////////////////////
+                        sql = "SELECT COUNT(DISTINCT m.id) FROM MENSAJEHILO m "
+                                + "WHERE m.hilo = '" + hilo_id + "' ";
+
+                        queryAUX = em.createNativeQuery(sql);
+                        result = queryAUX.getSingleResult();
+
+                        //PAGINAS QUE HAY (4 Mensajes POR PAGINA)
+                        numPag = (((Number) result).intValue() / 4) + 1;
+
+                        sql = "SELECT m.* FROM MENSAJEHILO m "
+                                + "WHERE m.hilo = '" + hilo_id + "' "
+                                + "ORDER BY m.FECHA ASC "
+                                + "OFFSET " + num + " ROWS FETCH NEXT 4 ROWS ONLY";
+
+                        queryAUX = em.createNativeQuery(sql, Mensajehilo.class);
+                        listaMensajesHilo = queryAUX.getResultList();
 
                         listaFotosHilo = new ArrayList();
                         fechasHilo = new ArrayList();
@@ -345,12 +373,16 @@ public class ControladorForo extends HttpServlet {
                         }
 
                         request.setAttribute("hilo", hilo);
+                        request.setAttribute("hiloID", hilo.getId());
                         request.setAttribute("fechaInicial", hilo.getFecha().getDate() + "-" + (hilo.getFecha().getMonth() + 1) + "-" + (hilo.getFecha().getYear() + 1900));
                         request.setAttribute("fechasHilo", fechasHilo);
-                        request.setAttribute("mensajesHilo", hilo.getMensajehiloList());
-                        request.setAttribute("urlFotos", listaFotosHilo);
+                        request.setAttribute("listaMensajes", listaMensajesHilo);
+                        request.setAttribute("urlImagenes", listaFotosHilo);
+                        request.setAttribute("pag", numString);//numero de la pag
+                        request.setAttribute("numPag", numPag);//numero total de pag
 
                         vista = "/WEB-INF/jsp/foro/hilo.jsp";
+
                     } catch (Exception ex) {
                         System.out.println("No exite el hilo de id: " + hilo_id);
                         vista = "/Foro/hilos";
@@ -487,17 +519,70 @@ public class ControladorForo extends HttpServlet {
                     hilo_id = request.getParameter("hilo");
                     hilo_mensaje = request.getParameter("mensaje");
 
+                    if (hilo_mensaje.toUpperCase().contains("UPDATE") || hilo_mensaje.toUpperCase().contains("CREATE")
+                            || hilo_mensaje.toUpperCase().contains("DELETE") || hilo_mensaje.toUpperCase().contains("SELECT")
+                            || hilo_mensaje.toUpperCase().contains("DROP")) {
+
+                        System.out.println("El mensaje era perjudicial");
+
+                        request.setAttribute("hilo", hilo_id);
+                        vista = "/Foro/hilo";
+                    } else {
+                        queryHilo = em.createNamedQuery("Hilo.findById", Hilo.class);
+                        queryHilo.setParameter("id", hilo_id);
+
+                        try {
+                            hilo = queryHilo.getSingleResult();
+
+                            hilo_fecha = new Date();
+
+                            msjHilo = new Mensajehilo(hilo_mensaje, hilo_fecha, user, hilo);
+
+                            persist(msjHilo);
+
+                            request.setAttribute("hilo", hilo_id);
+                            vista = "/Foro/hilo";
+
+                        } catch (Exception ex) {
+
+                            System.out.println("Hilo no encontrado para escribir un mensaje");
+                            vista = "/Foro/hilos";
+                        }
+                    }
+                }
+                break;
+            case "/añadirTiradaHilo":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuarios) session.getAttribute("user");
+
+                if (user == null) {
+                    vista = "/Principal/inicio";
+                } else {
+
+                    hilo_id = request.getParameter("hilo");
+                    dado = request.getParameter("dado");
+
                     queryHilo = em.createNamedQuery("Hilo.findById", Hilo.class);
                     queryHilo.setParameter("id", hilo_id);
 
                     try {
                         hilo = queryHilo.getSingleResult();
 
+                        long tiempoActual = System.currentTimeMillis();
+                        Random random = new Random(tiempoActual);
+                        msj = "Tiró de D" + dado + ": " + String.valueOf(random.nextInt(Integer.valueOf(dado)) + 1);
+
                         hilo_fecha = new Date();
 
-                        msjHilo = new Mensajehilo(hilo_mensaje, hilo_fecha, user, hilo);
+                        msjHilo = new Mensajehilo(msj, hilo_fecha, user, hilo);
 
                         persist(msjHilo);
+
+                        request.setAttribute("hilo", hilo_id);
+                        vista = "/Foro/hilo";
 
                     } catch (Exception ex) {
                         System.out.println("Hilo no encontrado para escribir un mensaje");
@@ -515,12 +600,15 @@ public class ControladorForo extends HttpServlet {
                 if (user == null) {
                     vista = "/Foro/hilo";
                 } else {
-                    msjHilo_id = request.getParameter("msjHilo");
+                    msjHilo_id = request.getParameter("mensaje");
+                    hilo_id = request.getParameter("hilo");
 
                     queryMensajeHilo = em.createNamedQuery("Mensajehilo.findById", Mensajehilo.class);
                     queryMensajeHilo.setParameter("id", msjHilo_id);
                     try {
                         msjHilo = queryMensajeHilo.getSingleResult();
+
+                        request.setAttribute("hilo", hilo_id);
 
                         if (msjHilo.getEscritor().getId().equals(user.getId()) || user.getAdmin() == 1) {
 

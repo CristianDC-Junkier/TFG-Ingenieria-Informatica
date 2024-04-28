@@ -120,7 +120,7 @@
             </div>
         </div> 
     </main>
-    <jsp:include page="/WEB-INF/jsp/footer.jsp" />
+    <jsp:include page="/WEB-INF/jsp/footerNoChat.jsp" />
     <script>
         //Recoger Datos
         let tema = '<%= request.getAttribute("tema")%>';

@@ -53,9 +53,29 @@
                             <div class="imagenFueraAnimacion"></div>
                         </div>
                         <div class="contenidoDentroAnimacion">
-                            <p>Trees are woody perennial plants that are a member of the kingdom. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.</p>
-                            <p>Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.</p>
-                            <p>When managed properly, trees are a good source of renewable energy and construction material.</p>
+                            <p>Cada mesa o grupo, juega de forma diferente dependiendo
+                                del estilo, la cantidad de jugadores o el tiempo que 
+                                tengan, pero generalmente podemos separar el juego en tres
+                                etapas, que van intercalandose de forma secuencial</p>
+                            <p>La primera etapa es la preparación, donde jugadores 
+                                y DM intercambian opiniones de como quieren que
+                                la partida se lleve acabo, para ello deciden el ambiente
+                                la tipología, y los personajes, o en fases posteriores,
+                                por donde quieren continuar la historia, y como
+                                evolucionan los personajes.</p>
+                            <p>La segunda fase es el Rol propiamente dicho, es decir
+                                la interpretación de los personajes, como se comportan
+                                y como se comunican entre ellos y con la historia, según
+                                sus encuentros con los diferentes elementos de la historia
+                                podemos llegar a la tercera fase, aunque a veces
+                                no hay más remedio.</p>
+                            <p>La tercera fase es la más desafiante, el combate.
+                                En esta, se pone a prueba a todas las personas que
+                                participan en el juego, todos deberán utilizar sus
+                                herramientas de combate(Hechizos y Armas) para combatir
+                                a los enemigos que el DM planterá, permitiendoles
+                                subir de nivel y mejorar sus estadísticas llevando
+                                a la fase de prepatación de nuevo.</p>
                         </div>
                     </div>
                     <div class="contenedorAnimacion">
@@ -66,9 +86,18 @@
                             <div class="imagenFueraAnimacion"></div>
                         </div>
                         <div class="contenidoDentroAnimacion">
-                            <p>Trees are woody perennial plants that are a member of the kingdom. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.</p>
-                            <p>Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.</p>
-                            <p>When managed properly, trees are a good source of renewable energy and construction material.</p>
+                            <p>Para D&D existen númerosas ediciones que se han ido
+                                creando a lo largo de los años, entre ellas se creó la quinta
+                                edición después de la tercera y la tres punto cinco.</p>
+                            <p>Entre todas ellas, la quinta edición es la más fácil 
+                                de entender la más rapida de preparar, la más 
+                                intuitiva y la que más se puede adaptar a los gustos
+                                de los jugadores.</p>
+                            <p>Por ello también es la que más material creado por la
+                                comunidad y por los creadores tiene, dandose muchismos
+                                manuales de precios diferentes, con enemigos, objetos,
+                                zonas, mapas, historias y personajes completamente
+                                originales.</p>
                         </div>
                     </div>
                     <div class="contenedorAnimacion">
@@ -79,9 +108,19 @@
                             <div class="imagenFueraAnimacion"></div>
                         </div>
                         <div class="contenidoDentroAnimacion">
-                            <p>Trees are woody perennial plants that are a member of the kingdom. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.</p>
-                            <p>Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.</p>
-                            <p>When managed properly, trees are a good source of renewable energy and construction material.</p>
+                            <p>En D&D podemos diferenciar varios tipos de historia
+                                los oneshot, las aventuras y las campañas, siendo ordenadas
+                                estás por tiempo, de menos a más.</p>
+                            <p>Los oneshot consisten en partidas de una sesión de duración
+                                es decir, que se completan en un día, por otra parte
+                                las aventuras suelen ser completar una misión en pocas 
+                                misiones, aunque pueden alargarse, no suelen tener
+                                una ramificación de la historia.</p>
+                            <p>Las campañas son un conjunto de aventuras que se enlazan
+                                entre si, pueden tener una duracción corta, o alargarse muchisimo
+                                suelen tener como cometido una mision final importante
+                                que se desvela al final, o que se va formando
+                                a lo largo de la campaña.</p>
                         </div>
                     </div>
                     <div class="contenedorAnimacion">
@@ -92,9 +131,15 @@
                             <div class="imagenFueraAnimacion"></div>
                         </div>
                         <div class="contenidoDentroAnimacion">
-                            <p>Trees are woody perennial plants that are a member of the kingdom. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.</p>
-                            <p>Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.</p>
-                            <p>When managed properly, trees are a good source of renewable energy and construction material.</p>
+                            <p>La curva de dificultad radica en lo que el DM 
+                                y jugadores quieran darle, pues las normas son
+                                ,en su mayoría, completamente alterables.</p>
+                            <p>Así que, si empezais, elegid las reglas que vais a usar
+                                y sobre todo, disfrutar, porque jugar al D&D es 
+                                poder divertirse, no seguir normas con las que
+                                os sintais incómodos y como en casa. Para ello 
+                                aseguraros de que la vergüenza no os frene en
+                                vuestra interpretación y en vuestas ganas de jugar.</p>
                         </div>
                     </div>
                     <div class="contenedorAnimacion">
@@ -105,9 +150,15 @@
                             <div class="imagenFueraAnimacion"></div>
                         </div>
                         <div class="contenidoDentroAnimacion">
-                            <p>Trees are woody perennial plants that are a member of the kingdom. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.</p>
-                            <p>Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.</p>
-                            <p>When managed properly, trees are a good source of renewable energy and construction material.</p>
+                            <p>Guidance 4 es este sitio web, en el que podrás
+                                informarte de como jugar, como normas y otro grupo de
+                                cuestiones, además de crear personajes y conectarte con 
+                                otras personas.</p>
+                            <p>Puedes tener amigos, y chatear con ellos, ver sus personajes
+                                e incluso compartir grupos de mesa, para poder jugar juntos.
+                                Mucho más importante es el foro, donde encontrarás las
+                                respuestas que no te resuelvan las páginas de una forma o 
+                                de otra, además de poder crear debates divertidos.</p>
                         </div>
                     </div>
                 </div>

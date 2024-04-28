@@ -1,0 +1,27 @@
+.contenedorMensajeForo {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: black;
+    border: 2px solid brown;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.formularioMensajeForo {
+    flex: 1 1 auto;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#mensajeChatMesa{
+    width: 25em;
+}
+
+@media (max-width: 768px) {
+    .formularioMensajeForo {
+        flex-basis: 100%;
+    }
+}
+
+

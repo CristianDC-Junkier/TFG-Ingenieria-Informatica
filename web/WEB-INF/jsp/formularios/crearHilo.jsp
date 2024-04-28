@@ -50,7 +50,7 @@
                                 </c:if>
                             </div>
                             <div class="contenedorBotonFormulario">
-                                <input id="botonVolverFormulario" type="button" onclick="location.pathname = 'TFG/Principal/inicio'" value="Volver">
+                                <input id="botonVolverFormulario" type="button" onclick="location.pathname = 'TFG/Foro/inicio'" value="Volver">
                                 <input id="botonEnviar" type="submit" value="Crear Hilo">
                             </div>
                         </c:when>
@@ -60,7 +60,7 @@
                                 Borra una para poder crear otra.
                             </div>
                             <div class="contenedorBotonFormulario">
-                                <input id="botonVolverFormulario-Solo" type="button" onclick="location.pathname = 'TFG/Principal/inicio'" value="Volver">
+                                <input id="botonVolverFormulario-Solo" type="button" onclick="location.pathname = 'TFG/Foro/inicio'" value="Volver">
                             </div>
                         </c:otherwise>
                     </c:choose>

@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/mesasCss.css"/>
     <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/comunMesasCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/foro/foroListasCss.css"/>
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
@@ -32,23 +33,25 @@
                                         <td>${hilo.creador.apodo}</td>
                                         <td >${fechaInicial}</td>
                                         <c:if test="${hilo.creador.id == sessionScope.user.id || sessionScope.user.admin == 1}">
-                                            <td><button class="botonDentro" onclick="mostrarRecuadro()">Eliminar Hilo</button></td>
+                                            <td><button class="botonDentro" onclick="mostrarRecuadro6()">Eliminar Hilo</button></td>
                                         </c:if>
                                     </tr>
                                     <tr>
                                         <td colspan="4">${hilo.mensajeinicial}</td>
                                     </tr>
                                     </tr>
-                                    <div class="opcionRecuadro" id="recuadro" style="display: none;">
-                                        <div class="contenidoRecuadro">
-                                            <form id = form  action="" method="POST">
-                                                <label class="tituloRecuadro" for="anadirMesa" id="titulodelRecuadro">¿Está seguro?</label>
-                                                <input class="recuadroDentro" type="password" id="anadirMesa" name="contrasena_anadirmesa" required>
-                                                <input class="botonDentro" type="submit" value="Aceptar">
-                                                <input class="botonDentro" type="button" onclick="cerrarRecuadro()" value="Volver">
-                                            </form>
+                                    <c:if test="${hilo.creador.id == sessionScope.user.id || sessionScope.user.admin == 1}">
+                                        <div class="opcionRecuadro" id="recuadro6" style="display: none;">
+                                            <div class="contenidoRecuadro">
+                                                <form id = form  action="/TFG/Foro/borrarHilo" method="POST">
+                                                    <input type="hidden" name="hilo" value="${hiloID}">
+                                                    <label class="tituloRecuadro" id="titulodelRecuadro">¿Está seguro?</label>
+                                                    <input class="botonDentro" type="submit" value="Aceptar">
+                                                    <input class="botonDentro" type="button" onclick="cerrarRecuadro6()" value="Volver">
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </c:if>
                                     <c:forEach var="mensaje" items="${listaMensajes}" varStatus="status">
                                         <tr>
                                             <td>
@@ -57,24 +60,27 @@
                                                 </div>
                                             </td>
                                             <td>${mensaje.escritor.apodo}</td>
-                                            <td>${mensaje.fecha}</td>
+                                            <td>${fechasHilo[status.index]}</td>
                                             <c:if test="${hilo.creador.id == sessionScope.user.id || sessionScope.user.admin == 1}">
-                                                <td><button class="botonDentro" onclick="mostrarRecuadro2()">Eliminar</button></td>
+                                                <td><button class="botonDentro" onclick="mostrarRecuadro${status.index+1}()">Eliminar</button></td>
                                             </c:if>
                                         </tr>
                                         <tr>
                                             <td colspan="4">${mensaje.mensaje}</td>
                                         </tr>
-                                        <div class="opcionRecuadro" id="recuadro2" style="display: none;">
-                                            <div class="contenidoRecuadro">
-                                                <form id = form  action="" method="POST">
-                                                    <label class="tituloRecuadro" for="anadirMesa" id="titulodelRecuadro">¿Está seguro?</label>
-                                                    <input type="hidden" name="mensaje" value="${hilo.id}">
-                                                    <input class="botonDentro" type="submit" value="Aceptar">
-                                                    <input class="botonDentro" type="button" onclick="cerrarRecuadro2()" value="Volver">
-                                                </form>
+                                        <c:if test="${mensaje.escritor.id == sessionScope.user.id || sessionScope.user.admin == 1}">
+                                            <div class="opcionRecuadro" id="recuadro${status.index+1}" style="display: none;">
+                                                <div class="contenidoRecuadro">
+                                                    <form  action="/TFG/Foro/eliminarMensajeHilo" method="POST">
+                                                        <label class="tituloRecuadro" id="titulodelRecuadro">¿Está seguro?</label>
+                                                        <input type="hidden" name="hilo" value="${hilo.id}">
+                                                        <input type="hidden" name="mensaje" value="${mensaje.id}">
+                                                        <input class="botonDentro" type="submit" value="Aceptar">
+                                                        <input class="botonDentro" type="button" onclick="cerrarRecuadro${status.index+1}()" value="Volver">
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </c:if>
                                     </c:forEach>
                                 </table>
                             </div>
@@ -82,14 +88,18 @@
                     </div>
                 </div>
             </div>
-            <div class="contenedorChat">
-                <div class="contenedorMensajesChat" id="MensajesChat">
-                </div>
-                <div class="contenedorBotonesChat">
-                    <form id = form  action="" method="POST">
+            <div class="contenedorMensajeForo">
+                <div class="formularioMensajeForo">
+                    <form id="formMensaje" action="/TFG/Foro/añadirMensajeHilo" method="POST">
+                        <input type="hidden" name="hilo" value="${hilo.id}">
                         <input type="text" maxlength="255" id="mensajeChatMesa" name="mensaje" placeholder="Comentar...">
-                        <button id="botonEnviar" type="submit">Enviar</button>
-                        <select id="SDados">
+                        <input class="botonDentro" type="submit" value="Enviar">
+                    </form>
+                </div>
+                <div class="formularioMensajeForo">
+                    <form id="formTirada" action="/TFG/Foro/añadirTiradaHilo" method="POST">
+                        <input type="hidden" name="hilo" value="${hilo.id}">
+                        <select name="dado" id="SDados">
                             <option value="4">Dado-4</option>
                             <option value="6">Dado-6</option>
                             <option value="8">Dado-8</option>
@@ -98,7 +108,7 @@
                             <option value="20">Dado-20</option>
                             <option value="100">Dado-100</option>
                         </select>
-                        <button id="IDadoButton" type="button" onclick="enviarTirada()"><img id="IDado" src="/TFG/img/iconos/d20White.png" alt="alt"/></button>
+                        <button id="IDadoButton" type="submit"><img id="IDado" src="/TFG/img/iconos/d20White.png" alt="alt"/></button>
                     </form>
                 </div>
             </div>
@@ -108,11 +118,13 @@
             </div>
         </div> 
     </main>
-    <jsp:include page="/WEB-INF/jsp/footer.jsp" />
+    <jsp:include page="/WEB-INF/jsp/footerNoChat.jsp" />
     <script>
         //Datos de las páginas
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);
+        //Recoger Datos
+        let hilo = '<%= request.getAttribute("hiloID")%>';
         //Tabla
         let tabla = document.getElementById('Tabla');
         let tablaInicial = tabla.innerHTML;
@@ -121,7 +133,7 @@
     <script src="/TFG/js/busquedasAJAXJS.js"></script>
     <script src="/TFG/js/principalJS.js"></script>
     <script src="/TFG/js/mostrarBotonesJS.js"></script>
-    <script src="/TFG/js/mesas/mesasJS.js"></script>
+    <script src="/TFG/js/foro/hiloJS.js"></script>
     <script src="/TFG/js/mostrarRecuadrosJS.js"></script>
 </body>
 </html>

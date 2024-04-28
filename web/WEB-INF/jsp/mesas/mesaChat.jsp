@@ -73,10 +73,8 @@
                             </c:choose>
                         </div>
                         <div class="botonesAudio">
-                            <c:if test="${requestScope.musica.nombre != 'Ninguna'}">
-                                <button type="button" class="boton" onclick="ajustarVolumen(-0.1)">Disminuir volumen</button>
-                                <button type="button" class="boton" onclick="ajustarVolumen(+0.1)">Aumentar volumen</button>
-                            </c:if>
+                            <button type="button" class="boton" onclick="ajustarVolumen(-0.1)">Disminuir volumen</button>
+                            <button type="button" class="boton" onclick="ajustarVolumen(+0.1)">Aumentar volumen</button>
                             <button type="button" class="botonfinal" onclick="mostrarRecuadro()
                                     <c:if test="${requestScope.rol != 'Dungeon Master'}">  style ="display: none;"</c:if>">Cambiar</button>
                                     <div class="opcionRecuadro" id="recuadro" style="display: none;">
