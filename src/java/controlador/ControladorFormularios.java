@@ -84,6 +84,7 @@ public class ControladorFormularios extends HttpServlet {
         TypedQuery<Usasubclase> queryUsaSubClases;
         TypedQuery<Seccion> querySeccion;
         TypedQuery<Tema> queryTema;
+        TypedQuery<Usuarios> queryUsuarios;
 
         List<Integer> listaHabValores;
         List<Dotes> listaDotes;
@@ -95,6 +96,9 @@ public class ControladorFormularios extends HttpServlet {
         int numMesasCreadas;
         int num;
         int numaux;
+        String password;
+
+        String msj;
 
         String accion;
         accion = request.getPathInfo();
@@ -102,7 +106,8 @@ public class ControladorFormularios extends HttpServlet {
 
         switch (accion) {
             case "/contraseñaperdida":
-
+                msj = request.getParameter("msj");
+                request.setAttribute("msj", msj);
                 vista = "/WEB-INF/jsp/formularios/contraseñaperdida.jsp";
                 break;
             case "/crearmesa":
@@ -129,8 +134,8 @@ public class ControladorFormularios extends HttpServlet {
                     vista = "/WEB-INF/jsp/formularios/crearmesa.jsp";
                 }
                 break;
-
             case "/iniciosesion":
+
                 vista = "/WEB-INF/jsp/formularios/iniciosesion.jsp";
                 break;
             case "/modificarmesa":
@@ -174,9 +179,34 @@ public class ControladorFormularios extends HttpServlet {
                 vista = "/WEB-INF/jsp/formularios/registro.jsp";
                 break;
             case "/restablecercontraseña":
-                vista = "/WEB-INF/jsp/formularios/restablecercontraseña.jsp";
+
+                id = request.getParameter("id");
+                password = request.getParameter("password");
+                msj = request.getParameter("msj");
+
+                queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                queryUsuarios.setParameter("id", id);
+
+                try {
+                    user = queryUsuarios.getSingleResult();
+
+                    if (!user.getContrasena().equals(password)) {
+                        throw new Exception("No es la misma contraseña");
+                    } else {
+
+                        request.setAttribute("id", id);
+                        request.setAttribute("contrasenaAntigua", password);
+                        request.setAttribute("msj", msj);
+                        vista = "/WEB-INF/jsp/formularios/restablecercontraseña.jsp";
+                    }
+                } catch (Exception ex) {
+                    System.out.println("Error intentando cambiar contraseña:" + ex.getMessage());
+                    vista = "/Principal/inicio";
+                }
                 break;
             case "/usuarioperdido":
+                msj = request.getParameter("msj");
+                request.setAttribute("msj", msj);
                 vista = "/WEB-INF/jsp/formularios/usuarioperdido.jsp";
                 break;
             case "/crearpersonaje":

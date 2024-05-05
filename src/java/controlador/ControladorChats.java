@@ -130,7 +130,7 @@ public class ControladorChats extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuarios) session.getAttribute("user"); 
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////

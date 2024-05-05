@@ -13,13 +13,18 @@
         <main class="contenedorFormulario">
             <div class="bloqueRecuperar">
                 <h2 class="TitulosFormulario">Recuperar Usuario</h2>
-                <form>
+                <form id=form  action="/TFG/Recuperacion/enviarUsuario" method="POST">
                     <div>
                         <div>
                             <label for="emailRC" id="correoUsuarioRC">Correo Electrónico:</label>
                             <input type="email" id="emailRC" name="correo_usuario_rc" onkeyup="realizarBusqueda('emailRC', 'emailRCInput')" required/>
                             <span id="emailRCInput">✖</span>
                         </div>
+                        <c:if test="${requestScope.msj!=null}">
+                            <div>
+                                ${requestScope.msj}
+                            </div>
+                        </c:if>
                     </div>
                     <div class="contenedorBotonFormulario">
                         <input id="botonVolverFormulario" type="button" onclick="location.href = '/TFG/Formularios/iniciosesion'" value="Volver">

@@ -13,8 +13,10 @@
         <main class="contenedorFormulario">
             <div class="bloqueRecuperar">
                 <h2 class="TitulosFormulario">Restablecer Contraseña</h2>
-                <form>
+                <form id=form  action="/TFG/Usuarios/restablecerContraseña" method="POST">
                     <div>
+                        <input type="hidden" name="id" value="${requestScope.id}">
+                        <input type="hidden" name="contrasenaAntigua" value="${requestScope.contrasenaAntigua}">
                         <div>
                             <label for="passwordRC" id="contrasenaRC">Contraseña:</label>
                             <input type="text" id="passwordRC" name="contrasena_usuario_rc" required/>
@@ -26,6 +28,11 @@
                                    onchange="realizarBusquedaContrasenas('passwordrpRC', 'passwordrpRCoInput', 'passwordRC')"required/>
                             <span id="passwordrpRCoInput">✖</span>
                         </div>
+                        <c:if test="${requestScope.msj!=null}">
+                            <div>
+                                ${requestScope.msj}
+                            </div>
+                        </c:if>
                     </div>
                     <div class="contenedorBotonFormulario">
                         <input id="botonVolverFormulario" type="button" onclick="location.href = '/TFG/Formularios/iniciosesion'" value="Volver">

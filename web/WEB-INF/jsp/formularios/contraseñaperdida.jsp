@@ -13,13 +13,18 @@
         <main class="contenedorFormulario">
             <div class="bloqueRecuperar">
                 <h2 class="TitulosFormulario">Recuperar Contraseña</h2>
-                <form>
+                <form id=form  action="/TFG/Recuperacion/enviarContraseña" method="POST">
                     <div>
                         <div>
                             <label for="userRC" id="nombreUsuarioRC">Nombre de Usuario:</label>
                             <input type="text" id="userRC" name="nombre_usuario_rc" onkeyup="realizarBusqueda('userRC', 'userRCInput')" required/>
                             <span id="userRCInput">✖</span>
                         </div>
+                        <c:if test="${requestScope.msj!=null}">
+                            <div>
+                                ${requestScope.msj}
+                            </div>
+                        </c:if>
                     </div>
                     <div class="contenedorBotonFormulario">
                         <input id="botonVolverFormulario" type="button" onclick="location.href = '/TFG/Formularios/iniciosesion'" value="Volver">

@@ -94,11 +94,13 @@ public class ControladorUsuarios extends HttpServlet {
         String nombre;
         String correo;
         String contrasena;
+        String contrasenaAuxiliar;
         String contrasenahash;
         String telefono;
         String fechaNacimientoString;
         String provincia;
         String genero;
+        String contrasenaAntigua;
 
         String ordenar;
         String mesa;
@@ -1548,12 +1550,61 @@ public class ControladorUsuarios extends HttpServlet {
                     }
                 }
                 break;
+            /////////////////////////////////////////////////////////////////////////////
+            /////////////////////////RESTABLECER CONTRASEÑA//////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////
+            case "/restablecerContraseña":
+
+                id = request.getParameter("id");
+                contrasenaAntigua = request.getParameter("contrasenaAntigua");
+                contrasena = request.getParameter("contrasena_usuario_rc");
+                contrasenaAuxiliar = request.getParameter("contrasenarp_usuario_rc");
+
+                try {
+                    //////////////////////
+                    //////CONTRASEÑA//////
+                    //////////////////////
+                    if (contrasena.toUpperCase().contains("UPDATE") || contrasena.toUpperCase().contains("CREATE")
+                            || contrasena.toUpperCase().contains("DELETE") || contrasena.toUpperCase().contains("SELECT")
+                            || contrasena.toUpperCase().contains("DROP")) {
+                        throw new Exception("La contraseña no es válida");
+                    }
+
+                    if (!contrasenaAuxiliar.equals(contrasena)) {
+                        throw new Exception("Las contraseñas no son iguales");
+                    }
+
+                    //////////////////////
+                    /////////HASH/////////
+                    //////////////////////
+                    contrasenahash = BCrypt.hashpw(contrasena, BCrypt.gensalt());
+
+                    try {
+                        queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                        queryUsuarios.setParameter("id", id);
+                        user = queryUsuarios.getSingleResult();
+
+                        user.setContrasena(contrasenahash);
+                        update(user);
+
+                        vista = "/Principal/inicio";
+                    } catch (Exception ex) {
+                        vista = "/Principal/inicio";
+                    }
+                } catch (Exception ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                    msj = "<p style=\"margin-left: 10px\"> Error" + ex.getMessage() + "</p>";
+                    vista = "/Formularios/restablecercontraseña?msj=" + msj + "&id=" + id + "&password=" + contrasenaAntigua;
+                }
+
+                break;
         }
         RequestDispatcher rd = request.getRequestDispatcher(vista);
+
         rd.forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
