@@ -14,36 +14,36 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(name = "AMIGOS")
+@Table(name = "AMIGO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Amigos.findAll", query = "SELECT a FROM Amigos a"),
-    @NamedQuery(name = "Amigos.findByAmigo1", query = "SELECT a FROM Amigos a WHERE a.amigosPK.amigo1 = :amigo1"),
-    @NamedQuery(name = "Amigos.findByAmigo2", query = "SELECT a FROM Amigos a WHERE a.amigosPK.amigo2 = :amigo2"),
-    @NamedQuery(name = "Amigos.findByAmigos", query = "SELECT a FROM Amigos a WHERE a.amigosPK.amigo1 = :amigo1 and a.amigosPK.amigo2 = :amigo2")
+    @NamedQuery(name = "Amigo.findAll", query = "SELECT a FROM Amigo a"),
+    @NamedQuery(name = "Amigo.findByAmigo1", query = "SELECT a FROM Amigo a WHERE a.amigosPK.amigo1 = :amigo1"),
+    @NamedQuery(name = "Amigo.findByAmigo2", query = "SELECT a FROM Amigo a WHERE a.amigosPK.amigo2 = :amigo2"),
+    @NamedQuery(name = "Amigo.findByAmigos", query = "SELECT a FROM Amigo a WHERE a.amigosPK.amigo1 = :amigo1 and a.amigosPK.amigo2 = :amigo2")
 })
-public class Amigos implements Serializable {
+public class Amigo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected AmigosPK amigosPK;
+    protected AmigoPK amigosPK;
 
-    public Amigos() {
+    public Amigo() {
     }
 
-    public Amigos(AmigosPK amigosPK) {
+    public Amigo(AmigoPK amigosPK) {
         this.amigosPK = amigosPK;
     }
 
-    public Amigos(String amigo1, String amigo2) {
-        this.amigosPK = new AmigosPK(amigo1, amigo2);
+    public Amigo(String amigo1, String amigo2) {
+        this.amigosPK = new AmigoPK(amigo1, amigo2);
     }
 
-    public AmigosPK getAmigosPK() {
+    public AmigoPK getAmigosPK() {
         return amigosPK;
     }
 
-    public void setAmigosPK(AmigosPK amigosPK) {
+    public void setAmigosPK(AmigoPK amigosPK) {
         this.amigosPK = amigosPK;
     }
 
@@ -57,10 +57,10 @@ public class Amigos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Amigos)) {
+        if (!(object instanceof Amigo)) {
             return false;
         }
-        Amigos other = (Amigos) object;
+        Amigo other = (Amigo) object;
         if ((this.amigosPK == null && other.amigosPK != null) || (this.amigosPK != null && !this.amigosPK.equals(other.amigosPK))) {
             return false;
         }
@@ -69,7 +69,7 @@ public class Amigos implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Amigos[ amigosPK=" + amigosPK + " ]";
+        return "entidades.Amigo[ amigosPK=" + amigosPK + " ]";
     }
     
 }

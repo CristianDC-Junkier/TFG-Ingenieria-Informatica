@@ -1,8 +1,8 @@
 package controlador;
 
 import entidades.Descriptormesa;
-import entidades.Mesas;
-import entidades.Personajes;
+import entidades.Mesa;
+import entidades.Personaje;
 import entidades.Pertenecemesa;
 import entidades.Usuario;
 import java.io.ByteArrayOutputStream;
@@ -57,13 +57,13 @@ public class ControladorImagenes extends HttpServlet {
         HttpSession session;
 
         Usuario user;
-        Mesas mesa;
-        Personajes personaje;
+        Mesa mesa;
+        Personaje personaje;
         Pertenecemesa pmesa;
 
-        TypedQuery<Mesas> queryMesas;
+        TypedQuery<Mesa> queryMesas;
         TypedQuery<Pertenecemesa> queryPertenecemesa;
-        TypedQuery<Personajes> queryPersonajes;
+        TypedQuery<Personaje> queryPersonajes;
 
         Part filePart;
 
@@ -87,7 +87,7 @@ public class ControladorImagenes extends HttpServlet {
                 /////////////////////////////
                 id = request.getParameter("id");
 
-                queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                 queryMesas.setParameter("id", id);
                 mesa = queryMesas.getSingleResult();
 
@@ -126,7 +126,7 @@ public class ControladorImagenes extends HttpServlet {
                 /////////////////////
                 /////////MESA////////
                 /////////////////////
-                queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                 queryMesas.setParameter("id", id);
                 mesa = queryMesas.getSingleResult();
 
@@ -152,7 +152,7 @@ public class ControladorImagenes extends HttpServlet {
                 id = request.getParameter("id");
 
                 try {
-                    queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                    queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                     queryMesas.setParameter("id", id);
                     mesa = queryMesas.getSingleResult();
 
@@ -202,7 +202,7 @@ public class ControladorImagenes extends HttpServlet {
                 ///////////////////////
                 ///////PERSONAJE///////
                 ///////////////////////
-                queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                 queryMesas.setParameter("id", id);
                 mesa = queryMesas.getSingleResult();
 
@@ -229,7 +229,7 @@ public class ControladorImagenes extends HttpServlet {
                 /////////////////////////////
                 id = request.getParameter("id");
 
-                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                 queryPersonajes.setParameter("id", id);
                 personaje = queryPersonajes.getSingleResult();
 
@@ -268,7 +268,7 @@ public class ControladorImagenes extends HttpServlet {
                 ///////////////////////
                 ///////PERSONAJE///////
                 ///////////////////////
-                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                 queryPersonajes.setParameter("id", id);
                 personaje = queryPersonajes.getSingleResult();
 
@@ -333,7 +333,7 @@ public class ControladorImagenes extends HttpServlet {
     private void updateMesas(Object object) {
         try {
             utx.begin();
-            em.merge((Mesas) object);
+            em.merge((Mesa) object);
             utx.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -353,7 +353,7 @@ public class ControladorImagenes extends HttpServlet {
     private void updatePersonajes(Object object) {
         try {
             utx.begin();
-            em.merge((Personajes) object);
+            em.merge((Personaje) object);
             utx.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);

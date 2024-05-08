@@ -1,12 +1,12 @@
 package controlador;
 
-import entidades.Amigos;
-import entidades.Mensajesamigos;
-import entidades.Mensajesmesas;
-import entidades.Mesas;
+import entidades.Amigo;
+import entidades.Mensajeamigo;
+import entidades.Mensajemesa;
+import entidades.Mesa;
 import entidades.Musica;
 import entidades.Musicamesa;
-import entidades.Personajes;
+import entidades.Personaje;
 import entidades.Pertenecemesa;
 import entidades.Usuario;
 import java.io.IOException;
@@ -65,38 +65,38 @@ public class ControladorChats extends HttpServlet {
 
             Usuario user;
             Usuario useraux;
-            Mensajesamigos MEAux;
-            Mensajesamigos MRAux;
-            Mensajesamigos msjA = null;
-            Mensajesmesas MMEAux;
-            Mensajesmesas MMRAux;
-            Mensajesmesas msjM = null;
+            Mensajeamigo MEAux;
+            Mensajeamigo MRAux;
+            Mensajeamigo msjA = null;
+            Mensajemesa MMEAux;
+            Mensajemesa MMRAux;
+            Mensajemesa msjM = null;
             Pertenecemesa pmesa;
-            Mesas mesa;
+            Mesa mesa;
             Musica musica;
-            Personajes personaje;
+            Personaje personaje;
 
             TypedQuery<Usuario> queryUsuarios;
-            TypedQuery<Amigos> queryAmigos;
-            TypedQuery<Mensajesamigos> queryMensajesAmigos;
-            TypedQuery<Mensajesmesas> queryMensajesMesas;
+            TypedQuery<Amigo> queryAmigos;
+            TypedQuery<Mensajeamigo> queryMensajesAmigos;
+            TypedQuery<Mensajemesa> queryMensajesMesas;
             TypedQuery<Pertenecemesa> queryPertenecemesas;
-            TypedQuery<Mesas> queryMesas;
+            TypedQuery<Mesa> queryMesas;
             TypedQuery<Musica> queryMusica;
-            TypedQuery<Personajes> queryPersonajes;
+            TypedQuery<Personaje> queryPersonajes;
 
             Query queryAUX;
 
             List<Usuario> listaUsuarios;
-            List<Mensajesamigos> listaMensajesEnviados;
-            List<Mensajesamigos> listaMensajesRecibidos;
-            List<Mensajesamigos> listaMensajesOrdenados;
-            List<Mensajesmesas> listaMensajesMesaEnviados;
-            List<Mensajesmesas> listaMensajesMesaRecibidos;
-            List<Mensajesmesas> listaMensajesMesaOrdenados;
+            List<Mensajeamigo> listaMensajesEnviados;
+            List<Mensajeamigo> listaMensajesRecibidos;
+            List<Mensajeamigo> listaMensajesOrdenados;
+            List<Mensajemesa> listaMensajesMesaEnviados;
+            List<Mensajemesa> listaMensajesMesaRecibidos;
+            List<Mensajemesa> listaMensajesMesaOrdenados;
             List<Musica> listaMusica;
             List<Pertenecemesa> listaPertenecemesa;
-            List<Personajes> listaPersonajes;
+            List<Personaje> listaPersonajes;
 
             int contadorEnviados = 0;
             int contadorRecibidos = 0;
@@ -144,13 +144,13 @@ public class ControladorChats extends HttpServlet {
                         queryUsuarios.setParameter("apodo", nombre);
                         useraux = queryUsuarios.getSingleResult();
 
-                        queryMensajesAmigos = em.createNamedQuery("Mensajesamigos.findByEscritorReceptor", Mensajesamigos.class);
+                        queryMensajesAmigos = em.createNamedQuery("Mensajeamigo.findByEscritorReceptor", Mensajeamigo.class);
                         queryMensajesAmigos.setParameter("escritor", user);
                         queryMensajesAmigos.setParameter("receptor", useraux);
                         try {
                             listaMensajesEnviados = queryMensajesAmigos.getResultList();
 
-                            queryMensajesAmigos = em.createNamedQuery("Mensajesamigos.findByReceptorEscritor", Mensajesamigos.class);
+                            queryMensajesAmigos = em.createNamedQuery("Mensajeamigo.findByReceptorEscritor", Mensajeamigo.class);
                             queryMensajesAmigos.setParameter("escritor", useraux);
                             queryMensajesAmigos.setParameter("receptor", user);
                             listaMensajesRecibidos = queryMensajesAmigos.getResultList();
@@ -271,12 +271,12 @@ public class ControladorChats extends HttpServlet {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                         String fechaFormateada = fechaLimite.format(formatter);
 
-                        sql = "SELECT DISTINCT m.* FROM Mensajesamigos m"
+                        sql = "SELECT DISTINCT m.* FROM Mensajeamigo m"
                                 + " WHERE ((m.escritor = '" + user.getId() + "' AND m.receptor = '" + id + "') "
                                 + " OR (m.escritor = '" + id + "' AND m.receptor = '" + user.getId() + "'))"
                                 + " AND m.fecha >= TO_DATE('" + fechaFormateada + "00:00:00', 'YYYY-MM-DD HH24:MI:SS')"; // Fecha de inicio del día
 
-                        queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
+                        queryAUX = em.createNativeQuery(sql, Mensajeamigo.class);
                         resultado = "";
 
                         //si no hubo escribimos el dia (es decir el nuestro es el 1)
@@ -294,26 +294,26 @@ public class ControladorChats extends HttpServlet {
                         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                         fechaFormateada = fechaLimite.format(formatter);
 
-                        sql = "SELECT m.* FROM Mensajesamigos m"
+                        sql = "SELECT m.* FROM Mensajeamigo m"
                                 + " WHERE m.escritor = '" + user.getId() + "'"
                                 + " and m.receptor = '" + id + "'"
                                 + " and m.fecha >= TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
                                 + " ORDER BY m.fecha";
 
-                        queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
+                        queryAUX = em.createNativeQuery(sql, Mensajeamigo.class);
                         listaMensajesEnviados = queryAUX.getResultList();
 
                         //mensajes recibidos
                         fechaLimite = fechaLimite.minusSeconds(5);
                         fechaFormateada = fechaLimite.format(formatter);
 
-                        sql = "SELECT m.* FROM Mensajesamigos m"
+                        sql = "SELECT m.* FROM Mensajeamigo m"
                                 + " WHERE m.escritor = '" + id + "'"
                                 + " and m.receptor = '" + user.getId() + "'"
                                 + " and m.fecha > TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
                                 + " ORDER BY m.fecha";
 
-                        queryAUX = em.createNativeQuery(sql, Mensajesamigos.class);
+                        queryAUX = em.createNativeQuery(sql, Mensajeamigo.class);
                         listaMensajesRecibidos = queryAUX.getResultList();
 
                         listaMensajesOrdenados = new ArrayList();
@@ -414,8 +414,8 @@ public class ControladorChats extends HttpServlet {
                     nombre = request.getParameter("busqueda");
 
                     sql = "SELECT u2.* FROM Usuario u "
-                            + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                            + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                            + "INNER JOIN Amigo a ON u.id = a.amigo1 "
+                            + "INNER JOIN Usuario u2 ON a.amigo2 = u2.id "
                             + "WHERE a.amigo1 = '" + user.getId() + "'"
                             + "ORDER BY u2.apodo ASC ";
 
@@ -494,7 +494,7 @@ public class ControladorChats extends HttpServlet {
                             queryUsuarios.setParameter("apodo", apodo);
                             useraux = queryUsuarios.getSingleResult();
 
-                            queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
+                            queryAmigos = em.createNamedQuery("Amigo.findByAmigos", Amigo.class);
                             queryAmigos.setParameter("amigo1", user.getId());
                             queryAmigos.setParameter("amigo2", useraux.getId());
 
@@ -512,7 +512,7 @@ public class ControladorChats extends HttpServlet {
 
                                 fecha = new Date();
 
-                                msjA = new Mensajesamigos(resultado, fecha, useraux, user);
+                                msjA = new Mensajeamigo(resultado, fecha, useraux, user);
 
                                 persist(msjA);
 
@@ -546,7 +546,7 @@ public class ControladorChats extends HttpServlet {
                             queryUsuarios.setParameter("apodo", apodo);
                             useraux = queryUsuarios.getSingleResult();
 
-                            queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
+                            queryAmigos = em.createNamedQuery("Amigo.findByAmigos", Amigo.class);
                             queryAmigos.setParameter("amigo1", user.getId());
                             queryAmigos.setParameter("amigo2", useraux.getId());
 
@@ -560,7 +560,7 @@ public class ControladorChats extends HttpServlet {
 
                                 fecha = new Date();
 
-                                msjA = new Mensajesamigos(resultado, fecha, useraux, user);
+                                msjA = new Mensajeamigo(resultado, fecha, useraux, user);
 
                                 persist(msjA);
 
@@ -579,17 +579,17 @@ public class ControladorChats extends HttpServlet {
                     ////////////////////////////////
                     id = request.getParameter("mesa");
 
-                    queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                    queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                     queryMesas.setParameter("id", id);
                     try {
                         //HAY QUE ORDENARLOS POR FECHA SI O SI
                         mesa = queryMesas.getSingleResult();
 
-                        sql = "SELECT m.* FROM Mensajesmesas m"
+                        sql = "SELECT m.* FROM Mensajemesa m"
                                 + " WHERE m.mesa = '" + id + "' "
                                 + " ORDER BY m.fecha";
 
-                        queryAUX = em.createNativeQuery(sql, Mensajesmesas.class);
+                        queryAUX = em.createNativeQuery(sql, Mensajemesa.class);
                         listaMensajesMesaOrdenados = queryAUX.getResultList();
 
                         for (int i = 0; i < listaMensajesMesaOrdenados.size(); i++) {
@@ -670,7 +670,7 @@ public class ControladorChats extends HttpServlet {
                         id = request.getParameter("mesa");
 
                         try {
-                            queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                            queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                             queryMesas.setParameter("id", id);
                             mesa = queryMesas.getSingleResult();
 
@@ -691,7 +691,7 @@ public class ControladorChats extends HttpServlet {
 
                             fecha = new Date();
 
-                            msjM = new Mensajesmesas(resultado, fecha, mesa, user);
+                            msjM = new Mensajemesa(resultado, fecha, mesa, user);
 
                             persist(msjM);
 
@@ -720,7 +720,7 @@ public class ControladorChats extends HttpServlet {
                         id = request.getParameter("mesa");
 
                         try {
-                            queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                            queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                             queryMesas.setParameter("id", id);
                             mesa = queryMesas.getSingleResult();
 
@@ -737,7 +737,7 @@ public class ControladorChats extends HttpServlet {
 
                             fecha = new Date();
 
-                            msjM = new Mensajesmesas(resultado, fecha, mesa, user);
+                            msjM = new Mensajemesa(resultado, fecha, mesa, user);
 
                             persist(msjM);
 
@@ -766,11 +766,11 @@ public class ControladorChats extends HttpServlet {
                     String fechaFormateada = fechaLimite.format(formatter);
 
                     try {
-                        sql = "SELECT DISTINCT m.* FROM Mensajesmesas m"
+                        sql = "SELECT DISTINCT m.* FROM Mensajemesa m"
                                 + " WHERE m.mesa = " + id
                                 + " AND m.fecha >= TO_DATE('" + fechaFormateada + "00:00:00', 'YYYY-MM-DD HH24:MI:SS')"; // Fecha de inicio del día
 
-                        queryAUX = em.createNativeQuery(sql, Mensajesmesas.class);
+                        queryAUX = em.createNativeQuery(sql, Mensajemesa.class);
                         resultado = "";
 
                         //si no hubo escribimos el dia (es decir el nuestro es el 1)
@@ -788,26 +788,26 @@ public class ControladorChats extends HttpServlet {
                         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                         fechaFormateada = fechaLimite.format(formatter);
 
-                        sql = "SELECT m.* FROM Mensajesmesas m"
+                        sql = "SELECT m.* FROM Mensajemesa m"
                                 + " WHERE m.escritor = '" + user.getId() + "' "
                                 + " and m.mesa = " + id
                                 + " and m.fecha >= TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
                                 + " ORDER BY m.fecha";
 
-                        queryAUX = em.createNativeQuery(sql, Mensajesmesas.class);
+                        queryAUX = em.createNativeQuery(sql, Mensajemesa.class);
                         listaMensajesMesaEnviados = queryAUX.getResultList();
 
                         //mensajes recibidos
                         fechaLimite = fechaLimite.minusSeconds(5);
                         fechaFormateada = fechaLimite.format(formatter);
 
-                        sql = "SELECT m.* FROM Mensajesmesas m"
+                        sql = "SELECT m.* FROM Mensajemesa m"
                                 + " WHERE m.escritor != '" + user.getId() + "' "
                                 + " and m.mesa = " + id
                                 + " and m.fecha > TO_DATE( '" + fechaFormateada + "', 'YYYY-MM-DD HH24:MI:SS')"
                                 + " ORDER BY m.fecha";
 
-                        queryAUX = em.createNativeQuery(sql, Mensajesmesas.class);
+                        queryAUX = em.createNativeQuery(sql, Mensajemesa.class);
                         listaMensajesMesaRecibidos = queryAUX.getResultList();
 
                         listaMensajesMesaOrdenados = new ArrayList();
@@ -999,7 +999,7 @@ public class ControladorChats extends HttpServlet {
                     } else {
                         id = request.getParameter("id");
 
-                        queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                        queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                         queryPersonajes.setParameter("id", id);
                         personaje = queryPersonajes.getSingleResult();
 
@@ -1020,7 +1020,7 @@ public class ControladorChats extends HttpServlet {
                     id = request.getParameter("mesa");
 
                     try {
-                        queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                        queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                         queryMesas.setParameter("id", id);
                         mesa = queryMesas.getSingleResult();
 
@@ -1058,7 +1058,7 @@ public class ControladorChats extends HttpServlet {
                     id = request.getParameter("mesa");
 
                     try {
-                        queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                        queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                         queryMesas.setParameter("id", id);
                         mesa = queryMesas.getSingleResult();
 
@@ -1097,7 +1097,7 @@ public class ControladorChats extends HttpServlet {
                     nombre = request.getParameter("musica");
 
                     try {
-                        queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                        queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                         queryMesas.setParameter("id", id);
                         mesa = queryMesas.getSingleResult();
 
@@ -1125,7 +1125,7 @@ public class ControladorChats extends HttpServlet {
                     id = request.getParameter("mesa");
 
                     try {
-                        queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                        queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                         queryMesas.setParameter("id", id);
                         mesa = queryMesas.getSingleResult();
                         
@@ -1200,7 +1200,7 @@ public class ControladorChats extends HttpServlet {
     private void updateMesas(Object object) {
         try {
             utx.begin();
-            em.merge((Mesas) object);
+            em.merge((Mesa) object);
             utx.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -1210,7 +1210,7 @@ public class ControladorChats extends HttpServlet {
     private void updatePersonajes(Object object) {
         try {
             utx.begin();
-            em.merge((Personajes) object);
+            em.merge((Personaje) object);
             utx.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);

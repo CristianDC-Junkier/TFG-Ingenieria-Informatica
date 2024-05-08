@@ -27,23 +27,23 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "CLASES", catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "CLASE", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Clases.findAll", query = "SELECT c FROM Clases c ORDER BY c.nombre"),
-    @NamedQuery(name = "Clases.findById", query = "SELECT c FROM Clases c WHERE c.id = :id"),
-    @NamedQuery(name = "Clases.findByNombre", query = "SELECT c FROM Clases c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "Clases.findByDpg", query = "SELECT c FROM Clases c WHERE c.dpg = :dpg"),
-    @NamedQuery(name = "Clases.findByComparmas", query = "SELECT c FROM Clases c WHERE c.comparmas = :comparmas"),
-    @NamedQuery(name = "Clases.findByComparmaduras", query = "SELECT c FROM Clases c WHERE c.comparmaduras = :comparmaduras"),
-    @NamedQuery(name = "Clases.findByCompherramientas", query = "SELECT c FROM Clases c WHERE c.compherramientas = :compherramientas"),
-    @NamedQuery(name = "Clases.findByHabhechizos", query = "SELECT c FROM Clases c WHERE c.habhechizos = :habhechizos"),
-    @NamedQuery(name = "Clases.findByEquipoinicial", query = "SELECT c FROM Clases c WHERE c.equipoinicial = :equipoinicial"),
-    @NamedQuery(name = "Clases.findByOroinicial", query = "SELECT c FROM Clases c WHERE c.oroinicial = :oroinicial"),
-    @NamedQuery(name = "Clases.findByElegirhab", query = "SELECT c FROM Clases c WHERE c.elegirhab = :elegirhab"),
-    @NamedQuery(name = "Clases.findByNivelsubclase", query = "SELECT c FROM Clases c WHERE c.nivelsubclase = :nivelsubclase")})
-public class Clases implements Serializable {
+    @NamedQuery(name = "Clase.findAll", query = "SELECT c FROM Clase c ORDER BY c.nombre"),
+    @NamedQuery(name = "Clase.findById", query = "SELECT c FROM Clase c WHERE c.id = :id"),
+    @NamedQuery(name = "Clase.findByNombre", query = "SELECT c FROM Clase c WHERE c.nombre = :nombre"),
+    @NamedQuery(name = "Clase.findByDpg", query = "SELECT c FROM Clase c WHERE c.dpg = :dpg"),
+    @NamedQuery(name = "Clase.findByComparmas", query = "SELECT c FROM Clase c WHERE c.comparmas = :comparmas"),
+    @NamedQuery(name = "Clase.findByComparmaduras", query = "SELECT c FROM Clase c WHERE c.comparmaduras = :comparmaduras"),
+    @NamedQuery(name = "Clase.findByCompherramientas", query = "SELECT c FROM Clase c WHERE c.compherramientas = :compherramientas"),
+    @NamedQuery(name = "Clase.findByHabhechizos", query = "SELECT c FROM Clase c WHERE c.habhechizos = :habhechizos"),
+    @NamedQuery(name = "Clase.findByEquipoinicial", query = "SELECT c FROM Clase c WHERE c.equipoinicial = :equipoinicial"),
+    @NamedQuery(name = "Clase.findByOroinicial", query = "SELECT c FROM Clase c WHERE c.oroinicial = :oroinicial"),
+    @NamedQuery(name = "Clase.findByElegirhab", query = "SELECT c FROM Clase c WHERE c.elegirhab = :elegirhab"),
+    @NamedQuery(name = "Clase.findByNivelsubclase", query = "SELECT c FROM Clase c WHERE c.nivelsubclase = :nivelsubclase")})
+public class Clase implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -86,7 +86,7 @@ public class Clases implements Serializable {
     @Column(name = "NIVELSUBCLASE", nullable = false)
     private Integer nivelsubclase;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clase")
-    private List<Personajes> personajesList;
+    private List<Personaje> personajesList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -98,29 +98,29 @@ public class Clases implements Serializable {
         @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Habilidades> habilidadesList;
+    private List<Habilidad> habilidadesList;
     @ManyToMany(mappedBy = "clasesList")
-    private List<Hechizos> hechizosList;
+    private List<Hechizo> hechizosList;
     @JoinTable(name = "DASALVACIONCLASE", joinColumns = {
         @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Atributos> atributosList;
+    private List<Atributo> atributosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clase")
-    private List<Subclases> subclasesList;
+    private List<Subclase> subclasesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clases")
     private List<Usaclase> usaclaseList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clases")
-    private List<Tablaclasespornivel> tablaclasespornivelList;
+    private List<Tablaclasepornivel> tablaclasespornivelList;
 
-    public Clases() {
+    public Clase() {
     }
 
-    public Clases(String id) {
+    public Clase(String id) {
         this.id = id;
     }
 
-    public Clases(String id, String nombre, String descripcion, String elegirhab, Integer nivelsubclase) {
+    public Clase(String id, String nombre, String descripcion, String elegirhab, Integer nivelsubclase) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -138,38 +138,38 @@ public class Clases implements Serializable {
 
 
     @XmlTransient
-    public List<Habilidades> getHabilidadesList() {
+    public List<Habilidad> getHabilidadesList() {
         return habilidadesList;
     }
 
-    public void setHabilidadesList(List<Habilidades> habilidadesList) {
+    public void setHabilidadesList(List<Habilidad> habilidadesList) {
         this.habilidadesList = habilidadesList;
     }
 
     @XmlTransient
-    public List<Hechizos> getHechizosList() {
+    public List<Hechizo> getHechizosList() {
         return hechizosList;
     }
 
-    public void setHechizosList(List<Hechizos> hechizosList) {
+    public void setHechizosList(List<Hechizo> hechizosList) {
         this.hechizosList = hechizosList;
     }
 
     @XmlTransient
-    public List<Atributos> getAtributosList() {
+    public List<Atributo> getAtributosList() {
         return atributosList;
     }
 
-    public void setAtributosList(List<Atributos> atributosList) {
+    public void setAtributosList(List<Atributo> atributosList) {
         this.atributosList = atributosList;
     }
 
     @XmlTransient
-    public List<Subclases> getSubclasesList() {
+    public List<Subclase> getSubclasesList() {
         return subclasesList;
     }
 
-    public void setSubclasesList(List<Subclases> subclasesList) {
+    public void setSubclasesList(List<Subclase> subclasesList) {
         this.subclasesList = subclasesList;
     }
 
@@ -183,11 +183,11 @@ public class Clases implements Serializable {
     }
 
     @XmlTransient
-    public List<Tablaclasespornivel> getTablaclasespornivelList() {
+    public List<Tablaclasepornivel> getTablaclasespornivelList() {
         return tablaclasespornivelList;
     }
 
-    public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
+    public void setTablaclasespornivelList(List<Tablaclasepornivel> tablaclasespornivelList) {
         this.tablaclasespornivelList = tablaclasespornivelList;
     }
 
@@ -201,10 +201,10 @@ public class Clases implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Clases)) {
+        if (!(object instanceof Clase)) {
             return false;
         }
-        Clases other = (Clases) object;
+        Clase other = (Clase) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -213,13 +213,13 @@ public class Clases implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Clases[ id=" + id + " ]";
+        return "entidades.Clase[ id=" + id + " ]";
     }
     @XmlTransient
-    public List<Personajes> getPersonajesList() {
+    public List<Personaje> getPersonajesList() {
         return personajesList;
     }
-    public void setPersonajesList(List<Personajes> personajesList) {
+    public void setPersonajesList(List<Personaje> personajesList) {
         this.personajesList = personajesList;
     }
 

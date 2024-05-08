@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -25,6 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
+@Table(name = "USUARIO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
@@ -87,9 +89,9 @@ public class Usuario implements Serializable {
     private List<Mensajehilo> mensajehiloList;
     @JoinColumn(name = "PERSONAJEACTUAL", referencedColumnName = "ID")
     @ManyToOne
-    private Personajes personajeactual;
+    private Personaje personajeactual;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<Personajes> personajesList;
+    private List<Personaje> personajesList;
     @Column(name = "TELEFONO")
     private BigInteger telefono;
     @JoinTable(name = "BLOQUEADOS", joinColumns = {
@@ -116,11 +118,11 @@ public class Usuario implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarios")
     private List<Pertenecemesa> pertenecemesaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "escritor")
-    private List<Mensajesmesas> mensajesmesasList;
+    private List<Mensajemesa> mensajesmesasList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receptor")
-    private List<Mensajesamigos> mensajesamigosList;
+    private List<Mensajeamigo> mensajesamigosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "escritor")
-    private List<Mensajesamigos> mensajesamigosList1;
+    private List<Mensajeamigo>mensajesamigosList1;
 
 
     private static final long serialVersionUID = 1L;
@@ -261,42 +263,42 @@ if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals
     }
 
     @XmlTransient
-    public List<Mensajesmesas> getMensajesmesasList() {
+    public List<Mensajemesa>getMensajesmesasList() {
         return mensajesmesasList;
     }
 
-    public void setMensajesmesasList(List<Mensajesmesas> mensajesmesasList) {
+    public void setMensajesmesasList(List<Mensajemesa>MensajesmesasList) {
         this.mensajesmesasList = mensajesmesasList;
     }
 
     @XmlTransient
-    public List<Mensajesamigos> getMensajesamigosList() {
+    public List<Mensajeamigo> MensajesamigosList() {
         return mensajesamigosList;
     }
 
-    public void setMensajesamigosList(List<Mensajesamigos> mensajesamigosList) {
+    public void setMensajesamigosList(List<Mensajeamigo> MenajesamigosList) {
         this.mensajesamigosList = mensajesamigosList;
     }
 
     @XmlTransient
-    public List<Mensajesamigos> getMensajesamigosList1() {
+    public List<Mensajeamigo> getMensajesamigosList1() {
         return mensajesamigosList1;
     }
 
-    public void setMensajesamigosList1(List<Mensajesamigos> mensajesamigosList1) {
+    public void setMensajesamigosList1(List<Mensajeamigo> MensajeamigoamigosList1) {
         this.mensajesamigosList1 = mensajesamigosList1;
     }
     @XmlTransient
-    public List<Personajes> getPersonajesList() {
+    public List<Personaje>getPersonajesList() {
         return personajesList;
     }
-    public void setPersonajesList(List<Personajes> personajesList) {
+    public void setPersonajesList(List<Personaje>personajesList) {
         this.personajesList = personajesList;
     }
-    public Personajes getPersonajeactual() {
+    public Personaje getPersonajeactual() {
         return personajeactual;
     }
-    public void setPersonajeactual(Personajes personajeactual) {
+    public void setPersonajeactual(Personaje personajeactual) {
         this.personajeactual = personajeactual;
     }
 

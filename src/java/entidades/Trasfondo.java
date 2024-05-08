@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "TRASFONDO", catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "TRASFONDO", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
@@ -64,13 +64,13 @@ public class Trasfondo implements Serializable {
     @Column(name = "ELEGIRHAB", length = 1)
     private String elegirhab;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trasfondo")
-    private List<Personajes> personajesList;
+    private List<Personaje> personajesList;
     @ManyToMany(mappedBy = "trasfondosList")
-    private List<Habilidades> habilidadesList;
+    private List<Habilidad> habilidadesList;
     @ManyToMany(mappedBy = "trasfondosList1")
-    private List<Habilidades> habilidadesList1;
+    private List<Habilidad> habilidadesList1;
     @ManyToMany(mappedBy = "trasfondosList")
-    private List<Rasgos> rasgosList;
+    private List<Rasgo> rasgosList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -127,36 +127,36 @@ public class Trasfondo implements Serializable {
 
 
     @XmlTransient
-    public List<Habilidades> getHabilidadesList() {
+    public List<Habilidad> getHabilidadesList() {
         return habilidadesList;
     }
 
-    public void setHabilidadesList(List<Habilidades> habilidadesList) {
+    public void setHabilidadesList(List<Habilidad> habilidadesList) {
         this.habilidadesList = habilidadesList;
     }
 
     @XmlTransient
-    public List<Habilidades> getHabilidadesList1() {
+    public List<Habilidad> getHabilidadesList1() {
         return habilidadesList1;
     }
 
-    public void setHabilidadesList1(List<Habilidades> habilidadesList1) {
+    public void setHabilidadesList1(List<Habilidad> habilidadesList1) {
         this.habilidadesList1 = habilidadesList1;
     }
 
     @XmlTransient
-    public List<Rasgos> getRasgosList() {
+    public List<Rasgo> getRasgosList() {
         return rasgosList;
     }
 
-    public void setRasgosList(List<Rasgos> rasgosList) {
+    public void setRasgosList(List<Rasgo> rasgosList) {
         this.rasgosList = rasgosList;
     }
     @XmlTransient
-    public List<Personajes> getPersonajesList() {
+    public List<Personaje> getPersonajesList() {
         return personajesList;
     }
-    public void setPersonajesList(List<Personajes> personajesList) {
+    public void setPersonajesList(List<Personaje> personajesList) {
         this.personajesList = personajesList;
     }
 

@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
  * @author Cristian
  */
 @Embeddable
-public class BloqueadosPK implements Serializable {
+public class BloqueadoPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -26,10 +26,10 @@ public class BloqueadosPK implements Serializable {
     @Column(name = "BLOQUEADO")
     private String bloqueado;
 
-    public BloqueadosPK() {
+    public BloqueadoPK() {
     }
 
-    public BloqueadosPK(String bloqueador, String bloqueado) {
+    public BloqueadoPK(String bloqueador, String bloqueado) {
         this.bloqueador = bloqueador;
         this.bloqueado = bloqueado;
     }
@@ -61,10 +61,10 @@ public class BloqueadosPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BloqueadosPK)) {
+        if (!(object instanceof BloqueadoPK)) {
             return false;
         }
-        BloqueadosPK other = (BloqueadosPK) object;
+        BloqueadoPK other = (BloqueadoPK) object;
         if ((this.bloqueador == null && other.bloqueador != null) || (this.bloqueador != null && !this.bloqueador.equals(other.bloqueador))) {
             return false;
         }
@@ -76,7 +76,7 @@ public class BloqueadosPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.BloqueadosPK[ bloqueador=" + bloqueador + ", bloqueado=" + bloqueado + " ]";
+        return "entidades.BloqueadoPK[ bloqueador=" + bloqueador + ", bloqueado=" + bloqueado + " ]";
     }
     
 }

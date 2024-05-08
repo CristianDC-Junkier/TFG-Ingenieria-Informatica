@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "EQUIPO", catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "EQUIPO", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
@@ -82,7 +82,7 @@ public class Equipo implements Serializable {
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @ManyToMany(mappedBy = "equipoList")
-    private List<Personajes> personajesList;
+    private List<Personaje> personajesList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -94,7 +94,7 @@ public class Equipo implements Serializable {
         @JoinColumn(name = "EQUIPO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "PROPIEDAD", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Propiedades> propiedadesList;
+    private List<Propiedad> propiedadesList;
 
     public Equipo() {
     }
@@ -119,10 +119,10 @@ public class Equipo implements Serializable {
         this.id = id;
     }
     @XmlTransient
-    public List<Propiedades> getPropiedadesList() {
+    public List<Propiedad> getPropiedadesList() {
         return propiedadesList;
     }
-    public void setPropiedadesList(List<Propiedades> propiedadesList) {
+    public void setPropiedadesList(List<Propiedad> propiedadesList) {
         this.propiedadesList = propiedadesList;
     }
     @Override
@@ -221,11 +221,11 @@ public class Equipo implements Serializable {
     }
 
     @XmlTransient
-    public List<Personajes> getPersonajesList() {
+    public List<Personaje> getPersonajesList() {
         return personajesList;
     }
 
-    public void setPersonajesList(List<Personajes> personajesList) {
+    public void setPersonajesList(List<Personaje> personajesList) {
         this.personajesList = personajesList;
     }
     

@@ -23,21 +23,21 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "ESPACIOSHECHIZOS", catalog = "", schema = "SYS_G4")
+@Table(name = "ESPACIOHECHIZO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Espacioshechizos.findAll", query = "SELECT e FROM Espacioshechizos e"),
-    @NamedQuery(name = "Espacioshechizos.findById", query = "SELECT e FROM Espacioshechizos e WHERE e.id = :id"),
-    @NamedQuery(name = "Espacioshechizos.findByNv1", query = "SELECT e FROM Espacioshechizos e WHERE e.nv1 = :nv1"),
-    @NamedQuery(name = "Espacioshechizos.findByNv2", query = "SELECT e FROM Espacioshechizos e WHERE e.nv2 = :nv2"),
-    @NamedQuery(name = "Espacioshechizos.findByNv3", query = "SELECT e FROM Espacioshechizos e WHERE e.nv3 = :nv3"),
-    @NamedQuery(name = "Espacioshechizos.findByNv4", query = "SELECT e FROM Espacioshechizos e WHERE e.nv4 = :nv4"),
-    @NamedQuery(name = "Espacioshechizos.findByNv5", query = "SELECT e FROM Espacioshechizos e WHERE e.nv5 = :nv5"),
-    @NamedQuery(name = "Espacioshechizos.findByNv6", query = "SELECT e FROM Espacioshechizos e WHERE e.nv6 = :nv6"),
-    @NamedQuery(name = "Espacioshechizos.findByNv7", query = "SELECT e FROM Espacioshechizos e WHERE e.nv7 = :nv7"),
-    @NamedQuery(name = "Espacioshechizos.findByNv8", query = "SELECT e FROM Espacioshechizos e WHERE e.nv8 = :nv8"),
-    @NamedQuery(name = "Espacioshechizos.findByNv9", query = "SELECT e FROM Espacioshechizos e WHERE e.nv9 = :nv9")})
-public class Espacioshechizos implements Serializable {
+    @NamedQuery(name = "Espaciohechizo.findAll", query = "SELECT e FROM Espaciohechizo e"),
+    @NamedQuery(name = "Espaciohechizo.findById", query = "SELECT e FROM Espaciohechizo e WHERE e.id = :id"),
+    @NamedQuery(name = "Espaciohechizo.findByNv1", query = "SELECT e FROM Espaciohechizo e WHERE e.nv1 = :nv1"),
+    @NamedQuery(name = "Espaciohechizo.findByNv2", query = "SELECT e FROM Espaciohechizo e WHERE e.nv2 = :nv2"),
+    @NamedQuery(name = "Espaciohechizo.findByNv3", query = "SELECT e FROM Espaciohechizo e WHERE e.nv3 = :nv3"),
+    @NamedQuery(name = "Espaciohechizo.findByNv4", query = "SELECT e FROM Espaciohechizo e WHERE e.nv4 = :nv4"),
+    @NamedQuery(name = "Espaciohechizo.findByNv5", query = "SELECT e FROM Espaciohechizo e WHERE e.nv5 = :nv5"),
+    @NamedQuery(name = "Espaciohechizo.findByNv6", query = "SELECT e FROM Espaciohechizo e WHERE e.nv6 = :nv6"),
+    @NamedQuery(name = "Espaciohechizo.findByNv7", query = "SELECT e FROM Espaciohechizo e WHERE e.nv7 = :nv7"),
+    @NamedQuery(name = "Espaciohechizo.findByNv8", query = "SELECT e FROM Espaciohechizo e WHERE e.nv8 = :nv8"),
+    @NamedQuery(name = "Espaciohechizo.findByNv9", query = "SELECT e FROM Espaciohechizo e WHERE e.nv9 = :nv9")})
+public class Espaciohechizo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -88,14 +88,14 @@ public class Espacioshechizos implements Serializable {
     @ManyToMany
     private List<Tablaclases> tablaclasesList;
 
-    public Espacioshechizos() {
+    public Espaciohechizo() {
     }
 
-    public Espacioshechizos(String id) {
+    public Espaciohechizo(String id) {
         this.id = id;
     }
 
-    public Espacioshechizos(String id, short nv1, short nv2, short nv3, short nv4, short nv5, short nv6, short nv7, short nv8, short nv9) {
+    public Espaciohechizo(String id, short nv1, short nv2, short nv3, short nv4, short nv5, short nv6, short nv7, short nv8, short nv9) {
         this.id = id;
         this.nv1 = nv1;
         this.nv2 = nv2;
@@ -207,10 +207,10 @@ public class Espacioshechizos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Espacioshechizos)) {
+        if (!(object instanceof Espaciohechizo)) {
             return false;
         }
-        Espacioshechizos other = (Espacioshechizos) object;
+        Espaciohechizo other = (Espaciohechizo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -219,7 +219,7 @@ public class Espacioshechizos implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Espacioshechizos[ id=" + id + " ]";
+        return "entidades.Espaciohechizo[ id=" + id + " ]";
     }
     
 }

@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
  * @author Cristian
  */
 @Embeddable
-public class PersonajeatributosPK implements Serializable {
+public class PersonajehabilidadPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -23,15 +23,15 @@ public class PersonajeatributosPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 36)
-    @Column(name = "ATRIBUTO", nullable = false, length = 36)
-    private String atributo;
+    @Column(name = "HABILIDAD", nullable = false, length = 36)
+    private String habilidad;
 
-    public PersonajeatributosPK() {
+    public PersonajehabilidadPK() {
     }
 
-    public PersonajeatributosPK(String personaje, String atributo) {
+    public PersonajehabilidadPK(String personaje, String habilidad) {
         this.personaje = personaje;
-        this.atributo = atributo;
+        this.habilidad = habilidad;
     }
 
     public String getPersonaje() {
@@ -42,33 +42,33 @@ public class PersonajeatributosPK implements Serializable {
         this.personaje = personaje;
     }
 
-    public String getAtributo() {
-        return atributo;
+    public String getHabilidad() {
+        return habilidad;
     }
 
-    public void setAtributo(String atributo) {
-        this.atributo = atributo;
+    public void setHabilidad(String habilidad) {
+        this.habilidad = habilidad;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (personaje != null ? personaje.hashCode() : 0);
-        hash += (atributo != null ? atributo.hashCode() : 0);
+        hash += (habilidad != null ? habilidad.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PersonajeatributosPK)) {
+        if (!(object instanceof PersonajehabilidadPK)) {
             return false;
         }
-        PersonajeatributosPK other = (PersonajeatributosPK) object;
+        PersonajehabilidadPK other = (PersonajehabilidadPK) object;
         if ((this.personaje == null && other.personaje != null) || (this.personaje != null && !this.personaje.equals(other.personaje))) {
             return false;
         }
-        if ((this.atributo == null && other.atributo != null) || (this.atributo != null && !this.atributo.equals(other.atributo))) {
+        if ((this.habilidad == null && other.habilidad != null) || (this.habilidad != null && !this.habilidad.equals(other.habilidad))) {
             return false;
         }
         return true;
@@ -76,7 +76,7 @@ public class PersonajeatributosPK implements Serializable {
 
     @Override
     public String toString() {
-        return "controlador.PersonajeatributosPK[ personaje=" + personaje + ", atributo=" + atributo + " ]";
+        return "controlador.PersonajehabilidadPK[ personaje=" + personaje + ", habilidad=" + habilidad + " ]";
     }
     
 }

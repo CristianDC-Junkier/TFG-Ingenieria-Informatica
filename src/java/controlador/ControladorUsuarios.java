@@ -1,8 +1,8 @@
 package controlador;
 
-import entidades.Amigos;
-import entidades.Bloqueados;
-import entidades.Personajes;
+import entidades.Amigo;
+import entidades.Bloqueado;
+import entidades.Personaje;
 import entidades.Pertenecemesa;
 import entidades.Pideamistad;
 import entidades.Usuario;
@@ -69,17 +69,17 @@ public class ControladorUsuarios extends HttpServlet {
 
         Usuario user = null;
         Usuario useraux;
-        Amigos amigo;
-        Bloqueados bloqueado;
+        Amigo amigo;
+        Bloqueado bloqueado;
         Pideamistad pamistad;
-        Personajes personaje;
+        Personaje personaje;
 
         TypedQuery<Usuario> queryUsuarios;
-        TypedQuery<Amigos> queryAmigos;
-        TypedQuery<Bloqueados> queryBloqueados;
+        TypedQuery<Amigo> queryAmigos;
+        TypedQuery<Bloqueado> queryBloqueados;
         TypedQuery<Pideamistad> queryPideAmistad;
         TypedQuery<Pertenecemesa> queryPMesas;
-        TypedQuery<Personajes> queryPersonajes;
+        TypedQuery<Personaje> queryPersonajes;
 
         Query queryAUX;
 
@@ -544,13 +544,13 @@ public class ControladorUsuarios extends HttpServlet {
                                 + "AND u.ID NOT IN ("
                                 + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
                                 + "    UNION "
-                                + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                + "    SELECT b.BLOQUEADOR FROM BLOQUEADO b WHERE b.BLOQUEADO = '" + user.getId() + "'"
                                 + "    UNION "
-                                + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                + "    SELECT b.BLOQUEADO FROM BLOQUEADO b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
                                 + "    UNION "
-                                + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                + "    SELECT a.AMIGO1 FROM AMIGO a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                 + "    UNION "
-                                + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')";
+                                + "    SELECT a.AMIGO2 FROM AMIGO a WHERE a.AMIGO1 = '" + user.getId() + "')";
                     } else {
                         sql = "SELECT DISTINCT COUNT(*) FROM USUARIO u "
                                 + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -559,13 +559,13 @@ public class ControladorUsuarios extends HttpServlet {
                                 + "AND u.ID NOT IN ("
                                 + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
                                 + "    UNION "
-                                + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                + "    SELECT b.BLOQUEADOR FROM BLOQUEADO b WHERE b.BLOQUEADO = '" + user.getId() + "'"
                                 + "    UNION "
-                                + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                + "    SELECT b.BLOQUEADO FROM BLOQUEADO b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
                                 + "    UNION "
-                                + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                + "    SELECT a.AMIGO1 FROM AMIGO a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                 + "    UNION "
-                                + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')";
+                                + "    SELECT a.AMIGO2 FROM AMIGO a WHERE a.AMIGO1 = '" + user.getId() + "')";
                     }
 
                     queryAUX = em.createNativeQuery(sql);
@@ -594,13 +594,13 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "AND u.ID NOT IN ("
                                         + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADO b WHERE b.BLOQUEADO = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADO b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                        + "    SELECT a.AMIGO1 FROM AMIGO a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
+                                        + "    SELECT a.AMIGO2 FROM AMIGO a WHERE a.AMIGO1 = '" + user.getId() + "')"
                                         + "    ORDER BY u.apodo ASC "
                                         + "    OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
 
@@ -612,13 +612,13 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "AND u.ID NOT IN ("
                                         + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADO b WHERE b.BLOQUEADO = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADO b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                        + "    SELECT a.AMIGO1 FROM AMIGO a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
+                                        + "    SELECT a.AMIGO2 FROM AMIGO a WHERE a.AMIGO1 = '" + user.getId() + "')"
                                         + "    ORDER BY u.apodo ASC "
                                         + "    OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             }
@@ -630,13 +630,13 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "AND u.ID NOT IN ("
                                         + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADO b WHERE b.BLOQUEADO = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADO b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                        + "    SELECT a.AMIGO1 FROM AMIGO a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
+                                        + "    SELECT a.AMIGO2 FROM AMIGO a WHERE a.AMIGO1 = '" + user.getId() + "')"
                                         + "    ORDER BY u.apodo DESC "
                                         + "    OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             } else {
@@ -647,13 +647,13 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "AND u.ID NOT IN ("
                                         + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADO b WHERE b.BLOQUEADO = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADO b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                        + "    SELECT a.AMIGO1 FROM AMIGO a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
+                                        + "    SELECT a.AMIGO2 FROM AMIGO a WHERE a.AMIGO1 = '" + user.getId() + "')"
                                         + "    ORDER BY u.apodo DESC "
                                         + "    OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             }
@@ -766,12 +766,12 @@ public class ControladorUsuarios extends HttpServlet {
                     if (mesa == null || mesa.equalsIgnoreCase("false")) {
                         sql = "SELECT COUNT(*) FROM Usuario u "
                                 + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
-                                + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
+                                + "INNER JOIN Usuario u2 ON p.acepta = u2.apodo "
                                 + "WHERE p.pide = '" + user.getId() + "'";
                     } else {
                         sql = "SELECT DISTINCT COUNT(*) FROM Usuario u "
                                 + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
-                                + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
+                                + "INNER JOIN Usuario u2 ON p.acepta = u2.apodo "
                                 + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                 + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                 + "WHERE p.pide = '" + user.getId() + "' "
@@ -803,14 +803,14 @@ public class ControladorUsuarios extends HttpServlet {
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
-                                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.acepta = u2.id "
                                         + "WHERE p.pide = '" + user.getId() + "' "
                                         + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
                                 sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
-                                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.acepta = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE p.pide = '" + user.getId() + "' "
@@ -823,14 +823,14 @@ public class ControladorUsuarios extends HttpServlet {
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
-                                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.acepta = u2.id "
                                         + "WHERE p.pide = '" + user.getId() + "' "
                                         + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
                                 sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
-                                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.acepta = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE p.pide = '" + user.getId() + "' "
@@ -930,12 +930,12 @@ public class ControladorUsuarios extends HttpServlet {
                     if (mesa == null || mesa.equalsIgnoreCase("false")) {
                         sql = "SELECT COUNT(*) FROM Usuario u "
                                 + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                + "INNER JOIN Usuario u2 ON p.pide = u2.id "
                                 + "WHERE p.acepta = '" + user.getId() + "'";
                     } else {
                         sql = "SELECT COUNT(*) FROM Usuario u "
                                 + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                + "INNER JOIN Usuario u2 ON p.pide = u2.id "
                                 + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                 + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                 + "WHERE p.acepta = '" + user.getId() + "' "
@@ -967,14 +967,14 @@ public class ControladorUsuarios extends HttpServlet {
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.pide = u2.id "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
                                 sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.pide = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
@@ -987,14 +987,14 @@ public class ControladorUsuarios extends HttpServlet {
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.pide = u2.id "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
                                 sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.pide = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
@@ -1085,9 +1085,9 @@ public class ControladorUsuarios extends HttpServlet {
                     if (listaPideAmistad.isEmpty() == false) {
                         delete(listaPideAmistad.get(0));
 
-                        amigo = new Amigos(user.getId(), id);
+                        amigo = new Amigo(user.getId(), id);
                         persist(amigo);
-                        amigo = new Amigos(id, user.getId());
+                        amigo = new Amigo(id, user.getId());
                         persist(amigo);
                     } else {
                         pamistad = new Pideamistad(user.getId(), id);
@@ -1135,9 +1135,9 @@ public class ControladorUsuarios extends HttpServlet {
 
                     id = request.getParameter("pamistad");
 
-                    amigo = new Amigos(user.getId(), id);
+                    amigo = new Amigo(user.getId(), id);
                     persist(amigo);
-                    amigo = new Amigos(id, user.getId());
+                    amigo = new Amigo(id, user.getId());
                     persist(amigo);
 
                     queryPideAmistad = em.createNamedQuery("Pideamistad.findByAceptar", Pideamistad.class);
@@ -1203,13 +1203,13 @@ public class ControladorUsuarios extends HttpServlet {
                     ///////////////////////////////////
                     if (mesa == null || mesa.equalsIgnoreCase("false")) {
                         sql = "SELECT COUNT(*) FROM Usuario u "
-                                + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                + "INNER JOIN Amigo a ON u.id = a.amigo1 "
+                                + "INNER JOIN Usuario u2 ON a.amigo2 = u2.id "
                                 + "WHERE a.amigo1 = '" + user.getId() + "'";
                     } else {
                         sql = "SELECT DISTINCT COUNT(*) FROM Usuario u "
-                                + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                + "INNER JOIN Amigo a ON u.id = a.amigo1 "
+                                + "INNER JOIN Usuario u2 ON a.amigo2 = u2.id "
                                 + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                 + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                 + "WHERE a.amigo1 = '" + user.getId() + "' "
@@ -1238,15 +1238,15 @@ public class ControladorUsuarios extends HttpServlet {
                         case "ordenar1":
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuario u "
-                                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "INNER JOIN Amigo a ON u.id = a.amigo1 "
+                                        + "INNER JOIN Usuario u2 ON a.amigo2 = u2.id "
                                         + "WHERE a.amigo1 = '" + user.getId() + "' "
                                         + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
                                 sql = "SELECT DISTINCT u2.* FROM Usuario u "
-                                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "INNER JOIN Amigo a ON u.id = a.amigo1 "
+                                        + "INNER JOIN Usuario u2 ON a.amigo2 = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE a.amigo1 = '" + user.getId() + "' "
@@ -1258,15 +1258,15 @@ public class ControladorUsuarios extends HttpServlet {
                         case "ordenar2":
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuario u "
-                                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "INNER JOIN Amigo a ON u.id = a.amigo1 "
+                                        + "INNER JOIN Usuario u2 ON a.amigo2 = u2.id "
                                         + "WHERE a.amigo1 = '" + user.getId() + "' "
                                         + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
                                 sql = "SELECT DISTINCT u2.* FROM Usuario u "
-                                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "INNER JOIN Amigo a ON u.id = a.amigo1 "
+                                        + "INNER JOIN Usuario u2 ON a.amigo2 = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE a.amigo1 = '" + user.getId() + "' "
@@ -1324,7 +1324,7 @@ public class ControladorUsuarios extends HttpServlet {
                     queryUsuarios.setParameter("id", id);
                     useraux = queryUsuarios.getSingleResult();
 
-                    queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
+                    queryAmigos = em.createNamedQuery("Amigo.findByAmigos", Amigo.class);
                     queryAmigos.setParameter("amigo1", id);
                     queryAmigos.setParameter("amigo2", user.getId());
 
@@ -1361,14 +1361,14 @@ public class ControladorUsuarios extends HttpServlet {
 
                     id = request.getParameter("amigo");
 
-                    queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
+                    queryAmigos = em.createNamedQuery("Amigo.findByAmigos", Amigo.class);
                     queryAmigos.setParameter("amigo1", user.getId());
                     queryAmigos.setParameter("amigo2", id);
                     amigo = queryAmigos.getResultList().get(0);
 
                     delete(amigo);
 
-                    queryAmigos = em.createNamedQuery("Amigos.findByAmigos", Amigos.class);
+                    queryAmigos = em.createNamedQuery("Amigo.findByAmigos", Amigo.class);
                     queryAmigos.setParameter("amigo1", id);
                     queryAmigos.setParameter("amigo2", user.getId());
                     amigo = queryAmigos.getResultList().get(0);
@@ -1404,8 +1404,8 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////NUMERO DE BLOQUEADOS////////
                     /////////////////////////////////////
                     sql = "SELECT COUNT(*) FROM Usuario u "
-                            + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
-                            + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
+                            + "INNER JOIN Bloqueado b ON u.id = b.bloqueador "
+                            + "INNER JOIN Usuario u2 ON b.bloqueado = u2.id "
                             + "WHERE b.bloqueador = '" + user.getId() + "'";
 
                     queryAUX = em.createNativeQuery(sql);
@@ -1428,16 +1428,16 @@ public class ControladorUsuarios extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             sql = "SELECT u2.* FROM Usuario u "
-                                    + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
-                                    + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
+                                    + "INNER JOIN Bloqueado b ON u.id = b.bloqueador "
+                                    + "INNER JOIN Usuario u2 ON b.bloqueado = u2.id "
                                     + "WHERE b.bloqueador = '" + user.getId() + "' "
                                     + "ORDER BY u2.apodo ASC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             break;
                         case "ordenar2":
                             sql = "SELECT u2.* FROM Usuario u "
-                                    + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
-                                    + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
+                                    + "INNER JOIN Bloqueado b ON u.id = b.bloqueador "
+                                    + "INNER JOIN Usuario u2 ON b.bloqueado = u2.id "
                                     + "WHERE b.bloqueador = '" + user.getId() + "' "
                                     + "ORDER BY u2.apodo DESC "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
@@ -1485,7 +1485,7 @@ public class ControladorUsuarios extends HttpServlet {
 
                     id = request.getParameter("bloqueado");
 
-                    queryBloqueados = em.createNamedQuery("Bloqueados.findByBloqueados", Bloqueados.class);
+                    queryBloqueados = em.createNamedQuery("Bloqueado.findByBloqueados", Bloqueado.class);
                     queryBloqueados.setParameter("bloqueador", user.getId());
                     queryBloqueados.setParameter("bloqueado", id);
                     bloqueado = queryBloqueados.getResultList().get(0);
@@ -1509,7 +1509,7 @@ public class ControladorUsuarios extends HttpServlet {
 
                     id = request.getParameter("bloqueado");
 
-                    bloqueado = new Bloqueados(user.getId(), id);
+                    bloqueado = new Bloqueado(user.getId(), id);
 
                     persist(bloqueado);
 
@@ -1534,7 +1534,7 @@ public class ControladorUsuarios extends HttpServlet {
                     vista = "/Principal/inicio";
                 } else {
                     //Comprobamos que sea suyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findByIDCreador", Personaje.class);
                     queryPersonajes.setParameter("id", id);
                     queryPersonajes.setParameter("creador", user);
 

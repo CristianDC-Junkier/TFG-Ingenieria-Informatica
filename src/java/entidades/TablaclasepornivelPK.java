@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
  * @author Cristian
  */
 @Embeddable
-public class TablaclasespornivelPK implements Serializable {
+public class TablaclasepornivelPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -25,10 +25,10 @@ public class TablaclasespornivelPK implements Serializable {
     @Column(name = "NIVEL", nullable = false)
     private Integer nivel;
 
-    public TablaclasespornivelPK() {
+    public TablaclasepornivelPK() {
     }
 
-    public TablaclasespornivelPK(String clase, Integer nivel) {
+    public TablaclasepornivelPK(String clase, Integer nivel) {
         this.clase = clase;
         this.nivel = nivel;
     }
@@ -60,10 +60,10 @@ public class TablaclasespornivelPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TablaclasespornivelPK)) {
+        if (!(object instanceof TablaclasepornivelPK)) {
             return false;
         }
-        TablaclasespornivelPK other = (TablaclasespornivelPK) object;
+        TablaclasepornivelPK other = (TablaclasepornivelPK) object;
         if ((this.clase == null && other.clase != null) || (this.clase != null && !this.clase.equals(other.clase))) {
             return false;
         }
@@ -75,7 +75,7 @@ public class TablaclasespornivelPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.TablaclasespornivelPK[ clase=" + clase + ", nivel=" + nivel + " ]";
+        return "entidades.TablaclasepornivelPK[ clase=" + clase + ", nivel=" + nivel + " ]";
     }
     
 }

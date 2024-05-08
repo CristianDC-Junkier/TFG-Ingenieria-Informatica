@@ -1,9 +1,9 @@
 package controlador;
 
-import entidades.Mesas;
+import entidades.Mesa;
 import entidades.Musica;
 import entidades.Musicamesa;
-import entidades.Personajes;
+import entidades.Personaje;
 import entidades.Pertenecemesa;
 import entidades.Usuario;
 import java.io.IOException;
@@ -61,16 +61,16 @@ public class ControladorMesas extends HttpServlet {
 
         Usuario user;
         Usuario useraux;
-        Mesas mesa;
+        Mesa mesa;
         Pertenecemesa pmesa;
         Pertenecemesa pmesaaux;
-        Personajes personaje;
+        Personaje personaje;
         int cantidad;
 
-        TypedQuery<Mesas> queryMesas;
+        TypedQuery<Mesa> queryMesas;
         TypedQuery<Pertenecemesa> queryPertenecemesas;
         TypedQuery<Usuario> queryUsuarios;
-        TypedQuery<Personajes> queryPersonajes;
+        TypedQuery<Personaje> queryPersonajes;
         TypedQuery<Musica> queryMusica;
 
         Query queryAUX;
@@ -79,8 +79,8 @@ public class ControladorMesas extends HttpServlet {
         List<Integer> listaCantidad;
         List<Usuario> listaUsuarios;
         List<Pertenecemesa> listaPerteneceMesa;
-        List<Mesas> listaMesas;
-        List<Personajes> listaPersonajes;
+        List<Mesa> listaMesas;
+        List<Personaje> listaPersonajes;
         List<Musica> listaMusica;
 
         String personaje_id;
@@ -152,7 +152,7 @@ public class ControladorMesas extends HttpServlet {
                                 throw new Exception("El Titulo no es válido");
                             }
 
-                            queryMesas = em.createNamedQuery("Mesas.findByTitulo", Mesas.class);
+                            queryMesas = em.createNamedQuery("Mesa.findByTitulo", Mesa.class);
                             queryMesas.setParameter("titulo", titulo);
                             listaMesas = queryMesas.getResultList();
 
@@ -163,7 +163,7 @@ public class ControladorMesas extends HttpServlet {
                             ////////////////////////////
                             //////////NUM MESAS/////////
                             ////////////////////////////
-                            queryMesas = em.createNamedQuery("Mesas.CountByCreador", Mesas.class);
+                            queryMesas = em.createNamedQuery("Mesa.CountByCreador", Mesa.class);
                             queryMesas.setParameter("creador", creador);
                             listaMesas = queryMesas.getResultList();
 
@@ -206,7 +206,7 @@ public class ControladorMesas extends HttpServlet {
                             //////////////////////////
                             //////////CREAMOS/////////
                             //////////////////////////
-                            mesa = new Mesas(creador, comunidad, tamano, titulo, descripcion, contrasenahash);
+                            mesa = new Mesa(creador, comunidad, tamano, titulo, descripcion, contrasenahash);
 
                             mesa.setMusicamesa(new Musicamesa(mesa.getId(),new Musica("561F81109A494CECB61DC8FDB9ECAF02", "Ninguna")));
 
@@ -258,7 +258,7 @@ public class ControladorMesas extends HttpServlet {
                 } else {
                     id = request.getParameter("id");
 
-                    queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                    queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                     queryMesas.setParameter("id", id);
                     mesa = queryMesas.getSingleResult();
 
@@ -277,7 +277,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////ES TU MESA//////////
                 /////////////////////////////
                 id = request.getParameter("id");
-                queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                 queryMesas.setParameter("id", id);
                 mesa = queryMesas.getSingleResult();
 
@@ -314,7 +314,7 @@ public class ControladorMesas extends HttpServlet {
                                 throw new Exception("El Titulo no es válido");
                             }
 
-                            queryMesas = em.createNamedQuery("Mesas.findByTitulo", Mesas.class);
+                            queryMesas = em.createNamedQuery("Mesa.findByTitulo", Mesa.class);
                             queryMesas.setParameter("titulo", titulo);
                             listaMesas = queryMesas.getResultList();
 
@@ -359,7 +359,7 @@ public class ControladorMesas extends HttpServlet {
                             //////////////////////////////
                             //////////MODIFICAMOS/////////
                             //////////////////////////////
-                            mesa = new Mesas(creador, comunidad, tamano, titulo, descripcion, contrasenahash);
+                            mesa = new Mesa(creador, comunidad, tamano, titulo, descripcion, contrasenahash);
                             mesa.setId(id);
 
                             updateMesas(mesa);
@@ -431,7 +431,7 @@ public class ControladorMesas extends HttpServlet {
                     ////////////////////////////
                     if (lleno.equalsIgnoreCase("false")) {
                         sql = "SELECT COUNT(*) "
-                                + "FROM MESAS M "
+                                + "FROM MESA M "
                                 + "WHERE NOT EXISTS ( "
                                 + "    SELECT * "
                                 + "    FROM PERTENECEMESA P "
@@ -445,7 +445,7 @@ public class ControladorMesas extends HttpServlet {
                                 + ") ";
                     } else {
                         sql = "SELECT COUNT(*) "
-                                + "FROM MESAS M "
+                                + "FROM MESA M "
                                 + "WHERE NOT EXISTS ( "
                                 + "    SELECT * "
                                 + "    FROM PERTENECEMESA P "
@@ -475,7 +475,7 @@ public class ControladorMesas extends HttpServlet {
                         case "ordenar1":
                             if (lleno.equalsIgnoreCase("false")) {
                                 sql = "SELECT M.* "
-                                        + "FROM MESAS M "
+                                        + "FROM MESA M "
                                         + "WHERE NOT EXISTS ( "
                                         + "    SELECT * "
                                         + "    FROM PERTENECEMESA P "
@@ -491,7 +491,7 @@ public class ControladorMesas extends HttpServlet {
                                         + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             } else {
                                 sql = "SELECT M.* "
-                                        + "FROM MESAS M "
+                                        + "FROM MESA M "
                                         + "WHERE NOT EXISTS ( "
                                         + "    SELECT * "
                                         + "    FROM PERTENECEMESA P "
@@ -510,7 +510,7 @@ public class ControladorMesas extends HttpServlet {
                         case "ordenar2":
                             if (lleno.equalsIgnoreCase("false")) {
                                 sql = "SELECT M.* "
-                                        + "FROM MESAS M "
+                                        + "FROM MESA M "
                                         + "WHERE NOT EXISTS ( "
                                         + "    SELECT * "
                                         + "    FROM PERTENECEMESA P "
@@ -526,7 +526,7 @@ public class ControladorMesas extends HttpServlet {
                                         + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             } else {
                                 sql = "SELECT M.* "
-                                        + "FROM MESAS M "
+                                        + "FROM MESA M "
                                         + "WHERE NOT EXISTS ( "
                                         + "    SELECT * "
                                         + "    FROM PERTENECEMESA P "
@@ -544,7 +544,7 @@ public class ControladorMesas extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Mesas.class);
+                    queryAUX = em.createNativeQuery(sql, Mesa.class);
                     listaMesas = queryAUX.getResultList();
 
                     listaCantidad = new ArrayList();
@@ -595,7 +595,7 @@ public class ControladorMesas extends HttpServlet {
                     //////////NUM MESAS/////////
                     ////////////////////////////
                     sql = "SELECT COUNT(*) "
-                            + "FROM MESAS M "
+                            + "FROM MESA M "
                             + "WHERE EXISTS ( "
                             + "    SELECT * "
                             + "    FROM PERTENECEMESA P "
@@ -635,7 +635,7 @@ public class ControladorMesas extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -652,7 +652,7 @@ public class ControladorMesas extends HttpServlet {
                             break;
                         case "ordenar2":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -669,7 +669,7 @@ public class ControladorMesas extends HttpServlet {
                             break;
                         case "ordenar3":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -686,7 +686,7 @@ public class ControladorMesas extends HttpServlet {
                             break;
                         case "ordenar4":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -703,7 +703,7 @@ public class ControladorMesas extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Mesas.class);
+                    queryAUX = em.createNativeQuery(sql, Mesa.class);
                     listaMesas = queryAUX.getResultList();
 
                     //System.out.println("Esto: " + listaMesas.size());
@@ -767,7 +767,7 @@ public class ControladorMesas extends HttpServlet {
                     //////////NUM MESAS/////////
                     ////////////////////////////
                     sql = "SELECT COUNT(*) "
-                            + "FROM MESAS M "
+                            + "FROM MESA M "
                             + "WHERE EXISTS ( "
                             + "    SELECT * "
                             + "    FROM PERTENECEMESA P "
@@ -807,7 +807,7 @@ public class ControladorMesas extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -825,7 +825,7 @@ public class ControladorMesas extends HttpServlet {
                             break;
                         case "ordenar2":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -842,7 +842,7 @@ public class ControladorMesas extends HttpServlet {
                             break;
                         case "ordenar3":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -859,7 +859,7 @@ public class ControladorMesas extends HttpServlet {
                             break;
                         case "ordenar4":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -876,7 +876,7 @@ public class ControladorMesas extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Mesas.class);
+                    queryAUX = em.createNativeQuery(sql, Mesa.class);
                     listaMesas = queryAUX.getResultList();
 
                     listaCantidad = new ArrayList();
@@ -925,7 +925,7 @@ public class ControladorMesas extends HttpServlet {
                     id = request.getParameter("id");
                     contrasena = request.getParameter("contrasena_anadirmesa");
 
-                    queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                    queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                     queryMesas.setParameter("id", id);
                     mesa = queryMesas.getSingleResult();
 
@@ -992,7 +992,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////ES TU MESA//////////
                 /////////////////////////////
                 id = request.getParameter("id");
-                queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                 queryMesas.setParameter("id", id);
                 mesa = queryMesas.getSingleResult();
 
@@ -1032,7 +1032,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////ES TU MESA//////////
                 /////////////////////////////
                 id = request.getParameter("id");
-                queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                 queryMesas.setParameter("id", id);
                 mesa = queryMesas.getSingleResult();
 
@@ -1100,7 +1100,7 @@ public class ControladorMesas extends HttpServlet {
                         /////////////////////
                         /////////MESA////////
                         /////////////////////
-                        queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                        queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                         queryMesas.setParameter("id", id);
                         mesa = queryMesas.getSingleResult();
 
@@ -1233,7 +1233,7 @@ public class ControladorMesas extends HttpServlet {
                     vista = "/Principal/inicio";
                 } else {
                     //Comprobamos que sea suyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findByIDCreador", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     queryPersonajes.setParameter("creador", user);
 
@@ -1316,7 +1316,7 @@ public class ControladorMesas extends HttpServlet {
     private void deleteMesas(Object object) {
         try {
             utx.begin();
-            object = (Mesas) em.merge(object);
+            object = (Mesa) em.merge(object);
             em.remove(object);
             utx.commit();
         } catch (Exception e) {
@@ -1327,7 +1327,7 @@ public class ControladorMesas extends HttpServlet {
     private void updateMesas(Object object) {
         try {
             utx.begin();
-            em.merge((Mesas) object);
+            em.merge((Mesa) object);
             utx.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);

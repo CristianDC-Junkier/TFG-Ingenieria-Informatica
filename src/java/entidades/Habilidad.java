@@ -28,14 +28,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "HABILIDADES", catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "HABILIDAD", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Habilidades.findAll", query = "SELECT h FROM Habilidades h"),
-    @NamedQuery(name = "Habilidades.findById", query = "SELECT h FROM Habilidades h WHERE h.id = :id"),
-    @NamedQuery(name = "Habilidades.findByNombre", query = "SELECT h FROM Habilidades h WHERE h.nombre = :nombre")})
-public class Habilidades implements Serializable {
+    @NamedQuery(name = "Habilidad.findAll", query = "SELECT h FROM Habilidad h"),
+    @NamedQuery(name = "Habilidad.findById", query = "SELECT h FROM Habilidad h WHERE h.id = :id"),
+    @NamedQuery(name = "Habilidad.findByNombre", query = "SELECT h FROM Habilidad h WHERE h.nombre = :nombre")})
+public class Habilidad implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -48,12 +48,12 @@ public class Habilidades implements Serializable {
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @ManyToMany(mappedBy = "habilidadesList")
-    private List<Dotes> dotesList;
+    private List<Dote> dotesList;
     @JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID")
     @ManyToOne
-    private Atributos atributo;
+    private Atributo atributo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "habilidades")
-    private List<Personajehabilidades> personajehabilidadesList;
+    private List<Personajehabilidad> personajehabilidadesList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,30 +63,30 @@ public class Habilidades implements Serializable {
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
     @ManyToMany(mappedBy = "habilidadesListC")
-    private List<Subrazas> subrazasList;
+    private List<Subraza> subrazasList;
     @JoinTable(name = "ELIGETRASFONDO", joinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TRASFONDO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Trasfondo> trasfondosList;
     @ManyToMany(mappedBy = "habilidadesList")
-    private List<Clases> clasesList;
+    private List<Clase> clasesList;
     @JoinTable(name = "COMPETETRASFONDO", joinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TRASFONDO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Trasfondo> trasfondosList1;
     @ManyToMany(mappedBy = "habilidadesListE")
-    private List<Subrazas> subrazasList1;
+    private List<Subraza> subrazasList1;
 
-    public Habilidades() {
+    public Habilidad() {
     }
 
-    public Habilidades(String id) {
+    public Habilidad(String id) {
         this.id = id;
     }
 
-    public Habilidades(String id, String nombre, String descripcion) {
+    public Habilidad(String id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -102,11 +102,11 @@ public class Habilidades implements Serializable {
 
 
     @XmlTransient
-    public List<Subrazas> getSubrazasList() {
+    public List<Subraza> getSubrazasList() {
         return subrazasList;
     }
 
-    public void setSubrazasList(List<Subrazas> subrazasList) {
+    public void setSubrazasList(List<Subraza> subrazasList) {
         this.subrazasList = subrazasList;
     }
 
@@ -120,11 +120,11 @@ public class Habilidades implements Serializable {
     }
 
     @XmlTransient
-    public List<Clases> getClasesList() {
+    public List<Clase> getClasesList() {
         return clasesList;
     }
 
-    public void setClasesList(List<Clases> clasesList) {
+    public void setClasesList(List<Clase> clasesList) {
         this.clasesList = clasesList;
     }
 
@@ -138,11 +138,11 @@ public class Habilidades implements Serializable {
     }
 
     @XmlTransient
-    public List<Subrazas> getSubrazasList1() {
+    public List<Subraza> getSubrazasList1() {
         return subrazasList1;
     }
 
-    public void setSubrazasList1(List<Subrazas> subrazasList1) {
+    public void setSubrazasList1(List<Subraza> subrazasList1) {
         this.subrazasList1 = subrazasList1;
     }
 
@@ -156,10 +156,10 @@ public class Habilidades implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Habilidades)) {
+        if (!(object instanceof Habilidad)) {
             return false;
         }
-        Habilidades other = (Habilidades) object;
+        Habilidad other = (Habilidad) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -168,24 +168,24 @@ public class Habilidades implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Habilidades[ id=" + id + " ]";
+        return "entidades.Habilidad[ id=" + id + " ]";
     }
 
 
-    public Atributos getAtributo() {
+    public Atributo getAtributo() {
         return atributo;
     }
 
-    public void setAtributo(Atributos atributo) {
+    public void setAtributo(Atributo atributo) {
         this.atributo = atributo;
     }
 
     @XmlTransient
-    public List<Personajehabilidades> getPersonajehabilidadesList() {
+    public List<Personajehabilidad> getPersonajehabilidadesList() {
         return personajehabilidadesList;
     }
 
-    public void setPersonajehabilidadesList(List<Personajehabilidades> personajehabilidadesList) {
+    public void setPersonajehabilidadesList(List<Personajehabilidad> personajehabilidadesList) {
         this.personajehabilidadesList = personajehabilidadesList;
     }
 
@@ -206,11 +206,11 @@ public class Habilidades implements Serializable {
     }
 
     @XmlTransient
-    public List<Dotes> getDotesList() {
+    public List<Dote> getDotesList() {
         return dotesList;
     }
 
-    public void setDotesList(List<Dotes> dotesList) {
+    public void setDotesList(List<Dote> dotesList) {
         this.dotesList = dotesList;
     }
     

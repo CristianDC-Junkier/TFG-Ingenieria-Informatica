@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "TABLACLASES", catalog = "", schema = "SYS_G4")
+@Table(name = "TABLACLASES")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tablaclases.findAll", query = "SELECT t FROM Tablaclases t"),
@@ -58,9 +58,9 @@ public class Tablaclases implements Serializable {
     @Column(name = "HECHIZOS", nullable = false)
     private Integer hechizos;
     @ManyToMany(mappedBy = "tablaclasesList")
-    private List<Espacioshechizos> espacioshechizosList;
+    private List<Espaciohechizo> espacioshechizosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tablaclases")
-    private List<Tablaclasespornivel> tablaclasespornivelList;
+    private List<Tablaclasepornivel> tablaclasespornivelList;
 
     public Tablaclases() {
     }
@@ -118,20 +118,20 @@ public class Tablaclases implements Serializable {
     }
 
     @XmlTransient
-    public List<Espacioshechizos> getEspacioshechizosList() {
+    public List<Espaciohechizo> getEspacioshechizosList() {
         return espacioshechizosList;
     }
 
-    public void setEspacioshechizosList(List<Espacioshechizos> espacioshechizosList) {
+    public void setEspacioshechizosList(List<Espaciohechizo> espacioshechizosList) {
         this.espacioshechizosList = espacioshechizosList;
     }
 
     @XmlTransient
-    public List<Tablaclasespornivel> getTablaclasespornivelList() {
+    public List<Tablaclasepornivel> getTablaclasespornivelList() {
         return tablaclasespornivelList;
     }
 
-    public void setTablaclasespornivelList(List<Tablaclasespornivel> tablaclasespornivelList) {
+    public void setTablaclasespornivelList(List<Tablaclasepornivel> tablaclasespornivelList) {
         this.tablaclasespornivelList = tablaclasespornivelList;
     }
 

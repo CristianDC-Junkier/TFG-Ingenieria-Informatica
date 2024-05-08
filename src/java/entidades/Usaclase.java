@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(name = "USACLASE", catalog = "", schema = "SYS_G4")
+@Table(name = "USACLASE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usaclase.findAll", query = "SELECT u FROM Usaclase u"),
@@ -38,10 +38,10 @@ public class Usaclase implements Serializable {
     private short nivel;
     @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Clases clases;
+    private Clase clases;
     @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Rasgos rasgos;
+    private Rasgo rasgos;
 
     public Usaclase() {
     }
@@ -75,19 +75,19 @@ public class Usaclase implements Serializable {
         this.nivel = nivel;
     }
 
-    public Clases getClases() {
+    public Clase getClases() {
         return clases;
     }
 
-    public void setClases(Clases clases) {
+    public void setClases(Clase clases) {
         this.clases = clases;
     }
 
-    public Rasgos getRasgos() {
+    public Rasgo getRasgos() {
         return rasgos;
     }
 
-    public void setRasgos(Rasgos rasgos) {
+    public void setRasgos(Rasgo rasgos) {
         this.rasgos = rasgos;
     }
 

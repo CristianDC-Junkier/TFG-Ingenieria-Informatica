@@ -14,36 +14,36 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(name = "BLOQUEADOS")
+@Table(name = "BLOQUEADO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Bloqueados.findAll", query = "SELECT b FROM Bloqueados b"),
-    @NamedQuery(name = "Bloqueados.findByBloqueador", query = "SELECT b FROM Bloqueados b WHERE b.bloqueadosPK.bloqueador = :bloqueador"),
-    @NamedQuery(name = "Bloqueados.findByBloqueado", query = "SELECT b FROM Bloqueados b WHERE b.bloqueadosPK.bloqueado = :bloqueado"),
-    @NamedQuery(name = "Bloqueados.findByBloqueados", query = "SELECT b FROM Bloqueados b WHERE b.bloqueadosPK.bloqueador = :bloqueador and b.bloqueadosPK.bloqueado = :bloqueado")
+    @NamedQuery(name = "Bloqueado.findAll", query = "SELECT b FROM Bloqueado b"),
+    @NamedQuery(name = "Bloqueado.findByBloqueador", query = "SELECT b FROM Bloqueado b WHERE b.bloqueadosPK.bloqueador = :bloqueador"),
+    @NamedQuery(name = "Bloqueado.findByBloqueado", query = "SELECT b FROM Bloqueado b WHERE b.bloqueadosPK.bloqueado = :bloqueado"),
+    @NamedQuery(name = "Bloqueado.findByBloqueados", query = "SELECT b FROM Bloqueado b WHERE b.bloqueadosPK.bloqueador = :bloqueador and b.bloqueadosPK.bloqueado = :bloqueado")
 })
-public class Bloqueados implements Serializable {
+public class Bloqueado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected BloqueadosPK bloqueadosPK;
+    protected BloqueadoPK bloqueadosPK;
 
-    public Bloqueados() {
+    public Bloqueado() {
     }
 
-    public Bloqueados(BloqueadosPK bloqueadosPK) {
+    public Bloqueado(BloqueadoPK bloqueadosPK) {
         this.bloqueadosPK = bloqueadosPK;
     }
 
-    public Bloqueados(String bloqueador, String bloqueado) {
-        this.bloqueadosPK = new BloqueadosPK(bloqueador, bloqueado);
+    public Bloqueado(String bloqueador, String bloqueado) {
+        this.bloqueadosPK = new BloqueadoPK(bloqueador, bloqueado);
     }
 
-    public BloqueadosPK getBloqueadosPK() {
+    public BloqueadoPK getBloqueadosPK() {
         return bloqueadosPK;
     }
 
-    public void setBloqueadosPK(BloqueadosPK bloqueadosPK) {
+    public void setBloqueadosPK(BloqueadoPK bloqueadosPK) {
         this.bloqueadosPK = bloqueadosPK;
     }
 
@@ -57,10 +57,10 @@ public class Bloqueados implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Bloqueados)) {
+        if (!(object instanceof Bloqueado)) {
             return false;
         }
-        Bloqueados other = (Bloqueados) object;
+        Bloqueado other = (Bloqueado) object;
         if ((this.bloqueadosPK == null && other.bloqueadosPK != null) || (this.bloqueadosPK != null && !this.bloqueadosPK.equals(other.bloqueadosPK))) {
             return false;
         }
@@ -69,7 +69,7 @@ public class Bloqueados implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Bloqueados[ bloqueadosPK=" + bloqueadosPK + " ]";
+        return "entidades.Bloqueado[ bloqueadosPK=" + bloqueadosPK + " ]";
     }
     
 }

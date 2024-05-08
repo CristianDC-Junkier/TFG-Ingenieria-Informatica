@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -23,15 +24,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
+@Table(name = "MENSAJEAMIGO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Mensajesmesas.findAll", query = "SELECT m FROM Mensajesmesas m"),
-    @NamedQuery(name = "Mensajesmesas.findById", query = "SELECT m FROM Mensajesmesas m WHERE m.id = :id"),
-    @NamedQuery(name = "Mensajesmesas.findByMensaje", query = "SELECT m FROM Mensajesmesas m WHERE m.mensaje = :mensaje"),
-    @NamedQuery(name = "Mensajesmesas.findByFecha", query = "SELECT m FROM Mensajesmesas m WHERE m.fecha = :fecha"),
-    @NamedQuery(name = "Mensajesmesas.findByMesa", query = "SELECT m FROM Mensajesmesas m WHERE m.mesa = :mesa"),
-    @NamedQuery(name = "Mensajesmesas.findByEscritor", query = "SELECT m FROM Mensajesmesas m WHERE m.escritor = :escritor")})
-public class Mensajesmesas implements Serializable {
+    @NamedQuery(name = "Mensajeamigo.findAll", query = "SELECT m FROM Mensajeamigo m"),
+    @NamedQuery(name = "Mensajeamigo.findById", query = "SELECT m FROM Mensajeamigo m WHERE m.id = :id"),
+    @NamedQuery(name = "Mensajeamigo.findByMensaje", query = "SELECT m FROM Mensajeamigo m WHERE m.mensaje = :mensaje"),
+    @NamedQuery(name = "Mensajeamigo.findByFecha", query = "SELECT m FROM Mensajeamigo m WHERE m.fecha = :fecha"),
+    @NamedQuery(name = "Mensajeamigo.findByReceptor", query = "SELECT m FROM Mensajeamigo m WHERE m.receptor = :receptor"),
+    @NamedQuery(name = "Mensajeamigo.findByEscritor", query = "SELECT m FROM Mensajeamigo m WHERE m.escritor = :escritor"),
+    @NamedQuery(name = "Mensajeamigo.findByEscritorReceptor", query = "SELECT m FROM Mensajeamigo m WHERE m.escritor = :escritor and m.receptor = :receptor ORDER BY m.fecha"),
+    @NamedQuery(name = "Mensajeamigo.findByReceptorEscritor", query = "SELECT m FROM Mensajeamigo m WHERE m.receptor = :receptor and m.escritor = :escritor ORDER BY m.fecha")
+})
+public class Mensajeamigo implements Serializable {
 
     @Id
     @GeneratedValue
@@ -47,41 +52,39 @@ public class Mensajesmesas implements Serializable {
     @Column(name = "FECHA", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @JoinColumn(name = "MESA", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "RECEPTOR", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Mesas mesa;
+    private Usuario receptor;
     @JoinColumn(name = "ESCRITOR", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
     private Usuario escritor;
 
-    public Mensajesmesas() {
+    public Mensajeamigo() {
     }
 
-    public Mensajesmesas(String id) {
+    public Mensajeamigo(String id) {
         this.id = id;
     }
 
-    public Mensajesmesas(String id, String mensaje, Date fecha, Mesas mesa, Usuario escritor) {
+    public Mensajeamigo(String id, String mensaje, Date fecha) {
         this.id = id;
         this.mensaje = mensaje;
         this.fecha = fecha;
-        this.mesa = mesa;
+    }
+
+    public Mensajeamigo(String mensaje, Date fecha) {
+        this.mensaje = mensaje;
+        this.fecha = fecha;
+    }
+
+    public Mensajeamigo(String mensaje, Date fecha, Usuario receptor, Usuario escritor) {
+        this.mensaje = mensaje;
+        this.fecha = fecha;
+        this.receptor = receptor;
         this.escritor = escritor;
     }
-
-    public Mensajesmesas(String mensaje, Date fecha, Mesas mesa, Usuario escritor) {
-        this.mensaje = mensaje;
-        this.fecha = fecha;
-        this.mesa = mesa;
-        this.escritor = escritor;
-    }
-
-    public Mensajesmesas(String id, String mensaje, Date fecha) {
-        this.id = id;
-        this.mensaje = mensaje;
-        this.fecha = fecha;
-    }
-
+    
+   
     public String getId() {
         return id;
     }
@@ -115,12 +118,12 @@ public class Mensajesmesas implements Serializable {
         return horaFormateada;
     }
 
-    public Mesas getMesa() {
-        return mesa;
+    public Usuario getReceptor() {
+        return receptor;
     }
 
-    public void setReceptor(Mesas mesa) {
-        this.mesa = mesa;
+    public void setReceptor(Usuario receptor) {
+        this.receptor = receptor;
     }
 
     public Usuario getEscritor() {
@@ -130,7 +133,7 @@ public class Mensajesmesas implements Serializable {
     public void setEscritor(Usuario escritor) {
         this.escritor = escritor;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -141,10 +144,10 @@ public class Mensajesmesas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Mensajesmesas)) {
+        if (!(object instanceof Mensajeamigo)) {
             return false;
         }
-        Mensajesmesas other = (Mensajesmesas) object;
+        Mensajeamigo other = (Mensajeamigo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -153,6 +156,6 @@ public class Mensajesmesas implements Serializable {
 
     @Override
     public String toString() {
-        return "controlador.Mensajesmesas[ id=" + id + " ]";
+        return "controlador.Mensajeamigo[ id=" + id + " ]";
     }
 }

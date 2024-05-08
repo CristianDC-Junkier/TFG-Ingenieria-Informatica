@@ -1,16 +1,16 @@
 package controlador;
 
-import entidades.Atributos;
-import entidades.Clases;
-import entidades.Dotes;
-import entidades.Habilidades;
-import entidades.Mesas;
-import entidades.Personajeatributos;
-import entidades.Personajehabilidades;
-import entidades.Personajes;
-import entidades.Razas;
+import entidades.Atributo;
+import entidades.Clase;
+import entidades.Dote;
+import entidades.Habilidad;
+import entidades.Mesa;
+import entidades.Personajeatributo;
+import entidades.Personajehabilidad;
+import entidades.Personaje;
+import entidades.Raza;
 import entidades.Seccion;
-import entidades.Tablaclasespornivel;
+import entidades.Tablaclasepornivel;
 import entidades.Tema;
 import entidades.Trasfondo;
 import entidades.Usaclase;
@@ -60,26 +60,26 @@ public class ControladorFormularios extends HttpServlet {
         HttpSession session;
 
         Usuario user;
-        Mesas mesa;
-        Personajes personaje;
-        Tablaclasespornivel tcnivel;
-        Personajehabilidades personajeHabilidad;
-        Habilidades habilidad;
-        Personajeatributos personajeAtributo;
+        Mesa mesa;
+        Personaje personaje;
+        Tablaclasepornivel tcnivel;
+        Personajehabilidad personajeHabilidad;
+        Habilidad habilidad;
+        Personajeatributo personajeAtributo;
         Usaclase usaclase;
         Usasubclase usasubclase;
-        Dotes dote;
-        Atributos atributo;
-        Personajeatributos patributo;
+        Dote dote;
+        Atributo atributo;
+        Personajeatributo patributo;
 
-        TypedQuery<Mesas> queryMesas;
-        TypedQuery<Dotes> queryDotes;
-        TypedQuery<Clases> queryClases;
-        TypedQuery<Razas> queryRazas;
-        TypedQuery<Atributos> queryAtributos;
+        TypedQuery<Mesa> queryMesas;
+        TypedQuery<Dote> queryDotes;
+        TypedQuery<Clase> queryClases;
+        TypedQuery<Raza> queryRazas;
+        TypedQuery<Atributo> queryAtributos;
         TypedQuery<Trasfondo> queryTrasfondos;
-        TypedQuery<Personajes> queryPersonajes;
-        TypedQuery<Tablaclasespornivel> queryTCNivel;
+        TypedQuery<Personaje> queryPersonajes;
+        TypedQuery<Tablaclasepornivel> queryTCNivel;
         TypedQuery<Usaclase> queryUsaClases;
         TypedQuery<Usasubclase> queryUsaSubClases;
         TypedQuery<Seccion> querySeccion;
@@ -87,8 +87,8 @@ public class ControladorFormularios extends HttpServlet {
         TypedQuery<Usuario> queryUsuarios;
 
         List<Integer> listaHabValores;
-        List<Dotes> listaDotes;
-        List<Atributos> listaAtributos;
+        List<Dote> listaDotes;
+        List<Atributo> listaAtributos;
         List<Seccion> listaSecciones;
 
         String id;
@@ -125,7 +125,7 @@ public class ControladorFormularios extends HttpServlet {
                     /////////////////////
                     /////////MESA////////
                     /////////////////////
-                    queryMesas = em.createNamedQuery("Mesas.findByCreador", Mesas.class);
+                    queryMesas = em.createNamedQuery("Mesa.findByCreador", Mesa.class);
                     queryMesas.setParameter("creador", user.getApodo());
                     numMesasCreadas = queryMesas.getResultList().size();
 
@@ -154,7 +154,7 @@ public class ControladorFormularios extends HttpServlet {
                     /////////////////////
                     /////////MESA////////
                     /////////////////////
-                    queryMesas = em.createNamedQuery("Mesas.findById", Mesas.class);
+                    queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                     queryMesas.setParameter("id", id);
                     mesa = queryMesas.getSingleResult();
 
@@ -221,15 +221,15 @@ public class ControladorFormularios extends HttpServlet {
                 } else {
 
                     //Numero total de personajes
-                    queryPersonajes = em.createNamedQuery("Personajes.findByCreador", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findByCreador", Personaje.class);
                     queryPersonajes.setParameter("creador", user);
                     request.setAttribute("personajesTotales", queryPersonajes.getResultList().size());
 
-                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                    queryClases = em.createNamedQuery("Clase.findAll", Clase.class);
                     request.setAttribute("listaClases", queryClases.getResultList());
-                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                    queryRazas = em.createNamedQuery("Raza.findAll", Raza.class);
                     request.setAttribute("listaRazas", queryRazas.getResultList());
-                    queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                    queryAtributos = em.createNamedQuery("Atributo.findAll", Atributo.class);
                     request.setAttribute("listaAtributos", queryAtributos.getResultList());
                     queryTrasfondos = em.createNamedQuery("Trasfondo.findAll", Trasfondo.class);
                     request.setAttribute("listaTrasfondos", queryTrasfondos.getResultList());
@@ -250,7 +250,7 @@ public class ControladorFormularios extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprobamos si el personaje es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     try {
                         personaje = queryPersonajes.getSingleResult();
@@ -278,7 +278,7 @@ public class ControladorFormularios extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprobamos si el personaje es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
 
                     try {
@@ -287,7 +287,7 @@ public class ControladorFormularios extends HttpServlet {
                         if (personaje.getUsuario().getId().equals(user.getId())) {
 
                             //Necesitamos la tabla clase del nivel para el BC
-                            queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                            queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                             queryTCNivel.setParameter("clase", personaje.getClase().getId());
                             queryTCNivel.setParameter("nivel", personaje.getNivel());
                             try {
@@ -377,7 +377,7 @@ public class ControladorFormularios extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprobamos si el personaje es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     try {
                         personaje = queryPersonajes.getSingleResult();
@@ -407,7 +407,7 @@ public class ControladorFormularios extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprobamos si el personaje es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     try {
                         personaje = queryPersonajes.getSingleResult();
@@ -415,7 +415,7 @@ public class ControladorFormularios extends HttpServlet {
                         if (personaje.getUsuario().getId().equals(user.getId())) {
 
                             //Si quiere un dote
-                            queryDotes = em.createNamedQuery("Dotes.findAll", Dotes.class);
+                            queryDotes = em.createNamedQuery("Dote.findAll", Dote.class);
                             listaDotes = queryDotes.getResultList();
 
                             //eliminamos los que ya tenga
@@ -431,7 +431,7 @@ public class ControladorFormularios extends HttpServlet {
                             request.setAttribute("listaDotes", listaDotes);
 
                             //Si quiere subir atributos 
-                            queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                            queryAtributos = em.createNamedQuery("Atributo.findAll", Atributo.class);
                             listaAtributos = queryAtributos.getResultList();
 
                             //eliminamos los que ya tenga con valor 20
@@ -468,7 +468,7 @@ public class ControladorFormularios extends HttpServlet {
 
                                 ////RASGOS////
                                 //Espacios de conjuros y BC 
-                                queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                                queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                                 queryTCNivel.setParameter("clase", personaje.getClase().getId());
                                 queryTCNivel.setParameter("nivel", personaje.getNivel() + 1);
                                 //Rasgos Clase
@@ -494,7 +494,6 @@ public class ControladorFormularios extends HttpServlet {
                             } catch (Exception ex) {
                                 System.out.println("Aun no implementado");
                             }
-                            System.out.println(" llego");
                             request.setAttribute("dadoClase", personaje.getClase().getDpg());
                             request.setAttribute("dadoClaseInteger", Integer.parseInt(personaje.getClase().getDpg().substring(1)));
                             request.setAttribute("nombreClase", personaje.getClase().getNombre());

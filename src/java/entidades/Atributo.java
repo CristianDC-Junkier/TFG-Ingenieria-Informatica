@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entidades;
 
 import java.io.Serializable;
@@ -28,14 +25,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "ATRIBUTOS", catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "ATRIBUTO", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Atributos.findAll", query = "SELECT a FROM Atributos a"),
-    @NamedQuery(name = "Atributos.findById", query = "SELECT a FROM Atributos a WHERE a.id = :id"),
-    @NamedQuery(name = "Atributos.findByNombre", query = "SELECT a FROM Atributos a WHERE a.nombre = :nombre")})
-public class Atributos implements Serializable {
+    @NamedQuery(name = "Atributo.findAll", query = "SELECT a FROM Atributo a"),
+    @NamedQuery(name = "Atributo.findById", query = "SELECT a FROM Atributo a WHERE a.id = :id"),
+    @NamedQuery(name = "Atributo.findByNombre", query = "SELECT a FROM Atributo a WHERE a.nombre = :nombre")})
+public class Atributo implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -48,13 +45,13 @@ public class Atributos implements Serializable {
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "atributos")
-    private List<Personajeatributosoriginal> personajeatributosoriginalList;
+    private List<Personajeatributooriginal> personajeatributosoriginalList;
     @ManyToMany(mappedBy = "atributosList")
-    private List<Dotes> dotesList;
+    private List<Dote> dotesList;
     @OneToMany(mappedBy = "atributo")
-    private List<Habilidades> habilidadesList;
+    private List<Habilidad> habilidadesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "atributos")
-    private List<Personajeatributos> personajeatributosList;
+    private List<Personajeatributo> personajeatributosList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,16 +61,16 @@ public class Atributos implements Serializable {
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
     @ManyToMany(mappedBy = "atributosList")
-    private List<Clases> clasesList;
+    private List<Clase> clasesList;
 
-    public Atributos() {
+    public Atributo() {
     }
 
-    public Atributos(String id) {
+    public Atributo(String id) {
         this.id = id;
     }
 
-    public Atributos(String id, String nombre, String descripcion) {
+    public Atributo(String id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -89,11 +86,11 @@ public class Atributos implements Serializable {
 
 
     @XmlTransient
-    public List<Clases> getClasesList() {
+    public List<Clase> getClasesList() {
         return clasesList;
     }
 
-    public void setClasesList(List<Clases> clasesList) {
+    public void setClasesList(List<Clase> clasesList) {
         this.clasesList = clasesList;
     }
 
@@ -107,10 +104,10 @@ public class Atributos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Atributos)) {
+        if (!(object instanceof Atributo)) {
             return false;
         }
-        Atributos other = (Atributos) object;
+        Atributo other = (Atributo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -119,35 +116,35 @@ public class Atributos implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Atributos[ id=" + id + " ]";
+        return "entidades.Atributo[ id=" + id + " ]";
     }
 
 
     @XmlTransient
-    public List<Habilidades> getHabilidadesList() {
+    public List<Habilidad> getHabilidadesList() {
         return habilidadesList;
     }
 
-    public void setHabilidadesList(List<Habilidades> habilidadesList) {
+    public void setHabilidadesList(List<Habilidad> habilidadesList) {
         this.habilidadesList = habilidadesList;
     }
 
     @XmlTransient
-    public List<Personajeatributos> getPersonajeatributosList() {
+    public List<Personajeatributo> getPersonajeatributosList() {
         return personajeatributosList;
     }
 
-    public void setPersonajeatributosList(List<Personajeatributos> personajeatributosList) {
+    public void setPersonajeatributosList(List<Personajeatributo> personajeatributosList) {
         this.personajeatributosList = personajeatributosList;
     }
 
 
     @XmlTransient
-    public List<Dotes> getDotesList() {
+    public List<Dote> getDotesList() {
         return dotesList;
     }
 
-    public void setDotesList(List<Dotes> dotesList) {
+    public void setDotesList(List<Dote> dotesList) {
         this.dotesList = dotesList;
     }
 
@@ -168,11 +165,11 @@ public class Atributos implements Serializable {
     }
 
     @XmlTransient
-    public List<Personajeatributosoriginal> getPersonajeatributosoriginalList() {
+    public List<Personajeatributooriginal> getPersonajeatributosoriginalList() {
         return personajeatributosoriginalList;
     }
 
-    public void setPersonajeatributosoriginalList(List<Personajeatributosoriginal> personajeatributosoriginalList) {
+    public void setPersonajeatributosoriginalList(List<Personajeatributooriginal> personajeatributosoriginalList) {
         this.personajeatributosoriginalList = personajeatributosoriginalList;
     }
     

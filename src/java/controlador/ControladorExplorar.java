@@ -1,21 +1,21 @@
 package controlador;
 
 import entidades.Alcance;
-import entidades.Clases;
-import entidades.Dotes;
+import entidades.Clase;
+import entidades.Dote;
 import entidades.Equipo;
-import entidades.Estados;
-import entidades.Hechizos;
-import entidades.Mejorasdote;
-import entidades.Monstruos;
-import entidades.Propiedades;
-import entidades.Rasgos;
-import entidades.Razas;
+import entidades.Estado;
+import entidades.Hechizo;
+import entidades.Mejoradote;
+import entidades.Monstruo;
+import entidades.Propiedad;
+import entidades.Rasgo;
+import entidades.Raza;
 import entidades.Requisitosdote;
-import entidades.Subclases;
-import entidades.Subrazas;
+import entidades.Subclase;
+import entidades.Subraza;
 import entidades.Tablaclases;
-import entidades.Tablaclasespornivel;
+import entidades.Tablaclasepornivel;
 import entidades.Trasfondo;
 import entidades.Usaclase;
 import entidades.Usasubclase;
@@ -68,47 +68,47 @@ public class ControladorExplorar extends HttpServlet {
         Object result;
 
         Query queryAUX;
-        TypedQuery<Estados> queryEstados;
-        TypedQuery<Clases> queryClases;
-        TypedQuery<Subclases> querySubClases;
-        TypedQuery<Dotes> queryDotes;
-        TypedQuery<Mejorasdote> queryMDotes;
+        TypedQuery<Estado> queryEstados;
+        TypedQuery<Clase> queryClases;
+        TypedQuery<Subclase> querySubClases;
+        TypedQuery<Dote> queryDotes;
+        TypedQuery<Mejoradote> queryMDotes;
         TypedQuery<Requisitosdote> queryRDotes;
         TypedQuery<Equipo> queryEquipo;
         TypedQuery<Alcance> queryAlcance;
-        TypedQuery<Hechizos> queryHechizos;
-        TypedQuery<Monstruos> queryMonstruos;
-        TypedQuery<Razas> queryRazas;
-        TypedQuery<Subrazas> querySubRazas;
+        TypedQuery<Hechizo> queryHechizos;
+        TypedQuery<Monstruo> queryMonstruos;
+        TypedQuery<Raza> queryRazas;
+        TypedQuery<Subraza> querySubRazas;
         TypedQuery<Trasfondo> queryTrasfondos;
-        TypedQuery<Tablaclasespornivel> queryTablaClaseNivel;
+        TypedQuery<Tablaclasepornivel> queryTablaClaseNivel;
 
-        List<Estados> listaEstados;
-        List<Clases> listaClases;
-        List<Dotes> listaDotes;
-        List<Mejorasdote> listaMDotes;
+        List<Estado> listaEstados;
+        List<Clase> listaClases;
+        List<Dote> listaDotes;
+        List<Mejoradote> listaMDotes;
         List<Requisitosdote> listaRDotes;
         List<Equipo> listaEquipo;
-        List<List<Propiedades>> listalistaPropiedades;
-        List<Hechizos> listaHechizos;
-        List<Monstruos> listaMonstruos;
-        List<Razas> listaRazas;
-        List<Subrazas> listaSubRazas;
+        List<List<Propiedad>> listalistaPropiedades;
+        List<Hechizo> listaHechizos;
+        List<Monstruo> listaMonstruos;
+        List<Raza> listaRazas;
+        List<Subraza> listaSubRazas;
         List<String> listaRazasImagenes;
         List<Trasfondo> listaTrasfondos;
-        List<Tablaclasespornivel> listaTablaClaseNivel;
+        List<Tablaclasepornivel> listaTablaClaseNivel;
         List<Tablaclases> listaTablaClases;
-        List<Rasgos> listaRasgos;
+        List<Rasgo> listaRasgos;
         List<Usasubclase> listaUsaSubClases;
         List<Usaclase> listaUsaClases;
 
-        Clases Clase;
-        Subclases SubClase;
+        Clase Clase;
+        Subclase SubClase;
         Trasfondo Trasfondo;
-        Razas Raza;
-        Subrazas SubRaza;
-        Hechizos Hechizo;
-        Monstruos Monstruo;
+        Raza Raza;
+        Subraza SubRaza;
+        Hechizo Hechizo;
+        Monstruo Monstruo;
         Equipo Equipo;
         Alcance Alcance;
 
@@ -149,14 +149,14 @@ public class ControladorExplorar extends HttpServlet {
         int numpag;
         int cont;
 
-        HashSet<Hechizos> hashAuxHechizos;
+        HashSet<Hechizo> hashAuxHechizos;
         HashSet<Equipo> hashAuxEquipo;
-        HashSet<Monstruos> hashAuxMonstruos;
+        HashSet<Monstruo> hashAuxMonstruos;
 
         switch (accion) {
             case "/clases":
 
-                queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                queryClases = em.createNamedQuery("Clase.findAll", Clase.class);
                 listaClases = queryClases.getResultList();
 
                 resultado = "";
@@ -220,11 +220,11 @@ public class ControladorExplorar extends HttpServlet {
 
                 nombre = request.getParameter("clase");
 
-                queryClases = em.createNamedQuery("Clases.findById", Clases.class);
+                queryClases = em.createNamedQuery("Clase.findById", Clase.class);
                 queryClases.setParameter("id", nombre);
                 Clase = queryClases.getSingleResult();
 
-                queryTablaClaseNivel = em.createNamedQuery("Tablaclasespornivel.findByClase", Tablaclasespornivel.class);
+                queryTablaClaseNivel = em.createNamedQuery("Tablaclasepornivel.findByClase", Tablaclasepornivel.class);
                 queryTablaClaseNivel.setParameter("clase", Clase.getId());
                 listaTablaClaseNivel = queryTablaClaseNivel.getResultList();
 
@@ -1206,12 +1206,12 @@ public class ControladorExplorar extends HttpServlet {
                 id = request.getParameter("idClase");
 
                 //Recogemos la clase
-                queryClases = em.createNamedQuery("Clases.findById", Clases.class);
+                queryClases = em.createNamedQuery("Clase.findById", Clase.class);
                 queryClases.setParameter("id", id);
                 Clase = queryClases.getSingleResult();
 
                 //Recogemos la subclase
-                querySubClases = em.createNamedQuery("Subclases.findByNombre", Subclases.class);
+                querySubClases = em.createNamedQuery("Subclase.findByNombre", Subclase.class);
                 querySubClases.setParameter("nombre", nombre);
                 SubClase = querySubClases.getSingleResult();
 
@@ -1232,7 +1232,7 @@ public class ControladorExplorar extends HttpServlet {
                 break;
             case "/dotes":
 
-                queryDotes = em.createNamedQuery("Dotes.findAll", Dotes.class);
+                queryDotes = em.createNamedQuery("Dote.findAll", Dote.class);
                 listaDotes = queryDotes.getResultList();
 
                 resultado = "";
@@ -1251,7 +1251,7 @@ public class ControladorExplorar extends HttpServlet {
                             + "<div class=\"ContenidoDote\">"
                             + "<ul>";
 
-                    queryRDotes = em.createNamedQuery("Requisitosdote.findByNombre", Requisitosdote.class);
+                    queryRDotes = em.createNamedQuery("Requisitodote.findByNombre", Requisitosdote.class);
                     queryRDotes.setParameter("nombre", nombre);
                     listaRDotes = queryRDotes.getResultList();
 
@@ -1261,11 +1261,11 @@ public class ControladorExplorar extends HttpServlet {
                                 + "<li class=\"RequisitoDote\">" + listaRDote.getValor() + "</li>";
                     }
 
-                    queryMDotes = em.createNamedQuery("Mejorasdote.findByNombre", Mejorasdote.class);
+                    queryMDotes = em.createNamedQuery("Mejoradote.findByNombre", Mejoradote.class);
                     queryMDotes.setParameter("nombre", nombre);
                     listaMDotes = queryMDotes.getResultList();
 
-                    for (Mejorasdote listaMDote : listaMDotes) {
+                    for (Mejoradote listaMDote : listaMDotes) {
                         resultado
                                 = resultado
                                 + "<li>" + listaMDote.getValor() + "</li>";
@@ -1388,8 +1388,8 @@ public class ControladorExplorar extends HttpServlet {
                 ////////NUMERO DE EQUIPO/////////
                 /////////////////////////////////
                 sql = "SELECT COUNT(DISTINCT e.id) FROM Equipo e "
-                        + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                        + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                        + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                        + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                         + "WHERE e.id IS NOT NULL "
                         + tipoSQL
                         + categoriaSQL
@@ -1402,8 +1402,8 @@ public class ControladorExplorar extends HttpServlet {
                 numpag = (((Number) result).intValue() / 14) + 1;
 
                 sql = "SELECT * FROM Equipo e "
-                        + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                        + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                        + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                        + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                         + "WHERE e.id IS NOT NULL "
                         + tipoSQL
                         + categoriaSQL
@@ -1440,7 +1440,7 @@ public class ControladorExplorar extends HttpServlet {
                 break;
             case "/estados":
 
-                queryEstados = em.createNamedQuery("Estados.findAll", Estados.class);
+                queryEstados = em.createNamedQuery("Estado.findAll", Estado.class);
                 listaEstados = queryEstados.getResultList();
 
                 request.setAttribute("listaEstados", listaEstados);
@@ -1450,7 +1450,7 @@ public class ControladorExplorar extends HttpServlet {
             case "/hechizo":
                 id = request.getParameter("idHechizo");
 
-                queryHechizos = em.createNamedQuery("Hechizos.findById", Hechizos.class);
+                queryHechizos = em.createNamedQuery("Hechizo.findById", Hechizo.class);
                 queryHechizos.setParameter("id", id);
                 Hechizo = queryHechizos.getSingleResult();
 
@@ -1520,9 +1520,9 @@ public class ControladorExplorar extends HttpServlet {
                 /////////////////////////////////
                 ////////NUMERO DE HECHIZOS///////
                 /////////////////////////////////
-                sql = "SELECT COUNT(DISTINCT h.id) FROM Hechizos h "
-                        + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                        + "LEFT JOIN Clases c on c.id = lb.clase "
+                sql = "SELECT COUNT(DISTINCT h.id) FROM Hechizo h "
+                        + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                        + "LEFT JOIN Clase c on c.id = lb.clase "
                         + "WHERE h.id IS NOT NULL "
                         + escuelaSQL
                         + claseHSQL
@@ -1534,9 +1534,9 @@ public class ControladorExplorar extends HttpServlet {
                 //PAGINAS QUE HAY (15 HECHIZOS POR PAGINA)
                 numpag = (((Number) result).intValue() / 14) + 1;
 
-                sql = "SELECT h.* FROM Hechizos h "
-                        + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                        + "LEFT JOIN Clases c on c.id = lb.clase "
+                sql = "SELECT h.* FROM Hechizo h "
+                        + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                        + "LEFT JOIN Clase c on c.id = lb.clase "
                         + "WHERE h.id IS NOT NULL "
                         + escuelaSQL
                         + claseHSQL
@@ -1544,7 +1544,7 @@ public class ControladorExplorar extends HttpServlet {
                         + "ORDER BY h.nombre "
                         + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
 
-                queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                queryAUX = em.createNativeQuery(sql, Hechizo.class);
                 listaHechizos = queryAUX.getResultList();
 
                 //Eliminar duplicados utilizando HashSet
@@ -1567,7 +1567,7 @@ public class ControladorExplorar extends HttpServlet {
             case "/monstruo":
                 id = request.getParameter("idMonstruo");
 
-                queryMonstruos = em.createNamedQuery("Monstruos.findById", Monstruos.class);
+                queryMonstruos = em.createNamedQuery("Monstruo.findById", Monstruo.class);
                 queryMonstruos.setParameter("id", id);
                 Monstruo = queryMonstruos.getSingleResult();
 
@@ -1624,7 +1624,7 @@ public class ControladorExplorar extends HttpServlet {
                 //////////////////////////////////
                 ////////NUMERO DE MONSTRUOS///////
                 //////////////////////////////////
-                sql = "SELECT COUNT(DISTINCT m.id) FROM Monstruos m "
+                sql = "SELECT COUNT(DISTINCT m.id) FROM Monstruo m "
                         + "WHERE m.id IS NOT NULL "
                         + vdSQL
                         + tipoSQL;
@@ -1635,14 +1635,14 @@ public class ControladorExplorar extends HttpServlet {
                 //PAGINAS QUE HAY (15 MONSTRUOS POR PAGINA)
                 numpag = (((Number) result).intValue() / 14) + 1;
 
-                sql = "SELECT m.* FROM Monstruos m "
+                sql = "SELECT m.* FROM Monstruo m "
                         + "WHERE m.id IS NOT NULL "
                         + vdSQL
                         + tipoSQL
                         + "ORDER BY m.nombre "
                         + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
 
-                queryAUX = em.createNativeQuery(sql, Monstruos.class);
+                queryAUX = em.createNativeQuery(sql, Monstruo.class);
                 listaMonstruos = queryAUX.getResultList();
 
                 //Eliminar duplicados utilizando HashSet
@@ -1665,12 +1665,12 @@ public class ControladorExplorar extends HttpServlet {
 
                 id = request.getParameter("idRaza");
 
-                queryRazas = em.createNamedQuery("Razas.findById", Razas.class);
+                queryRazas = em.createNamedQuery("Raza.findById", Raza.class);
                 queryRazas.setParameter("id", id);
                 Raza = queryRazas.getSingleResult();
 
                 //Subraza principal
-                querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
+                querySubRazas = em.createNamedQuery("Subraza.findByNombre", Subraza.class);
                 querySubRazas.setParameter("nombre", Raza.getNombre());
                 SubRaza = querySubRazas.getSingleResult();
 
@@ -1693,12 +1693,12 @@ public class ControladorExplorar extends HttpServlet {
                 id = request.getParameter("idRaza");
                 nombre = request.getParameter("nombreSubRaza");
 
-                queryRazas = em.createNamedQuery("Razas.findById", Razas.class);
+                queryRazas = em.createNamedQuery("Raza.findById", Raza.class);
                 queryRazas.setParameter("id", id);
                 Raza = queryRazas.getSingleResult();
 
                 //Subraza
-                querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
+                querySubRazas = em.createNamedQuery("Subraza.findByNombre", Subraza.class);
                 querySubRazas.setParameter("nombre", nombre);
                 SubRaza = querySubRazas.getSingleResult();
 
@@ -1714,7 +1714,7 @@ public class ControladorExplorar extends HttpServlet {
             case "/razas":
 
                 //Razas Normales
-                queryRazas = em.createNamedQuery("Razas.findByTipo", Razas.class);
+                queryRazas = em.createNamedQuery("Raza.findByTipo", Raza.class);
                 queryRazas.setParameter("tipo", "Normal");
                 listaRazas = queryRazas.getResultList();
 
@@ -1729,8 +1729,8 @@ public class ControladorExplorar extends HttpServlet {
                 request.setAttribute("listaRazasNormales", listaRazas);
                 request.setAttribute("listaRazasImagenesNormales", listaRazasImagenes);
 
-                //Razas Monstruos
-                queryRazas = em.createNamedQuery("Razas.findByTipo", Razas.class);
+                //Razas Monstruo
+                queryRazas = em.createNamedQuery("Raza.findByTipo", Raza.class);
                 queryRazas.setParameter("tipo", "Monstruo");
                 listaRazas = queryRazas.getResultList();
 

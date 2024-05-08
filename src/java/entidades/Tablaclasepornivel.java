@@ -15,50 +15,50 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(name = "TABLACLASESPORNIVEL", catalog = "", schema = "SYS_G4")
+@Table(name = "TABLACLASEPORNIVEL")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tablaclasespornivel.findAll", query = "SELECT t FROM Tablaclasespornivel t"),
-    @NamedQuery(name = "Tablaclasespornivel.findByClase", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.clase = :clase"),
-    @NamedQuery(name = "Tablaclasespornivel.findByNivel", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.nivel = :nivel"),
-    @NamedQuery(name = "Tablaclasespornivel.findByClaseNivel", query = "SELECT t FROM Tablaclasespornivel t WHERE t.tablaclasespornivelPK.clase = :clase AND t.tablaclasespornivelPK.nivel = :nivel")
+    @NamedQuery(name = "Tablaclasepornivel.findAll", query = "SELECT t FROM Tablaclasepornivel t"),
+    @NamedQuery(name = "Tablaclasepornivel.findByClase", query = "SELECT t FROM Tablaclasepornivel t WHERE t.tablaclasespornivelPK.clase = :clase"),
+    @NamedQuery(name = "Tablaclasepornivel.findByNivel", query = "SELECT t FROM Tablaclasepornivel t WHERE t.tablaclasespornivelPK.nivel = :nivel"),
+    @NamedQuery(name = "Tablaclasepornivel.findByClaseNivel", query = "SELECT t FROM Tablaclasepornivel t WHERE t.tablaclasespornivelPK.clase = :clase AND t.tablaclasespornivelPK.nivel = :nivel")
 })
-public class Tablaclasespornivel implements Serializable {
+public class Tablaclasepornivel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected TablaclasespornivelPK tablaclasespornivelPK;
+    protected TablaclasepornivelPK tablaclasespornivelPK;
     @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Clases clases;
+    private Clase clases;
     @JoinColumn(name = "TABLACLASES", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
     private Tablaclases tablaclases;
 
-    public Tablaclasespornivel() {
+    public Tablaclasepornivel() {
     }
 
-    public Tablaclasespornivel(TablaclasespornivelPK tablaclasespornivelPK) {
+    public Tablaclasepornivel(TablaclasepornivelPK tablaclasespornivelPK) {
         this.tablaclasespornivelPK = tablaclasespornivelPK;
     }
 
-    public Tablaclasespornivel(String clase, Integer nivel) {
-        this.tablaclasespornivelPK = new TablaclasespornivelPK(clase, nivel);
+    public Tablaclasepornivel(String clase, Integer nivel) {
+        this.tablaclasespornivelPK = new TablaclasepornivelPK(clase, nivel);
     }
 
-    public TablaclasespornivelPK getTablaclasespornivelPK() {
+    public TablaclasepornivelPK getTablaclasespornivelPK() {
         return tablaclasespornivelPK;
     }
 
-    public void setTablaclasespornivelPK(TablaclasespornivelPK tablaclasespornivelPK) {
+    public void setTablaclasespornivelPK(TablaclasepornivelPK tablaclasespornivelPK) {
         this.tablaclasespornivelPK = tablaclasespornivelPK;
     }
 
-    public Clases getClases() {
+    public Clase getClases() {
         return clases;
     }
 
-    public void setClases(Clases clases) {
+    public void setClases(Clase clases) {
         this.clases = clases;
     }
 
@@ -80,10 +80,10 @@ public class Tablaclasespornivel implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tablaclasespornivel)) {
+        if (!(object instanceof Tablaclasepornivel)) {
             return false;
         }
-        Tablaclasespornivel other = (Tablaclasespornivel) object;
+        Tablaclasepornivel other = (Tablaclasepornivel) object;
         if ((this.tablaclasespornivelPK == null && other.tablaclasespornivelPK != null) || (this.tablaclasespornivelPK != null && !this.tablaclasespornivelPK.equals(other.tablaclasespornivelPK))) {
             return false;
         }
@@ -92,7 +92,7 @@ public class Tablaclasespornivel implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Tablaclasespornivel[ tablaclasespornivelPK=" + tablaclasespornivelPK + " ]";
+        return "entidades.Tablaclasepornivel[ tablaclasespornivelPK=" + tablaclasespornivelPK + " ]";
     }
     
 }

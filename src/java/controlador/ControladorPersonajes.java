@@ -1,23 +1,23 @@
 package controlador;
 
-import entidades.Amigos;
-import entidades.Atributos;
-import entidades.Clases;
-import entidades.Dotes;
+import entidades.Amigo;
+import entidades.Atributo;
+import entidades.Clase;
+import entidades.Dote;
 import entidades.Equipo;
-import entidades.Habilidades;
-import entidades.Hechizos;
-import entidades.Mejorasdote;
-import entidades.Personajeatributos;
-import entidades.Personajeatributosoriginal;
-import entidades.Personajehabilidades;
-import entidades.Personajes;
-import entidades.Propiedades;
-import entidades.Razas;
+import entidades.Habilidad;
+import entidades.Hechizo;
+import entidades.Mejoradote;
+import entidades.Personajeatributo;
+import entidades.Personajeatributooriginal;
+import entidades.Personajehabilidad;
+import entidades.Personaje;
+import entidades.Propiedad;
+import entidades.Raza;
 import entidades.Requisitosdote;
-import entidades.Subclases;
-import entidades.Subrazas;
-import entidades.Tablaclasespornivel;
+import entidades.Subclase;
+import entidades.Subraza;
+import entidades.Tablaclasepornivel;
 import entidades.Trasfondo;
 import entidades.Usaclase;
 import entidades.Usasubclase;
@@ -80,69 +80,69 @@ public class ControladorPersonajes extends HttpServlet {
         Object result;
 
         TypedQuery<Usuario> queryUsuarios;
-        TypedQuery<Amigos> queryAmigos;
-        TypedQuery<Clases> queryClases;
-        TypedQuery<Subclases> querySubclases;
-        TypedQuery<Razas> queryRazas;
-        TypedQuery<Subrazas> querySubrazas;
+        TypedQuery<Amigo> queryAmigos;
+        TypedQuery<Clase> queryClases;
+        TypedQuery<Subclase> querySubclases;
+        TypedQuery<Raza> queryRazas;
+        TypedQuery<Subraza> querySubrazas;
         TypedQuery<Trasfondo> queryTrasfondos;
-        TypedQuery<Personajes> queryPersonajes;
-        TypedQuery<Atributos> queryAtributos;
-        TypedQuery<Habilidades> queryHabilidades;
+        TypedQuery<Personaje> queryPersonajes;
+        TypedQuery<Atributo> queryAtributos;
+        TypedQuery<Habilidad> queryHabilidades;
         TypedQuery<Equipo> queryEquipo;
-        TypedQuery<Hechizos> queryHechizos;
+        TypedQuery<Hechizo> queryHechizos;
         TypedQuery<Requisitosdote> queryRDotes;
-        TypedQuery<Mejorasdote> queryMDotes;
-        TypedQuery<Tablaclasespornivel> queryTCNivel;
+        TypedQuery<Mejoradote> queryMDotes;
+        TypedQuery<Tablaclasepornivel> queryTCNivel;
         TypedQuery<Usaclase> queryUsaClases;
         TypedQuery<Usasubclase> queryUsaSubClases;
-        TypedQuery<Dotes> queryDotes;
+        TypedQuery<Dote> queryDotes;
 
         Query queryAUX;
 
-        List<Personajes> listaPersonajes;
+        List<Personaje> listaPersonajes;
         List<Usuario> listaUsuarios;
         List<String> fotosPersonajes;
-        List<Atributos> listaAtributos;
-        List<Atributos> listaAtributosAux;
-        List<Personajeatributos> listaPersonajeAtributos;
-        List<Habilidades> listaHabilidades;
-        List<Personajehabilidades> listaPersonajeHabilidades;
+        List<Atributo> listaAtributos;
+        List<Atributo> listaAtributosAux;
+        List<Personajeatributo> listaPersonajeAtributos;
+        List<Habilidad> listaHabilidades;
+        List<Personajehabilidad> listaPersonajeHabilidades;
         List<Equipo> listaEquipo;
-        List<Hechizos> listaHechizos;
-        List<List<Propiedades>> listalistaPropiedades;
-        List<Dotes> listaDotes;
+        List<Hechizo> listaHechizos;
+        List<List<Propiedad>> listalistaPropiedades;
+        List<Dote> listaDotes;
         List<Requisitosdote> listaRDotes;
-        List<Mejorasdote> listaMDotes;
+        List<Mejoradote> listaMDotes;
         List<Integer> listaHabValores;
         List<String> listaValoresSalvacion;
-        List<Personajeatributosoriginal> listaPersonajeAtributosOriginal;
+        List<Personajeatributooriginal> listaPersonajeAtributosOriginal;
 
-        HashSet<Hechizos> hashAuxHechizos;
+        HashSet<Hechizo> hashAuxHechizos;
         HashSet<Equipo> hashAuxEquipo;
 
         Usuario user;
         Usuario useraux;
-        Personajes personaje;
-        Personajes personajeaux;
-        Clases clase;
-        Subclases subclase;
-        Razas raza;
-        Subrazas subraza;
+        Personaje personaje;
+        Personaje personajeaux;
+        Clase clase;
+        Subclase subclase;
+        Raza raza;
+        Subraza subraza;
         Trasfondo transfondo;
-        Atributos atributo;
-        Personajeatributos personajeAtributo;
-        Personajeatributosoriginal personajeAtributoOriginal;
-        Personajeatributos pjAtr;
-        Habilidades habilidad;
-        Personajehabilidades personajeHabilidad;
+        Atributo atributo;
+        Personajeatributo personajeAtributo;
+        Personajeatributooriginal personajeAtributoOriginal;
+        Personajeatributo pjAtr;
+        Habilidad habilidad;
+        Personajehabilidad personajeHabilidad;
         Equipo equipo;
-        Hechizos hechizo;
-        Tablaclasespornivel tcnivel;
-        Amigos amigos;
+        Hechizo hechizo;
+        Tablaclasepornivel tcnivel;
+        Amigo amigos;
         Usaclase usaclase;
         Usasubclase usasubclase;
-        Dotes dote;
+        Dote dote;
 
         String id;
         String personaje_id;
@@ -273,7 +273,7 @@ public class ControladorPersonajes extends HttpServlet {
                             throw new Exception("El Nombre no es válido");
                         }
 
-                        queryPersonajes = em.createNamedQuery("Personajes.findByNombreCreador", Personajes.class);
+                        queryPersonajes = em.createNamedQuery("Personaje.findByNombreCreador", Personaje.class);
                         queryPersonajes.setParameter("nombre", personaje_nombre);
                         queryPersonajes.setParameter("creador", user);
                         listaPersonajes = queryPersonajes.getResultList();
@@ -284,19 +284,19 @@ public class ControladorPersonajes extends HttpServlet {
                         //////////////////
                         //////CLASE///////
                         //////////////////
-                        queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
+                        queryClases = em.createNamedQuery("Clase.findByNombre", Clase.class);
                         queryClases.setParameter("nombre", personaje_clase);
                         clase = queryClases.getSingleResult();
                         //////////////////
                         ///////RAZA///////
                         //////////////////
-                        queryRazas = em.createNamedQuery("Razas.findByNombre", Razas.class);
+                        queryRazas = em.createNamedQuery("Raza.findByNombre", Raza.class);
                         queryRazas.setParameter("nombre", personaje_raza);
                         raza = queryRazas.getSingleResult();
                         //////////////////
                         //////SUBRAZA/////
                         //////////////////
-                        querySubrazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
+                        querySubrazas = em.createNamedQuery("Subraza.findByNombre", Subraza.class);
                         querySubrazas.setParameter("nombre", personaje_subraza);
                         subraza = querySubrazas.getSingleResult();
                         //////////////////
@@ -309,7 +309,7 @@ public class ControladorPersonajes extends HttpServlet {
                         //////////////////////////
                         //////////CREAMOS/////////
                         //////////////////////////
-                        personaje = new Personajes(personaje_nombre, personaje_alineamiento, 1, Integer.parseInt(clase.getDpg().substring(1)),
+                        personaje = new Personaje(personaje_nombre, personaje_alineamiento, 1, Integer.parseInt(clase.getDpg().substring(1)),
                                 Integer.parseInt(clase.getDpg().substring(1)), 10, user);
 
                         personaje.setClase(clase);
@@ -318,7 +318,7 @@ public class ControladorPersonajes extends HttpServlet {
                         personaje.setTrasfondo(transfondo);
 
                         if (!personaje_subclase.equalsIgnoreCase("-")) {
-                            querySubclases = em.createNamedQuery("Subclases.findByNombre", Subclases.class);
+                            querySubclases = em.createNamedQuery("Subclase.findByNombre", Subclase.class);
                             querySubclases.setParameter("nombre", personaje_subclase);
                             subclase = querySubclases.getSingleResult();
                             personaje.setSubclase(subclase);
@@ -355,7 +355,7 @@ public class ControladorPersonajes extends HttpServlet {
                         listaPersonajeAtributos = new ArrayList();
                         listaPersonajeAtributosOriginal = new ArrayList();
 
-                        queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                        queryAtributos = em.createNamedQuery("Atributo.findAll", Atributo.class);
                         listaAtributos = queryAtributos.getResultList();
 
                         for (int i = 0; i < listaAtributos.size(); i++) {
@@ -413,9 +413,9 @@ public class ControladorPersonajes extends HttpServlet {
                                 }
                             }
 
-                            personajeAtributo = new Personajeatributos(personaje.getId(), atributo.getId(),
+                            personajeAtributo = new Personajeatributo(personaje.getId(), atributo.getId(),
                                     valorAtributo, "No");
-                            personajeAtributoOriginal = new Personajeatributosoriginal(personaje.getId(), atributo.getId(),
+                            personajeAtributoOriginal = new Personajeatributooriginal(personaje.getId(), atributo.getId(),
                                     valorAtributo, "No");
 
                             listaPersonajeAtributos.add(personajeAtributo);
@@ -458,7 +458,7 @@ public class ControladorPersonajes extends HttpServlet {
                         //////////////////////
                         listaPersonajeHabilidades = new ArrayList();
 
-                        queryHabilidades = em.createNamedQuery("Habilidades.findAll", Habilidades.class);
+                        queryHabilidades = em.createNamedQuery("Habilidad.findAll", Habilidad.class);
                         listaHabilidades = queryHabilidades.getResultList();
 
                         for (int i = 0; i < listaHabilidades.size(); i++) {
@@ -467,7 +467,7 @@ public class ControladorPersonajes extends HttpServlet {
                             index = 0;
                             encontrado = false;
 
-                            personajeHabilidad = new Personajehabilidades(personaje.getId(), habilidad.getId(), "No");
+                            personajeHabilidad = new Personajehabilidad(personaje.getId(), habilidad.getId(), "No");
 
                             if (personaje_habilidades != null) {
 
@@ -558,7 +558,7 @@ public class ControladorPersonajes extends HttpServlet {
                     personaje_idiomas = request.getParameter("personaje_idiomas");
                     personaje_historia = request.getParameter("personaje_historia");
 
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
 
                     try {
@@ -576,7 +576,7 @@ public class ControladorPersonajes extends HttpServlet {
                                 throw new Exception("El Nombre no es válido");
                             }
 
-                            queryPersonajes = em.createNamedQuery("Personajes.findByNombreCreador", Personajes.class);
+                            queryPersonajes = em.createNamedQuery("Personaje.findByNombreCreador", Personaje.class);
                             queryPersonajes.setParameter("nombre", personaje_nombre);
                             queryPersonajes.setParameter("creador", user);
                             listaPersonajes = queryPersonajes.getResultList();
@@ -649,7 +649,7 @@ public class ControladorPersonajes extends HttpServlet {
                 } else {
                     personaje_id = request.getParameter("id");
 
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
 
                     try {
@@ -703,7 +703,7 @@ public class ControladorPersonajes extends HttpServlet {
                 } else {
                     personaje_id = request.getParameter("id");
 
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
 
                     try {
@@ -811,7 +811,7 @@ public class ControladorPersonajes extends HttpServlet {
                 } else {
                     personaje_id = request.getParameter("id");
 
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     personaje = queryPersonajes.getSingleResult();
 
@@ -838,7 +838,7 @@ public class ControladorPersonajes extends HttpServlet {
                 } else {
                     personaje_id = request.getParameter("id");
 
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     personaje = queryPersonajes.getSingleResult();
 
@@ -865,7 +865,7 @@ public class ControladorPersonajes extends HttpServlet {
                 } else {
                     personaje_id = request.getParameter("id");
 
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     personaje = queryPersonajes.getSingleResult();
 
@@ -892,7 +892,7 @@ public class ControladorPersonajes extends HttpServlet {
                 } else {
                     personaje_id = request.getParameter("id");
 
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     personaje = queryPersonajes.getSingleResult();
 
@@ -919,7 +919,7 @@ public class ControladorPersonajes extends HttpServlet {
                 } else {
                     personaje_id = request.getParameter("id");
 
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     try {
                         personaje = queryPersonajes.getSingleResult();
@@ -959,7 +959,7 @@ public class ControladorPersonajes extends HttpServlet {
                     } else {
                         personaje_id = request.getParameter("id");
 
-                        queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                        queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                         queryPersonajes.setParameter("id", personaje_id);
                         personaje = queryPersonajes.getSingleResult();
 
@@ -968,10 +968,10 @@ public class ControladorPersonajes extends HttpServlet {
                             vista = "/Principal/inicio";
                         } else {
 
-                            queryPersonajes = em.createNamedQuery("Personajes.findByCreador", Personajes.class);
+                            queryPersonajes = em.createNamedQuery("Personaje.findByCreador", Personaje.class);
                             queryPersonajes.setParameter("creador", user);
 
-                            personajeaux = new Personajes(personaje, user, queryPersonajes.getResultList());
+                            personajeaux = new Personaje(personaje, user, queryPersonajes.getResultList());
                             persist(personajeaux);
 
                             listaPersonajeAtributos = new ArrayList();
@@ -980,20 +980,20 @@ public class ControladorPersonajes extends HttpServlet {
 
                             for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
                                 personajeAtributo = personaje.getPersonajeatributosList().get(i);
-                                listaPersonajeAtributos.add(new Personajeatributos(personajeaux.getId(), personajeAtributo.getAtributos().getId(),
+                                listaPersonajeAtributos.add(new Personajeatributo(personajeaux.getId(), personajeAtributo.getAtributos().getId(),
                                         personajeAtributo.getValor(), personajeAtributo.getSalvacion()));
 
                             }
 
                             for (int i = 0; i < personaje.getPersonajeatributosoriginalList().size(); i++) {
                                 personajeAtributoOriginal = personaje.getPersonajeatributosoriginalList().get(i);
-                                listaPersonajeAtributosOriginal.add(new Personajeatributosoriginal(personajeaux.getId(), personajeAtributoOriginal.getAtributos().getId(),
+                                listaPersonajeAtributosOriginal.add(new Personajeatributooriginal(personajeaux.getId(), personajeAtributoOriginal.getAtributos().getId(),
                                         personajeAtributoOriginal.getValor(), personajeAtributoOriginal.getSalvacion()));
 
                             }
                             for (int i = 0; i < personaje.getPersonajehabilidadesList().size(); i++) {
                                 personajeHabilidad = personaje.getPersonajehabilidadesList().get(i);
-                                listaPersonajeHabilidades.add(new Personajehabilidades(personajeaux.getId(), personajeHabilidad.getHabilidades().getId(),
+                                listaPersonajeHabilidades.add(new Personajehabilidad(personajeaux.getId(), personajeHabilidad.getHabilidades().getId(),
                                         personajeHabilidad.getCompetencia()));
                             }
                             personajeaux.setPersonajeatributosList(listaPersonajeAtributos);
@@ -1069,7 +1069,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////////////////////////////////
                 ////////NUMERO DE PERSONAJES/////////
                 /////////////////////////////////////
-                sql = "SELECT COUNT(*) FROM PERSONAJES p "
+                sql = "SELECT COUNT(*) FROM PERSONAJE p "
                         + "WHERE p.USUARIO <> '" + id + "' "
                         + nivelSQL
                         + claseSQL
@@ -1083,7 +1083,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                 switch (ordenar) {
                     case "ordenar1":
-                        sql = "SELECT p.* FROM PERSONAJES p "
+                        sql = "SELECT p.* FROM PERSONAJE p "
                                 + "WHERE p.USUARIO <> '" + id + "' "
                                 + nivelSQL
                                 + claseSQL
@@ -1092,7 +1092,7 @@ public class ControladorPersonajes extends HttpServlet {
                                 + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                         break;
                     case "ordenar2":
-                        sql = "SELECT p.* FROM PERSONAJES p "
+                        sql = "SELECT p.* FROM PERSONAJE p "
                                 + "WHERE p.USUARIO <> '" + id + "' "
                                 + nivelSQL
                                 + claseSQL
@@ -1102,7 +1102,7 @@ public class ControladorPersonajes extends HttpServlet {
                         break;
                 }
 
-                queryAUX = em.createNativeQuery(sql, Personajes.class);
+                queryAUX = em.createNativeQuery(sql, Personaje.class);
                 listaPersonajes = queryAUX.getResultList();
 
                 fotosPersonajes = new ArrayList();
@@ -1125,9 +1125,9 @@ public class ControladorPersonajes extends HttpServlet {
                 System.out.println("Sale nivel:" + nivelString);
                 System.out.println("Sale npag:" + numPag);
 
-                queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                queryClases = em.createNamedQuery("Clase.findAll", Clase.class);
                 request.setAttribute("listaClases", queryClases.getResultList());
-                queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                queryRazas = em.createNamedQuery("Raza.findAll", Raza.class);
                 request.setAttribute("listaRazas", queryRazas.getResultList());
 
                 request.setAttribute("orden", ordenar);
@@ -1199,8 +1199,8 @@ public class ControladorPersonajes extends HttpServlet {
                     /////////////////////////////////////
                     ////////NUMERO DE PERSONAJES/////////
                     /////////////////////////////////////
-                    sql = "SELECT COUNT(*) FROM PERSONAJES p "
-                            + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
+                    sql = "SELECT COUNT(*) FROM PERSONAJE p "
+                            + "INNER JOIN AMIGO a ON p.USUARIO = a.AMIGO2 "
                             + "WHERE a.AMIGO1 = '" + user.getId() + "' "
                             + "AND p.USUARIO <> '" + user.getId() + "' "
                             + nivelSQL
@@ -1215,8 +1215,8 @@ public class ControladorPersonajes extends HttpServlet {
 
                     switch (ordenar) {
                         case "ordenar1":
-                            sql = "SELECT p.* FROM PERSONAJES p "
-                                    + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
+                            sql = "SELECT p.* FROM PERSONAJE p "
+                                    + "INNER JOIN AMIGO a ON p.USUARIO = a.AMIGO2 "
                                     + "WHERE a.AMIGO1 = '" + user.getId() + "' "
                                     + "AND p.USUARIO <> '" + user.getId() + "' "
                                     + nivelSQL
@@ -1226,8 +1226,8 @@ public class ControladorPersonajes extends HttpServlet {
                                     + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             break;
                         case "ordenar2":
-                            sql = "SELECT p.* FROM PERSONAJES p "
-                                    + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
+                            sql = "SELECT p.* FROM PERSONAJE p "
+                                    + "INNER JOIN AMIGO a ON p.USUARIO = a.AMIGO2 "
                                     + "WHERE a.AMIGO1 = '" + user.getId() + "' "
                                     + "AND p.USUARIO <> '" + user.getId() + "' "
                                     + nivelSQL
@@ -1238,7 +1238,7 @@ public class ControladorPersonajes extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Personajes.class);
+                    queryAUX = em.createNativeQuery(sql, Personaje.class);
                     listaPersonajes = queryAUX.getResultList();
 
                     fotosPersonajes = new ArrayList();
@@ -1261,9 +1261,9 @@ public class ControladorPersonajes extends HttpServlet {
                     System.out.println("Sale nivel:" + nivelString);
                     System.out.println("Sale npag:" + numPag);
 
-                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                    queryClases = em.createNamedQuery("Clase.findAll", Clase.class);
                     request.setAttribute("listaClases", queryClases.getResultList());
-                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                    queryRazas = em.createNamedQuery("Raza.findAll", Raza.class);
                     request.setAttribute("listaRazas", queryRazas.getResultList());
 
                     request.setAttribute("orden", ordenar);
@@ -1340,7 +1340,7 @@ public class ControladorPersonajes extends HttpServlet {
                     /////////////////////////////////////
                     ////////NUMERO DE PERSONAJES/////////
                     /////////////////////////////////////
-                    sql = "SELECT COUNT(*) FROM PERSONAJES p "
+                    sql = "SELECT COUNT(*) FROM PERSONAJE p "
                             + "WHERE p.USUARIO = '" + id + "' "
                             + nivelSQL
                             + claseSQL
@@ -1354,7 +1354,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                     switch (ordenar) {
                         case "ordenar1":
-                            sql = "SELECT p.* FROM PERSONAJES p "
+                            sql = "SELECT p.* FROM PERSONAJE p "
                                     + "WHERE p.USUARIO = '" + id + "' "
                                     + nivelSQL
                                     + claseSQL
@@ -1363,7 +1363,7 @@ public class ControladorPersonajes extends HttpServlet {
                                     + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             break;
                         case "ordenar2":
-                            sql = "SELECT p.* FROM PERSONAJES p "
+                            sql = "SELECT p.* FROM PERSONAJE p "
                                     + "WHERE p.USUARIO = '" + id + "' "
                                     + nivelSQL
                                     + claseSQL
@@ -1373,7 +1373,7 @@ public class ControladorPersonajes extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Personajes.class);
+                    queryAUX = em.createNativeQuery(sql, Personaje.class);
                     listaPersonajes = queryAUX.getResultList();
                     request.setAttribute("listaPersonajes", listaPersonajes);
 
@@ -1384,9 +1384,9 @@ public class ControladorPersonajes extends HttpServlet {
                     System.out.println("Sale nivel:" + nivelString);
                     System.out.println("Sale npag:" + numPag);
 
-                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                    queryClases = em.createNamedQuery("Clase.findAll", Clase.class);
                     request.setAttribute("listaClases", queryClases.getResultList());
-                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                    queryRazas = em.createNamedQuery("Raza.findAll", Raza.class);
                     request.setAttribute("listaRazas", queryRazas.getResultList());
                     queryUsuarios = em.createNamedQuery("Usuario.findById", Usuario.class);
                     queryUsuarios.setParameter("id", id);
@@ -1472,7 +1472,7 @@ public class ControladorPersonajes extends HttpServlet {
                     /////////////////////////////////////
                     ////////NUMERO DE PERSONAJES/////////
                     /////////////////////////////////////
-                    sql = "SELECT COUNT(*) FROM PERSONAJES p "
+                    sql = "SELECT COUNT(*) FROM PERSONAJE p "
                             + "WHERE p.USUARIO = '" + user.getId() + "' "
                             + nivelSQL
                             + claseSQL
@@ -1486,7 +1486,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                     switch (ordenar) {
                         case "ordenar1":
-                            sql = "SELECT p.* FROM PERSONAJES p "
+                            sql = "SELECT p.* FROM PERSONAJE p "
                                     + "WHERE p.USUARIO = '" + user.getId() + "' "
                                     + nivelSQL
                                     + claseSQL
@@ -1495,7 +1495,7 @@ public class ControladorPersonajes extends HttpServlet {
                                     + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             break;
                         case "ordenar2":
-                            sql = "SELECT p.* FROM PERSONAJES p "
+                            sql = "SELECT p.* FROM PERSONAJE p "
                                     + "WHERE p.USUARIO = '" + user.getId() + "' "
                                     + nivelSQL
                                     + claseSQL
@@ -1505,7 +1505,7 @@ public class ControladorPersonajes extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Personajes.class);
+                    queryAUX = em.createNativeQuery(sql, Personaje.class);
                     listaPersonajes = queryAUX.getResultList();
 
                     request.setAttribute("listaPersonajes", listaPersonajes);
@@ -1517,9 +1517,9 @@ public class ControladorPersonajes extends HttpServlet {
                     System.out.println("Sale nivel:" + nivelString);
                     System.out.println("Sale npag:" + numPag);
 
-                    queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                    queryClases = em.createNamedQuery("Clase.findAll", Clase.class);
                     request.setAttribute("listaClases", queryClases.getResultList());
-                    queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                    queryRazas = em.createNamedQuery("Raza.findAll", Raza.class);
                     request.setAttribute("listaRazas", queryRazas.getResultList());
 
                     fotosPersonajes = new ArrayList();
@@ -1549,7 +1549,7 @@ public class ControladorPersonajes extends HttpServlet {
                 id = request.getParameter("id");
 
                 //Comprobamos que exista
-                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                 queryPersonajes.setParameter("id", id);
                 try {
                     personaje = queryPersonajes.getSingleResult();
@@ -1572,7 +1572,7 @@ public class ControladorPersonajes extends HttpServlet {
                 personaje_id = request.getParameter("id");
 
                 //Comprobamos que sea tuyo
-                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findByIDCreador", Personaje.class);
                 queryPersonajes.setParameter("id", personaje_id);
                 queryPersonajes.setParameter("creador", user);
                 try {
@@ -1599,7 +1599,7 @@ public class ControladorPersonajes extends HttpServlet {
                     vista = "/Principal/inicio";
                 } else {
                     //Recogemos los suyos
-                    queryPersonajes = em.createNamedQuery("Personajes.findByCreador", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findByCreador", Personaje.class);
                     queryPersonajes.setParameter("creador", user);
                     listaPersonajes = queryPersonajes.getResultList();
 
@@ -1652,7 +1652,7 @@ public class ControladorPersonajes extends HttpServlet {
                         /////////////////////////////////////
                         ////////NUMERO DE PERSONAJES/////////
                         /////////////////////////////////////
-                        sql = "SELECT COUNT(*) FROM PERSONAJES p "
+                        sql = "SELECT COUNT(*) FROM PERSONAJE p "
                                 + "WHERE p.USUARIO = '" + user.getId() + "' "
                                 + nivelSQL
                                 + claseSQL
@@ -1666,7 +1666,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                         switch (ordenar) {
                             case "ordenar1":
-                                sql = "SELECT p.* FROM PERSONAJES p "
+                                sql = "SELECT p.* FROM PERSONAJE p "
                                         + "WHERE p.USUARIO = '" + user.getId() + "' "
                                         + nivelSQL
                                         + claseSQL
@@ -1675,7 +1675,7 @@ public class ControladorPersonajes extends HttpServlet {
                                         + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                                 break;
                             case "ordenar2":
-                                sql = "SELECT p.* FROM PERSONAJES p "
+                                sql = "SELECT p.* FROM PERSONAJE p "
                                         + "WHERE p.USUARIO = '" + user.getId() + "' "
                                         + nivelSQL
                                         + claseSQL
@@ -1685,7 +1685,7 @@ public class ControladorPersonajes extends HttpServlet {
                                 break;
                         }
 
-                        queryAUX = em.createNativeQuery(sql, Personajes.class);
+                        queryAUX = em.createNativeQuery(sql, Personaje.class);
                         listaPersonajes = queryAUX.getResultList();
 
                         request.setAttribute("listaPersonajes", listaPersonajes);
@@ -1697,9 +1697,9 @@ public class ControladorPersonajes extends HttpServlet {
                         System.out.println("Sale nivel:" + nivelString);
                         System.out.println("Sale npag:" + numPag);
 
-                        queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                        queryClases = em.createNamedQuery("Clase.findAll", Clase.class);
                         request.setAttribute("listaClases", queryClases.getResultList());
-                        queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                        queryRazas = em.createNamedQuery("Raza.findAll", Raza.class);
                         request.setAttribute("listaRazas", queryRazas.getResultList());
 
                         fotosPersonajes = new ArrayList();
@@ -1737,7 +1737,7 @@ public class ControladorPersonajes extends HttpServlet {
                     vista = "/Principal/inicio";
                 } else {
                     //Recogemos los suyos
-                    queryPersonajes = em.createNamedQuery("Personajes.findByCreador", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findByCreador", Personaje.class);
                     queryPersonajes.setParameter("creador", user);
                     listaPersonajes = queryPersonajes.getResultList();
 
@@ -1793,7 +1793,7 @@ public class ControladorPersonajes extends HttpServlet {
                         /////////////////////////////////////
                         ////////NUMERO DE PERSONAJES/////////
                         /////////////////////////////////////
-                        sql = "SELECT COUNT(*) FROM PERSONAJES p "
+                        sql = "SELECT COUNT(*) FROM PERSONAJE p "
                                 + "WHERE p.USUARIO = '" + user.getId() + "' "
                                 + nivelSQL
                                 + claseSQL
@@ -1807,7 +1807,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                         switch (ordenar) {
                             case "ordenar1":
-                                sql = "SELECT p.* FROM PERSONAJES p "
+                                sql = "SELECT p.* FROM PERSONAJE p "
                                         + "WHERE p.USUARIO = '" + user.getId() + "' "
                                         + nivelSQL
                                         + claseSQL
@@ -1816,7 +1816,7 @@ public class ControladorPersonajes extends HttpServlet {
                                         + "OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                                 break;
                             case "ordenar2":
-                                sql = "SELECT p.* FROM PERSONAJES p "
+                                sql = "SELECT p.* FROM PERSONAJE p "
                                         + "WHERE p.USUARIO = '" + user.getId() + "' "
                                         + nivelSQL
                                         + claseSQL
@@ -1826,7 +1826,7 @@ public class ControladorPersonajes extends HttpServlet {
                                 break;
                         }
 
-                        queryAUX = em.createNativeQuery(sql, Personajes.class);
+                        queryAUX = em.createNativeQuery(sql, Personaje.class);
                         listaPersonajes = queryAUX.getResultList();
 
                         request.setAttribute("listaPersonajes", listaPersonajes);
@@ -1838,9 +1838,9 @@ public class ControladorPersonajes extends HttpServlet {
                         System.out.println("Sale nivel:" + nivelString);
                         System.out.println("Sale npag:" + numPag);
 
-                        queryClases = em.createNamedQuery("Clases.findAll", Clases.class);
+                        queryClases = em.createNamedQuery("Clase.findAll", Clase.class);
                         request.setAttribute("listaClases", queryClases.getResultList());
-                        queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
+                        queryRazas = em.createNamedQuery("Raza.findAll", Raza.class);
                         request.setAttribute("listaRazas", queryRazas.getResultList());
 
                         fotosPersonajes = new ArrayList();
@@ -1884,7 +1884,7 @@ public class ControladorPersonajes extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprobamos si es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     try {
                         personaje = queryPersonajes.getSingleResult();
@@ -1892,7 +1892,7 @@ public class ControladorPersonajes extends HttpServlet {
                             vista = "/Principal/inicio";
                         } else {
                             //Necesitamos la tabla clase del nivel para el BC
-                            queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                            queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                             queryTCNivel.setParameter("clase", personaje.getClase().getId());
                             queryTCNivel.setParameter("nivel", personaje.getNivel());
                             try {
@@ -1902,7 +1902,7 @@ public class ControladorPersonajes extends HttpServlet {
                                 num = 1;
                             }
 
-                            //Lista Atributos
+                            //Lista Atributo
                             request.setAttribute("listaPAtributos", personaje.getPersonajeatributosList());
 
                             listaValoresSalvacion = new ArrayList();
@@ -1970,7 +1970,7 @@ public class ControladorPersonajes extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprobamos si es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
 
                     try {
@@ -1981,7 +1981,7 @@ public class ControladorPersonajes extends HttpServlet {
                         } else {
 
                             //Necesitamos la tabla clase del nivel para el BC
-                            queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                            queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                             queryTCNivel.setParameter("clase", personaje.getClase().getId());
                             queryTCNivel.setParameter("nivel", personaje.getNivel());
                             try {
@@ -2070,7 +2070,7 @@ public class ControladorPersonajes extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprobamos si es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     try {
                         personaje = queryPersonajes.getSingleResult();
@@ -2080,7 +2080,7 @@ public class ControladorPersonajes extends HttpServlet {
                         } else {
 
                             //Necesitamos la tabla clase del nivel para el BC
-                            queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                            queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                             queryTCNivel.setParameter("clase", personaje.getClase().getId());
                             queryTCNivel.setParameter("nivel", personaje.getNivel());
                             try {
@@ -2113,7 +2113,7 @@ public class ControladorPersonajes extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprobamos si es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     try {
                         personaje = queryPersonajes.getSingleResult();
@@ -2123,7 +2123,7 @@ public class ControladorPersonajes extends HttpServlet {
                         } else {
 
                             //Espacios de conjuros y BC 
-                            queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                            queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                             queryTCNivel.setParameter("clase", personaje.getClase().getId());
                             queryTCNivel.setParameter("nivel", personaje.getNivel());
                             //Rasgos Clase
@@ -2163,13 +2163,13 @@ public class ControladorPersonajes extends HttpServlet {
                 personaje_id = request.getParameter("id");
 
                 //Comprobamos si existe
-                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                 queryPersonajes.setParameter("id", personaje_id);
                 try {
                     personaje = queryPersonajes.getSingleResult();
 
                     //Necesitamos la tabla clase del nivel para el BC
-                    queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                    queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                     queryTCNivel.setParameter("clase", personaje.getClase().getId());
                     queryTCNivel.setParameter("nivel", personaje.getNivel());
                     try {
@@ -2178,7 +2178,7 @@ public class ControladorPersonajes extends HttpServlet {
                     } catch (Exception ex) {
                         num = 1;
                     }
-                    //Lista Atributos
+                    //Lista Atributo
                     request.setAttribute("listaPAtributos", personaje.getPersonajeatributosList());
 
                     listaValoresSalvacion = new ArrayList();
@@ -2236,13 +2236,13 @@ public class ControladorPersonajes extends HttpServlet {
                 personaje_id = request.getParameter("id");
 
                 //Comprobamos si existe
-                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                 queryPersonajes.setParameter("id", personaje_id);
                 try {
                     personaje = queryPersonajes.getSingleResult();
 
                     //Necesitamos la tabla clase del nivel para el BC
-                    queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                    queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                     queryTCNivel.setParameter("clase", personaje.getClase().getId());
                     queryTCNivel.setParameter("nivel", personaje.getNivel());
                     try {
@@ -2322,13 +2322,13 @@ public class ControladorPersonajes extends HttpServlet {
                 personaje_id = request.getParameter("id");
 
                 //Comprobamos si existe
-                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                 queryPersonajes.setParameter("id", personaje_id);
                 try {
                     personaje = queryPersonajes.getSingleResult();
 
                     //Necesitamos la tabla clase del nivel para el BC
-                    queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                    queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                     queryTCNivel.setParameter("clase", personaje.getClase().getId());
                     queryTCNivel.setParameter("nivel", personaje.getNivel());
                     try {
@@ -2352,7 +2352,7 @@ public class ControladorPersonajes extends HttpServlet {
                 id = request.getParameter("amigo");
 
                 //Comprobamos si existe
-                queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                 queryPersonajes.setParameter("id", personaje_id);
                 try {
                     personaje = queryPersonajes.getSingleResult();
@@ -2361,7 +2361,7 @@ public class ControladorPersonajes extends HttpServlet {
                     } else {
 
                         //Espacios de conjuros y BC 
-                        queryTCNivel = em.createNamedQuery("Tablaclasespornivel.findByClaseNivel", Tablaclasespornivel.class);
+                        queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                         queryTCNivel.setParameter("clase", personaje.getClase().getId());
                         queryTCNivel.setParameter("nivel", personaje.getNivel());
                         //Rasgos Clase
@@ -2409,7 +2409,7 @@ public class ControladorPersonajes extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprobamos si es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     try {
                         personaje = queryPersonajes.getSingleResult();
@@ -2422,7 +2422,7 @@ public class ControladorPersonajes extends HttpServlet {
                                     + "WHERE pd.personaje = '" + personaje_id + "' "
                                     + "ORDER BY d.NOMBRE DESC ";
 
-                            queryAUX = em.createNativeQuery(sql, Dotes.class);
+                            queryAUX = em.createNativeQuery(sql, Dote.class);
                             listaDotes = queryAUX.getResultList();
 
                             result = "";
@@ -2441,7 +2441,7 @@ public class ControladorPersonajes extends HttpServlet {
                                         + "<div class=\"ContenidoDote\">"
                                         + "<ul>";
 
-                                queryRDotes = em.createNamedQuery("Requisitosdote.findByNombre", Requisitosdote.class);
+                                queryRDotes = em.createNamedQuery("Requisitodote.findByNombre", Requisitosdote.class);
                                 queryRDotes.setParameter("nombre", nombre);
                                 listaRDotes = queryRDotes.getResultList();
 
@@ -2451,11 +2451,11 @@ public class ControladorPersonajes extends HttpServlet {
                                             + "<li class=\"RequisitoDote\">" + listaRDote.getValor() + "</li>";
                                 }
 
-                                queryMDotes = em.createNamedQuery("Mejorasdote.findByNombre", Mejorasdote.class);
+                                queryMDotes = em.createNamedQuery("Mejoradote.findByNombre", Mejoradote.class);
                                 queryMDotes.setParameter("nombre", nombre);
                                 listaMDotes = queryMDotes.getResultList();
 
-                                for (Mejorasdote listaMDote : listaMDotes) {
+                                for (Mejoradote listaMDote : listaMDotes) {
                                     result
                                             = result
                                             + "<li>" + listaMDote.getValor() + "</li>";
@@ -2501,7 +2501,7 @@ public class ControladorPersonajes extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprovamos si es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     try {
                         personaje = queryPersonajes.getSingleResult();
@@ -2578,8 +2578,8 @@ public class ControladorPersonajes extends HttpServlet {
                             ////////NUMERO DE EQUIPO/////////
                             /////////////////////////////////
                             sql = "SELECT DISTINCT COUNT(*) FROM Equipo e "
-                                    + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                    + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                    + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                    + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                     + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
                                     + "WHERE pe.personaje IS NOT NULL "
                                     + tipoSQL
@@ -2593,8 +2593,8 @@ public class ControladorPersonajes extends HttpServlet {
                             numPag = (((Number) result).intValue() / 14) + 1;
 
                             sql = "SELECT DISTINCT * FROM Equipo e "
-                                    + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                    + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                    + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                    + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                     + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
                                     + "WHERE pe.personaje IS NOT NULL "
                                     + tipoSQL
@@ -2650,7 +2650,7 @@ public class ControladorPersonajes extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprovamos si es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     try {
                         personaje = queryPersonajes.getSingleResult();
@@ -2727,8 +2727,8 @@ public class ControladorPersonajes extends HttpServlet {
                             ////////NUMERO DE EQUIPO/////////
                             /////////////////////////////////
                             sql = "SELECT COUNT(DISTINCT e.id) FROM Equipo e "
-                                    + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                    + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                    + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                    + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                     + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
                                     + "WHERE pe.personaje IS NULL "
                                     + tipoSQL
@@ -2742,8 +2742,8 @@ public class ControladorPersonajes extends HttpServlet {
                             numPag = (((Number) result).intValue() / 14) + 1;
 
                             sql = "SELECT DISTINCT * FROM Equipo e "
-                                    + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                    + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                    + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                    + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                     + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + personaje_id + "' "
                                     + "WHERE pe.personaje IS NULL "
                                     + tipoSQL
@@ -2796,7 +2796,7 @@ public class ControladorPersonajes extends HttpServlet {
                 personaje_id = request.getParameter("personaje");
                 id = request.getParameter("objeto");
 
-                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findByIDCreador", Personaje.class);
                 queryPersonajes.setParameter("id", personaje_id);
                 queryPersonajes.setParameter("creador", user);
 
@@ -2830,7 +2830,7 @@ public class ControladorPersonajes extends HttpServlet {
                 personaje_id = request.getParameter("personaje");
                 id = request.getParameter("objeto");
 
-                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findByIDCreador", Personaje.class);
                 queryPersonajes.setParameter("id", personaje_id);
                 queryPersonajes.setParameter("creador", user);
 
@@ -2873,7 +2873,7 @@ public class ControladorPersonajes extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprovamos si es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     try {
                         personaje = queryPersonajes.getSingleResult();
@@ -2942,9 +2942,9 @@ public class ControladorPersonajes extends HttpServlet {
                             ////////NUMERO DE HECHIZOS///////
                             /////////////////////////////////
                             sql = "SELECT DISTINCT COUNT(*) FROM Hechizos h "
-                                    + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                    + "LEFT JOIN Clases c on c.id = lb.clase "
-                                    + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
+                                    + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                    + "LEFT JOIN Clase c on c.id = lb.clase "
+                                    + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
                                     + "WHERE ph.personaje IS NOT NULL "
                                     + escuelaSQL
                                     + claseHSQL
@@ -2957,9 +2957,9 @@ public class ControladorPersonajes extends HttpServlet {
                             numPag = (((Number) result).intValue() / 14) + 1;
 
                             sql = "SELECT DISTINCT * FROM Hechizos h "
-                                    + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                    + "LEFT JOIN Clases c on c.id = lb.clase "
-                                    + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
+                                    + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                    + "LEFT JOIN Clase c on c.id = lb.clase "
+                                    + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
                                     + "WHERE ph.personaje IS NOT NULL "
                                     + escuelaSQL
                                     + claseHSQL
@@ -2967,7 +2967,7 @@ public class ControladorPersonajes extends HttpServlet {
                                     + "ORDER BY h.nombre "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
 
-                            queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                            queryAUX = em.createNativeQuery(sql, Hechizo.class);
                             listaHechizos = queryAUX.getResultList();
 
                             //Eliminar duplicados utilizando HashSet
@@ -3008,7 +3008,7 @@ public class ControladorPersonajes extends HttpServlet {
                     personaje_id = request.getParameter("id");
 
                     //Comprovamos si es tuyo
-                    queryPersonajes = em.createNamedQuery("Personajes.findById", Personajes.class);
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                     queryPersonajes.setParameter("id", personaje_id);
                     try {
                         personaje = queryPersonajes.getSingleResult();
@@ -3077,9 +3077,9 @@ public class ControladorPersonajes extends HttpServlet {
                             ////////NUMERO DE HECHIZOS///////
                             /////////////////////////////////
                             sql = "SELECT COUNT(DISTINCT h.id) FROM Hechizos h "
-                                    + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                    + "LEFT JOIN Clases c on c.id = lb.clase "
-                                    + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
+                                    + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                    + "LEFT JOIN Clase c on c.id = lb.clase "
+                                    + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
                                     + "WHERE ph.personaje IS NULL "
                                     + escuelaSQL
                                     + claseHSQL
@@ -3092,9 +3092,9 @@ public class ControladorPersonajes extends HttpServlet {
                             numPag = (((Number) result).intValue() / 14) + 1;
 
                             sql = "SELECT h.* FROM Hechizos h "
-                                    + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                    + "LEFT JOIN Clases c on c.id = lb.clase "
-                                    + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
+                                    + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                    + "LEFT JOIN Clase c on c.id = lb.clase "
+                                    + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
                                     + "WHERE ph.personaje IS NULL "
                                     + escuelaSQL
                                     + claseHSQL
@@ -3102,7 +3102,7 @@ public class ControladorPersonajes extends HttpServlet {
                                     + "ORDER BY h.nombre "
                                     + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
 
-                            queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                            queryAUX = em.createNativeQuery(sql, Hechizo.class);
                             listaHechizos = queryAUX.getResultList();
 
                             //Eliminar duplicados utilizando HashSet
@@ -3140,13 +3140,13 @@ public class ControladorPersonajes extends HttpServlet {
                 personaje_id = request.getParameter("personaje");
                 id = request.getParameter("hechizo");
 
-                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findByIDCreador", Personaje.class);
                 queryPersonajes.setParameter("id", personaje_id);
                 queryPersonajes.setParameter("creador", user);
 
                 try {
                     personaje = queryPersonajes.getSingleResult();
-                    queryHechizos = em.createNamedQuery("Hechizos.findById", Hechizos.class);
+                    queryHechizos = em.createNamedQuery("Hechizo.findById", Hechizo.class);
                     queryHechizos.setParameter("id", id);
 
                     hechizo = queryHechizos.getSingleResult();
@@ -3173,13 +3173,13 @@ public class ControladorPersonajes extends HttpServlet {
                 id = request.getParameter("hechizo");
                 personaje_id = request.getParameter("personaje");
 
-                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findByIDCreador", Personaje.class);
                 queryPersonajes.setParameter("id", personaje_id);
                 queryPersonajes.setParameter("creador", user);
 
                 try {
                     personaje = queryPersonajes.getSingleResult();
-                    queryHechizos = em.createNamedQuery("Hechizos.findById", Hechizos.class);
+                    queryHechizos = em.createNamedQuery("Hechizo.findById", Hechizo.class);
                     queryHechizos.setParameter("id", id);
                     hechizo = queryHechizos.getSingleResult();
 
@@ -3215,7 +3215,7 @@ public class ControladorPersonajes extends HttpServlet {
                 personaje_id = request.getParameter("personaje");
                 nombre = request.getParameter("eleccionDoteAtr");
 
-                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findByIDCreador", Personaje.class);
                 queryPersonajes.setParameter("id", personaje_id);
                 queryPersonajes.setParameter("creador", user);
 
@@ -3231,7 +3231,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                     //Añadimos el dote
                     if (nombre.equals("Dote")) {
-                        queryDotes = em.createNamedQuery("Dotes.findById", Dotes.class);
+                        queryDotes = em.createNamedQuery("Dote.findById", Dote.class);
                         queryDotes.setParameter("id", dote_id);
                         dote = queryDotes.getSingleResult();
                         //Añadimos sus atributos
@@ -3269,7 +3269,7 @@ public class ControladorPersonajes extends HttpServlet {
                     }
                     //Añadimos la subclase si es necesario
                     if (subclase_id != null) {
-                        querySubclases = em.createNamedQuery("Subclases.findById", Subclases.class);
+                        querySubclases = em.createNamedQuery("Subclase.findById", Subclase.class);
                         querySubclases.setParameter("id", dote_id);
                         personaje.setSubclase(querySubclases.getSingleResult());
                     }
@@ -3298,7 +3298,7 @@ public class ControladorPersonajes extends HttpServlet {
                 //Recogemos los datos
                 personaje_id = request.getParameter("personaje");
 
-                queryPersonajes = em.createNamedQuery("Personajes.findByIDCreador", Personajes.class);
+                queryPersonajes = em.createNamedQuery("Personaje.findByIDCreador", Personaje.class);
                 queryPersonajes.setParameter("id", personaje_id);
                 queryPersonajes.setParameter("creador", user);
 
@@ -3394,7 +3394,7 @@ public class ControladorPersonajes extends HttpServlet {
     private void deletePersonajes(Object object) {
         try {
             utx.begin();
-            object = (Personajes) em.merge(object);
+            object = (Personaje) em.merge(object);
             em.remove(object);
             utx.commit();
         } catch (Exception e) {
@@ -3405,7 +3405,7 @@ public class ControladorPersonajes extends HttpServlet {
     private void updatePersonajes(Object object) {
         try {
             utx.begin();
-            em.merge((Personajes) object);
+            em.merge((Personaje) object);
             utx.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);

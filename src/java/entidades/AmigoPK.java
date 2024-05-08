@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entidades;
 
 import java.io.Serializable;
@@ -16,7 +13,7 @@ import javax.validation.constraints.Size;
  * @author Cristian
  */
 @Embeddable
-public class AmigosPK implements Serializable {
+public class AmigoPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -29,10 +26,10 @@ public class AmigosPK implements Serializable {
     @Column(name = "AMIGO2")
     private String amigo2;
 
-    public AmigosPK() {
+    public AmigoPK() {
     }
 
-    public AmigosPK(String amigo1, String amigo2) {
+    public AmigoPK(String amigo1, String amigo2) {
         this.amigo1 = amigo1;
         this.amigo2 = amigo2;
     }
@@ -64,10 +61,10 @@ public class AmigosPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AmigosPK)) {
+        if (!(object instanceof AmigoPK)) {
             return false;
         }
-        AmigosPK other = (AmigosPK) object;
+        AmigoPK other = (AmigoPK) object;
         if ((this.amigo1 == null && other.amigo1 != null) || (this.amigo1 != null && !this.amigo1.equals(other.amigo1))) {
             return false;
         }
@@ -79,7 +76,7 @@ public class AmigosPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.AmigosPK[ amigo1=" + amigo1 + ", amigo2=" + amigo2 + " ]";
+        return "entidades.AmigoPK[ amigo1=" + amigo1 + ", amigo2=" + amigo2 + " ]";
     }
     
 }

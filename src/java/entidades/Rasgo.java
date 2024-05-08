@@ -25,13 +25,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "RASGOS", catalog = "", schema = "SYS_G4")
+@Table(name = "RASGO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Rasgos.findAll", query = "SELECT r FROM Rasgos r"),
-    @NamedQuery(name = "Rasgos.findById", query = "SELECT r FROM Rasgos r WHERE r.id = :id"),
-    @NamedQuery(name = "Rasgos.findByNombre", query = "SELECT r FROM Rasgos r WHERE r.nombre = :nombre")})
-public class Rasgos implements Serializable {
+    @NamedQuery(name = "Rasgo.findAll", query = "SELECT r FROM Rasgo r"),
+    @NamedQuery(name = "Rasgo.findById", query = "SELECT r FROM Rasgo r WHERE r.id = :id"),
+    @NamedQuery(name = "Rasgo.findByNombre", query = "SELECT r FROM Rasgo r WHERE r.nombre = :nombre")})
+public class Rasgo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,29 +51,29 @@ public class Rasgos implements Serializable {
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @ManyToMany(mappedBy = "rasgosList")
-    private List<Subrazas> subrazasList;
+    private List<Subraza> subrazasList;
     @JoinTable(name = "USATRASFONDO", joinColumns = {
         @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TRASFONDO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Trasfondo> trasfondosList;
     @ManyToMany(mappedBy = "rasgosList")
-    private List<Monstruos> monstruosList;
+    private List<Monstruo> monstruosList;
     @ManyToMany(mappedBy = "rasgosList")
-    private List<Razas> razasList;
+    private List<Raza> razasList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rasgos")
     private List<Usasubclase> usasubclaseList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rasgos")
     private List<Usaclase> usaclaseList;
 
-    public Rasgos() {
+    public Rasgo() {
     }
 
-    public Rasgos(String id) {
+    public Rasgo(String id) {
         this.id = id;
     }
 
-    public Rasgos(String id, String nombre, String descripcion) {
+    public Rasgo(String id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -104,11 +104,11 @@ public class Rasgos implements Serializable {
     }
 
     @XmlTransient
-    public List<Subrazas> getSubrazasList() {
+    public List<Subraza> getSubrazasList() {
         return subrazasList;
     }
 
-    public void setSubrazasList(List<Subrazas> subrazasList) {
+    public void setSubrazasList(List<Subraza> subrazasList) {
         this.subrazasList = subrazasList;
     }
 
@@ -122,20 +122,20 @@ public class Rasgos implements Serializable {
     }
 
     @XmlTransient
-    public List<Monstruos> getMonstruosList() {
+    public List<Monstruo> getMonstruosList() {
         return monstruosList;
     }
 
-    public void setMonstruosList(List<Monstruos> monstruosList) {
+    public void setMonstruosList(List<Monstruo> monstruosList) {
         this.monstruosList = monstruosList;
     }
 
     @XmlTransient
-    public List<Razas> getRazasList() {
+    public List<Raza> getRazasList() {
         return razasList;
     }
 
-    public void setRazasList(List<Razas> razasList) {
+    public void setRazasList(List<Raza> razasList) {
         this.razasList = razasList;
     }
 
@@ -167,10 +167,10 @@ public class Rasgos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Rasgos)) {
+        if (!(object instanceof Rasgo)) {
             return false;
         }
-        Rasgos other = (Rasgos) object;
+        Rasgo other = (Rasgo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -179,7 +179,7 @@ public class Rasgos implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Rasgos[ id=" + id + " ]";
+        return "entidades.Rasgo[ id=" + id + " ]";
     }
     
 }

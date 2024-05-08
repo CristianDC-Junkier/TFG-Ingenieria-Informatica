@@ -25,16 +25,16 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "DOTES", catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "DOTE", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Dotes.findAll", query = "SELECT d FROM Dotes d"),
-    @NamedQuery(name = "Dotes.findById", query = "SELECT d FROM Dotes d WHERE d.id = :id"),
-    @NamedQuery(name = "Dotes.findByNombre", query = "SELECT d FROM Dotes d WHERE d.nombre = :nombre"),
-    @NamedQuery(name = "Dotes.findByRaza", query = "SELECT d FROM Dotes d WHERE d.raza = :raza"),
-    @NamedQuery(name = "Dotes.findByElegiratr", query = "SELECT d FROM Dotes d WHERE d.elegiratr = :elegiratr")})
-public class Dotes implements Serializable {
+    @NamedQuery(name = "Dote.findAll", query = "SELECT d FROM Dote d"),
+    @NamedQuery(name = "Dote.findById", query = "SELECT d FROM Dote d WHERE d.id = :id"),
+    @NamedQuery(name = "Dote.findByNombre", query = "SELECT d FROM Dote d WHERE d.nombre = :nombre"),
+    @NamedQuery(name = "Dote.findByRaza", query = "SELECT d FROM Dote d WHERE d.raza = :raza"),
+    @NamedQuery(name = "Dote.findByElegiratr", query = "SELECT d FROM Dote d WHERE d.elegiratr = :elegiratr")})
+public class Dote implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -60,14 +60,14 @@ public class Dotes implements Serializable {
         @JoinColumn(name = "DOTE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Atributos> atributosList;
+    private List<Atributo> atributosList;
     @JoinTable(name = "COMPETEDOTE", joinColumns = {
         @JoinColumn(name = "DOTE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Habilidades> habilidadesList;
+    private List<Habilidad> habilidadesList;
     @ManyToMany(mappedBy = "dotesList")
-    private List<Personajes> personajesList;
+    private List<Personaje> personajesList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -77,14 +77,14 @@ public class Dotes implements Serializable {
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
 
-    public Dotes() {
+    public Dote() {
     }
 
-    public Dotes(String id) {
+    public Dote(String id) {
         this.id = id;
     }
 
-    public Dotes(String id, String nombre, String descripcion, String raza, String elegiratr) {
+    public Dote(String id, String nombre, String descripcion, String raza, String elegiratr) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -111,10 +111,10 @@ public class Dotes implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Dotes)) {
+        if (!(object instanceof Dote)) {
             return false;
         }
-        Dotes other = (Dotes) object;
+        Dote other = (Dote) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -123,13 +123,13 @@ public class Dotes implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Dotes[ id=" + id + " ]";
+        return "entidades.Dote[ id=" + id + " ]";
     }
     @XmlTransient
-    public List<Personajes> getPersonajesList() {
+    public List<Personaje> getPersonajesList() {
         return personajesList;
     }
-    public void setPersonajesList(List<Personajes> personajesList) {
+    public void setPersonajesList(List<Personaje> personajesList) {
         this.personajesList = personajesList;
     }
 
@@ -166,20 +166,20 @@ public class Dotes implements Serializable {
     }
 
     @XmlTransient
-    public List<Atributos> getAtributosList() {
+    public List<Atributo> getAtributosList() {
         return atributosList;
     }
 
-    public void setAtributosList(List<Atributos> atributosList) {
+    public void setAtributosList(List<Atributo> atributosList) {
         this.atributosList = atributosList;
     }
 
     @XmlTransient
-    public List<Habilidades> getHabilidadesList() {
+    public List<Habilidad> getHabilidadesList() {
         return habilidadesList;
     }
 
-    public void setHabilidadesList(List<Habilidades> habilidadesList) {
+    public void setHabilidadesList(List<Habilidad> habilidadesList) {
         this.habilidadesList = habilidadesList;
     }
     

@@ -1,18 +1,18 @@
 package controlador;
 
-import entidades.Atributos;
-import entidades.Clases;
+import entidades.Atributo;
+import entidades.Clase;
 import entidades.Equipo;
-import entidades.Hechizos;
+import entidades.Hechizo;
 import entidades.Hilo;
-import entidades.Mensajesamigos;
-import entidades.Mesas;
-import entidades.Monstruos;
-import entidades.Personajes;
+import entidades.Mensajeamigo;
+import entidades.Mesa;
+import entidades.Monstruo;
+import entidades.Personaje;
 import entidades.Pertenecemesa;
-import entidades.Razas;
-import entidades.Subclases;
-import entidades.Subrazas;
+import entidades.Raza;
+import entidades.Subclase;
+import entidades.Subraza;
 import entidades.Usuario;
 
 import java.io.IOException;
@@ -74,42 +74,42 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             Usuario user;
             Usuario useraux;
-            Mensajesamigos MEAux;
-            Mensajesamigos MRAux;
-            Hechizos hechizoAux;
-            Monstruos monstruoAux;
+            Mensajeamigo MEAux;
+            Mensajeamigo MRAux;
+            Hechizo hechizoAux;
+            Monstruo monstruoAux;
             Equipo equipoAux;
-            Atributos Atributo;
+            Atributo Atributo;
 
             TypedQuery<Usuario> queryUsuarios;
             TypedQuery<Pertenecemesa> queryPMesas;
-            TypedQuery<Mensajesamigos> queryMensajesAmigos;
-            TypedQuery<Hechizos> queryHechizos;
-            TypedQuery<Monstruos> queryMonstruos;
+            TypedQuery<Mensajeamigo> queryMensajesAmigos;
+            TypedQuery<Hechizo> queryHechizos;
+            TypedQuery<Monstruo> queryMonstruos;
             TypedQuery<Equipo> queryEquipo;
-            TypedQuery<Razas> queryRazas;
-            TypedQuery<Clases> queryClases;
-            TypedQuery<Subclases> querySubClases;
-            TypedQuery<Subrazas> querySubRazas;
-            TypedQuery<Atributos> queryAtributos;
+            TypedQuery<Raza> queryRazas;
+            TypedQuery<Clase> queryClases;
+            TypedQuery<Subclase> querySubClases;
+            TypedQuery<Subraza> querySubRazas;
+            TypedQuery<Atributo> queryAtributos;
 
             Query queryAUX;
 
             List<Usuario> listaUsuarios;
             List<Pertenecemesa> listaPerteneceMesa;
-            List<Mesas> listaMesas;
-            List<Mensajesamigos> listaMensajesEnviados;
-            List<Mensajesamigos> ListaMensajesRecibidos;
-            List<Mensajesamigos> ListaMensajesOrdenados;
-            List<Hechizos> listaHechizos;
-            List<Monstruos> listaMonstruos;
+            List<Mesa> listaMesas;
+            List<Mensajeamigo> listaMensajesEnviados;
+            List<Mensajeamigo> ListaMensajesRecibidos;
+            List<Mensajeamigo> ListaMensajesOrdenados;
+            List<Hechizo> listaHechizos;
+            List<Monstruo> listaMonstruos;
             List<Equipo> listaEquipo;
-            List<Razas> listaRazas;
-            List<Clases> listaClases;
-            List<Atributos> listaAtributos;
-            List<Subclases> listaSubClases;
-            List<Subrazas> listaSubRazas;
-            List<Personajes> listaPersonajes;
+            List<Raza> listaRazas;
+            List<Clase> listaClases;
+            List<Atributo> listaAtributos;
+            List<Subclase> listaSubClases;
+            List<Subraza> listaSubRazas;
+            List<Personaje> listaPersonajes;
             List<String> pertenecemesaUsuarios;
             List<Integer> listaCantidad;
             List<String> fotosMesas;
@@ -139,9 +139,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             String categoria;
             String propiedad;
 
-            Clases Clase;
-            Razas Raza;
-            Subrazas Subraza;
+            Clase Clase;
+            Raza Raza;
+            Subraza Subraza;
 
             String raza;
             String clase;
@@ -156,9 +156,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
 
 
-            HashSet<Hechizos> hashAuxHechizos;
+            HashSet<Hechizo> hashAuxHechizos;
             HashSet<Equipo> hashAuxEquipo;
-            HashSet<Monstruos> hashAuxMonstruos;
+            HashSet<Monstruo> hashAuxMonstruos;
 
             String sql = "";
 
@@ -294,7 +294,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     fotosPersonajes = new ArrayList();
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
-                        Personajes pejaux = listaUsuarios.get(i).getPersonajeactual();
+                        Personaje pejaux = listaUsuarios.get(i).getPersonajeactual();
                         if (pejaux.getImagenpersonaje() == null) {
                             fotosPersonajes.add("-");
                         } else {
@@ -390,7 +390,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     fotosPersonajes = new ArrayList();
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
-                        Personajes pejaux = listaUsuarios.get(i).getPersonajeactual();
+                        Personaje pejaux = listaUsuarios.get(i).getPersonajeactual();
                         if (pejaux.getImagenpersonaje() == null) {
                             fotosPersonajes.add("-");
                         } else {
@@ -533,7 +533,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     fotosPersonajes = new ArrayList();
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
-                        Personajes pejaux = listaUsuarios.get(i).getPersonajeactual();
+                        Personaje pejaux = listaUsuarios.get(i).getPersonajeactual();
                         if (pejaux.getImagenpersonaje() == null) {
                             fotosPersonajes.add("-");
                         } else {
@@ -662,7 +662,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     fotosPersonajes = new ArrayList();
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
-                        Personajes pejaux = listaUsuarios.get(i).getPersonajeactual();
+                        Personaje pejaux = listaUsuarios.get(i).getPersonajeactual();
                         if (pejaux.getImagenpersonaje() == null) {
                             fotosPersonajes.add("-");
                         } else {
@@ -736,7 +736,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     fotosPersonajes = new ArrayList();
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
-                        Personajes pejaux = listaUsuarios.get(i).getPersonajeactual();
+                        Personaje pejaux = listaUsuarios.get(i).getPersonajeactual();
                         if (pejaux.getImagenpersonaje() == null) {
                             fotosPersonajes.add("-");
                         } else {
@@ -872,7 +872,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Mesas.class);
+                    queryAUX = em.createNativeQuery(sql, Mesa.class);
                     listaMesas = queryAUX.getResultList();
 
                     listaCantidad = new ArrayList();
@@ -894,7 +894,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "<table>";
 
                     for (int i = 0; i < listaMesas.size(); i++) {
-                        Mesas mesaux = listaMesas.get(i);
+                        Mesa mesaux = listaMesas.get(i);
                         resultado
                                 = resultado
                                 + "<tr>"
@@ -1039,7 +1039,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Mesas.class);
+                    queryAUX = em.createNativeQuery(sql, Mesa.class);
                     listaMesas = queryAUX.getResultList();
 
                     listaCantidad = new ArrayList();
@@ -1062,7 +1062,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "<table>";
 
                     for (int i = 0; i < listaMesas.size(); i++) {
-                        Mesas mesaux = listaMesas.get(i);
+                        Mesa mesaux = listaMesas.get(i);
                         resultado
                                 = resultado
                                 + "<tr>"
@@ -1174,7 +1174,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Mesas.class);
+                    queryAUX = em.createNativeQuery(sql, Mesa.class);
                     listaMesas = queryAUX.getResultList();
 
                     listaCantidad = new ArrayList();
@@ -1196,7 +1196,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "<table>";
 
                     for (int i = 0; i < listaMesas.size(); i++) {
-                        Mesas mesaux = listaMesas.get(i);
+                        Mesa mesaux = listaMesas.get(i);
                         resultado
                                 = resultado
                                 + "<tr>"
@@ -1260,7 +1260,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     sql = "SELECT p.* FROM PERSONAJES p "
                             + "WHERE p.USUARIO = '" + user.getId() + "' "
                             + "AND p.NOMBRE LIKE '" + nombre + "%'";
-                    queryAUX = em.createNativeQuery(sql, Personajes.class);
+                    queryAUX = em.createNativeQuery(sql, Personaje.class);
                     listaPersonajes = queryAUX.getResultList();
 
                     if (listaPersonajes.isEmpty()) {
@@ -1296,7 +1296,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT p.* FROM PERSONAJES p "
                                 + "WHERE p.USUARIO = '" + user.getId() + "' "
                                 + "AND p.NOMBRE LIKE '" + nombre + "'";
-                        queryAUX = em.createNativeQuery(sql, Personajes.class);
+                        queryAUX = em.createNativeQuery(sql, Personaje.class);
                         listaPersonajes = queryAUX.getResultList();
 
                         if (listaPersonajes.isEmpty()) {
@@ -1376,7 +1376,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Personajes.class);
+                    queryAUX = em.createNativeQuery(sql, Personaje.class);
                     listaPersonajes = queryAUX.getResultList();
 
                     fotosPersonajes = new ArrayList();
@@ -1396,7 +1396,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "";
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
-                        Personajes pejaux = listaPersonajes.get(i);
+                        Personaje pejaux = listaPersonajes.get(i);
                         resultado = "<table>"
                                 + "<tr>"
                                 + "<td>"
@@ -1489,7 +1489,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Personajes.class);
+                    queryAUX = em.createNativeQuery(sql, Personaje.class);
                     listaPersonajes = queryAUX.getResultList();
 
                     fotosPersonajes = new ArrayList();
@@ -1509,7 +1509,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "<table>";
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
-                        Personajes pejaux = listaPersonajes.get(i);
+                        Personaje pejaux = listaPersonajes.get(i);
                         resultado = resultado
                                 + "<tr>"
                                 + "<td>"
@@ -1596,7 +1596,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Personajes.class);
+                    queryAUX = em.createNativeQuery(sql, Personaje.class);
                     listaPersonajes = queryAUX.getResultList();
 
                     queryUsuarios = em.createNamedQuery("Usuario.findById", Usuario.class);
@@ -1616,7 +1616,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "<table>";
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
-                        Personajes pejaux = listaPersonajes.get(i);
+                        Personaje pejaux = listaPersonajes.get(i);
                         resultado = resultado
                                 + "<tr>"
                                 + "<td>"
@@ -1705,7 +1705,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Personajes.class);
+                    queryAUX = em.createNativeQuery(sql, Personaje.class);
                     listaPersonajes = queryAUX.getResultList();
 
                     fotosPersonajes = new ArrayList();
@@ -1721,7 +1721,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "<table>";
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
-                        Personajes pejaux = listaPersonajes.get(i);
+                        Personaje pejaux = listaPersonajes.get(i);
                         resultado = resultado
                                 + "<tr>"
                                 + "<td>"
@@ -1817,7 +1817,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Personajes.class);
+                    queryAUX = em.createNativeQuery(sql, Personaje.class);
                     listaPersonajes = queryAUX.getResultList();
 
                     fotosPersonajes = new ArrayList();
@@ -1833,7 +1833,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "<table>";
 
                     for (int i = 0; i < listaPersonajes.size(); i++) {
-                        Personajes pejaux = listaPersonajes.get(i);
+                        Personaje pejaux = listaPersonajes.get(i);
                         resultado = resultado
                                 + "<tr><td>"
                                 + "<div class=\"personaje-foto\">\n";
@@ -1869,7 +1869,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     nombre = request.getParameter("busqueda");
 
                     //Encontramos la Clase
-                    queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
+                    queryClases = em.createNamedQuery("Clases.findByNombre", Clase.class);
                     queryClases.setParameter("nombre", nombre);
                     Clase = queryClases.getSingleResult();
 
@@ -1904,7 +1904,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     nombre = request.getParameter("busqueda");
 
                     //Encontramos la Raza
-                    queryRazas = em.createNamedQuery("Razas.findByNombre", Razas.class);
+                    queryRazas = em.createNamedQuery("Raza.findByNombre", Raza.class);
                     queryRazas.setParameter("nombre", nombre);
                     Raza = queryRazas.getSingleResult();
 
@@ -1946,7 +1946,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     id = request.getParameter("busqueda2");
 
                     //Encontramos la SubRaza
-                    querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
+                    querySubRazas = em.createNamedQuery("Subraza.findByNombre", Subraza.class);
                     querySubRazas.setParameter("nombre", nombre);
                     Subraza = querySubRazas.getSingleResult();
 
@@ -1954,7 +1954,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     if (!Subraza.getHabilidadesListC().isEmpty() || !Subraza.getElegirhab().equals("0")) {
 
-                        //Enseñamos que Habilidades te dan
+                        //Enseñamos que Habilidad te dan
                         if (!Subraza.getHabilidadesListC().isEmpty()) {
 
                             resultado = "<label>Por Raza obtienes: ";
@@ -1967,7 +1967,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "</label>";
                         }
 
-                        //Enseñamos que Habilidades debes escoger
+                        //Enseñamos que Habilidad debes escoger
                         if (!Subraza.getElegirhab().equals("0")) {
 
                             resultado = "<label>Por Raza, elige "
@@ -2001,11 +2001,11 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = resultado + "</div>";
 
                     //Encontramos la Clase
-                    queryClases = em.createNamedQuery("Clases.findByNombre", Clases.class);
+                    queryClases = em.createNamedQuery("Clases.findByNombre", Clase.class);
                     queryClases.setParameter("nombre", id);
                     Clase = queryClases.getSingleResult();
 
-                    //Enseñamos que Habilidades debes escoger
+                    //Enseñamos que Habilidad debes escoger
                     if (!Clase.getElegirhab().equals("0")) {
 
                         resultado = resultado + "<div id=\"habilidadesClase\""
@@ -2048,17 +2048,17 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     nombre = request.getParameter("busqueda");
 
                     //Encontramos la SubRaza
-                    querySubRazas = em.createNamedQuery("Subrazas.findByNombre", Subrazas.class);
+                    querySubRazas = em.createNamedQuery("Subraza.findByNombre", Subraza.class);
                     querySubRazas.setParameter("nombre", nombre);
                     Subraza = querySubRazas.getSingleResult();
 
                     switch (Subraza.getEligeatr()) {
                         case "0":
-                            //Encontramos los Atributos que da
+                            //Encontramos los Atributo que da
                             resultado = "";
                             for (int i = 0; i < Subraza.getSumarazaList().size(); i++) {
                                 //Encontramos el atributo
-                                queryAtributos = em.createNamedQuery("Atributos.findById", Atributos.class);
+                                queryAtributos = em.createNamedQuery("Atributo.findById", Atributo.class);
                                 queryAtributos.setParameter("id", Subraza.getSumarazaList().get(i).getAtributoID());
                                 Atributo = queryAtributos.getSingleResult();
 
@@ -2066,7 +2066,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             }
                             break;
                         case "1":
-                            queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                            queryAtributos = em.createNamedQuery("Atributo.findAll", Atributo.class);
                             listaAtributos = queryAtributos.getResultList();
 
                             resultado = resultado + "<label for=\"atr1\">Obtienes +1:</label>"
@@ -2086,7 +2086,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                             break;
                         case "2":
-                            queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
+                            queryAtributos = em.createNamedQuery("Atributo.findAll", Atributo.class);
                             listaAtributos = queryAtributos.getResultList();
 
                             resultado = "<p> Elige +1 en tres atributos: </p>";
@@ -2134,9 +2134,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     if (!escuela.equals("null") && !nivelString.equals("null") && !claseH.equals("null")
                             && !escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
@@ -2146,15 +2146,15 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
                         System.out.println("");
 
                     } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
@@ -2163,14 +2163,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
@@ -2179,14 +2179,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.NIVEL = '" + nivelString + "' "
@@ -2195,13 +2195,13 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
@@ -2209,13 +2209,13 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.NIVEL = '" + nivelString + "' "
@@ -2223,14 +2223,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND c.NOMBRE ='" + claseH + "' "
@@ -2238,18 +2238,18 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else {
-                        sql = "SELECT h.* FROM Hechizos h "
+                        sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
                     }
 
@@ -2329,9 +2329,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     if (!escuela.equals("null") && !nivelString.equals("null") && !claseH.equals("null")
                             && !escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
@@ -2341,15 +2341,15 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
                         System.out.println("");
 
                     } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
@@ -2358,14 +2358,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
@@ -2374,14 +2374,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.NIVEL = '" + nivelString + "' "
@@ -2390,13 +2390,13 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
@@ -2404,13 +2404,13 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.NIVEL = '" + nivelString + "' "
@@ -2418,14 +2418,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND c.NOMBRE ='" + claseH + "' "
@@ -2433,18 +2433,18 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else {
-                        sql = "SELECT h.* FROM Hechizos h "
+                        sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
                     }
 
@@ -2525,8 +2525,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             && !tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
                                 + "WHERE pe.personaje IS NOT NULL "
                                 + "AND e.TIPO = '" + tipo + "' "
@@ -2556,8 +2556,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
                                 + "WHERE pe.personaje IS NOT NULL "
                                 + "AND e.TIPO = '" + tipo + "' "
@@ -2572,8 +2572,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "WHERE e.CATEGORIA = '" + categoria + "' "
                                 + "AND p.NOMBRE ='" + propiedad + "' "
                                 + "AND e.nombre LIKE '" + nombre + "%' "
@@ -2599,8 +2599,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
                                 + "WHERE pe.personaje IS NOT NULL "
                                 + "AND e.CATEGORIA = '" + categoria + "' "
@@ -2614,8 +2614,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
                                 + "WHERE pe.personaje IS NOT NULL "
                                 + "AND p.NOMBRE ='" + propiedad + "' "
@@ -2717,8 +2717,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             && !tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
                                 + "WHERE pe.personaje IS NULL "
                                 + "AND e.TIPO = '" + tipo + "' "
@@ -2748,8 +2748,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
                                 + "WHERE pe.personaje IS NULL "
                                 + "AND e.TIPO = '" + tipo + "' "
@@ -2764,8 +2764,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
                                 + "WHERE pe.personaje IS NULL "
                                 + "AND e.CATEGORIA = '" + categoria + "' "
@@ -2793,8 +2793,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
                                 + "WHERE pe.personaje IS NULL "
                                 + "AND e.CATEGORIA = '" + categoria + "' "
@@ -2808,8 +2808,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "LEFT JOIN Personajeequipo pe on pe.equipo = e.id AND pe.personaje = '" + id + "' "
                                 + "WHERE pe.personaje IS NULL "
                                 + "AND p.NOMBRE ='" + propiedad + "' "
@@ -3119,7 +3119,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
-                    queryAUX = em.createNamedQuery("Mesas.findByTitulo", Mesas.class);
+                    queryAUX = em.createNamedQuery("Mesas.findByTitulo", Mesa.class);
                     queryAUX.setParameter("titulo", nombre);
 
                     if (!queryAUX.getResultList().isEmpty()) {
@@ -3141,7 +3141,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     if (mesa.equals(nombre)) {
                         resultado = "No Encontrado";
                     } else {
-                        queryAUX = em.createNamedQuery("Mesas.findByTitulo", Mesas.class);
+                        queryAUX = em.createNamedQuery("Mesas.findByTitulo", Mesa.class);
                         queryAUX.setParameter("titulo", nombre);
 
                         if (!queryAUX.getResultList().isEmpty()) {
@@ -3168,9 +3168,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     if (!escuela.equals("null") && !nivelString.equals("null") && !claseH.equals("null")
                             && !escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//TODOS
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "WHERE h.ESCUELA = '" + escuela + "' "
                                 + "AND h.NIVEL = '" + nivelString + "' "
                                 + "AND c.NOMBRE ='" + claseH + "' "
@@ -3178,96 +3178,96 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
                         System.out.println("");
 
                     } else if (!escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU y NIVEL
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "WHERE h.ESCUELA = '" + escuela + "' "
                                 + "AND h.NIVEL = '" + nivelString + "' "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//ESCU y CLASE
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "WHERE h.ESCUELA = '" + escuela + "' "
                                 + "AND c.NOMBRE ='" + claseH + "' "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && !claseH.equals("Clase")) {//NIVEL y CLASE
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "WHERE h.NIVEL = '" + nivelString + "' "
                                 + "AND c.NOMBRE ='" + claseH + "' "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (!escuela.equals("Escuela") && nivelString.equals("Nivel") && claseH.equals("Clase")) {//ESCU
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "WHERE h.ESCUELA = '" + escuela + "' "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (escuela.equals("Escuela") && !nivelString.equals("Nivel") && claseH.equals("Clase")) {//NIVEL
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "WHERE h.NIVEL = '" + nivelString + "' "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else if (escuela.equals("Escuela") && nivelString.equals("Nivel") && !claseH.equals("Clase")) {//CLASE
 
-                        sql = "SELECT h.* FROM Hechizos h "
-                                + "LEFT JOIN Listahechizos lb on lb.hechizo = h.id "
-                                + "LEFT JOIN Clases c on c.id = lb.clase "
+                        sql = "SELECT h.* FROM Hechizo h "
+                                + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                                + "LEFT JOIN Clase c on c.id = lb.clase "
                                 + "WHERE c.NOMBRE ='" + claseH + "' "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
 
                     } else {
-                        sql = "SELECT h.* FROM Hechizos h "
+                        sql = "SELECT h.* FROM Hechizo h "
                                 + "WHERE h.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY h.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
 
-                        queryAUX = em.createNativeQuery(sql, Hechizos.class);
+                        queryAUX = em.createNativeQuery(sql, Hechizo.class);
                         listaHechizos = queryAUX.getResultList();
                     }
 
@@ -3337,41 +3337,41 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     tipo = request.getParameter("vTipo");
 
                     if (!vd.equals("null") && !tipo.equals("null") && !tipo.equals("Tipo") && !vd.equals("Valor de Desafio")) {//TODOS
-                        sql = "SELECT m.* FROM Monstruos m "
+                        sql = "SELECT m.* FROM Monstruo m "
                                 + "WHERE m.vdesafio ='" + vd + "' "
                                 + "AND m.tipo ='" + tipo + "' "
                                 + "AND m.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY m.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
-                        queryAUX = em.createNativeQuery(sql, Monstruos.class);
+                        queryAUX = em.createNativeQuery(sql, Monstruo.class);
                         listaMonstruos = queryAUX.getResultList();
 
                     } else if (tipo.equals("Tipo") && !vd.equals("Valor de Desafio")) {//VD
 
-                        sql = "SELECT m.* FROM Monstruos m "
+                        sql = "SELECT m.* FROM Monstruo m "
                                 + "WHERE m.vdesafio ='" + vd + "' "
                                 + "AND m.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY m.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
-                        queryAUX = em.createNativeQuery(sql, Monstruos.class);
+                        queryAUX = em.createNativeQuery(sql, Monstruo.class);
                         listaMonstruos = queryAUX.getResultList();
 
                     } else if (!tipo.equals("Tipo") && vd.equals("Valor de Desafio")) {//TIPO
 
-                        sql = "SELECT m.* FROM Monstruos m "
+                        sql = "SELECT m.* FROM Monstruo m "
                                 + "WHERE m.tipo ='" + tipo + "' "
                                 + "AND m.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY m.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
-                        queryAUX = em.createNativeQuery(sql, Monstruos.class);
+                        queryAUX = em.createNativeQuery(sql, Monstruo.class);
                         listaMonstruos = queryAUX.getResultList();
 
                     } else {
-                        sql = "SELECT m.* FROM Monstruos m "
+                        sql = "SELECT m.* FROM Monstruo m "
                                 + "WHERE m.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY m.nombre "
                                 + "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY";
-                        queryAUX = em.createNativeQuery(sql, Monstruos.class);
+                        queryAUX = em.createNativeQuery(sql, Monstruo.class);
                         listaMonstruos = queryAUX.getResultList();
 
                     }
@@ -3434,8 +3434,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             && !tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TODOS
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "WHERE e.TIPO = '" + tipo + "' "
                                 + "AND e.CATEGORIA = '" + categoria + "' "
                                 + "AND p.NOMBRE ='" + propiedad + "' "
@@ -3461,8 +3461,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (!tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//TIPO y PROP
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "WHERE e.TIPO = '" + tipo + "' "
                                 + "AND p.NOMBRE ='" + propiedad + "' "
                                 + "AND e.nombre LIKE '" + nombre + "%' "
@@ -3475,8 +3475,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//CAT y PROP
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "WHERE e.CATEGORIA = '" + categoria + "' "
                                 + "AND p.NOMBRE ='" + propiedad + "' "
                                 + "AND e.nombre LIKE '" + nombre + "%' "
@@ -3500,8 +3500,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (tipo.equals("Tipo") && !categoria.equals("Categoria") && propiedad.equals("Propiedad")) {//CAT
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "WHERE e.CATEGORIA = '" + categoria + "' "
                                 + "AND e.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY e.nombre "
@@ -3513,8 +3513,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     } else if (tipo.equals("Tipo") && categoria.equals("Categoria") && !propiedad.equals("Propiedad")) {//PRO
 
                         sql = "SELECT e.* FROM Equipo e "
-                                + "LEFT JOIN Tienepropiedades tp on tp.equipo = e.id "
-                                + "LEFT JOIN Propiedades p on p.id = tp.propiedad "
+                                + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
+                                + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
                                 + "WHERE p.NOMBRE ='" + propiedad + "' "
                                 + "AND e.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY e.nombre "
@@ -3595,7 +3595,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     nombre = request.getParameter("busqueda");
 
                     //Razas Normales
-                    queryRazas = em.createNamedQuery("Razas.findByTipo", Razas.class);
+                    queryRazas = em.createNamedQuery("Raza.findByTipo", Raza.class);
                     queryRazas.setParameter("tipo", "Normal");
                     listaRazas = queryRazas.getResultList();
 
@@ -3622,8 +3622,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = resultado
                             + "</div>";
 
-                    //Razas Monstruos
-                    queryRazas = em.createNamedQuery("Razas.findByTipo", Razas.class);
+                    //Razas Monstruo
+                    queryRazas = em.createNamedQuery("Raza.findByTipo", Raza.class);
                     queryRazas.setParameter("tipo", "Monstruo");
                     listaRazas = queryRazas.getResultList();
 

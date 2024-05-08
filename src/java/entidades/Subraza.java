@@ -30,17 +30,17 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "SUBRAZAS", catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "SUBRAZA", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Subrazas.findAll", query = "SELECT s FROM Subrazas s"),
-    @NamedQuery(name = "Subrazas.findById", query = "SELECT s FROM Subrazas s WHERE s.id = :id"),
-    @NamedQuery(name = "Subrazas.findByNombre", query = "SELECT s FROM Subrazas s WHERE s.nombre = :nombre"),
-    @NamedQuery(name = "Subrazas.findByTamano", query = "SELECT s FROM Subrazas s WHERE s.tamano = :tamano"),
-    @NamedQuery(name = "Subrazas.findByVelocidad", query = "SELECT s FROM Subrazas s WHERE s.velocidad = :velocidad"),
-    @NamedQuery(name = "Subrazas.findByElegirhab", query = "SELECT s FROM Subrazas s WHERE s.elegirhab = :elegirhab")})
-public class Subrazas implements Serializable {
+    @NamedQuery(name = "Subraza.findAll", query = "SELECT s FROM Subraza s"),
+    @NamedQuery(name = "Subraza.findById", query = "SELECT s FROM Subraza s WHERE s.id = :id"),
+    @NamedQuery(name = "Subraza.findByNombre", query = "SELECT s FROM Subraza s WHERE s.nombre = :nombre"),
+    @NamedQuery(name = "Subraza.findByTamano", query = "SELECT s FROM Subraza s WHERE s.tamano = :tamano"),
+    @NamedQuery(name = "Subraza.findByVelocidad", query = "SELECT s FROM Subraza s WHERE s.velocidad = :velocidad"),
+    @NamedQuery(name = "Subraza.findByElegirhab", query = "SELECT s FROM Subraza s WHERE s.elegirhab = :elegirhab")})
+public class Subraza implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -72,7 +72,7 @@ public class Subrazas implements Serializable {
     @Column(name = "ELIGEATR", nullable = false, length = 1)
     private String eligeatr;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subraza")
-    private List<Personajes> personajesList;
+    private List<Personaje> personajesList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -85,31 +85,31 @@ public class Subrazas implements Serializable {
         @JoinColumn(name = "SUBRAZA", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Rasgos> rasgosList;
+    private List<Rasgo> rasgosList;
     @JoinTable(name = "COMPETERAZA", joinColumns = {
         @JoinColumn(name = "SUBRAZA", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Habilidades> habilidadesListC;
+    private List<Habilidad> habilidadesListC;
     @JoinTable(name = "ELIGERAZA", joinColumns = {
         @JoinColumn(name = "SUBRAZA", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Habilidades> habilidadesListE;
+    private List<Habilidad> habilidadesListE;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "subrazas")
     private List<Sumaraza> sumarazaList;
     @JoinColumn(name = "RAZA", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Razas raza;
+    private Raza raza;
 
-    public Subrazas() {
+    public Subraza() {
     }
 
-    public Subrazas(String id) {
+    public Subraza(String id) {
         this.id = id;
     }
 
-    public Subrazas(String id, String nombre, String tamano, BigInteger velocidad, String descripcion, String elegirhab) {
+    public Subraza(String id, String nombre, String tamano, BigInteger velocidad, String descripcion, String elegirhab) {
         this.id = id;
         this.nombre = nombre;
         this.tamano = tamano;
@@ -128,29 +128,29 @@ public class Subrazas implements Serializable {
 
 
     @XmlTransient
-    public List<Rasgos> getRasgosList() {
+    public List<Rasgo> getRasgosList() {
         return rasgosList;
     }
 
-    public void setRasgosList(List<Rasgos> rasgosList) {
+    public void setRasgosList(List<Rasgo> rasgosList) {
         this.rasgosList = rasgosList;
     }
 
     @XmlTransient
-    public List<Habilidades> getHabilidadesListC() {
+    public List<Habilidad> getHabilidadesListC() {
         return habilidadesListC;
     }
 
-    public void setHabilidadesListC(List<Habilidades> habilidadesListC) {
+    public void setHabilidadesListC(List<Habilidad> habilidadesListC) {
         this.habilidadesListC = habilidadesListC;
     }
 
     @XmlTransient
-    public List<Habilidades> getHabilidadesListE() {
+    public List<Habilidad> getHabilidadesListE() {
         return habilidadesListE;
     }
 
-    public void setHabilidadesListE(List<Habilidades> habilidadesListE) {
+    public void setHabilidadesListE(List<Habilidad> habilidadesListE) {
         this.habilidadesListE = habilidadesListE;
     }
 
@@ -163,11 +163,11 @@ public class Subrazas implements Serializable {
         this.sumarazaList = sumarazaList;
     }
 
-    public Razas getRaza() {
+    public Raza getRaza() {
         return raza;
     }
 
-    public void setRaza(Razas raza) {
+    public void setRaza(Raza raza) {
         this.raza = raza;
     }
 
@@ -181,10 +181,10 @@ public class Subrazas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Subrazas)) {
+        if (!(object instanceof Subraza)) {
             return false;
         }
-        Subrazas other = (Subrazas) object;
+        Subraza other = (Subraza) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -193,13 +193,13 @@ public class Subrazas implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Subrazas[ id=" + id + " ]";
+        return "entidades.Subraza[ id=" + id + " ]";
     }
     @XmlTransient
-    public List<Personajes> getPersonajesList() {
+    public List<Personaje> getPersonajesList() {
         return personajesList;
     }
-    public void setPersonajesList(List<Personajes> personajesList) {
+    public void setPersonajesList(List<Personaje> personajesList) {
         this.personajesList = personajesList;
     }
 

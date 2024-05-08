@@ -40,10 +40,10 @@ public class Pertenecemesa implements Serializable {
     private String rol;
     @JoinColumn(name = "PERSONAJEMESA", referencedColumnName = "ID")
     @ManyToOne
-    private Personajes personajemesa;
+    private Personaje personajemesa;
     @JoinColumn(name = "MESA", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Mesas mesas;
+    private Mesa mesas;
     @JoinColumn(name = "USUARIO", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Usuario usuarios;
@@ -104,11 +104,11 @@ public class Pertenecemesa implements Serializable {
     }
 
 
-    public Mesas getMesas() {
+    public Mesa getMesas() {
         return mesas;
     }
 
-    public void setMesas(Mesas mesas) {
+    public void setMesas(Mesa mesas) {
         this.mesas = mesas;
     }
 
@@ -128,11 +128,11 @@ public class Pertenecemesa implements Serializable {
         this.rol = rol;
     }
 
-    public Personajes getPersonajemesa() {
+    public Personaje getPersonajemesa() {
         return personajemesa;
     }
 
-    public void setPersonajemesa(Personajes personajemesa) {
+    public void setPersonajemesa(Personaje personajemesa) {
         this.personajemesa = personajemesa;
     }
     

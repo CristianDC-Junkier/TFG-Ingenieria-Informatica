@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(name = "SUMARAZA", catalog = "", schema = "SYS_G4")
+@Table(name = "SUMARAZA")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Sumaraza.findAll", query = "SELECT s FROM Sumaraza s"),
@@ -38,7 +38,7 @@ public class Sumaraza implements Serializable {
     private String modificador;
     @JoinColumn(name = "SUBRAZA", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Subrazas subrazas;
+    private Subraza subrazas;
 
     public Sumaraza() {
     }
@@ -72,11 +72,11 @@ public class Sumaraza implements Serializable {
         this.modificador = modificador;
     }
 
-    public Subrazas getSubrazas() {
+    public Subraza getSubrazas() {
         return subrazas;
     }
 
-    public void setSubrazas(Subrazas subrazas) {
+    public void setSubrazas(Subraza subrazas) {
         this.subrazas = subrazas;
     }
 

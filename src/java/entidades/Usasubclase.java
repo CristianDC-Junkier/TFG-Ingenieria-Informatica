@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(name = "USASUBCLASE", catalog = "", schema = "SYS_G4")
+@Table(name = "USASUBCLASE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usasubclase.findAll", query = "SELECT u FROM Usasubclase u"),
@@ -39,10 +39,10 @@ public class Usasubclase implements Serializable {
     private short nivel;
     @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Rasgos rasgos;
+    private Rasgo rasgos;
     @JoinColumn(name = "SUBCLASE", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Subclases subclases;
+    private Subclase subclases;
 
     public Usasubclase() {
     }
@@ -76,19 +76,19 @@ public class Usasubclase implements Serializable {
         this.nivel = nivel;
     }
 
-    public Rasgos getRasgos() {
+    public Rasgo getRasgos() {
         return rasgos;
     }
 
-    public void setRasgos(Rasgos rasgos) {
+    public void setRasgos(Rasgo rasgos) {
         this.rasgos = rasgos;
     }
 
-    public Subclases getSubclases() {
+    public Subclase getSubclases() {
         return subclases;
     }
 
-    public void setSubclases(Subclases subclases) {
+    public void setSubclases(Subclase subclases) {
         this.subclases = subclases;
     }
 

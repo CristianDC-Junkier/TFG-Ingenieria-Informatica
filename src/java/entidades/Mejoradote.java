@@ -18,13 +18,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(name = "MEJORASDOTE", catalog = "", schema = "SYS_G4")
+@Table(name = "MEJORADOTE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Mejorasdote.findAll", query = "SELECT m FROM Mejorasdote m"),
-    @NamedQuery(name = "Mejorasdote.findById", query = "SELECT m FROM Mejorasdote m WHERE m.id = :id"),
-    @NamedQuery(name = "Mejorasdote.findByNombre", query = "SELECT m FROM Mejorasdote m WHERE m.nombre = :nombre")})
-public class Mejorasdote implements Serializable {
+    @NamedQuery(name = "Mejoradote.findAll", query = "SELECT m FROM Mejoradote m"),
+    @NamedQuery(name = "Mejoradote.findById", query = "SELECT m FROM Mejoradote m WHERE m.id = :id"),
+    @NamedQuery(name = "Mejoradote.findByNombre", query = "SELECT m FROM Mejoradote m WHERE m.nombre = :nombre")})
+public class Mejoradote implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,14 +42,14 @@ public class Mejorasdote implements Serializable {
     @Column(name = "VALOR", nullable = false)
     private String valor;
 
-    public Mejorasdote() {
+    public Mejoradote() {
     }
 
-    public Mejorasdote(String id) {
+    public Mejoradote(String id) {
         this.id = id;
     }
 
-    public Mejorasdote(String id, String valor) {
+    public Mejoradote(String id, String valor) {
         this.id = id;
         this.valor = valor;
     }
@@ -88,10 +88,10 @@ public class Mejorasdote implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Mejorasdote)) {
+        if (!(object instanceof Mejoradote)) {
             return false;
         }
-        Mejorasdote other = (Mejorasdote) object;
+        Mejoradote other = (Mejoradote) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +100,7 @@ public class Mejorasdote implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Mejorasdote[ id=" + id + " ]";
+        return "entidades.Mejoradote[ id=" + id + " ]";
     }
     
 }

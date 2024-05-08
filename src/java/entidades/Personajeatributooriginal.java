@@ -19,19 +19,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(name = "PERSONAJEATRIBUTOSORIGINAL", catalog = "", schema = "SYS_G4")
+@Table(name = "PERSONAJEATRIBUTOORIGINAL")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Personajeatributosoriginal.findAll", query = "SELECT p FROM Personajeatributosoriginal p"),
-    @NamedQuery(name = "Personajeatributosoriginal.findByPersonaje", query = "SELECT p FROM Personajeatributosoriginal p WHERE p.personajeatributosoriginalPK.personaje = :personaje"),
-    @NamedQuery(name = "Personajeatributosoriginal.findByAtributo", query = "SELECT p FROM Personajeatributosoriginal p WHERE p.personajeatributosoriginalPK.atributo = :atributo"),
-    @NamedQuery(name = "Personajeatributosoriginal.findByValor", query = "SELECT p FROM Personajeatributosoriginal p WHERE p.valor = :valor"),
-    @NamedQuery(name = "Personajeatributosoriginal.findBySalvacion", query = "SELECT p FROM Personajeatributosoriginal p WHERE p.salvacion = :salvacion")})
-public class Personajeatributosoriginal implements Serializable {
+    @NamedQuery(name = "Personajeatributooriginal.findAll", query = "SELECT p FROM Personajeatributooriginal p"),
+    @NamedQuery(name = "Personajeatributooriginal.findByPersonaje", query = "SELECT p FROM Personajeatributooriginal p WHERE p.personajeatributosoriginalPK.personaje = :personaje"),
+    @NamedQuery(name = "Personajeatributooriginal.findByAtributo", query = "SELECT p FROM Personajeatributooriginal p WHERE p.personajeatributosoriginalPK.atributo = :atributo"),
+    @NamedQuery(name = "Personajeatributooriginal.findByValor", query = "SELECT p FROM Personajeatributooriginal p WHERE p.valor = :valor"),
+    @NamedQuery(name = "Personajeatributooriginal.findBySalvacion", query = "SELECT p FROM Personajeatributooriginal p WHERE p.salvacion = :salvacion")})
+public class Personajeatributooriginal implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected PersonajeatributosoriginalPK personajeatributosoriginalPK;
+    protected PersonajeatributooriginalPK personajeatributosoriginalPK;
     @Basic(optional = false)
     @NotNull
     @Column(name = "VALOR", nullable = false)
@@ -43,39 +43,39 @@ public class Personajeatributosoriginal implements Serializable {
     private String salvacion;
     @JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Atributos atributos;
+    private Atributo atributos;
     @JoinColumn(name = "PERSONAJE", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Personajes personajes;
+    private Personaje personajes;
 
-    public Personajeatributosoriginal() {
+    public Personajeatributooriginal() {
     }
 
-    public Personajeatributosoriginal(PersonajeatributosoriginalPK personajeatributosoriginalPK) {
+    public Personajeatributooriginal(PersonajeatributooriginalPK personajeatributosoriginalPK) {
         this.personajeatributosoriginalPK = personajeatributosoriginalPK;
     }
 
-    public Personajeatributosoriginal(PersonajeatributosoriginalPK personajeatributosoriginalPK, Integer valor, String salvacion) {
+    public Personajeatributooriginal(PersonajeatributooriginalPK personajeatributosoriginalPK, Integer valor, String salvacion) {
         this.personajeatributosoriginalPK = personajeatributosoriginalPK;
         this.valor = valor;
         this.salvacion = salvacion;
     }
 
-    public Personajeatributosoriginal(String personaje, String atributo, Integer valor, String salvacion) {
-        this.personajeatributosoriginalPK = new PersonajeatributosoriginalPK(personaje, atributo);
+    public Personajeatributooriginal(String personaje, String atributo, Integer valor, String salvacion) {
+        this.personajeatributosoriginalPK = new PersonajeatributooriginalPK(personaje, atributo);
         this.valor = valor;
         this.salvacion = salvacion;
     }
 
-    public Personajeatributosoriginal(String personaje, String atributo) {
-        this.personajeatributosoriginalPK = new PersonajeatributosoriginalPK(personaje, atributo);
+    public Personajeatributooriginal(String personaje, String atributo) {
+        this.personajeatributosoriginalPK = new PersonajeatributooriginalPK(personaje, atributo);
     }
 
-    public PersonajeatributosoriginalPK getPersonajeatributosoriginalPK() {
+    public PersonajeatributooriginalPK getPersonajeatributosoriginalPK() {
         return personajeatributosoriginalPK;
     }
 
-    public void setPersonajeatributosoriginalPK(PersonajeatributosoriginalPK personajeatributosoriginalPK) {
+    public void setPersonajeatributosoriginalPK(PersonajeatributooriginalPK personajeatributosoriginalPK) {
         this.personajeatributosoriginalPK = personajeatributosoriginalPK;
     }
 
@@ -95,19 +95,19 @@ public class Personajeatributosoriginal implements Serializable {
         this.salvacion = salvacion;
     }
 
-    public Atributos getAtributos() {
+    public Atributo getAtributos() {
         return atributos;
     }
 
-    public void setAtributos(Atributos atributos) {
+    public void setAtributos(Atributo atributos) {
         this.atributos = atributos;
     }
 
-    public Personajes getPersonajes() {
+    public Personaje getPersonajes() {
         return personajes;
     }
 
-    public void setPersonajes(Personajes personajes) {
+    public void setPersonajes(Personaje personajes) {
         this.personajes = personajes;
     }
 
@@ -121,10 +121,10 @@ public class Personajeatributosoriginal implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Personajeatributosoriginal)) {
+        if (!(object instanceof Personajeatributooriginal)) {
             return false;
         }
-        Personajeatributosoriginal other = (Personajeatributosoriginal) object;
+        Personajeatributooriginal other = (Personajeatributooriginal) object;
         if ((this.personajeatributosoriginalPK == null && other.personajeatributosoriginalPK != null) || (this.personajeatributosoriginalPK != null && !this.personajeatributosoriginalPK.equals(other.personajeatributosoriginalPK))) {
             return false;
         }
@@ -133,7 +133,7 @@ public class Personajeatributosoriginal implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Personajeatributosoriginal[ personajeatributosoriginalPK=" + personajeatributosoriginalPK + " ]";
+        return "entidades.Personajeatributooriginal[ PersonajeatributooriginalPK=" + personajeatributosoriginalPK + " ]";
     }
 
 }

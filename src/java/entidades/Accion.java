@@ -23,15 +23,16 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "ACCIONES", catalog = "", schema = "SYS_G4", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"NOMBRE"})})
+@Table(name = "ACCION", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"NOMBRE"})
+})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Acciones.findAll", query = "SELECT a FROM Acciones a"),
-    @NamedQuery(name = "Acciones.findById", query = "SELECT a FROM Acciones a WHERE a.id = :id"),
-    @NamedQuery(name = "Acciones.findByNombre", query = "SELECT a FROM Acciones a WHERE a.nombre = :nombre"),
-    @NamedQuery(name = "Acciones.findByTipo", query = "SELECT a FROM Acciones a WHERE a.tipo = :tipo")})
-public class Acciones implements Serializable {
+    @NamedQuery(name = "Accion.findAll", query = "SELECT a FROM Accion a"),
+    @NamedQuery(name = "Accion.findById", query = "SELECT a FROM Accion a WHERE a.id = :id"),
+    @NamedQuery(name = "Accion.findByNombre", query = "SELECT a FROM Accion a WHERE a.nombre = :nombre"),
+    @NamedQuery(name = "Accion.findByTipo", query = "SELECT a FROM Accion a WHERE a.tipo = :tipo")})
+public class Accion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,16 +57,16 @@ public class Acciones implements Serializable {
     @Column(name = "TIPO", nullable = false, length = 30)
     private String tipo;
     @ManyToMany(mappedBy = "accionesList")
-    private List<Monstruos> monstruosList;
+    private List<Monstruo> monstruosList;
 
-    public Acciones() {
+    public Accion() {
     }
 
-    public Acciones(String id) {
+    public Accion(String id) {
         this.id = id;
     }
 
-    public Acciones(String id, String nombre, String descripcion, String tipo) {
+    public Accion(String id, String nombre, String descripcion, String tipo) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -105,11 +106,11 @@ public class Acciones implements Serializable {
     }
 
     @XmlTransient
-    public List<Monstruos> getMonstruosList() {
+    public List<Monstruo> getMonstruosList() {
         return monstruosList;
     }
 
-    public void setMonstruosList(List<Monstruos> monstruosList) {
+    public void setMonstruosList(List<Monstruo> monstruosList) {
         this.monstruosList = monstruosList;
     }
 
@@ -123,10 +124,10 @@ public class Acciones implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Acciones)) {
+        if (!(object instanceof Accion)) {
             return false;
         }
-        Acciones other = (Acciones) object;
+        Accion other = (Accion) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -135,7 +136,7 @@ public class Acciones implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Acciones[ id=" + id + " ]";
+        return "entidades.Accion[ id=" + id + " ]";
     }
     
 }

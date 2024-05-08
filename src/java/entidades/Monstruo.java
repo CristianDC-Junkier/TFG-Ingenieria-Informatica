@@ -27,28 +27,28 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "MONSTRUOS", catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "MONSTRUO", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Monstruos.findAll", query = "SELECT m FROM Monstruos m ORDER BY m.nombre"),
-    @NamedQuery(name = "Monstruos.findById", query = "SELECT m FROM Monstruos m WHERE m.id = :id"),
-    @NamedQuery(name = "Monstruos.findByNombre", query = "SELECT m FROM Monstruos m WHERE m.nombre = :nombre"),
-    @NamedQuery(name = "Monstruos.findByTipo", query = "SELECT m FROM Monstruos m WHERE m.tipo = :tipo"),
-    @NamedQuery(name = "Monstruos.findByTamano", query = "SELECT m FROM Monstruos m WHERE m.tamano = :tamano"),
-    @NamedQuery(name = "Monstruos.findByVdesafio", query = "SELECT m FROM Monstruos m WHERE m.vdesafio = :vdesafio"),
-    @NamedQuery(name = "Monstruos.findByAlineamiento", query = "SELECT m FROM Monstruos m WHERE m.alineamiento = :alineamiento"),
-    @NamedQuery(name = "Monstruos.findByCarmadura", query = "SELECT m FROM Monstruos m WHERE m.carmadura = :carmadura"),
-    @NamedQuery(name = "Monstruos.findByPgolpe", query = "SELECT m FROM Monstruos m WHERE m.pgolpe = :pgolpe"),
-    @NamedQuery(name = "Monstruos.findByVelocidad", query = "SELECT m FROM Monstruos m WHERE m.velocidad = :velocidad"),
-    @NamedQuery(name = "Monstruos.findByResdano", query = "SELECT m FROM Monstruos m WHERE m.resdano = :resdano"),
-    @NamedQuery(name = "Monstruos.findByInmdano", query = "SELECT m FROM Monstruos m WHERE m.inmdano = :inmdano"),
-    @NamedQuery(name = "Monstruos.findBySentidos", query = "SELECT m FROM Monstruos m WHERE m.sentidos = :sentidos"),
-    @NamedQuery(name = "Monstruos.findByIdiomas", query = "SELECT m FROM Monstruos m WHERE m.idiomas = :idiomas"),
-    @NamedQuery(name = "Monstruos.findByVuldano", query = "SELECT m FROM Monstruos m WHERE m.vuldano = :vuldano"),
-    @NamedQuery(name = "Monstruos.findByTipoVD", query = "SELECT m FROM Monstruos m WHERE m.tipo = :tipo AND m.vdesafio = :vdesafio")
+    @NamedQuery(name = "Monstruo.findAll", query = "SELECT m FROM Monstruo m ORDER BY m.nombre"),
+    @NamedQuery(name = "Monstruo.findById", query = "SELECT m FROM Monstruo m WHERE m.id = :id"),
+    @NamedQuery(name = "Monstruo.findByNombre", query = "SELECT m FROM Monstruo m WHERE m.nombre = :nombre"),
+    @NamedQuery(name = "Monstruo.findByTipo", query = "SELECT m FROM Monstruo m WHERE m.tipo = :tipo"),
+    @NamedQuery(name = "Monstruo.findByTamano", query = "SELECT m FROM Monstruo m WHERE m.tamano = :tamano"),
+    @NamedQuery(name = "Monstruo.findByVdesafio", query = "SELECT m FROM Monstruo m WHERE m.vdesafio = :vdesafio"),
+    @NamedQuery(name = "Monstruo.findByAlineamiento", query = "SELECT m FROM Monstruo m WHERE m.alineamiento = :alineamiento"),
+    @NamedQuery(name = "Monstruo.findByCarmadura", query = "SELECT m FROM Monstruo m WHERE m.carmadura = :carmadura"),
+    @NamedQuery(name = "Monstruo.findByPgolpe", query = "SELECT m FROM Monstruo m WHERE m.pgolpe = :pgolpe"),
+    @NamedQuery(name = "Monstruo.findByVelocidad", query = "SELECT m FROM Monstruo m WHERE m.velocidad = :velocidad"),
+    @NamedQuery(name = "Monstruo.findByResdano", query = "SELECT m FROM Monstruo m WHERE m.resdano = :resdano"),
+    @NamedQuery(name = "Monstruo.findByInmdano", query = "SELECT m FROM Monstruo m WHERE m.inmdano = :inmdano"),
+    @NamedQuery(name = "Monstruo.findBySentidos", query = "SELECT m FROM Monstruo m WHERE m.sentidos = :sentidos"),
+    @NamedQuery(name = "Monstruo.findByIdiomas", query = "SELECT m FROM Monstruo m WHERE m.idiomas = :idiomas"),
+    @NamedQuery(name = "Monstruo.findByVuldano", query = "SELECT m FROM Monstruo m WHERE m.vuldano = :vuldano"),
+    @NamedQuery(name = "Monstruo.findByTipoVD", query = "SELECT m FROM Monstruo m WHERE m.tipo = :tipo AND m.vdesafio = :vdesafio")
 })
-public class Monstruos implements Serializable {
+public class Monstruo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -130,30 +130,30 @@ public class Monstruos implements Serializable {
         @JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "ESTADO", referencedColumnName = "NOMBRE", nullable = false)})
     @ManyToMany
-    private List<Estados> estadosList;
+    private List<Estado> estadosList;
     @JoinTable(name = "UTILIZAMONSTRUO", joinColumns = {
         @JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "ACCION", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Acciones> accionesList;
+    private List<Accion> accionesList;
     @JoinTable(name = "USAMONSTRUO", joinColumns = {
         @JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Rasgos> rasgosList;
+    private List<Rasgo> rasgosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "monstruos")
     private List<Tienemonstruo> tienemonstruoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "monstruos")
     private List<Competentemonstruo> competentemonstruoList;
 
-    public Monstruos() {
+    public Monstruo() {
     }
 
-    public Monstruos(String id) {
+    public Monstruo(String id) {
         this.id = id;
     }
 
-    public Monstruos(String id, String nombre, String tipo, String tamano, String vdesafio, String alineamiento, BigInteger carmadura, String pgolpe, String velocidad, String resdano, String inmdano, String sentidos, String idiomas, String descripcion, String vuldano) {
+    public Monstruo(String id, String nombre, String tipo, String tamano, String vdesafio, String alineamiento, BigInteger carmadura, String pgolpe, String velocidad, String resdano, String inmdano, String sentidos, String idiomas, String descripcion, String vuldano) {
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -292,29 +292,29 @@ public class Monstruos implements Serializable {
     }
 
     @XmlTransient
-    public List<Estados> getEstadosList() {
+    public List<Estado> getEstadosList() {
         return estadosList;
     }
 
-    public void setEstadosList(List<Estados> estadosList) {
+    public void setEstadosList(List<Estado> estadosList) {
         this.estadosList = estadosList;
     }
 
     @XmlTransient
-    public List<Acciones> getAccionesList() {
+    public List<Accion> getAccionesList() {
         return accionesList;
     }
 
-    public void setAccionesList(List<Acciones> accionesList) {
+    public void setAccionesList(List<Accion> accionesList) {
         this.accionesList = accionesList;
     }
 
     @XmlTransient
-    public List<Rasgos> getRasgosList() {
+    public List<Rasgo> getRasgosList() {
         return rasgosList;
     }
 
-    public void setRasgosList(List<Rasgos> rasgosList) {
+    public void setRasgosList(List<Rasgo> rasgosList) {
         this.rasgosList = rasgosList;
     }
 
@@ -346,10 +346,10 @@ public class Monstruos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Monstruos)) {
+        if (!(object instanceof Monstruo)) {
             return false;
         }
-        Monstruos other = (Monstruos) object;
+        Monstruo other = (Monstruo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -358,7 +358,7 @@ public class Monstruos implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Monstruos[ id=" + id + " ]";
+        return "entidades.Monstruo[ id=" + id + " ]";
     }
     
 }

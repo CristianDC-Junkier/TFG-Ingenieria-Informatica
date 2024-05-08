@@ -26,15 +26,15 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "RAZAS", catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "RAZA", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Razas.findAll", query = "SELECT r FROM Razas r "),
-    @NamedQuery(name = "Razas.findById", query = "SELECT r FROM Razas r WHERE r.id = :id"),
-    @NamedQuery(name = "Razas.findByNombre", query = "SELECT r FROM Razas r WHERE r.nombre = :nombre"),
-    @NamedQuery(name = "Razas.findByTipo", query = "SELECT r FROM Razas r WHERE r.tipo = :tipo")})
-public class Razas implements Serializable {
+    @NamedQuery(name = "Raza.findAll", query = "SELECT r FROM Raza r "),
+    @NamedQuery(name = "Raza.findById", query = "SELECT r FROM Raza r WHERE r.id = :id"),
+    @NamedQuery(name = "Raza.findByNombre", query = "SELECT r FROM Raza r WHERE r.nombre = :nombre"),
+    @NamedQuery(name = "Raza.findByTipo", query = "SELECT r FROM Raza r WHERE r.tipo = :tipo")})
+public class Raza implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -67,7 +67,7 @@ public class Razas implements Serializable {
     @Column(name = "TIPO", nullable = false, length = 30)
     private String tipo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "raza")
-    private List<Personajes> personajesList;
+    private List<Personaje> personajesList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -79,18 +79,18 @@ public class Razas implements Serializable {
         @JoinColumn(name = "RAZA", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "RASGO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Rasgos> rasgosList;
+    private List<Rasgo> rasgosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "raza")
-    private List<Subrazas> subrazasList;
+    private List<Subraza> subrazasList;
 
-    public Razas() {
+    public Raza() {
     }
 
-    public Razas(String id) {
+    public Raza(String id) {
         this.id = id;
     }
 
-    public Razas(String id, String nombre, String descripcion, String resumen, String edad, String idiomas, String tipo) {
+    public Raza(String id, String nombre, String descripcion, String resumen, String edad, String idiomas, String tipo) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -110,20 +110,20 @@ public class Razas implements Serializable {
 
 
     @XmlTransient
-    public List<Rasgos> getRasgosList() {
+    public List<Rasgo> getRasgosList() {
         return rasgosList;
     }
 
-    public void setRasgosList(List<Rasgos> rasgosList) {
+    public void setRasgosList(List<Rasgo> rasgosList) {
         this.rasgosList = rasgosList;
     }
 
     @XmlTransient
-    public List<Subrazas> getSubrazasList() {
+    public List<Subraza> getSubrazasList() {
         return subrazasList;
     }
 
-    public void setSubrazasList(List<Subrazas> subrazasList) {
+    public void setSubrazasList(List<Subraza> subrazasList) {
         this.subrazasList = subrazasList;
     }
 
@@ -137,10 +137,10 @@ public class Razas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Razas)) {
+        if (!(object instanceof Raza)) {
             return false;
         }
-        Razas other = (Razas) object;
+        Raza other = (Raza) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -149,13 +149,13 @@ public class Razas implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Razas[ id=" + id + " ]";
+        return "entidades.Raza[ id=" + id + " ]";
     }
     @XmlTransient
-    public List<Personajes> getPersonajesList() {
+    public List<Personaje> getPersonajesList() {
         return personajesList;
     }
-    public void setPersonajesList(List<Personajes> personajesList) {
+    public void setPersonajesList(List<Personaje> personajesList) {
         this.personajesList = personajesList;
     }
 

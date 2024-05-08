@@ -24,25 +24,24 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "HECHIZOS", catalog = "", schema = "SYS_G4")
+@Table(name = "HECHIZO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Hechizos.findAll", query = "SELECT h FROM Hechizos h ORDER BY h.nombre"),
-    @NamedQuery(name = "Hechizos.findById", query = "SELECT h FROM Hechizos h WHERE h.id = :id"),
-    @NamedQuery(name = "Hechizos.findByNombre", query = "SELECT h FROM Hechizos h WHERE h.nombre = :nombre"),
-    @NamedQuery(name = "Hechizos.findByNivel", query = "SELECT h FROM Hechizos h WHERE h.nivel = :nivel"),
-    @NamedQuery(name = "Hechizos.findByEscuela", query = "SELECT h FROM Hechizos h WHERE h.escuela = :escuela"),
-    @NamedQuery(name = "Hechizos.findByTlanzamiento", query = "SELECT h FROM Hechizos h WHERE h.tlanzamiento = :tlanzamiento"),
-    @NamedQuery(name = "Hechizos.findByDuracion", query = "SELECT h FROM Hechizos h WHERE h.duracion = :duracion"),
-    @NamedQuery(name = "Hechizos.findByAlcance", query = "SELECT h FROM Hechizos h WHERE h.alcance = :alcance"),
-    @NamedQuery(name = "Hechizos.findByComponentes", query = "SELECT h FROM Hechizos h WHERE h.componentes = :componentes"),
-    @NamedQuery(name = "Hechizos.findByTsalvacion", query = "SELECT h FROM Hechizos h WHERE h.tsalvacion = :tsalvacion"),
-    @NamedQuery(name = "Hechizos.findByDano", query = "SELECT h FROM Hechizos h WHERE h.dano = :dano"),
-    @NamedQuery(name = "Hechizos.findByRitual", query = "SELECT h FROM Hechizos h WHERE h.ritual = :ritual"),
-    @NamedQuery(name = "Hechizos.findByEscuNivel", query = "SELECT h FROM Hechizos h WHERE h.escuela = :escuela AND h.nivel = :nivel"),
-    //@NamedQuery(name = "Hechizos.findByNivel", query = "SELECT h FROM Hechizos h WHERE h.escuela = :escuela AND h.nivel = :nivel")
+    @NamedQuery(name = "Hechizo.findAll", query = "SELECT h FROM Hechizo h ORDER BY h.nombre"),
+    @NamedQuery(name = "Hechizo.findById", query = "SELECT h FROM Hechizo h WHERE h.id = :id"),
+    @NamedQuery(name = "Hechizo.findByNombre", query = "SELECT h FROM Hechizo h WHERE h.nombre = :nombre"),
+    @NamedQuery(name = "Hechizo.findByNivel", query = "SELECT h FROM Hechizo h WHERE h.nivel = :nivel"),
+    @NamedQuery(name = "Hechizo.findByEscuela", query = "SELECT h FROM Hechizo h WHERE h.escuela = :escuela"),
+    @NamedQuery(name = "Hechizo.findByTlanzamiento", query = "SELECT h FROM Hechizo h WHERE h.tlanzamiento = :tlanzamiento"),
+    @NamedQuery(name = "Hechizo.findByDuracion", query = "SELECT h FROM Hechizo h WHERE h.duracion = :duracion"),
+    @NamedQuery(name = "Hechizo.findByAlcance", query = "SELECT h FROM Hechizo h WHERE h.alcance = :alcance"),
+    @NamedQuery(name = "Hechizo.findByComponentes", query = "SELECT h FROM Hechizo h WHERE h.componentes = :componentes"),
+    @NamedQuery(name = "Hechizo.findByTsalvacion", query = "SELECT h FROM Hechizo h WHERE h.tsalvacion = :tsalvacion"),
+    @NamedQuery(name = "Hechizo.findByDano", query = "SELECT h FROM Hechizo h WHERE h.dano = :dano"),
+    @NamedQuery(name = "Hechizo.findByRitual", query = "SELECT h FROM Hechizo h WHERE h.ritual = :ritual"),
+    @NamedQuery(name = "Hechizo.findByEscuNivel", query = "SELECT h FROM Hechizo h WHERE h.escuela = :escuela AND h.nivel = :nivel"),
 })
-public class Hechizos implements Serializable {
+public class Hechizo implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -96,7 +95,7 @@ public class Hechizos implements Serializable {
     @Column(name = "RITUAL", nullable = false, length = 2)
     private String ritual;
     @ManyToMany(mappedBy = "hechizosList")
-    private List<Personajes> personajesList;
+    private List<Personaje> personajesList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -108,16 +107,16 @@ public class Hechizos implements Serializable {
         @JoinColumn(name = "HECHIZO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Clases> clasesList;
+    private List<Clase> clasesList;
 
-    public Hechizos() {
+    public Hechizo() {
     }
 
-    public Hechizos(String id) {
+    public Hechizo(String id) {
         this.id = id;
     }
 
-    public Hechizos(String id, String nombre, String nivel, String escuela, String tlanzamiento, String duracion, String alcance, String componentes, String descripcion, String ritual) {
+    public Hechizo(String id, String nombre, String nivel, String escuela, String tlanzamiento, String duracion, String alcance, String componentes, String descripcion, String ritual) {
         this.id = id;
         this.nombre = nombre;
         this.nivel = nivel;
@@ -138,10 +137,10 @@ public class Hechizos implements Serializable {
         this.id = id;
     }
     @XmlTransient
-    public List<Clases> getClasesList() {
+    public List<Clase> getClasesList() {
         return clasesList;
     }
-    public void setClasesList(List<Clases> clasesList) {
+    public void setClasesList(List<Clase> clasesList) {
         this.clasesList = clasesList;
     }
     @Override
@@ -153,10 +152,10 @@ public class Hechizos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Hechizos)) {
+        if (!(object instanceof Hechizo)) {
             return false;
         }
-        Hechizos other = (Hechizos) object;
+        Hechizo other = (Hechizo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -164,7 +163,7 @@ public class Hechizos implements Serializable {
     }
     @Override
     public String toString() {
-        return "entidades.Hechizos[ id=" + id + " ]";
+        return "entidades.Hechizo[ id=" + id + " ]";
     }
 
     public String getNombre() {
@@ -256,11 +255,11 @@ public class Hechizos implements Serializable {
     }
 
     @XmlTransient
-    public List<Personajes> getPersonajesList() {
+    public List<Personaje> getPersonajesList() {
         return personajesList;
     }
 
-    public void setPersonajesList(List<Personajes> personajesList) {
+    public void setPersonajesList(List<Personaje> personajesList) {
         this.personajesList = personajesList;
     }
     

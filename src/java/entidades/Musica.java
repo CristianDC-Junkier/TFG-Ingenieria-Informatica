@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "MUSICA", catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "MUSICA", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
@@ -53,7 +53,7 @@ public class Musica implements Serializable {
         @JoinColumn(name = "MUSICA", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "MESA", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Mesas> mesasList;
+    private List<Mesa> mesasList;
 
     public Musica() {
     }
@@ -77,11 +77,11 @@ public class Musica implements Serializable {
 
 
     @XmlTransient
-    public List<Mesas> getMesasList() {
+    public List<Mesa> getMesasList() {
         return mesasList;
     }
 
-    public void setMesasList(List<Mesas> mesasList) {
+    public void setMesasList(List<Mesa> mesasList) {
         this.mesasList = mesasList;
     }
 

@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(name = "TIENEMONSTRUO", catalog = "", schema = "SYS_G4")
+@Table(name = "TIENEMONSTRUO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tienemonstruo.findAll", query = "SELECT t FROM Tienemonstruo t"),
@@ -44,7 +44,7 @@ public class Tienemonstruo implements Serializable {
     private String modificador;
     @JoinColumn(name = "MONSTRUO", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Monstruos monstruos;
+    private Monstruo monstruos;
 
     public Tienemonstruo() {
     }
@@ -87,11 +87,11 @@ public class Tienemonstruo implements Serializable {
         this.modificador = modificador;
     }
 
-    public Monstruos getMonstruos() {
+    public Monstruo getMonstruos() {
         return monstruos;
     }
 
-    public void setMonstruos(Monstruos monstruos) {
+    public void setMonstruos(Monstruo monstruos) {
         this.monstruos = monstruos;
     }
 

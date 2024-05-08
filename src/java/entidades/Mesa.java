@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,19 +24,19 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "MESAS")
+@Table(name = "MESA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Mesas.findAll", query = "SELECT m FROM Mesas m"),
-    @NamedQuery(name = "Mesas.findById", query = "SELECT m FROM Mesas m WHERE m.id = :id"),
-    @NamedQuery(name = "Mesas.findByCreador", query = "SELECT m FROM Mesas m WHERE m.creador = :creador"),
-    @NamedQuery(name = "Mesas.findByComunidad", query = "SELECT m FROM Mesas m WHERE m.comunidad = :comunidad"),
-    @NamedQuery(name = "Mesas.findByContrasena", query = "SELECT m FROM Mesas m WHERE m.contrasena = :contrasena"),
-    @NamedQuery(name = "Mesas.findByTamano", query = "SELECT m FROM Mesas m WHERE m.tamano = :tamano"),
-    @NamedQuery(name = "Mesas.findByTitulo", query = "SELECT m FROM Mesas m WHERE m.titulo = :titulo"),
-    @NamedQuery(name = "Mesas.findByDescripcion", query = "SELECT m FROM Mesas m WHERE m.descripcion = :descripcion"),
-    @NamedQuery(name = "Mesas.CountByCreador", query = "SELECT COUNT(m) FROM Mesas m WHERE m.creador = :creador")})
-public class Mesas implements Serializable {
+    @NamedQuery(name = "Mesa.findAll", query = "SELECT m FROM Mesa m"),
+    @NamedQuery(name = "Mesa.findById", query = "SELECT m FROM Mesa m WHERE m.id = :id"),
+    @NamedQuery(name = "Mesa.findByCreador", query = "SELECT m FROM Mesa m WHERE m.creador = :creador"),
+    @NamedQuery(name = "Mesa.findByComunidad", query = "SELECT m FROM Mesa m WHERE m.comunidad = :comunidad"),
+    @NamedQuery(name = "Mesa.findByContrasena", query = "SELECT m FROM Mesa m WHERE m.contrasena = :contrasena"),
+    @NamedQuery(name = "Mesa.findByTamano", query = "SELECT m FROM Mesa m WHERE m.tamano = :tamano"),
+    @NamedQuery(name = "Mesa.findByTitulo", query = "SELECT m FROM Mesa m WHERE m.titulo = :titulo"),
+    @NamedQuery(name = "Mesa.findByDescripcion", query = "SELECT m FROM Mesa m WHERE m.descripcion = :descripcion"),
+    @NamedQuery(name = "Mesa.CountByCreador", query = "SELECT COUNT(m) FROM Mesa m WHERE m.creador = :creador")})
+public class Mesa implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -74,21 +73,21 @@ public class Mesas implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mesas")
     private List<Pertenecemesa> pertenecemesaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mesa")
-    private List<Mensajesmesas> mensajesmesasList;
+    private List<Mensajemesa> mensajesmesasList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private String id;
 
-    public Mesas() {
+    public Mesa() {
     }
 
-    public Mesas(String id) {
+    public Mesa(String id) {
         this.id = id;
     }
 
-    public Mesas(String id, String creador, String comunidad, Integer tamano, String titulo) {
+    public Mesa(String id, String creador, String comunidad, Integer tamano, String titulo) {
         this.id = id;
         this.creador = creador;
         this.comunidad = comunidad;
@@ -96,14 +95,14 @@ public class Mesas implements Serializable {
         this.titulo = titulo;
     }
 
-    public Mesas(String creador, String comunidad, Integer tamano, String titulo) {
+    public Mesa(String creador, String comunidad, Integer tamano, String titulo) {
         this.creador = creador;
         this.comunidad = comunidad;
         this.tamano = tamano;
         this.titulo = titulo;
     }
 
-    public Mesas(String creador, String comunidad, Integer tamano, String titulo, String descripcion, String contrasena) {
+    public Mesa(String creador, String comunidad, Integer tamano, String titulo, String descripcion, String contrasena) {
         this.creador = creador;
         this.comunidad = comunidad;
         this.tamano = tamano;
@@ -130,10 +129,10 @@ public class Mesas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Mesas)) {
+        if (!(object instanceof Mesa)) {
             return false;
         }
-        Mesas other = (Mesas) object;
+        Mesa other = (Mesa) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -142,7 +141,7 @@ public class Mesas implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Mesas[ id=" + id + " ]";
+        return "entidades.Mesa[ id=" + id + " ]";
     }
 
     @XmlTransient
@@ -155,11 +154,11 @@ public class Mesas implements Serializable {
     }
 
     @XmlTransient
-    public List<Mensajesmesas> getMensajesmesasList() {
+    public List<Mensajemesa> getMensajesmesasList() {
         return mensajesmesasList;
     }
 
-    public void setMensajesmesasList(List<Mensajesmesas> mensajesmesasList) {
+    public void setMensajesmesasList(List<Mensajemesa> mensajesmesasList) {
         this.mensajesmesasList = mensajesmesasList;
     }
 

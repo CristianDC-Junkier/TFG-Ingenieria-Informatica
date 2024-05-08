@@ -28,26 +28,26 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "PERSONAJES", catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "PERSONAJE", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Personajes.findAll", query = "SELECT p FROM Personajes p"),
-    @NamedQuery(name = "Personajes.findById", query = "SELECT p FROM Personajes p WHERE p.id = :id"),
-    @NamedQuery(name = "Personajes.findByNombre", query = "SELECT p FROM Personajes p WHERE p.nombre = :nombre"),
-    @NamedQuery(name = "Personajes.findByEdad", query = "SELECT p FROM Personajes p WHERE p.edad = :edad"),
-    @NamedQuery(name = "Personajes.findByAlineamiento", query = "SELECT p FROM Personajes p WHERE p.alineamiento = :alineamiento"),
-    @NamedQuery(name = "Personajes.findByIdiomas", query = "SELECT p FROM Personajes p WHERE p.idiomas = :idiomas"),
-    @NamedQuery(name = "Personajes.findByPexp", query = "SELECT p FROM Personajes p WHERE p.pexp = :pexp"),
-    @NamedQuery(name = "Personajes.findByNivel", query = "SELECT p FROM Personajes p WHERE p.nivel = :nivel"),
-    @NamedQuery(name = "Personajes.findByPvida", query = "SELECT p FROM Personajes p WHERE p.pvida = :pvida"),
-    @NamedQuery(name = "Personajes.findByPvidaactuales", query = "SELECT p FROM Personajes p WHERE p.pvidaactuales = :pvidaactuales"),
-    @NamedQuery(name = "Personajes.findByClasearmadura", query = "SELECT p FROM Personajes p WHERE p.clasearmadura = :clasearmadura"),
-    @NamedQuery(name = "Personajes.findByCreador", query = "SELECT p FROM Personajes p WHERE p.usuario = :creador"),
-    @NamedQuery(name = "Personajes.findByNombreCreador", query = "SELECT p FROM Personajes p WHERE p.nombre = :nombre AND p.usuario = :creador"),
-    @NamedQuery(name = "Personajes.findByIDCreador", query = "SELECT p FROM Personajes p WHERE p.id = :id AND p.usuario = :creador")
+    @NamedQuery(name = "Personaje.findAll", query = "SELECT p FROM Personaje p"),
+    @NamedQuery(name = "Personaje.findById", query = "SELECT p FROM Personaje p WHERE p.id = :id"),
+    @NamedQuery(name = "Personaje.findByNombre", query = "SELECT p FROM Personaje p WHERE p.nombre = :nombre"),
+    @NamedQuery(name = "Personaje.findByEdad", query = "SELECT p FROM Personaje p WHERE p.edad = :edad"),
+    @NamedQuery(name = "Personaje.findByAlineamiento", query = "SELECT p FROM Personaje p WHERE p.alineamiento = :alineamiento"),
+    @NamedQuery(name = "Personaje.findByIdiomas", query = "SELECT p FROM Personaje p WHERE p.idiomas = :idiomas"),
+    @NamedQuery(name = "v.findByPexp", query = "SELECT p FROM Personaje p WHERE p.pexp = :pexp"),
+    @NamedQuery(name = "Personaje.findByNivel", query = "SELECT p FROM Personaje p WHERE p.nivel = :nivel"),
+    @NamedQuery(name = "Personaje.findByPvida", query = "SELECT p FROM Personaje p WHERE p.pvida = :pvida"),
+    @NamedQuery(name = "Personaje.findByPvidaactuales", query = "SELECT p FROM Personaje p WHERE p.pvidaactuales = :pvidaactuales"),
+    @NamedQuery(name = "Personaje.findByClasearmadura", query = "SELECT p FROM Personaje p WHERE p.clasearmadura = :clasearmadura"),
+    @NamedQuery(name = "Personaje.findByCreador", query = "SELECT p FROM Personaje p WHERE p.usuario = :creador"),
+    @NamedQuery(name = "Personaje.findByNombreCreador", query = "SELECT p FROM Personaje p WHERE p.nombre = :nombre AND p.usuario = :creador"),
+    @NamedQuery(name = "Personaje.findByIDCreador", query = "SELECT p FROM Personaje p WHERE p.id = :id AND p.usuario = :creador")
 })
-public class Personajes implements Serializable {
+public class Personaje implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -84,7 +84,7 @@ public class Personajes implements Serializable {
     @Column(name = "CLASEARMADURA", nullable = false)
     private Integer clasearmadura;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personajes")
-    private List<Personajeatributosoriginal> personajeatributosoriginalList;
+    private List<Personajeatributooriginal> personajeatributosoriginalList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -117,33 +117,33 @@ public class Personajes implements Serializable {
         @JoinColumn(name = "PERSONAJE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "HECHIZO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Hechizos> hechizosList;
+    private List<Hechizo> hechizosList;
     @JoinTable(name = "PERSONAJEDOTES", joinColumns = {
         @JoinColumn(name = "PERSONAJE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "DOTE", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Dotes> dotesList;
+    private List<Dote> dotesList;
     @JoinTable(name = "PERSONAJEEQUIPO", joinColumns = {
         @JoinColumn(name = "PERSONAJE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "EQUIPO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Equipo> equipoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personajes")
-    private List<Personajehabilidades> personajehabilidadesList;
+    private List<Personajehabilidad> personajehabilidadesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personajes")
-    private List<Personajeatributos> personajeatributosList;
+    private List<Personajeatributo> personajeatributosList;
     @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Clases clase;
+    private Clase clase;
     @JoinColumn(name = "RAZA", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Razas raza;
+    private Raza raza;
     @JoinColumn(name = "SUBCLASE", referencedColumnName = "ID")
     @ManyToOne
-    private Subclases subclase;
+    private Subclase subclase;
     @JoinColumn(name = "SUBRAZA", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Subrazas subraza;
+    private Subraza subraza;
     @JoinColumn(name = "TRASFONDO", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
     private Trasfondo trasfondo;
@@ -151,14 +151,14 @@ public class Personajes implements Serializable {
     @ManyToOne(optional = false)
     private Usuario usuario;
 
-    public Personajes() {
+    public Personaje() {
     }
 
-    public Personajes(String id) {
+    public Personaje(String id) {
         this.id = id;
     }
 
-    public Personajes(String id, String nombre, Integer edad, String alineamiento, Integer nivel, Integer pvida, Integer pvidaactuales, Integer clasearmadura) {
+    public Personaje(String id, String nombre, Integer edad, String alineamiento, Integer nivel, Integer pvida, Integer pvidaactuales, Integer clasearmadura) {
         this.id = id;
         this.nombre = nombre;
         this.edad = edad;
@@ -169,7 +169,7 @@ public class Personajes implements Serializable {
         this.clasearmadura = clasearmadura;
     }
 
-    public Personajes(String nombre, String alineamiento, Integer nivel, Integer pvida, Integer pvidaactuales, Integer clasearmadura, Usuario usuario) {
+    public Personaje(String nombre, String alineamiento, Integer nivel, Integer pvida, Integer pvidaactuales, Integer clasearmadura, Usuario usuario) {
         this.nombre = nombre;
         this.alineamiento = alineamiento;
         this.nivel = nivel;
@@ -179,7 +179,7 @@ public class Personajes implements Serializable {
         this.usuario = usuario;
     }
 
-    public Personajes(Personajes personaje, Usuario usuario, List<Personajes> personajes) {
+    public Personaje(Personaje personaje, Usuario usuario, List<Personaje> personajes) {
 
         this.alineamiento = personaje.getAlineamiento();
         this.apariencia = personaje.getApariencia();
@@ -277,20 +277,20 @@ public class Personajes implements Serializable {
     }
 
     @XmlTransient
-    public List<Hechizos> getHechizosList() {
+    public List<Hechizo> getHechizosList() {
         return hechizosList;
     }
 
-    public void setHechizosList(List<Hechizos> hechizosList) {
+    public void setHechizosList(List<Hechizo> hechizosList) {
         this.hechizosList = hechizosList;
     }
 
     @XmlTransient
-    public List<Dotes> getDotesList() {
+    public List<Dote> getDotesList() {
         return dotesList;
     }
 
-    public void setDotesList(List<Dotes> dotesList) {
+    public void setDotesList(List<Dote> dotesList) {
         this.dotesList = dotesList;
     }
 
@@ -304,52 +304,52 @@ public class Personajes implements Serializable {
     }
 
     @XmlTransient
-    public List<Personajehabilidades> getPersonajehabilidadesList() {
+    public List<Personajehabilidad> getPersonajehabilidadesList() {
         return personajehabilidadesList;
     }
 
-    public void setPersonajehabilidadesList(List<Personajehabilidades> personajehabilidadesList) {
+    public void setPersonajehabilidadesList(List<Personajehabilidad> personajehabilidadesList) {
         this.personajehabilidadesList = personajehabilidadesList;
     }
 
     @XmlTransient
-    public List<Personajeatributos> getPersonajeatributosList() {
+    public List<Personajeatributo> getPersonajeatributosList() {
         return personajeatributosList;
     }
 
-    public void setPersonajeatributosList(List<Personajeatributos> personajeatributosList) {
+    public void setPersonajeatributosList(List<Personajeatributo> personajeatributosList) {
         this.personajeatributosList = personajeatributosList;
     }
 
-    public Clases getClase() {
+    public Clase getClase() {
         return clase;
     }
 
-    public void setClase(Clases clase) {
+    public void setClase(Clase clase) {
         this.clase = clase;
     }
 
-    public Razas getRaza() {
+    public Raza getRaza() {
         return raza;
     }
 
-    public void setRaza(Razas raza) {
+    public void setRaza(Raza raza) {
         this.raza = raza;
     }
 
-    public Subclases getSubclase() {
+    public Subclase getSubclase() {
         return subclase;
     }
 
-    public void setSubclase(Subclases subclase) {
+    public void setSubclase(Subclase subclase) {
         this.subclase = subclase;
     }
 
-    public Subrazas getSubraza() {
+    public Subraza getSubraza() {
         return subraza;
     }
 
-    public void setSubraza(Subrazas subraza) {
+    public void setSubraza(Subraza subraza) {
         this.subraza = subraza;
     }
 
@@ -379,10 +379,10 @@ public class Personajes implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Personajes)) {
+        if (!(object instanceof Personaje)) {
             return false;
         }
-        Personajes other = (Personajes) object;
+        Personaje other = (Personaje) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -391,7 +391,7 @@ public class Personajes implements Serializable {
 
     @Override
     public String toString() {
-        return "controlador.Personajes[ id=" + id + " ]";
+        return "controlador.Personaje[ id=" + id + " ]";
     }
 
     public Integer getEdad() {
@@ -493,11 +493,11 @@ public class Personajes implements Serializable {
     }
 
     @XmlTransient
-    public List<Personajeatributosoriginal> getPersonajeatributosoriginalList() {
+    public List<Personajeatributooriginal> getPersonajeatributosoriginalList() {
         return personajeatributosoriginalList;
     }
 
-    public void setPersonajeatributosoriginalList(List<Personajeatributosoriginal> personajeatributosoriginalList) {
+    public void setPersonajeatributosoriginalList(List<Personajeatributooriginal> personajeatributosoriginalList) {
         this.personajeatributosoriginalList = personajeatributosoriginalList;
     }
 

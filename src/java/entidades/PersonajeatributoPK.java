@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
  * @author Cristian
  */
 @Embeddable
-public class PersonajeatributosoriginalPK implements Serializable {
+public class PersonajeatributoPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -26,10 +26,10 @@ public class PersonajeatributosoriginalPK implements Serializable {
     @Column(name = "ATRIBUTO", nullable = false, length = 36)
     private String atributo;
 
-    public PersonajeatributosoriginalPK() {
+    public PersonajeatributoPK() {
     }
 
-    public PersonajeatributosoriginalPK(String personaje, String atributo) {
+    public PersonajeatributoPK(String personaje, String atributo) {
         this.personaje = personaje;
         this.atributo = atributo;
     }
@@ -61,10 +61,10 @@ public class PersonajeatributosoriginalPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PersonajeatributosoriginalPK)) {
+        if (!(object instanceof PersonajeatributoPK)) {
             return false;
         }
-        PersonajeatributosoriginalPK other = (PersonajeatributosoriginalPK) object;
+        PersonajeatributoPK other = (PersonajeatributoPK) object;
         if ((this.personaje == null && other.personaje != null) || (this.personaje != null && !this.personaje.equals(other.personaje))) {
             return false;
         }
@@ -76,7 +76,7 @@ public class PersonajeatributosoriginalPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.PersonajeatributosoriginalPK[ personaje=" + personaje + ", atributo=" + atributo + " ]";
+        return "controlador.PersonajeatributoPK[ personaje=" + personaje + ", atributo=" + atributo + " ]";
     }
     
 }

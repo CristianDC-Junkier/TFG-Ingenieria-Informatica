@@ -22,12 +22,12 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "ESTADOS", catalog = "", schema = "SYS_G4")
+@Table(name = "ESTADO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Estados.findAll", query = "SELECT e FROM Estados e"),
-    @NamedQuery(name = "Estados.findByNombre", query = "SELECT e FROM Estados e WHERE e.nombre = :nombre")})
-public class Estados implements Serializable {
+    @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e"),
+    @NamedQuery(name = "Estado.findByNombre", query = "SELECT e FROM Estado e WHERE e.nombre = :nombre")})
+public class Estado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,16 +42,16 @@ public class Estados implements Serializable {
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
     @ManyToMany(mappedBy = "estadosList")
-    private List<Monstruos> monstruosList;
+    private List<Monstruo> monstruosList;
 
-    public Estados() {
+    public Estado() {
     }
 
-    public Estados(String nombre) {
+    public Estado(String nombre) {
         this.nombre = nombre;
     }
 
-    public Estados(String nombre, String descripcion) {
+    public Estado(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
@@ -73,11 +73,11 @@ public class Estados implements Serializable {
     }
 
     @XmlTransient
-    public List<Monstruos> getMonstruosList() {
+    public List<Monstruo> getMonstruosList() {
         return monstruosList;
     }
 
-    public void setMonstruosList(List<Monstruos> monstruosList) {
+    public void setMonstruosList(List<Monstruo> monstruosList) {
         this.monstruosList = monstruosList;
     }
 
@@ -91,10 +91,10 @@ public class Estados implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Estados)) {
+        if (!(object instanceof Estado)) {
             return false;
         }
-        Estados other = (Estados) object;
+        Estado other = (Estado) object;
         if ((this.nombre == null && other.nombre != null) || (this.nombre != null && !this.nombre.equals(other.nombre))) {
             return false;
         }
@@ -103,7 +103,7 @@ public class Estados implements Serializable {
 
     @Override
     public String toString() {
-        return "entidades.Estados[ nombre=" + nombre + " ]";
+        return "entidades.Estado[ nombre=" + nombre + " ]";
     }
     
 }

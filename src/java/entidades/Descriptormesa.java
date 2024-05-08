@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(name = "DESCRIPTORMESA", catalog = "", schema = "SYS_G4")
+@Table(name = "DESCRIPTORMESA")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Descriptormesa.findAll", query = "SELECT d FROM Descriptormesa d"),
@@ -43,7 +43,7 @@ public class Descriptormesa implements Serializable {
     private String mesa;
     @JoinColumn(name = "MESA", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @OneToOne(optional = false)
-    private Mesas mesas;
+    private Mesa mesas;
 
     public Descriptormesa() {
     }
@@ -83,11 +83,11 @@ public class Descriptormesa implements Serializable {
         this.mesa = mesa;
     }
 
-    public Mesas getMesas() {
+    public Mesa getMesas() {
         return mesas;
     }
 
-    public void setMesas(Mesas mesas) {
+    public void setMesas(Mesa mesas) {
         this.mesas = mesas;
     }
 
