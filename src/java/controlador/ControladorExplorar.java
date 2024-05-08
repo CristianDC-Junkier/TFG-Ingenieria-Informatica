@@ -16,7 +16,7 @@ import entidades.Subclases;
 import entidades.Subrazas;
 import entidades.Tablaclases;
 import entidades.Tablaclasespornivel;
-import entidades.Trasfondos;
+import entidades.Trasfondo;
 import entidades.Usaclase;
 import entidades.Usasubclase;
 import java.io.IOException;
@@ -80,7 +80,7 @@ public class ControladorExplorar extends HttpServlet {
         TypedQuery<Monstruos> queryMonstruos;
         TypedQuery<Razas> queryRazas;
         TypedQuery<Subrazas> querySubRazas;
-        TypedQuery<Trasfondos> queryTrasfondos;
+        TypedQuery<Trasfondo> queryTrasfondos;
         TypedQuery<Tablaclasespornivel> queryTablaClaseNivel;
 
         List<Estados> listaEstados;
@@ -95,7 +95,7 @@ public class ControladorExplorar extends HttpServlet {
         List<Razas> listaRazas;
         List<Subrazas> listaSubRazas;
         List<String> listaRazasImagenes;
-        List<Trasfondos> listaTrasfondos;
+        List<Trasfondo> listaTrasfondos;
         List<Tablaclasespornivel> listaTablaClaseNivel;
         List<Tablaclases> listaTablaClases;
         List<Rasgos> listaRasgos;
@@ -104,7 +104,7 @@ public class ControladorExplorar extends HttpServlet {
 
         Clases Clase;
         Subclases SubClase;
-        Trasfondos Trasfondo;
+        Trasfondo Trasfondo;
         Razas Raza;
         Subrazas SubRaza;
         Hechizos Hechizo;
@@ -1750,7 +1750,7 @@ public class ControladorExplorar extends HttpServlet {
             case "/trasfondo":
                 id = request.getParameter("idTrasfondo");
 
-                queryTrasfondos = em.createNamedQuery("Trasfondos.findById", Trasfondos.class);
+                queryTrasfondos = em.createNamedQuery("Trasfondo.findById", Trasfondo.class);
                 queryTrasfondos.setParameter("id", id);
                 Trasfondo = queryTrasfondos.getSingleResult();
 
@@ -1764,7 +1764,7 @@ public class ControladorExplorar extends HttpServlet {
                 break;
             case "/trasfondos":
 
-                queryTrasfondos = em.createNamedQuery("Trasfondos.findAll", Trasfondos.class);
+                queryTrasfondos = em.createNamedQuery("Trasfondo.findAll", Trasfondo.class);
                 listaTrasfondos = queryTrasfondos.getResultList();
 
                 request.setAttribute("listaTrasfondo", listaTrasfondos);

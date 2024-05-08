@@ -46,7 +46,7 @@ public class Pertenecemesa implements Serializable {
     private Mesas mesas;
     @JoinColumn(name = "USUARIO", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Usuarios usuarios;
+    private Usuario usuarios;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -112,11 +112,11 @@ public class Pertenecemesa implements Serializable {
         this.mesas = mesas;
     }
 
-    public Usuarios getUsuarios() {
+    public Usuario getUsuarios() {
         return usuarios;
     }
 
-    public void setUsuarios(Usuarios usuarios) {
+    public void setUsuarios(Usuario usuarios) {
         this.usuarios = usuarios;
     }
 

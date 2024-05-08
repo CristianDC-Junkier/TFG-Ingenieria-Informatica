@@ -12,10 +12,10 @@ import entidades.Razas;
 import entidades.Seccion;
 import entidades.Tablaclasespornivel;
 import entidades.Tema;
-import entidades.Trasfondos;
+import entidades.Trasfondo;
 import entidades.Usaclase;
 import entidades.Usasubclase;
-import entidades.Usuarios;
+import entidades.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class ControladorFormularios extends HttpServlet {
 
         HttpSession session;
 
-        Usuarios user;
+        Usuario user;
         Mesas mesa;
         Personajes personaje;
         Tablaclasespornivel tcnivel;
@@ -77,14 +77,14 @@ public class ControladorFormularios extends HttpServlet {
         TypedQuery<Clases> queryClases;
         TypedQuery<Razas> queryRazas;
         TypedQuery<Atributos> queryAtributos;
-        TypedQuery<Trasfondos> queryTrasfondos;
+        TypedQuery<Trasfondo> queryTrasfondos;
         TypedQuery<Personajes> queryPersonajes;
         TypedQuery<Tablaclasespornivel> queryTCNivel;
         TypedQuery<Usaclase> queryUsaClases;
         TypedQuery<Usasubclase> queryUsaSubClases;
         TypedQuery<Seccion> querySeccion;
         TypedQuery<Tema> queryTema;
-        TypedQuery<Usuarios> queryUsuarios;
+        TypedQuery<Usuario> queryUsuarios;
 
         List<Integer> listaHabValores;
         List<Dotes> listaDotes;
@@ -116,7 +116,7 @@ public class ControladorFormularios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -144,7 +144,7 @@ public class ControladorFormularios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -167,7 +167,7 @@ public class ControladorFormularios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -184,7 +184,7 @@ public class ControladorFormularios extends HttpServlet {
                 password = request.getParameter("password");
                 msj = request.getParameter("msj");
 
-                queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                queryUsuarios = em.createNamedQuery("Usuario.findById", Usuario.class);
                 queryUsuarios.setParameter("id", id);
 
                 try {
@@ -214,7 +214,7 @@ public class ControladorFormularios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -231,7 +231,7 @@ public class ControladorFormularios extends HttpServlet {
                     request.setAttribute("listaRazas", queryRazas.getResultList());
                     queryAtributos = em.createNamedQuery("Atributos.findAll", Atributos.class);
                     request.setAttribute("listaAtributos", queryAtributos.getResultList());
-                    queryTrasfondos = em.createNamedQuery("Trasfondos.findAll", Trasfondos.class);
+                    queryTrasfondos = em.createNamedQuery("Trasfondo.findAll", Trasfondo.class);
                     request.setAttribute("listaTrasfondos", queryTrasfondos.getResultList());
 
                     vista = "/WEB-INF/jsp/formularios/crearpersonaje.jsp";
@@ -242,7 +242,7 @@ public class ControladorFormularios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -270,7 +270,7 @@ public class ControladorFormularios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -369,7 +369,7 @@ public class ControladorFormularios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -399,7 +399,7 @@ public class ControladorFormularios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -518,7 +518,7 @@ public class ControladorFormularios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";

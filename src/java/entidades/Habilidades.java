@@ -68,14 +68,14 @@ public class Habilidades implements Serializable {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TRASFONDO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Trasfondos> trasfondosList;
+    private List<Trasfondo> trasfondosList;
     @ManyToMany(mappedBy = "habilidadesList")
     private List<Clases> clasesList;
     @JoinTable(name = "COMPETETRASFONDO", joinColumns = {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TRASFONDO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Trasfondos> trasfondosList1;
+    private List<Trasfondo> trasfondosList1;
     @ManyToMany(mappedBy = "habilidadesListE")
     private List<Subrazas> subrazasList1;
 
@@ -111,11 +111,11 @@ public class Habilidades implements Serializable {
     }
 
     @XmlTransient
-    public List<Trasfondos> getTrasfondosList() {
+    public List<Trasfondo> getTrasfondosList() {
         return trasfondosList;
     }
 
-    public void setTrasfondosList(List<Trasfondos> trasfondosList) {
+    public void setTrasfondosList(List<Trasfondo> trasfondosList) {
         this.trasfondosList = trasfondosList;
     }
 
@@ -129,11 +129,11 @@ public class Habilidades implements Serializable {
     }
 
     @XmlTransient
-    public List<Trasfondos> getTrasfondosList1() {
+    public List<Trasfondo> getTrasfondosList1() {
         return trasfondosList1;
     }
 
-    public void setTrasfondosList1(List<Trasfondos> trasfondosList1) {
+    public void setTrasfondosList1(List<Trasfondo> trasfondosList1) {
         this.trasfondosList1 = trasfondosList1;
     }
 

@@ -13,7 +13,7 @@ import entidades.Pertenecemesa;
 import entidades.Razas;
 import entidades.Subclases;
 import entidades.Subrazas;
-import entidades.Usuarios;
+import entidades.Usuario;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -72,8 +72,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             HttpSession session;
 
-            Usuarios user;
-            Usuarios useraux;
+            Usuario user;
+            Usuario useraux;
             Mensajesamigos MEAux;
             Mensajesamigos MRAux;
             Hechizos hechizoAux;
@@ -81,7 +81,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             Equipo equipoAux;
             Atributos Atributo;
 
-            TypedQuery<Usuarios> queryUsuarios;
+            TypedQuery<Usuario> queryUsuarios;
             TypedQuery<Pertenecemesa> queryPMesas;
             TypedQuery<Mensajesamigos> queryMensajesAmigos;
             TypedQuery<Hechizos> queryHechizos;
@@ -95,7 +95,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             Query queryAUX;
 
-            List<Usuarios> listaUsuarios;
+            List<Usuario> listaUsuarios;
             List<Pertenecemesa> listaPerteneceMesa;
             List<Mesas> listaMesas;
             List<Mensajesamigos> listaMensajesEnviados;
@@ -174,7 +174,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ordenar = request.getParameter("orden");//como ordenar
                     mesa = request.getParameter("mesa");//si filtramos por mesa o no
@@ -189,7 +189,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u.* FROM USUARIOS u "
+                                sql = "SELECT u.* FROM USUARIO u "
                                         + "WHERE u.APODO <> '" + user.getApodo() + "' "
                                         + "AND u.APODO LIKE '" + nombre + "%' "
                                         + "AND u.ID NOT IN ("
@@ -205,7 +205,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "    ORDER BY u.apodo ASC ";
 
                             } else {
-                                sql = "SELECT DISTINCT u.* FROM USUARIOS u "
+                                sql = "SELECT DISTINCT u.* FROM USUARIO u "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u.id = p2.usuario "
                                         + "WHERE u.APODO <> '" + user.getApodo() + "'" + " AND p1.mesa = p2.mesa  "
@@ -225,7 +225,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                         case "ordenar2":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u.* FROM USUARIOS u "
+                                sql = "SELECT u.* FROM USUARIO u "
                                         + "WHERE u.APODO <> '" + user.getApodo() + "' "
                                         + "AND u.APODO LIKE '" + nombre + "%' "
                                         + "AND u.ID NOT IN ("
@@ -240,7 +240,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
                                         + "    ORDER BY u.apodo DESC ";
                             } else {
-                                sql = "SELECT DISTINCT u.* FROM USUARIOS u "
+                                sql = "SELECT DISTINCT u.* FROM USUARIO u "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u.id = p2.usuario "
                                         + "WHERE u.APODO <> '" + user.getApodo() + "'" + " AND p1.mesa = p2.mesa  "
@@ -260,7 +260,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Usuario.class);
                     listaUsuarios = queryAUX.getResultList();
 
                     pertenecemesaUsuarios = new ArrayList();
@@ -305,7 +305,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "<table>";
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
-                        Usuarios usuario = listaUsuarios.get(i);
+                        Usuario usuario = listaUsuarios.get(i);
                         resultado = resultado
                                 + "<tr><td>"
                                 + "<div class=\"personaje-foto\">\n";
@@ -334,7 +334,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ordenar = request.getParameter("orden");//como ordenar
                     mesa = request.getParameter("mesa");//si filtramos por mesa o no
@@ -349,7 +349,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                         + "WHERE a.amigo1 = '" + user.getId() + "'"
@@ -357,7 +357,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
                                         + "WHERE a.amigo1 = '" + user.getApodo() + "'"
@@ -367,14 +367,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                         case "ordenar2":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                         + "WHERE a.amigo1 = '" + user.getId() + "'"
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "ORDER BY u2.apodo DESC ";
                             } else {
-                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
                                         + "WHERE a.amigo1 = '" + user.getApodo() + "' "
@@ -384,7 +384,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Usuario.class);
                     listaUsuarios = queryAUX.getResultList();
 
                     fotosPersonajes = new ArrayList();
@@ -401,7 +401,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "<table>";
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
-                        Usuarios usuario = listaUsuarios.get(i);
+                        Usuario usuario = listaUsuarios.get(i);
                         resultado = resultado
                                 + "<tr><td>"
                                 + "<div class=\"personaje-foto\">\n";
@@ -441,7 +441,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ordenar = request.getParameter("orden");//como ordenar
                     mesa = request.getParameter("mesa");//si filtramos por mesa o no
@@ -456,7 +456,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "WHERE p.pide = '" + user.getId() + "' "
@@ -464,7 +464,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -477,7 +477,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                         case "ordenar2":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "WHERE p.pide = '" + user.getId() + "' "
@@ -485,7 +485,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -498,7 +498,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Usuario.class);
                     listaUsuarios = queryAUX.getResultList();
 
                     pertenecemesaUsuarios = new ArrayList();
@@ -544,7 +544,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "<table>";
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
-                        Usuarios usuario = listaUsuarios.get(i);
+                        Usuario usuario = listaUsuarios.get(i);
                         resultado = resultado
                                 + "<tr><td>"
                                 + "<div class=\"personaje-foto\">\n";
@@ -572,7 +572,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ordenar = request.getParameter("orden");//como ordenar
                     mesa = request.getParameter("mesa");//si filtramos por mesa o no
@@ -587,14 +587,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "ORDER BY u2.apodo ASC ";
                             } else {
-                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -607,14 +607,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                         case "ordenar2":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "ORDER BY u2.apodo DESC ";
                             } else {
-                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -627,7 +627,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Usuario.class);
                     listaUsuarios = queryAUX.getResultList();
 
                     pertenecemesaUsuarios = new ArrayList();
@@ -673,7 +673,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "<table>";
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
-                        Usuarios usuario = listaUsuarios.get(i);
+                        Usuario usuario = listaUsuarios.get(i);
                         resultado = resultado
                                 + "<tr><td>"
                                 + "<div class=\"personaje-foto\">\n";
@@ -702,7 +702,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ordenar = request.getParameter("orden");//como ordenar
 
@@ -713,7 +713,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     switch (ordenar) {
                         case "ordenar1":
-                            sql = "SELECT u2.* FROM Usuarios u "
+                            sql = "SELECT u2.* FROM Usuario u "
                                     + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
                                     + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
                                     + "WHERE b.bloqueador = '" + user.getId() + "' "
@@ -721,7 +721,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "ORDER BY u2.apodo ASC ";
                             break;
                         case "ordenar2":
-                            sql = "SELECT u2.* FROM Usuarios u "
+                            sql = "SELECT u2.* FROM Usuario u "
                                     + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
                                     + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
                                     + "WHERE b.bloqueador = '" + user.getId() + "' "
@@ -730,7 +730,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Usuario.class);
                     listaUsuarios = queryAUX.getResultList();
 
                     fotosPersonajes = new ArrayList();
@@ -747,7 +747,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = "<table>";
 
                     for (int i = 0; i < listaUsuarios.size(); i++) {
-                        Usuarios usuario = listaUsuarios.get(i);
+                        Usuario usuario = listaUsuarios.get(i);
                         resultado = resultado
                                 + "<tr><td>"
                                 + "<div class=\"personaje-foto\">\n";
@@ -789,7 +789,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ordenar = request.getParameter("orden");//como ordenar
                     lleno = request.getParameter("lleno");//si filtramos por lleno o no
@@ -1093,7 +1093,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ordenar = request.getParameter("orden");//como ordenar
 
@@ -1250,7 +1250,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -1278,7 +1278,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -1314,7 +1314,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     //Para saber si estamos conectados o no
                     if (user == null) {
@@ -1436,7 +1436,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     //Recogemos los datos
                     ordenar = request.getParameter("orden");//como ordenar
@@ -1599,7 +1599,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Personajes.class);
                     listaPersonajes = queryAUX.getResultList();
 
-                    queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                    queryUsuarios = em.createNamedQuery("Usuario.findById", Usuario.class);
                     queryUsuarios.setParameter("id", id);
                     useraux = queryUsuarios.getSingleResult();
 
@@ -1656,7 +1656,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     //Recogemos los datos
                     ordenar = request.getParameter("orden");//como ordenar
@@ -1768,7 +1768,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     //Recogemos los datos
                     ordenar = request.getParameter("orden");//como ordenar
@@ -2901,7 +2901,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
-                    queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                    queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                     queryUsuarios.setParameter("apodo", nombre);
 
                     if (!queryUsuarios.getResultList().isEmpty()) {
@@ -2916,7 +2916,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
-                    queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                    queryUsuarios = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
                     queryUsuarios.setParameter("correo", nombre);
 
                     if (!queryUsuarios.getResultList().isEmpty()) {
@@ -2931,7 +2931,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
-                    queryUsuarios = em.createNamedQuery("Usuarios.findByTelefono", Usuarios.class);
+                    queryUsuarios = em.createNamedQuery("Usuario.findByTelefono", Usuario.class);
                     queryUsuarios.setParameter("telefono", new BigInteger(nombre));
 
                     if (!queryUsuarios.getResultList().isEmpty()) {
@@ -2979,7 +2979,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
-                    queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                    queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                     queryUsuarios.setParameter("apodo", nombre);
 
                     if (!queryUsuarios.getResultList().isEmpty()) {
@@ -2994,7 +2994,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
-                    queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                    queryUsuarios = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
                     queryUsuarios.setParameter("correo", nombre);
 
                     if (!queryUsuarios.getResultList().isEmpty()) {
@@ -3008,7 +3008,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -3018,7 +3018,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     if (user.getApodo().equals(nombre)) {
                         resultado = "No Encontrado";
                     } else {
-                        queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                        queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                         queryUsuarios.setParameter("apodo", nombre);
 
                         if (!queryUsuarios.getResultList().isEmpty()) {
@@ -3033,7 +3033,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -3043,7 +3043,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     if (user.getCorreo().equals(nombre)) {
                         resultado = "No Encontrado";
                     } else {
-                        queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                        queryUsuarios = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
                         queryUsuarios.setParameter("correo", nombre);
 
                         if (!queryUsuarios.getResultList().isEmpty()) {
@@ -3059,7 +3059,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -3069,7 +3069,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     if (user.getTelefono() == new BigInteger(nombre)) {
                         resultado = "No Encontrado";
                     } else {
-                        queryUsuarios = em.createNamedQuery("Usuarios.findByTelefono", Usuarios.class);
+                        queryUsuarios = em.createNamedQuery("Usuario.findByTelefono", Usuario.class);
                         queryUsuarios.setParameter("telefono", new BigInteger(nombre));
 
                         if (!queryUsuarios.getResultList().isEmpty()) {

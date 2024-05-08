@@ -27,20 +27,20 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u"),
-    @NamedQuery(name = "Usuarios.findById", query = "SELECT u FROM Usuarios u WHERE u.id = :id"),
-    @NamedQuery(name = "Usuarios.findByApodo", query = "SELECT u FROM Usuarios u WHERE u.apodo = :apodo"),
-    @NamedQuery(name = "Usuarios.findByNombre", query = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre"),
-    @NamedQuery(name = "Usuarios.findByCorreo", query = "SELECT u FROM Usuarios u WHERE u.correo = :correo"),
-    @NamedQuery(name = "Usuarios.findByContrasena", query = "SELECT u FROM Usuarios u WHERE u.contrasena = :contrasena"),
-    @NamedQuery(name = "Usuarios.findByTelefono", query = "SELECT u FROM Usuarios u WHERE u.telefono = :telefono"),
-    @NamedQuery(name = "Usuarios.findByFechanac", query = "SELECT u FROM Usuarios u WHERE u.fechanac = :fechanac"),
-    @NamedQuery(name = "Usuarios.findByProvincia", query = "SELECT u FROM Usuarios u WHERE u.provincia = :provincia"),
-    @NamedQuery(name = "Usuarios.findByGenero", query = "SELECT u FROM Usuarios u WHERE u.genero = :genero"),
-    @NamedQuery(name = "Usuarios.findByAdmin", query = "SELECT u FROM Usuarios u WHERE u.admin = :admin"),
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
+    @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id"),
+    @NamedQuery(name = "Usuario.findByApodo", query = "SELECT u FROM Usuario u WHERE u.apodo = :apodo"),
+    @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
+    @NamedQuery(name = "Usuario.findByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo"),
+    @NamedQuery(name = "Usuario.findByContrasena", query = "SELECT u FROM Usuario u WHERE u.contrasena = :contrasena"),
+    @NamedQuery(name = "Usuario.findByTelefono", query = "SELECT u FROM Usuario u WHERE u.telefono = :telefono"),
+    @NamedQuery(name = "Usuario.findByFechanac", query = "SELECT u FROM Usuario u WHERE u.fechanac = :fechanac"),
+    @NamedQuery(name = "Usuario.findByProvincia", query = "SELECT u FROM Usuario u WHERE u.provincia = :provincia"),
+    @NamedQuery(name = "Usuario.findByGenero", query = "SELECT u FROM Usuario u WHERE u.genero = :genero"),
+    @NamedQuery(name = "Usuario.findByAdmin", query = "SELECT u FROM Usuario u WHERE u.admin = :admin"),
 })
 
-public class Usuarios implements Serializable {
+public class Usuario implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -96,23 +96,23 @@ public class Usuarios implements Serializable {
         @JoinColumn(name = "BLOQUEADO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "BLOQUEADOR", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Usuarios> usuariosList;
+    private List<Usuario> usuariosList;
     @ManyToMany(mappedBy = "usuariosList")
-    private List<Usuarios> usuariosList1;
+    private List<Usuario> usuariosList1;
     @JoinTable(name = "PIDEAMISTAD", joinColumns = {
         @JoinColumn(name = "ACEPTA", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "PIDE", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Usuarios> usuariosList2;
+    private List<Usuario> usuariosList2;
     @ManyToMany(mappedBy = "usuariosList2")
-    private List<Usuarios> usuariosAmigos;
+    private List<Usuario> usuariosAmigos;
     @JoinTable(name = "AMIGOS", joinColumns = {
         @JoinColumn(name = "AMIGO1", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "AMIGO2", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Usuarios> usuariosList4;
+    private List<Usuario> usuariosList4;
     @ManyToMany(mappedBy = "usuariosList4")
-    private List<Usuarios> usuariosList5;
+    private List<Usuario> usuariosList5;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarios")
     private List<Pertenecemesa> pertenecemesaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "escritor")
@@ -129,14 +129,14 @@ public class Usuarios implements Serializable {
     @Column(name = "ID")
     private String id;
 
-    public Usuarios() {
+    public Usuario() {
     }
 
-    public Usuarios(String id) {
+    public Usuario(String id) {
         this.id = id;
     }
 
-    public Usuarios(String id, String apodo, String nombre, String correo, String contrasena, Date fechanac, String provincia, String genero, short admin) {
+    public Usuario(String id, String apodo, String nombre, String correo, String contrasena, Date fechanac, String provincia, String genero, short admin) {
         this.id = id;
         this.apodo = apodo;
         this.nombre = nombre;
@@ -148,7 +148,7 @@ public class Usuarios implements Serializable {
         this.admin = admin;
     }
 
-    public Usuarios(String apodo, String nombre, String correo, String contrasena, Date fechanac, String provincia, String genero, short admin) {
+    public Usuario(String apodo, String nombre, String correo, String contrasena, Date fechanac, String provincia, String genero, short admin) {
         this.apodo = apodo;
         this.nombre = nombre;
         this.correo = correo;
@@ -187,10 +187,10 @@ public class Usuarios implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuarios)) {
+        if (!(object instanceof Usuario)) {
             return false;
         }
-        Usuarios other = (Usuarios) object;
+        Usuario other = (Usuario) object;
 if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -198,56 +198,56 @@ if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals
     }
 
     @XmlTransient
-    public List<Usuarios> getUsuariosList() {
+    public List<Usuario> getUsuariosList() {
         return usuariosList;
     }
 
-    public void setUsuariosList(List<Usuarios> usuariosList) {
+    public void setUsuariosList(List<Usuario> usuariosList) {
         this.usuariosList = usuariosList;
     }
 
     @XmlTransient
-    public List<Usuarios> getUsuariosList1() {
+    public List<Usuario> getUsuariosList1() {
         return usuariosList1;
     }
 
-    public void setUsuariosList1(List<Usuarios> usuariosList1) {
+    public void setUsuariosList1(List<Usuario> usuariosList1) {
         this.usuariosList1 = usuariosList1;
     }
 
     @XmlTransient
-    public List<Usuarios> getUsuariosList2() {
+    public List<Usuario> getUsuariosList2() {
         return usuariosList2;
     }
 
-    public void setUsuariosList2(List<Usuarios> usuariosList2) {
+    public void setUsuariosList2(List<Usuario> usuariosList2) {
         this.usuariosList2 = usuariosList2;
     }
 
     @XmlTransient
-    public List<Usuarios> getUsuariosAmigos() {
+    public List<Usuario> getUsuariosAmigos() {
         return usuariosAmigos;
     }
 
-    public void setUsuariosAmigos(List<Usuarios> usuariosAmigos) {
+    public void setUsuariosAmigos(List<Usuario> usuariosAmigos) {
         this.usuariosAmigos = usuariosAmigos;
     }
 
     @XmlTransient
-    public List<Usuarios> getUsuariosList4() {
+    public List<Usuario> getUsuariosList4() {
         return usuariosList4;
     }
 
-    public void setUsuariosList4(List<Usuarios> usuariosList4) {
+    public void setUsuariosList4(List<Usuario> usuariosList4) {
         this.usuariosList4 = usuariosList4;
     }
 
     @XmlTransient
-    public List<Usuarios> getUsuariosList5() {
+    public List<Usuario> getUsuariosList5() {
         return usuariosList5;
     }
 
-    public void setUsuariosList5(List<Usuarios> usuariosList5) {
+    public void setUsuariosList5(List<Usuario> usuariosList5) {
         this.usuariosList5 = usuariosList5;
     }
 

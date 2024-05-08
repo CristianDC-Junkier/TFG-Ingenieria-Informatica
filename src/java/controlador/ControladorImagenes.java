@@ -4,7 +4,7 @@ import entidades.Descriptormesa;
 import entidades.Mesas;
 import entidades.Personajes;
 import entidades.Pertenecemesa;
-import entidades.Usuarios;
+import entidades.Usuario;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,7 +56,7 @@ public class ControladorImagenes extends HttpServlet {
 
         HttpSession session;
 
-        Usuarios user;
+        Usuario user;
         Mesas mesa;
         Personajes personaje;
         Pertenecemesa pmesa;
@@ -80,7 +80,7 @@ public class ControladorImagenes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 /////////////////////////////
                 /////////ES TU MESA//////////
@@ -146,7 +146,7 @@ public class ControladorImagenes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 descripcion = request.getParameter("descripcion");
                 id = request.getParameter("id");
@@ -222,7 +222,7 @@ public class ControladorImagenes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 /////////////////////////////
                 ///////ES TU PERSONAJE///////

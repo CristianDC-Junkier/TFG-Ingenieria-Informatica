@@ -18,10 +18,10 @@ import entidades.Requisitosdote;
 import entidades.Subclases;
 import entidades.Subrazas;
 import entidades.Tablaclasespornivel;
-import entidades.Trasfondos;
+import entidades.Trasfondo;
 import entidades.Usaclase;
 import entidades.Usasubclase;
-import entidades.Usuarios;
+import entidades.Usuario;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -79,13 +79,13 @@ public class ControladorPersonajes extends HttpServlet {
         String msj;
         Object result;
 
-        TypedQuery<Usuarios> queryUsuarios;
+        TypedQuery<Usuario> queryUsuarios;
         TypedQuery<Amigos> queryAmigos;
         TypedQuery<Clases> queryClases;
         TypedQuery<Subclases> querySubclases;
         TypedQuery<Razas> queryRazas;
         TypedQuery<Subrazas> querySubrazas;
-        TypedQuery<Trasfondos> queryTrasfondos;
+        TypedQuery<Trasfondo> queryTrasfondos;
         TypedQuery<Personajes> queryPersonajes;
         TypedQuery<Atributos> queryAtributos;
         TypedQuery<Habilidades> queryHabilidades;
@@ -101,7 +101,7 @@ public class ControladorPersonajes extends HttpServlet {
         Query queryAUX;
 
         List<Personajes> listaPersonajes;
-        List<Usuarios> listaUsuarios;
+        List<Usuario> listaUsuarios;
         List<String> fotosPersonajes;
         List<Atributos> listaAtributos;
         List<Atributos> listaAtributosAux;
@@ -121,15 +121,15 @@ public class ControladorPersonajes extends HttpServlet {
         HashSet<Hechizos> hashAuxHechizos;
         HashSet<Equipo> hashAuxEquipo;
 
-        Usuarios user;
-        Usuarios useraux;
+        Usuario user;
+        Usuario useraux;
         Personajes personaje;
         Personajes personajeaux;
         Clases clase;
         Subclases subclase;
         Razas raza;
         Subrazas subraza;
-        Trasfondos transfondo;
+        Trasfondo transfondo;
         Atributos atributo;
         Personajeatributos personajeAtributo;
         Personajeatributosoriginal personajeAtributoOriginal;
@@ -226,7 +226,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 conseguido = false;
                 msj = "";
@@ -302,7 +302,7 @@ public class ControladorPersonajes extends HttpServlet {
                         //////////////////
                         ////TRASFONDO/////
                         //////////////////
-                        queryTrasfondos = em.createNamedQuery("Trasfondos.findByNombre", Trasfondos.class);
+                        queryTrasfondos = em.createNamedQuery("Trasfondo.findByNombre", Trasfondo.class);
                         queryTrasfondos.setParameter("nombre", personaje_trasfondo);
                         transfondo = queryTrasfondos.getSingleResult();
 
@@ -541,7 +541,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -642,7 +642,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -696,7 +696,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -804,7 +804,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -831,7 +831,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -858,7 +858,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -885,7 +885,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -912,7 +912,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -947,7 +947,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1013,7 +1013,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 //Para saber si estamos conectados o no
                 if (user == null) {
@@ -1146,7 +1146,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1282,7 +1282,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1388,7 +1388,7 @@ public class ControladorPersonajes extends HttpServlet {
                     request.setAttribute("listaClases", queryClases.getResultList());
                     queryRazas = em.createNamedQuery("Razas.findAll", Razas.class);
                     request.setAttribute("listaRazas", queryRazas.getResultList());
-                    queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                    queryUsuarios = em.createNamedQuery("Usuario.findById", Usuario.class);
                     queryUsuarios.setParameter("id", id);
                     request.setAttribute("amigo", queryUsuarios.getSingleResult());
 
@@ -1419,7 +1419,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1567,7 +1567,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
                 //Recogemos los datos
                 personaje_id = request.getParameter("id");
 
@@ -1593,7 +1593,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1731,7 +1731,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1875,7 +1875,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1961,7 +1961,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -2061,7 +2061,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -2104,7 +2104,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -2400,7 +2400,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -2492,7 +2492,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -2641,7 +2641,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -2790,7 +2790,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 //Recogemos los datos
                 personaje_id = request.getParameter("personaje");
@@ -2824,7 +2824,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 //Recogemos los datos
                 personaje_id = request.getParameter("personaje");
@@ -2864,7 +2864,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -2999,7 +2999,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -3134,7 +3134,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 //Recogemos los datos
                 personaje_id = request.getParameter("personaje");
@@ -3167,7 +3167,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 //Recogemos los datos
                 id = request.getParameter("hechizo");
@@ -3209,7 +3209,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 //Recogemos los datos
                 personaje_id = request.getParameter("personaje");
@@ -3293,7 +3293,7 @@ public class ControladorPersonajes extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 //Recogemos los datos
                 personaje_id = request.getParameter("personaje");

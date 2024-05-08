@@ -112,7 +112,7 @@ public class Personajes implements Serializable {
     private Integer edad;
 
     @OneToMany(mappedBy = "personajeactual")
-    private List<Usuarios> usuariosList;
+    private List<Usuario> usuariosList;
     @JoinTable(name = "PERSONAJEHECHIZOS", joinColumns = {
         @JoinColumn(name = "PERSONAJE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "HECHIZO", referencedColumnName = "ID", nullable = false)})
@@ -146,10 +146,10 @@ public class Personajes implements Serializable {
     private Subrazas subraza;
     @JoinColumn(name = "TRASFONDO", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Trasfondos trasfondo;
+    private Trasfondo trasfondo;
     @JoinColumn(name = "USUARIO", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Usuarios usuario;
+    private Usuario usuario;
 
     public Personajes() {
     }
@@ -169,7 +169,7 @@ public class Personajes implements Serializable {
         this.clasearmadura = clasearmadura;
     }
 
-    public Personajes(String nombre, String alineamiento, Integer nivel, Integer pvida, Integer pvidaactuales, Integer clasearmadura, Usuarios usuario) {
+    public Personajes(String nombre, String alineamiento, Integer nivel, Integer pvida, Integer pvidaactuales, Integer clasearmadura, Usuario usuario) {
         this.nombre = nombre;
         this.alineamiento = alineamiento;
         this.nivel = nivel;
@@ -179,7 +179,7 @@ public class Personajes implements Serializable {
         this.usuario = usuario;
     }
 
-    public Personajes(Personajes personaje, Usuarios usuario, List<Personajes> personajes) {
+    public Personajes(Personajes personaje, Usuario usuario, List<Personajes> personajes) {
 
         this.alineamiento = personaje.getAlineamiento();
         this.apariencia = personaje.getApariencia();
@@ -353,19 +353,19 @@ public class Personajes implements Serializable {
         this.subraza = subraza;
     }
 
-    public Trasfondos getTrasfondo() {
+    public Trasfondo getTrasfondo() {
         return trasfondo;
     }
 
-    public void setTrasfondo(Trasfondos trasfondo) {
+    public void setTrasfondo(Trasfondo trasfondo) {
         this.trasfondo = trasfondo;
     }
 
-    public Usuarios getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuarios usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
@@ -403,11 +403,11 @@ public class Personajes implements Serializable {
     }
 
     @XmlTransient
-    public List<Usuarios> getUsuariosList() {
+    public List<Usuario> getUsuariosList() {
         return usuariosList;
     }
 
-    public void setUsuariosList(List<Usuarios> usuariosList) {
+    public void setUsuariosList(List<Usuario> usuariosList) {
         this.usuariosList = usuariosList;
     }
 

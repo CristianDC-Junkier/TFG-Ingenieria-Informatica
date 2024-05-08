@@ -8,7 +8,7 @@ import entidades.Musica;
 import entidades.Musicamesa;
 import entidades.Personajes;
 import entidades.Pertenecemesa;
-import entidades.Usuarios;
+import entidades.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
@@ -63,8 +63,8 @@ public class ControladorChats extends HttpServlet {
 
             HttpSession session;
 
-            Usuarios user;
-            Usuarios useraux;
+            Usuario user;
+            Usuario useraux;
             Mensajesamigos MEAux;
             Mensajesamigos MRAux;
             Mensajesamigos msjA = null;
@@ -76,7 +76,7 @@ public class ControladorChats extends HttpServlet {
             Musica musica;
             Personajes personaje;
 
-            TypedQuery<Usuarios> queryUsuarios;
+            TypedQuery<Usuario> queryUsuarios;
             TypedQuery<Amigos> queryAmigos;
             TypedQuery<Mensajesamigos> queryMensajesAmigos;
             TypedQuery<Mensajesmesas> queryMensajesMesas;
@@ -87,7 +87,7 @@ public class ControladorChats extends HttpServlet {
 
             Query queryAUX;
 
-            List<Usuarios> listaUsuarios;
+            List<Usuario> listaUsuarios;
             List<Mensajesamigos> listaMensajesEnviados;
             List<Mensajesamigos> listaMensajesRecibidos;
             List<Mensajesamigos> listaMensajesOrdenados;
@@ -130,7 +130,7 @@ public class ControladorChats extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user"); 
+                    user = (Usuario) session.getAttribute("user"); 
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -140,7 +140,7 @@ public class ControladorChats extends HttpServlet {
                     if (nombre.equalsIgnoreCase("-1")) {
 
                     } else {
-                        queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                        queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                         queryUsuarios.setParameter("apodo", nombre);
                         useraux = queryUsuarios.getSingleResult();
 
@@ -253,14 +253,14 @@ public class ControladorChats extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
-                    queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                    queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                     queryUsuarios.setParameter("apodo", nombre);
                     try {
                         useraux = queryUsuarios.getSingleResult();
@@ -406,20 +406,20 @@ public class ControladorChats extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
-                    sql = "SELECT u2.* FROM Usuarios u "
+                    sql = "SELECT u2.* FROM Usuario u "
                             + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                             + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                             + "WHERE a.amigo1 = '" + user.getId() + "'"
                             + "ORDER BY u2.apodo ASC ";
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Usuario.class);
                     listaUsuarios = queryAUX.getResultList();
 
                     cont = 0;
@@ -480,7 +480,7 @@ public class ControladorChats extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     if (user == null) {
                         resultado = "No Conseguido";
@@ -490,7 +490,7 @@ public class ControladorChats extends HttpServlet {
                         if (apodo.equalsIgnoreCase("-1")) {
                             resultado = "No Conseguido";
                         } else {
-                            queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                            queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                             queryUsuarios.setParameter("apodo", apodo);
                             useraux = queryUsuarios.getSingleResult();
 
@@ -527,7 +527,7 @@ public class ControladorChats extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -542,7 +542,7 @@ public class ControladorChats extends HttpServlet {
                         if (apodo.equalsIgnoreCase("-1")) {
                             resultado = "No Conseguido";
                         } else {
-                            queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                            queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                             queryUsuarios.setParameter("apodo", apodo);
                             useraux = queryUsuarios.getSingleResult();
 
@@ -662,7 +662,7 @@ public class ControladorChats extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     if (user == null) {
                         resultado = "No Conseguido";
@@ -708,7 +708,7 @@ public class ControladorChats extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -753,7 +753,7 @@ public class ControladorChats extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -913,7 +913,7 @@ public class ControladorChats extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     if (user == null) {
                         resultado = "";
@@ -993,7 +993,7 @@ public class ControladorChats extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     if (user == null) {
                     } else {

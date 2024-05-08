@@ -52,10 +52,10 @@ public class Mensajesamigos implements Serializable {
     private Date fecha;
     @JoinColumn(name = "RECEPTOR", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Usuarios receptor;
+    private Usuario receptor;
     @JoinColumn(name = "ESCRITOR", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Usuarios escritor;
+    private Usuario escritor;
 
     public Mensajesamigos() {
     }
@@ -75,7 +75,7 @@ public class Mensajesamigos implements Serializable {
         this.fecha = fecha;
     }
 
-    public Mensajesamigos(String mensaje, Date fecha, Usuarios receptor, Usuarios escritor) {
+    public Mensajesamigos(String mensaje, Date fecha, Usuario receptor, Usuario escritor) {
         this.mensaje = mensaje;
         this.fecha = fecha;
         this.receptor = receptor;
@@ -116,19 +116,19 @@ public class Mensajesamigos implements Serializable {
         return horaFormateada;
     }
 
-    public Usuarios getReceptor() {
+    public Usuario getReceptor() {
         return receptor;
     }
 
-    public void setReceptor(Usuarios receptor) {
+    public void setReceptor(Usuario receptor) {
         this.receptor = receptor;
     }
 
-    public Usuarios getEscritor() {
+    public Usuario getEscritor() {
         return escritor;
     }
 
-    public void setEscritor(Usuarios escritor) {
+    public void setEscritor(Usuario escritor) {
         this.escritor = escritor;
     }
     

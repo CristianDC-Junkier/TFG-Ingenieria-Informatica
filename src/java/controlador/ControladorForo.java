@@ -4,7 +4,7 @@ import entidades.Hilo;
 import entidades.Mensajehilo;
 import entidades.Seccion;
 import entidades.Tema;
-import entidades.Usuarios;
+import entidades.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class ControladorForo extends HttpServlet {
         String vista = "";
 
         HttpSession session;
-        Usuarios user;
+        Usuario user;
 
         Hilo hilo;
         Seccion seccion;
@@ -116,7 +116,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -129,7 +129,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -148,7 +148,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -175,7 +175,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -308,7 +308,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 hilo_id = request.getParameter("hilo");
 
@@ -395,7 +395,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -477,7 +477,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 hilo_id = request.getParameter("hilo");
 
@@ -510,7 +510,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -556,7 +556,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -595,7 +595,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Foro/hilo";
@@ -633,7 +633,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -663,7 +663,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {//ESTA MAL
                     vista = "/Principal/inicio";
@@ -690,7 +690,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -721,7 +721,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -751,7 +751,7 @@ public class ControladorForo extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";

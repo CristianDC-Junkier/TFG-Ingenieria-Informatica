@@ -52,7 +52,7 @@ public class Mensajesmesas implements Serializable {
     private Mesas mesa;
     @JoinColumn(name = "ESCRITOR", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Usuarios escritor;
+    private Usuario escritor;
 
     public Mensajesmesas() {
     }
@@ -61,7 +61,7 @@ public class Mensajesmesas implements Serializable {
         this.id = id;
     }
 
-    public Mensajesmesas(String id, String mensaje, Date fecha, Mesas mesa, Usuarios escritor) {
+    public Mensajesmesas(String id, String mensaje, Date fecha, Mesas mesa, Usuario escritor) {
         this.id = id;
         this.mensaje = mensaje;
         this.fecha = fecha;
@@ -69,7 +69,7 @@ public class Mensajesmesas implements Serializable {
         this.escritor = escritor;
     }
 
-    public Mensajesmesas(String mensaje, Date fecha, Mesas mesa, Usuarios escritor) {
+    public Mensajesmesas(String mensaje, Date fecha, Mesas mesa, Usuario escritor) {
         this.mensaje = mensaje;
         this.fecha = fecha;
         this.mesa = mesa;
@@ -123,11 +123,11 @@ public class Mensajesmesas implements Serializable {
         this.mesa = mesa;
     }
 
-    public Usuarios getEscritor() {
+    public Usuario getEscritor() {
         return escritor;
     }
 
-    public void setEscritor(Usuarios escritor) {
+    public void setEscritor(Usuario escritor) {
         this.escritor = escritor;
     }
 

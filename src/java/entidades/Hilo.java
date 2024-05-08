@@ -67,7 +67,7 @@ public class Hilo implements Serializable {
     private Tema tema;
     @JoinColumn(name = "CREADOR", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Usuarios creador;
+    private Usuario creador;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hilo")
     private List<Mensajehilo> mensajehiloList;
 
@@ -85,7 +85,7 @@ public class Hilo implements Serializable {
         this.fecha = fecha;
     }
 
-    public Hilo(String titulo, String mensajeinicial, Date fecha, Usuarios creador, Tema tema, Seccion seccion) {
+    public Hilo(String titulo, String mensajeinicial, Date fecha, Usuario creador, Tema tema, Seccion seccion) {
         this.titulo = titulo;
         this.mensajeinicial = mensajeinicial;
         this.fecha = fecha;
@@ -142,11 +142,11 @@ public class Hilo implements Serializable {
         this.tema = tema;
     }
 
-    public Usuarios getCreador() {
+    public Usuario getCreador() {
         return creador;
     }
 
-    public void setCreador(Usuarios creador) {
+    public void setCreador(Usuario creador) {
         this.creador = creador;
     }
 

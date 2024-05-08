@@ -25,15 +25,15 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "TRASFONDOS", catalog = "", schema = "SYS_G4", uniqueConstraints = {
+@Table(name = "TRASFONDO", catalog = "", schema = "SYS_G4", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Trasfondos.findAll", query = "SELECT t FROM Trasfondos t"),
-    @NamedQuery(name = "Trasfondos.findById", query = "SELECT t FROM Trasfondos t WHERE t.id = :id"),
-    @NamedQuery(name = "Trasfondos.findByNombre", query = "SELECT t FROM Trasfondos t WHERE t.nombre = :nombre"),
-    @NamedQuery(name = "Trasfondos.findByElegirhab", query = "SELECT t FROM Trasfondos t WHERE t.elegirhab = :elegirhab")})
-public class Trasfondos implements Serializable {
+    @NamedQuery(name = "Trasfondo.findAll", query = "SELECT t FROM Trasfondo t"),
+    @NamedQuery(name = "Trasfondo.findById", query = "SELECT t FROM Trasfondo t WHERE t.id = :id"),
+    @NamedQuery(name = "Trasfondo.findByNombre", query = "SELECT t FROM Trasfondo t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "Trasfondo.findByElegirhab", query = "SELECT t FROM Trasfondo t WHERE t.elegirhab = :elegirhab")})
+public class Trasfondo implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -79,14 +79,14 @@ public class Trasfondos implements Serializable {
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
 
-    public Trasfondos() {
+    public Trasfondo() {
     }
 
-    public Trasfondos(String id) {
+    public Trasfondo(String id) {
         this.id = id;
     }
 
-    public Trasfondos(String id, String nombre, String cherramientas, String idiomas, String equipo, String descripcion) {
+    public Trasfondo(String id, String nombre, String cherramientas, String idiomas, String equipo, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.cherramientas = cherramientas;
@@ -111,10 +111,10 @@ public class Trasfondos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Trasfondos)) {
+        if (!(object instanceof Trasfondo)) {
             return false;
         }
-        Trasfondos other = (Trasfondos) object;
+        Trasfondo other = (Trasfondo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

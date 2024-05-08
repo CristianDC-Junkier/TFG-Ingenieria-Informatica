@@ -5,7 +5,7 @@ import entidades.Musica;
 import entidades.Musicamesa;
 import entidades.Personajes;
 import entidades.Pertenecemesa;
-import entidades.Usuarios;
+import entidades.Usuario;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -59,8 +59,8 @@ public class ControladorMesas extends HttpServlet {
         String msj;
         Object result;
 
-        Usuarios user;
-        Usuarios useraux;
+        Usuario user;
+        Usuario useraux;
         Mesas mesa;
         Pertenecemesa pmesa;
         Pertenecemesa pmesaaux;
@@ -69,7 +69,7 @@ public class ControladorMesas extends HttpServlet {
 
         TypedQuery<Mesas> queryMesas;
         TypedQuery<Pertenecemesa> queryPertenecemesas;
-        TypedQuery<Usuarios> queryUsuarios;
+        TypedQuery<Usuario> queryUsuarios;
         TypedQuery<Personajes> queryPersonajes;
         TypedQuery<Musica> queryMusica;
 
@@ -77,7 +77,7 @@ public class ControladorMesas extends HttpServlet {
 
         List<String> fotosMesas;
         List<Integer> listaCantidad;
-        List<Usuarios> listaUsuarios;
+        List<Usuario> listaUsuarios;
         List<Pertenecemesa> listaPerteneceMesa;
         List<Mesas> listaMesas;
         List<Personajes> listaPersonajes;
@@ -112,7 +112,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -123,7 +123,7 @@ public class ControladorMesas extends HttpServlet {
                     msj = "";
 
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     creador = user.getApodo();
                     comunidad = request.getParameter("comunidad");
@@ -251,7 +251,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -271,7 +271,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 /////////////////////////////
                 /////////ES TU MESA//////////
@@ -404,7 +404,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -585,7 +585,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -744,7 +744,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -757,7 +757,7 @@ public class ControladorMesas extends HttpServlet {
 
                     request.setAttribute("amigo", id);
 
-                    queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                    queryUsuarios = em.createNamedQuery("Usuario.findById", Usuario.class);
                     queryUsuarios.setParameter("id", id);
                     useraux = queryUsuarios.getSingleResult();
 
@@ -916,7 +916,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -949,7 +949,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -964,7 +964,7 @@ public class ControladorMesas extends HttpServlet {
 
                     if (pmesa.getRol().equals("Dungeon Master")) {
 
-                        queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                        queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                         queryUsuarios.setParameter("apodo", id);
                         useraux = queryUsuarios.getSingleResult();
 
@@ -986,7 +986,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 /////////////////////////////
                 /////////ES TU MESA//////////
@@ -1026,7 +1026,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 /////////////////////////////
                 /////////ES TU MESA//////////
@@ -1075,7 +1075,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1112,7 +1112,7 @@ public class ControladorMesas extends HttpServlet {
                         queryPertenecemesas.setParameter("mesa", id);
                         pmesa = queryPertenecemesas.getSingleResult();
 
-                        queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                        queryUsuarios = em.createNamedQuery("Usuario.findById", Usuario.class);
                         queryUsuarios.setParameter("id", pmesa.getPertenecemesaPK().getUsuario());
                         useraux = queryUsuarios.getSingleResult();
 
@@ -1136,7 +1136,7 @@ public class ControladorMesas extends HttpServlet {
                         listaUsuarios = new ArrayList();
 
                         for (int i = 0; i < listaPerteneceMesa.size(); i++) {
-                            queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                            queryUsuarios = em.createNamedQuery("Usuario.findById", Usuario.class);
                             queryUsuarios.setParameter("id", listaPerteneceMesa.get(i).getPertenecemesaPK().getUsuario());
                             useraux = queryUsuarios.getSingleResult();
                             listaUsuarios.add(useraux);
@@ -1165,7 +1165,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1224,7 +1224,7 @@ public class ControladorMesas extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 //Recogemos los datos
                 personaje_id = request.getParameter("personaje");

@@ -1,6 +1,6 @@
 package controlador;
 
-import entidades.Usuarios;
+import entidades.Usuario;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,8 +51,8 @@ public class ControladorCorreo extends HttpServlet {
         MimeMessage message;
         Session session;
 
-        TypedQuery<Usuarios> queryUsuarios;
-        Usuarios user;
+        TypedQuery<Usuario> queryUsuarios;
+        Usuario user;
 
         String correo;
         String apodo;
@@ -64,7 +64,7 @@ public class ControladorCorreo extends HttpServlet {
 
                 correo = request.getParameter("correo_usuario_rc");
 
-                queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                queryUsuarios = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
                 queryUsuarios.setParameter("correo", correo);
                 try {
                     user = queryUsuarios.getSingleResult();
@@ -125,7 +125,7 @@ public class ControladorCorreo extends HttpServlet {
             case "/enviarContraseña":
                 apodo = request.getParameter("nombre_usuario_rc");
 
-                queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                 queryUsuarios.setParameter("apodo", apodo);
                 try {
                     user = queryUsuarios.getSingleResult();

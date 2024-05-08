@@ -5,7 +5,7 @@ import entidades.Bloqueados;
 import entidades.Personajes;
 import entidades.Pertenecemesa;
 import entidades.Pideamistad;
-import entidades.Usuarios;
+import entidades.Usuario;
 import java.io.IOException;
 import java.math.BigInteger;
 
@@ -67,14 +67,14 @@ public class ControladorUsuarios extends HttpServlet {
         String msj;
         Object result;
 
-        Usuarios user = null;
-        Usuarios useraux;
+        Usuario user = null;
+        Usuario useraux;
         Amigos amigo;
         Bloqueados bloqueado;
         Pideamistad pamistad;
         Personajes personaje;
 
-        TypedQuery<Usuarios> queryUsuarios;
+        TypedQuery<Usuario> queryUsuarios;
         TypedQuery<Amigos> queryAmigos;
         TypedQuery<Bloqueados> queryBloqueados;
         TypedQuery<Pideamistad> queryPideAmistad;
@@ -83,7 +83,7 @@ public class ControladorUsuarios extends HttpServlet {
 
         Query queryAUX;
 
-        List<Usuarios> listaUsuarios;
+        List<Usuario> listaUsuarios;
         List<Pideamistad> listaPideAmistad;
         List<Pertenecemesa> listaPerteneceMesa;
         List<String> pertenecemesaUsuarios;
@@ -188,7 +188,7 @@ public class ControladorUsuarios extends HttpServlet {
                             throw new Exception("El Nombre de usuario no es válido");
                         }
 
-                        queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                        queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                         queryUsuarios.setParameter("apodo", apodo);
                         listaUsuarios = queryUsuarios.getResultList();
 
@@ -199,7 +199,7 @@ public class ControladorUsuarios extends HttpServlet {
                         //////////CORREO//////////
                         //////////////////////////
 
-                        queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                        queryUsuarios = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
                         queryUsuarios.setParameter("correo", correo);
                         listaUsuarios = queryUsuarios.getResultList();
 
@@ -215,7 +215,7 @@ public class ControladorUsuarios extends HttpServlet {
                         if (telefono != null && !telefono.equals("")) {
                             telefonoBI = new BigInteger(telefono);
 
-                            queryUsuarios = em.createNamedQuery("Usuarios.findByTelefono", Usuarios.class);
+                            queryUsuarios = em.createNamedQuery("Usuario.findByTelefono", Usuario.class);
                             queryUsuarios.setParameter("telefono", telefonoBI);
                             listaUsuarios = queryUsuarios.getResultList();
 
@@ -230,7 +230,7 @@ public class ControladorUsuarios extends HttpServlet {
                         //////////////////////////
                         //////////CREAMOS/////////
                         //////////////////////////
-                        user = new Usuarios(apodo, nombre, correo, contrasenahash, fechaNacimiento, provincia, genero, (short) 0);
+                        user = new Usuario(apodo, nombre, correo, contrasenahash, fechaNacimiento, provincia, genero, (short) 0);
                         user.setTelefono(telefonoBI);
                         persist(user);
                         System.out.println("Registrado: " + nombre);
@@ -284,7 +284,7 @@ public class ControladorUsuarios extends HttpServlet {
                     throw new Exception("El Nombre de usuario no es válido");
                 }
 
-                queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                 queryUsuarios.setParameter("apodo", apodo);
                 listaUsuarios = queryUsuarios.getResultList();
 
@@ -352,7 +352,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -360,7 +360,7 @@ public class ControladorUsuarios extends HttpServlet {
                     conseguido = false;
                     msj = "";
                     session = request.getSession();
-                    user = (Usuarios) session.getAttribute("user");
+                    user = (Usuario) session.getAttribute("user");
 
                     id = user.getId();
                     apodo = request.getParameter("nombre_usuario");
@@ -412,7 +412,7 @@ public class ControladorUsuarios extends HttpServlet {
                                     || apodo.toUpperCase().contains("DROP")) {
                                 throw new Exception("El Nombre de usuario no es válido");
                             }
-                            queryUsuarios = em.createNamedQuery("Usuarios.findByApodo", Usuarios.class);
+                            queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                             queryUsuarios.setParameter("apodo", apodo);
                             listaUsuarios = queryUsuarios.getResultList();
 
@@ -422,7 +422,7 @@ public class ControladorUsuarios extends HttpServlet {
                             //////////////////////////
                             //////////CORREO//////////
                             //////////////////////////
-                            queryUsuarios = em.createNamedQuery("Usuarios.findByCorreo", Usuarios.class);
+                            queryUsuarios = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
                             queryUsuarios.setParameter("correo", correo);
                             listaUsuarios = queryUsuarios.getResultList();
 
@@ -438,7 +438,7 @@ public class ControladorUsuarios extends HttpServlet {
                             if (telefono != null && !telefono.equals("")) {
                                 telefonoBI = new BigInteger(telefono);
 
-                                queryUsuarios = em.createNamedQuery("Usuarios.findByTelefono", Usuarios.class);
+                                queryUsuarios = em.createNamedQuery("Usuario.findByTelefono", Usuario.class);
                                 queryUsuarios.setParameter("telefono", telefonoBI);
                                 listaUsuarios = queryUsuarios.getResultList();
 
@@ -467,7 +467,7 @@ public class ControladorUsuarios extends HttpServlet {
                             //////////////////////////////
                             //////////MODIFICAMOS/////////
                             //////////////////////////////
-                            user = new Usuarios(apodo, nombre, correo, contrasenahash, fechaNacimiento, provincia, genero, (short) 0);
+                            user = new Usuario(apodo, nombre, correo, contrasenahash, fechaNacimiento, provincia, genero, (short) 0);
                             user.setTelefono(telefonoBI);
                             user.setId(id);
 
@@ -521,7 +521,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -539,7 +539,7 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////NUMERO DE USUARIOS//////////
                     /////////////////////////////////////
                     if (mesa == null || mesa.equalsIgnoreCase("false")) {
-                        sql = "SELECT COUNT(*) FROM USUARIOS u "
+                        sql = "SELECT COUNT(*) FROM USUARIO u "
                                 + "WHERE u.APODO <> '" + user.getApodo() + "' "
                                 + "AND u.ID NOT IN ("
                                 + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
@@ -552,7 +552,7 @@ public class ControladorUsuarios extends HttpServlet {
                                 + "    UNION "
                                 + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')";
                     } else {
-                        sql = "SELECT DISTINCT COUNT(*) FROM USUARIOS u "
+                        sql = "SELECT DISTINCT COUNT(*) FROM USUARIO u "
                                 + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                 + "INNER JOIN Pertenecemesa p2 ON u.id = p2.usuario "
                                 + "WHERE u.APODO <> '" + user.getApodo() + "'" + " AND p1.mesa = p2.mesa  "
@@ -589,7 +589,7 @@ public class ControladorUsuarios extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u.* FROM USUARIOS u "
+                                sql = "SELECT u.* FROM USUARIO u "
                                         + "WHERE u.APODO <> '" + user.getApodo() + "'"
                                         + "AND u.ID NOT IN ("
                                         + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
@@ -605,7 +605,7 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "    OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
 
                             } else {
-                                sql = "SELECT DISTINCT u.* FROM USUARIOS u "
+                                sql = "SELECT DISTINCT u.* FROM USUARIO u "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u.id = p2.usuario "
                                         + "WHERE u.APODO <> '" + user.getApodo() + "'" + " AND p1.mesa = p2.mesa  "
@@ -625,7 +625,7 @@ public class ControladorUsuarios extends HttpServlet {
                             break;
                         case "ordenar2":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u.* FROM USUARIOS u "
+                                sql = "SELECT u.* FROM USUARIO u "
                                         + "WHERE u.APODO <> '" + user.getApodo() + "'"
                                         + "AND u.ID NOT IN ("
                                         + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
@@ -640,7 +640,7 @@ public class ControladorUsuarios extends HttpServlet {
                                         + "    ORDER BY u.apodo DESC "
                                         + "    OFFSET " + num + " ROWS FETCH NEXT 6 ROWS ONLY";
                             } else {
-                                sql = "SELECT DISTINCT u.* FROM USUARIOS u "
+                                sql = "SELECT DISTINCT u.* FROM USUARIO u "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u.id = p2.usuario "
                                         + "WHERE u.APODO <> '" + user.getApodo() + "'" + " AND p1.mesa = p2.mesa  "
@@ -660,7 +660,7 @@ public class ControladorUsuarios extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Usuario.class);
                     listaUsuarios = queryAUX.getResultList();
 
                     pertenecemesaUsuarios = new ArrayList();
@@ -721,7 +721,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -746,7 +746,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -764,12 +764,12 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////NUMERO DE PETICIONES//////////
                     ///////////////////////////////////////
                     if (mesa == null || mesa.equalsIgnoreCase("false")) {
-                        sql = "SELECT COUNT(*) FROM Usuarios u "
+                        sql = "SELECT COUNT(*) FROM Usuario u "
                                 + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
                                 + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
                                 + "WHERE p.pide = '" + user.getId() + "'";
                     } else {
-                        sql = "SELECT DISTINCT COUNT(*) FROM Usuarios u "
+                        sql = "SELECT DISTINCT COUNT(*) FROM Usuario u "
                                 + "INNER JOIN Pideamistad p ON u.apodo = p.pide "
                                 + "INNER JOIN Usuarios u2 ON p.acepta = u2.apodo "
                                 + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -801,14 +801,14 @@ public class ControladorUsuarios extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "WHERE p.pide = '" + user.getId() + "' "
                                         + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -821,14 +821,14 @@ public class ControladorUsuarios extends HttpServlet {
                             break;
                         case "ordenar2":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "WHERE p.pide = '" + user.getId() + "' "
                                         + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
                                         + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -841,7 +841,7 @@ public class ControladorUsuarios extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Usuario.class);
                     listaUsuarios = queryAUX.getResultList();
 
                     pertenecemesaUsuarios = new ArrayList();
@@ -906,7 +906,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -928,12 +928,12 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////NUMERO DE PETICIONES//////////
                     ///////////////////////////////////////
                     if (mesa == null || mesa.equalsIgnoreCase("false")) {
-                        sql = "SELECT COUNT(*) FROM Usuarios u "
+                        sql = "SELECT COUNT(*) FROM Usuario u "
                                 + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                 + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                 + "WHERE p.acepta = '" + user.getId() + "'";
                     } else {
-                        sql = "SELECT COUNT(*) FROM Usuarios u "
+                        sql = "SELECT COUNT(*) FROM Usuario u "
                                 + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                 + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                 + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -965,14 +965,14 @@ public class ControladorUsuarios extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -985,14 +985,14 @@ public class ControladorUsuarios extends HttpServlet {
                             break;
                         case "ordenar2":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
                                         + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -1005,7 +1005,7 @@ public class ControladorUsuarios extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Usuario.class);
                     listaUsuarios = queryAUX.getResultList();
 
                     pertenecemesaUsuarios = new ArrayList();
@@ -1068,7 +1068,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1103,7 +1103,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1127,7 +1127,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1156,7 +1156,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1184,7 +1184,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1202,12 +1202,12 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////NUMERO DE AMIGOS//////////
                     ///////////////////////////////////
                     if (mesa == null || mesa.equalsIgnoreCase("false")) {
-                        sql = "SELECT COUNT(*) FROM Usuarios u "
+                        sql = "SELECT COUNT(*) FROM Usuario u "
                                 + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                 + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                 + "WHERE a.amigo1 = '" + user.getId() + "'";
                     } else {
-                        sql = "SELECT DISTINCT COUNT(*) FROM Usuarios u "
+                        sql = "SELECT DISTINCT COUNT(*) FROM Usuario u "
                                 + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                 + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                 + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -1237,14 +1237,14 @@ public class ControladorUsuarios extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                         + "WHERE a.amigo1 = '" + user.getId() + "' "
                                         + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -1257,14 +1257,14 @@ public class ControladorUsuarios extends HttpServlet {
                             break;
                         case "ordenar2":
                             if (mesa.equalsIgnoreCase("false")) {
-                                sql = "SELECT u2.* FROM Usuarios u "
+                                sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                         + "WHERE a.amigo1 = '" + user.getId() + "' "
                                         + "ORDER BY u2.apodo DESC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
-                                sql = "SELECT DISTINCT u2.* FROM Usuarios u "
+                                sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Amigos a ON u.id = a.amigo1 "
                                         + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
@@ -1277,7 +1277,7 @@ public class ControladorUsuarios extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Usuario.class);
                     listaUsuarios = queryAUX.getResultList();
 
                     imagenesUsuarios = new ArrayList();
@@ -1312,7 +1312,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1320,7 +1320,7 @@ public class ControladorUsuarios extends HttpServlet {
 
                     id = request.getParameter("amigo");
 
-                    queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                    queryUsuarios = em.createNamedQuery("Usuario.findById", Usuario.class);
                     queryUsuarios.setParameter("id", id);
                     useraux = queryUsuarios.getSingleResult();
 
@@ -1353,7 +1353,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1388,7 +1388,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1403,7 +1403,7 @@ public class ControladorUsuarios extends HttpServlet {
                     /////////////////////////////////////
                     /////////NUMERO DE BLOQUEADOS////////
                     /////////////////////////////////////
-                    sql = "SELECT COUNT(*) FROM Usuarios u "
+                    sql = "SELECT COUNT(*) FROM Usuario u "
                             + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
                             + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
                             + "WHERE b.bloqueador = '" + user.getId() + "'";
@@ -1427,7 +1427,7 @@ public class ControladorUsuarios extends HttpServlet {
 
                     switch (ordenar) {
                         case "ordenar1":
-                            sql = "SELECT u2.* FROM Usuarios u "
+                            sql = "SELECT u2.* FROM Usuario u "
                                     + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
                                     + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
                                     + "WHERE b.bloqueador = '" + user.getId() + "' "
@@ -1435,7 +1435,7 @@ public class ControladorUsuarios extends HttpServlet {
                                     + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             break;
                         case "ordenar2":
-                            sql = "SELECT u2.* FROM Usuarios u "
+                            sql = "SELECT u2.* FROM Usuario u "
                                     + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
                                     + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
                                     + "WHERE b.bloqueador = '" + user.getId() + "' "
@@ -1444,7 +1444,7 @@ public class ControladorUsuarios extends HttpServlet {
                             break;
                     }
 
-                    queryAUX = em.createNativeQuery(sql, Usuarios.class);
+                    queryAUX = em.createNativeQuery(sql, Usuario.class);
                     listaUsuarios = queryAUX.getResultList();
 
                     imagenesUsuarios = new ArrayList();
@@ -1477,7 +1477,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1501,7 +1501,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 if (user == null) {
                     vista = "/Principal/inicio";
@@ -1525,7 +1525,7 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////SESION//////////
                 /////////////////////////
                 session = request.getSession();
-                user = (Usuarios) session.getAttribute("user");
+                user = (Usuario) session.getAttribute("user");
 
                 //Recogemos los datos
                 id = request.getParameter("id");
@@ -1580,7 +1580,7 @@ public class ControladorUsuarios extends HttpServlet {
                     contrasenahash = BCrypt.hashpw(contrasena, BCrypt.gensalt());
 
                     try {
-                        queryUsuarios = em.createNamedQuery("Usuarios.findById", Usuarios.class);
+                        queryUsuarios = em.createNamedQuery("Usuario.findById", Usuario.class);
                         queryUsuarios.setParameter("id", id);
                         user = queryUsuarios.getSingleResult();
 
@@ -1667,7 +1667,7 @@ public class ControladorUsuarios extends HttpServlet {
     private void update(Object object) {
         try {
             utx.begin();
-            em.merge((Usuarios) object);
+            em.merge((Usuario) object);
             utx.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
