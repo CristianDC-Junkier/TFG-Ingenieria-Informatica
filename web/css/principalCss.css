@@ -299,11 +299,11 @@ input:valid + span.validity::after {
 }
 .unoDrop.segundo:hover{
 
-    height: 150px;
+    height: 160px;
 }
 .unoDrop.tercero:hover{
 
-    height: 150px;
+    height: 160px;
 }
 .unoDrop.cuarto:hover{
 

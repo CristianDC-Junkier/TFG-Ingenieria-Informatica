@@ -52,43 +52,6 @@
     }
 }
 
-.listaDesafioTipo {
-
-    max-width: 1000px;
-    columns: 3;
-    text-align: center;
-    margin: 25px auto;
-    column-rule-width: 2px;
-    column-rule-style: dashed;
-}
-
-.listaDesafioTipo h4{
-
-    font-size: 20px;
-}
-
-
-.tipoListaDesafio {
-
-    text-align: justify;
-    margin-left: 1.2em;
-    margin-top: 10px;
-}
-
-.tipoListaDesafio h5{
-
-    margin-bottom: 10px;
-    margin-top: 10px;
-    font-size: 18px;
-}
-
-.listaDesafio {
-
-    font-size: 15px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 /*************************/
 /******Tabla Niveles******/
 /*************************/

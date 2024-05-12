@@ -31,7 +31,7 @@ public class Competentemonstruo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected CompetentemonstruoPK competentemonstruoPK;
+        protected CompetentemonstruoPK competentemonstruoPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)

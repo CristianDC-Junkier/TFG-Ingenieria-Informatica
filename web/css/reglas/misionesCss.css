@@ -1,2 +1,71 @@
+.bloqueMisiones > h3{
 
+    margin-top: 10px;;
+    text-align: center;
+    font-size: 3.5vmin;
+}
+
+.infoTiposNarraciones{
+
+    display: flex;
+    flex: 1;
+    padding: 10px;
+}
+
+.infoTiposNarraciones div{
+
+    flex: 1;
+    margin: 10px;
+    margin: 10px;
+    margin-bottom: 20px;
+    font-size: 2vmin;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+.infoTiposNarraciones div > p{
+
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+
+.infoTiposNarraciones div > table th, .infoTiposNarraciones div > table td {
+
+    text-align: center;
+    padding: 8px;
+}
+
+.infoTiposNarraciones div > table th {
+
+    text-align: center;
+}
+
+@media screen and (max-width: 850px){
+
+    .infoTiposNarraciones{
+
+        display: block;
+    }
+    .infoTiposNarraciones > h3{
+
+        font-size: 5vmin;
+    }
+    .infoTiposNarraciones div > p:nth-child(2){
+
+        font-size: 2vmin;
+    }
+    .infoTiposNarraciones div > table{
+
+        font-size: 4vmin;
+    }
+
+    .infoTiposNarraciones div > table td,  .infoTiposNarraciones div > table th {
+
+        border: 0.1px solid;
+        padding: 2px;
+        font-size: 2vmin;
+    }
+}
 

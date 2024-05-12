@@ -1,0 +1,182 @@
+/*******Creacion*******/
+
+.bloqueCreacionHilo{
+
+    max-width: 80%;
+    width: 400px;
+    height: 30%;
+    min-height: 250px;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Times New Roman';
+    border-radius: 5px 5px 5px 5px;
+}
+.bloqueCreacionHilo > form > div{
+
+    border-radius: 5px 5px 5px 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.bloqueCreacionHilo > form >
+.contenedorBotonFormulario{
+
+    border: none;
+    border-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 15px;
+}
+.bloqueCreacionHilo > form > div > div {
+
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+}
+.bloqueCreacionHilo label{
+
+    margin-left: 10px;
+    font-size: 15px;
+}
+.bloqueCreacionHilo input{
+
+    width: 150px;
+    border-radius: 5px;
+}
+.bloqueCreacionHilo select{
+
+    width: 155px;
+    border-radius: 5px;
+}
+
+
+
+/*************************/
+/***********Id's**********/
+/*************************/
+
+#tituloHilo{
+    margin-left: 30px;
+}
+#temaHilo{
+    margin-left: 30px;
+}
+#seccionHilo{
+    margin-left: 30px;
+}
+#mensajeInicialHilo{
+    margin-left: 30px;
+}
+
+
+#tittleHilo{
+    margin-left: 75px;
+}
+
+#themeHilo{
+    margin-left: 79px;
+}
+#secHilo{
+    margin-left: 64px;
+}
+#msjInicialHilo{
+
+    margin-top: 10px;
+    margin-left: 30px;
+    resize: none;
+    height: 100px;
+    width: 275px;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 515px){
+    #tittleHilo{
+        margin-left: 60px;
+    }
+
+    #themeHilo{
+        margin-left: 63px;
+    }
+    #secHilo{
+        margin-left: 49px;
+    }
+    #msjInicialHilo{
+
+        margin-top: 10px;
+        margin-left: 30px;
+        resize: none;
+        height: 100px;
+        width: 260px;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (max-width: 450px){
+    #tituloHilo{
+        margin-left: 15px;
+    }
+    #temaHilo{
+        margin-left: 15px;
+    }
+    #seccionHilo{
+        margin-left: 15px;
+    }
+    #mensajeInicialHilo{
+        margin-left: 15px;
+    }
+    #tittleHilo{
+        margin-left: 20px;
+    }
+    #themeHilo{
+        margin-left: 23px;
+    }
+    #secHilo{
+        margin-left: 9px;
+    }
+    #msjInicialHilo{
+
+        margin-top: 10px;
+        margin-left: 15px;
+        resize: none;
+        height: 100px;
+        width: 235px;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (max-width: 350px){
+    #tituloHilo{
+        margin-left: -10px;
+    }
+    #temaHilo{
+        margin-left: -10px;
+    }
+    #seccionHilo{
+        margin-left: -10px;
+    }
+    #mensajeInicialHilo{
+        margin-left: -10px;
+    }
+    #tittleHilo{
+        margin-left: 0px;
+    }
+    #themeHilo{
+        margin-left: 4px;
+    }
+    #secHilo{
+        margin-left: 4px;
+    }
+    #msjInicialHilo{
+
+        margin-top: 10px;
+        margin-left: -10px;
+        resize: none;
+        height: 100px;
+        width: 235px;
+        border-radius: 5px;
+    }
+}

@@ -10,17 +10,17 @@
     <link rel="stylesheet" type="text/css" href="/TFG/css/foro/comunForoCss.css"/>
 </head>
 <body>
-    <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
+    <jsp:include page="/WEB-INF/jsp/menuNav.jsp"/>
     <main>
         <h2 class="Titulos" style="margin-right:10px">Foro<button class="botonArriba" onclick="location.href = '/TFG/Principal/inicio'">Volver</button></h2>
         <hr color="black">
         <div class="contenedorBusquedaForo">
             <div class="buscadorForo">
-                <button class="botonArriba" onclick="location.href = '/TFG//'">Mis Hilos</button>
-                <button class="botonArriba" onclick="location.href = '/TFG//'">Hilos Comentados</button>
+                <button class="botonArriba" onclick="location.href = '/TFG/Foro/hilos?tema=Cualquiera&seccion=Cualquiera&mio=true&comentado=false&pag=1'">Mis Hilos</button>
+                <button class="botonArriba" onclick="location.href = '/TFG/Foro/hilos?tema=Cualquiera&seccion=Cualquiera&mio=false&comentado=true&pag=1'">Hilos Comentados</button>
             </div>
         </div>
-        <div class="contenedorForo">
+        <div class="contenedorForoInicio">
             <a href="/TFG/Foro/temas">
                 <figure>
                     <img src="/TFG/img/Temas.png">

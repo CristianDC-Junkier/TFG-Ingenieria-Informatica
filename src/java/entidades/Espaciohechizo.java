@@ -49,39 +49,39 @@ public class Espaciohechizo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "NV1", nullable = false)
-    private short nv1;
+    private Integer nv1;
     @Basic(optional = false)
     @NotNull
     @Column(name = "NV2", nullable = false)
-    private short nv2;
+    private Integer nv2;
     @Basic(optional = false)
     @NotNull
     @Column(name = "NV3", nullable = false)
-    private short nv3;
+    private Integer nv3;
     @Basic(optional = false)
     @NotNull
     @Column(name = "NV4", nullable = false)
-    private short nv4;
+    private Integer nv4;
     @Basic(optional = false)
     @NotNull
     @Column(name = "NV5", nullable = false)
-    private short nv5;
+    private Integer nv5;
     @Basic(optional = false)
     @NotNull
     @Column(name = "NV6", nullable = false)
-    private short nv6;
+    private Integer nv6;
     @Basic(optional = false)
     @NotNull
     @Column(name = "NV7", nullable = false)
-    private short nv7;
+    private Integer nv7;
     @Basic(optional = false)
     @NotNull
     @Column(name = "NV8", nullable = false)
-    private short nv8;
+    private Integer nv8;
     @Basic(optional = false)
     @NotNull
     @Column(name = "NV9", nullable = false)
-    private short nv9;
+    private Integer nv9;
     @JoinTable(name = "TABLAHECHIZOS", joinColumns = {
         @JoinColumn(name = "ESPACIOSHECHIZOS", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TABLACLASES", referencedColumnName = "ID", nullable = false)})
@@ -95,7 +95,8 @@ public class Espaciohechizo implements Serializable {
         this.id = id;
     }
 
-    public Espaciohechizo(String id, short nv1, short nv2, short nv3, short nv4, short nv5, short nv6, short nv7, short nv8, short nv9) {
+    public Espaciohechizo(String id, Integer nv1, Integer nv2, Integer nv3, Integer nv4, 
+            Integer nv5, Integer nv6, Integer nv7, Integer nv8, Integer nv9) {
         this.id = id;
         this.nv1 = nv1;
         this.nv2 = nv2;
@@ -116,75 +117,75 @@ public class Espaciohechizo implements Serializable {
         this.id = id;
     }
 
-    public short getNv1() {
+    public Integer getNv1() {
         return nv1;
     }
 
-    public void setNv1(short nv1) {
+    public void setNv1(Integer nv1) {
         this.nv1 = nv1;
     }
 
-    public short getNv2() {
+    public Integer getNv2() {
         return nv2;
     }
 
-    public void setNv2(short nv2) {
+    public void setNv2(Integer nv2) {
         this.nv2 = nv2;
     }
 
-    public short getNv3() {
+    public Integer getNv3() {
         return nv3;
     }
 
-    public void setNv3(short nv3) {
+    public void setNv3(Integer nv3) {
         this.nv3 = nv3;
     }
 
-    public short getNv4() {
+    public Integer getNv4() {
         return nv4;
     }
 
-    public void setNv4(short nv4) {
+    public void setNv4(Integer nv4) {
         this.nv4 = nv4;
     }
 
-    public short getNv5() {
+    public Integer getNv5() {
         return nv5;
     }
 
-    public void setNv5(short nv5) {
+    public void setNv5(Integer nv5) {
         this.nv5 = nv5;
     }
 
-    public short getNv6() {
+    public Integer getNv6() {
         return nv6;
     }
 
-    public void setNv6(short nv6) {
+    public void setNv6(Integer nv6) {
         this.nv6 = nv6;
     }
 
-    public short getNv7() {
+    public Integer getNv7() {
         return nv7;
     }
 
-    public void setNv7(short nv7) {
+    public void setNv7(Integer nv7) {
         this.nv7 = nv7;
     }
 
-    public short getNv8() {
+    public Integer getNv8() {
         return nv8;
     }
 
-    public void setNv8(short nv8) {
+    public void setNv8(Integer nv8) {
         this.nv8 = nv8;
     }
 
-    public short getNv9() {
+    public Integer getNv9() {
         return nv9;
     }
 
-    public void setNv9(short nv9) {
+    public void setNv9(Integer nv9) {
         this.nv9 = nv9;
     }
 

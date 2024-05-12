@@ -44,11 +44,11 @@ public class Alcance implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "MINIMO", nullable = false)
-    private BigInteger minimo;
+    private Integer minimo;
     @Basic(optional = false)
     @NotNull
     @Column(name = "MAXIMO", nullable = false)
-    private BigInteger maximo;
+    private Integer maximo;
 
     public Alcance() {
     }
@@ -57,7 +57,7 @@ public class Alcance implements Serializable {
         this.id = id;
     }
 
-    public Alcance(String id, String nombre, BigInteger minimo, BigInteger maximo) {
+    public Alcance(String id, String nombre, Integer minimo, Integer maximo) {
         this.id = id;
         this.nombre = nombre;
         this.minimo = minimo;
@@ -80,19 +80,19 @@ public class Alcance implements Serializable {
         this.nombre = nombre;
     }
 
-    public BigInteger getMinimo() {
+    public Integer getMinimo() {
         return minimo;
     }
 
-    public void setMinimo(BigInteger minimo) {
+    public void setMinimo(Integer minimo) {
         this.minimo = minimo;
     }
 
-    public BigInteger getMaximo() {
+    public Integer getMaximo() {
         return maximo;
     }
 
-    public void setMaximo(BigInteger maximo) {
+    public void setMaximo(Integer maximo) {
         this.maximo = maximo;
     }
 

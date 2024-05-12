@@ -6,27 +6,26 @@
     <title class="titulosPag">Guidance4\Foro\Hilos\Hilo</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/mesasCss.css"/>
-    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/comunMesasCss.css"/>
-    <link rel="stylesheet" type="text/css" href="/TFG/css/foro/foroListasCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/foro/comunForoCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/foro/hiloMensajeCss.css"/>
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
         <h2 class="Titulos" style="margin-right:10px">Hilo<button class="botonArriba" onclick="location.href = '/TFG/Foro/hilos'">Volver</button></h2>
         <hr color="black">
-        <div class="contenedoresMesa"> 
-            <div class="listasMesa" id="pestañasSeccion">
+        <div class="contenedoresForo"> 
+            <div class="listasForo" id="pestañasSeccion">
                 <div class="pestañasNavegacion">
                     <div class="pestaña" id="pestaña1">
-                        <div class="listaMesa">
+                        <div class="listaForo">
                             <h3>${requestScope.hilo.tema.nombre}</h3>
                             <h4>${requestScope.hilo.seccion.titulo}</h4>
                             <div class="diseñoTabla" id ="Tabla">
                                 <table>
                                     <tr>
                                         <td>
-                                            <div class="mesa-foto">
+                                            <div class="hilo-foto">
                                                 <img src="${fotoInicial}">
                                             </div>
                                         </td>
@@ -55,7 +54,7 @@
                                     <c:forEach var="mensaje" items="${listaMensajes}" varStatus="status">
                                         <tr>
                                             <td>
-                                                <div class="mesa-foto">
+                                                <div class="hilo-foto">
                                                     <img src="${urlImagenes[status.index]}">
                                                 </div>
                                             </td>
@@ -88,15 +87,15 @@
                     </div>
                 </div>
             </div>
-            <div class="contenedorMensajeForo">
-                <div class="formularioMensajeForo">
+            <div class="contenedorMensajeHilo">
+                <div class="formularioMensajeHilo">
                     <form id="formMensaje" action="/TFG/Foro/añadirMensajeHilo" method="POST">
                         <input type="hidden" name="hilo" value="${hilo.id}">
-                        <input type="text" maxlength="255" id="mensajeChatMesa" name="mensaje" placeholder="Comentar...">
+                        <input type="text" maxlength="255" id="mensajeHilo" name="mensaje" placeholder="Comentar...">
                         <input class="botonDentro" type="submit" value="Enviar">
                     </form>
                 </div>
-                <div class="formularioMensajeForo">
+                <div class="formularioMensajeHilo">
                     <form id="formTirada" action="/TFG/Foro/añadirTiradaHilo" method="POST">
                         <input type="hidden" name="hilo" value="${hilo.id}">
                         <select name="dado" id="SDados">
@@ -112,7 +111,7 @@
                     </form>
                 </div>
             </div>
-            <div class="contenedorBotonesMesa">
+            <div class="contenedorBotonesForo">
                 <div class="pestañasBotones" id="pestañaBotones">
                 </div>
             </div>

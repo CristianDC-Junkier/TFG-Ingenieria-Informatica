@@ -95,9 +95,6 @@
 }
 
 
-.derechaChatMesaChatMesa {
-}
-
 .contenedorAudioChatMesa {
     color: black;
     background-color: gray;
@@ -113,6 +110,11 @@
     justify-content: center;
     margin-bottom: 10px;
     margin-top: 10px;
+}
+.botonArriba{
+    
+    margin: 10px;
+    padding: 5px;
 }
 
 .listaChatMesa {

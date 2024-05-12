@@ -1276,6 +1276,40 @@ input[type="button"]:active {
     color:black;
 }
 
+/********************************************************************************************************/
+/****************************************FORMULARIOS:CREAR HILO******************************************/
+/********************************************************************************************************/
+
+.bloqueCreacionHilo{
+
+    background-color: yellow;
+    border: #1f6161 2px solid;
+    box-shadow: 5px 5px 5px 5px black;
+    background: linear-gradient(yellow,60%,white);
+}
+.bloqueCreacionHilo > form > div{
+
+    border: #1f6161 2px solid;
+    color:black;
+}
+.bloqueCreacionHilo label{
+
+    border-bottom: black 2px solid;
+}
+.bloqueCreacionHilo input{
+
+    color: white;
+    background-color:#1f6161;
+}
+.bloqueCreacionHilo select{
+    color: white;
+    background-color:#1f6161;
+}
+#msjInicialHilo{
+    color: white;
+    background-color:#1f6161;
+}
+
 /***************************************************************************************************/
 /***********************************************MESA************************************************/
 /***************************************************************************************************/
@@ -1529,27 +1563,6 @@ input[type="button"]:active {
     background: #1f6161;
     border: black 4px ridge;
 }
-.listaDesafioTipo {
-
-    border: 5px  #1f6161 outset;
-    box-shadow: 10px 10px black;
-    background-color: #e3f7f6;
-    color: black;
-    column-rule-color: #e3f7f6;
-}
-
-.listaDesafioTipo h4{
-
-    color: black;
-    background-color: yellow;
-    border:brown 2px solid;
-}
-
-.tipoListaDesafio h5{
-
-    color: yellow;
-}
-
 /*************************/
 /******Tabla Niveles******/
 /*************************/
@@ -1578,6 +1591,91 @@ input[type="button"]:active {
     border: 3px solid black;
 }
 .nivelesExplicacion {
+
+    background-color: #1f6161;
+    color: white;
+}
+
+/*******************************************************************************************************/
+/*************************************REGLAS: CREAR PERSONAJES******************************************/
+/*******************************************************************************************************/
+
+.bloqueMisiones > h3{
+
+    color:yellow;
+    border: black 4px ridge;
+    background: #1f6161;
+}
+
+.infoTiposNarraciones div{
+
+    border: black 4px ridge;
+    background: #007170;
+}
+
+.infoTiposNarraciones div > p{
+
+    color:black;
+    background: #e3f7f6;
+}
+
+.infoTiposNarraciones div > table {
+
+    background: #e3f7f6;
+}
+
+.infoTiposNarraciones div > table th, .infoDiseñoPersonaje div > table td {
+
+    border: 2px solid black;
+    color: black;
+}
+
+.infoTiposNarraciones div > table th {
+
+    color:black;
+    background-color: yellow;
+}
+
+
+/*******************************************************************************************************/
+/****************************************REGLAS: OBJETOS MÁGICOS****************************************/
+/*******************************************************************************************************/
+
+.listaObjetosMagicos  h3{
+
+    color:yellow;
+    background: #1f6161;
+    border: black 4px ridge;
+}
+
+/*************************/
+/******Tabla Niveles******/
+/*************************/
+
+.objetosMagicos{
+
+    color:black;
+}
+
+.objetosMagicosPrimerafila {
+
+    background: yellow;
+    color: black;
+}
+
+.objetosMagicos table{
+
+    border: 2px black solid;
+}
+.objetosMagicos th{
+
+    border: 3px solid black;
+}
+.objetosMagicos td{
+
+    border: 3px solid black;
+}
+.objetosMagicosexplicacion {
 
     background-color: #1f6161;
     color: white;
@@ -2353,6 +2451,128 @@ input[type="button"]:active {
 }
 .Contenidotera {
     color: black;
+}
+/***************************************************************************************************/
+/*****************************************LISTA FORO************************************************/
+/***************************************************************************************************/
+
+/*****************************/
+/********Busqueda foro********/
+/*****************************/
+
+.contenedorForo{
+
+    border: 2px solid black;
+    background: #1f6161;
+}
+
+.tituloBuscadorForo {
+
+    color:yellow;
+}
+
+.buscadorForo input{
+
+    background-color: #00aaaa;
+    color:white;
+}
+
+.buscadorForo select {
+
+    border: black 2px solid;
+    color:white;
+    background-color: #00aaaa;
+}
+.buscadorForo button {
+
+    border: black 2px solid;
+    background-color: yellow;
+}
+.buscadorForo  button:hover {
+
+    background-color: yellowgreen;
+}
+
+.buscadorForo  button:active {
+
+    transform: translateY(0.1em);
+}
+
+/*******************************/
+/**********Lista Mesas**********/
+/*******************************/
+
+.listasForo{
+
+    border: 2px solid black;
+    background: #1f6161;
+}
+.listaForo h3{
+
+    color:white;
+    background: #1f6161;
+}
+.listaForo h4{
+
+    color:yellow;
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+}
+
+/*******************************/
+/*************Fotos*************/
+/*******************************/
+
+.hilo-foto {
+
+    background-color: black;
+    border: 4px solid blue;
+}
+
+/*******************************/
+/*************Botones*************/
+/*******************************/
+.contenedorBotonesForo{
+
+    border: 2px solid black;
+    background: #1f6161;
+
+}
+#botonMio.estalleno  {
+
+    border: black 2px solid;
+    background-color: yellowgreen;
+}
+#botonMio.estalleno:hover {
+    background-color: yellowgreen;
+}
+
+#botonMio.noestalleno:hover {
+
+    border: black 2px solid;
+    background-color: yellow;
+}
+
+#botonMio.noestalleno:hover {
+    background-color: yellowgreen;
+}
+#botonComentado.estalleno  {
+
+    border: black 2px solid;
+    background-color: yellowgreen;
+}
+#botonComentado.estalleno:hover {
+    background-color: yellowgreen;
+}
+
+#botonComentado.noestalleno:hover {
+
+    border: black 2px solid;
+    background-color: yellow;
+}
+
+#botonComentado.noestalleno:hover {
+    background-color: yellowgreen;
 }
 
 

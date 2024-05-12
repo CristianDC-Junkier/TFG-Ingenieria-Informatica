@@ -55,7 +55,7 @@ public class Subraza implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "VELOCIDAD", nullable = false)
-    private BigInteger velocidad;
+    private Integer velocidad;
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -109,7 +109,7 @@ public class Subraza implements Serializable {
         this.id = id;
     }
 
-    public Subraza(String id, String nombre, String tamano, BigInteger velocidad, String descripcion, String elegirhab) {
+    public Subraza(String id, String nombre, String tamano, Integer velocidad, String descripcion, String elegirhab) {
         this.id = id;
         this.nombre = nombre;
         this.tamano = tamano;
@@ -219,11 +219,11 @@ public class Subraza implements Serializable {
         this.tamano = tamano;
     }
 
-    public BigInteger getVelocidad() {
+    public Integer getVelocidad() {
         return velocidad;
     }
 
-    public void setVelocidad(BigInteger velocidad) {
+    public void setVelocidad(Integer velocidad) {
         this.velocidad = velocidad;
     }
 

@@ -8,13 +8,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TFG/css/principalCss.css"/>
         <link rel="stylesheet" type="text/css" href="/TFG/css/formularios/comunformularioCss.css"/>
-        <link rel="stylesheet" type="text/css" href="/TFG/css/formularios/crearmesaCss.css"/>
+        <link rel="stylesheet" type="text/css" href="/TFG/css/formularios/crearhiloCss.css"/>
     </head>
     <body>
         <main class="contenedorFormulario">
-            <div class="bloqueRegistroMesa">
-                <h2 class="TitulosFormulario">Crear Mesa</h2>
-                <form id = formRegistro action="/TFG/Foro/crearHilo" method="POST">
+            <div class="bloqueCreacionHilo">
+                <h2 class="TitulosFormulario">Crear Hilo</h2>
+                <form id = formCreacionHilo action="/TFG/Foro/crearHilo" method="POST">
                     <c:choose>
                         <c:when test="${requestScope.numHilos != 3}">
                             <div>
@@ -43,14 +43,14 @@
                                     <label for="msjInicialHilo" id="mensajeInicialHilo">Mensaje Inicial:</label>
                                     <textarea id="msjInicialHilo" name="mensaje"></textarea>
                                 </div>
-                                <c:if test="${requestScope.msj!=null}">
-                                    <div>
+                                <c:if test="${requestScope.msj!=null}" >
+                                    <div style="margin-top: 1em;">
                                         ${requestScope.msj}
                                     </div>
                                 </c:if>
                             </div>
                             <div class="contenedorBotonFormulario">
-                                <input id="botonVolverFormulario" type="button" onclick="location.pathname = 'TFG/Foro/inicio'" value="Volver">
+                                <input id="botonVolverFormulario" type="button" onclick="location.pathname = 'TFG/Foro/hilos'" value="Volver">
                                 <input id="botonEnviar" type="submit" value="Crear Hilo">
                             </div>
                         </c:when>
@@ -60,7 +60,7 @@
                                 Borra una para poder crear otra.
                             </div>
                             <div class="contenedorBotonFormulario">
-                                <input id="botonVolverFormulario-Solo" type="button" onclick="location.pathname = 'TFG/Foro/inicio'" value="Volver">
+                                <input id="botonVolverFormulario-Solo" type="button" onclick="location.pathname = 'TFG/Foro/hilos'" value="Volver">
                             </div>
                         </c:otherwise>
                     </c:choose>

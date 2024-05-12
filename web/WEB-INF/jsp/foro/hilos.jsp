@@ -6,21 +6,22 @@
     <title class="titulosPag">Guidance4\Foro\Hilos</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/mesasCss.css"/>
-    <link rel="stylesheet" type="text/css" href="/TFG/css/mesas/comunMesasCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/foro/comunForoCss.css"/>
+    <link rel="stylesheet" type="text/css" href="/TFG/css/foro/listaForoCss.css"/>
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
         <h2 class="Titulos" style="margin-right:10px">Hilos<button class="botonArriba" onclick="location.href = '/TFG/Foro/inicio'">Volver</button></h2>
         <hr color="black">
-        <div class="contenedoresMesa"> 
-            <div class="contenedorMesa">
-                <div class="tituloBuscadorMesa">Explorar Hilos</div>
-                <div class="buscadorMesa">
+        <div class="contenedoresForo"> 
+            <div class="contenedorForo">
+                <div class="titulobuscadorForo">Explorar Hilos</div>
+                <div class="buscadorForo">
                     <div>Busca por titulo: <input id="buscador" onkeyup="realizarBusqueda('Hilos')" type="search" placeholder="Introduce el nombre"/> </div>
                     <div>
                         Tema:
+                        <br>
                         <select id="elegirTema">
                             <c:choose>
                                 <c:when test="${requestScope.tema == 'Cualquiera'}">
@@ -41,6 +42,7 @@
                                 </c:choose>
                             </c:forEach>
                         </select>
+                        <br>
                         Seccion:
                         <select id="elegirSeccion" name="seccion">
                             <c:choose>
@@ -66,14 +68,14 @@
                     <button id="botonMio" class="${requestScope.mio == "true" ? 'estalleno' : 'noestalleno'}">Mio</button>
                     <button id="botonComentado" class="${requestScope.comentado == "true" ? 'estalleno' : 'noestalleno'}">Has comentado</button>
                     <c:if test="${requestScope.numHilos < 3 }">
-                        <button id="botonArriba" onclick="location.href = '/TFG/Formularios/crearHilo'" >Crear Hilo</button>
+                        <button class="botonDentro" onclick="location.href = '/TFG/Formularios/crearHilo'" >Crear Hilo</button>
                     </c:if>
                 </div>
             </div>
-            <div class="listasMesa" id="pestañasSeccion">
+            <div class="listasForo" id="pestañasSeccion">
                 <div class="pestañasNavegacion">
                     <div class="pestaña" id="pestaña1">
-                        <div class="listaMesa">
+                        <div class="listaForo">
                             <h3>Hilos</h3>
                             <h4>Encuentra tu solución, o pregunta</h4>
                             <div class="diseñoTabla" id ="Tabla">
@@ -81,7 +83,7 @@
                                     <c:forEach var="hilo" items="${listaHilos}" varStatus="status">
                                         <tr>
                                             <td>
-                                                <div class="mesa-foto">
+                                                <div class="hilo-foto">
                                                     <img src="${urlImagenes[status.index]}">
                                                 </div>
                                             </td>
@@ -114,7 +116,7 @@
                     </div>
                 </div>
             </div>
-            <div class="contenedorBotonesMesa">
+            <div class="contenedorBotonesForo">
                 <div class="pestañasBotones" id="pestañaBotones">
                 </div>
             </div>

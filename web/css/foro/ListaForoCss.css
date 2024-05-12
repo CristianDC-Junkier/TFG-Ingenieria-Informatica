@@ -1,3 +1,6 @@
+
+
+
 /*****************************/
 /**********Seguridad**********/
 /*****************************/
@@ -53,6 +56,101 @@
     margin-bottom: 1vmin;
 }
 
+
+
+/*****************************/
+/********Busqueda mesa********/
+/*****************************/
+
+
+.contenedoresMesa{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.contenedorMesa{
+
+    border-radius: 5px;
+    margin: 10px;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    padding: 10px;
+    width: 95%;
+    box-sizing: border-box;
+
+}
+
+.tituloBuscadorMesa {
+
+    margin-left: 10px;
+    font-weight: bold;
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.buscadorMesa{
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 20px;
+
+}
+.buscadorMesa select {
+
+    width: 68%;
+    margin-bottom: 10px;
+}
+
+.buscadorMesa  button:hover {
+
+    transform: translateY(-0.1em);
+}
+
+.buscadorMesa  button:active {
+
+    transform: translateY(0.1em);
+}
+
+/*******************************/
+/**********Lista Mesas**********/
+/*******************************/
+
+.listasMesa{
+
+    border-radius: 5px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    padding: 10px;
+    min-height: 250px;
+    width: 95%;
+    box-sizing: border-box;
+}
+.listaMesa h3{
+
+    height: 10px;
+    font-size: 20px;
+    border: 0px;
+    margin: -10px -10px 5px -10px;
+    padding:5px;
+    padding-bottom: 20px;
+}
+.listaMesa h4{
+
+    height: 5px;
+    font-size: 16px;
+    margin: 0px -10px 0px -10px;
+    padding:5px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+
+}
+
 /*******************************/
 /**************Tabla************/
 /*******************************/
@@ -100,80 +198,10 @@
     }
 }
 
-/*******************************/
-/**********Lista Foro***********/
-/*******************************/
-
-.listasForo{
-
-    border-radius: 5px;
-    margin-bottom: 30px;
-    margin-top: 20px;
-    padding: 10px;
-    min-height: 250px;
-    width: 95%;
-    box-sizing: border-box;
-}
-.listaForo h3{
-
-    height: 10px;
-    font-size: 20px;
-    border: 0px;
-    margin: -10px -10px 5px -10px;
-    padding:5px;
-    padding-bottom: 20px;
-}
-.listaForo h4{
-
-    height: 5px;
-    font-size: 16px;
-    margin: 0px -10px 0px -10px;
-    padding:5px;
-    padding-left: 10px;
-    padding-bottom: 20px;
-
-}
-/*******************************/
-/*************Fotos*************/
-/*******************************/
-
-.hilo-foto {
-
-    width: 125px;
-    height: 125px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 20%;
-}
-
-.hilo-foto img {
-
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    overflow: hidden;
-}
-@media screen and (max-width: 800px){
-    .hilo-foto {
-
-        width: 75px;
-        height: 75px;
-    }
-}
-@media screen and (max-width: 500px){
-    .hilo-foto {
-
-        width: 60px;
-        height: 60px;
-    }
-}
-
 /*****************************/
 /***********Botones***********/
 /*****************************/
-.contenedorBotonesForo{
+.contenedorBotonesMesa{
 
     border-radius: 5px;
     margin-bottom: 30px;
@@ -183,17 +211,18 @@
     height: auto;
     box-sizing: border-box;
 }
+
 .botonArriba{
 
     font-size: 10px;
+    display: block;
     box-sizing: border-box;
     border-radius: 0.75em;
     padding: 0.75em 1.5em;
     transform: translateY(-0.2em);
     transition: transform 0.1s ease;
-    display: inline-block; 
-    float: right;
 }
+
 .botonDentro{
 
     margin-bottom: 10px;
@@ -211,78 +240,19 @@
 
     transform: translateY(0.1em);
 }
-.buscadorForo{
+.pestañasBotones{
 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
 }
-.buscadorForo > button:hover {
+.pestañasBotones > button:hover {
 
     transform: translateY(-0.33em);
 }
 
-.buscadorForo > button:active {
+.pestañasBotones > button:active {
 
     transform: translateY(0);
-}
-
-/*****************************/
-/********Busqueda Foro********/
-/*****************************/
-
-
-.contenedoresForo{
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-.contenedorForo{
-
-    border-radius: 5px;
-    margin: 10px;
-    margin-bottom: 20px;
-    margin-top: 25px;
-    padding: 10px;
-    width: 95%;
-    box-sizing: border-box;
-
-}
-
-.titulobuscadorForo {
-
-    margin-left: 10px;
-    font-weight: bold;
-    margin-left: 20px;
-    font-size: 20px;
-}
-
-.buscadorForo{
-
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-    margin-left: 20px;
-
-}
-.buscadorForo select {
-
-    width: 68%;
-    margin-bottom: 10px;
-}
-
-.buscadorForo  button:hover {
-
-    transform: translateY(-0.1em);
-}
-
-.buscadorForo  button:active {
-
-    transform: translateY(0.1em);
 }

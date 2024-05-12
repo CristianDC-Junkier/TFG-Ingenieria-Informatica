@@ -73,9 +73,9 @@
                             </c:choose>
                         </div>
                         <div class="botonesAudio">
-                            <button type="button" class="boton" onclick="ajustarVolumen(-0.1)">Disminuir volumen</button>
-                            <button type="button" class="boton" onclick="ajustarVolumen(+0.1)">Aumentar volumen</button>
-                            <button type="button" class="botonfinal" onclick="mostrarRecuadro()
+                            <button type="button" class="botonArriba" onclick="ajustarVolumen(-0.1)">Disminuir volumen</button>
+                            <button type="button" class="botonArriba" onclick="ajustarVolumen(+0.1)">Aumentar volumen</button>
+                            <button type="button" class="botonArriba" onclick="mostrarRecuadro()
                                     <c:if test="${requestScope.rol != 'Dungeon Master'}">  style ="display: none;"</c:if>">Cambiar</button>
                                     <div class="opcionRecuadro" id="recuadro" style="display: none;">
                                         <div class="contenidoRecuadro">
@@ -146,7 +146,7 @@
                     <div class="contenedorBotonesMesaChat">
                         <c:choose>
                             <c:when test="${requestScope.rol == 'Dungeon Master'}">
-                                <button type="button" class="boton" onclick="mostrarRecuadro2()">Cambiar Descriptor</button>
+                                <button type="button" class="botonArriba" onclick="mostrarRecuadro2()">Cambiar Descriptor</button>
                                 <div class="opcionRecuadro" id="recuadro2" style="display: none;">
                                     <div class="contenidoRecuadro">
                                         <div class="tituloRecuadro">Añadir informacion
@@ -166,7 +166,7 @@
                                 </div>
                             </c:when>
                             <c:otherwise>
-                                <button type="button" class="boton" onclick="mostrarRecuadro3()">Cambiar Vida</button>
+                                <button type="button" class="botonArriba" onclick="mostrarRecuadro3()">Cambiar Vida</button>
                                 <div class="opcionRecuadro" id="recuadro3" style="display: none;">
                                     <div class="contenidoRecuadro">
                                         <div class="tituloRecuadro"> <label for="pointsHP">Puntos de vida Actual:</label>
@@ -183,7 +183,7 @@
                                 </div>
                             </c:otherwise>
                         </c:choose>
-                        <button  class="botonfinal" onclick="location.href = '/TFG/Mesas/mostrarMesa?id=${requestScope.mesa.id}'">Volver</button>
+                        <button  class="botonArriba" onclick="location.href = '/TFG/Mesas/mostrarMesa?id=${requestScope.mesa.id}'">Volver</button>
                     </div>
                 </div>
             </div>

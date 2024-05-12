@@ -35,7 +35,7 @@ public class Personajeatributo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "VALOR", nullable = false)
-    private int valor;
+    private Integer valor;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
@@ -79,11 +79,11 @@ public class Personajeatributo implements Serializable {
         this.personajeatributosPK = personajeatributosPK;
     }
 
-    public int getValor() {
+    public Integer getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(Integer valor) {
         this.valor = valor;
     }
 

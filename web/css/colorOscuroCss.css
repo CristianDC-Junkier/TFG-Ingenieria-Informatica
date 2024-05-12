@@ -1236,6 +1236,40 @@ input[type="button"]:active {
     background-color:brown;
 }
 
+/********************************************************************************************************/
+/****************************************FORMULARIOS:CREARHILO*******************************************/
+/********************************************************************************************************/
+
+.bloqueCreacionHilo{
+
+    background-color: yellow;
+    border: brown 2px solid;
+    box-shadow: 5px 5px 5px 5px black;
+    background: linear-gradient(yellow,60%,white);
+}
+.bloqueCreacionHilo > form > div{
+
+    border: brown 2px solid;
+    color:black;
+}
+.bloqueCreacionHilo label{
+
+    border-bottom: black 2px solid;
+}
+.bloqueCreacionHilo input{
+
+    color: white;
+    background-color:brown;
+}
+.bloqueCreacionHilo select{
+    color: white;
+    background-color:brown;
+}
+#msjInicialHilo{
+    color: white;
+    background-color:brown;
+}
+
 /***************************************************************************************************/
 /**********************************LISTAS USUARIOS EN MESAS*****************************************/
 /***************************************************************************************************/
@@ -1581,6 +1615,86 @@ input[type="button"]:active {
     color: white;
 }
 
+/*******************************************************************************************************/
+/*************************************REGLAS: CREAR PERSONAJES******************************************/
+/*******************************************************************************************************/
+
+.bloqueMisiones > h3{
+
+    color:yellowgreen;
+    border: black 4px ridge;
+    background: brown;
+}
+
+.infoTiposNarraciones div{
+
+    border: dimgray 4px ridge;
+    background: black;
+}
+
+.infoTiposNarraciones div > p{
+
+    background: #191919;
+}
+
+.infoTiposNarraciones div > table {
+
+    background: #191919;
+}
+
+.infoTiposNarraciones div > table th, .infoDiseñoPersonaje div > table td {
+
+    border: 2px solid white;
+}
+
+.infoTiposNarraciones div > table th {
+
+    color:yellow;
+    background-color: brown;
+}
+/*******************************************************************************************************/
+/***************************************REGLAS: OBJETOS MÁGICOS*****************************************/
+/*******************************************************************************************************/
+
+.listaObjetosMagicos  h3{
+
+    color:yellowgreen;
+    background: brown;
+    border: black 4px ridge;
+}
+
+/*************************/
+/******Tabla Niveles******/
+/*************************/
+
+.objetosMagicos{
+
+    color:black;
+}
+
+.objetosMagicosPrimerafila {
+
+    background: black;
+    color: yellowgreen;
+}
+
+.objetosMagicos table{
+
+    border: 2px black solid;
+}
+.objetosMagicos th{
+
+    border: 3px solid brown;
+}
+.objetosMagicos td{
+
+    border: 3px solid black;
+}
+.objetosMagicosexplicacion {
+
+    background-color: black;
+    color: white;
+}
 /*******************************************************************************************************/
 /******************************************REGLAS: INTERPRETACION***************************************/
 /*******************************************************************************************************/
@@ -2353,4 +2467,126 @@ input[type="button"]:active {
 }
 .Contenidotera {
     color: white;
+}
+/***************************************************************************************************/
+/*****************************************LISTA FORO************************************************/
+/***************************************************************************************************/
+
+/*****************************/
+/********Busqueda foro********/
+/*****************************/
+
+.contenedorForo{
+
+    border: 2px solid brown;
+    background: black;
+}
+
+.tituloBuscadorForo {
+
+    color:yellow;
+}
+
+.buscadorForo input{
+
+    background-color: brown;
+    color:white;
+}
+
+.buscadorForo select {
+
+    border: brown 2px solid;
+    color:white;
+    background-color: #333333;
+}
+.buscadorForo button {
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+.buscadorForo  button:hover {
+
+    background-color: yellowgreen;
+}
+
+.buscadorForo  button:active {
+
+    transform: translateY(0.1em);
+}
+
+/*******************************/
+/**********Lista Mesas**********/
+/*******************************/
+
+.listasForo{
+
+    border: 2px solid brown;
+    background: black;
+}
+.listaForo h3{
+
+    color:white;
+    background: black;
+}
+.listaForo h4{
+
+    color:yellow;
+    border-top: 2px white solid;
+    border-bottom: 2px white solid;
+}
+
+/*******************************/
+/*************Fotos*************/
+/*******************************/
+
+.hilo-foto {
+
+    background-color: black;
+    border: 4px solid brown;
+}
+
+/*******************************/
+/*************Botones*************/
+/*******************************/
+.contenedorBotonesForo{
+
+    border: 2px solid brown;
+    background: black;
+
+}
+#botonMio.estalleno  {
+
+    border: brown 2px solid;
+    background-color: yellowgreen;
+}
+#botonMio.estalleno:hover {
+    background-color: yellowgreen;
+}
+
+#botonMio.noestalleno:hover {
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+
+#botonMio.noestalleno:hover {
+    background-color: yellowgreen;
+}
+#botonComentado.estalleno  {
+
+    border: brown 2px solid;
+    background-color: yellowgreen;
+}
+#botonComentado.estalleno:hover {
+    background-color: yellowgreen;
+}
+
+#botonComentado.noestalleno:hover {
+
+    border: brown 2px solid;
+    background-color: yellow;
+}
+
+#botonComentado.noestalleno:hover {
+    background-color: yellowgreen;
 }

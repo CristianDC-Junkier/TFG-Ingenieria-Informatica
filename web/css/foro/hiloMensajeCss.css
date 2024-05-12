@@ -1,4 +1,4 @@
-.contenedorMensajeForo {
+.contenedorMensajeHilo {
     display: flex;
     flex-wrap: wrap;
     background-color: black;
@@ -8,18 +8,18 @@
     border-radius: 10px;
 }
 
-.formularioMensajeForo {
+.formularioMensajeHilo {
     flex: 1 1 auto;
     margin-right: 10px;
     margin-bottom: 10px;
 }
 
-#mensajeChatMesa{
+#mensajeHilo{
     width: 25em;
 }
 
 @media (max-width: 768px) {
-    .formularioMensajeForo {
+    .formularioMensajeHilo {
         flex-basis: 100%;
     }
 }

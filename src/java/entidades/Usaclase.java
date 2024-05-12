@@ -35,7 +35,7 @@ public class Usaclase implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "NIVEL", nullable = false)
-    private short nivel;
+    private Integer nivel;
     @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Clase clases;
@@ -50,7 +50,7 @@ public class Usaclase implements Serializable {
         this.usaclasePK = usaclasePK;
     }
 
-    public Usaclase(UsaclasePK usaclasePK, short nivel) {
+    public Usaclase(UsaclasePK usaclasePK, Integer nivel) {
         this.usaclasePK = usaclasePK;
         this.nivel = nivel;
     }
@@ -67,11 +67,11 @@ public class Usaclase implements Serializable {
         this.usaclasePK = usaclasePK;
     }
 
-    public short getNivel() {
+    public Integer getNivel() {
         return nivel;
     }
 
-    public void setNivel(short nivel) {
+    public void setNivel(Integer nivel) {
         this.nivel = nivel;
     }
 

@@ -92,25 +92,23 @@
                                 <h5>Alojamiento</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Comida Sencilla:</li>
-                                        <li>Comida Elaborada:</li>
-                                        <li>Comida De Lujo</li>
+                                        <li>Alojamiento Sencillo: 5 de plata</li>
+                                        <li>Alojamiento Normal: 1 de oro</li>
                                     </ul>
                                 </div>
                                 <h5>Comidas</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Comida Sencilla:</li>
-                                        <li>Comida Elaborada:</li>
-                                        <li>Comida De Lujo</li>
+                                        <li>Comida Sencilla: 1 de plata</li>
+                                        <li>Comida Elaborada: 3 de plata</li>
                                     </ul>
                                 </div>
                                 <h5>Bebidas</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Comida Sencilla:</li>
-                                        <li>Comida Elaborada:</li>
-                                        <li>Comida De Lujo</li>
+                                        <li>Bebida Sencilla: 2 de cobre</li>
+                                        <li>Bebida Elaborada: 5 de cobre</li>
+                                        <li>Bebida De Lujo: 1 de plata</li>
                                     </ul>
                                 </div>
                             </div>
@@ -120,53 +118,49 @@
                                 <h5>Alojamiento</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Comida Sencilla:</li>
-                                        <li>Comida Elaborada:</li>
-                                        <li>Comida De Lujo</li>
+                                        <li>Alojamiento Sencillo: 8 de plata</li>
+                                        <li>Alojamiento Normal: 2 de oro</li>
                                     </ul>
                                 </div>
-                                <h5>Comidas</h5>
                                 <div class="ListaPrecio">
+                                    <h5>Comidas</h5>
                                     <ul>
-                                        <li>Comida Sencilla:</li>
-                                        <li>Comida Elaborada:</li>
-                                        <li>Comida De Lujo</li>
+                                        <li>Comida Sencilla: 2 de plata</li>
+                                        <li>Comida Elaborada: 5 de plata</li>
                                     </ul>
                                 </div>
                                 <h5>Bebidas</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Comida Sencilla:</li>
-                                        <li>Comida Elaborada:</li>
-                                        <li>Comida De Lujo</li>
+                                        <li>Bebida Sencilla: 3 de cobre</li>
+                                        <li>Bebida Elaborada: 1 de plata</li>
+                                        <li>Bebida De Lujo: 5 de plata</li>
                                     </ul>
                                 </div>
                             </div>
 
                             <h4>Taberna de Lujo</h4>
                             <div class="TipoListaPrecio">
-                                <h5>Alojamiento</h5>
+                                <h5>Alojamiento</h5>                                
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Comida Sencilla:</li>
-                                        <li>Comida Elaborada:</li>
-                                        <li>Comida De Lujo</li>
+                                        <li>Alojamiento Sencillo: 3 de oro</li>
+                                        <li>Alojamiento Normal: 5 de oro</li>
                                     </ul>
                                 </div>
-                                <h5>Comidas</h5>
                                 <div class="ListaPrecio">
+                                    <h5>Comidas</h5>
                                     <ul>
-                                        <li>Comida Sencilla:</li>
-                                        <li>Comida Elaborada:</li>
-                                        <li>Comida De Lujo</li>
+                                        <li>Comida Sencilla: 1 de oro</li>
+                                        <li>Comida Elaborada: 2 de oro</li>
                                     </ul>
                                 </div>
                                 <h5>Bebidas</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Comida Sencilla:</li>
-                                        <li>Comida Elaborada:</li>
-                                        <li>Comida De Lujo</li>
+                                        <li>Bebida Sencilla: 1 de plata</li>
+                                        <li>Bebida Elaborada: 8 de plata</li>
+                                        <li>Bebida De Lujo: 1 de oro</li>
                                     </ul>
                                 </div>
                             </div>
@@ -181,26 +175,26 @@
                                 <h5>Objetos comunes</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Objeto común:</li>
-                                        <li>Objeto mejorado:</li>
+                                        <li>Objeto común: -10 de valor</li>
+                                        <li>Objeto mejorado: -5 de valor</li>
                                     </ul>
                                 </div>
                                 <h5>Objetos mágicos</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Objeto común:</li>
-                                        <li>Objeto poco-común:</li>
-                                        <li>Objeto raro:</li>
-                                        <li>Objeto epico:</li>
-                                        <li>Objeto legendario:</li>
+                                        <li>Objeto común: -15 de valor</li>
+                                        <li>Objeto poco-común: -10 de valor</li>
+                                        <li>Objeto raro: -5 de valor</li>
+                                        <li>Objeto epico: valor normal</li>
+                                        <li>Objeto legendario: valor normal</li>
                                     </ul>
                                 </div>
                                 <h5>Pociones</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Pociones comunes:</li>
-                                        <li>Pociones raras:</li>
-                                        <li>Pociones legendarias:</li>
+                                        <li>Pociones comunes: -15 de valor</li>
+                                        <li>Pociones raras: -5 de valor</li>
+                                        <li>Pociones legendarias: valor normal</li>
                                     </ul>
                                 </div>
                             </div>
@@ -210,26 +204,26 @@
                                 <h5>Objetos comunes</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Objeto común:</li>
-                                        <li>Objeto mejorado:</li>
+                                        <li>Objeto común: valor normal</li>
+                                        <li>Objeto mejorado: valor normal</li>
                                     </ul>
                                 </div>
                                 <h5>Objetos mágicos</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Objeto común:</li>
-                                        <li>Objeto poco-común:</li>
-                                        <li>Objeto raro:</li>
-                                        <li>Objeto epico:</li>
-                                        <li>Objeto legendario:</li>
+                                        <li>Objeto común: valor normal</li>
+                                        <li>Objeto poco-común: valor normal</li>
+                                        <li>Objeto raro:  valor normal</li>
+                                        <li>Objeto epico:  +5 de valor</li>
+                                        <li>Objeto legendario: +10 de valor</li>
                                     </ul>
                                 </div>
                                 <h5>Pociones</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Pociones comunes:</li>
-                                        <li>Pociones raras:</li>
-                                        <li>Pociones legendarias:</li>
+                                        <li>Pociones comunes: valor normal</li>
+                                        <li>Pociones raras: valor normal </li>
+                                        <li>Pociones legendarias: +5 de valor</li>
                                     </ul>
                                 </div>
                             </div>
@@ -239,26 +233,26 @@
                                 <h5>Objetos comunes</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Objeto común:</li>
-                                        <li>Objeto mejorado:</li>
+                                        <li>Objeto común: +5 de valor</li>
+                                        <li>Objeto mejorado: +10 de valor</li>
                                     </ul>
                                 </div>
                                 <h5>Objetos mágicos</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Objeto común:</li>
-                                        <li>Objeto poco-común:</li>
-                                        <li>Objeto raro:</li>
-                                        <li>Objeto epico:</li>
-                                        <li>Objeto legendario:</li>
+                                        <li>Objeto común: +5 de valor</li>
+                                        <li>Objeto poco-común: +10 de valor</li>
+                                        <li>Objeto raro: +15 de valor</li>
+                                        <li>Objeto epico: +25 de valor</li>
+                                        <li>Objeto legendario: +50 de valor</li>
                                     </ul>
                                 </div>
                                 <h5>Pociones</h5>
                                 <div class="ListaPrecio">
                                     <ul>
-                                        <li>Pociones comunes:</li>
-                                        <li>Pociones raras:</li>
-                                        <li>Pociones legendarias:</li>
+                                        <li>Pociones comunes:+5 de valor</li>
+                                        <li>Pociones raras:+10 de valor</li>
+                                        <li>Pociones legendarias:+20 de valor</li>
                                     </ul>
                                 </div>
                             </div>

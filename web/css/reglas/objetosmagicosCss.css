@@ -1,2 +1,91 @@
 
+/********Lista Objetos Mágicos******/
+
+.resumenObjetosMagicos{
+
+    font-family: 'Times new roman';
+    font-size: 22px;
+    width: auto;
+    height: auto;
+}
+.resumenObjetosMagicos  h3{
+
+    text-align: center;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.Titulos select, .Titulos button{
+
+    position: relative;
+    float: right;
+    right: 5px;
+    margin-left: 5px;
+    margin-right: 0;
+    padding: 3px 5px;
+    border-radius: 10px;
+    width: auto;
+}
+.Titulos > button:hover {
+
+    transform: translateY(-0.1em);
+}
+
+.Titulos > button:active {
+
+    transform: translateY(0.1em);
+}
+
+.listaObjetosMagicos  h3{
+
+    margin-top: 10px;
+    text-align: center;
+}
+@media screen and (max-width: 400px)
+{
+    .Titulos  button , .Titulos select{
+
+        display: none;
+    }
+}
+
+/*************************/
+/******Tabla Objetos******/
+/*************************/
+
+.objetosMagicos{
+
+    display: flex;
+    overflow-x: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 7vmin;
+}
+.objetosMagicos table{
+
+    font-family: 'Times New Roman';
+    border-collapse: collapse;
+    width: 47.5%;
+    table-layout: fixed;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    font-size: 2vmin;
+}
+.objetosMagicos td, .objetosMagicos th{
+
+    padding: 0px 10px;
+    text-align: center;
+    padding: 8px;
+}
+.objetosMagicosexplicacion {
+
+    font-size: 2vmin;
+    box-sizing: border-box;
+    width: 47.5%;
+    padding: 20px; 
+    margin-bottom: 20px;
+}
 

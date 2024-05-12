@@ -2136,6 +2136,7 @@ public class ControladorPersonajes extends HttpServlet {
                             queryUsaSubClases.setParameter("nivel", personaje.getNivel());
 
                             try {
+                                /*
                                 tcnivel = queryTCNivel.getSingleResult();
                                 usaclase = queryUsaClases.getSingleResult();
                                 usasubclase = queryUsaSubClases.getSingleResult();
@@ -2144,10 +2145,20 @@ public class ControladorPersonajes extends HttpServlet {
                                 request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
                                 request.setAttribute("pjRasgosClase", usaclase.getRasgos());
                                 request.setAttribute("pjRasgosSubClase", usasubclase.getRasgos());
+                                
+                                 */
                                 request.setAttribute("pjRasgosRaza", personaje.getRaza().getRasgosList());
                                 request.setAttribute("pjRasgosSubraza", personaje.getSubraza().getRasgosList());
                                 request.setAttribute("pjRasgosTrasfondos", personaje.getTrasfondo().getRasgosList());
                                 request.setAttribute("personaje", personaje);
+
+                                //Prueba
+                                //request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
+                                //request.setAttribute("pjTablaClase",  personaje.getRaza().getRasgosList());
+                                request.setAttribute("pjRasgosClase",  personaje.getRaza().getRasgosList());
+                                request.setAttribute("pjRasgosSubClase",  personaje.getRaza().getRasgosList());
+                                ///
+
                                 vista = "/WEB-INF/jsp/personajes/personajePerfilRasgos.jsp";
                             } catch (Exception ex) {
                                 vista = "/Principal/inicio";
