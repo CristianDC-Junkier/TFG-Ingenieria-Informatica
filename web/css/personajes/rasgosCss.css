@@ -1,45 +1,41 @@
 
-.arribaDatosRaza {
+.arribaDatosRasgos {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding: 20px;
 }
-.datosIzquierdaRaza {
+.datosIzquierdaRasgos {
     display: flex;
     flex-direction: column;
     margin-right: 10px;
 }
-.datosIzquierdaArribaRaza {
+.datosIzquierdaArribaRasgos {
     display: flex;
 }
-.caracteristicasRaza {
+.caracteristicasRasgos {
     padding: 20px;
 }
-.datosIzquierdaArribaRaza img {
+.datosIzquierdaArribaRasgos img {
     max-width: 100%;
     height: auto;
     margin-right: 10px;
 }
-.caracteristicasClase {
+.caracteristicasRasgos {
     margin-left: 20px;
     margin-top: 25px;
     padding: 20px;
 }
-.datosIzquierdaAbajoRaza {
+.datosIzquierdaAbajoRasgos {
     margin-top: 10px;
     margin-bottom: 30px;
 }
-.botonArribaSubRazas{
-    position: fixed;
-    right: 20px;
-    width: auto;
-}
+
 @media screen and (max-width: 768px) {
-    .arribaDatosRaza {
+    .arribaDatosRasgos {
         flex-direction: column;
     }
-    .datosDerechaRaza {
+    .datosDerechaRasgos {
         flex: none; 
         margin-left: 0; 
         margin-top: 20px;

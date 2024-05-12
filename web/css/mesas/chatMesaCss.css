@@ -15,6 +15,19 @@
     justify-content: space-around;
 }
 
+
+@media screen and (max-width: 850px) {
+    .cajaGeneralMesa {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .listaChatMesa {
+        margin-top: 5%;
+        margin-bottom: 25%;
+    }
+
+}
+
 /******IZQUIERDA*******/
 
 .contedorDescriptor {
@@ -22,21 +35,21 @@
     align-items: center;
 }
 
-.imagenDescriptor {/*Funciona*/
-    min-height: 200px;
-    min-width: 300px;
+.imagenDescriptor {
+    height: 200px;
+    width: 50em;
     max-width: 300px;
 
     background-color: gray;
 
-    height: 200px;
     overflow: hidden;
     margin-right: 10px;
-    border: 2px solid black; /* Agregar borde de 2px de grosor y color negro */
+    border: 2px solid black;
 }
-.imagenDescriptor img{/*Funciona*/
-    width: 100%; /* La imagen ocupará todo el espacio disponible del contenedor */
-    height: auto;
+.imagenDescriptor img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .descripcionDescriptor{
@@ -44,25 +57,25 @@
 
     font-size: 12px;
     min-height: 200px;
-    min-width: 600px;
-    border: 2px solid black; /* Agregar borde de 2px de grosor y color negro */
+    width: 50em;
+    border: 2px solid black;
 }
 
-.contenedorChat {/*Funciona*/
+.contenedorChat {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
 }
 
-.contenedorMensajesChat {/*Funciona*/
+.contenedorMensajesChat {
     background-color: gray;
-    min-height: 440px; /* Altura mínima del contenedor */
-    max-height: 440px; /* Altura mínima del contenedor */
+    min-height: 440px;
+    max-height: 440px;
     max-width: 900px;
-    padding: 10px; /* Agregar un relleno interno para separar el contenido del borde */
-    border: 1px solid black; /* Borde del contenedor */
-    margin-bottom: 10px; /* Margen inferior para separar el contenedor del siguiente elemento */
-    overflow-y: auto; /* Para agregar desplazamiento vertical si el contenido es demasiado largo */
+    padding: 10px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    overflow-y: auto;
 }
 
 
@@ -99,7 +112,7 @@
     color: black;
     background-color: gray;
     margin-bottom: 20px;
-    border: 2px solid black; /* Agregar borde de 2px de grosor y color negro */
+    border: 2px solid black;
     padding: 10px;
 }
 .contenedorAudioChatMesa p{
@@ -112,7 +125,7 @@
     margin-top: 10px;
 }
 .botonArriba{
-    
+
     margin: 10px;
     padding: 5px;
 }
@@ -120,7 +133,7 @@
 .listaChatMesa {
     margin-top: 25%;
     margin-bottom: 70%;
-    overflow-y: auto; /* Para agregar desplazamiento vertical si el contenido es demasiado largo */
+    overflow-y: auto;
     background-color: gray;
     color: black;
 }

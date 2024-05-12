@@ -145,6 +145,11 @@ public class ControladorCorreo extends HttpServlet {
                     session = Session.getDefaultInstance(propiedades);
 
                     try {
+                        //Localmente:
+                        //"http://localhost:8080/TFG/Formularios/restablecercontraseña?id="
+                        //Online:
+                        //"http://34.0.197.254:8080/TFG/Formularios/restablecercontraseña?id="
+                        
                         // Generar mensaje
                         message = new MimeMessage(session);
                         message.setFrom(new InternetAddress(remitente));
@@ -157,7 +162,7 @@ public class ControladorCorreo extends HttpServlet {
                                 + "restablecer la contraseña"
                                 + "\nSu usuario es: " + user.getApodo()
                                 + "\nRecuperar contraseña: "
-                                + "http://localhost:8080/TFG/Formularios/restablecercontraseña?id="
+                                + "http://34.0.197.254:8080/TFG/Formularios/restablecercontraseña?id="
                                 + user.getId() + "&password=" + user.getContrasena());
 
                         try {
