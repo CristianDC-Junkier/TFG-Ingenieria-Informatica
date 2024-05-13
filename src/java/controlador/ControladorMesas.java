@@ -65,7 +65,7 @@ public class ControladorMesas extends HttpServlet {
         Pertenecemesa pmesa;
         Pertenecemesa pmesaaux;
         Personaje personaje;
-        int cantidad;
+
 
         TypedQuery<Mesa> queryMesas;
         TypedQuery<Pertenecemesa> queryPertenecemesas;
@@ -102,6 +102,8 @@ public class ControladorMesas extends HttpServlet {
         String numString;
         int num;
         int numPag;
+        
+        int cantidad;
 
         String sql;
 

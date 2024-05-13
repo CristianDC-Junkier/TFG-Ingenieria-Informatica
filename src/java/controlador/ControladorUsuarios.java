@@ -67,7 +67,7 @@ public class ControladorUsuarios extends HttpServlet {
         String msj;
         Object result;
 
-        Usuario user = null;
+        Usuario user;
         Usuario useraux;
         Amigo amigo;
         Bloqueado bloqueado;
@@ -113,6 +113,7 @@ public class ControladorUsuarios extends HttpServlet {
 
         switch (accion) {
             case "/crearUsuario":
+                user = null;
                 conseguido = false;
                 msj = "";
 

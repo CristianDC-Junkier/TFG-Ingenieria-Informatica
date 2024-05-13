@@ -113,7 +113,6 @@ public class ControladorExplorar extends HttpServlet {
         List<Usasubclase> listaUsaSubClases;
         List<Usaclase> listaUsaClases;
 
-
         String sql;
         String id;
         String nombre;

@@ -55,7 +55,6 @@ public class ControladorCorreo extends HttpServlet {
         
         TypedQuery<Usuario> queryUsuarios;
 
-
         String correo;
         String apodo;
 

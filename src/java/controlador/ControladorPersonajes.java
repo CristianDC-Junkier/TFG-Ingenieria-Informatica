@@ -1,6 +1,5 @@
 package controlador;
 
-import entidades.Amigo;
 import entidades.Atributo;
 import entidades.Clase;
 import entidades.Dote;
@@ -45,7 +44,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 /**
  *
@@ -82,8 +80,28 @@ public class ControladorPersonajes extends HttpServlet {
         String msj;
         Object result;
 
+        Usuario user;
+        Personaje personaje;
+        Personaje personajeaux;
+        Clase clase;
+        Subclase subclase;
+        Raza raza;
+        Subraza subraza;
+        Trasfondo transfondo;
+        Atributo atributo;
+        Personajeatributo personajeAtributo;
+        Personajeatributooriginal personajeAtributoOriginal;
+        Personajeatributo pjAtr;
+        Habilidad habilidad;
+        Personajehabilidad personajeHabilidad;
+        Equipo equipo;
+        Hechizo hechizo;
+        Tablaclasepornivel tcnivel;
+        Usaclase usaclase;
+        Usasubclase usasubclase;
+        Dote dote;
+
         TypedQuery<Usuario> queryUsuarios;
-        TypedQuery<Amigo> queryAmigos;
         TypedQuery<Clase> queryClases;
         TypedQuery<Subclase> querySubclases;
         TypedQuery<Raza> queryRazas;
@@ -104,7 +122,6 @@ public class ControladorPersonajes extends HttpServlet {
         Query queryAUX;
 
         List<Personaje> listaPersonajes;
-        List<Usuario> listaUsuarios;
         List<String> fotosPersonajes;
         List<Atributo> listaAtributos;
         List<Atributo> listaAtributosAux;
@@ -123,29 +140,6 @@ public class ControladorPersonajes extends HttpServlet {
 
         HashSet<Hechizo> hashAuxHechizos;
         HashSet<Equipo> hashAuxEquipo;
-
-        Usuario user;
-        Usuario useraux;
-        Personaje personaje;
-        Personaje personajeaux;
-        Clase clase;
-        Subclase subclase;
-        Raza raza;
-        Subraza subraza;
-        Trasfondo transfondo;
-        Atributo atributo;
-        Personajeatributo personajeAtributo;
-        Personajeatributooriginal personajeAtributoOriginal;
-        Personajeatributo pjAtr;
-        Habilidad habilidad;
-        Personajehabilidad personajeHabilidad;
-        Equipo equipo;
-        Hechizo hechizo;
-        Tablaclasepornivel tcnivel;
-        Amigo amigos;
-        Usaclase usaclase;
-        Usasubclase usasubclase;
-        Dote dote;
 
         String id;
         String personaje_id;
@@ -211,7 +205,6 @@ public class ControladorPersonajes extends HttpServlet {
         String puntosHP;
         String puntosEXP;
 
-        Part filePart;
         InputStream contenidoImagen;
         byte[] imageData;
 

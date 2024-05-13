@@ -57,9 +57,12 @@ public class ControladorFormularios extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
+        String accion;
+        accion = request.getPathInfo();
+        String vista = "";
         HttpSession session;
         Usuario user;
-        
+
         Mesa mesa;
         Personaje personaje;
         Tablaclasepornivel tcnivel;
@@ -98,10 +101,6 @@ public class ControladorFormularios extends HttpServlet {
         String password;
 
         String msj;
-
-        String accion;
-        accion = request.getPathInfo();
-        String vista = "";
 
         switch (accion) {
             case "/contraseñaperdida":

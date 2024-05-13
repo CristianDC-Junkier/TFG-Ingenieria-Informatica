@@ -5,7 +5,6 @@ import entidades.Clase;
 import entidades.Equipo;
 import entidades.Hechizo;
 import entidades.Hilo;
-import entidades.Mensajeamigo;
 import entidades.Mesa;
 import entidades.Monstruo;
 import entidades.Personaje;
@@ -20,7 +19,6 @@ import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -74,8 +72,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             Usuario user;
             Usuario useraux;
-            Mensajeamigo MEAux;
-            Mensajeamigo MRAux;
             Hechizo hechizoAux;
             Monstruo monstruoAux;
             Equipo equipoAux;
@@ -83,13 +79,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             TypedQuery<Usuario> queryUsuarios;
             TypedQuery<Pertenecemesa> queryPMesas;
-            TypedQuery<Mensajeamigo> queryMensajesAmigos;
-            TypedQuery<Hechizo> queryHechizos;
-            TypedQuery<Monstruo> queryMonstruos;
-            TypedQuery<Equipo> queryEquipo;
             TypedQuery<Raza> queryRazas;
             TypedQuery<Clase> queryClases;
-            TypedQuery<Subclase> querySubClases;
             TypedQuery<Subraza> querySubRazas;
             TypedQuery<Atributo> queryAtributos;
 
@@ -98,14 +89,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             List<Usuario> listaUsuarios;
             List<Pertenecemesa> listaPerteneceMesa;
             List<Mesa> listaMesas;
-            List<Mensajeamigo> listaMensajesEnviados;
-            List<Mensajeamigo> ListaMensajesRecibidos;
-            List<Mensajeamigo> ListaMensajesOrdenados;
             List<Hechizo> listaHechizos;
             List<Monstruo> listaMonstruos;
             List<Equipo> listaEquipo;
             List<Raza> listaRazas;
-            List<Clase> listaClases;
             List<Atributo> listaAtributos;
             List<Subclase> listaSubClases;
             List<Subraza> listaSubRazas;
@@ -116,12 +103,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             List<String> fotosPersonajes;
             List<Hilo> listaHilos;
 
-            int contadorEnviados = 0;
-            int contadorRecibidos = 0;
-            int vfecha;
-            boolean terminadaMensajesAmigos = false;
             Date fechaActual;
-            LocalDateTime fechaLimite;
 
             String nombre;
             String id;
@@ -145,16 +127,12 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
             String raza;
             String clase;
-            String numString;
             String personajeNombre;
-            int nivel;
 
             int num = 0; //offset
             int cantidad;
             boolean novalido;
             boolean encontrado;
-
-
 
             HashSet<Hechizo> hashAuxHechizos;
             HashSet<Equipo> hashAuxEquipo;
