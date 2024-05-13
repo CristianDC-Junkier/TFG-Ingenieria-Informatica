@@ -111,7 +111,7 @@
                                             <td>${personaje.raza.nombre}</td>
                                             <td>${personaje.nivel}</td>
                                             <td>${requestScope.amigo.apodo}</td>
-                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personajeAmigo?id=${personaje.id}'">Detalles</button></td>
+                                            <td><button class="botonDentro" onclick="location.href = '/TFG/Personajes/personaje?id=${personaje.id}'">Detalles</button></td>
                                         </tr>
                                     </c:forEach>
                                 </table>

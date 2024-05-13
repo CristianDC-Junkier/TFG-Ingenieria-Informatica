@@ -5,6 +5,7 @@ import entidades.Atributo;
 import entidades.Clase;
 import entidades.Dote;
 import entidades.Equipo;
+import entidades.Espaciohechizo;
 import entidades.Habilidad;
 import entidades.Hechizo;
 import entidades.Mejoradote;
@@ -13,11 +14,13 @@ import entidades.Personajeatributooriginal;
 import entidades.Personajehabilidad;
 import entidades.Personaje;
 import entidades.Propiedad;
+import entidades.Rasgo;
 import entidades.Raza;
 import entidades.Requisitosdote;
 import entidades.Subclase;
 import entidades.Subraza;
 import entidades.Tablaclasepornivel;
+import entidades.Tablaclases;
 import entidades.Trasfondo;
 import entidades.Usaclase;
 import entidades.Usasubclase;
@@ -2137,31 +2140,46 @@ public class ControladorPersonajes extends HttpServlet {
 
                             try {
 
+                                request.setAttribute("personaje", personaje);
+
                                 tcnivel = queryTCNivel.getSingleResult();
                                 usaclase = queryUsaClases.getSingleResult();
                                 usasubclase = queryUsaSubClases.getSingleResult();
 
                                 request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
                                 request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
-                                
+
                                 request.setAttribute("pjRasgosClase", usaclase.getRasgos());
                                 request.setAttribute("pjRasgosSubClase", usasubclase.getRasgos());
                                 request.setAttribute("pjRasgosRaza", personaje.getRaza().getRasgosList());
                                 request.setAttribute("pjRasgosSubraza", personaje.getSubraza().getRasgosList());
                                 request.setAttribute("pjRasgosTrasfondos", personaje.getTrasfondo().getRasgosList());
-                                
-                                request.setAttribute("personaje", personaje);
-
-                                //Prueba
-                                //request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
-                                //request.setAttribute("pjTablaClase",  personaje.getRaza().getRasgosList());
-                                //request.setAttribute("pjRasgosClase",  personaje.getRaza().getRasgosList());
-                                //request.setAttribute("pjRasgosSubClase",  personaje.getRaza().getRasgosList());
-                                ///
 
                                 vista = "/WEB-INF/jsp/personajes/personajePerfilRasgos.jsp";
                             } catch (Exception ex) {
-                                vista = "/Principal/inicio";
+
+                                //Prueba
+                                Espaciohechizo example = new Espaciohechizo("", 2, 2, 3, 0, 1, 1, 1, 1, 1);
+                                Tablaclases tb = new Tablaclases("2", 2, 2, 2, 2);
+                                ArrayList<Rasgo> exampleR = new ArrayList();
+
+                                Rasgo raux = new Rasgo("", "RasgoEjemplo1", "Una decripcion larga y tendida de ejemplo claro");
+                                Rasgo raux2 = new Rasgo("", "RasgoEjemplo2", "Una decripcion larga y tendida de ejemplo claro");
+
+                                exampleR.add(raux);
+                                exampleR.add(raux2);
+
+                                request.setAttribute("pjHechizosClase", example);
+                                request.setAttribute("pjTablaClase", tb);
+
+                                request.setAttribute("pjRasgosClase", exampleR);
+                                request.setAttribute("pjRasgosSubClase", exampleR);
+                                request.setAttribute("pjRasgosRaza", exampleR);
+                                request.setAttribute("pjRasgosSubraza", exampleR);
+                                request.setAttribute("pjRasgosTrasfondos", exampleR);
+
+                                ///
+                                vista = "/WEB-INF/jsp/personajes/personajePerfilRasgos.jsp";
                             }
                         }
                     } catch (Exception ex) {
@@ -2360,47 +2378,68 @@ public class ControladorPersonajes extends HttpServlet {
             case "/personajeRasgos":
                 //Recogemos los datos
                 personaje_id = request.getParameter("id");
-                id = request.getParameter("amigo");
 
                 //Comprobamos si existe
                 queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
                 queryPersonajes.setParameter("id", personaje_id);
                 try {
                     personaje = queryPersonajes.getSingleResult();
-                    if (!personaje.getUsuario().getId().equals(id)) {
-                        vista = "/Principal/inicio";
-                    } else {
 
-                        //Espacios de conjuros y BC 
-                        queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
-                        queryTCNivel.setParameter("clase", personaje.getClase().getId());
-                        queryTCNivel.setParameter("nivel", personaje.getNivel());
-                        //Rasgos Clase
-                        queryUsaClases = em.createNamedQuery("Usaclase.findByClaseNivel", Usaclase.class);
-                        queryUsaClases.setParameter("clase", personaje.getClase().getId());
-                        queryUsaClases.setParameter("nivel", personaje.getNivel());
-                        //Rasgos SubClase
-                        queryUsaSubClases = em.createNamedQuery("Usasubclase.findBySubclaseNivel", Usasubclase.class);
-                        queryUsaSubClases.setParameter("subclase", personaje.getClase().getId());
-                        queryUsaSubClases.setParameter("nivel", personaje.getNivel());
+                    //Espacios de conjuros y BC 
+                    queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
+                    queryTCNivel.setParameter("clase", personaje.getClase().getId());
+                    queryTCNivel.setParameter("nivel", personaje.getNivel());
+                    //Rasgos Clase
+                    queryUsaClases = em.createNamedQuery("Usaclase.findByClaseNivel", Usaclase.class);
+                    queryUsaClases.setParameter("clase", personaje.getClase().getId());
+                    queryUsaClases.setParameter("nivel", personaje.getNivel());
+                    //Rasgos SubClase
+                    queryUsaSubClases = em.createNamedQuery("Usasubclase.findBySubclaseNivel", Usasubclase.class);
+                    queryUsaSubClases.setParameter("subclase", personaje.getClase().getId());
+                    queryUsaSubClases.setParameter("nivel", personaje.getNivel());
 
-                        try {
-                            tcnivel = queryTCNivel.getSingleResult();
-                            usaclase = queryUsaClases.getSingleResult();
-                            usasubclase = queryUsaSubClases.getSingleResult();
+                    try {
 
-                            request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
-                            request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
-                            request.setAttribute("pjRasgosClase", usaclase.getRasgos());
-                            request.setAttribute("pjRasgosSubClase", usasubclase.getRasgos());
-                            request.setAttribute("pjRasgosRaza", personaje.getRaza().getRasgosList());
-                            request.setAttribute("pjRasgosSubraza", personaje.getSubraza().getRasgosList());
-                            request.setAttribute("pjRasgosTrasfondos", personaje.getTrasfondo().getRasgosList());
-                            request.setAttribute("personaje", personaje);
-                            vista = "/WEB-INF/jsp/personajes/personajeRasgos.jsp";
-                        } catch (Exception ex) {
-                            vista = "/Principal/inicio";
-                        }
+                        request.setAttribute("personaje", personaje);
+
+                        tcnivel = queryTCNivel.getSingleResult();
+                        usaclase = queryUsaClases.getSingleResult();
+                        usasubclase = queryUsaSubClases.getSingleResult();
+
+                        request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
+                        request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
+
+                        request.setAttribute("pjRasgosClase", usaclase.getRasgos());
+                        request.setAttribute("pjRasgosSubClase", usasubclase.getRasgos());
+                        request.setAttribute("pjRasgosRaza", personaje.getRaza().getRasgosList());
+                        request.setAttribute("pjRasgosSubraza", personaje.getSubraza().getRasgosList());
+                        request.setAttribute("pjRasgosTrasfondos", personaje.getTrasfondo().getRasgosList());
+
+                        vista = "/WEB-INF/jsp/personajes/personajeRasgos.jsp";
+                    } catch (Exception ex) {
+
+                        //Prueba
+                        Espaciohechizo example = new Espaciohechizo("", 2, 2, 3, 0, 1, 1, 1, 1, 1);
+                        Tablaclases tb = new Tablaclases("2", 2, 2, 2, 2);
+                        ArrayList<Rasgo> exampleR = new ArrayList();
+
+                        Rasgo raux = new Rasgo("", "RasgoEjemplo1", "Una decripcion larga y tendida de ejemplo claro");
+                        Rasgo raux2 = new Rasgo("", "RasgoEjemplo2", "Una decripcion larga y tendida de ejemplo claro");
+
+                        exampleR.add(raux);
+                        exampleR.add(raux2);
+
+                        request.setAttribute("pjHechizosClase", example);
+                        request.setAttribute("pjTablaClase", tb);
+
+                        request.setAttribute("pjRasgosClase", exampleR);
+                        request.setAttribute("pjRasgosSubClase", exampleR);
+                        request.setAttribute("pjRasgosRaza", exampleR);
+                        request.setAttribute("pjRasgosSubraza", exampleR);
+                        request.setAttribute("pjRasgosTrasfondos", exampleR);
+
+                        ///
+                        vista = "/WEB-INF/jsp/personajes/personajeRasgos.jsp";
                     }
                 } catch (Exception ex) {
                     vista = "/Principal/inicio";

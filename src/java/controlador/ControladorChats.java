@@ -62,15 +62,15 @@ public class ControladorChats extends HttpServlet {
             String resultado = "";
 
             HttpSession session;
-
             Usuario user;
+            
             Usuario useraux;
             Mensajeamigo MEAux;
             Mensajeamigo MRAux;
-            Mensajeamigo msjA = null;
+            Mensajeamigo msjA;
             Mensajemesa MMEAux;
             Mensajemesa MMRAux;
-            Mensajemesa msjM = null;
+            Mensajemesa msjM;
             Pertenecemesa pmesa;
             Mesa mesa;
             Musica musica;
@@ -79,7 +79,6 @@ public class ControladorChats extends HttpServlet {
             TypedQuery<Usuario> queryUsuarios;
             TypedQuery<Amigo> queryAmigos;
             TypedQuery<Mensajeamigo> queryMensajesAmigos;
-            TypedQuery<Mensajemesa> queryMensajesMesas;
             TypedQuery<Pertenecemesa> queryPertenecemesas;
             TypedQuery<Mesa> queryMesas;
             TypedQuery<Musica> queryMusica;
@@ -94,9 +93,7 @@ public class ControladorChats extends HttpServlet {
             List<Mensajemesa> listaMensajesMesaEnviados;
             List<Mensajemesa> listaMensajesMesaRecibidos;
             List<Mensajemesa> listaMensajesMesaOrdenados;
-            List<Musica> listaMusica;
             List<Pertenecemesa> listaPertenecemesa;
-            List<Personaje> listaPersonajes;
 
             int contadorEnviados = 0;
             int contadorRecibidos = 0;

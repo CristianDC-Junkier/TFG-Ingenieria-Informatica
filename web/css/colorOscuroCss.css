@@ -2315,6 +2315,30 @@ input[type="button"]:active {
 .datosDerechaCaracteristicas h3{
     color: yellow;
 }
+/********************************/
+/*********Caracteristicas********/
+/********************************/
+.arribaDatosRasgos{
+    color: white;
+}
+.caracteristicasRasgos h3{
+    color: yellow;
+}
+.datosIzquierdaArribaRasgos{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosIzquierdaAbajoRasgos{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosDerechaRasgos{
+    border: black 5px solid;
+    background-color: #333333;
+}
+.datosDerechaRasgos h3{
+    color: yellow;
+}
 /*******************************************************************************************************/
 /**********************************************REPETIDO*************************************************/
 /*******************************************************************************************************/

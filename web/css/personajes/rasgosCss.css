@@ -1,44 +1,25 @@
 
+
 .arribaDatosRasgos {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding: 20px;
 }
-.datosIzquierdaRasgos {
+.datosIzquierdaArribaRasgos {
+    display: flex;
     display: flex;
     flex-direction: column;
     margin-right: 10px;
 }
-.datosIzquierdaArribaRasgos {
-    display: flex;
-}
 .caracteristicasRasgos {
-    padding: 20px;
-}
-.datosIzquierdaArribaRasgos img {
-    max-width: 100%;
-    height: auto;
-    margin-right: 10px;
-}
-.caracteristicasRasgos {
-    margin-left: 20px;
-    margin-top: 25px;
-    padding: 20px;
+    margin-left: 10px;
+    margin-top: 5px;
+    padding: 15px;
 }
 .datosIzquierdaAbajoRasgos {
     margin-top: 10px;
     margin-bottom: 30px;
-}
-
-@media screen and (max-width: 768px) {
-    .arribaDatosRasgos {
-        flex-direction: column;
-    }
-    .datosDerechaRasgos {
-        flex: none; 
-        margin-left: 0; 
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
+    margin-left: 20px;
+    margin-right: 20px;
 }

@@ -2302,6 +2302,31 @@ input[type="button"]:active {
     color: yellow;
 }
 
+/********************************/
+/**************Rasgos************/
+/********************************/
+.arribaDatosRasgos{
+    color: black;
+}
+.caracteristicasRasgos h3{
+    color: yellow;
+}
+.datosIzquierdaArribaRasgos{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosIzquierdaAbajoRasgos{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosDerechaRasgos{
+    border: #003333 5px solid;
+    background-color: #00aaaa;
+}
+.datosDerechaRasgos h3{
+    color: yellow;
+}
+
 /*******************************************************************************************************/
 /**********************************************REPETIDO*************************************************/
 /*******************************************************************************************************/

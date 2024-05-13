@@ -21,84 +21,76 @@
                 <div class="datosIzquierdaRasgos">
                     <div class="datosIzquierdaArribaRasgos">
                         <h3>Espacios de hechizo</h3>
+                        <br>
                         <table class="tablaHechizos">
                             <tr>
-                                <th>Nivel Actual</th>
-                                <td>${requestScope.personaje.nivel}</td>
+                                <th>Nivel Actual - ${requestScope.personaje.nivel}</th>
                             </tr>
                             <tr>
-                                <th>Hechizo nv1</th>
-                                <td>${requestScope.pjHechizosClase.nv1}</td>
+                                <th>Hechizo nv1 - ${requestScope.pjHechizosClase.nv1}</th>
                             </tr>
                             <tr>
-                                <th>Hechizo nv2</th>
-                                <td>${requestScope.pjHechizosClase.nv2}</td>
+                                <th>Hechizo nv2 - ${requestScope.pjHechizosClase.nv2}</th>
                             </tr>
                             <tr>
-                                <th>Hechizo nv3</th>
-                                <td>${requestScope.pjHechizosClase.nv3}</td>
+                                <th>Hechizo nv3 - ${requestScope.pjHechizosClase.nv3}</th>
                             </tr>
                             <tr>
-                                <th>Hechizo nv4</th>
-                                <td>${requestScope.pjHechizosClase.nv4}</td>
+                                <th>Hechizo nv4 - ${requestScope.pjHechizosClase.nv4}</th>
+
                             </tr>
                             <tr>
-                                <th>Hechizo nv5</th>
-                                <td>${requestScope.pjHechizosClase.nv5}</td>
+                                <th>Hechizo nv5 - ${requestScope.pjHechizosClase.nv5}</th>
                             </tr>                            
                             <tr>
-                                <th>Hechizo nv6</th>
-                                <td>${requestScope.pjHechizosClase.nv6}</td>
+                                <th>Hechizo nv6 - ${requestScope.pjHechizosClase.nv6}</th>
                             </tr>                            
                             <tr>
-                                <th>Hechizo nv7</th>
-                                <td>${requestScope.pjHechizosClase.nv7}</td>
+                                <th>Hechizo nv7 - ${requestScope.pjHechizosClase.nv7}</th>
                             </tr>                            
                             <tr>
-                                <th>Hechizo nv8</th>
-                                <td>${requestScope.pjHechizosClase.nv8}</td>
+                                <th>Hechizo nv8 -${requestScope.pjHechizosClase.nv8} </th>
                             </tr>
                             <tr>
-                                <th>Hechizo nv9</th>
-                                <td>${requestScope.pjHechizosClase.nv9}</td>
+                                <th>Hechizo nv9 - ${requestScope.pjHechizosClase.nv9}</th>
                             </tr>
-                        </table>   
-                    </div>
-                    <div class="datosDerechaRasgos">
-                        <div class="caracteristicasRasgos">
-                            <h3>Características</h3>
-                            <ul>
-                                <li>Nombre: ${requestScope.personaje.nombre}</li>
-                                <li>Rasgos por Clase:${requestScope.pjTablaClase.rasgos}</li>                    
-                                <li>BC:+${requestScope.pjTablaClase.bc}</li>
-                                <li>Trucos:${requestScope.pjTablaClase.trucos}</li>
-                                <li>Hechizos:${requestScope.pjTablaClase.hechizos}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class = "datosIzquierdaAbajoRasgos">
-                        <h3>Rasgos por Clase</h3>
-                        <c:forEach var="rasgo" items="${pjRasgosRaza}" varStatus="status">
-                            ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
-                        </c:forEach>
-                        <h3>Rasgos por Subclase</h3>
-                        <c:forEach var="rasgo" items="${pjRasgosSubClase}" varStatus="status">
-                            ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
-                        </c:forEach> 
-                        <h3>Rasgos por Raza</h3>
-                        <c:forEach var="rasgo" items="${pjRasgosRaza}" varStatus="status">
-                            ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
-                        </c:forEach> 
-                        <h3>Rasgos por Subraza</h3>
-                        <c:forEach var="rasgo" items="${pjRasgosSubraza}" varStatus="status">
-                            ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
-                        </c:forEach>
-                        <h3>Rasgos por Trasfondo</h3>
-                        <c:forEach var="rasgo" items="${pjRasgosTrasfondos}" varStatus="status">
-                            ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
-                        </c:forEach> 
+                        </table>    
                     </div>
                 </div>
+                <div class="datosDerechaRasgos">
+                    <div class="caracteristicasRasgos">
+                        <h3>Características</h3>
+                        <ul>
+                            <li>Nombre: ${requestScope.personaje.nombre}</li>
+                            <li>Rasgos por Clase:${requestScope.pjTablaClase.rasgos}</li>                    
+                            <li>BC:+${requestScope.pjTablaClase.bc}</li>
+                            <li>Trucos:${requestScope.pjTablaClase.trucos}</li>
+                            <li>Hechizos:${requestScope.pjTablaClase.hechizos}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class = "datosIzquierdaAbajoRasgos">
+                <h3>Rasgos por Clase</h3>
+                <c:forEach var="rasgo" items="${pjRasgosRaza}" varStatus="status">
+                    ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
+                </c:forEach>
+                <h3>Rasgos por Subclase</h3>
+                <c:forEach var="rasgo" items="${pjRasgosSubClase}" varStatus="status">
+                    ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
+                </c:forEach> 
+                <h3>Rasgos por Raza</h3>
+                <c:forEach var="rasgo" items="${pjRasgosRaza}" varStatus="status">
+                    ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
+                </c:forEach> 
+                <h3>Rasgos por Subraza</h3>
+                <c:forEach var="rasgo" items="${pjRasgosSubraza}" varStatus="status">
+                    ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
+                </c:forEach>
+                <h3>Rasgos por Trasfondo</h3>
+                <c:forEach var="rasgo" items="${pjRasgosTrasfondos}" varStatus="status">
+                    ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
+                </c:forEach> 
             </div>
         </main>
         <jsp:include page="/WEB-INF/jsp/footer.jsp" />

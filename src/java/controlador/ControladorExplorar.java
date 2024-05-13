@@ -67,7 +67,18 @@ public class ControladorExplorar extends HttpServlet {
 
         Object result;
 
+        Clase Clase;
+        Subclase SubClase;
+        Trasfondo Trasfondo;
+        Raza Raza;
+        Subraza SubRaza;
+        Hechizo Hechizo;
+        Monstruo Monstruo;
+        Equipo Equipo;
+        Alcance Alcance;
+        
         Query queryAUX;
+        
         TypedQuery<Estado> queryEstados;
         TypedQuery<Clase> queryClases;
         TypedQuery<Subclase> querySubClases;
@@ -102,15 +113,6 @@ public class ControladorExplorar extends HttpServlet {
         List<Usasubclase> listaUsaSubClases;
         List<Usaclase> listaUsaClases;
 
-        Clase Clase;
-        Subclase SubClase;
-        Trasfondo Trasfondo;
-        Raza Raza;
-        Subraza SubRaza;
-        Hechizo Hechizo;
-        Monstruo Monstruo;
-        Equipo Equipo;
-        Alcance Alcance;
 
         String sql;
         String id;
@@ -145,9 +147,7 @@ public class ControladorExplorar extends HttpServlet {
 
         String numString;
         int num;
-        int pag;
         int numpag;
-        int cont;
 
         HashSet<Hechizo> hashAuxHechizos;
         HashSet<Equipo> hashAuxEquipo;

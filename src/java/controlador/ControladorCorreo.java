@@ -50,9 +50,11 @@ public class ControladorCorreo extends HttpServlet {
         Properties propiedades;
         MimeMessage message;
         Session session;
-
-        TypedQuery<Usuario> queryUsuarios;
+        
         Usuario user;
+        
+        TypedQuery<Usuario> queryUsuarios;
+
 
         String correo;
         String apodo;

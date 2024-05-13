@@ -58,8 +58,8 @@ public class ControladorFormularios extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         HttpSession session;
-
         Usuario user;
+        
         Mesa mesa;
         Personaje personaje;
         Tablaclasepornivel tcnivel;
@@ -69,7 +69,6 @@ public class ControladorFormularios extends HttpServlet {
         Usaclase usaclase;
         Usasubclase usasubclase;
         Dote dote;
-        Atributo atributo;
         Personajeatributo patributo;
 
         TypedQuery<Mesa> queryMesas;
