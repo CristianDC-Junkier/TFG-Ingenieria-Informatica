@@ -23,16 +23,16 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cristian
  */
 @Entity
-@Table(name = "TABLACLASES")
+@Table(name = "TABLACLASE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tablaclases.findAll", query = "SELECT t FROM Tablaclases t"),
-    @NamedQuery(name = "Tablaclases.findById", query = "SELECT t FROM Tablaclases t WHERE t.id = :id"),
-    @NamedQuery(name = "Tablaclases.findByRasgos", query = "SELECT t FROM Tablaclases t WHERE t.rasgos = :rasgos"),
-    @NamedQuery(name = "Tablaclases.findByBc", query = "SELECT t FROM Tablaclases t WHERE t.bc = :bc"),
-    @NamedQuery(name = "Tablaclases.findByTrucos", query = "SELECT t FROM Tablaclases t WHERE t.trucos = :trucos"),
-    @NamedQuery(name = "Tablaclases.findByHechizos", query = "SELECT t FROM Tablaclases t WHERE t.hechizos = :hechizos")})
-public class Tablaclases implements Serializable {
+    @NamedQuery(name = "Tablaclase.findAll", query = "SELECT t FROM Tablaclase t"),
+    @NamedQuery(name = "Tablaclase.findById", query = "SELECT t FROM Tablaclase t WHERE t.id = :id"),
+    @NamedQuery(name = "Tablaclase.findByRasgos", query = "SELECT t FROM Tablaclase t WHERE t.rasgos = :rasgos"),
+    @NamedQuery(name = "Tablaclase.findByBc", query = "SELECT t FROM Tablaclase t WHERE t.bc = :bc"),
+    @NamedQuery(name = "Tablaclase.findByTrucos", query = "SELECT t FROM Tablaclase t WHERE t.trucos = :trucos"),
+    @NamedQuery(name = "Tablaclase.findByHechizos", query = "SELECT t FROM Tablaclase t WHERE t.hechizos = :hechizos")})
+public class Tablaclase implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -62,14 +62,14 @@ public class Tablaclases implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tablaclases")
     private List<Tablaclasepornivel> tablaclasespornivelList;
 
-    public Tablaclases() {
+    public Tablaclase() {
     }
 
-    public Tablaclases(String id) {
+    public Tablaclase(String id) {
         this.id = id;
     }
 
-    public Tablaclases(String id, Integer rasgos, Integer bc, Integer trucos, Integer hechizos) {
+    public Tablaclase(String id, Integer rasgos, Integer bc, Integer trucos, Integer hechizos) {
         this.id = id;
         this.rasgos = rasgos;
         this.bc = bc;
@@ -145,10 +145,10 @@ public class Tablaclases implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tablaclases)) {
+        if (!(object instanceof Tablaclase)) {
             return false;
         }
-        Tablaclases other = (Tablaclases) object;
+        Tablaclase other = (Tablaclase) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

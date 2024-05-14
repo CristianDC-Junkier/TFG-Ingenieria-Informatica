@@ -82,11 +82,11 @@ public class Espaciohechizo implements Serializable {
     @NotNull
     @Column(name = "NV9", nullable = false)
     private Integer nv9;
-    @JoinTable(name = "TABLAHECHIZOS", joinColumns = {
+    @JoinTable(name = "TABLAHECHIZO", joinColumns = {
         @JoinColumn(name = "ESPACIOSHECHIZOS", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "TABLACLASES", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
-    private List<Tablaclases> tablaclasesList;
+    private List<Tablaclase> tablaclasesList;
 
     public Espaciohechizo() {
     }
@@ -190,11 +190,11 @@ public class Espaciohechizo implements Serializable {
     }
 
     @XmlTransient
-    public List<Tablaclases> getTablaclasesList() {
+    public List<Tablaclase> getTablaclasesList() {
         return tablaclasesList;
     }
 
-    public void setTablaclasesList(List<Tablaclases> tablaclasesList) {
+    public void setTablaclasesList(List<Tablaclase> tablaclasesList) {
         this.tablaclasesList = tablaclasesList;
     }
 

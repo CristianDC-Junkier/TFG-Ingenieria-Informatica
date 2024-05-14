@@ -36,6 +36,9 @@ public class Sumaraza implements Serializable {
     @Size(min = 1, max = 2)
     @Column(name = "MODIFICADOR", nullable = false, length = 2)
     private String modificador;
+    @JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Atributo atributos;
     @JoinColumn(name = "SUBRAZA", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Subraza subrazas;
@@ -78,6 +81,14 @@ public class Sumaraza implements Serializable {
 
     public void setSubrazas(Subraza subrazas) {
         this.subrazas = subrazas;
+    }
+    
+    public Atributo getAtributos() {
+        return atributos;
+    }
+
+    public void setAtributos(Atributo atributos) {
+        this.atributos = atributos;
     }
 
     public String getAtributoID() {

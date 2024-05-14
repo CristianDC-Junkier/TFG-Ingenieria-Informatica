@@ -11,10 +11,10 @@ import entidades.Monstruo;
 import entidades.Propiedad;
 import entidades.Rasgo;
 import entidades.Raza;
-import entidades.Requisitosdote;
+import entidades.Requisitodote;
 import entidades.Subclase;
 import entidades.Subraza;
-import entidades.Tablaclases;
+import entidades.Tablaclase;
 import entidades.Tablaclasepornivel;
 import entidades.Trasfondo;
 import entidades.Usaclase;
@@ -84,7 +84,7 @@ public class ControladorExplorar extends HttpServlet {
         TypedQuery<Subclase> querySubClases;
         TypedQuery<Dote> queryDotes;
         TypedQuery<Mejoradote> queryMDotes;
-        TypedQuery<Requisitosdote> queryRDotes;
+        TypedQuery<Requisitodote> queryRDotes;
         TypedQuery<Equipo> queryEquipo;
         TypedQuery<Alcance> queryAlcance;
         TypedQuery<Hechizo> queryHechizos;
@@ -98,7 +98,7 @@ public class ControladorExplorar extends HttpServlet {
         List<Clase> listaClases;
         List<Dote> listaDotes;
         List<Mejoradote> listaMDotes;
-        List<Requisitosdote> listaRDotes;
+        List<Requisitodote> listaRDotes;
         List<Equipo> listaEquipo;
         List<List<Propiedad>> listalistaPropiedades;
         List<Hechizo> listaHechizos;
@@ -108,7 +108,7 @@ public class ControladorExplorar extends HttpServlet {
         List<String> listaRazasImagenes;
         List<Trasfondo> listaTrasfondos;
         List<Tablaclasepornivel> listaTablaClaseNivel;
-        List<Tablaclases> listaTablaClases;
+        List<Tablaclase> listaTablaClases;
         List<Rasgo> listaRasgos;
         List<Usasubclase> listaUsaSubClases;
         List<Usaclase> listaUsaClases;
@@ -1250,11 +1250,11 @@ public class ControladorExplorar extends HttpServlet {
                             + "<div class=\"ContenidoDote\">"
                             + "<ul>";
 
-                    queryRDotes = em.createNamedQuery("Requisitodote.findByNombre", Requisitosdote.class);
+                    queryRDotes = em.createNamedQuery("Requisitodote.findByNombre", Requisitodote.class);
                     queryRDotes.setParameter("nombre", nombre);
                     listaRDotes = queryRDotes.getResultList();
 
-                    for (Requisitosdote listaRDote : listaRDotes) {
+                    for (Requisitodote listaRDote : listaRDotes) {
                         resultado
                                 = resultado
                                 + "<li class=\"RequisitoDote\">" + listaRDote.getValor() + "</li>";

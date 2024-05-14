@@ -103,7 +103,7 @@ public class Hechizo implements Serializable {
     @Size(min = 1, max = 36)
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
-    @JoinTable(name = "LISTAHECHIZOS", joinColumns = {
+    @JoinTable(name = "LISTAHECHIZO", joinColumns = {
         @JoinColumn(name = "HECHIZO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false)})
     @ManyToMany

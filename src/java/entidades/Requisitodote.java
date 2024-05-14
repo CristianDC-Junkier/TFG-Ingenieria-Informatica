@@ -18,13 +18,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Cristian
  */
 @Entity
-@Table(name = "REQUISITOSDOTE")
+@Table(name = "REQUISITODOTE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Requisitosdote.findAll", query = "SELECT r FROM Requisitosdote r"),
-    @NamedQuery(name = "Requisitosdote.findById", query = "SELECT r FROM Requisitosdote r WHERE r.id = :id"),
-    @NamedQuery(name = "Requisitosdote.findByNombre", query = "SELECT r FROM Requisitosdote r WHERE r.nombre = :nombre")})
-public class Requisitosdote implements Serializable {
+    @NamedQuery(name = "Requisitodote.findAll", query = "SELECT r FROM Requisitodote r"),
+    @NamedQuery(name = "Requisitodote.findById", query = "SELECT r FROM Requisitodote r WHERE r.id = :id"),
+    @NamedQuery(name = "Requisitodote.findByNombre", query = "SELECT r FROM Requisitodote r WHERE r.nombre = :nombre")})
+public class Requisitodote implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,14 +42,14 @@ public class Requisitosdote implements Serializable {
     @Column(name = "VALOR", nullable = false)
     private String valor;
 
-    public Requisitosdote() {
+    public Requisitodote() {
     }
 
-    public Requisitosdote(String id) {
+    public Requisitodote(String id) {
         this.id = id;
     }
 
-    public Requisitosdote(String id, String valor) {
+    public Requisitodote(String id, String valor) {
         this.id = id;
         this.valor = valor;
     }
@@ -88,10 +88,10 @@ public class Requisitosdote implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Requisitosdote)) {
+        if (!(object instanceof Requisitodote)) {
             return false;
         }
-        Requisitosdote other = (Requisitosdote) object;
+        Requisitodote other = (Requisitodote) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

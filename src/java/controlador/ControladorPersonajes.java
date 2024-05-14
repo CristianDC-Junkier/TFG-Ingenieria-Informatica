@@ -15,11 +15,11 @@ import entidades.Personaje;
 import entidades.Propiedad;
 import entidades.Rasgo;
 import entidades.Raza;
-import entidades.Requisitosdote;
+import entidades.Requisitodote;
 import entidades.Subclase;
 import entidades.Subraza;
 import entidades.Tablaclasepornivel;
-import entidades.Tablaclases;
+import entidades.Tablaclase;
 import entidades.Trasfondo;
 import entidades.Usaclase;
 import entidades.Usasubclase;
@@ -112,7 +112,7 @@ public class ControladorPersonajes extends HttpServlet {
         TypedQuery<Habilidad> queryHabilidades;
         TypedQuery<Equipo> queryEquipo;
         TypedQuery<Hechizo> queryHechizos;
-        TypedQuery<Requisitosdote> queryRDotes;
+        TypedQuery<Requisitodote> queryRDotes;
         TypedQuery<Mejoradote> queryMDotes;
         TypedQuery<Tablaclasepornivel> queryTCNivel;
         TypedQuery<Usaclase> queryUsaClases;
@@ -132,7 +132,7 @@ public class ControladorPersonajes extends HttpServlet {
         List<Hechizo> listaHechizos;
         List<List<Propiedad>> listalistaPropiedades;
         List<Dote> listaDotes;
-        List<Requisitosdote> listaRDotes;
+        List<Requisitodote> listaRDotes;
         List<Mejoradote> listaMDotes;
         List<Integer> listaHabValores;
         List<String> listaValoresSalvacion;
@@ -2181,7 +2181,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                                 //Prueba
                                 Espaciohechizo example = new Espaciohechizo("", 2, 2, 3, 0, 1, 1, 1, 1, 1);
-                                Tablaclases tb = new Tablaclases("2", 2, 2, 2, 2);
+                                Tablaclase tb = new Tablaclase("2", 2, 2, 2, 2);
                                 ArrayList<Rasgo> exampleR = new ArrayList();
 
                                 Rasgo raux = new Rasgo("", "RasgoEjemplo1", "Una decripcion larga y tendida de ejemplo claro");
@@ -2441,7 +2441,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                         //Prueba
                         Espaciohechizo example = new Espaciohechizo("", 2, 2, 3, 0, 1, 1, 1, 1, 1);
-                        Tablaclases tb = new Tablaclases("2", 2, 2, 2, 2);
+                        Tablaclase tb = new Tablaclase("2", 2, 2, 2, 2);
                         ArrayList<Rasgo> exampleR = new ArrayList();
 
                         Rasgo raux = new Rasgo("", "RasgoEjemplo1", "Una decripcion larga y tendida de ejemplo claro");
@@ -2512,11 +2512,11 @@ public class ControladorPersonajes extends HttpServlet {
                                         + "<div class=\"ContenidoDote\">"
                                         + "<ul>";
 
-                                queryRDotes = em.createNamedQuery("Requisitodote.findByNombre", Requisitosdote.class);
+                                queryRDotes = em.createNamedQuery("Requisitodote.findByNombre", Requisitodote.class);
                                 queryRDotes.setParameter("nombre", nombre);
                                 listaRDotes = queryRDotes.getResultList();
 
-                                for (Requisitosdote listaRDote : listaRDotes) {
+                                for (Requisitodote listaRDote : listaRDotes) {
                                     result
                                             = result
                                             + "<li class=\"RequisitoDote\">" + listaRDote.getValor() + "</li>";

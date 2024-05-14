@@ -90,7 +90,7 @@ public class Equipo implements Serializable {
     @Size(min = 1, max = 36)
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
-    @JoinTable(name = "TIENEPROPIEDADES", joinColumns = {
+    @JoinTable(name = "TIENEPROPIEDAD", joinColumns = {
         @JoinColumn(name = "EQUIPO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "PROPIEDAD", referencedColumnName = "ID", nullable = false)})
     @ManyToMany

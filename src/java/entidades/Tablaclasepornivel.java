@@ -33,7 +33,7 @@ public class Tablaclasepornivel implements Serializable {
     private Clase clases;
     @JoinColumn(name = "TABLACLASE", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
-    private Tablaclases tablaclases;
+    private Tablaclase tablaclases;
 
     public Tablaclasepornivel() {
     }
@@ -62,11 +62,11 @@ public class Tablaclasepornivel implements Serializable {
         this.clases = clases;
     }
 
-    public Tablaclases getTablaclases() {
+    public Tablaclase getTablaclases() {
         return tablaclases;
     }
 
-    public void setTablaclases(Tablaclases tablaclases) {
+    public void setTablaclases(Tablaclase tablaclases) {
         this.tablaclases = tablaclases;
     }
 
