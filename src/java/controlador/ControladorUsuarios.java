@@ -133,21 +133,13 @@ public class ControladorUsuarios extends HttpServlet {
 
                         //////////////////
                         //////NOMBRE//////
-                        ////////////////// //CONTEXT
-                        if (nombre.toUpperCase().contains("UPDATE") || nombre.toUpperCase().contains("CREATE")
-                                || nombre.toUpperCase().contains("DELETE") || nombre.toUpperCase().contains("SELECT")
-                                || nombre.toUpperCase().contains("DROP")) {
-                            throw new Exception("El Nombre no es válido");
-                        }
+                        ////////////////// 
+                        comprobarCadena(nombre, "El nombre no es válido");
 
                         //////////////////////
                         //////CONTRASEÑA//////
                         //////////////////////
-                        if (contrasena.toUpperCase().contains("UPDATE") || contrasena.toUpperCase().contains("CREATE")
-                                || contrasena.toUpperCase().contains("DELETE") || contrasena.toUpperCase().contains("SELECT")
-                                || contrasena.toUpperCase().contains("DROP")) {
-                            throw new Exception("La contrasena no es válida");
-                        }
+                        comprobarCadena(contrasena, "La contraseña no es válida");
 
                         //////////////////////
                         /////////HASH/////////
@@ -183,11 +175,7 @@ public class ControladorUsuarios extends HttpServlet {
                         /////////////////////
                         /////////APODO///////
                         /////////////////////
-                        if (apodo.toUpperCase().contains("UPDATE") || apodo.toUpperCase().contains("CREATE")
-                                || apodo.toUpperCase().contains("DELETE") || apodo.toUpperCase().contains("SELECT")
-                                || apodo.toUpperCase().contains("DROP")) {
-                            throw new Exception("El Nombre de usuario no es válido");
-                        }
+                        comprobarCadena(apodo, "El nombre de usuario no es válido");
 
                         queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                         queryUsuarios.setParameter("apodo", apodo);
@@ -199,7 +187,10 @@ public class ControladorUsuarios extends HttpServlet {
                         //////////////////////////
                         //////////CORREO//////////
                         //////////////////////////
-
+                        
+                        comprobarCadena(correo, "El correo no es válido");
+                        
+                        
                         queryUsuarios = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
                         queryUsuarios.setParameter("correo", correo);
                         listaUsuarios = queryUsuarios.getResultList();
@@ -279,26 +270,21 @@ public class ControladorUsuarios extends HttpServlet {
                 /////////////////////
                 /////////APODO///////
                 /////////////////////
-                if (apodo.toUpperCase().contains("UPDATE") || apodo.toUpperCase().contains("CREATE")
-                        || apodo.toUpperCase().contains("DELETE") || apodo.toUpperCase().contains("SELECT")
-                        || apodo.toUpperCase().contains("DROP")) {
-                    throw new Exception("El Nombre de usuario no es válido");
-                }
+                comprobarCadena(apodo, "El nombre de usuario no es válido");
 
                 queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                 queryUsuarios.setParameter("apodo", apodo);
                 listaUsuarios = queryUsuarios.getResultList();
 
                 if (listaUsuarios.isEmpty()) {
-                    throw new Exception("El Nombre de usuario no se encuentra ");
-                } //////////////////////
+                    throw new Exception("El nombre de usuario no se encuentra ");
+                } 
+                //////////////////////
                 //////CONTRASEÑA//////
                 //////////////////////
-                else if (contrasena.toUpperCase().contains("UPDATE") || contrasena.toUpperCase().contains("CREATE")
-                        || contrasena.toUpperCase().contains("DELETE") || contrasena.toUpperCase().contains("SELECT")
-                        || contrasena.toUpperCase().contains("DROP")) {
-                    throw new Exception("La contrasena no es válida");
-                } else {
+                else {
+                    comprobarCadena(contrasena, "La cadena no es válida");
+
                     user = listaUsuarios.remove(0);
                     System.out.println("Contraseña que doy: " + contrasena);
                     System.out.println("Contraseña que aporto: " + user.getContrasena());
@@ -406,13 +392,15 @@ public class ControladorUsuarios extends HttpServlet {
                             }
 
                             /////////////////////
-                            /////////APODO///////
+                            ////////NOMBRE///////
                             /////////////////////
-                            if (apodo.toUpperCase().contains("UPDATE") || apodo.toUpperCase().contains("CREATE")
-                                    || apodo.toUpperCase().contains("DELETE") || apodo.toUpperCase().contains("SELECT")
-                                    || apodo.toUpperCase().contains("DROP")) {
-                                throw new Exception("El Nombre de usuario no es válido");
-                            }
+                            comprobarCadena(nombre, "El nombre no es válida");
+
+                            /////////////////////
+                            ////////APODO////////
+                            /////////////////////
+                            comprobarCadena(apodo, "El nombre de usuario no es válida");
+
                             queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                             queryUsuarios.setParameter("apodo", apodo);
                             listaUsuarios = queryUsuarios.getResultList();
@@ -423,6 +411,8 @@ public class ControladorUsuarios extends HttpServlet {
                             //////////////////////////
                             //////////CORREO//////////
                             //////////////////////////
+                            comprobarCadena(correo, "El correo no es válido");
+
                             queryUsuarios = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
                             queryUsuarios.setParameter("correo", correo);
                             listaUsuarios = queryUsuarios.getResultList();
@@ -454,11 +444,7 @@ public class ControladorUsuarios extends HttpServlet {
                             //////////////////////
                             //////CONTRASEÑA//////
                             //////////////////////
-                            if (contrasena.toUpperCase().contains("UPDATE") || contrasena.toUpperCase().contains("CREATE")
-                                    || contrasena.toUpperCase().contains("DELETE") || contrasena.toUpperCase().contains("SELECT")
-                                    || contrasena.toUpperCase().contains("DROP")) {
-                                throw new Exception("La contrasena no es válida");
-                            }
+                            comprobarCadena(contrasena, "La contraseña no es válida");
 
                             //////////////////////
                             /////////HASH/////////
@@ -1565,11 +1551,7 @@ public class ControladorUsuarios extends HttpServlet {
                     //////////////////////
                     //////CONTRASEÑA//////
                     //////////////////////
-                    if (contrasena.toUpperCase().contains("UPDATE") || contrasena.toUpperCase().contains("CREATE")
-                            || contrasena.toUpperCase().contains("DELETE") || contrasena.toUpperCase().contains("SELECT")
-                            || contrasena.toUpperCase().contains("DROP")) {
-                        throw new Exception("La contraseña no es válida");
-                    }
+                    comprobarCadena(contrasena, "La contraseña no es válida");
 
                     if (!contrasenaAuxiliar.equals(contrasena)) {
                         throw new Exception("Las contraseñas no son iguales");
@@ -1594,7 +1576,7 @@ public class ControladorUsuarios extends HttpServlet {
                     }
                 } catch (Exception ex) {
                     System.out.println("Error: " + ex.getMessage());
-                    msj = "<p style=\"margin-left: 10px\"> Error" + ex.getMessage() + "</p>";
+                    msj = "<p style=\"margin-left: 10px\"> Error:" + ex.getMessage() + "</p>";
                     vista = "/Formularios/restablecercontraseña?msj=" + msj + "&id=" + id + "&password=" + contrasenaAntigua;
                 }
 
@@ -1603,6 +1585,17 @@ public class ControladorUsuarios extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher(vista);
 
         rd.forward(request, response);
+    }
+
+    //Lanza error por escribir un valor malicioso
+    protected void comprobarCadena(String Cadena, String Mensaje) throws Exception {
+
+        if (Cadena.toUpperCase().contains("UPDATE") || Cadena.toUpperCase().contains("CREATE")
+                || Cadena.toUpperCase().contains("DELETE") || Cadena.toUpperCase().contains("SELECT")
+                || Cadena.toUpperCase().contains("DROP")) {
+            throw new Exception(Mensaje);
+        }
+
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

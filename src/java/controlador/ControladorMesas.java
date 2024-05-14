@@ -66,7 +66,6 @@ public class ControladorMesas extends HttpServlet {
         Pertenecemesa pmesaaux;
         Personaje personaje;
 
-
         TypedQuery<Mesa> queryMesas;
         TypedQuery<Pertenecemesa> queryPertenecemesas;
         TypedQuery<Usuario> queryUsuarios;
@@ -102,7 +101,7 @@ public class ControladorMesas extends HttpServlet {
         String numString;
         int num;
         int numPag;
-        
+
         int cantidad;
 
         String sql;
@@ -142,24 +141,20 @@ public class ControladorMesas extends HttpServlet {
                             //////////////////
                             tamano = Integer.parseInt(tamanoString);
                             if (tamano < 2 || tamano > 5) {
-                                throw new Exception("El Tamaño debe estar entre 2 y 5 ");
+                                throw new Exception("El tamaño debe estar entre 2 y 5 ");
                             }
 
                             //////////////////////////
                             //////////TITULO//////////
                             //////////////////////////
-                            if (titulo.toUpperCase().contains("UPDATE") || titulo.toUpperCase().contains("CREATE")
-                                    || titulo.toUpperCase().contains("DELETE") || titulo.toUpperCase().contains("SELECT")
-                                    || titulo.toUpperCase().contains("DROP")) {
-                                throw new Exception("El Titulo no es válido");
-                            }
+                            comprobarCadena(titulo, "El título no es válida");
 
                             queryMesas = em.createNamedQuery("Mesa.findByTitulo", Mesa.class);
                             queryMesas.setParameter("titulo", titulo);
                             listaMesas = queryMesas.getResultList();
 
                             if (!listaMesas.isEmpty()) {
-                                throw new Exception("El Titulo debe ser único ");
+                                throw new Exception("El título debe ser único ");
                             }
 
                             ////////////////////////////
@@ -176,11 +171,7 @@ public class ControladorMesas extends HttpServlet {
                             //////////CONTRASEÑA//////////
                             //////////////////////////////
                             if (contrasena != null) {
-                                if (descripcion.toUpperCase().contains("UPDATE") || descripcion.toUpperCase().contains("CREATE")
-                                        || descripcion.toUpperCase().contains("DELETE") || descripcion.toUpperCase().contains("SELECT")
-                                        || descripcion.toUpperCase().contains("DROP")) {
-                                    throw new Exception("La contrasena no es válida");
-                                }
+                                comprobarCadena(contrasena, "La contraseña no es válida");
                                 if (!contrasena.equals("")) {
                                     //////////////////////
                                     /////////HASH/////////
@@ -196,11 +187,7 @@ public class ControladorMesas extends HttpServlet {
                             //////////DESCRIPCION//////////
                             ///////////////////////////////
                             if (descripcion != null) {
-                                if (descripcion.toUpperCase().contains("UPDATE") || descripcion.toUpperCase().contains("CREATE")
-                                        || descripcion.toUpperCase().contains("DELETE") || descripcion.toUpperCase().contains("SELECT")
-                                        || descripcion.toUpperCase().contains("DROP")) {
-                                    throw new Exception("El Titulo no es válido");
-                                }
+                                comprobarCadena(descripcion, "La descripción no es válida");
                             } else if (descripcion.equals("")) {
                                 descripcion = null;
                             }
@@ -210,7 +197,7 @@ public class ControladorMesas extends HttpServlet {
                             //////////////////////////
                             mesa = new Mesa(creador, comunidad, tamano, titulo, descripcion, contrasenahash);
 
-                            mesa.setMusicamesa(new Musicamesa(mesa.getId(),new Musica("561F81109A494CECB61DC8FDB9ECAF02", "Ninguna")));
+                            mesa.setMusicamesa(new Musicamesa(mesa.getId(), new Musica("561F81109A494CECB61DC8FDB9ECAF02", "Ninguna")));
 
                             persist(mesa);
                             System.out.println("Registrada la mesa: " + titulo);
@@ -304,35 +291,27 @@ public class ControladorMesas extends HttpServlet {
                             //////////////////
                             tamano = Integer.parseInt(tamanoString);
                             if (tamano < 2 || tamano > 5) {
-                                throw new Exception("El Tamaño debe estar entre 2 y 5 ");
+                                throw new Exception("El tamaño debe estar entre 2 y 5 ");
                             }
 
                             //////////////////////////
                             //////////TITULO//////////
                             //////////////////////////
-                            if (titulo.toUpperCase().contains("UPDATE") || titulo.toUpperCase().contains("CREATE")
-                                    || titulo.toUpperCase().contains("DELETE") || titulo.toUpperCase().contains("SELECT")
-                                    || titulo.toUpperCase().contains("DROP")) {
-                                throw new Exception("El Titulo no es válido");
-                            }
+                            comprobarCadena(titulo, "El título no es válido");
 
                             queryMesas = em.createNamedQuery("Mesa.findByTitulo", Mesa.class);
                             queryMesas.setParameter("titulo", titulo);
                             listaMesas = queryMesas.getResultList();
 
                             if (!listaMesas.isEmpty() && !listaMesas.get(0).getId().equals(id)) {
-                                throw new Exception("El Titulo debe ser único ");
+                                throw new Exception("El título debe ser único ");
                             }
 
                             //////////////////////////////
                             //////////CONTRASEÑA//////////
                             //////////////////////////////
                             if (contrasena != null) {
-                                if (descripcion.toUpperCase().contains("UPDATE") || descripcion.toUpperCase().contains("CREATE")
-                                        || descripcion.toUpperCase().contains("DELETE") || descripcion.toUpperCase().contains("SELECT")
-                                        || descripcion.toUpperCase().contains("DROP")) {
-                                    throw new Exception("La contrasena no es válida");
-                                }
+                                comprobarCadena(contrasena, "La contraseña no es válida");
                                 if (!contrasena.equals("")) {
                                     //////////////////////
                                     /////////HASH/////////
@@ -349,11 +328,7 @@ public class ControladorMesas extends HttpServlet {
                             //////////DESCRIPCION//////////
                             ///////////////////////////////
                             if (descripcion != null) {
-                                if (descripcion.toUpperCase().contains("UPDATE") || descripcion.toUpperCase().contains("CREATE")
-                                        || descripcion.toUpperCase().contains("DELETE") || descripcion.toUpperCase().contains("SELECT")
-                                        || descripcion.toUpperCase().contains("DROP")) {
-                                    throw new Exception("El Titulo no es válido");
-                                }
+                                comprobarCadena(descripcion, "La descripción no es válida");
                             } else {
                                 descripcion = null;
                             }
@@ -1264,6 +1239,17 @@ public class ControladorMesas extends HttpServlet {
         }
         RequestDispatcher rd = request.getRequestDispatcher(vista);
         rd.forward(request, response);
+    }
+
+    //Lanza error por escribir un valor malicioso
+    protected void comprobarCadena(String Cadena, String Mensaje) throws Exception {
+
+        if (Cadena.toUpperCase().contains("UPDATE") || Cadena.toUpperCase().contains("CREATE")
+                || Cadena.toUpperCase().contains("DELETE") || Cadena.toUpperCase().contains("SELECT")
+                || Cadena.toUpperCase().contains("DROP")) {
+            throw new Exception(Mensaje);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

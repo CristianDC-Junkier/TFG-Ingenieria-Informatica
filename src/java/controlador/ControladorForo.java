@@ -408,46 +408,44 @@ public class ControladorForo extends HttpServlet {
 
                         if (hilo_titulo != null && hilo_seccion != null && hilo_tema != null && hilo_mensaje != null) {
                             try {
-                                if (hilo_titulo.toUpperCase().contains("UPDATE") || hilo_titulo.toUpperCase().contains("CREATE")
-                                        || hilo_titulo.toUpperCase().contains("DELETE") || hilo_titulo.toUpperCase().contains("SELECT")
-                                        || hilo_titulo.toUpperCase().contains("DROP")) {
-                                    throw new Exception("El Titulo no es válido");
-                                } else {
-                                    if (hilo_mensaje.toUpperCase().contains("UPDATE") || hilo_mensaje.toUpperCase().contains("CREATE")
-                                            || hilo_mensaje.toUpperCase().contains("DELETE") || hilo_mensaje.toUpperCase().contains("SELECT")
-                                            || hilo_mensaje.toUpperCase().contains("DROP")) {
-                                        throw new Exception("El Mensaje no es válido");
-                                    } else {
-                                        try {
-                                            queryHilo = em.createNamedQuery("Hilo.findByTitulo", Hilo.class);
-                                            queryHilo.setParameter("titulo", hilo_titulo);
-                                            queryHilo.getSingleResult();//Si salta exception es que no existe
 
-                                            throw new Exception("El Titulo está repetido");
-                                        } catch (NoResultException ex) {
+                                /////////////////////
+                                /////HILO TITULO/////
+                                /////////////////////
+                                comprobarCadena(hilo_titulo, "El título no es válido");
 
-                                            queryTema = em.createNamedQuery("Tema.findById", Tema.class);
-                                            queryTema.setParameter("id", hilo_tema);
-                                            tema = queryTema.getSingleResult();
+                                /////////////////////
+                                /////HILO MENSAJE////
+                                /////////////////////
+                                comprobarCadena(hilo_mensaje, "El mensaje inicial no es válido");
 
-                                            querySeccion = em.createNamedQuery("Seccion.findById", Seccion.class);
-                                            querySeccion.setParameter("id", hilo_seccion);
-                                            seccion = querySeccion.getSingleResult();
+                                try {
+                                    queryHilo = em.createNamedQuery("Hilo.findByTitulo", Hilo.class);
+                                    queryHilo.setParameter("titulo", hilo_titulo);
+                                    queryHilo.getSingleResult();//Si salta exception es que no existe
 
-                                            hilo_fecha = new Date();
+                                    throw new Exception("El título está repetido");
+                                } catch (NoResultException ex) {
 
-                                            hilo = new Hilo(hilo_titulo, hilo_mensaje, hilo_fecha, user, tema, seccion);
+                                    queryTema = em.createNamedQuery("Tema.findById", Tema.class);
+                                    queryTema.setParameter("id", hilo_tema);
+                                    tema = queryTema.getSingleResult();
 
-                                            persist(hilo);
+                                    querySeccion = em.createNamedQuery("Seccion.findById", Seccion.class);
+                                    querySeccion.setParameter("id", hilo_seccion);
+                                    seccion = querySeccion.getSingleResult();
 
-                                            vista = "/Foro/hilos";
-                                        }
-                                    }
+                                    hilo_fecha = new Date();
+
+                                    hilo = new Hilo(hilo_titulo, hilo_mensaje, hilo_fecha, user, tema, seccion);
+
+                                    persist(hilo);
+
+                                    vista = "/Foro/hilos";
                                 }
                             } catch (Exception ex) {
                                 msj = "<p style=\"margin-left: 10px\"> Error: " + ex.getMessage() + " </p>";
                                 System.out.println("Error: Imposible registrar en este momento: " + hilo_titulo);
-                                System.out.println("NumberFormatException: " + ex.getMessage());
 
                                 request.setAttribute("msj", msj);
 
@@ -519,15 +517,12 @@ public class ControladorForo extends HttpServlet {
                     hilo_id = request.getParameter("hilo");
                     hilo_mensaje = request.getParameter("mensaje");
 
-                    if (hilo_mensaje.toUpperCase().contains("UPDATE") || hilo_mensaje.toUpperCase().contains("CREATE")
-                            || hilo_mensaje.toUpperCase().contains("DELETE") || hilo_mensaje.toUpperCase().contains("SELECT")
-                            || hilo_mensaje.toUpperCase().contains("DROP")) {
+                    try {
 
-                        System.out.println("El mensaje era perjudicial");
+                        comprobarCadena(hilo_mensaje, "");
 
                         request.setAttribute("hilo", hilo_id);
-                        vista = "/Foro/hilo";
-                    } else {
+
                         queryHilo = em.createNamedQuery("Hilo.findById", Hilo.class);
                         queryHilo.setParameter("id", hilo_id);
 
@@ -548,6 +543,9 @@ public class ControladorForo extends HttpServlet {
                             System.out.println("Hilo no encontrado para escribir un mensaje");
                             vista = "/Foro/hilos";
                         }
+                    } catch (Exception ex) {
+                        System.out.println("El mensaje era perjudicial");
+                        vista = "/Foro/hilos";
                     }
                 }
                 break;
@@ -642,13 +640,19 @@ public class ControladorForo extends HttpServlet {
 
                         tema_nombre = request.getParameter("nombre");
 
-                        queryTema = em.createNamedQuery("Tema.findByNombre", Tema.class);
-                        queryTema.setParameter("nombre", tema_nombre);
                         try {
-                            queryTema.getSingleResult();
+                            comprobarCadena(tema_nombre, "");
+
+                            queryTema = em.createNamedQuery("Tema.findByNombre", Tema.class);
+                            queryTema.setParameter("nombre", tema_nombre);
+                            try {
+                                queryTema.getSingleResult();
+                            } catch (Exception ex) {
+                                tema = new Tema(tema_nombre);
+                                persist(tema);
+                            }
                         } catch (Exception ex) {
-                            tema = new Tema(tema_nombre);
-                            persist(tema);
+
                         }
 
                         vista = "/Foro/temas";
@@ -678,6 +682,7 @@ public class ControladorForo extends HttpServlet {
                             tema = queryTema.getSingleResult();
                             delete(tema);
                         } catch (Exception ex) {
+                            System.out.println("Error en la creacion de tema");
                         }
                         vista = "/Foro/temas";
                     } else {
@@ -700,14 +705,19 @@ public class ControladorForo extends HttpServlet {
                         seccion_titulo = request.getParameter("titulo");
                         seccion_hilos = request.getParameter("hilos");
                         seccion_nHilos = Integer.valueOf(seccion_hilos);
-
-                        querySeccion = em.createNamedQuery("Seccion.findByTitulo", Seccion.class);
-                        querySeccion.setParameter("titulo", seccion_titulo);
                         try {
-                            querySeccion.getSingleResult();
+                            comprobarCadena(seccion_titulo, "");
+
+                            querySeccion = em.createNamedQuery("Seccion.findByTitulo", Seccion.class);
+                            querySeccion.setParameter("titulo", seccion_titulo);
+                            try {
+                                querySeccion.getSingleResult();
+                            } catch (Exception ex) {
+                                seccion = new Seccion(seccion_titulo, seccion_nHilos);
+                                persist(seccion);
+                            }
                         } catch (Exception ex) {
-                            seccion = new Seccion(seccion_titulo, seccion_nHilos);
-                            persist(seccion);
+                            System.out.println("Error en la creacion de seccion");
                         }
                         vista = "/Foro/secciones";
                     } else {
@@ -779,6 +789,17 @@ public class ControladorForo extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher(vista);
 
         rd.forward(request, response);
+    }
+
+    //Lanza error por escribir un valor malicioso
+    protected void comprobarCadena(String Cadena, String Mensaje) throws Exception {
+
+        if (Cadena.toUpperCase().contains("UPDATE") || Cadena.toUpperCase().contains("CREATE")
+                || Cadena.toUpperCase().contains("DELETE") || Cadena.toUpperCase().contains("SELECT")
+                || Cadena.toUpperCase().contains("DROP")) {
+            throw new Exception(Mensaje);
+        }
+
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

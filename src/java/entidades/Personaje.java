@@ -113,12 +113,12 @@ public class Personaje implements Serializable {
 
     @OneToMany(mappedBy = "personajeactual")
     private List<Usuario> usuariosList;
-    @JoinTable(name = "PERSONAJEHECHIZOS", joinColumns = {
+    @JoinTable(name = "PERSONAJEHECHIZO", joinColumns = {
         @JoinColumn(name = "PERSONAJE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "HECHIZO", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Hechizo> hechizosList;
-    @JoinTable(name = "PERSONAJEDOTES", joinColumns = {
+    @JoinTable(name = "PERSONAJEDOTE", joinColumns = {
         @JoinColumn(name = "PERSONAJE", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "DOTE", referencedColumnName = "ID", nullable = false)})
     @ManyToMany

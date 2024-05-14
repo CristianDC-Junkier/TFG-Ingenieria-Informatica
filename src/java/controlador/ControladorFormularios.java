@@ -336,6 +336,7 @@ public class ControladorFormularios extends HttpServlet {
                                                 break;
                                             case 20:
                                                 numaux = 5;
+                                                break;
                                             default:
                                                 numaux = 0;
                                         }
@@ -552,6 +553,7 @@ public class ControladorFormularios extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher(vista);
         rd.forward(request, response);
     }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

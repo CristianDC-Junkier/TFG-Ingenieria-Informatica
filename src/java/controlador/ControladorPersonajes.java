@@ -263,11 +263,7 @@ public class ControladorPersonajes extends HttpServlet {
                         //////////////////
                         //////NOMBRE//////
                         ////////////////// 
-                        if (personaje_nombre.toUpperCase().contains("UPDATE") || personaje_nombre.toUpperCase().contains("CREATE")
-                                || personaje_nombre.toUpperCase().contains("DELETE") || personaje_nombre.toUpperCase().contains("SELECT")
-                                || personaje_nombre.toUpperCase().contains("DROP")) {
-                            throw new Exception("El Nombre no es válido");
-                        }
+                        comprobarCadena(personaje_nombre, "El nombre no es válido");
 
                         queryPersonajes = em.createNamedQuery("Personaje.findByNombreCreador", Personaje.class);
                         queryPersonajes.setParameter("nombre", personaje_nombre);
@@ -320,24 +316,31 @@ public class ControladorPersonajes extends HttpServlet {
                             personaje.setSubclase(subclase);
                         }
                         if (personaje_edad != null && !personaje_edad.equals("")) {
+                            comprobarCadena(personaje_edad, "La edad no es válida");
                             personaje.setEdad(Integer.valueOf(personaje_edad));
                         }
                         if (personaje_apariencia != null && !personaje_apariencia.equals("")) {
+                            comprobarCadena(personaje_apariencia, "La apariencia no es válida");
                             personaje.setApariencia(personaje_apariencia);
                         }
                         if (personaje_rasgos != null && !personaje_rasgos.equals("")) {
+                            comprobarCadena(personaje_rasgos, "Los rasgos no son válidos");
                             personaje.setRaspersonalidad(personaje_rasgos);
                         }
                         if (personaje_defectos != null && !personaje_defectos.equals("")) {
+                            comprobarCadena(personaje_defectos, "Los defectos no son válidos");
                             personaje.setDefectos(personaje_defectos);
                         }
                         if (personaje_vinculos != null && !personaje_vinculos.equals("")) {
+                            comprobarCadena(personaje_vinculos, "Los vínculos no son válidos");
                             personaje.setVinculos(personaje_vinculos);
                         }
                         if (personaje_idiomas != null && !personaje_idiomas.equals("")) {
+                            comprobarCadena(personaje_idiomas, "Los idiomas no son válidos");
                             personaje.setIdiomas(personaje_idiomas);
                         }
                         if (personaje_historia != null && !personaje_historia.equals("")) {
+                            comprobarCadena(personaje_historia, "La historia no es válida");
                             personaje.setHistoria(personaje_historia);
                         }
 
@@ -566,11 +569,7 @@ public class ControladorPersonajes extends HttpServlet {
                             //////////////////
                             //////NOMBRE//////
                             ////////////////// 
-                            if (personaje_nombre.toUpperCase().contains("UPDATE") || personaje_nombre.toUpperCase().contains("CREATE")
-                                    || personaje_nombre.toUpperCase().contains("DELETE") || personaje_nombre.toUpperCase().contains("SELECT")
-                                    || personaje_nombre.toUpperCase().contains("DROP")) {
-                                throw new Exception("El Nombre no es válido");
-                            }
+                            comprobarCadena(personaje_nombre, "El nombre no es valido");
 
                             queryPersonajes = em.createNamedQuery("Personaje.findByNombreCreador", Personaje.class);
                             queryPersonajes.setParameter("nombre", personaje_nombre);
@@ -582,34 +581,41 @@ public class ControladorPersonajes extends HttpServlet {
                             }
 
                             if (personaje_edad != null && !personaje_edad.equals("")) {
+                                comprobarCadena(personaje_edad, "La edad no es válida");
                                 personaje.setEdad(Integer.valueOf(personaje_edad));
                             }
                             if (personaje_apariencia != null) {
+                                comprobarCadena(personaje_apariencia, "La aparencia no es válida");
                                 personaje.setApariencia(personaje_apariencia);
                             } else {
                                 personaje.setApariencia("");
                             }
                             if (personaje_rasgos != null) {
+                                comprobarCadena(personaje_rasgos, "Los rasgos no son válidos");
                                 personaje.setRaspersonalidad(personaje_rasgos);
                             } else {
                                 personaje.setRaspersonalidad("");
                             }
                             if (personaje_defectos != null) {
+                                comprobarCadena(personaje_defectos, "Los defectos no son válidos");
                                 personaje.setDefectos(personaje_defectos);
                             } else {
                                 personaje.setDefectos("");
                             }
                             if (personaje_vinculos != null) {
+                                comprobarCadena(personaje_vinculos, "Los vínculos no son válidos");
                                 personaje.setVinculos(personaje_vinculos);
                             } else {
                                 personaje.setVinculos("");
                             }
                             if (personaje_idiomas != null) {
+                                comprobarCadena(personaje_idiomas, "Los idomas no son válidos");
                                 personaje.setIdiomas(personaje_idiomas);
                             } else {
                                 personaje.setIdiomas("");
                             }
                             if (personaje_historia != null) {
+                                comprobarCadena(personaje_historia, "La historia no es válida");
                                 personaje.setHistoria(personaje_historia);
                             } else {
                                 personaje.setHistoria("");
@@ -815,9 +821,14 @@ public class ControladorPersonajes extends HttpServlet {
                     if (!personaje.getUsuario().getId().equalsIgnoreCase(user.getId())) {
                         vista = "/Principal/inicio";
                     } else {
-                        claseArmadura = request.getParameter("claseArmadura");
-                        personaje.setClasearmadura(Integer.parseInt(claseArmadura));
-                        updatePersonajes(personaje);
+                        try {
+                            claseArmadura = request.getParameter("claseArmadura");
+                            comprobarCadena(claseArmadura, "");
+                            personaje.setClasearmadura(Integer.parseInt(claseArmadura));
+                            updatePersonajes(personaje);
+                        } catch (Exception ex) {
+                            System.out.println("clase de armadura maliciosa");
+                        }
                         vista = "/Personajes/personajePerfil?id=" + personaje_id;
                     }
                 }
@@ -842,9 +853,15 @@ public class ControladorPersonajes extends HttpServlet {
                     if (!personaje.getUsuario().getId().equalsIgnoreCase(user.getId())) {
                         vista = "/Principal/inicio";
                     } else {
-                        puntosHP = request.getParameter("puntosHP");
-                        personaje.setPvidaactuales(Integer.parseInt(puntosHP));
-                        updatePersonajes(personaje);
+                        try {
+                            puntosHP = request.getParameter("puntosHP");
+                            comprobarCadena(puntosHP, "");
+                            personaje.setPvidaactuales(Integer.parseInt(puntosHP));
+                            updatePersonajes(personaje);
+                        } catch (Exception ex) {
+                            System.out.println("puntos de vida maliciosos");
+                        }
+
                         vista = "/Personajes/personajePerfil?id=" + personaje_id;
                     }
                 }
@@ -869,9 +886,14 @@ public class ControladorPersonajes extends HttpServlet {
                     if (!personaje.getUsuario().getId().equalsIgnoreCase(user.getId())) {
                         vista = "/Principal/inicio";
                     } else {
-                        puntosHP = request.getParameter("puntosHP");
-                        personaje.setPvida(Integer.parseInt(puntosHP));
-                        updatePersonajes(personaje);
+                        try {
+                            puntosHP = request.getParameter("puntosHP");
+                            comprobarCadena(puntosHP, "");
+                            personaje.setPvida(Integer.parseInt(puntosHP));
+                            updatePersonajes(personaje);
+                        } catch (Exception ex) {
+                            System.out.println("puntos de vida total maliciosos");
+                        }
                         vista = "/Personajes/personajePerfil?id=" + personaje_id;
                     }
                 }
@@ -896,9 +918,14 @@ public class ControladorPersonajes extends HttpServlet {
                     if (!personaje.getUsuario().getId().equalsIgnoreCase(user.getId())) {
                         vista = "/Principal/inicio";
                     } else {
-                        puntosEXP = request.getParameter("puntosEXP");
-                        personaje.setPexp(Integer.parseInt(puntosEXP));
-                        updatePersonajes(personaje);
+                        try {
+                            puntosEXP = request.getParameter("puntosEXP");
+                            comprobarCadena(puntosEXP, "");
+                            personaje.setPexp(Integer.parseInt(puntosEXP));
+                            updatePersonajes(personaje);
+                        } catch (Exception ex) {
+                            System.out.println("puntos de vida maliciosos");
+                        }
                         vista = "/Personajes/personajePerfil?id=" + personaje_id;
                     }
                 }
@@ -3377,6 +3404,17 @@ public class ControladorPersonajes extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher(vista);
 
         rd.forward(request, response);
+    }
+
+    //Lanza error por escribir un valor malicioso
+    protected void comprobarCadena(String Cadena, String Mensaje) throws Exception {
+
+        if (Cadena.toUpperCase().contains("UPDATE") || Cadena.toUpperCase().contains("CREATE")
+                || Cadena.toUpperCase().contains("DELETE") || Cadena.toUpperCase().contains("SELECT")
+                || Cadena.toUpperCase().contains("DROP")) {
+            throw new Exception(Mensaje);
+        }
+
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

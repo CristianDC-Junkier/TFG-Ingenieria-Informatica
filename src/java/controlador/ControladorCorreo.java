@@ -50,9 +50,9 @@ public class ControladorCorreo extends HttpServlet {
         Properties propiedades;
         MimeMessage message;
         Session session;
-        
+
         Usuario user;
-        
+
         TypedQuery<Usuario> queryUsuarios;
 
         String correo;
@@ -64,139 +64,167 @@ public class ControladorCorreo extends HttpServlet {
             case "/enviarUsuario":
 
                 correo = request.getParameter("correo_usuario_rc");
-
-                queryUsuarios = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
-                queryUsuarios.setParameter("correo", correo);
                 try {
-                    user = queryUsuarios.getSingleResult();
-
-                    // Datos del remitente
-                    String remitente = "cristiandelgadoinformatica@gmail.com";
-                    String contraseña = "krkuiqxzoxksqdcz";
-
-                    propiedades = new Properties();
-                    propiedades.setProperty("mail.smtp.host", "smtp.gmail.com");
-                    propiedades.setProperty("mail.smtp.starttls.enable", "true");
-                    propiedades.setProperty("mail.smtp.port", "587");
-                    propiedades.setProperty("mail.smtp.user", remitente);
-                    propiedades.setProperty("mail.smtp.auth", "true");
-
-                    // Preparamos la sesion
-                    session = Session.getDefaultInstance(propiedades);
-
+                    comprobarCadena(correo, "El correo no es válido");
+                    
+                    queryUsuarios = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
+                    queryUsuarios.setParameter("correo", correo);
                     try {
-                        // Generar mensaje
-                        message = new MimeMessage(session);
-                        message.setFrom(new InternetAddress(remitente));
-                        message.addRecipient(
-                                Message.RecipientType.TO,
-                                new InternetAddress(correo));
-                        message.setSubject("Guidance 4 - Recuperación de Usuario");
-                        message.setText("Si le llega este mensaje es porque ha pedido recuperar su usuario, recuerde"
-                                + " guardar su usuario para no perderlo"
-                                + "\nSu usuario es: " + user.getApodo());
+                        user = queryUsuarios.getSingleResult();
+
+                        // Datos del remitente
+                        String remitente = "cristiandelgadoinformatica@gmail.com";
+                        String contraseña = "krkuiqxzoxksqdcz";
+
+                        propiedades = new Properties();
+                        propiedades.setProperty("mail.smtp.host", "smtp.gmail.com");
+                        propiedades.setProperty("mail.smtp.starttls.enable", "true");
+                        propiedades.setProperty("mail.smtp.port", "587");
+                        propiedades.setProperty("mail.smtp.user", remitente);
+                        propiedades.setProperty("mail.smtp.auth", "true");
+
+                        // Preparamos la sesion
+                        session = Session.getDefaultInstance(propiedades);
 
                         try {
-                            // Enviar el mensaje
-                            Transport transport = session.getTransport("smtp");
-                            transport.connect(remitente, contraseña);
-                            transport.sendMessage(message, message.getAllRecipients());
-                            transport.close();
+                            // Generar mensaje
+                            message = new MimeMessage(session);
+                            message.setFrom(new InternetAddress(remitente));
+                            message.addRecipient(
+                                    Message.RecipientType.TO,
+                                    new InternetAddress(correo));
+                            message.setSubject("Guidance 4 - Recuperación de Usuario");
+                            message.setText("Si le llega este mensaje es porque ha pedido recuperar su usuario, recuerde"
+                                    + " guardar su usuario para no perderlo"
+                                    + "\nSu usuario es: " + user.getApodo());
 
-                            System.out.println("Correo electrónico enviado exitosamente.");
+                            try {
+                                // Enviar el mensaje
+                                Transport transport = session.getTransport("smtp");
+                                transport.connect(remitente, contraseña);
+                                transport.sendMessage(message, message.getAllRecipients());
+                                transport.close();
 
-                            vista = "/Formularios/iniciosesion";
+                                System.out.println("Correo electrónico enviado exitosamente.");
 
-                        } catch (NoSuchProviderException ex) {
-                            System.out.println("Error al enviar el mensaje: " + ex.getMessage());
-                            msj = "<p style=\"margin-left: 10px\"> Error: No se puede enviar el mensaje</p>";
+                                vista = "/Formularios/iniciosesion";
+
+                            } catch (NoSuchProviderException ex) {
+                                System.out.println("Error al enviar el mensaje: " + ex.getMessage());
+                                msj = "<p style=\"margin-left: 10px\"> Error: No se puede enviar el mensaje</p>";
+                                vista = "/Formularios/usuarioperdido?msj=" + msj;
+                            }
+                        } catch (Exception ex) {
+                            System.out.println("Error al generar el mensaje: " + ex.getMessage());
+                            msj = "<p style=\"margin-left: 10px\"> Error: No se puede generar el mensaje</p>";
                             vista = "/Formularios/usuarioperdido?msj=" + msj;
                         }
                     } catch (Exception ex) {
-                        System.out.println("Error al generar el mensaje: " + ex.getMessage());
-                        msj = "<p style=\"margin-left: 10px\"> Error: No se puede generar el mensaje</p>";
+                        System.out.println("Error, ese correo no existe");
+                        msj = "<p style=\"margin-left: 10px\"> Error: Ese correo no existe</p>";
                         vista = "/Formularios/usuarioperdido?msj=" + msj;
                     }
                 } catch (Exception ex) {
-                    System.out.println("Error, ese correo no existe");
-                    msj = "<p style=\"margin-left: 10px\"> Error: Ese correo no existe</p>";
+                    System.out.println("Error, ese correo no es válido");
+                    msj = "<p style=\"margin-left: 10px\"> Error:" + ex.getMessage() + "</p>";
                     vista = "/Formularios/usuarioperdido?msj=" + msj;
                 }
                 break;
             case "/enviarContraseña":
                 apodo = request.getParameter("nombre_usuario_rc");
 
-                queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
-                queryUsuarios.setParameter("apodo", apodo);
                 try {
-                    user = queryUsuarios.getSingleResult();
 
-                    // Datos del remitente
-                    String remitente = "cristiandelgadoinformatica@gmail.com";
-                    String contraseña = "krkuiqxzoxksqdcz";
+                    comprobarCadena(apodo, "El nombre de usuario no es válido");
 
-                    propiedades = new Properties();
-                    propiedades.setProperty("mail.smtp.host", "smtp.gmail.com");
-                    propiedades.setProperty("mail.smtp.starttls.enable", "true");
-                    propiedades.setProperty("mail.smtp.port", "587");
-                    propiedades.setProperty("mail.smtp.user", remitente);
-                    propiedades.setProperty("mail.smtp.auth", "true");
-
-                    // Preparamos la sesion
-                    session = Session.getDefaultInstance(propiedades);
+                    queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
+                    queryUsuarios.setParameter("apodo", apodo);
 
                     try {
-                        //Localmente:
-                        //"http://localhost:8080/TFG/Formularios/restablecercontraseña?id="
-                        //Online:
-                        //"http://34.0.197.254:8080/TFG/Formularios/restablecercontraseña?id="
-                        
-                        // Generar mensaje
-                        message = new MimeMessage(session);
-                        message.setFrom(new InternetAddress(remitente));
-                        message.addRecipient(
-                                Message.RecipientType.TO,
-                                new InternetAddress(user.getCorreo()));
-                        message.setSubject("Guidance 4 - Restablecimiento de Contraseña");
-                        message.setText("Si le llega este mensaje es porque ha pedido recuperar su contraseña, recuerde "
-                                + "guardar su contraseña para no perderla, haga click en el siguiente enlace para poder "
-                                + "restablecer la contraseña"
-                                + "\nSu usuario es: " + user.getApodo()
-                                + "\nRecuperar contraseña: "
-                                + "http://34.0.197.254:8080/TFG/Formularios/restablecercontraseña?id="
-                                + user.getId() + "&password=" + user.getContrasena());
+                        user = queryUsuarios.getSingleResult();
+
+                        // Datos del remitente
+                        String remitente = "cristiandelgadoinformatica@gmail.com";
+                        String contraseña = "krkuiqxzoxksqdcz";
+
+                        propiedades = new Properties();
+                        propiedades.setProperty("mail.smtp.host", "smtp.gmail.com");
+                        propiedades.setProperty("mail.smtp.starttls.enable", "true");
+                        propiedades.setProperty("mail.smtp.port", "587");
+                        propiedades.setProperty("mail.smtp.user", remitente);
+                        propiedades.setProperty("mail.smtp.auth", "true");
+
+                        // Preparamos la sesion
+                        session = Session.getDefaultInstance(propiedades);
 
                         try {
-                            // Enviar el mensaje
-                            Transport transport = session.getTransport("smtp");
-                            transport.connect(remitente, contraseña);
-                            transport.sendMessage(message, message.getAllRecipients());
-                            transport.close();
+                            //Localmente:
+                            //"http://localhost:8080/TFG/Formularios/restablecercontraseña?id="
+                            //Online:
+                            //"http://34.0.197.254:8080/TFG/Formularios/restablecercontraseña?id="
 
-                            System.out.println("Correo electrónico enviado exitosamente.");
+                            // Generar mensaje
+                            message = new MimeMessage(session);
+                            message.setFrom(new InternetAddress(remitente));
+                            message.addRecipient(
+                                    Message.RecipientType.TO,
+                                    new InternetAddress(user.getCorreo()));
+                            message.setSubject("Guidance 4 - Restablecimiento de Contraseña");
+                            message.setText("Si le llega este mensaje es porque ha pedido recuperar su contraseña, recuerde "
+                                    + "guardar su contraseña para no perderla, haga click en el siguiente enlace para poder "
+                                    + "restablecer la contraseña"
+                                    + "\nSu usuario es: " + user.getApodo()
+                                    + "\nRecuperar contraseña: "
+                                    + "http://34.0.197.254:8080/TFG/Formularios/restablecercontraseña?id="
+                                    + user.getId() + "&password=" + user.getContrasena());
 
-                            vista = "/Formularios/iniciosesion";
+                            try {
+                                // Enviar el mensaje
+                                Transport transport = session.getTransport("smtp");
+                                transport.connect(remitente, contraseña);
+                                transport.sendMessage(message, message.getAllRecipients());
+                                transport.close();
 
-                        } catch (NoSuchProviderException ex) {
-                            System.out.println("Error al enviar el mensaje: " + ex.getMessage());
-                            msj = "<p style=\"margin-left: 10px\"> Error: No se puede enviar el mensaje</p>";
+                                System.out.println("Correo electrónico enviado exitosamente.");
+
+                                vista = "/Formularios/iniciosesion";
+
+                            } catch (NoSuchProviderException ex) {
+                                System.out.println("Error al enviar el mensaje: " + ex.getMessage());
+                                msj = "<p style=\"margin-left: 10px\"> Error: No se puede enviar el mensaje</p>";
+                                vista = "/Formularios/contraseñaperdida?msj=" + msj;
+                            }
+                        } catch (Exception ex) {
+                            System.out.println("Error al generar el mensaje: " + ex.getMessage());
+                            msj = "<p style=\"margin-left: 10px\"> Error: No se puede generar el mensaje</p>";
                             vista = "/Formularios/contraseñaperdida?msj=" + msj;
                         }
                     } catch (Exception ex) {
-                        System.out.println("Error al generar el mensaje: " + ex.getMessage());
-                        msj = "<p style=\"margin-left: 10px\"> Error: No se puede generar el mensaje</p>";
+                        System.out.println("Error, ese usuario no existe");
+                        msj = "<p style=\"margin-left: 10px\"> Error: Ese usuario no existe</p>";
                         vista = "/Formularios/contraseñaperdida?msj=" + msj;
                     }
                 } catch (Exception ex) {
-                    System.out.println("Error, ese usuario no existe");
-                    msj = "<p style=\"margin-left: 10px\"> Error: Ese usuario no existe</p>";
-                    vista = "/Formularios/contraseñaperdida?msj=" + msj;
+                    System.out.println("Error, ese correo no es válido");
+                    msj = "<p style=\"margin-left: 10px\"> Error:" + ex.getMessage() + "</p>";
+                    vista = "/Formularios/usuarioperdido?msj=" + msj;
                 }
                 break;
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(vista);
         rd.forward(request, response);
+    }
+
+    //Lanza error por escribir un valor malicioso
+    protected void comprobarCadena(String Cadena, String Mensaje) throws Exception {
+
+        if (Cadena.toUpperCase().contains("UPDATE") || Cadena.toUpperCase().contains("CREATE")
+                || Cadena.toUpperCase().contains("DELETE") || Cadena.toUpperCase().contains("SELECT")
+                || Cadena.toUpperCase().contains("DROP")) {
+            throw new Exception(Mensaje);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

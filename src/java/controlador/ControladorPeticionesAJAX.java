@@ -162,6 +162,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     System.out.println("PeticionAJAX Llega");
 
                     switch (ordenar) {
@@ -322,6 +326,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     System.out.println("PeticionAJAX Llega");
 
                     switch (ordenar) {
@@ -428,6 +436,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     System.out.println("PeticionAJAX Llega");
 
@@ -560,6 +572,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     System.out.println("PeticionAJAX Llega");
 
                     switch (ordenar) {
@@ -689,6 +705,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     switch (ordenar) {
                         case "ordenar1":
                             sql = "SELECT u2.* FROM Usuario u "
@@ -776,6 +796,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     switch (ordenar) {
                         case "ordenar1":
@@ -945,6 +969,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     switch (ordenar) {
                         case "ordenar1":
                             sql = "SELECT M.* "
@@ -1079,6 +1107,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     switch (ordenar) {
                         case "ordenar1":
@@ -1235,6 +1267,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     sql = "SELECT p.* FROM PERSONAJES p "
                             + "WHERE p.USUARIO = '" + user.getId() + "' "
                             + "AND p.NOMBRE LIKE '" + nombre + "%'";
@@ -1262,6 +1298,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     //nombre original
                     personajeNombre = request.getParameter("nombrePersonaje");
@@ -1305,6 +1345,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     //Recogemos los datos
                     ordenar = request.getParameter("orden");//como ordenar
@@ -1409,6 +1453,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     /////////////////////////
                     /////////SESION//////////
@@ -1522,6 +1570,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     ////////////////////////////
                     ////////////AMIGO///////////
                     ////////////////////////////
@@ -1629,6 +1681,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     /////////////////////////
                     /////////SESION//////////
@@ -1742,6 +1798,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     /////////////////////////
                     /////////SESION//////////
                     /////////////////////////
@@ -1846,6 +1906,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     //Encontramos la Clase
                     queryClases = em.createNamedQuery("Clases.findByNombre", Clase.class);
                     queryClases.setParameter("nombre", nombre);
@@ -1880,6 +1944,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
 
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     //Encontramos la Raza
                     queryRazas = em.createNamedQuery("Raza.findByNombre", Raza.class);
@@ -1922,6 +1990,11 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     //////////////////////////////////
                     nombre = request.getParameter("busqueda");
                     id = request.getParameter("busqueda2");
+
+                    if (comprobarCadena(nombre) || comprobarCadena(id)) {
+                        nombre = "";
+                        id = "";
+                    }
 
                     //Encontramos la SubRaza
                     querySubRazas = em.createNamedQuery("Subraza.findByNombre", Subraza.class);
@@ -2025,6 +2098,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     //Encontramos la SubRaza
                     querySubRazas = em.createNamedQuery("Subraza.findByNombre", Subraza.class);
                     querySubRazas.setParameter("nombre", nombre);
@@ -2101,6 +2178,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
 
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     //Recogemos los datos
                     id = request.getParameter("id");
@@ -2297,6 +2378,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     //Recogemos los datos
                     id = request.getParameter("id");
 
@@ -2492,6 +2577,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     //Recogemos los datos
                     id = request.getParameter("id");
 
@@ -2683,6 +2772,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
 
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     //Recogemos los datos
                     id = request.getParameter("id");
@@ -2879,6 +2972,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                     queryUsuarios.setParameter("apodo", nombre);
 
@@ -2893,6 +2990,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     queryUsuarios = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
                     queryUsuarios.setParameter("correo", nombre);
@@ -2909,6 +3010,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     queryUsuarios = em.createNamedQuery("Usuario.findByTelefono", Usuario.class);
                     queryUsuarios.setParameter("telefono", new BigInteger(nombre));
 
@@ -2923,6 +3028,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     novalido = true;
 
@@ -2957,6 +3066,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
                     queryUsuarios.setParameter("apodo", nombre);
 
@@ -2971,6 +3084,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     queryUsuarios = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
                     queryUsuarios.setParameter("correo", nombre);
@@ -2992,6 +3109,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     if (user.getApodo().equals(nombre)) {
                         resultado = "No Encontrado";
@@ -3017,6 +3138,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     if (user.getCorreo().equals(nombre)) {
                         resultado = "No Encontrado";
@@ -3044,6 +3169,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     if (user.getTelefono() == new BigInteger(nombre)) {
                         resultado = "No Encontrado";
                     } else {
@@ -3062,6 +3191,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     novalido = true;
 
@@ -3097,6 +3230,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     queryAUX = em.createNamedQuery("Mesas.findByTitulo", Mesa.class);
                     queryAUX.setParameter("titulo", nombre);
 
@@ -3115,6 +3252,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     if (mesa.equals(nombre)) {
                         resultado = "No Encontrado";
@@ -3138,6 +3279,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
 
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     escuela = request.getParameter("vEscu");
                     nivelString = request.getParameter("vNiv");
@@ -3311,6 +3456,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     vd = request.getParameter("vVD");
                     tipo = request.getParameter("vTipo");
 
@@ -3403,6 +3552,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     ////////////////////////////////
 
                     nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
 
                     tipo = request.getParameter("vTipo");
                     categoria = request.getParameter("vCat");
@@ -3572,6 +3725,10 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     nombre = request.getParameter("busqueda");
 
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     //Razas Normales
                     queryRazas = em.createNamedQuery("Raza.findByTipo", Raza.class);
                     queryRazas.setParameter("tipo", "Normal");
@@ -3631,22 +3788,25 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     System.out.println("PeticionAJAX Sale Razas");
                     break;
-                    
-                    ///////////////////////////////////////////////////////////////////////////
-                    ////////////////////////////////////FORO///////////////////////////////////
-                    ///////////////////////////////////////////////////////////////////////////
-                    
-                    /////////////////
-                    ////CREAR HILO///
-                    /////////////////
-                case "/crearHilo": 
+
+                ///////////////////////////////////////////////////////////////////////////
+                ////////////////////////////////////FORO///////////////////////////////////
+                ///////////////////////////////////////////////////////////////////////////
+                /////////////////
+                ////CREAR HILO///
+                /////////////////
+                case "/crearHilo":
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
                     ////////////////////////////////
                     nombre = request.getParameter("busqueda");
-                    
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+
                     System.out.println(nombre);
-                    
+
                     sql = "SELECT h.* FROM HILO h "
                             + "WHERE h.TITULO = '" + nombre + "'";
                     queryAUX = em.createNativeQuery(sql, Hilo.class);
@@ -3666,6 +3826,19 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(resultado);
         }
+    }
+
+    //Lanza error por escribir un valor malicioso
+    protected boolean comprobarCadena(String Cadena) {
+
+        boolean valor = false;
+
+        if (Cadena.toUpperCase().contains("UPDATE") || Cadena.toUpperCase().contains("CREATE")
+                || Cadena.toUpperCase().contains("DELETE") || Cadena.toUpperCase().contains("SELECT")
+                || Cadena.toUpperCase().contains("DROP")) {
+            valor = true;
+        }
+        return valor;
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

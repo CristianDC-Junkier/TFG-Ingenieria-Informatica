@@ -94,7 +94,7 @@ public class Usuario implements Serializable {
     private List<Personaje> personajesList;
     @Column(name = "TELEFONO")
     private BigInteger telefono;
-    @JoinTable(name = "BLOQUEADOS", joinColumns = {
+    @JoinTable(name = "BLOQUEADO", joinColumns = {
         @JoinColumn(name = "BLOQUEADO", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "BLOQUEADOR", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
@@ -108,7 +108,7 @@ public class Usuario implements Serializable {
     private List<Usuario> usuariosList2;
     @ManyToMany(mappedBy = "usuariosList2")
     private List<Usuario> usuariosAmigos;
-    @JoinTable(name = "AMIGOS", joinColumns = {
+    @JoinTable(name = "AMIGO", joinColumns = {
         @JoinColumn(name = "AMIGO1", referencedColumnName = "ID", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "AMIGO2", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
