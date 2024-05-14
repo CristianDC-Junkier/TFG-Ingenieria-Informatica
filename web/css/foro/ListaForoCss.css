@@ -1,0 +1,93 @@
+
+
+#botonMio.estalleno  {
+
+    margin-bottom: 10px;
+    margin-right:  10px;
+    padding: 5px 5px;
+    border-radius: 10px;
+    width: 10%;
+    transform: translateY(0.1em);
+}
+#botonMio.noestalleno  {
+    margin-bottom: 10px;
+    margin-right:  10px;
+    padding: 5px 5px;
+    border-radius: 10px;
+    width: 10%;
+}
+#botonMio.estalleno:hover {
+    
+    transform: translateY(0.1em);
+}
+
+#botonMio.estalleno:active {
+    
+    transform: translateY(-0.1em);
+}
+
+#botonMio.noestalleno:hover {
+
+    margin-bottom: 10px;
+    margin-right:  10px;
+    padding: 5px 5px;
+    border-radius: 10px;
+    border: brown 2px solid;
+    width: 10%;
+}
+
+#botonMio.noestalleno:hover {
+
+    transform: translateY(-0.1em);
+}
+
+#botonMio.noestalleno:active {
+    
+    transform: translateY(0.1em);
+}
+
+#botonComentado.noestalleno  {
+    margin-bottom: 10px;
+    margin-right:  10px;
+    padding: 5px 5px;
+    border-radius: 10px;
+    width: 10%;
+}
+#botonComentado.estalleno  {
+
+    margin-bottom: 10px;
+    margin-right:  10px;
+    padding: 5px 5px;
+    border-radius: 10px;
+    width: 10%;
+    transform: translateY(0.1em);
+}
+#botonComentado.estalleno:hover {
+    
+    transform: translateY(0.1em);
+}
+
+#botonComentado.estalleno:active {
+    
+    transform: translateY(-0.1em);
+}
+
+#botonComentado.noestalleno:hover {
+
+    margin-bottom: 10px;
+    margin-right:  10px;
+    padding: 5px 5px;
+    border-radius: 10px;
+    border: brown 2px solid;
+    width: 10%;
+}
+
+#botonComentado.noestalleno:hover {
+
+    transform: translateY(-0.1em);
+}
+
+#botonComentado.noestalleno:active {
+    
+    transform: translateY(0.1em);
+}
