@@ -516,6 +516,7 @@ public class ControladorPersonajes extends HttpServlet {
                         System.out.println("Error: Imposible crear un personaje en este momento: ");
                         System.out.println("ParseException: " + ex.getMessage());
                     } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
                         msj = "<p style=\"margin-left: 10px\"> Error: " + ex.getMessage() + "</p>";
                         System.out.println("Exception: " + ex.getMessage());
                     }
@@ -2487,8 +2488,8 @@ public class ControladorPersonajes extends HttpServlet {
                         if (!personaje.getUsuario().getId().equals(user.getId())) {
                             vista = "/Principal/inicio";
                         } else {
-                            sql = "SELECT d.* FROM DOTES d "
-                                    + "LEFT JOIN PERSONAJEDOTES pd on pd.dote = d.id "
+                            sql = "SELECT d.* FROM DOTE d "
+                                    + "LEFT JOIN PERSONAJEDOTE pd on pd.dote = d.id "
                                     + "WHERE pd.personaje = '" + personaje_id + "' "
                                     + "ORDER BY d.NOMBRE DESC ";
 
@@ -3011,7 +3012,7 @@ public class ControladorPersonajes extends HttpServlet {
                             /////////////////////////////////
                             ////////NUMERO DE HECHIZOS///////
                             /////////////////////////////////
-                            sql = "SELECT DISTINCT COUNT(*) FROM Hechizos h "
+                            sql = "SELECT DISTINCT COUNT(*) FROM Hechizo h "
                                     + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                     + "LEFT JOIN Clase c on c.id = lb.clase "
                                     + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
@@ -3026,7 +3027,7 @@ public class ControladorPersonajes extends HttpServlet {
                             //PAGINAS QUE HAY (15 HECHIZOS POR PAGINA)
                             numPag = (((Number) result).intValue() / 14) + 1;
 
-                            sql = "SELECT DISTINCT * FROM Hechizos h "
+                            sql = "SELECT DISTINCT * FROM Hechizo h "
                                     + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                     + "LEFT JOIN Clase c on c.id = lb.clase "
                                     + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
@@ -3146,7 +3147,7 @@ public class ControladorPersonajes extends HttpServlet {
                             /////////////////////////////////
                             ////////NUMERO DE HECHIZOS///////
                             /////////////////////////////////
-                            sql = "SELECT COUNT(DISTINCT h.id) FROM Hechizos h "
+                            sql = "SELECT COUNT(DISTINCT h.id) FROM Hechizo h "
                                     + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                     + "LEFT JOIN Clase c on c.id = lb.clase "
                                     + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "
@@ -3161,7 +3162,7 @@ public class ControladorPersonajes extends HttpServlet {
                             //PAGINAS QUE HAY (15 HECHIZOS POR PAGINA)
                             numPag = (((Number) result).intValue() / 14) + 1;
 
-                            sql = "SELECT h.* FROM Hechizos h "
+                            sql = "SELECT h.* FROM Hechizo h "
                                     + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                     + "LEFT JOIN Clase c on c.id = lb.clase "
                                     + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + personaje_id + "' "

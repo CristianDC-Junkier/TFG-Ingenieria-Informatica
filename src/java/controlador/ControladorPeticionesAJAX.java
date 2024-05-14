@@ -177,13 +177,13 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "AND u.ID NOT IN ("
                                         + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADO b WHERE b.BLOQUEADO = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADO b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                        + "    SELECT a.AMIGO1 FROM AMIGO a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
+                                        + "    SELECT a.AMIGO2 FROM AMIGO a WHERE a.AMIGO1 = '" + user.getId() + "')"
                                         + "    ORDER BY u.apodo ASC ";
 
                             } else {
@@ -195,13 +195,13 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "AND u.ID NOT IN ("
                                         + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADO b WHERE b.BLOQUEADO = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADO b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                        + "    SELECT a.AMIGO1 FROM AMIGO a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
+                                        + "    SELECT a.AMIGO2 FROM AMIGO a WHERE a.AMIGO1 = '" + user.getId() + "')"
                                         + "    ORDER BY u.apodo ASC ";
                             }
                             break;
@@ -213,13 +213,13 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "AND u.ID NOT IN ("
                                         + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADO b WHERE b.BLOQUEADO = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADO b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                        + "    SELECT a.AMIGO1 FROM AMIGO a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
+                                        + "    SELECT a.AMIGO2 FROM AMIGO a WHERE a.AMIGO1 = '" + user.getId() + "')"
                                         + "    ORDER BY u.apodo DESC ";
                             } else {
                                 sql = "SELECT DISTINCT u.* FROM USUARIO u "
@@ -230,13 +230,13 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "AND u.ID NOT IN ("
                                         + "    SELECT pa.ACEPTA FROM PIDEAMISTAD pa WHERE pa.PIDE = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADOS b WHERE b.BLOQUEADO = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADOR FROM BLOQUEADO b WHERE b.BLOQUEADO = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADOS b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
+                                        + "    SELECT b.BLOQUEADO FROM BLOQUEADO b WHERE b.BLOQUEADOR = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO1 FROM AMIGOS a WHERE a.AMIGO2 = '" + user.getId() + "'"
+                                        + "    SELECT a.AMIGO1 FROM AMIGO a WHERE a.AMIGO2 = '" + user.getId() + "'"
                                         + "    UNION "
-                                        + "    SELECT a.AMIGO2 FROM AMIGOS a WHERE a.AMIGO1 = '" + user.getId() + "')"
+                                        + "    SELECT a.AMIGO2 FROM AMIGO a WHERE a.AMIGO1 = '" + user.getId() + "')"
                                         + "    ORDER BY u.apodo DESC ";
                             }
                             break;
@@ -336,16 +336,16 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         case "ordenar1":
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuario u "
-                                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "INNER JOIN Amigo a ON u.id = a.amigo1 "
+                                        + "INNER JOIN Usuario u2 ON a.amigo2 = u2.id "
                                         + "WHERE a.amigo1 = '" + user.getId() + "'"
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "ORDER BY u2.apodo ASC "
                                         + "OFFSET " + num + " ROWS FETCH NEXT 10 ROWS ONLY";
                             } else {
                                 sql = "SELECT DISTINCT u2.* FROM Usuario u "
-                                        + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
-                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
+                                        + "INNER JOIN Amigo a ON u.apodo = a.amigo1 "
+                                        + "INNER JOIN Usuario u2 ON a.amigo2 = u2.apodo "
                                         + "WHERE a.amigo1 = '" + user.getApodo() + "'"
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "ORDER BY u2.apodo ASC ";
@@ -354,15 +354,15 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         case "ordenar2":
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuario u "
-                                        + "INNER JOIN Amigos a ON u.id = a.amigo1 "
-                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.id "
+                                        + "INNER JOIN Amigo a ON u.id = a.amigo1 "
+                                        + "INNER JOIN Usuario u2 ON a.amigo2 = u2.id "
                                         + "WHERE a.amigo1 = '" + user.getId() + "'"
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "ORDER BY u2.apodo DESC ";
                             } else {
                                 sql = "SELECT DISTINCT u2.* FROM Usuario u "
-                                        + "INNER JOIN Amigos a ON u.apodo = a.amigo1 "
-                                        + "INNER JOIN Usuarios u2 ON a.amigo2 = u2.apodo "
+                                        + "INNER JOIN Amigo a ON u.apodo = a.amigo1 "
+                                        + "INNER JOIN Usuario u2 ON a.amigo2 = u2.apodo "
                                         + "WHERE a.amigo1 = '" + user.getApodo() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "ORDER BY u2.apodo DESC ";
@@ -448,7 +448,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
-                                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.acepta = u2.id "
                                         + "WHERE p.pide = '" + user.getId() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "ORDER BY u2.apodo ASC "
@@ -456,7 +456,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             } else {
                                 sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
-                                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.acepta = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE p.pide = '" + user.getId() + "' "
@@ -469,7 +469,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
-                                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.acepta = u2.id "
                                         + "WHERE p.pide = '" + user.getId() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "ORDER BY u2.apodo DESC "
@@ -477,7 +477,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             } else {
                                 sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.pide "
-                                        + "INNER JOIN Usuarios u2 ON p.acepta = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.acepta = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE p.pide = '" + user.getId() + "' "
@@ -583,14 +583,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.pide = u2.id "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "ORDER BY u2.apodo ASC ";
                             } else {
                                 sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.pide = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
@@ -603,14 +603,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             if (mesa.equalsIgnoreCase("false")) {
                                 sql = "SELECT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.pide = u2.id "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
                                         + "AND u2.apodo LIKE '" + nombre + "%' "
                                         + "ORDER BY u2.apodo DESC ";
                             } else {
                                 sql = "SELECT DISTINCT u2.* FROM Usuario u "
                                         + "INNER JOIN Pideamistad p ON u.id = p.acepta "
-                                        + "INNER JOIN Usuarios u2 ON p.pide = u2.id "
+                                        + "INNER JOIN Usuario u2 ON p.pide = u2.id "
                                         + "INNER JOIN Pertenecemesa p1 ON u.id = p1.usuario "
                                         + "INNER JOIN Pertenecemesa p2 ON u2.id = p2.usuario "
                                         + "WHERE p.acepta = '" + user.getId() + "' "
@@ -712,16 +712,16 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             sql = "SELECT u2.* FROM Usuario u "
-                                    + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
-                                    + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
+                                    + "INNER JOIN Bloqueado b ON u.id = b.bloqueador "
+                                    + "INNER JOIN Usuario u2 ON b.bloqueado = u2.id "
                                     + "WHERE b.bloqueador = '" + user.getId() + "' "
                                     + "AND u2.apodo LIKE '" + nombre + "%' "
                                     + "ORDER BY u2.apodo ASC ";
                             break;
                         case "ordenar2":
                             sql = "SELECT u2.* FROM Usuario u "
-                                    + "INNER JOIN Bloqueados b ON u.id = b.bloqueador "
-                                    + "INNER JOIN Usuarios u2 ON b.bloqueado = u2.id "
+                                    + "INNER JOIN Bloqueado b ON u.id = b.bloqueador "
+                                    + "INNER JOIN Usuario u2 ON b.bloqueado = u2.id "
                                     + "WHERE b.bloqueador = '" + user.getId() + "' "
                                     + "AND u2.apodo LIKE '" + nombre + "%' "
                                     + "ORDER BY u2.apodo DESC ";
@@ -805,7 +805,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         case "ordenar1":
                             if (lleno.equalsIgnoreCase("false")) {
                                 sql = "SELECT M.* "
-                                        + "FROM MESAS M "
+                                        + "FROM MESA M "
                                         + "WHERE NOT EXISTS ( "
                                         + "    SELECT * "
                                         + "    FROM PERTENECEMESA P "
@@ -821,7 +821,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "ORDER BY M.TITULO ASC ";
                             } else {
                                 sql = "SELECT DISTINCT M.* "
-                                        + "FROM MESAS M "
+                                        + "FROM MESA M "
                                         + "WHERE NOT EXISTS ( "
                                         + "    SELECT * "
                                         + "    FROM PERTENECEMESA P "
@@ -840,7 +840,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         case "ordenar2":
                             if (lleno.equalsIgnoreCase("false")) {
                                 sql = "SELECT M.* "
-                                        + "FROM MESAS M "
+                                        + "FROM MESA M "
                                         + "WHERE NOT EXISTS ( "
                                         + "    SELECT * "
                                         + "    FROM PERTENECEMESA P "
@@ -856,7 +856,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                         + "ORDER BY M.TITULO DESC ";
                             } else {
                                 sql = "SELECT DISTINCT M.* "
-                                        + "FROM MESAS M "
+                                        + "FROM MESA M "
                                         + "WHERE NOT EXISTS ( "
                                         + "    SELECT * "
                                         + "    FROM PERTENECEMESA P "
@@ -976,7 +976,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -994,7 +994,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                         case "ordenar2":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -1011,7 +1011,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                         case "ordenar3":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -1028,7 +1028,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                         case "ordenar4":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -1115,7 +1115,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     switch (ordenar) {
                         case "ordenar1":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -1133,7 +1133,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                         case "ordenar2":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -1150,7 +1150,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                         case "ordenar3":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -1167,7 +1167,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             break;
                         case "ordenar4":
                             sql = "SELECT M.* "
-                                    + "FROM MESAS M "
+                                    + "FROM MESA M "
                                     + "WHERE EXISTS ( "
                                     + "    SELECT * "
                                     + "    FROM PERTENECEMESA P "
@@ -1271,7 +1271,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         nombre = "";
                     }
 
-                    sql = "SELECT p.* FROM PERSONAJES p "
+                    sql = "SELECT p.* FROM PERSONAJE p "
                             + "WHERE p.USUARIO = '" + user.getId() + "' "
                             + "AND p.NOMBRE LIKE '" + nombre + "%'";
                     queryAUX = em.createNativeQuery(sql, Personaje.class);
@@ -1311,7 +1311,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     if (personajeNombre.equals(nombre)) {
                         resultado = "No encontrado";
                     } else {
-                        sql = "SELECT p.* FROM PERSONAJES p "
+                        sql = "SELECT p.* FROM PERSONAJE p "
                                 + "WHERE p.USUARIO = '" + user.getId() + "' "
                                 + "AND p.NOMBRE LIKE '" + nombre + "'";
                         queryAUX = em.createNativeQuery(sql, Personaje.class);
@@ -1379,7 +1379,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     //System.out.println(raza);
                     switch (ordenar) {
                         case "ordenar1":
-                            sql = "SELECT p.* FROM PERSONAJES p "
+                            sql = "SELECT p.* FROM PERSONAJE p "
                                     + "WHERE p.USUARIO <> '" + id + "' "
                                     + nivelString
                                     + clase
@@ -1388,7 +1388,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "ORDER BY p.NOMBRE ASC ";
                             break;
                         case "ordenar2":
-                            sql = "SELECT p.* FROM PERSONAJES p "
+                            sql = "SELECT p.* FROM PERSONAJE p "
                                     + "WHERE p.USUARIO <> '" + id + "' "
                                     + nivelString
                                     + clase
@@ -1492,8 +1492,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     switch (ordenar) {
                         case "ordenar1":
-                            sql = "SELECT p.* FROM PERSONAJES p "
-                                    + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
+                            sql = "SELECT p.* FROM PERSONAJE p "
+                                    + "INNER JOIN AMIGO a ON p.USUARIO = a.AMIGO2 "
                                     + "WHERE a.AMIGO1 = '" + user.getId() + "' "
                                     + "p.USUARIO <> '" + user.getId() + "' "
                                     + nivelString
@@ -1503,8 +1503,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "ORDER BY p.NOMBRE ASC ";
                             break;
                         case "ordenar2":
-                            sql = "SELECT p.* FROM PERSONAJES p "
-                                    + "INNER JOIN AMIGOS a ON p.USUARIO = a.AMIGO2 "
+                            sql = "SELECT p.* FROM PERSONAJE p "
+                                    + "INNER JOIN AMIGO a ON p.USUARIO = a.AMIGO2 "
                                     + "WHERE a.AMIGO1 = '" + user.getId() + "' "
                                     + "p.USUARIO <> '" + user.getId() + "' "
                                     + nivelString
@@ -1607,7 +1607,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     switch (ordenar) {
                         case "ordenar1":
-                            sql = "SELECT p.* FROM PERSONAJES p "
+                            sql = "SELECT p.* FROM PERSONAJE p "
                                     + "WHERE p.USUARIO = '" + id + "' "
                                     + nivelString
                                     + clase
@@ -1616,7 +1616,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "ORDER BY p.NOMBRE ASC ";
                             break;
                         case "ordenar2":
-                            sql = "SELECT p.* FROM PERSONAJES p "
+                            sql = "SELECT p.* FROM PERSONAJE p "
                                     + "WHERE p.USUARIO = '" + id + "' "
                                     + nivelString
                                     + clase
@@ -1720,7 +1720,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     switch (ordenar) {
                         case "ordenar1":
-                            sql = "SELECT p.* FROM PERSONAJES p "
+                            sql = "SELECT p.* FROM PERSONAJE p "
                                     + "WHERE p.USUARIO = '" + user.getId() + "' "
                                     + nivelString
                                     + clase
@@ -1729,7 +1729,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "ORDER BY p.NOMBRE ASC ";
                             break;
                         case "ordenar2":
-                            sql = "SELECT p.* FROM PERSONAJES p "
+                            sql = "SELECT p.* FROM PERSONAJE p "
                                     + "WHERE p.USUARIO = '" + user.getId() + "' "
                                     + nivelString
                                     + clase
@@ -1836,7 +1836,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     switch (ordenar) {
                         case "ordenar1":
-                            sql = "SELECT p.* FROM PERSONAJES p "
+                            sql = "SELECT p.* FROM PERSONAJE p "
                                     + "WHERE p.USUARIO = '" + user.getId() + "' "
                                     + nivelString
                                     + clase
@@ -1845,7 +1845,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                     + "ORDER BY p.NOMBRE ASC ";
                             break;
                         case "ordenar2":
-                            sql = "SELECT p.* FROM PERSONAJES p "
+                            sql = "SELECT p.* FROM PERSONAJE p "
                                     + "WHERE p.USUARIO = '" + user.getId() + "' "
                                     + nivelString
                                     + clase
@@ -1911,7 +1911,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     }
 
                     //Encontramos la Clase
-                    queryClases = em.createNamedQuery("Clases.findByNombre", Clase.class);
+                    queryClases = em.createNamedQuery("Clase.findByNombre", Clase.class);
                     queryClases.setParameter("nombre", nombre);
                     Clase = queryClases.getSingleResult();
 
@@ -2052,7 +2052,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     resultado = resultado + "</div>";
 
                     //Encontramos la Clase
-                    queryClases = em.createNamedQuery("Clases.findByNombre", Clase.class);
+                    queryClases = em.createNamedQuery("Clase.findByNombre", Clase.class);
                     queryClases.setParameter("nombre", id);
                     Clase = queryClases.getSingleResult();
 
@@ -2196,7 +2196,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
                                 + "AND h.NIVEL = '" + nivelString + "' "
@@ -2214,7 +2214,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
                                 + "AND h.NIVEL = '" + nivelString + "' "
@@ -2230,7 +2230,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
                                 + "AND c.NOMBRE ='" + claseH + "' "
@@ -2246,7 +2246,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.NIVEL = '" + nivelString + "' "
                                 + "AND c.NOMBRE ='" + claseH + "' "
@@ -2261,7 +2261,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
@@ -2275,7 +2275,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.NIVEL = '" + nivelString + "' "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
@@ -2290,7 +2290,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND c.NOMBRE ='" + claseH + "' "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
@@ -2302,7 +2302,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     } else {
                         sql = "SELECT h.* FROM Hechizo h "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NOT NULL "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY h.nombre "
@@ -2395,7 +2395,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
                                 + "AND h.NIVEL = '" + nivelString + "' "
@@ -2413,7 +2413,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
                                 + "AND h.NIVEL = '" + nivelString + "' "
@@ -2429,7 +2429,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
                                 + "AND c.NOMBRE ='" + claseH + "' "
@@ -2445,7 +2445,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.NIVEL = '" + nivelString + "' "
                                 + "AND c.NOMBRE ='" + claseH + "' "
@@ -2460,7 +2460,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.ESCUELA = '" + escuela + "' "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
@@ -2474,7 +2474,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.NIVEL = '" + nivelString + "' "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
@@ -2489,7 +2489,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         sql = "SELECT h.* FROM Hechizo h "
                                 + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
                                 + "LEFT JOIN Clase c on c.id = lb.clase "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND c.NOMBRE ='" + claseH + "' "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
@@ -2501,7 +2501,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     } else {
                         sql = "SELECT h.* FROM Hechizo h "
-                                + "LEFT JOIN Personajehechizos ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
+                                + "LEFT JOIN Personajehechizo ph on ph.hechizo = h.id AND ph.personaje = '" + id + "' "
                                 + "WHERE ph.personaje IS NULL "
                                 + "AND h.nombre LIKE '" + nombre + "%' "
                                 + "ORDER BY h.nombre "
@@ -3234,7 +3234,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         nombre = "";
                     }
 
-                    queryAUX = em.createNamedQuery("Mesas.findByTitulo", Mesa.class);
+                    queryAUX = em.createNamedQuery("Mesa.findByTitulo", Mesa.class);
                     queryAUX.setParameter("titulo", nombre);
 
                     if (!queryAUX.getResultList().isEmpty()) {
@@ -3260,7 +3260,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     if (mesa.equals(nombre)) {
                         resultado = "No Encontrado";
                     } else {
-                        queryAUX = em.createNamedQuery("Mesas.findByTitulo", Mesa.class);
+                        queryAUX = em.createNamedQuery("Mesa.findByTitulo", Mesa.class);
                         queryAUX.setParameter("titulo", nombre);
 
                         if (!queryAUX.getResultList().isEmpty()) {

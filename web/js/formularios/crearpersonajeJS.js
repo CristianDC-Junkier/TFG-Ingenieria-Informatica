@@ -50,7 +50,7 @@ function AvanzarFormulario(Pag) {
                 MensajeError.innerHTML = "<br> Debes introducir nombre y elegir raza , clase y trasfondo";
             } else if (NombreError.innerHTML === "✖") {
                 MensajeError.innerHTML = "";
-                MensajeError.innerHTML = "<br> El nombre introducido ya está en uso";
+                MensajeError.innerHTML = "<br> El nombre introducido ya está en uso o no es válido";
             } else {
                 //Borro Mensaje de Error si había
                 MensajeError.innerHTML = "";
