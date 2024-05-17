@@ -95,11 +95,11 @@
                                                 </div></td>
                                             <td>${mesa.titulo}</td>
                                             <td>${mesa.comunidad}</td>
-                                            <td>${listacantidad[status.index]}/${mesa.tamano}</td>
+                                            <td>${listaCantidad[status.index]}/${mesa.tamano}</td>
                                             <td>${mesa.creador}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Mesas/mostrarMesa?id=${mesa.id}'">Detalles</button></td>
                                             <c:choose> 
-                                                <c:when test="${sessionScope.user.apodo == listalideres[status.index]}">
+                                                <c:when test="${sessionScope.user.apodo == listaLideres[status.index]}">
                                                     <td><button class="botonDentro" onclick="mostrarRecuadroX('/TFG/Mesas/eliminarMesa?id=',${mesa.id})">Borrar Mesa</button></td>
                                                 </c:when>
                                                 <c:otherwise>
@@ -114,7 +114,7 @@
                                                 <span class="cierreRecuadro" onclick="cerrarRecuadroX()">X</span>
                                             </div>
                                             <hr>
-                                            <button class="botonDentro" >Si</button>
+                                            <button class="botonDentro" id="eliminar" >Si</button>
                                             <button class="botonDentro" onclick="cerrarRecuadroX()">No</button>
                                         </div>
                                     </div>

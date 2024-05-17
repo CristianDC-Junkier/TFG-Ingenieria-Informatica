@@ -260,9 +260,7 @@ function comprobarMusica() {
         success: function (data) {
             
             let musicAux = data;
-            if (musicAux === musicaActual) {
-
-            } else {
+            if (musicAux !== musicaActual) {
                 musicaActual = musicAux;
                 musicaChat.innerHTML = cambio;
                 reproductor = document.getElementById("reproductorCancion");

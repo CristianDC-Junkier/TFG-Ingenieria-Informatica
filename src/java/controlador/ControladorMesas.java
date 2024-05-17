@@ -76,6 +76,7 @@ public class ControladorMesas extends HttpServlet {
 
         List<String> fotosMesas;
         List<Integer> listaCantidad;
+        List<String> listaLideres;
         List<Usuario> listaUsuarios;
         List<Pertenecemesa> listaPerteneceMesa;
         List<Mesa> listaMesas;
@@ -683,8 +684,8 @@ public class ControladorMesas extends HttpServlet {
                     queryAUX = em.createNativeQuery(sql, Mesa.class);
                     listaMesas = queryAUX.getResultList();
 
-                    //System.out.println("Esto: " + listaMesas.size());
                     listaCantidad = new ArrayList();
+                    listaLideres = new ArrayList();
                     fotosMesas = new ArrayList();
 
                     for (int i = 0; i < listaMesas.size(); i++) {
@@ -693,6 +694,8 @@ public class ControladorMesas extends HttpServlet {
                         queryAUX.setParameter("mesa", listaMesas.get(i).getId());
                         cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
                         listaCantidad.add(cantidad);
+                        
+                        listaLideres.add(listaMesas.get(i).getCreador());
 
                         if (listaMesas.get(i).getImagenmesa() == null) {
                             fotosMesas.add("-");
@@ -708,7 +711,8 @@ public class ControladorMesas extends HttpServlet {
                     System.out.println("Sale npag:" + numPag);
 
                     request.setAttribute("listaMesas", listaMesas);
-                    request.setAttribute("listacantidad", listaCantidad);
+                    request.setAttribute("listaCantidad", listaCantidad);
+                    request.setAttribute("listaLideres", listaLideres);
                     request.setAttribute("orden", ordenar);
                     request.setAttribute("pag", numString);//numero de la pag
                     request.setAttribute("numPag", numPag);//numero total de pag
@@ -1186,6 +1190,13 @@ public class ControladorMesas extends HttpServlet {
                         request.setAttribute("listaUsuarios", listaUsuarios);
                         request.setAttribute("mesa", pmesa.getMesas());
                         request.setAttribute("rol", pmesa.getRol());
+                        if (!pmesa.getRol().equalsIgnoreCase("Dungeon Master")) {
+                            if (pmesa.getPersonajemesa() != null) {
+                                request.setAttribute("personajemesaid", pmesa.getPersonajemesa());
+                            } else {
+                                request.setAttribute("personajemesaid", "-1");
+                            }
+                        }
                         vista = "/WEB-INF/jsp/mesas/mesaChat.jsp";
 
                     } catch (Exception ex) {

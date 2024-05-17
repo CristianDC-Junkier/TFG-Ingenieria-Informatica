@@ -75,30 +75,30 @@
                         <div class="botonesAudio">
                             <button type="button" class="botonArriba" onclick="ajustarVolumen(-0.1)">Disminuir volumen</button>
                             <button type="button" class="botonArriba" onclick="ajustarVolumen(+0.1)">Aumentar volumen</button>
-                            <button type="button" class="botonArriba" onclick="mostrarRecuadro()
-                                    <c:if test="${requestScope.rol != 'Dungeon Master'}">  style ="display: none;"</c:if>">Cambiar</button>
-                                    <div class="opcionRecuadro" id="recuadro" style="display: none;">
-                                        <div class="contenidoRecuadro">
-                                            <div class="tituloRecuadro">Eliga la Musica
-                                                <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
-                                            </div>
-                                            <hr>
-                                            <form id="formMusica" method="POST">
-                                                <label for="opciones">Selecciona una musica:</label>
-                                                <select id="opcionMusica" name="opciones">
-                                                <c:forEach var="musicaL" items="${listaMusica}">
-                                                    <option value="${musicaL.id}" 
-                                                            <c:if test="${requestScope.musica.nombre == musicaL.nombre}">selected</c:if>>
-                                                        ${musicaL.nombre}
-                                                    </option>
-                                                </c:forEach>
-                                            </select>
-                                            <input class="botonDentro" type="submit" value="Elegir">
-                                            <button class="botonDentro" type="button" onclick="cerrarRecuadro()">Volver</button>
-                                        </form>
+                            <c:if test="${requestScope.rol == 'Dungeon Master'}">
+                                <button type="button" class="botonArriba" onclick="mostrarRecuadro()">Cambiar</button>
+                            </c:if>
+                            <div class="opcionRecuadro" id="recuadro" style="display: none;">
+                                <div class="contenidoRecuadro">
+                                    <div class="tituloRecuadro">Eliga la Musica
+                                        <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
                                     </div>
+                                    <hr>
+                                    <form id="formMusica" method="POST">
+                                        <label for="opciones">Selecciona una musica:</label>
+                                        <select id="opcionMusica" name="opciones">
+                                            <c:forEach var="musicaL" items="${listaMusica}">
+                                                <option value="${musicaL.id}" 
+                                                        <c:if test="${requestScope.musica.nombre == musicaL.nombre}">selected</c:if>>
+                                                    ${musicaL.nombre}
+                                                </option>
+                                            </c:forEach>
+                                        </select>
+                                        <input class="botonDentro" type="submit" value="Elegir">
+                                        <button class="botonDentro" type="button" onclick="cerrarRecuadro()">Volver</button>
+                                    </form>
+                                </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="listaChatMesa" id="tablaJugadores">
@@ -113,18 +113,18 @@
                             <c:forEach var="personaje" items="${requestScope.listaPersonajes}" varStatus="status">
                                 <tr>
                                     <c:choose>
-                                        <c:when test="${personaje != null}">
+                                        <c:when test="${requestScope.listaUsuariosRol[status.index].rol != 'Dungeon Master'}">
                                             <c:choose>
-                                                <c:when test="${requestScope.listaUsuariosRol[status.index].rol != 'Dungeon Master'}">
+                                                <c:when test="${personaje != null}">
                                                     <td>${requestScope.listaUsuarios[status.index].apodo}</td>
                                                     <td>${personaje.nombre}</td>
                                                     <td>${personaje.clase.nombre}</td>
                                                     <td>${personaje.nivel}</td>
-                                                    <td><button  class="botonfinal" onclick="location.href = '/TFG/Personajes/personaje?id=${personaje.id}'">Detalles</button></td>
+                                                    <td><button  class="botonDentro" onclick="location.href = '/TFG/Personajes/personaje?id=${personaje.id}'">Detalles</button></td>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <td>${requestScope.listaUsuarios[status.index].apodo}</td>
-                                                    <td>Dungeon Master</td>
+                                                    <td>-</td>
                                                     <td>-</td>
                                                     <td>-</td>
                                                     <td>-</td>
@@ -133,7 +133,7 @@
                                         </c:when>
                                         <c:otherwise>
                                             <td>${requestScope.listaUsuarios[status.index].apodo}</td>
-                                            <td>-</td>
+                                            <td>Dungeon Master</td>
                                             <td>-</td>
                                             <td>-</td>
                                             <td>-</td>
@@ -166,14 +166,16 @@
                                 </div>
                             </c:when>
                             <c:otherwise>
-                                <button type="button" class="botonArriba" onclick="mostrarRecuadro3()">Cambiar Vida</button>
+                                <c:if test="${requestScope.personajemesaid != -1}">
+                                    <button type="button" class="botonArriba" onclick="mostrarRecuadro3()">Cambiar Vida</button>
+                                </c:if>
                                 <div class="opcionRecuadro" id="recuadro3" style="display: none;">
                                     <div class="contenidoRecuadro">
                                         <div class="tituloRecuadro"> <label for="pointsHP">Puntos de vida Actual:</label>
                                             <span class="cierreRecuadro" onclick="cerrarRecuadro3()">X</span>
                                         </div>
                                         <form id = "formVida" action="/TFG/Chats/ChatMesaPuntosVidaActualCambio" method="POST">
-                                            <input type="hidden" name="id" value="${requestScope.personajeactual.id}">
+                                            <input type="hidden" name="id" value="${requestScope.personajemesaid}">
                                             <input type="number" id="pointsHP" name="puntosHP" min="0" required>
                                             <hr>
                                             <input class="botonDentro" type="submit" value="Actualizar">

@@ -50,7 +50,7 @@
                             al principio<br><br>
                             Si no te convence ninguna, aquí tienes una aplicación que solo
                             necesita java para funcionar donde puedes ordenar los turnos fácilmente:<br><br>
-                            <a href="../../manual/OrdenadorDeTurnos.jar" download="OrdenadorDeTurnos.jar">Descargar aplicación</a>
+                            <a href="/TFG/manual/OrdenadorDeTurnos.jar" download="OrdenadorDeTurnos.jar">Descargar aplicación</a>
                         </p>
                     </div>
                 </div>
