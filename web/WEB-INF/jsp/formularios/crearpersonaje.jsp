@@ -139,7 +139,7 @@
                                 </div>
                             </div>
                             <div class="contenedorBotonFormulario">
-                                <input id="botonVolverFormulario" type="button" onclick="location.pathname = 'TFG/Principal/inicio'" value="Volver">
+                                <input id="botonVolverFormulario" type="button" onclick="location.pathname = 'TFG/Personajes/personajesPerfil'" value="Volver">
                                 <input id="botonAvanzarFormulario" type="button" onclick="AvanzarFormulario(2)" value="Siguiente">
                                 <input  id="botonEnviar" type="hidden" value="Crear Personaje">
                             </div>
@@ -150,7 +150,7 @@
                                 Borra uno para poder crear otro.
                             </div>
                             <div class="contenedorBotonFormulario">
-                                <input id="botonVolverFormulario-Solo" type="button" onclick="location.pathname = 'TFG/Principal/inicio'" value="Volver">
+                                <input id="botonVolverFormulario-Solo" type="button" onclick="location.pathname = 'TFG/Personajes/personajesPerfil'" value="Volver">
                             </div>
                         </c:otherwise>
                     </c:choose>

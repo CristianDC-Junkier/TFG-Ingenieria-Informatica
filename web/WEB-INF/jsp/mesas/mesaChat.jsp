@@ -17,7 +17,7 @@
                     <div class="contedorDescriptor" id="infoDescriptor"> 
                         <div class="imagenDescriptor">
                             <c:choose>
-                                <c:when test="${requestScope.descriptor.imagendescriptor == null}">
+                                <c:when test="${requestScope.descriptor == null || requestScope.descriptor.imagendescriptor == null ||  requestScope.descriptor.imagendescriptor == 'null' }">
                                     <img src="/TFG/img/iconos/IMGNEGRO.png">
                                 </c:when>
                                 <c:otherwise>
@@ -26,7 +26,7 @@
                             </c:choose>
                         </div>
                         <div class="descripcionDescriptor">
-                            <c:if test="${requestScope.descriptor.descripcion != null}">
+                            <c:if test="${requestScope.descriptor != null || requestScope.descriptor.descripcion != null ||  requestScope.descriptor.descripcion != 'null'}">
                                 <p>${requestScope.descriptor.descripcion}</p>
                             </c:if>
                         </div>
@@ -174,9 +174,10 @@
                                         <div class="tituloRecuadro"> <label for="pointsHP">Puntos de vida Actual:</label>
                                             <span class="cierreRecuadro" onclick="cerrarRecuadro3()">X</span>
                                         </div>
-                                        <form id = "formVida" action="/TFG/Chats/ChatMesaPuntosVidaActualCambio" method="POST">
-                                            <input type="hidden" name="id" value="${requestScope.personajemesaid}">
-                                            <input type="number" id="pointsHP" name="puntosHP" min="0" required>
+                                        <form id = "formVida" action="/TFG/Imagenes/chatMesaPuntosVidaActualCambio" method="POST">
+                                            <input type="hidden" name="id" value="${requestScope.mesa.id}">
+                                            <input type="hidden" name="idpersonaje" value="${requestScope.personajemesaid}">
+                                            <input type="number" id="pointsHP" name="puntosHP" min="0" max="${requestScope.personajemesa.pvida}" required>
                                             <hr>
                                             <input class="botonDentro" type="submit" value="Actualizar">
                                             <button type="button" class="botonDentro" onclick="cerrarRecuadro3()">Volver</button>

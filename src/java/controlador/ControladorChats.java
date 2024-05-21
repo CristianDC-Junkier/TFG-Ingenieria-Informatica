@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,7 +64,7 @@ public class ControladorChats extends HttpServlet {
 
             HttpSession session;
             Usuario user;
-            
+
             Usuario useraux;
             Mensajeamigo MEAux;
             Mensajeamigo MRAux;
@@ -127,7 +128,7 @@ public class ControladorChats extends HttpServlet {
                     /////////SESION//////////
                     /////////////////////////
                     session = request.getSession();
-                    user = (Usuario) session.getAttribute("user"); 
+                    user = (Usuario) session.getAttribute("user");
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -965,7 +966,7 @@ public class ControladorChats extends HttpServlet {
                                             + "<td>" + pmesa.getPersonajemesa().getNombre() + "</td>\n"
                                             + "<td>" + pmesa.getPersonajemesa().getClase().getNombre() + "</td>\n"
                                             + "<td>" + pmesa.getPersonajemesa().getNivel() + "</td>\n"
-                                            + "<td><button  class=\"botonfinal\" onclick=\"location.href = '/TFG/Personajes/personaje?id=" + pmesa.getPersonajemesa().getId() + "'\">Detalles</button></td>"
+                                            + "<td><button  class=\"botonDentro\" onclick=\"location.href = '/TFG/Personajes/personaje?id=" + pmesa.getPersonajemesa().getId() + "'\">Detalles</button></td>"
                                             + "</tr>\n";
                                 } else {
                                     resultado = resultado
@@ -985,30 +986,7 @@ public class ControladorChats extends HttpServlet {
 
                     }
                     break;
-                case "/ChatMesaPuntosVidaActualCambio":
-                    /////////////////////////
-                    /////////SESION//////////
-                    /////////////////////////
-                    session = request.getSession();
-                    user = (Usuario) session.getAttribute("user");
-
-                    if (user == null) {
-                    } else {
-                        id = request.getParameter("id");
-
-                        queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
-                        queryPersonajes.setParameter("id", id);
-                        personaje = queryPersonajes.getSingleResult();
-
-                        //Comprobamos que es tuyo
-                        if (!personaje.getUsuario().getId().equalsIgnoreCase(user.getId())) {
-                        } else {
-                            puntosHP = request.getParameter("puntosHP");
-                            personaje.setPvidaactuales(Integer.parseInt(puntosHP));
-                            updatePersonajes(personaje);
-                        }
-                    }
-                    break;
+          
                 case "/ChatDescripcionMesa":
 
                     ////////////////////////////////
@@ -1101,8 +1079,8 @@ public class ControladorChats extends HttpServlet {
                         queryMusica = em.createNamedQuery("Musica.findById", Musica.class);
                         queryMusica.setParameter("id", nombre);
                         musica = queryMusica.getSingleResult();
-                        
-                        mesa.setMusicamesa(new Musicamesa(mesa.getId(),musica));
+
+                        mesa.setMusicamesa(new Musicamesa(mesa.getId(), musica));
 
                         updateMesas(mesa);
 
@@ -1114,7 +1092,7 @@ public class ControladorChats extends HttpServlet {
                     System.out.println("PeticionAJAX Sale");
 
                     break;
-                    case "/ChatMesaMusicaActual":
+                case "/ChatMesaMusicaActual":
 
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -1125,7 +1103,7 @@ public class ControladorChats extends HttpServlet {
                         queryMesas = em.createNamedQuery("Mesa.findById", Mesa.class);
                         queryMesas.setParameter("id", id);
                         mesa = queryMesas.getSingleResult();
-                        
+
                         resultado = mesa.getMusicamesa().getMusica().getId();
 
                     } catch (Exception ex) {
@@ -1203,7 +1181,7 @@ public class ControladorChats extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-    
+
     private void updatePersonajes(Object object) {
         try {
             utx.begin();

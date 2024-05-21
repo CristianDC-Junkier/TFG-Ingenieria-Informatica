@@ -167,33 +167,67 @@ public class ControladorImagenes extends HttpServlet {
                     if (!pmesa.getRol().equals("Dungeon Master")) {
                         vista = "/TFG/Principal/inicio";
                     } else {
-
                         filePart = request.getPart("imagen");
-                        fileContent = filePart.getInputStream();
 
-                        //Leer el contenido y almacenarlo en un array de bytes
-                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                        byte[] buffer = new byte[4096];
-                        int bytesRead;
-                        while ((bytesRead = fileContent.read(buffer)) != -1) {
-                            byteArrayOutputStream.write(buffer, 0, bytesRead);
+                        if (filePart.getSize() != 0) {
+
+                            fileContent = filePart.getInputStream();
+
+                            //Leer el contenido y almacenarlo en un array de bytes
+                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = fileContent.read(buffer)) != -1) {
+                                byteArrayOutputStream.write(buffer, 0, bytesRead);
+                            }
+
+                            //Convertir el contenido a un array de bytes
+                            imageData = byteArrayOutputStream.toByteArray();
+                        } else {
+                            imageData = null;
                         }
-
-                        //Convertir el contenido a un array de bytes
-                        imageData = byteArrayOutputStream.toByteArray();
-
                         mesa.setDescriptormesa(new Descriptormesa(mesa.getId(), imageData, descripcion));
 
                         updateMesas(mesa);
 
                         request.setAttribute("id", id);
-                        
+
                         vista = "/Mesas/mostrarMesaChat";
+
                     }
                 } catch (Exception ex) {
                     vista = "/TFG/Principal/inicio";
 
                 }
+                break;
+            case "/chatMesaPuntosVidaActualCambio":
+                /////////////////////////
+                /////////SESION//////////
+                /////////////////////////
+                session = request.getSession();
+                user = (Usuario) session.getAttribute("user");
+
+                if (user == null) {
+                } else {
+                    id = request.getParameter("idpersonaje");
+                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
+                    queryPersonajes.setParameter("id", id);
+                    personaje = queryPersonajes.getSingleResult();
+
+                    //Comprobamos que es tuyo
+                    if (!personaje.getUsuario().getId().equalsIgnoreCase(user.getId())) {
+                    } else {
+                        personaje.setPvidaactuales(Integer.parseInt(request.getParameter("puntosHP")));
+                        updatePersonajes(personaje);
+                    }
+
+                    request.setAttribute("id", request.getParameter("id"));
+
+                    vista = "/Mesas/mostrarMesaChat";
+                }
+
+                System.out.println("PeticionAJAX PV Sale");
+
                 break;
             case "/mostrarImagenDescriptor":
 

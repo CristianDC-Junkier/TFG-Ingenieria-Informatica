@@ -67,7 +67,7 @@ public class ControladorMesas extends HttpServlet {
         Personaje personaje;
         Musica musica;
         Musicamesa musicamesa;
-
+        
         TypedQuery<Mesa> queryMesas;
         TypedQuery<Pertenecemesa> queryPertenecemesas;
         TypedQuery<Usuario> queryUsuarios;
@@ -204,11 +204,12 @@ public class ControladorMesas extends HttpServlet {
                             queryMusica.setParameter("nombre", "Ninguna");
                             musica = queryMusica.getSingleResult();
 
-                            musicamesa = new Musicamesa(mesa, musica);
-
                             persist(mesa);
 
-                            mesa.setMusicamesa(musicamesa);
+                            musicamesa = new Musicamesa(mesa, musica);
+                           
+                            persist(musicamesa);
+
                             System.out.println("Registrada la mesa: " + titulo);
                             conseguido = true;
 
@@ -1169,47 +1170,56 @@ public class ControladorMesas extends HttpServlet {
                     queryPertenecemesas.setParameter("usuario", user.getId());
                     queryPertenecemesas.setParameter("mesa", id);
 
-                    try {
-                        pmesa = queryPertenecemesas.getSingleResult();
+                    pmesa = queryPertenecemesas.getSingleResult();
 
-                        //////////////////////////
-                        //////////USUARIOS////////
-                        //////////////////////////
-                        queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByMesa", Pertenecemesa.class);
-                        queryPertenecemesas.setParameter("mesa", id);
-                        listaPerteneceMesa = queryPertenecemesas.getResultList();
+                    //////////////////////////
+                    //////////USUARIOS////////
+                    //////////////////////////
+                    queryPertenecemesas = em.createNamedQuery("Pertenecemesa.findByMesa", Pertenecemesa.class);
+                    queryPertenecemesas.setParameter("mesa", id);
+                    listaPerteneceMesa = queryPertenecemesas.getResultList();
 
-                        listaUsuarios = new ArrayList();
-                        listaPersonajes = new ArrayList();
+                    listaUsuarios = new ArrayList();
+                    listaPersonajes = new ArrayList();
 
-                        for (int i = 0; i < listaPerteneceMesa.size(); i++) {
-                            listaUsuarios.add(listaPerteneceMesa.get(i).getUsuarios());
-                            listaPersonajes.add(listaPerteneceMesa.get(i).getPersonajemesa());
-                        }
-
-                        queryMusica = em.createNamedQuery("Musica.findAll", Musica.class);
-                        listaMusica = queryMusica.getResultList();
-
-                        request.setAttribute("descriptor", pmesa.getMesas().getDescriptormesa());
-                        request.setAttribute("musica", pmesa.getMesas().getMusicamesa().getMusica());
-                        request.setAttribute("listaMusica", listaMusica);
-                        request.setAttribute("listaUsuariosRol", listaPerteneceMesa);
-                        request.setAttribute("listaPersonajes", listaPersonajes);
-                        request.setAttribute("listaUsuarios", listaUsuarios);
-                        request.setAttribute("mesa", pmesa.getMesas());
-                        request.setAttribute("rol", pmesa.getRol());
-                        if (!pmesa.getRol().equalsIgnoreCase("Dungeon Master")) {
-                            if (pmesa.getPersonajemesa() != null) {
-                                request.setAttribute("personajemesaid", pmesa.getPersonajemesa());
-                            } else {
-                                request.setAttribute("personajemesaid", "-1");
-                            }
-                        }
-                        vista = "/WEB-INF/jsp/mesas/mesaChat.jsp";
-
-                    } catch (Exception ex) {
-                        vista = "/Principal/inicio";
+                    for (int i = 0; i < listaPerteneceMesa.size(); i++) {
+                        listaUsuarios.add(listaPerteneceMesa.get(i).getUsuarios());
+                        listaPersonajes.add(listaPerteneceMesa.get(i).getPersonajemesa());
                     }
+
+                    queryMusica = em.createNamedQuery("Musica.findAll", Musica.class);
+                    listaMusica = queryMusica.getResultList();
+
+                    if (pmesa.getMesas().getDescriptormesa() != null) {
+                        request.setAttribute("descriptor", pmesa.getMesas().getDescriptormesa());
+                    } else {
+                        request.setAttribute("descriptor", null);
+                    }
+                    if (pmesa.getMesas().getDescriptormesa() != null) {
+                        request.setAttribute("musica", pmesa.getMesas().getMusicamesa().getMusica());
+                    } else {
+                        queryMusica = em.createNamedQuery("Musica.findByNombre", Musica.class);
+                        queryMusica.setParameter("nombre", "Ninguna");
+                        musica = queryMusica.getSingleResult();
+                        request.setAttribute("musica",musica);
+                    }
+
+                    request.setAttribute("listaMusica", listaMusica);
+                    request.setAttribute("listaUsuariosRol", listaPerteneceMesa);
+                    request.setAttribute("listaPersonajes", listaPersonajes);
+                    request.setAttribute("listaUsuarios", listaUsuarios);
+                    request.setAttribute("mesa", pmesa.getMesas());
+                    request.setAttribute("rol", pmesa.getRol());
+                    if (!pmesa.getRol().equalsIgnoreCase("Dungeon Master")) {
+                        if (pmesa.getPersonajemesa() != null) {
+                            request.setAttribute("personajemesaid", pmesa.getPersonajemesa().getId());
+                            request.setAttribute("personajemesa", pmesa.getPersonajemesa());
+                        } else {
+                            request.setAttribute("personajemesaid", -1);
+                        }
+                    }
+                    vista = "/WEB-INF/jsp/mesas/mesaChat.jsp";
+
                 }
                 break;
             /////////////////////////////////////////////////////////////////////////////
