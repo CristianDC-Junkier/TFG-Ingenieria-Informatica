@@ -76,6 +76,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             Monstruo monstruoAux;
             Equipo equipoAux;
             Atributo Atributo;
+            Hilo hilo;
 
             TypedQuery<Usuario> queryUsuarios;
             TypedQuery<Pertenecemesa> queryPMesas;
@@ -102,6 +103,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             List<String> fotosMesas;
             List<String> fotosPersonajes;
             List<Hilo> listaHilos;
+            List<String> listaFotosHilo;
+            List<String> fechasHilo;
 
             Date fechaActual;
 
@@ -128,6 +131,15 @@ public class ControladorPeticionesAJAX extends HttpServlet {
             String raza;
             String clase;
             String personajeNombre;
+
+            String hilo_tema;
+            String hilo_seccion;
+            String hilo_mio;
+            String hilo_comentado;
+            String hilo_temaSQL;
+            String hilo_seccionSQL;
+            String hilo_mioSQL;
+            String hilo_comentadoSQL;
 
             int num = 0; //offset
             int cantidad;
@@ -3523,7 +3535,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         monstruoAux = listaMonstruos.get(i);
                         resultado
                                 = resultado
-                                + "<tr data-id=\"" +  monstruoAux.getId() + "\">"
+                                + "<tr data-id=\"" + monstruoAux.getId() + "\">"
                                 + "<td>" + monstruoAux.getVdesafio() + "</td>"
                                 + "<td>" + monstruoAux.getNombre() + "</td>"
                                 + "<td>" + monstruoAux.getTipo() + "</td>"
@@ -3685,7 +3697,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         equipoAux = listaEquipo.get(i);
                         resultado
                                 = resultado
-                                + "<tr data-id=\"" +  equipoAux.getId() + "\">"
+                                + "<tr data-id=\"" + equipoAux.getId() + "\">"
                                 + "<td>" + equipoAux.getNombre() + "</td>"
                                 + "<td>" + equipoAux.getDano() + "</td>"
                                 + "<td>";
@@ -3792,10 +3804,6 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                 ///////////////////////////////////////////////////////////////////////////
                 ////////////////////////////////////FORO///////////////////////////////////
                 ///////////////////////////////////////////////////////////////////////////
-                    
-                /////////////////
-                ////CREAR HILO///
-                /////////////////
                 case "/crearHilo":
                     ////////////////////////////////
                     /////////VALOR DE AJAX//////////
@@ -3820,6 +3828,128 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     }
 
                     System.out.println("PeticionAJAX Sale CrearHilo");
+                    break;
+
+                case "/Hilos":
+                    /////////////////////////
+                    /////////SESION//////////
+                    /////////////////////////
+                    session = request.getSession();
+                    user = (Usuario) session.getAttribute("user");
+
+                    ////////////////////////////////
+                    /////////VALOR DE AJAX//////////
+                    ////////////////////////////////
+                    nombre = request.getParameter("busqueda");
+
+                    if (comprobarCadena(nombre)) {
+                        nombre = "";
+                    }
+                    
+                    System.out.println(nombre);
+                    
+                    hilo_seccion = request.getParameter("seccion");//si filtramos por seccion
+                    hilo_tema = request.getParameter("tema");//si filtramos por tema
+                    hilo_mio = request.getParameter("mio");//si filtramos por mio
+                    hilo_comentado = request.getParameter("comentado");//si filtramos por comentados
+
+                    if (hilo_seccion.equals("Cualquiera")) {
+                        hilo_seccionSQL = " ";
+                    } else {
+                        hilo_seccionSQL = "AND h.seccion = '" + hilo_seccion + "' ";
+                    }
+                    if (hilo_tema.equals("Cualquiera")) {
+                        hilo_temaSQL = " ";
+                    } else {
+                        hilo_temaSQL = "AND h.tema = '" + hilo_tema + "' ";
+                    }
+                    if (hilo_mio.equals("false")) {
+                        hilo_mioSQL = " ";
+                    } else {
+                        hilo_mioSQL = "AND h.creador = '" + user.getId() + "' ";
+                    }
+                    if (hilo_comentado.equals("false")) {
+                        hilo_comentadoSQL = " ";
+                    } else {
+                        hilo_comentadoSQL = "AND m.escritor = '" + user.getId() + "' ";
+                    }
+
+                    sql = "SELECT DISTINCT h.* FROM HILO h "
+                            + "LEFT JOIN MENSAJEHILO m ON h.id = m.hilo "
+                            + "WHERE h.titulo LIKE '" + nombre + "%' "
+                            + hilo_seccionSQL
+                            + hilo_temaSQL
+                            + hilo_mioSQL
+                            + hilo_comentadoSQL
+                            + "ORDER BY h.FECHA ASC "
+                            + "OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY";
+
+                    queryAUX = em.createNativeQuery(sql, Hilo.class);
+                    listaHilos = queryAUX.getResultList();
+
+                    listaFotosHilo = new ArrayList();
+                    fechasHilo = new ArrayList();
+
+                    for (int i = 0; i < listaHilos.size(); i++) {
+
+                        hilo = listaHilos.get(i);
+
+                        fechasHilo.add(hilo.getFecha().getDate() + "-" + (hilo.getFecha().getMonth() + 1) + "-" + (hilo.getFecha().getYear() + 1900));
+
+                        if (hilo.getCreador().getPersonajeactual().getImagenpersonaje() == null) {
+                            listaFotosHilo.add("-");
+                        } else {
+                            listaFotosHilo.add("/TFG/Imagenes/mostrarImagenPersonaje?id=" + hilo.getCreador().getPersonajeactual().getId());
+                        }
+                    }
+
+                    resultado = "";
+
+                    for (int i = 0; i < listaHilos.size(); i++) {
+
+                        hilo = listaHilos.get(i);
+
+                        resultado = resultado
+                                + "<table>"
+                                + "<tr>"
+                                + "<td>"
+                                + "<div class=\"hilo-foto\">"
+                                + "<img src=\"" + listaFotosHilo.get(i) + "\">"
+                                + "</div>"
+                                + "</td>"
+                                + "<td>" + hilo.getTitulo() + "</td>"
+                                + "<td>" + fechasHilo.get(i) + "</td>"
+                                + "<td>" + hilo.getCreador().getApodo() + "</td>"
+                                + "<td>" + hilo.getTema().getNombre() + "</td>"
+                                + "<td>" + hilo.getSeccion().getTitulo() + "</td>"
+                                + "<td>"
+                                + "<button class=\"botonDentro\" onclick=\"location.href = '/TFG/Foro/hilo?hilo=" + hilo.getId() + "'\">Entrar</button>"
+                                + "</td>";
+
+                        if (hilo.getCreador().getId().equals(user.getId()) || user.getAdmin() == 1) {
+                            resultado = resultado
+                                    + "<td><button class=\"botonDentro\" onclick=\"mostrarRecuadro"+(i+1)+"()\">Eliminar</button></td>"
+                                    + "</tr>"
+                                    + "<div class=\"opcionRecuadro\" id=\"recuadro"+(i+1)+"\" style=\"display: none;\">\n"
+                                    + "<div class=\"contenidoRecuadro\">\n"
+                                    + "<form id = form  action=\"/TFG/Foro/borrarHilo\" method=\"POST\">\n"
+                                    + "<input type=\"hidden\" name=\"hilo\" value=\"" + hilo.getId() + "\">\n"
+                                    + "<label class=\"tituloRecuadro\" id=\"titulodelRecuadro\">¿Está seguro?</label>\n"
+                                    + "<input class=\"botonDentro\" type=\"submit\" value=\"Aceptar\">\n"
+                                    + "<input class=\"botonDentro\" type=\"button\" onclick=\"cerrarRecuadro"+(i+1)+"()\" value=\"Volver\">\n"
+                                    + "</form>\n"
+                                    + "</div>\n"
+                                    + "</div>"
+                                    + "</table>";
+                        } else {
+                            resultado = resultado
+                                    + "</tr>"
+                                    + "</table>";
+                        }
+
+                    }
+
+                    System.out.println("PeticionAJAX Sale Hilos");
                     break;
             }
 

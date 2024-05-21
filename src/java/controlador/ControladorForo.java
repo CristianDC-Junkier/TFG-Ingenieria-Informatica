@@ -632,30 +632,31 @@ public class ControladorForo extends HttpServlet {
                 /////////////////////////
                 session = request.getSession();
                 user = (Usuario) session.getAttribute("user");
-
+                
                 if (user == null) {
                     vista = "/Principal/inicio";
                 } else {
-                    if (user.getAdmin() == 0) {
+                    if (user.getAdmin() == 1) {
 
                         tema_nombre = request.getParameter("nombre");
-
                         try {
                             comprobarCadena(tema_nombre, "");
 
                             queryTema = em.createNamedQuery("Tema.findByNombre", Tema.class);
                             queryTema.setParameter("nombre", tema_nombre);
+
                             try {
                                 queryTema.getSingleResult();
                             } catch (Exception ex) {
+
                                 tema = new Tema(tema_nombre);
                                 persist(tema);
                             }
+                            vista = "/Foro/temas";
                         } catch (Exception ex) {
-
+                            vista = "/Foro/temas";
                         }
 
-                        vista = "/Foro/temas";
                     } else {
 
                         vista = "/Foro/temas";
@@ -672,7 +673,7 @@ public class ControladorForo extends HttpServlet {
                 if (user == null) {//ESTA MAL
                     vista = "/Principal/inicio";
                 } else {
-                    if (user.getAdmin() == 0) {
+                    if (user.getAdmin() == 1) {
 
                         tema_id = request.getParameter("tema");
 
@@ -700,7 +701,7 @@ public class ControladorForo extends HttpServlet {
                 if (user == null) {
                     vista = "/Principal/inicio";
                 } else {
-                    if (user.getAdmin() == 0) {
+                    if (user.getAdmin() == 1) {
 
                         seccion_titulo = request.getParameter("titulo");
                         seccion_hilos = request.getParameter("hilos");
@@ -736,7 +737,7 @@ public class ControladorForo extends HttpServlet {
                 if (user == null) {
                     vista = "/Principal/inicio";
                 } else {
-                    if (user.getAdmin() == 0) {
+                    if (user.getAdmin() == 1) {
 
                         seccion_id = request.getParameter("seccion");
                         seccion_hilos = request.getParameter("hilos");
@@ -766,7 +767,7 @@ public class ControladorForo extends HttpServlet {
                 if (user == null) {
                     vista = "/Principal/inicio";
                 } else {
-                    if (user.getAdmin() == 0) {
+                    if (user.getAdmin() == 1) {
                         seccion_id = request.getParameter("seccion");
 
                         querySeccion = em.createNamedQuery("Seccion.findById", Seccion.class);

@@ -73,6 +73,9 @@ function realizarBusqueda(valor) {
             case "Razas":
                 urlAJAX = "/TFG/ControladorPeticionesAJAX/Razas";
                 break;
+            case "Hilos":
+                urlAJAX = "/TFG/ControladorPeticionesAJAX/Hilos?seccion=" + valorSeleccionado1 +"&tema=" + valorSeleccionado2 +"&mio="+ valorSeleccionado3 + "&comentado=" +valorSeleccionado4;
+                break;
 
         }
         // Realizar la solicitud AJAX

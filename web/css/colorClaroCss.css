@@ -929,15 +929,7 @@ footer{
 /******************************************FORMULARIOS**********************************************/
 /***************************************************************************************************/
 
-input[type="button"]:hover {
 
-    color: yellowgreen;
-}
-
-input[type="button"]:active {
-
-    color: yellowgreen;
-}
 .TitulosFormulario{
 
     background-color: #1f6161;
@@ -2371,11 +2363,14 @@ input[type="button"]:active {
 
     border: black 2px solid;
     background-color: yellow;
+    color:white;
+
 }
 
 .botonDentro:hover {
 
     background-color: yellowgreen;
+    color:white;
 }
 
 #botonMesa.existeMesa  {
@@ -2494,12 +2489,6 @@ input[type="button"]:active {
 .tituloBuscadorForo {
 
     color:yellow;
-}
-
-.buscadorForo input{
-
-    background-color: #00aaaa;
-    color:white;
 }
 
 .buscadorForo select {

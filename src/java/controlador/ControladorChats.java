@@ -22,7 +22,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -986,7 +985,7 @@ public class ControladorChats extends HttpServlet {
 
                     }
                     break;
-          
+
                 case "/ChatDescripcionMesa":
 
                     ////////////////////////////////
@@ -1009,9 +1008,20 @@ public class ControladorChats extends HttpServlet {
                                     + "</div>";
                         } else {
                             resultado
-                                    = "<div class=\"imagenDescriptor\">"
-                                    + "<img src=\"/TFG/Imagenes/mostrarImagenDescriptor?id=" + mesa.getDescriptormesa().getMesa() + "\">"
-                                    + "</div>"
+                                    = "<div class=\"imagenDescriptor\">";
+                            if (mesa.getDescriptormesa().getImagendescriptor() != null) {
+                                resultado
+                                        = resultado
+                                        + "<img src=\"/TFG/Imagenes/mostrarImagenDescriptor?id=" + mesa.getDescriptormesa().getMesa() + "\">";
+                            }
+                            else{
+                                resultado
+                                        = resultado
+                                        + "<img src=\"/TFG/img/iconos/IMGNEGRO.png\">";
+                            }
+                            resultado
+                                    = resultado +
+                                    "</div>"
                                     + "<div class=\"descripcionDescriptor\">"
                                     + mesa.getDescriptormesa().getDescripcion()
                                     + "</div>";
@@ -1176,16 +1186,6 @@ public class ControladorChats extends HttpServlet {
         try {
             utx.begin();
             em.merge((Mesa) object);
-            utx.commit();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void updatePersonajes(Object object) {
-        try {
-            utx.begin();
-            em.merge((Personaje) object);
             utx.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);

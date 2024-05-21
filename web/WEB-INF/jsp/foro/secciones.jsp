@@ -12,7 +12,7 @@
 <body>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
-        <h2 class="Titulos" style="margin-right:10px">Secciones<button class="botonArriba" onclick="location.href = '/TFG/Foro/inicio'">Volver</button></h2>
+        <h2 class="Titulos" style="margin-right:10px">Secciones<button class="botonArribaForo" onclick="location.href = '/TFG/Foro/inicio'">Volver</button></h2>
         <hr color="black">
         <c:if test="${sessionScope.user.admin == 1}">
             <div class="buscadorForo">

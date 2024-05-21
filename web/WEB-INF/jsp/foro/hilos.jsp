@@ -12,13 +12,13 @@
 <body>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
     <main>
-        <h2 class="Titulos" style="margin-right:10px">Hilos<button class="botonArriba" onclick="location.href = '/TFG/Foro/inicio'">Volver</button></h2>
+        <h2 class="Titulos" style="margin-right:10px">Hilos<button class="botonArribaForo" onclick="location.href = '/TFG/Foro/inicio'">Volver</button></h2>
         <hr color="black">
         <div class="contenedoresForo"> 
             <div class="contenedorForo">
                 <div class="titulobuscadorForo">Explorar Hilos</div>
                 <div class="buscadorForo">
-                    <div>Busca por titulo: <input id="buscador" onkeyup="realizarBusqueda('Hilos')" type="search" placeholder="Introduce el nombre"/> </div>
+                    <div>Busca por titulo: <input id="buscador" onkeyup="realizarBusqueda('Hilos')" onsearch="realizarBusqueda('Hilos')" type="search" placeholder="Introduce el nombre"/> </div>
                     <div>
                         Tema:
                         <br>
@@ -94,17 +94,17 @@
                                             <td>${hilo.seccion.titulo}</td>
                                             <td><button class="botonDentro" onclick="location.href = '/TFG/Foro/hilo?hilo=${hilo.id}'">Entrar</button></td>
                                             <c:if test="${hilo.creador.id == sessionScope.user.id || sessionScope.user.admin == 1}">
-                                                <td><button class="botonDentro" onclick="mostrarRecuadro()">Eliminar</button></td>
+                                                <td><button class="botonDentro" onclick="mostrarRecuadro${status.index+1}()">Eliminar</button></td>
                                             </c:if>
                                         </tr>
                                         <c:if test="${hilo.creador.id == sessionScope.user.id || sessionScope.user.admin == 1}">
-                                            <div class="opcionRecuadro" id="recuadro" style="display: none;">
+                                            <div class="opcionRecuadro" id="recuadro${status.index+1}" style="display: none;">
                                                 <div class="contenidoRecuadro">
                                                     <form id = form  action="/TFG/Foro/borrarHilo" method="POST">
                                                         <input type="hidden" name="hilo" value="${hilo.id}">
                                                         <label class="tituloRecuadro" id="titulodelRecuadro">¿Está seguro?</label>
                                                         <input class="botonDentro" type="submit" value="Aceptar">
-                                                        <input class="botonDentro" type="button" onclick="cerrarRecuadro()" value="Volver">
+                                                        <input class="botonDentro" type="button" onclick="cerrarRecuadro${status.index+1}()" value="Volver">
                                                     </form>
                                                 </div>
                                             </div>
@@ -130,6 +130,11 @@
         // Convertir los valores a booleanos
         let mio = '<%= request.getAttribute("mio")%>' === 'true';
         let comentado = '<%= request.getAttribute("comentado")%>' === 'true';
+        //Valores
+        let valorSeleccionado1 = '<%= request.getAttribute("seccion")%>';
+        let valorSeleccionado2 = '<%= request.getAttribute("tema")%>';
+        let valorSeleccionado3 = mio;
+        let valorSeleccionado4 = comentado;
         //Datos de las páginas
         let numpag = parseInt('<%= request.getAttribute("numPag")%>', 10);
         let pag = parseInt('<%= request.getAttribute("pag")%>', 10);

@@ -200,35 +200,6 @@ public class ControladorImagenes extends HttpServlet {
 
                 }
                 break;
-            case "/chatMesaPuntosVidaActualCambio":
-                /////////////////////////
-                /////////SESION//////////
-                /////////////////////////
-                session = request.getSession();
-                user = (Usuario) session.getAttribute("user");
-
-                if (user == null) {
-                } else {
-                    id = request.getParameter("idpersonaje");
-                    queryPersonajes = em.createNamedQuery("Personaje.findById", Personaje.class);
-                    queryPersonajes.setParameter("id", id);
-                    personaje = queryPersonajes.getSingleResult();
-
-                    //Comprobamos que es tuyo
-                    if (!personaje.getUsuario().getId().equalsIgnoreCase(user.getId())) {
-                    } else {
-                        personaje.setPvidaactuales(Integer.parseInt(request.getParameter("puntosHP")));
-                        updatePersonajes(personaje);
-                    }
-
-                    request.setAttribute("id", request.getParameter("id"));
-
-                    vista = "/Mesas/mostrarMesaChat";
-                }
-
-                System.out.println("PeticionAJAX PV Sale");
-
-                break;
             case "/mostrarImagenDescriptor":
 
                 id = request.getParameter("id");

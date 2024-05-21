@@ -174,7 +174,7 @@
                                         <div class="tituloRecuadro"> <label for="pointsHP">Puntos de vida Actual:</label>
                                             <span class="cierreRecuadro" onclick="cerrarRecuadro3()">X</span>
                                         </div>
-                                        <form id = "formVida" action="/TFG/Imagenes/chatMesaPuntosVidaActualCambio" method="POST">
+                                        <form id = "formVida" action="/TFG/Mesas/chatMesaPuntosVidaActualCambio" method="POST">
                                             <input type="hidden" name="id" value="${requestScope.mesa.id}">
                                             <input type="hidden" name="idpersonaje" value="${requestScope.personajemesaid}">
                                             <input type="number" id="pointsHP" name="puntosHP" min="0" max="${requestScope.personajemesa.pvida}" required>
