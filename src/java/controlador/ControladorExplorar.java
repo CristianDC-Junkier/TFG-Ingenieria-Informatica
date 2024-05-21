@@ -76,6 +76,7 @@ public class ControladorExplorar extends HttpServlet {
         Monstruo Monstruo;
         Equipo Equipo;
         Alcance Alcance;
+        Tablaclase tablaclase;
         
         Query queryAUX;
         
@@ -217,10 +218,10 @@ public class ControladorExplorar extends HttpServlet {
                 break;
             case "/clase":
 
-                nombre = request.getParameter("clase");
+                id = request.getParameter("clase");
 
                 queryClases = em.createNamedQuery("Clase.findById", Clase.class);
-                queryClases.setParameter("id", nombre);
+                queryClases.setParameter("id", id);
                 Clase = queryClases.getSingleResult();
 
                 queryTablaClaseNivel = em.createNamedQuery("Tablaclasepornivel.findByClase", Tablaclasepornivel.class);
@@ -242,12 +243,12 @@ public class ControladorExplorar extends HttpServlet {
                     listaRasgos.add(listaUsaClases.get(i).getRasgos());
                 }
 
-                //TablaClase = listaTablaClaseNivel.get(listaTablaClaseNivel.size()).getTablaclases();
+                
                 resultado = "<table class=\"tablaHechizos\">"
                         + "<thead>"
                         + "<tr>";
 
-                switch (nombre) {
+                switch (Clase.getNombre()) {
                     case "Artificiero":
                         Trucos = "2";
                         ClaseValoEspecifico1 = "-";
@@ -258,6 +259,7 @@ public class ControladorExplorar extends HttpServlet {
                                 + "<th>BC</th>"
                                 + "<th>Infusiones</th>"
                                 + "<th>Objetos</th>"
+                                + "<th>Trucos</th>"
                                 + "<th>H nv1</th>"
                                 + "<th>H nv2</th>"
                                 + "<th>H nv3</th>"
@@ -297,7 +299,11 @@ public class ControladorExplorar extends HttpServlet {
                                     ClaseValoEspecifico2 = "6";
                                     break;
                             }
-
+                            
+                            try{
+                            
+                            tablaclase = listaTablaClaseNivel.get(listaTablaClaseNivel.size()).getTablaclases();
+                            
                             resultado
                                     = resultado
                                     + "<tr>"
@@ -306,16 +312,37 @@ public class ControladorExplorar extends HttpServlet {
                                     + "<td>" + ClaseValoEspecifico1 + "</td>"
                                     + "<td>" + ClaseValoEspecifico2 + "</td>"
                                     + "<td>" + Trucos + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() +  "</td>"
                                     + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() +  "</td>"
                                     + "</tr>";
+                            }catch(Exception ex){
+                                
+                                resultado
+                                    = resultado
+                                    + "<tr>"
+                                    + "<td>" + (i + 1) + "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getBc() + */ "</td>"
+                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                    + "<td>" + ClaseValoEspecifico2 + "</td>"
+                                    + "<td>" + Trucos + "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + */ "</td>"
+                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + */ "</td>"
+                                    + "</tr>";
+                            }
                         }
                         break;
                     case "Bardo":
@@ -1053,19 +1080,19 @@ public class ControladorExplorar extends HttpServlet {
                                     = resultado
                                     + "<tr>"
                                     + "<td>" + (i + 1) + "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getBc() + */ "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() +  "</td>"
                                     + "<td>" + ClaseValoEspecifico1 + "</td>"
                                     + "<td>" + ClaseValoEspecifico2 + "</td>"
                                     + "<td>" + ClaseValoEspecifico3 + "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + */ "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() +  "</td>"
                                     + "</tr>";
                         }
                         break;

@@ -451,6 +451,7 @@ public class ControladorPersonajes extends HttpServlet {
                         }
 
                         personaje.setPersonajeatributosList(listaPersonajeAtributos);
+                        personaje.setPersonajeatributosoriginalList(listaPersonajeAtributosOriginal);
 
                         //////////////////////
                         /////HABILIDADES//////
@@ -3283,7 +3284,7 @@ public class ControladorPersonajes extends HttpServlet {
                 user = (Usuario) session.getAttribute("user");
 
                 //Recogemos los datos
-                personaje_id = request.getParameter("personaje");
+                personaje_id = request.getParameter("id");
                 nombre = request.getParameter("eleccionDoteAtr");
 
                 queryPersonajes = em.createNamedQuery("Personaje.findByIDCreador", Personaje.class);
@@ -3341,7 +3342,7 @@ public class ControladorPersonajes extends HttpServlet {
                     //Añadimos la subclase si es necesario
                     if (subclase_id != null) {
                         querySubclases = em.createNamedQuery("Subclase.findById", Subclase.class);
-                        querySubclases.setParameter("id", dote_id);
+                        querySubclases.setParameter("id", subclase_id);
                         personaje.setSubclase(querySubclases.getSingleResult());
                     }
 
@@ -3356,6 +3357,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                     vista = "/Personajes/personajePerfil?id=" + personaje_id;
                 } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
                     vista = "/Formularios/personajeSubirNivel?id=" + personaje_id;
                 }
                 break;

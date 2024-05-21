@@ -65,6 +65,8 @@ public class ControladorMesas extends HttpServlet {
         Pertenecemesa pmesa;
         Pertenecemesa pmesaaux;
         Personaje personaje;
+        Musica musica;
+        Musicamesa musicamesa;
 
         TypedQuery<Mesa> queryMesas;
         TypedQuery<Pertenecemesa> queryPertenecemesas;
@@ -198,9 +200,15 @@ public class ControladorMesas extends HttpServlet {
                             //////////////////////////
                             mesa = new Mesa(creador, comunidad, tamano, titulo, descripcion, contrasenahash);
 
-                            mesa.setMusicamesa(new Musicamesa(mesa.getId(), new Musica("561F81109A494CECB61DC8FDB9ECAF02", "Ninguna")));
+                            queryMusica = em.createNamedQuery("Musica.findByNombre", Musica.class);
+                            queryMusica.setParameter("nombre", "Ninguna");
+                            musica = queryMusica.getSingleResult();
+
+                            musicamesa = new Musicamesa(mesa, musica);
 
                             persist(mesa);
+
+                            mesa.setMusicamesa(musicamesa);
                             System.out.println("Registrada la mesa: " + titulo);
                             conseguido = true;
 
@@ -694,7 +702,7 @@ public class ControladorMesas extends HttpServlet {
                         queryAUX.setParameter("mesa", listaMesas.get(i).getId());
                         cantidad = Integer.parseInt(queryAUX.getSingleResult().toString());
                         listaCantidad.add(cantidad);
-                        
+
                         listaLideres.add(listaMesas.get(i).getCreador());
 
                         if (listaMesas.get(i).getImagenmesa() == null) {
@@ -946,7 +954,7 @@ public class ControladorMesas extends HttpServlet {
                     if (pmesa.getRol().equals("Dungeon Master")) {
 
                         queryUsuarios = em.createNamedQuery("Usuario.findByApodo", Usuario.class);
-                        queryUsuarios.setParameter("apodo", id);
+                        queryUsuarios.setParameter("apodo", pmesa.getMesas().getCreador());
                         useraux = queryUsuarios.getSingleResult();
 
                         //Modificamos nuevo DM si es necesario (Se sale el que era)

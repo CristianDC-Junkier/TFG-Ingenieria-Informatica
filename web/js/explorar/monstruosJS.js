@@ -8,7 +8,7 @@ let BAnterior = document.getElementById('pagAnterior');
 let BPosterior = document.getElementById('pagPosterior');
 let urlDestinoPag;
 
-let Tfilas = document.querySelectorAll("#Tabla tr");
+
 
 for (var i = 0; i < VD.options.length; i++) {
     if (VD.options[i].value === valorSeleccionado1) {
@@ -27,17 +27,21 @@ for (var i = 0; i < Tipo.options.length; i++) {
     }
 }
 
+function asignarEventos() {
+    let Tfilas = document.querySelectorAll("#Tabla tr");
 
-
-Tfilas.forEach(function (fila) {
-    fila.addEventListener("click", function () {
-        let idMonstruo = fila.dataset.id;
-        if (idMonstruo !== undefined) {
-            let urlDestinoOrden = "/TFG/Explorar/monstruo?idMonstruo=" + idMonstruo;
-            window.location.href = urlDestinoOrden;
-        }
+    Tfilas.forEach(function (fila) {
+        fila.addEventListener("click", function () {
+            let idMonstruo = fila.dataset.id;
+            if (idMonstruo !== undefined) {
+                let urlDestinoOrden = "/TFG/Explorar/monstruo?idMonstruo=" + idMonstruo;
+                window.location.href = urlDestinoOrden;
+            }
+        });
     });
-});
+}
+asignarEventos();
+
 VD.addEventListener('change', function () {
     let valorSeleccionado = VD.value;
     let urlDestinoOrden = "/TFG/Explorar/monstruos?vd=" + valorSeleccionado + "&tipo=" + Tipo.value + "&pag=" + pag;

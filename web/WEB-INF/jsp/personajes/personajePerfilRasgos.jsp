@@ -49,7 +49,7 @@
                                 <th>Hechizo nv7 - ${requestScope.pjHechizosClase.nv7}</th>
                             </tr>                            
                             <tr>
-                                <th>Hechizo nv8 -${requestScope.pjHechizosClase.nv8} </th>
+                                <th>Hechizo nv8 - ${requestScope.pjHechizosClase.nv8} </th>
                             </tr>
                             <tr>
                                 <th>Hechizo nv9 - ${requestScope.pjHechizosClase.nv9}</th>

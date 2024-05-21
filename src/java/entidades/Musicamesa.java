@@ -48,8 +48,14 @@ public class Musicamesa implements Serializable {
         this.mesa = mesa;
     }
 
-    public Musicamesa(String mesa,Musica musica) {
+    public Musicamesa(String mesa, Musica musica) {
         this.mesa = mesa;
+        this.musica = musica;
+    }
+
+    public Musicamesa(Mesa mesa, Musica musica) {
+        this.mesa = mesa.getId();
+        this.mesas = mesa;
         this.musica = musica;
     }
 

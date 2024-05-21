@@ -9,7 +9,7 @@ let BAnterior = document.getElementById('pagAnterior');
 let BPosterior = document.getElementById('pagPosterior');
 let urlDestinoPag;
 
-let Tfilas = document.querySelectorAll("#Tabla tr");
+
 
 for (var i = 0; i < Tipo.options.length; i++) {
     if (Tipo.options[i].value === valorSeleccionado1) {
@@ -36,16 +36,22 @@ for (var i = 0; i < Propiedad.options.length; i++) {
     }
 }
 
+function asignarEventos() {
+    let Tfilas = document.querySelectorAll("#Tabla tr");
 
-Tfilas.forEach(function (fila) {
-    fila.addEventListener("click", function () {
-        let idEquipo = fila.dataset.id;
-        if (idEquipo !== undefined) {
-            let urlDestinoOrden = "/TFG/Explorar/objeto?idEquipo=" + idEquipo;
-            window.location.href = urlDestinoOrden;
-        }
+    Tfilas.forEach(function (fila) {
+        fila.addEventListener("click", function () {
+            let idEquipo = fila.dataset.id;
+            if (idEquipo !== undefined) {
+                let urlDestinoOrden = "/TFG/Explorar/objeto?idEquipo=" + idEquipo;
+                window.location.href = urlDestinoOrden;
+            }
+        });
     });
-});
+}
+
+asignarEventos();
+
 Tipo.addEventListener('change', function () {
     let valorSeleccionado = Tipo.value;
     let urlDestinoOrden = "/TFG/Explorar/equipo?tipo=" + valorSeleccionado + "&categoria=" + Categoria.value + "&propiedad=" + Propiedad.value + "&pag=" + pag;

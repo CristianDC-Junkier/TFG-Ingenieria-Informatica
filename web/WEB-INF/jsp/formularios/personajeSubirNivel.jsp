@@ -13,8 +13,8 @@
     <body>
         <main class="contenedorFormulario">
             <div class="bloqueRegistroPersonaje">
-                <h2 class="TitulosFormulario">Crear Personaje</h2>
-                <form id = formRegistro action="/TFG/Personajes/personajeSubirNivel?personaje=${requestScope.personaje.id}" method="POST">
+                <h2 class="TitulosFormulario">Subir de Nivel</h2>
+                <form id = formRegistro action="/TFG/Personajes/personajeSubirNivel?id=${requestScope.personaje.id}" method="POST">
                     <div id="Bloque1">
                         <div id="tablaClase">
                             Tienes un BC de: ${requestScope.pjTablaClase.bc}<br>
@@ -23,7 +23,7 @@
                             <hr>
                         </div>
                         <div id="espacioHechizos">
-                            Espacios de hechizos:
+                            Espacios de hechizos:<br>
                             Nivel 1: ${requestScope.pjHechizosClase.nv1},Nivel 2: ${requestScope.pjHechizosClase.nv2}<br>
                             Nivel 3: ${requestScope.pjHechizosClase.nv3},Nivel 4: ${requestScope.pjHechizosClase.nv4}<br>
                             Nivel 5: ${requestScope.pjHechizosClase.nv5},Nivel 6: ${requestScope.pjHechizosClase.nv6}<br>

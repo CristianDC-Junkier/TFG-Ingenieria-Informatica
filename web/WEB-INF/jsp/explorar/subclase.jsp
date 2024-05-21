@@ -11,8 +11,8 @@
     <body>
         <jsp:include page="/WEB-INF/jsp/menuNav.jsp" />
         <main>
-            <h2 class="Titulos">Clase: ${requestScope.subclase.nombre}
-                <button class="botonArribaSubClases" onclick="location.href = '/TFG/Explorar/clase?clase=${requestScope.clase.nombre}'">Volver</button></h2>
+            <h2 class="Titulos">SubClase: ${requestScope.subclase.nombre}
+                <button class="botonArribaSubClases" onclick="location.href = '/TFG/Explorar/clase?clase=${requestScope.clase.id}'">Volver</button></h2>
             <hr color="black">
             <div class="arribaDatosClase">
                 <div class="datosIzquierdaClase">

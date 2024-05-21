@@ -3523,7 +3523,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         monstruoAux = listaMonstruos.get(i);
                         resultado
                                 = resultado
-                                + "<tr>"
+                                + "<tr data-id=\"" +  monstruoAux.getId() + "\">"
                                 + "<td>" + monstruoAux.getVdesafio() + "</td>"
                                 + "<td>" + monstruoAux.getNombre() + "</td>"
                                 + "<td>" + monstruoAux.getTipo() + "</td>"
@@ -3685,7 +3685,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                         equipoAux = listaEquipo.get(i);
                         resultado
                                 = resultado
-                                + "<tr>"
+                                + "<tr data-id=\"" +  equipoAux.getId() + "\">"
                                 + "<td>" + equipoAux.getNombre() + "</td>"
                                 + "<td>" + equipoAux.getDano() + "</td>"
                                 + "<td>";
@@ -3764,7 +3764,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                     num = 0;
                     resultado = resultado
-                            + "<h3 id=\"Normales\">Monstruosas</h3>"
+                            + "<h3 id=\"Monstruosas\">Monstruosas</h3>"
                             + "<div class=\"ListaRazasTipo\">";
 
                     while (listaRazas.size() != num) {
@@ -3792,6 +3792,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                 ///////////////////////////////////////////////////////////////////////////
                 ////////////////////////////////////FORO///////////////////////////////////
                 ///////////////////////////////////////////////////////////////////////////
+                    
                 /////////////////
                 ////CREAR HILO///
                 /////////////////

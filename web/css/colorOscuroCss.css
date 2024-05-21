@@ -2539,7 +2539,7 @@ input[type="button"]:active {
 }
 
 /*******************************/
-/**********Lista Mesas**********/
+/**********Lista Foro**********/
 /*******************************/
 
 .listasForo{
@@ -2577,6 +2577,12 @@ input[type="button"]:active {
     border: 2px solid brown;
     background: black;
 
+}
+.botonArribaForo{
+
+    border: 2px solid brown;
+    background: yellow;
+    color: brown;
 }
 #botonMio.estalleno  {
 

@@ -12,7 +12,7 @@
 <body>
     <jsp:include page="/WEB-INF/jsp/menuNav.jsp"/>
     <main>
-        <h2 class="Titulos" style="margin-right:10px">Foro<button class="botonArriba" onclick="location.href = '/TFG/Principal/inicio'">Volver</button></h2>
+        <h2 class="Titulos" style="margin-right:10px">Foro<button class="botonArribaForo" onclick="location.href = '/TFG/Principal/inicio'">Volver</button></h2>
         <hr color="black">
         <div class="contenedorBusquedaForo">
             <div class="buscadorForo">

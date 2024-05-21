@@ -340,7 +340,7 @@ public class ControladorForo extends HttpServlet {
                         result = queryAUX.getSingleResult();
 
                         //PAGINAS QUE HAY (4 Mensajes POR PAGINA)
-                        numPag = (((Number) result).intValue() / 4) + 1;
+                        numPag = (((Number) result).intValue() / 5) + 1;
 
                         sql = "SELECT m.* FROM MENSAJEHILO m "
                                 + "WHERE m.hilo = '" + hilo_id + "' "

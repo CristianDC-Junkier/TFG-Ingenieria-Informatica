@@ -101,8 +101,8 @@
                             <span class="cierreRecuadro" onclick="cerrarRecuadro()">X</span>
                         </div>
                         <hr>
-                        <button class="boton" onclick="location.href = '/TFG/Usuarios/eliminarAmigo?amigo=${requestScope.amigo.id}'">Si</button>
-                        <button class="boton" onclick="cerrarRecuadro()">No</button>
+                        <button class="botonDentro" onclick="location.href = '/TFG/Usuarios/eliminarAmigo?amigo=${requestScope.amigo.id}'">Si</button>
+                        <button class="botonDentro" onclick="cerrarRecuadro()">No</button>
                     </div>
                 </div>
             </div>

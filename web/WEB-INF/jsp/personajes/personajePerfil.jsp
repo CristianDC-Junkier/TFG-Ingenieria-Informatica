@@ -140,7 +140,7 @@
                     <button class="boton" onclick="location.href = '/TFG/Personajes/personajeHechizos?id=${requestScope.personaje.id}'">Hechizos</button>
                     <button class="boton" onclick="location.href = '/TFG/Personajes/personajeEquipo?id=${requestScope.personaje.id}'">Equipo</button>
                     <button class="boton" onclick="location.href = '/TFG/Personajes/personajeDotes?id=${requestScope.personaje.id}'">Dotes</button>
-                    <button class="botonfinal" onclick="mostrarRecuadro()">Eliminar</button>
+                    <button class="botonfinal" onclick="mostrarRecuadro6()">Eliminar</button>
                     <button class="botonfinal" onclick="location.href = '/TFG/Personajes/personajesPerfil'">Volver</button>
                 </div>
                 <div class="opcionRecuadro" id="recuadro6" style="display: none;">

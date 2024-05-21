@@ -87,6 +87,15 @@ function realizarBusqueda(valor) {
                 tabla.innerHTML = '';
                 // Insertar el nuevo HTML en el contenedor
                 tabla.innerHTML = htmlResultados;
+
+                switch (valor) {
+
+                    case "Razas":
+                    case "Equipo":
+                    case "Monstruos":
+                        asignarEventos();
+                        break;
+                }
             },
             error: function (error) {
                 console.error("Error en la solicitud AJAX:", error);

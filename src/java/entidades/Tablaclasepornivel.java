@@ -31,7 +31,7 @@ public class Tablaclasepornivel implements Serializable {
     @JoinColumn(name = "CLASE", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Clase clases;
-    @JoinColumn(name = "TABLACLASE", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "TABLACLASES", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
     private Tablaclase tablaclases;
 
