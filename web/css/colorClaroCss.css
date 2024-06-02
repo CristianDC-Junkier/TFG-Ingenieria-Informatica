@@ -876,6 +876,7 @@ footer{
 .ResumenRaza img {
 
     border-bottom: 3px solid #00cccc;
+    background: #00cccc;
 }
 
 .ContenidoRaza {
@@ -2363,7 +2364,7 @@ footer{
 
     border: black 2px solid;
     background-color: yellow;
-    color:white;
+    color:black;
 
 }
 

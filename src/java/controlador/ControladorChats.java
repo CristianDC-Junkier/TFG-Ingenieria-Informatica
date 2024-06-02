@@ -74,7 +74,6 @@ public class ControladorChats extends HttpServlet {
             Pertenecemesa pmesa;
             Mesa mesa;
             Musica musica;
-            Personaje personaje;
 
             TypedQuery<Usuario> queryUsuarios;
             TypedQuery<Amigo> queryAmigos;
@@ -82,7 +81,6 @@ public class ControladorChats extends HttpServlet {
             TypedQuery<Pertenecemesa> queryPertenecemesas;
             TypedQuery<Mesa> queryMesas;
             TypedQuery<Musica> queryMusica;
-            TypedQuery<Personaje> queryPersonajes;
 
             Query queryAUX;
 
@@ -106,8 +104,6 @@ public class ControladorChats extends HttpServlet {
             String id;
             String apodo;
             String dado;
-
-            String puntosHP;
 
             String sql = "";
 
