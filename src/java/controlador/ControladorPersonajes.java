@@ -3309,10 +3309,16 @@ public class ControladorPersonajes extends HttpServlet {
                         //Añadimos sus atributos
                         for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
                             personajeAtributo = personaje.getPersonajeatributosList().get(i);
-                            for (int j = 0; j < dote.getAtributosList().size(); j++) {
-                                atributo = dote.getAtributosList().get(j);
-                                if (atributo.getId().equals(personajeAtributo.getAtributos().getId())) {
-                                    personaje.getPersonajeatributosList().get(i).setValor((personajeAtributo.getValor() + 1));
+                            //Si tiene almenos 1 atributo
+                            if (dote.getAtributosList().size() == 1) {
+                                for (int j = 0; j < 1; j++) {
+                                    atributo = dote.getAtributosList().get(j);
+                                    //Si es el mismo
+                                    if (atributo.getId().equals(personajeAtributo.getAtributos().getId())) {
+                                        if (personajeAtributo.getValor() < 20) {
+                                            personaje.getPersonajeatributosList().get(i).setValor((personajeAtributo.getValor() + 1));
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -345,16 +345,6 @@ public class ControladorImagenes extends HttpServlet {
         }
     }
 
-    private void updateDescriptorMesa(Object object) {
-        try {
-            utx.begin();
-            em.merge((Descriptormesa) object);
-            utx.commit();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private void updatePersonajes(Object object) {
         try {
             utx.begin();

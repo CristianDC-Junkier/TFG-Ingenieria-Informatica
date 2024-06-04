@@ -29,6 +29,11 @@
 
 /**********Lista Dotes************/
 
+.ListaDotes {
+    
+    margin-bottom: 10em;
+}
+
 .ListaDotes h4{
 
     margin-top: 10px;

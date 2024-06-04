@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @UniqueConstraint(columnNames = {"NOMBRE"})})
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Dote.findAll", query = "SELECT d FROM Dote d"),
+    @NamedQuery(name = "Dote.findAll", query = "SELECT d FROM Dote d order by d.nombre"),
     @NamedQuery(name = "Dote.findById", query = "SELECT d FROM Dote d WHERE d.id = :id"),
     @NamedQuery(name = "Dote.findByNombre", query = "SELECT d FROM Dote d WHERE d.nombre = :nombre"),
     @NamedQuery(name = "Dote.findByRaza", query = "SELECT d FROM Dote d WHERE d.raza = :raza"),
