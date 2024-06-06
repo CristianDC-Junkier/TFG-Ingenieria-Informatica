@@ -21,7 +21,6 @@ import entidades.Usaclase;
 import entidades.Usasubclase;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -76,10 +75,9 @@ public class ControladorExplorar extends HttpServlet {
         Monstruo Monstruo;
         Equipo Equipo;
         Alcance Alcance;
-        Tablaclase tablaclase;
-        
+
         Query queryAUX;
-        
+
         TypedQuery<Estado> queryEstados;
         TypedQuery<Clase> queryClases;
         TypedQuery<Subclase> querySubClases;
@@ -149,9 +147,6 @@ public class ControladorExplorar extends HttpServlet {
         int num;
         int numpag;
 
-        HashSet<Hechizo> hashAuxHechizos;
-        HashSet<Equipo> hashAuxEquipo;
-        HashSet<Monstruo> hashAuxMonstruos;
 
         switch (accion) {
             case "/clases":
@@ -179,26 +174,26 @@ public class ControladorExplorar extends HttpServlet {
                             resultado
                                     = resultado + " id=\"C\"";
                             break;
-                        case 7:
+                        case 5:
                             resultado
                                     = resultado + " id=\"D\"";
                             break;
-                        case 8:
+                        case 6:
                             resultado
                                     = resultado + " id=\"E\"";
                             break;
-                        case 9:
+                        case 7:
                             resultado
                                     = resultado + " id=\"H\"";
                             break;
-                        case 10:
+                        case 8:
                             resultado
                                     = resultado + " id=\"L\"";
                             break;
-                        case 11:
+                        case 9:
                             resultado
                                     = resultado + " id=\"M\"";
-                        case 13:
+                        case 11:
                             resultado
                                     = resultado + " id=\"Pp\"";
                             break;
@@ -243,7 +238,6 @@ public class ControladorExplorar extends HttpServlet {
                     listaRasgos.add(listaUsaClases.get(i).getRasgos());
                 }
 
-                
                 resultado = "<table class=\"tablaHechizos\">"
                         + "<thead>"
                         + "<tr>";
@@ -299,49 +293,47 @@ public class ControladorExplorar extends HttpServlet {
                                     ClaseValoEspecifico2 = "6";
                                     break;
                             }
-                            
-                            try{
-                            
-                            tablaclase = listaTablaClaseNivel.get(listaTablaClaseNivel.size()).getTablaclases();
-                            
-                            resultado
-                                    = resultado
-                                    + "<tr>"
-                                    + "<td>" + (i + 1) + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
-                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
-                                    + "<td>" + ClaseValoEspecifico2 + "</td>"
-                                    + "<td>" + Trucos + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() +  "</td>"
-                                    + "</tr>";
-                            }catch(Exception ex){
-                                
+
+                            try {
+
                                 resultado
-                                    = resultado
-                                    + "<tr>"
-                                    + "<td>" + (i + 1) + "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getBc() + */ "</td>"
-                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
-                                    + "<td>" + ClaseValoEspecifico2 + "</td>"
-                                    + "<td>" + Trucos + "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + */ "</td>"
-                                    + "<td>" + /*listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + */ "</td>"
-                                    + "</tr>";
+                                        = resultado
+                                        + "<tr>"
+                                        + "<td>" + (i + 1) + "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                        + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                        + "<td>" + ClaseValoEspecifico2 + "</td>"
+                                        + "<td>" + Trucos + "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
+                                        + "</tr>";
+                            } catch (Exception ex) {
+
+                                resultado
+                                        = resultado
+                                        + "<tr>"
+                                        + "<td>" + (i + 1) + "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
+                                        + "<td>" + ClaseValoEspecifico1 + "</td>"
+                                        + "<td>" + ClaseValoEspecifico2 + "</td>"
+                                        + "<td>" + Trucos + "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() +  "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() +  "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() +  "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() +  "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() +  "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() +  "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() +  "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() +  "</td>"
+                                        + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() +  "</td>"
+                                        + "</tr>";
                             }
                         }
                         break;
@@ -561,116 +553,6 @@ public class ControladorExplorar extends HttpServlet {
                                     + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
                                     + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
                                     + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
-                                    + "</tr>";
-                        }
-                        break;
-                    case "Caballero de la Muerte":
-                        ClaseValoEspecifico1 = "1";
-                        ClaseValoEspecifico2 = "1";
-                        ClaseValoEspecifico3 = "100";
-
-                        resultado = resultado
-                                + "<th>Nivel</th>"
-                                + "<th>BC</th>"
-                                + "<th>Runa Sangre</th>"
-                                + "<th>Runa Escarcha</th>"
-                                + "<th>Runa Profano</th>"
-                                + "<th>Runa Subclase</th>"
-                                + "<th>Poder Rúnico</th>"
-                                + "</tr>"
-                                + "</thead>"
-                                + "<tbody>";
-
-                        for (int i = 0; i < 20; i++) {
-
-                            switch (i) {
-                                case 4:
-                                    ClaseValoEspecifico2 = "2";
-                                    break;
-                                case 6:
-                                    ClaseValoEspecifico3 = "125";
-                                    break;
-                                case 7:
-                                    ClaseValoEspecifico2 = "3";
-                                    break;
-                                case 9:
-                                    ClaseValoEspecifico1 = "2";
-                                    break;
-                                case 10:
-                                    ClaseValoEspecifico3 = "150";
-                                    break;
-                                case 11:
-                                    ClaseValoEspecifico2 = "4";
-                                    break;
-                                case 14:
-                                    ClaseValoEspecifico3 = "175";
-                                    break;
-                                case 18:
-                                    ClaseValoEspecifico3 = "200";
-                                    break;
-                            }
-
-                            resultado
-                                    = resultado
-                                    + "<tr>"
-                                    + "<td>" + (i + 1) + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
-                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
-                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
-                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
-                                    + "<td>" + ClaseValoEspecifico2 + "</td>"
-                                    + "<td>" + ClaseValoEspecifico3 + "</td>"
-                                    + "</tr>";
-                        }
-                        break;
-                    case "Cazador de Sangre":
-                        ClaseValoEspecifico1 = "1d4";
-                        ClaseValoEspecifico2 = "-";
-
-                        resultado = resultado
-                                + "<th>Nivel</th>"
-                                + "<th>BC</th>"
-                                + "<th>Daño del Rito Carmesí</th>"
-                                + "<th>Maldiciones conocidas</th>"
-                                + "</tr>"
-                                + "</thead>"
-                                + "<tbody>";
-
-                        for (int i = 0; i < 20; i++) {
-
-                            switch (i) {
-                                case 1:
-                                    ClaseValoEspecifico2 = "1";
-                                    break;
-                                case 4:
-                                    ClaseValoEspecifico1 = "1d6";
-                                    ClaseValoEspecifico2 = "2";
-                                    break;
-                                case 8:
-                                    ClaseValoEspecifico2 = "3";
-                                    break;
-                                case 10:
-                                    ClaseValoEspecifico1 = "1d8";
-                                    break;
-                                case 12:
-                                    ClaseValoEspecifico2 = "4";
-                                    break;
-                                case 16:
-                                    ClaseValoEspecifico1 = "1d10";
-                                    ClaseValoEspecifico2 = "5";
-                                    break;
-                                case 19:
-                                    ClaseValoEspecifico2 = "6";
-                                    break;
-                            }
-
-                            resultado
-                                    = resultado
-                                    + "<tr>"
-                                    + "<td>" + (i + 1) + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
-                                    + "<td>" + ClaseValoEspecifico1 + "</td>"
-                                    + "<td>" + ClaseValoEspecifico2 + "</td>"
                                     + "</tr>";
                         }
                         break;
@@ -1080,19 +962,19 @@ public class ControladorExplorar extends HttpServlet {
                                     = resultado
                                     + "<tr>"
                                     + "<td>" + (i + 1) + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getBc() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getBc() + "</td>"
                                     + "<td>" + ClaseValoEspecifico1 + "</td>"
                                     + "<td>" + ClaseValoEspecifico2 + "</td>"
                                     + "<td>" + ClaseValoEspecifico3 + "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() +  "</td>"
-                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() +  "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv1() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv2() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv3() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv4() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv5() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv6() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv7() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv8() + "</td>"
+                                    + "<td>" + listaTablaClases.get(i).getEspacioshechizosList().get(0).getNv9() + "</td>"
                                     + "</tr>";
                         }
                         break;
@@ -1331,7 +1213,7 @@ public class ControladorExplorar extends HttpServlet {
                     for (int i = 0; i < Equipo.getPropiedadesList().size(); i++) {
                         resultado
                                 = resultado + "<li>"
-                                + Equipo.getPropiedadesList().get(i).getNombre()
+                                + Equipo.getPropiedadesList().get(i).getNombre() + ": "
                                 + Equipo.getPropiedadesList().get(i).getDescripcion()
                                 + "</li>";
                     }
@@ -1425,25 +1307,25 @@ public class ControladorExplorar extends HttpServlet {
                 result = queryAUX.getSingleResult();
 
                 //PAGINAS QUE HAY (15 OBJETOS POR PAGINA)
-                numpag = (((Number) result).intValue() / 14) + 1;
+                numpag = (((Number) result).intValue() / 15) + 1;
 
-                sql = "SELECT * FROM Equipo e "
-                        + "LEFT JOIN Tienepropiedad tp on tp.equipo = e.id "
-                        + "LEFT JOIN Propiedad p on p.id = tp.propiedad "
-                        + "WHERE e.id IS NOT NULL "
+                sql = "SELECT e.* "
+                        + "FROM Equipo e "
+                        + "WHERE e.id IN ( "
+                        + "    SELECT DISTINCT e.id "
+                        + "    FROM Equipo e "
+                        + "    LEFT JOIN Tienepropiedad tp ON tp.equipo = e.id "
+                        + "    LEFT JOIN Propiedad p ON p.id = tp.propiedad "
+                        + "    WHERE e.id IS NOT NULL "
                         + tipoSQL
                         + categoriaSQL
                         + propiedadSQL
+                        + ")"
                         + "ORDER BY e.nombre "
                         + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
 
                 queryAUX = em.createNativeQuery(sql, Equipo.class);
                 listaEquipo = queryAUX.getResultList();
-
-                //Eliminar duplicados utilizando HashSet
-                hashAuxEquipo = new HashSet<>(listaEquipo);
-                hashAuxEquipo.clear(); //Limpiar el ArrayList
-                listaEquipo.addAll(hashAuxEquipo);
 
                 request.setAttribute("pag", numString);
                 request.setAttribute("numpag", numpag);
@@ -1547,8 +1429,8 @@ public class ControladorExplorar extends HttpServlet {
                 ////////NUMERO DE HECHIZOS///////
                 /////////////////////////////////
                 sql = "SELECT COUNT(DISTINCT h.id) FROM Hechizo h "
-                        + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
-                        + "LEFT JOIN Clase c on c.id = lb.clase "
+                        + "INNER JOIN Listahechizo lb on lb.hechizo = h.id "
+                        + "INNER JOIN Clase c on c.id = lb.clase "
                         + "WHERE h.id IS NOT NULL "
                         + escuelaSQL
                         + claseHSQL
@@ -1558,25 +1440,25 @@ public class ControladorExplorar extends HttpServlet {
                 result = queryAUX.getSingleResult();
 
                 //PAGINAS QUE HAY (15 HECHIZOS POR PAGINA)
-                numpag = (((Number) result).intValue() / 14) + 1;
+                numpag = (((Number) result).intValue() / 15) + 1;
 
-                sql = "SELECT h.* FROM Hechizo h "
-                        + "LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
-                        + "LEFT JOIN Clase c on c.id = lb.clase "
-                        + "WHERE h.id IS NOT NULL "
-                        + escuelaSQL
-                        + claseHSQL
-                        + nivelSQL
+                sql = "SELECT h.* "
+                        + "FROM Hechizo h "
+                        + "WHERE h.id IN ( "
+                        + "    SELECT DISTINCT h.id "
+                        + "    FROM Hechizo h "
+                        + "    LEFT JOIN Listahechizo lb on lb.hechizo = h.id "
+                        + "    LEFT JOIN Clase c on c.id = lb.clase "
+                        + "    WHERE h.id IS NOT NULL "
+                        +      escuelaSQL
+                        +      claseHSQL
+                        +      nivelSQL
+                        + ")"
                         + "ORDER BY h.nombre "
                         + "OFFSET " + num + " ROWS FETCH NEXT 15 ROWS ONLY";
 
                 queryAUX = em.createNativeQuery(sql, Hechizo.class);
                 listaHechizos = queryAUX.getResultList();
-
-                //Eliminar duplicados utilizando HashSet
-                hashAuxHechizos = new HashSet<>(listaHechizos);
-                listaHechizos.clear(); //Limpiar el ArrayList
-                listaHechizos.addAll(hashAuxHechizos);
 
                 request.setAttribute("pag", numString);
                 request.setAttribute("numpag", numpag);
@@ -1659,7 +1541,7 @@ public class ControladorExplorar extends HttpServlet {
                 result = queryAUX.getSingleResult();
 
                 //PAGINAS QUE HAY (15 MONSTRUOS POR PAGINA)
-                numpag = (((Number) result).intValue() / 14) + 1;
+                numpag = (((Number) result).intValue() / 15) + 1;
 
                 sql = "SELECT m.* FROM Monstruo m "
                         + "WHERE m.id IS NOT NULL "
@@ -1670,11 +1552,6 @@ public class ControladorExplorar extends HttpServlet {
 
                 queryAUX = em.createNativeQuery(sql, Monstruo.class);
                 listaMonstruos = queryAUX.getResultList();
-
-                //Eliminar duplicados utilizando HashSet
-                hashAuxMonstruos = new HashSet<>(listaMonstruos);
-                listaMonstruos.clear(); //Limpiar el ArrayList
-                listaMonstruos.addAll(hashAuxMonstruos);
 
                 request.setAttribute("pag", numString);
                 request.setAttribute("numpag", numpag);

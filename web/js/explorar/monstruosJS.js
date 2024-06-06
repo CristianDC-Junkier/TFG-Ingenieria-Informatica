@@ -58,28 +58,28 @@ Tipo.addEventListener('change', function () {
 //Pag Inicio
 if (pag > 2) {
     Binicio.addEventListener('click', function () {
-        urlDestinoPag = "/TFG/Explorar/monstruos?vd=" + vd.value + "&tipo=" + Nivel.value + "&pag=" + "1";
+        urlDestinoPag = "/TFG/Explorar/monstruos?vd=" + VD.value + "&tipo=" + Tipo.value + "&pag=" + "1";
         window.location.href = urlDestinoPag;
     });
 }
 //Pag Final
 if (pagpordelante > 1) {
     Bfinal.addEventListener('click', function () {
-        urlDestinoPag = "/TFG/Explorar/monstruos?vd=" + vd.value + "&tipo=" + Nivel.value + "&pag=" + numpag;
+        urlDestinoPag = "/TFG/Explorar/monstruos?vd=" + VD.value + "&tipo=" + Tipo.value + "&pag=" + numpag;
         window.location.href = urlDestinoPag;
     });
 }
 //Pag anterior
 if (pag > 1) {
     BAnterior.addEventListener('click', function () {
-        urlDestinoPag = "/TFG/Explorar/monstruos?vd=" + vd.value + "&tipo=" + Nivel.value + "&pag=" + (pag - 1);
+        urlDestinoPag = "/TFG/Explorar/monstruos?vd=" + VD.value + "&tipo=" + Tipo.value + "&pag=" + (pag - 1);
         window.location.href = urlDestinoPag;
     });
 }
 //Pag posterior
 if (pagpordelante > 0) {
     BPosterior.addEventListener('click', function () {
-        urlDestinoPag = "/TFG/Explorar/monstruos?vd=" + vd.value + "&tipo=" + Nivel.value + "&pag=" + (pag + 1);
+        urlDestinoPag = "/TFG/Explorar/monstruos?vd=" + VD.value + "&tipo=" + Tipo.value + "&pag=" + (pag + 1);
         window.location.href = urlDestinoPag;
     });
 }

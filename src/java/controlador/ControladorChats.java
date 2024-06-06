@@ -414,7 +414,7 @@ public class ControladorChats extends HttpServlet {
 
                     queryAUX = em.createNativeQuery(sql, Usuario.class);
                     listaUsuarios = queryAUX.getResultList();
-
+                    
                     cont = 0;
                     encontrado = false;
 

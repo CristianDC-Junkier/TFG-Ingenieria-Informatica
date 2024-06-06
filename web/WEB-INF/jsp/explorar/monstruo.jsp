@@ -72,30 +72,30 @@
                     <br><hr style="border-style: dashed;">
                     <h3>Rasgos: </h3>
                     <p><c:forEach var="rasMonstruo" items="${rasMonstruos}">
-                            ${rasMonstruo.nombre}: ${rasMonstruo.descripcion}<br>
+                            ${rasMonstruo.nombre}: ${rasMonstruo.descripcion}<br><br>
                         </c:forEach></p>
-                    <br><hr style="border-style: dashed;">
+                    <hr style="border-style: dashed;">
                     <h3>Acciones: </h3>
                     <p><c:forEach var="accMonstruo" items="${accMonstruos}">
                             <c:if test="${accMonstruo.tipo == 'Normal'}">
-                                ${accMonstruo.nombre}: ${accMonstruo.descripcion}<br>
+                                ${accMonstruo.nombre}: ${accMonstruo.descripcion}<br><br>
                             </c:if>
                         </c:forEach></p>
-                    <br><hr style="border-style: dashed;">
+                    <hr style="border-style: dashed;">
                     <h3>Acciones Legendarias: </h3>
                     <p><c:forEach var="accMonstruo" items="${accMonstruos}">
                             <c:if test="${accMonstruo.tipo == 'Lengendaria'}">
-                                ${accMonstruo.nombre}: ${accMonstruo.descripcion}<br>
+                                ${accMonstruo.nombre}: ${accMonstruo.descripcion}<br><br>
                             </c:if>
                         </c:forEach></p>
-                    <br><hr style="border-style: dashed;">
+                    <hr style="border-style: dashed;">
                     <h3>Acciones Míticas: </h3>
                     <p><c:forEach var="accMonstruo" items="${accMonstruos}">
                             <c:if test="${accMonstruo.tipo == 'Mitica'}">
-                                ${accMonstruo.nombre}: ${accMonstruo.descripcion}<br>
+                                ${accMonstruo.nombre}: ${accMonstruo.descripcion}<br><br>
                             </c:if>
                         </c:forEach></p>
-                    <br><hr style="border-style: dashed;">
+                    <hr style="border-style: dashed;">
                 </div>
             </div>
         </main>

@@ -56,7 +56,6 @@
                             <option value="Artificiero">Artificiero</option>
                             <option value="Bardo">Bardo</option>
                             <option value="Brujo">Brujo</option>
-                            <option value="Caballero de la Muerte">Caballero de la Muerte</option>
                             <option value="Clérigo">Clérigo</option>
                             <option value="Druida">Druida</option>
                             <option value="Explorador">Explorador</option>
