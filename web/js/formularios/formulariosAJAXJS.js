@@ -175,6 +175,24 @@ function cambiarHabilidades(valorBusqueda, valorBusqueda2, etiqueta) {
     });
 }
 
+function cantidadHabilidades(valorBusqueda){
+    urlAJAX = "/TFG/ControladorPeticionesAJAX/CrearPersonajesCantidadHabilidades";
+
+    // Realizar la solicitud AJAX
+    $.ajax({
+        type: "GET",
+        url: urlAJAX,
+        data: {busqueda: valorBusqueda},
+        dataType: "text",
+        success: function (data) {
+            return data;
+        },
+        error: function (error) {
+            return 0;
+        }
+    });
+}
+
 function indicarAtr(valorBusqueda, etiqueta) {
     urlAJAX = "/TFG/ControladorPeticionesAJAX/CrearPersonajesAtributos";
 

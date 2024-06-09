@@ -59,9 +59,11 @@ public class Personajehabilidad implements Serializable {
         this.personajehabilidadesPK = new PersonajehabilidadPK(personaje, habilidad);
     }
 
-    public Personajehabilidad(String personaje, String habilidad, String competencia) {
-        this.personajehabilidadesPK = new PersonajehabilidadPK(personaje, habilidad);
+    public Personajehabilidad(Personaje personaje, Habilidad habilidad, String competencia) {
+        this.personajehabilidadesPK = new PersonajehabilidadPK(personaje.getId(), habilidad.getId());
         this.competencia = competencia;
+        this.personajes = personaje;
+        this.habilidades = habilidad;
     }
 
     public PersonajehabilidadPK getPersonajehabilidadesPK() {

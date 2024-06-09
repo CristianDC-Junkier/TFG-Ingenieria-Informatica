@@ -28,20 +28,21 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Sumaraza.findByModificador", query = "SELECT s FROM Sumaraza s WHERE s.modificador = :modificador")})
 public class Sumaraza implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected SumarazaPK sumarazaPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
     @Column(name = "MODIFICADOR", nullable = false, length = 2)
     private String modificador;
-    @JoinColumn(name = "ATRIBUTO", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
+
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected SumarazaPK sumarazaPK;
+    @JoinColumn(name = "ATRIBUTO", referencedColumnName = "NOMBRE", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Atributo atributos;
     @JoinColumn(name = "SUBRAZA", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Subraza subrazas;
+    private Subraza subraza;
 
     public Sumaraza() {
     }
@@ -67,27 +68,20 @@ public class Sumaraza implements Serializable {
         this.sumarazaPK = sumarazaPK;
     }
 
-    public String getModificador() {
-        return modificador;
-    }
-
-    public void setModificador(String modificador) {
-        this.modificador = modificador;
-    }
 
     public Subraza getSubrazas() {
-        return subrazas;
+        return subraza;
     }
 
-    public void setSubrazas(Subraza subrazas) {
-        this.subrazas = subrazas;
+    public void setSubrazas(Subraza subraza) {
+        this.subraza = subraza;
     }
     
     public Atributo getAtributos() {
         return atributos;
     }
 
-    public void setAtributos(Atributo atributos) {
+    public void setAtributos(Atributo atributo) {
         this.atributos = atributos;
     }
 
@@ -118,6 +112,14 @@ public class Sumaraza implements Serializable {
     @Override
     public String toString() {
         return "entidades.Sumaraza[ sumarazaPK=" + sumarazaPK + " ]";
+    }
+
+    public String getModificador() {
+        return modificador;
+    }
+
+    public void setModificador(String modificador) {
+        this.modificador = modificador;
     }
 
 }

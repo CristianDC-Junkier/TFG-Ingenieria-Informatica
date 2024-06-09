@@ -50,7 +50,7 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <div>Raza: ${requestScope.personaje.clase.nombre}</div>
+                            <div>Raza: ${requestScope.personaje.raza.nombre}</div>
                             <div>Sub-Raza:&nbsp;
                                 <c:choose>
                                     <c:when test="${requestScope.personaje.subraza.nombre == requestScope.personaje.raza.nombre}">

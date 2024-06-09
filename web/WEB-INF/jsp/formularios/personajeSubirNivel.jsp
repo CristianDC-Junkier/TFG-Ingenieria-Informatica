@@ -34,7 +34,7 @@
                         <div id="rasgosClase">
                             Rasgos Clase:
                             <c:forEach var="rasgo" items="${pjRasgosClase}">
-                                Nombre: ${rasgo.nombre}<br>
+                                Nombre: ${rasgo.rasgos.nombre}<br>
                             </c:forEach>
                             <hr>
                         </div>
@@ -42,7 +42,7 @@
                             <div id="rasgosSubClase">
                                 Rasgos SubClase:
                                 <c:forEach var="rasgo" items="${pjRasgosSubClase}">
-                                    Nombre: ${rasgo.nombre}<br>
+                                    Nombre: ${rasgo.rasgos.nombre}<br>
                                 </c:forEach>
                             </div>
                         </c:if>
@@ -98,11 +98,18 @@
                     <div class="contenedorBotonFormulario">
                         <input id="botonVolverFormulario" type="button"
                                onclick="location.pathname = '/TFG/Personajes/personajePerfil'" value="Volver">
-                        <div id="valoresEleccion">
-                            <input id="botonDoteFormulario" type="button" onclick="AvanzarFormulario(2.1)" value="Elegir Dote">
-                            <input id="botoAtributorFormulario" type="button" onclick="AvanzarFormulario(2.2)" value="Elegir Atributos">
-                        </div>
-                        <input id="botonAvanzarFormulario" type="hidden" onclick="AvanzarFormulario(3)" value="Siguiente">
+                        <c:choose>
+                            <c:when test="${nivelSiguiente >= 4}">
+                                <div id="valoresEleccion">
+                                    <input id="botonDoteFormulario" type="button" onclick="AvanzarFormulario(2.1)" value="Elegir Dote">
+                                    <input id="botoAtributorFormulario" type="button" onclick="AvanzarFormulario(2.2)" value="Elegir Atributos">
+                                </div>
+                                <input id="botonAvanzarFormulario" type="button" onclick="AvanzarFormulario(3)" value="Siguiente">
+                            </c:when>
+                            <c:otherwise>
+                                <input id="botonAvanzarFormulario" type="button" onclick="AvanzarFormulario(3)" value="Siguiente">
+                            </c:otherwise>
+                        </c:choose>
                         <input  id="botonEnviar" type="hidden" value="Subir de nivel">
                     </div>
                 </form>

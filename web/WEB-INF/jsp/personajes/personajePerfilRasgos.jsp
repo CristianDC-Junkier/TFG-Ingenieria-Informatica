@@ -62,34 +62,37 @@
                         <h3>Características</h3>
                         <ul>
                             <li>Nombre: ${requestScope.personaje.nombre}</li>
-                            <li>Rasgos por Clase:${requestScope.pjTablaClase.rasgos}</li>                    
-                            <li>BC:+${requestScope.pjTablaClase.bc}</li>
-                            <li>Trucos:${requestScope.pjTablaClase.trucos}</li>
-                            <li>Hechizos:${requestScope.pjTablaClase.hechizos}</li>
+                            <li>BC: +${requestScope.pjTablaClase.bc}</li>
+                            <li>Trucos: ${requestScope.pjTablaClase.trucos}</li>
+                            <li>Hechizos: ${requestScope.pjTablaClase.hechizos}</li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class = "datosIzquierdaAbajoRasgos">
                 <h3>Rasgos por Clase</h3>
-                <c:forEach var="rasgo" items="${pjRasgosRaza}" varStatus="status">
-                    ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
+                <c:forEach var="rasgo" items="${pjRasgosClase}" varStatus="status">
+                    <strong>${rasgo.rasgos.nombre}:</strong> ${rasgo.rasgos.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"></c:if>
                 </c:forEach>
+                <br><br>
                 <h3>Rasgos por Subclase</h3>
                 <c:forEach var="rasgo" items="${pjRasgosSubClase}" varStatus="status">
-                    ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
-                </c:forEach> 
+                    <strong>${rasgo.rasgos.nombre}:</strong> ${rasgo.rasgos.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"></c:if>
+                </c:forEach>
+                <br><br>
                 <h3>Rasgos por Raza</h3>
                 <c:forEach var="rasgo" items="${pjRasgosRaza}" varStatus="status">
-                    ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
-                </c:forEach> 
+                    <strong>${rasgo.nombre}:</strong> ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"></c:if>
+                </c:forEach>
+                <br><br>
                 <h3>Rasgos por Subraza</h3>
                 <c:forEach var="rasgo" items="${pjRasgosSubraza}" varStatus="status">
-                    ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
+                    <strong>${rasgo.nombre}:</strong> ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"></c:if>
                 </c:forEach>
+                <br><br>
                 <h3>Rasgos por Trasfondo</h3>
                 <c:forEach var="rasgo" items="${pjRasgosTrasfondos}" varStatus="status">
-                    ${rasgo.nombre}: ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"><br><br></c:if>
+                    <strong>${rasgo.nombre}:</strong> ${rasgo.descripcion}<c:if test="${not status.last}"><br></c:if><c:if test="${status.last}"></c:if>
                 </c:forEach> 
             </div>
         </main>

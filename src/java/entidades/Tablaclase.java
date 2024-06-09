@@ -34,13 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tablaclase.findByHechizos", query = "SELECT t FROM Tablaclase t WHERE t.hechizos = :hechizos")})
 public class Tablaclase implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 36)
-    @Column(name = "ID", nullable = false, length = 36)
-    private String id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "RASGOS", nullable = false)
@@ -57,6 +50,14 @@ public class Tablaclase implements Serializable {
     @NotNull
     @Column(name = "HECHIZOS", nullable = false)
     private Integer hechizos;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 36)
+    @Column(name = "ID", nullable = false, length = 36)
+    private String id;
     @ManyToMany(mappedBy = "tablaclasesList")
     private List<Espaciohechizo> espacioshechizosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tablaclases")
@@ -85,37 +86,6 @@ public class Tablaclase implements Serializable {
         this.id = id;
     }
 
-    public Integer getRasgos() {
-        return rasgos;
-    }
-
-    public void setRasgos(Integer rasgos) {
-        this.rasgos = rasgos;
-    }
-
-    public Integer getBc() {
-        return bc;
-    }
-
-    public void setBc(Integer bc) {
-        this.bc = bc;
-    }
-
-    public Integer getTrucos() {
-        return trucos;
-    }
-
-    public void setTrucos(Integer trucos) {
-        this.trucos = trucos;
-    }
-
-    public Integer getHechizos() {
-        return hechizos;
-    }
-
-    public void setHechizos(Integer hechizos) {
-        this.hechizos = hechizos;
-    }
 
     @XmlTransient
     public List<Espaciohechizo> getEspacioshechizosList() {
@@ -158,6 +128,38 @@ public class Tablaclase implements Serializable {
     @Override
     public String toString() {
         return "entidades.Tablaclases[ id=" + id + " ]";
+    }
+
+    public Integer getRasgos() {
+        return rasgos;
+    }
+
+    public void setRasgos(Integer rasgos) {
+        this.rasgos = rasgos;
+    }
+
+    public Integer getBc() {
+        return bc;
+    }
+
+    public void setBc(Integer bc) {
+        this.bc = bc;
+    }
+
+    public Integer getTrucos() {
+        return trucos;
+    }
+
+    public void setTrucos(Integer trucos) {
+        this.trucos = trucos;
+    }
+
+    public Integer getHechizos() {
+        return hechizos;
+    }
+
+    public void setHechizos(Integer hechizos) {
+        this.hechizos = hechizos;
     }
     
 }

@@ -160,6 +160,6 @@
         <jsp:include page="/WEB-INF/jsp/footerNoChat.jsp" />
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="/TFG/js/formularios/formulariosAJAXJS.js"></script>
-        <script src="/TFG/js/formularios/crearpersonajeJS.js"></script>
+        <script id='scriptCrear' src="/TFG/js/formularios/crearpersonajeJS.js"></script>
     </body>
 </html>

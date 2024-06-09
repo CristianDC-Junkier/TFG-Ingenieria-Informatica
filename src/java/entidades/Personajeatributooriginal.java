@@ -61,10 +61,12 @@ public class Personajeatributooriginal implements Serializable {
         this.salvacion = salvacion;
     }
 
-    public Personajeatributooriginal(String personaje, String atributo, Integer valor, String salvacion) {
-        this.personajeatributosoriginalPK = new PersonajeatributooriginalPK(personaje, atributo);
+    public Personajeatributooriginal(Personaje personaje, Atributo atributo, Integer valor, String salvacion) {
+        this.personajeatributosoriginalPK = new PersonajeatributooriginalPK(personaje.getId(), atributo.getId());
         this.valor = valor;
         this.salvacion = salvacion;
+        this.personajes = personaje;
+        this.atributos = atributo;
     }
 
     public Personajeatributooriginal(String personaje, String atributo) {

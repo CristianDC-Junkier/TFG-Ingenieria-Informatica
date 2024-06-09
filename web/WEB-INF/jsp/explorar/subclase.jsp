@@ -42,7 +42,7 @@
                 <div>
                     <h3>Rasgos</h3>
                     <div><c:forEach var="rasClase" items="${listarasgos}" varStatus="status">
-                            ${rasClase.nombre}:${rasClase.descripcion} <c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                            ${rasClase.nombre}: ${rasClase.descripcion} <c:if test="${not status.last}"><br><br></c:if><c:if test="${status.last}"><br></c:if>
                         </c:forEach></div>
                 </div>
             </div>

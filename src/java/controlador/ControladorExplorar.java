@@ -1099,7 +1099,7 @@ public class ControladorExplorar extends HttpServlet {
 
                 request.setAttribute("equipoinicial", resultado);
                 request.setAttribute("listahabilidades", Clase.getHabilidadesList());
-                request.setAttribute("listaatributos", Clase.getAtributosList());
+                request.setAttribute("listaSalvacion", Clase.getAtributosList());
                 request.setAttribute("listarasgos", listaRasgos);
                 request.setAttribute("listaSubclases", Clase.getSubclasesList());
 
@@ -1576,7 +1576,7 @@ public class ControladorExplorar extends HttpServlet {
                 querySubRazas = em.createNamedQuery("Subraza.findByNombre", Subraza.class);
                 querySubRazas.setParameter("nombre", Raza.getNombre());
                 SubRaza = querySubRazas.getSingleResult();
-
+                
                 //Subrazas que no son la principal
                 listaSubRazas = Raza.getSubrazasList();
                 listaSubRazas.remove(SubRaza);
@@ -1594,15 +1594,15 @@ public class ControladorExplorar extends HttpServlet {
             case "/subraza":
 
                 id = request.getParameter("idRaza");
-                nombre = request.getParameter("nombreSubRaza");
+                nombre = request.getParameter("idSubraza");
 
                 queryRazas = em.createNamedQuery("Raza.findById", Raza.class);
                 queryRazas.setParameter("id", id);
                 Raza = queryRazas.getSingleResult();
 
                 //Subraza
-                querySubRazas = em.createNamedQuery("Subraza.findByNombre", Subraza.class);
-                querySubRazas.setParameter("nombre", nombre);
+                querySubRazas = em.createNamedQuery("Subraza.findById", Subraza.class);
+                querySubRazas.setParameter("id", nombre);
                 SubRaza = querySubRazas.getSingleResult();
 
                 request.setAttribute("idRaza", id);

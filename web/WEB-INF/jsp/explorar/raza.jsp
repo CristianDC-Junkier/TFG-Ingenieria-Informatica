@@ -34,7 +34,7 @@
                                         </c:when>
                                         <c:otherwise>
                                             <c:forEach var="atributo" items="${razaAtributos}" varStatus="status">
-                                                ${atributo.modificador} ${atributo.atributo}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                                                ${atributo.atributos.nombre}: ${atributo.modificador}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
                                             </c:forEach> 
                                         </c:otherwise>
                                     </c:choose>
@@ -55,7 +55,7 @@
                     <c:forEach var="subraza" items="${listaSubRazas}" varStatus="status">
                         <c:if test="${status.first}"><h3>Subrazas</h3></c:if>
                             <br>
-                            <button class="botonArriba" onclick="location.href = '/TFG/Explorar/subraza?idRaza=${raza.id}&nombreSubRaza=${subraza.nombre}'">
+                            <button class="botonArriba" onclick="location.href = '/TFG/Explorar/subraza?idRaza=${raza.id}&idSubraza=${subraza.id}'">
                             <h4>${subraza.nombre}</h4></button>
                         </c:forEach>
                 </div>

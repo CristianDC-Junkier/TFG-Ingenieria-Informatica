@@ -69,7 +69,6 @@ public class ControladorFormularios extends HttpServlet {
         Personajehabilidad personajeHabilidad;
         Habilidad habilidad;
         Personajeatributo personajeAtributo;
-        Usaclase usaclase;
         Usasubclase usasubclase;
         Dote dote;
         Personajeatributo patributo;
@@ -92,6 +91,7 @@ public class ControladorFormularios extends HttpServlet {
         List<Dote> listaDotes;
         List<Atributo> listaAtributos;
         List<Seccion> listaSecciones;
+        List<Usaclase> usaclaselist;
 
         String id;
         String personaje_id;
@@ -463,36 +463,34 @@ public class ControladorFormularios extends HttpServlet {
                             }
                             request.setAttribute("listaAtributos2", listaAtributos);
 
-                            try {
+                            ////RASGOS////
+                            //Espacios de conjuros y BC 
+                            queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
+                            queryTCNivel.setParameter("clase", personaje.getClase().getId());
+                            queryTCNivel.setParameter("nivel", personaje.getNivel() + 1);
+                            tcnivel = queryTCNivel.getSingleResult();
+                            
+                            //Rasgos Clase
+                            queryUsaClases = em.createNamedQuery("Usaclase.findByClaseNivelOnly", Usaclase.class);
+                            queryUsaClases.setParameter("clase", personaje.getClase().getId());
+                            queryUsaClases.setParameter("nivel", personaje.getNivel() + 1);
+                            usaclaselist = queryUsaClases.getResultList();
 
-                                ////RASGOS////
-                                //Espacios de conjuros y BC 
-                                queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
-                                queryTCNivel.setParameter("clase", personaje.getClase().getId());
-                                queryTCNivel.setParameter("nivel", personaje.getNivel() + 1);
-                                //Rasgos Clase
-                                queryUsaClases = em.createNamedQuery("Usaclase.findByClaseNivel", Usaclase.class);
-                                queryUsaClases.setParameter("clase", personaje.getClase().getId());
-                                queryUsaClases.setParameter("nivel", personaje.getNivel() + 1);
-                                //Rasgos SubClase
-                                if (personaje.getSubclase() != null) {
-                                    queryUsaSubClases = em.createNamedQuery("Usasubclase.findBySubclaseNivel", Usasubclase.class);
-                                    queryUsaSubClases.setParameter("subclase", personaje.getClase().getId());
-                                    queryUsaSubClases.setParameter("nivel", (personaje.getNivel() + 1));
-                                    usasubclase = queryUsaSubClases.getSingleResult();
-                                    request.setAttribute("pjRasgosSubClase", usasubclase.getRasgos());
-                                }
-
-                                tcnivel = queryTCNivel.getSingleResult();
-                                usaclase = queryUsaClases.getSingleResult();
-
-                                request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
-                                request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
-                                request.setAttribute("pjRasgosClase", usaclase.getRasgos());
-
-                            } catch (Exception ex) {
-                                System.out.println("Aun no implementado");
+                            //Rasgos SubClase
+                            if (personaje.getSubclase() != null) {
+                                queryUsaSubClases = em.createNamedQuery("Usasubclase.findBySubclaseNivelOnly", Usasubclase.class);
+                                queryUsaSubClases.setParameter("subclase", personaje.getClase().getId());
+                                queryUsaSubClases.setParameter("nivel", (personaje.getNivel() + 1));
+                                usasubclase = queryUsaSubClases.getSingleResult();
+                                request.setAttribute("pjRasgosSubClase", usasubclase.getRasgos());
                             }
+
+                            
+
+                            request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
+                            request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
+                            request.setAttribute("pjRasgosClase", usaclaselist);
+
                             request.setAttribute("dadoClase", personaje.getClase().getDpg());
                             request.setAttribute("dadoClaseInteger", Integer.parseInt(personaje.getClase().getDpg().substring(1)));
                             request.setAttribute("nombreClase", personaje.getClase().getNombre());
@@ -553,7 +551,6 @@ public class ControladorFormularios extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher(vista);
         rd.forward(request, response);
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

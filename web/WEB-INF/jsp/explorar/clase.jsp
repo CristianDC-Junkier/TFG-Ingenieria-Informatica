@@ -25,7 +25,7 @@
                                 <li>CA Hechizos: 8 + BC + ${requestScope.clase.habhechizos}</li>
                                 <li>Tiradas de salvación:
                                     <c:forEach var="salClase" items="${listaSalvacion}" varStatus="status">
-                                        ${listaSalvacion}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                                        ${salClase.nombre}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
                                     </c:forEach>
                                 </li>
                             </ul>
@@ -43,7 +43,7 @@
                         <p>Herramientas: ${requestScope.clase.compherramientas}</p>
                         <p>Elige ${requestScope.clase.elegirhab} entre:</p>
                         <c:forEach var="habClase" items="${listahabilidades}" varStatus="status">
-                            ${habClase}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                            ${habClase.nombre}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
                         </c:forEach>
                     </div>
                     <br><br>
@@ -71,7 +71,7 @@
                 <div>
                     <h3>Rasgos</h3>
                     <div><c:forEach var="rasClase" items="${listarasgos}" varStatus="status">
-                            ${rasClase.nombre}:${rasClase.descripcion} <c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                            ${rasClase.nombre}: ${rasClase.descripcion} <c:if test="${not status.last}"><br><br> </c:if><c:if test="${status.last}"><br></c:if>
                         </c:forEach></div>
                 </div>
             </div>

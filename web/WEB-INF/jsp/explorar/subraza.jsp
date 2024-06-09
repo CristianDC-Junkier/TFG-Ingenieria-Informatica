@@ -32,8 +32,8 @@
                                             Elige 3 habilidades con un +1
                                         </c:when>
                                         <c:otherwise>
-                                            <c:forEach var="atributo" items="${razaAtributos}" varStatus="status">
-                                                ${atributo.modificador} ${atributo.atributo}<c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
+                                            <c:forEach var="atributo" items="${subrazaAtributos}" varStatus="status">
+                                                ${atributo.atributos.nombre}: ${atributo.modificador} <c:if test="${not status.last}">, </c:if><c:if test="${status.last}">.</c:if>
                                             </c:forEach> 
                                         </c:otherwise>
                                     </c:choose>

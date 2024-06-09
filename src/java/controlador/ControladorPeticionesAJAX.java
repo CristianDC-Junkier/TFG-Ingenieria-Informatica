@@ -2013,44 +2013,45 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     querySubRazas.setParameter("nombre", nombre);
                     Subraza = querySubRazas.getSingleResult();
 
-                    resultado = "<div id=\"habilidadesRaza\"";
+                    resultado = "<div id=\"habilidadesRaza\">";
 
                     if (!Subraza.getHabilidadesListC().isEmpty() || !Subraza.getElegirhab().equals("0")) {
 
                         //Enseñamos que Habilidad te dan
                         if (!Subraza.getHabilidadesListC().isEmpty()) {
 
-                            resultado = "<label>Por Raza obtienes: ";
+                            resultado = resultado + "<label>Por Raza obtienes: ";
                             for (int i = 0; i < Subraza.getHabilidadesListC().size(); i++) {
                                 resultado = resultado
                                         + Subraza.getHabilidadesListC().get(i).getNombre()
-                                        + " ";
+                                        + "</label>";
                             }
-                            resultado = resultado
-                                    + "</label>";
                         }
 
                         //Enseñamos que Habilidad debes escoger
                         if (!Subraza.getElegirhab().equals("0")) {
 
-                            resultado = "<label>Por Raza, elige "
+                            resultado = resultado + "<label>Por Raza, elige "
                                     + Subraza.getElegirhab()
-                                    + " entre estas opciones:</label>";
+                                    + " entre estas opciones:</label>"
+                                    + "<br>";
 
                             for (int i = 0; i < Subraza.getHabilidadesListE().size(); i++) {
 
                                 String auxHName = Subraza.getHabilidadesListE().get(i).getNombre();
 
                                 resultado = resultado
-                                        + "<input type=\"checkbox\" id=\""
-                                        + auxHName
-                                        + "\" name=\"habilidades\" value=\""
-                                        + auxHName
                                         + "<label for=\""
                                         + auxHName
                                         + "\">"
                                         + auxHName
-                                        + "</label>";
+                                        + "</label>"
+                                        + "<input type=\"checkbox\" id=\""
+                                        + auxHName
+                                        + "\" name=\"habilidades[]\" value=\""
+                                        + auxHName
+                                        + "\" style=\"float: right\" >"
+                                        + "<br>";
                             }
                         }
 
@@ -2071,28 +2072,30 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     //Enseñamos que Habilidad debes escoger
                     if (!Clase.getElegirhab().equals("0")) {
 
-                        resultado = resultado + "<div id=\"habilidadesClase\""
+                        resultado = resultado + "<div id=\"habilidadesClase\">"
                                 + "<label>Por Clase, elige "
                                 + Clase.getElegirhab()
-                                + " entre estas opciones:</label>";
+                                + " entre estas opciones:</label>"
+                                + "<br>";
 
                         for (int i = 0; i < Clase.getHabilidadesList().size(); i++) {
 
                             String auxHName = Clase.getHabilidadesList().get(i).getNombre();
 
                             resultado = resultado
-                                    + "<input type=\"checkbox\" id=\""
-                                    + auxHName
-                                    + "\" name=\"habilidades\" value=\""
-                                    + auxHName
                                     + "<label for=\""
                                     + auxHName
                                     + "\">"
                                     + auxHName
-                                    + "</label>";
-
+                                    + "</label>"
+                                    + "<input type=\"checkbox\" id=\""
+                                    + auxHName
+                                    + "\" name=\"habilidades[]\" value=\""
+                                    + auxHName
+                                    + "\" style=\"float: right\" >"
+                                    + "<br>";
                         }
-                        resultado = resultado + "</div";
+                        resultado = resultado + "</div>";
                     } else {//IRREAL SIEMPRE GANARÁS ALGUNA
                         resultado = resultado
                                 + "<p>"
@@ -2124,26 +2127,31 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             //Encontramos los Atributo que da
                             resultado = "";
                             for (int i = 0; i < Subraza.getSumarazaList().size(); i++) {
-                                //Encontramos el atributo
-                                queryAtributos = em.createNamedQuery("Atributo.findById", Atributo.class);
-                                queryAtributos.setParameter("id", Subraza.getSumarazaList().get(i).getAtributoID());
-                                Atributo = queryAtributos.getSingleResult();
-
-                                resultado = "Obtienes +" + Subraza.getSumarazaList().get(i).getModificador() + " de " + Atributo.getNombre() + "<br>";
+                                resultado = resultado + "&nbsp;&nbsp;&nbsp;Obtienes +" + Subraza.getSumarazaList().get(i).getModificador() + " de "
+                                        + Subraza.getSumarazaList().get(i).getAtributos().getNombre() + "<br>";
+                            }
+                            if (!Subraza.getRaza().getNombre().equalsIgnoreCase(Subraza.getNombre())) {
+                                for (int i = 0; i < Subraza.getRaza().getSubrazasList().size(); i++) {
+                                    if (Subraza.getRaza().getSubrazasList().get(i).getNombre().equalsIgnoreCase(Subraza.getRaza().getNombre())) {
+                                        resultado = resultado + "&nbsp;&nbsp;&nbsp;Obtienes +" 
+                                                + Subraza.getRaza().getSubrazasList().get(i).getSumarazaList().get(0).getModificador() + " de "
+                                                + Subraza.getSumarazaList().get(i).getAtributos().getNombre() + "<br>";
+                                    }
+                                }
                             }
                             break;
                         case "1":
                             queryAtributos = em.createNamedQuery("Atributo.findAll", Atributo.class);
                             listaAtributos = queryAtributos.getResultList();
 
-                            resultado = resultado + "<label for=\"atr1\">Obtienes +1:</label>"
+                            resultado = resultado + "<label for=\"atr1\">&nbsp;&nbsp;&nbsp;Obtienes +1:</label>"
                                     + "<select id=\"atr1\" name=\"obtienes_atr1\">";
                             for (int i = 0; i < listaAtributos.size(); i++) {
                                 Atributo = listaAtributos.get(i);
                                 resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
                             }
                             resultado = resultado + "</select><br>"
-                                    + "<label for=\"atr2\">Obtienes +2:</label>"
+                                    + "<label for=\"atr2\">&nbsp;&nbsp;&nbsp;Obtienes +2:</label>"
                                     + "<select id=\"atr2\" name=\"obtienes_atr2\">";
                             for (int i = 0; i < listaAtributos.size(); i++) {
                                 Atributo = listaAtributos.get(i);
@@ -2156,8 +2164,8 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                             queryAtributos = em.createNamedQuery("Atributo.findAll", Atributo.class);
                             listaAtributos = queryAtributos.getResultList();
 
-                            resultado = "<p> Elige +1 en tres atributos: </p>";
-                            resultado = resultado + "<label for=\"atrs1\">Obtienes +1:</label>"
+                            resultado = "<p>    Elige +1 en tres atributos: </p>";
+                            resultado = resultado + "<label for=\"atrs1\">&nbsp;&nbsp;&nbsp;Obtienes +1:</label>"
                                     + "<select id=\"atrs1\" name=\"atributos[]\">";
 
                             for (int i = 0; i < listaAtributos.size(); i++) {
@@ -2165,14 +2173,14 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
                             }
                             resultado = resultado + "</select><br>"
-                                    + "<label for=\"atrs2\">Obtienes +1:</label>"
+                                    + "<label for=\"atrs2\">&nbsp;&nbsp;&nbsp;Obtienes +1:</label>"
                                     + "<select id=\"atrs2\" name=\"atributos[]\">";
                             for (int i = 0; i < listaAtributos.size(); i++) {
                                 Atributo = listaAtributos.get(i);
                                 resultado = resultado + "<option value=\"" + Atributo.getNombre() + "\">" + Atributo.getNombre() + "</option>";
                             }
                             resultado = resultado + "</select><br>"
-                                    + "<label for=\"atrs3\">Obtienes +1:</label>"
+                                    + "<label for=\"atrs3\">&nbsp;&nbsp;&nbsp;Obtienes +1:</label>"
                                     + "<select id=\"atrs3\" name=\"atributos[]\">";
                             for (int i = 0; i < listaAtributos.size(); i++) {
                                 Atributo = listaAtributos.get(i);
@@ -3845,9 +3853,9 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                     if (comprobarCadena(nombre)) {
                         nombre = "";
                     }
-                    
+
                     System.out.println(nombre);
-                    
+
                     hilo_seccion = request.getParameter("seccion");//si filtramos por seccion
                     hilo_tema = request.getParameter("tema");//si filtramos por tema
                     hilo_mio = request.getParameter("mio");//si filtramos por mio
@@ -3928,15 +3936,15 @@ public class ControladorPeticionesAJAX extends HttpServlet {
 
                         if (hilo.getCreador().getId().equals(user.getId()) || user.getAdmin() == 1) {
                             resultado = resultado
-                                    + "<td><button class=\"botonDentro\" onclick=\"mostrarRecuadro"+(i+1)+"()\">Eliminar</button></td>"
+                                    + "<td><button class=\"botonDentro\" onclick=\"mostrarRecuadro" + (i + 1) + "()\">Eliminar</button></td>"
                                     + "</tr>"
-                                    + "<div class=\"opcionRecuadro\" id=\"recuadro"+(i+1)+"\" style=\"display: none;\">\n"
+                                    + "<div class=\"opcionRecuadro\" id=\"recuadro" + (i + 1) + "\" style=\"display: none;\">\n"
                                     + "<div class=\"contenidoRecuadro\">\n"
                                     + "<form id = form  action=\"/TFG/Foro/borrarHilo\" method=\"POST\">\n"
                                     + "<input type=\"hidden\" name=\"hilo\" value=\"" + hilo.getId() + "\">\n"
                                     + "<label class=\"tituloRecuadro\" id=\"titulodelRecuadro\">¿Está seguro?</label>\n"
                                     + "<input class=\"botonDentro\" type=\"submit\" value=\"Aceptar\">\n"
-                                    + "<input class=\"botonDentro\" type=\"button\" onclick=\"cerrarRecuadro"+(i+1)+"()\" value=\"Volver\">\n"
+                                    + "<input class=\"botonDentro\" type=\"button\" onclick=\"cerrarRecuadro" + (i + 1) + "()\" value=\"Volver\">\n"
                                     + "</form>\n"
                                     + "</div>\n"
                                     + "</div>"

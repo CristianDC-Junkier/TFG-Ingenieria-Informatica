@@ -4,7 +4,6 @@ import entidades.Atributo;
 import entidades.Clase;
 import entidades.Dote;
 import entidades.Equipo;
-import entidades.Espaciohechizo;
 import entidades.Habilidad;
 import entidades.Hechizo;
 import entidades.Mejoradote;
@@ -13,13 +12,11 @@ import entidades.Personajeatributooriginal;
 import entidades.Personajehabilidad;
 import entidades.Personaje;
 import entidades.Propiedad;
-import entidades.Rasgo;
 import entidades.Raza;
 import entidades.Requisitodote;
 import entidades.Subclase;
 import entidades.Subraza;
 import entidades.Tablaclasepornivel;
-import entidades.Tablaclase;
 import entidades.Trasfondo;
 import entidades.Usaclase;
 import entidades.Usasubclase;
@@ -97,8 +94,6 @@ public class ControladorPersonajes extends HttpServlet {
         Equipo equipo;
         Hechizo hechizo;
         Tablaclasepornivel tcnivel;
-        Usaclase usaclase;
-        Usasubclase usasubclase;
         Dote dote;
 
         TypedQuery<Usuario> queryUsuarios;
@@ -137,6 +132,8 @@ public class ControladorPersonajes extends HttpServlet {
         List<Integer> listaHabValores;
         List<String> listaValoresSalvacion;
         List<Personajeatributooriginal> listaPersonajeAtributosOriginal;
+        List<Usaclase> usaclaselist;
+        List<Usasubclase> usasubclaselist;
 
         HashSet<Hechizo> hashAuxHechizos;
         HashSet<Equipo> hashAuxEquipo;
@@ -235,7 +232,7 @@ public class ControladorPersonajes extends HttpServlet {
                 personaje_subraza = request.getParameter("subraza");
                 personaje_trasfondo = request.getParameter("trasfondo");
                 //Bloque 2
-                personaje_habilidades = request.getParameterValues("habilidades");
+                personaje_habilidades = request.getParameterValues("habilidades[]");
                 //Bloque 3
                 atributo_constitucion = request.getParameter("atributo_Constitución");
                 atributo_fuerza = request.getParameter("atributo_Fuerza");
@@ -243,7 +240,7 @@ public class ControladorPersonajes extends HttpServlet {
                 atributo_sabiduria = request.getParameter("atributo_Sabiduría");
                 atributo_inteligencia = request.getParameter("atributo_Inteligencia");
                 atributo_carisma = request.getParameter("atributo_Carisma");
-                atributos = request.getParameterValues("atributos");
+                atributos = request.getParameterValues("atributos[]");
                 atributo1 = request.getParameter("obtienes_atr1");
                 atributo2 = request.getParameter("obtienes_atr2");
                 //Bloque 4
@@ -404,17 +401,39 @@ public class ControladorPersonajes extends HttpServlet {
                                 }
                             } else {//Los atributos vienen predefinidos
                                 while (encontrado == false && index < subraza.getSumarazaList().size()) {
-                                    if (atributo.getId().equals(subraza.getSumarazaList().get(index).getAtributoID())) {
+                                    if (atributo.getId().equals(subraza.getSumarazaList().get(index).getAtributos().getId())) {
                                         encontrado = true;
                                         valorAtributo = valorAtributo + Integer.valueOf(subraza.getSumarazaList().get(index).getModificador());
                                     }
                                     index++;
                                 }
+
+                                //Encontrar la subraza que se llama igual que la raza
+                                if (!subraza.getNombre().equalsIgnoreCase(raza.getNombre())) {
+                                    index = 0;
+                                    encontrado = false;
+                                    Subraza subrazaOriginal = subraza;
+
+                                    for (int j = 0; j < raza.getSubrazasList().size(); j++) {
+                                        if (raza.getNombre().equals(raza.getSubrazasList().get(j).getNombre())) {
+                                            subrazaOriginal = raza.getSubrazasList().get(j);
+                                            j = raza.getSubrazasList().size();
+                                        }
+                                    }
+
+                                    while (encontrado == false && index < subrazaOriginal.getSumarazaList().size()) {
+                                        if (atributo.getId().equals(subraza.getSumarazaList().get(index).getAtributos().getId())) {
+                                            encontrado = true;
+                                            valorAtributo = valorAtributo + Integer.valueOf(subraza.getSumarazaList().get(index).getModificador());
+                                        }
+                                        index++;
+                                    }
+                                }
                             }
 
-                            personajeAtributo = new Personajeatributo(personaje.getId(), atributo.getId(),
+                            personajeAtributo = new Personajeatributo(personaje, atributo,
                                     valorAtributo, "No");
-                            personajeAtributoOriginal = new Personajeatributooriginal(personaje.getId(), atributo.getId(),
+                            personajeAtributoOriginal = new Personajeatributooriginal(personaje, atributo,
                                     valorAtributo, "No");
 
                             listaPersonajeAtributos.add(personajeAtributo);
@@ -441,13 +460,14 @@ public class ControladorPersonajes extends HttpServlet {
                             index = 0;
                             encontrado = false;
 
-                            while (encontrado == false && index < listaPersonajeAtributos.size()) {
+                            while (encontrado == false && index < listaPersonajeAtributosOriginal.size()) {
                                 if (atributo.getNombre().equals(listaPersonajeAtributosOriginal.get(index).getAtributos().getNombre())) {
                                     encontrado = true;
                                     listaPersonajeAtributosOriginal.get(index).setSalvacion("Si");
                                 }
                                 index++;
                             }
+
                         }
 
                         personaje.setPersonajeatributosList(listaPersonajeAtributos);
@@ -467,10 +487,9 @@ public class ControladorPersonajes extends HttpServlet {
                             index = 0;
                             encontrado = false;
 
-                            personajeHabilidad = new Personajehabilidad(personaje.getId(), habilidad.getId(), "No");
+                            personajeHabilidad = new Personajehabilidad(personaje, habilidad, "No");
 
                             if (personaje_habilidades != null) {
-
                                 while (encontrado == false && index < personaje_habilidades.length) {
                                     if (personaje_habilidades[index].equalsIgnoreCase(habilidad.getNombre())) {
 
@@ -1005,20 +1024,20 @@ public class ControladorPersonajes extends HttpServlet {
 
                             for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
                                 personajeAtributo = personaje.getPersonajeatributosList().get(i);
-                                listaPersonajeAtributos.add(new Personajeatributo(personajeaux.getId(), personajeAtributo.getAtributos().getId(),
+                                listaPersonajeAtributos.add(new Personajeatributo(personajeaux, personajeAtributo.getAtributos(),
                                         personajeAtributo.getValor(), personajeAtributo.getSalvacion()));
 
                             }
 
                             for (int i = 0; i < personaje.getPersonajeatributosoriginalList().size(); i++) {
                                 personajeAtributoOriginal = personaje.getPersonajeatributosoriginalList().get(i);
-                                listaPersonajeAtributosOriginal.add(new Personajeatributooriginal(personajeaux.getId(), personajeAtributoOriginal.getAtributos().getId(),
+                                listaPersonajeAtributosOriginal.add(new Personajeatributooriginal(personajeaux, personajeAtributoOriginal.getAtributos(),
                                         personajeAtributoOriginal.getValor(), personajeAtributoOriginal.getSalvacion()));
 
                             }
                             for (int i = 0; i < personaje.getPersonajehabilidadesList().size(); i++) {
                                 personajeHabilidad = personaje.getPersonajehabilidadesList().get(i);
-                                listaPersonajeHabilidades.add(new Personajehabilidad(personajeaux.getId(), personajeHabilidad.getHabilidades().getId(),
+                                listaPersonajeHabilidades.add(new Personajehabilidad(personajeaux, personajeHabilidad.getHabilidades(),
                                         personajeHabilidad.getCompetencia()));
                             }
                             personajeaux.setPersonajeatributosList(listaPersonajeAtributos);
@@ -2009,12 +2028,9 @@ public class ControladorPersonajes extends HttpServlet {
                             queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                             queryTCNivel.setParameter("clase", personaje.getClase().getId());
                             queryTCNivel.setParameter("nivel", personaje.getNivel());
-                            try {
-                                tcnivel = queryTCNivel.getSingleResult();
-                                num = tcnivel.getTablaclases().getBc();
-                            } catch (Exception ex) {
-                                num = 1;
-                            }
+                            tcnivel = queryTCNivel.getSingleResult();
+                            num = tcnivel.getTablaclases().getBc();
+
 
                             //Recoger las habilidades
                             listaHabValores = new ArrayList();
@@ -2023,13 +2039,20 @@ public class ControladorPersonajes extends HttpServlet {
 
                                 personajeHabilidad = personaje.getPersonajehabilidadesList().get(i);
                                 habilidad = personajeHabilidad.getHabilidades();
+                                                            System.out.println("llego2");
 
                                 for (int j = 0; j < personaje.getPersonajeatributosList().size(); j++) {
 
                                     personajeAtributo = personaje.getPersonajeatributosList().get(j);
+                            System.out.println("llego3");
 
-                                    if (habilidad.getAtributo().getId().equals(personajeAtributo.getAtributos().getId())) {
+                                    System.out.println(habilidad.getAtributo().getId());
+                                    System.out.println(personajeAtributo.getAtributos().getId());
+                            
+                                    if (habilidad.getAtributo().getId().equalsIgnoreCase(personajeAtributo.getAtributos().getId())) {
                                         //Hay que calcular los modificadores
+                                                                    System.out.println("llego4");
+
                                         switch (personajeAtributo.getValor()) {
                                             case 8:
                                             case 9:
@@ -2070,7 +2093,10 @@ public class ControladorPersonajes extends HttpServlet {
                                         j = personaje.getPersonajeatributosList().size();
                                     }
                                 }
+
                             }
+
+                            
                             request.setAttribute("personaje", personaje);
                             request.setAttribute("listaPHabilidad", personaje.getPersonajehabilidadesList());
                             request.setAttribute("listaValoresHab", listaHabValores);
@@ -2151,60 +2177,34 @@ public class ControladorPersonajes extends HttpServlet {
                             queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                             queryTCNivel.setParameter("clase", personaje.getClase().getId());
                             queryTCNivel.setParameter("nivel", personaje.getNivel());
+                            tcnivel = queryTCNivel.getSingleResult();
                             //Rasgos Clase
                             queryUsaClases = em.createNamedQuery("Usaclase.findByClaseNivel", Usaclase.class);
                             queryUsaClases.setParameter("clase", personaje.getClase().getId());
                             queryUsaClases.setParameter("nivel", personaje.getNivel());
+                            usaclaselist = queryUsaClases.getResultList();
+
                             //Rasgos SubClase
                             queryUsaSubClases = em.createNamedQuery("Usasubclase.findBySubclaseNivel", Usasubclase.class);
                             queryUsaSubClases.setParameter("subclase", personaje.getClase().getId());
                             queryUsaSubClases.setParameter("nivel", personaje.getNivel());
+                            usasubclaselist = queryUsaSubClases.getResultList();
 
-                            try {
+                            request.setAttribute("personaje", personaje);
 
-                                request.setAttribute("personaje", personaje);
+                            request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
+                            request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
 
-                                tcnivel = queryTCNivel.getSingleResult();
-                                usaclase = queryUsaClases.getSingleResult();
-                                usasubclase = queryUsaSubClases.getSingleResult();
+                            request.setAttribute("pjRasgosClase", usaclaselist);
+                            request.setAttribute("pjRasgosSubClase", usasubclaselist);
+                            request.setAttribute("pjRasgosRaza", personaje.getRaza().getRasgosList());
+                            request.setAttribute("pjRasgosSubraza", personaje.getSubraza().getRasgosList());
+                            request.setAttribute("pjRasgosTrasfondos", personaje.getTrasfondo().getRasgosList());
 
-                                request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
-                                request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
-
-                                request.setAttribute("pjRasgosClase", usaclase.getRasgos());
-                                request.setAttribute("pjRasgosSubClase", usasubclase.getRasgos());
-                                request.setAttribute("pjRasgosRaza", personaje.getRaza().getRasgosList());
-                                request.setAttribute("pjRasgosSubraza", personaje.getSubraza().getRasgosList());
-                                request.setAttribute("pjRasgosTrasfondos", personaje.getTrasfondo().getRasgosList());
-
-                                vista = "/WEB-INF/jsp/personajes/personajePerfilRasgos.jsp";
-                            } catch (Exception ex) {
-
-                                //Prueba
-                                Espaciohechizo example = new Espaciohechizo("", 2, 2, 3, 0, 1, 1, 1, 1, 1);
-                                Tablaclase tb = new Tablaclase("2", 2, 2, 2, 2);
-                                ArrayList<Rasgo> exampleR = new ArrayList();
-
-                                Rasgo raux = new Rasgo("", "RasgoEjemplo1", "Una decripcion larga y tendida de ejemplo claro");
-                                Rasgo raux2 = new Rasgo("", "RasgoEjemplo2", "Una decripcion larga y tendida de ejemplo claro");
-
-                                exampleR.add(raux);
-                                exampleR.add(raux2);
-
-                                request.setAttribute("pjHechizosClase", example);
-                                request.setAttribute("pjTablaClase", tb);
-
-                                request.setAttribute("pjRasgosClase", exampleR);
-                                request.setAttribute("pjRasgosSubClase", exampleR);
-                                request.setAttribute("pjRasgosRaza", exampleR);
-                                request.setAttribute("pjRasgosSubraza", exampleR);
-                                request.setAttribute("pjRasgosTrasfondos", exampleR);
-
-                                ///
-                                vista = "/WEB-INF/jsp/personajes/personajePerfilRasgos.jsp";
-                            }
+                            vista = "/WEB-INF/jsp/personajes/personajePerfilRasgos.jsp";
                         }
                     } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
                         vista = "/Principal/inicio";
                     }
                 }
@@ -2411,62 +2411,37 @@ public class ControladorPersonajes extends HttpServlet {
                     queryTCNivel = em.createNamedQuery("Tablaclasepornivel.findByClaseNivel", Tablaclasepornivel.class);
                     queryTCNivel.setParameter("clase", personaje.getClase().getId());
                     queryTCNivel.setParameter("nivel", personaje.getNivel());
+                    tcnivel = queryTCNivel.getSingleResult();
+
                     //Rasgos Clase
                     queryUsaClases = em.createNamedQuery("Usaclase.findByClaseNivel", Usaclase.class);
                     queryUsaClases.setParameter("clase", personaje.getClase().getId());
                     queryUsaClases.setParameter("nivel", personaje.getNivel());
+                    usaclaselist = queryUsaClases.getResultList();
+
                     //Rasgos SubClase
                     queryUsaSubClases = em.createNamedQuery("Usasubclase.findBySubclaseNivel", Usasubclase.class);
                     queryUsaSubClases.setParameter("subclase", personaje.getClase().getId());
                     queryUsaSubClases.setParameter("nivel", personaje.getNivel());
+                    usasubclaselist = queryUsaSubClases.getResultList();
 
-                    try {
+                    request.setAttribute("personaje", personaje);
 
-                        request.setAttribute("personaje", personaje);
+                    request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
+                    request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
 
-                        tcnivel = queryTCNivel.getSingleResult();
-                        usaclase = queryUsaClases.getSingleResult();
-                        usasubclase = queryUsaSubClases.getSingleResult();
+                    request.setAttribute("pjRasgosClase", usaclaselist);
+                    request.setAttribute("pjRasgosSubClase", usasubclaselist);
+                    request.setAttribute("pjRasgosRaza", personaje.getRaza().getRasgosList());
+                    request.setAttribute("pjRasgosSubraza", personaje.getSubraza().getRasgosList());
+                    request.setAttribute("pjRasgosTrasfondos", personaje.getTrasfondo().getRasgosList());
 
-                        request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
-                        request.setAttribute("pjTablaClase", tcnivel.getTablaclases());
-
-                        request.setAttribute("pjRasgosClase", usaclase.getRasgos());
-                        request.setAttribute("pjRasgosSubClase", usasubclase.getRasgos());
-                        request.setAttribute("pjRasgosRaza", personaje.getRaza().getRasgosList());
-                        request.setAttribute("pjRasgosSubraza", personaje.getSubraza().getRasgosList());
-                        request.setAttribute("pjRasgosTrasfondos", personaje.getTrasfondo().getRasgosList());
-
-                        vista = "/WEB-INF/jsp/personajes/personajeRasgos.jsp";
-                    } catch (Exception ex) {
-
-                        //Prueba
-                        Espaciohechizo example = new Espaciohechizo("", 2, 2, 3, 0, 1, 1, 1, 1, 1);
-                        Tablaclase tb = new Tablaclase("2", 2, 2, 2, 2);
-                        ArrayList<Rasgo> exampleR = new ArrayList();
-
-                        Rasgo raux = new Rasgo("", "RasgoEjemplo1", "Una decripcion larga y tendida de ejemplo claro");
-                        Rasgo raux2 = new Rasgo("", "RasgoEjemplo2", "Una decripcion larga y tendida de ejemplo claro");
-
-                        exampleR.add(raux);
-                        exampleR.add(raux2);
-
-                        request.setAttribute("pjHechizosClase", example);
-                        request.setAttribute("pjTablaClase", tb);
-
-                        request.setAttribute("pjRasgosClase", exampleR);
-                        request.setAttribute("pjRasgosSubClase", exampleR);
-                        request.setAttribute("pjRasgosRaza", exampleR);
-                        request.setAttribute("pjRasgosSubraza", exampleR);
-                        request.setAttribute("pjRasgosTrasfondos", exampleR);
-
-                        ///
-                        vista = "/WEB-INF/jsp/personajes/personajeRasgos.jsp";
-                    }
+                    vista = "/WEB-INF/jsp/personajes/personajeRasgos.jsp";
                 } catch (Exception ex) {
                     vista = "/Principal/inicio";
                 }
                 break;
+
             case "/personajeDotes":
                 /////////////////////////
                 /////////SESION//////////
@@ -3415,7 +3390,7 @@ public class ControladorPersonajes extends HttpServlet {
         rd.forward(request, response);
     }
 
-    //Lanza error por escribir un valor malicioso
+//Lanza error por escribir un valor malicioso
     protected void comprobarCadena(String Cadena, String Mensaje) throws Exception {
 
         if (Cadena.toUpperCase().contains("UPDATE") || Cadena.toUpperCase().contains("CREATE")

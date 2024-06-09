@@ -27,10 +27,10 @@
                                 <p class="tituloHabilidad">${pHabilidad.habilidades.nombre}:</p>
                                 <c:choose>
                                     <c:when test="${pHabilidad.competencia == 'Si'}">
-                                        <p class="valoresHabilidad">${requestScope.listaValoresHab[status.index]} - Competente </p>
+                                        <p class="valoresHabilidad">${requestScope.listaValoresHab[status.index]} &nbsp;&nbsp;&nbsp; - Competente </p>
                                     </c:when>
                                     <c:otherwise>
-                                        <p class="valoresHabilidad">${requestScope.listaValoresHab[status.index]} No Competente </p>
+                                        <p class="valoresHabilidad">${requestScope.listaValoresHab[status.index]} &nbsp;&nbsp;&nbsp; - No Competente </p>
                                     </c:otherwise>
                                 </c:choose>
                             </li>

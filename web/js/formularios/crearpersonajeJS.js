@@ -72,6 +72,7 @@ function AvanzarFormulario(Pag) {
             //Mostrar Bloques
             Bloque_2.style.display = "none";
             Bloque_3.style.display = "block";
+
             //Mostrar Atributos que ganas
             indicarAtr(SubRaza.value, elecAtr);
             //Cambiar botones

@@ -94,7 +94,7 @@ public class Subraza implements Serializable {
         @JoinColumn(name = "HABILIDAD", referencedColumnName = "ID", nullable = false)})
     @ManyToMany
     private List<Habilidad> habilidadesListE;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subrazas")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subraza")
     private List<Sumaraza> sumarazaList;
     @JoinColumn(name = "RAZA", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
