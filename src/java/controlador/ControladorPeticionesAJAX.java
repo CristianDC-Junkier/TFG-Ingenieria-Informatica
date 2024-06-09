@@ -954,7 +954,7 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "</tr>"
                                 + "<div class='opcionRecuadro' id='recuadro' style='display: none;'>"
                                 + "<div class='contenidoRecuadro'>"
-                                + "<form id = form  action='/TFG/Mesas/anadiraMesa?id=$" + mesaux.getId() + "' method='POST'>"
+                                + "<form id = form  action='/TFG/Mesas/anadiraMesa?id=" + mesaux.getId() + "' method='POST'>"
                                 + "<label class='tituloRecuadro' for='anadirMesa' id='titulodelRecuadro'>Contraseña:</label>"
                                 + "<input class='recuadroDentro' type='password' id='anadirMesa' name='contrasena_anadirmesa' required>"
                                 + "<input class='botonDentro' type='submit' value='Aceptar'>"
@@ -1787,11 +1787,11 @@ public class ControladorPeticionesAJAX extends HttpServlet {
                                 + "<td>" + pejaux.getRaza().getNombre() + "</td>\n"
                                 + "<td>" + pejaux.getNivel() + "</td>\n"
                                 + "<td>" + user.getApodo() + "</td>\n"
-                                + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personajes/personajePerfil?id=${personaje.id}'\">Detalles</button></td>\n";
+                                + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personajes/personajePerfil?id=" + pejaux.getId() + "'\">Detalles</button></td>\n";
 
                         if (user.getPersonajesList().size() < 10) {
                             resultado = resultado
-                                    + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personajes/copiarPersonaje?id=${personaje.id}'\">Copiar</button></td>\n";
+                                    + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personajes/copiarPersonaje?id=" + pejaux.getId() + "'\">Copiar</button></td>\n";
                         }
                         resultado = resultado
                                 + "<td><button class=\"botonDentro\" onclick=\"location.href = '/TFG/Personaje/personaje?id=" + pejaux.getId() + "&amigo=" + user.getId() + "'\">Detalles</button></td>\n"

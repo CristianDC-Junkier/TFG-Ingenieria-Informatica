@@ -72,6 +72,7 @@ function AvanzarFormulario(Pag) {
             //Mostrar Bloques
             Bloque_21.style.display = "none";
             Bloque_22.style.display = "none";
+            Bloque_1.style.display = "none";
             Bloque_3.style.display = "block";
             //Cambiar botones
             Avanzar.type = "hidden";

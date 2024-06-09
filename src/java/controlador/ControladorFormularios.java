@@ -69,7 +69,6 @@ public class ControladorFormularios extends HttpServlet {
         Personajehabilidad personajeHabilidad;
         Habilidad habilidad;
         Personajeatributo personajeAtributo;
-        Usasubclase usasubclase;
         Dote dote;
         Personajeatributo patributo;
 
@@ -92,6 +91,7 @@ public class ControladorFormularios extends HttpServlet {
         List<Atributo> listaAtributos;
         List<Seccion> listaSecciones;
         List<Usaclase> usaclaselist;
+        List<Usasubclase> usasubclaselist;
 
         String id;
         String personaje_id;
@@ -469,7 +469,7 @@ public class ControladorFormularios extends HttpServlet {
                             queryTCNivel.setParameter("clase", personaje.getClase().getId());
                             queryTCNivel.setParameter("nivel", personaje.getNivel() + 1);
                             tcnivel = queryTCNivel.getSingleResult();
-                            
+
                             //Rasgos Clase
                             queryUsaClases = em.createNamedQuery("Usaclase.findByClaseNivelOnly", Usaclase.class);
                             queryUsaClases.setParameter("clase", personaje.getClase().getId());
@@ -479,13 +479,11 @@ public class ControladorFormularios extends HttpServlet {
                             //Rasgos SubClase
                             if (personaje.getSubclase() != null) {
                                 queryUsaSubClases = em.createNamedQuery("Usasubclase.findBySubclaseNivelOnly", Usasubclase.class);
-                                queryUsaSubClases.setParameter("subclase", personaje.getClase().getId());
+                                queryUsaSubClases.setParameter("subclase", personaje.getSubclase().getId());
                                 queryUsaSubClases.setParameter("nivel", (personaje.getNivel() + 1));
-                                usasubclase = queryUsaSubClases.getSingleResult();
-                                request.setAttribute("pjRasgosSubClase", usasubclase.getRasgos());
+                                usasubclaselist = queryUsaSubClases.getResultList();
+                                request.setAttribute("pjRasgosSubClase", usasubclaselist);
                             }
-
-                            
 
                             request.setAttribute("pjHechizosClase", tcnivel.getTablaclases().getEspacioshechizosList().get(0));
                             request.setAttribute("pjTablaClase", tcnivel.getTablaclases());

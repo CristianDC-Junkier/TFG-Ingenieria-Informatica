@@ -2186,7 +2186,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                             //Rasgos SubClase
                             queryUsaSubClases = em.createNamedQuery("Usasubclase.findBySubclaseNivel", Usasubclase.class);
-                            queryUsaSubClases.setParameter("subclase", personaje.getClase().getId());
+                            queryUsaSubClases.setParameter("subclase", personaje.getSubclase().getId());
                             queryUsaSubClases.setParameter("nivel", personaje.getNivel());
                             usasubclaselist = queryUsaSubClases.getResultList();
 
@@ -2421,7 +2421,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                     //Rasgos SubClase
                     queryUsaSubClases = em.createNamedQuery("Usasubclase.findBySubclaseNivel", Usasubclase.class);
-                    queryUsaSubClases.setParameter("subclase", personaje.getClase().getId());
+                    queryUsaSubClases.setParameter("subclase", personaje.getSubclase().getId());
                     queryUsaSubClases.setParameter("nivel", personaje.getNivel());
                     usasubclaselist = queryUsaSubClases.getResultList();
 
@@ -3309,7 +3309,7 @@ public class ControladorPersonajes extends HttpServlet {
 
                         }
                         personaje.getDotesList().add(dote);
-                    } else {//Añadimos los valores a los atributos
+                    } else if(nombre.equals("Atributos")){
                         for (int i = 0; i < personaje.getPersonajeatributosList().size(); i++) {
                             personajeAtributo = personaje.getPersonajeatributosList().get(i);
                             if (atributo1.equals(personajeAtributo.getAtributos().getNombre())) {

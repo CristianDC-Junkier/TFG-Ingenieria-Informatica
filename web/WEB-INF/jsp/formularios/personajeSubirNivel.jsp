@@ -32,15 +32,15 @@
                             <hr>
                         </div>
                         <div id="rasgosClase">
-                            Rasgos Clase:
+                            Rasgos Clase:<br>
                             <c:forEach var="rasgo" items="${pjRasgosClase}">
                                 Nombre: ${rasgo.rasgos.nombre}<br>
                             </c:forEach>
                             <hr>
                         </div>
-                        <c:if test="${requestScope.nivelSiguiente == requestScope.nivelSubclase}">
+                        <c:if test="${requestScope.nivelSiguiente > requestScope.nivelSubclase}">
                             <div id="rasgosSubClase">
-                                Rasgos SubClase:
+                                <br>Rasgos SubClase:<br>
                                 <c:forEach var="rasgo" items="${pjRasgosSubClase}">
                                     Nombre: ${rasgo.rasgos.nombre}<br>
                                 </c:forEach>
@@ -51,6 +51,7 @@
                         <div id="eleccionDote">
                             <label for="dotePersonaje" id="dotesPersonaje">Dote:</label>
                             <select required name="dote" id="dotePersonaje" >
+                                <option value="-" selected>-</option>
                                 <c:forEach var="dote" items="${listaDotes}">
                                     <option value="${dote.id}">${dote.nombre}</option>
                                 </c:forEach>
@@ -78,7 +79,7 @@
                         </div>
                     </div>
                     <div id="Bloque3" style="display: none;">
-                        <input id="eleccionDoteAtr" type="hidden" name="eleccionDoteAtr">
+                        <input id="eleccionDoteAtr" type="hidden" name="eleccionDoteAtr" value="Ninguno">
                         <div id="eleccionVida">
                             <label for="dadoVida" id="personajeVida">Aumento de  Vida (${requestScope.dadoClase}): </label>
                             <input type="number" id="dadoVida" name="personaje_vida" max="${requestScope.dadoClaseInteger}" min="1" required/>
